@@ -184,6 +184,12 @@ class ContextModuleProgression < ApplicationRecord
       tag = tags_hash[req[:id]]
       next unless tag
 
+      # self-paced exempt/complete overrides count as done
+      if SelfPaced::ItemOverride.meets_requirement?(user_id, context_module.context, tag.id)
+        calc.check_action!(req, true)
+        next
+      end
+
       if calc.requirement_met?(req)
         calc.increment_met_requirement_count!
         next
@@ -197,8 +203,8 @@ class ContextModuleProgression < ApplicationRecord
 
       if req[:type] == "must_view"
         calc.add_view_requirement(req)
-      elsif %w[must_contribute must_mark_done].include? req[:type]
-        # must_contribute is handled by ContextModule#update_for
+      elsif %w[must_contribute must_mark_done must_watch].include? req[:type]
+        # must_contribute, must_mark_done and must_watch are met through ContextModule#update_for
         calc.check_action!(req, false)
       elsif req[:type] == "must_submit"
         req_met = !!(subs && subs.any? do |sub|
@@ -273,6 +279,7 @@ class ContextModuleProgression < ApplicationRecord
 
     remove_incomplete_requirement(requirement[:id]) # start from a fresh slate so we don't hold onto a max score that doesn't exist anymore
     return if subs.blank?
+    return true if SelfPaced::Gating.provisional_pass?(context_module.context, subs)
 
     if (unposted_sub = subs.detect { |sub| sub.is_a?(Submission) && !sub.posted? })
       # don't mark the progress as in-progress if they haven't submitted
@@ -332,9 +339,15 @@ class ContextModuleProgression < ApplicationRecord
       requirement_met = points && (points.to_f / tag.assignment.points_possible.to_f) * 100 >= requirement[:min_percentage].to_f && !(tag.assignment && tag.assignment.muted?)
     end
     requirement_met = false if requirement[:type] == "must_submit" # calculate later; requires the submission
+    if !requirement_met && %w[min_score min_percentage].include?(requirement[:type]) &&
+       SelfPaced::Gating.provisional_pass?(context_module.context, get_submissions(tag))
+      requirement_met = true # a self-paced check waiting for its grade passes provisionally
+    end
 
     if !requirement_met
-      requirements_met.delete(requirement)
+      # remember a requirement that was met and is now taken back, so the
+      # student's mentors can be told once this is saved
+      @self_paced_relocked_requirement = requirement if requirements_met.delete(requirement)
       mark_as_outdated
       true
     elsif !requirements_met.include?(requirement)
@@ -351,6 +364,10 @@ class ContextModuleProgression < ApplicationRecord
     begin
       if update_requirement_met(*)
         save!
+        if (relocked = @self_paced_relocked_requirement)
+          @self_paced_relocked_requirement = nil
+          SelfPaced::RelockNotifier.notify(self, relocked)
+        end
         delay_if_production.evaluate!
       end
     rescue ActiveRecord::StaleObjectError

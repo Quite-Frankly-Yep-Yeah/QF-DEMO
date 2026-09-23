@@ -43,13 +43,14 @@ class Quizzes::QuizEligibility
   end
 
   def eligible?
-    potentially_eligible? && !quiz_restrictions_apply?
+    potentially_eligible? && !quiz_restrictions_apply? && !self_paced_review_pending?
   end
 
   def declined_reason_renders
     return :access_code if need_access_code?
+    return :invalid_ip if invalid_ip?
 
-    :invalid_ip  if invalid_ip?
+    :retake_review_required if self_paced_review_pending?
   end
 
   def locked?
@@ -98,6 +99,15 @@ class Quizzes::QuizEligibility
 
   def access_code_correct?
     Hash(session[:quiz_access_code])[quiz.id] == quiz.access_code
+  end
+
+  # self-paced courses: a student who missed mastery reviews the lesson before
+  # trying again (SelfPaced::RetakeRules)
+  def self_paced_review_pending?
+    return @self_paced_review_pending if defined?(@self_paced_review_pending)
+
+    @self_paced_review_pending = !user.new_record? && !quiz.grants_right?(user, session, :manage) &&
+                                 SelfPaced::RetakeRules.review_pending?(quiz, user)
   end
 
   def invalid_ip?

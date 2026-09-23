@@ -4123,6 +4123,9 @@ class Course < ApplicationRecord
   add_setting :use_default_discussion_settings, boolean: true, default: false
   add_setting :default_discussion_settings, arbitrary: true
   add_setting :show_total_grade_as_points, boolean: true, default: false
+  # self-paced course player (docs/fork-plan.md §2.1)
+  add_setting :self_paced_mastery_threshold
+  add_setting :self_paced_provisional_checks, boolean: true, default: false
   add_setting :filter_speed_grader_by_student_group, boolean: true, default: false
   add_setting :default_student_gradebook_view, boolean: true, default: false
   add_setting :lock_all_announcements, boolean: true, default: false, inherited: true

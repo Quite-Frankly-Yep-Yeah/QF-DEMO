@@ -1,0 +1,9 @@
+<% define_content :link do %>
+  <%= "#{HostUrl.protocol}://#{HostUrl.context_host(asset.course)}/self_paced/dashboard?course_id=#{asset.course_id}" %>
+<% end %>
+
+<% define_content :subject do %>
+  <%= t "%{student} needs another try at %{item}", student: asset.user.name, item: asset.assignment.title %>
+<% end %>
+
+<%= t "Their grade on %{item} is below mastery, so the items after it are locked again.", item: asset.assignment.title %>

@@ -309,6 +309,8 @@ class Quizzes::QuizSubmissionService
         reject! "invalid access code", 403
       when :invalid_ip
         reject! "IP address denied", 403
+      when :retake_review_required
+        reject! "review the lesson before trying again", 403
       end
       reject! "quiz is locked", 400
     end

@@ -466,12 +466,20 @@ class ContextModule < ApplicationRecord
     # matter. we're not available.
 
     tag = opts[:tag]
-    avail = progression && !progression.locked? && !locked_for_tag?(tag, progression)
+    avail = progression && available_for_progression?(tag, progression)
     if !avail && opts[:deep_check_if_needed]
       progression = evaluate_for(progression)
-      avail = progression && !progression.locked? && !locked_for_tag?(tag, progression)
+      avail = progression && available_for_progression?(tag, progression)
     end
     avail
+  end
+
+  # A self-paced unlock override (SelfPaced::ItemOverride) opens one item for
+  # one student even when module gating would keep it locked.
+  def available_for_progression?(tag, progression)
+    return true if tag && SelfPaced::ItemOverride.unlocked?(progression.user_id, context, tag.id)
+
+    !progression.locked? && !locked_for_tag?(tag, progression)
   end
 
   def locked_for_tag?(tag, progression)
@@ -579,7 +587,7 @@ class ContextModule < ApplicationRecord
     scoreable_types = %w[must_submit min_score min_percentage]
     validated_reqs = requirements.select do |req|
       if req[:id] && (tag = tags[req[:id]])
-        if %w[must_view must_mark_done must_contribute].include?(req[:type])
+        if %w[must_view must_mark_done must_contribute must_watch].include?(req[:type])
           true
         elsif scoreable_types.include?(req[:type])
           true if tag.scoreable?
@@ -954,6 +962,8 @@ class ContextModule < ApplicationRecord
         action == :read || action == :contributed
       when "must_mark_done"
         action == :done
+      when "must_watch"
+        action == :watched
       when "must_contribute"
         action == :contributed
       when "must_submit", "min_score", "min_percentage"
@@ -971,6 +981,8 @@ class ContextModule < ApplicationRecord
       t("requirements.must_view", "must view the page")
     when "must_mark_done"
       t("must mark as done")
+    when "must_watch"
+      t("must watch the video")
     when "must_contribute"
       t("requirements.must_contribute", "must contribute to the page")
     when "must_submit"

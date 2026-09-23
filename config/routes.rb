@@ -2886,6 +2886,11 @@ CanvasRails::Application.routes.draw do
       post "courses/:course_id/self_paced/activity", action: :create, as: "course_self_paced_activity"
     end
 
+    scope(controller: "self_paced/course_setup") do
+      get "courses/:course_id/self_paced/setup", action: :show, as: "course_self_paced_setup"
+      put "courses/:course_id/self_paced/setup", action: :update
+    end
+
     scope(controller: "self_paced/dashboard_api") do
       get "self_paced/roster", action: :roster, as: "self_paced_roster"
       get "self_paced/courses/:course_id/students/:student_id", action: :student, as: "self_paced_student"
