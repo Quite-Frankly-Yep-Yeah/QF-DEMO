@@ -278,8 +278,9 @@ post_grades:
       GradingAssignment, GradingAssignmentScore.
   applies_to: Course
   root_opt_in: true
+# Hidden: New Quizzes needs Instructure's hosted quiz_lti service (docs/fork-plan.md §8).
 quizzes_next:
-  state: allowed
+  state: hidden
   display_name:
     features.quizzes.next: New Quizzes
   description:

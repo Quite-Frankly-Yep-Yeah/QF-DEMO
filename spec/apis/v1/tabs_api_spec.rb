@@ -515,20 +515,11 @@ describe TabsController, type: :request do
           "type" => "internal"
         },
         {
-          "id" => "analytics_hub",
-          "html_url" => "/accounts/#{@account.id}/analytics_hub",
-          "full_url" => "#{HostUrl.protocol}://#{HostUrl.context_host(@account)}/accounts/#{@account.id}/analytics_hub",
-          "label" => "Analytics Hub",
-          "position" => 17,
-          "visibility" => "public",
-          "type" => "internal"
-        },
-        {
           "id" => "apps",
           "html_url" => "/accounts/#{@account.id}/apps",
           "full_url" => "#{HostUrl.protocol}://#{HostUrl.context_host(@account)}/accounts/#{@account.id}/apps",
           "label" => "Apps",
-          "position" => 18,
+          "position" => 17,
           "visibility" => "public",
           "type" => "internal"
         },
@@ -537,7 +528,7 @@ describe TabsController, type: :request do
           "html_url" => "/accounts/#{@account.id}/admin_tools",
           "full_url" => "#{HostUrl.protocol}://#{HostUrl.context_host(@account)}/accounts/#{@account.id}/admin_tools",
           "label" => "Admin Tools",
-          "position" => 19,
+          "position" => 18,
           "visibility" => "public",
           "type" => "internal"
         },
@@ -546,7 +537,7 @@ describe TabsController, type: :request do
           "html_url" => "/accounts/#{@account.id}/eportfolio_moderation",
           "full_url" => "#{HostUrl.protocol}://#{HostUrl.context_host(@account)}/accounts/#{@account.id}/eportfolio_moderation",
           "label" => "ePortfolio Moderation",
-          "position" => 20,
+          "position" => 19,
           "visibility" => "public",
           "type" => "internal"
         },
@@ -555,7 +546,7 @@ describe TabsController, type: :request do
           "html_url" => "/accounts/#{@account.id}/settings",
           "full_url" => "#{HostUrl.protocol}://#{HostUrl.context_host(@account)}/accounts/#{@account.id}/settings",
           "label" => "Settings",
-          "position" => 21,
+          "position" => 20,
           "visibility" => "admins",
           "type" => "internal"
         }

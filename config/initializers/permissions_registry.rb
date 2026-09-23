@@ -2481,6 +2481,80 @@ BASE_PERMISSIONS = {
       # tbd - we may want to apply defaults to imported discussions
       { description: -> { I18n.t("Importing a Discussion via the 'Import Course Content' feature will keep its original options selected.") } },
     ]
+  },
+  # Self-paced mastery platform (docs/fork-plan.md §2.6). Hidden until the
+  # `self_paced` feature flag is on for the root account.
+  self_paced_view_dashboard: {
+    label: -> { I18n.t("Self-Paced - view dashboard") },
+    available_to: %w[TaEnrollment TeacherEnrollment AccountAdmin AccountMembership],
+    true_for: %w[TaEnrollment TeacherEnrollment AccountAdmin],
+    account_allows: ->(a) { a.root_account.feature_enabled?(:self_paced) },
+    details: [
+      { description: -> { I18n.t("Allows user to view the self-paced roster, progress and student drill-down.") } }
+    ]
+  },
+  self_paced_view_live_monitor: {
+    label: -> { I18n.t("Self-Paced - view live monitor") },
+    available_to: %w[TaEnrollment TeacherEnrollment AccountAdmin AccountMembership],
+    true_for: %w[TaEnrollment TeacherEnrollment AccountAdmin],
+    account_allows: ->(a) { a.root_account.feature_enabled?(:self_paced) },
+    details: [
+      { description: -> { I18n.t("Allows user to see which students are online, what they are working on and whether they are idle.") } }
+    ]
+  },
+  self_paced_manage_notes: {
+    label: -> { I18n.t("Self-Paced - add and view student notes") },
+    available_to: %w[TaEnrollment TeacherEnrollment AccountAdmin AccountMembership],
+    true_for: %w[TaEnrollment TeacherEnrollment AccountAdmin],
+    account_allows: ->(a) { a.root_account.feature_enabled?(:self_paced) },
+    details: [
+      { description: -> { I18n.t("Allows user to add notes to a student's record and read notes left by other staff. Students and observers never see notes.") } }
+    ]
+  },
+  self_paced_unlock_items: {
+    label: -> { I18n.t("Self-Paced - unlock, exempt or complete items") },
+    available_to: %w[TaEnrollment TeacherEnrollment AccountAdmin AccountMembership],
+    true_for: %w[TeacherEnrollment AccountAdmin],
+    account_allows: ->(a) { a.root_account.feature_enabled?(:self_paced) },
+    details: [
+      { description: -> { I18n.t("Allows user to unlock, exempt or mark complete a module item for a student. Exempting a graded item also requires the Grades - edit permission.") } }
+    ]
+  },
+  self_paced_manage_attempts: {
+    label: -> { I18n.t("Self-Paced - grant or reset attempts") },
+    available_to: %w[TaEnrollment TeacherEnrollment AccountAdmin AccountMembership],
+    true_for: %w[TeacherEnrollment AccountAdmin],
+    account_allows: ->(a) { a.root_account.feature_enabled?(:self_paced) },
+    details: [
+      { description: -> { I18n.t("Allows user to grant extra attempts or reset an attempt. Also requires the Grades - edit permission.") } }
+    ]
+  },
+  self_paced_adjust_pacing: {
+    label: -> { I18n.t("Self-Paced - adjust pacing") },
+    available_to: %w[TaEnrollment TeacherEnrollment AccountAdmin AccountMembership],
+    true_for: %w[TeacherEnrollment AccountAdmin],
+    account_allows: ->(a) { a.root_account.feature_enabled?(:self_paced) },
+    details: [
+      { description: -> { I18n.t("Allows user to change a student's target end date and pacing plan.") } }
+    ]
+  },
+  self_paced_manage_alert_rules: {
+    label: -> { I18n.t("Self-Paced - manage alert rules") },
+    available_to: %w[TaEnrollment TeacherEnrollment AccountAdmin AccountMembership],
+    true_for: %w[TeacherEnrollment AccountAdmin],
+    account_allows: ->(a) { a.root_account.feature_enabled?(:self_paced) },
+    details: [
+      { description: -> { I18n.t("Allows user to create and edit self-paced alert rules.") } }
+    ]
+  },
+  self_paced_view_reports: {
+    label: -> { I18n.t("Self-Paced - view reports") },
+    available_to: %w[TaEnrollment TeacherEnrollment AccountAdmin AccountMembership],
+    true_for: %w[TeacherEnrollment AccountAdmin],
+    account_allows: ->(a) { a.root_account.feature_enabled?(:self_paced) },
+    details: [
+      { description: -> { I18n.t("Allows user to run and download self-paced progress, time-on-task, pacing, intervention and attendance reports.") } }
+    ]
   }
 }.freeze
 

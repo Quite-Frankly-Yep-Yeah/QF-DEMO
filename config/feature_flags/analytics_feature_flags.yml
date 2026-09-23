@@ -207,6 +207,7 @@ advanced_analytics_ask_questions:
   shadow: true
 
 # Analytics Hub
+# Hidden everywhere: Analytics Hub loads a remote module hosted by Instructure (docs/fork-plan.md §8).
 analytics_hub:
   state: hidden
   applies_to: Account
@@ -215,11 +216,6 @@ analytics_hub:
   root_opt_in: true
   beta: true
   shadow: true
-  environments:
-    ci:
-      state: allowed_on
-    development:
-      state: allowed_on
 
 # Admin Analytics - Contextual Messaging
 intelligent_insights_contextual_messaging:

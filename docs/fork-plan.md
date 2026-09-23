@@ -206,7 +206,7 @@ Paths are relative to the repo root. Line numbers are as of today's tree.
 
 - Canvas media: `app/models/media_object.rb` and `ui/shared/canvas-media-player/react/CanvasMediaPlayer.jsx`, rendered in an iframe.
 - **There is no playback-completion tracking.**
-- OER video is usually a YouTube or Vimeo embed inside a page. `app/services/youtube_banner_injection_service.rb` already rewrites YouTube embeds on the server.
+- OER video is usually a YouTube or Vimeo embed inside a page. The sanitizer keeps an iframe's full `src`. YouTube *links* are turned into players in the browser (`packages/canvas-rce/src/enhance-user-content/enhance_user_content.js:81`). Web pages get no server-side rewriting: `youtube_banner_injection_service.rb` only runs for the mobile apps (`lib/api/html/content.rb:187`). Details are in `docs/spikes/video-tracking.md`.
 
 ### 1.11 Where things are registered
 
@@ -402,7 +402,7 @@ State changes (submissions, quiz submissions, module progress, grades) reach our
 
 ### 2.9 Video completion
 
-- **YouTube and Vimeo embeds.** In player courses, the server-side embed rewriting (like `youtube_banner_injection_service.rb`) enables the players' JavaScript APIs. Our player script then tracks which segments were actually watched, not just seek position, and posts the highest fraction watched.
+- **YouTube and Vimeo embeds.** In player courses, the player script adds the players' API flag to each embed's `src` before playback (`enablejsapi=1` or `api=1`), and so does the link-to-player code in `enhance_user_content.js`. The script then tracks which segments were actually watched, not just seek position, and posts the highest fraction watched. The Phase 0 spike is in `docs/spikes/video-tracking.md`.
 - **Canvas media.** `CanvasMediaPlayer.jsx` is changed to post the same progress events.
 - **What's stored:** the highest fraction watched per student and item, and when the item was completed, in `video_progress`.
 - **When `must_watch` is met:** when that fraction reaches the configured level. The default is 95%.

@@ -1,0 +1,73 @@
+---
+# Self-paced mastery platform (docs/fork-plan.md). Every flag starts hidden:
+# only site admins can see or turn it on until a phase is ready to roll out.
+# The sub-flags only take effect when the `self_paced` umbrella flag is on for
+# the root account (see SelfPaced.enabled?).
+self_paced:
+  applies_to: RootAccount
+  state: hidden
+  display_name: Self-Paced Platform
+  description: |-
+    Umbrella flag for the self-paced mastery platform. None of the other
+    self-paced features work unless this is on.
+self_paced_activity_tracking:
+  applies_to: Account
+  state: hidden
+  display_name: "Self-Paced: Activity Tracking"
+  description: |-
+    Records daily and per-item active time for students in self-paced courses.
+    Turning this off stops all new activity collection.
+self_paced_course_player:
+  applies_to: Course
+  state: hidden
+  display_name: "Self-Paced: Course Player"
+  description: |-
+    Replaces the course navigation with the sequential course player and turns
+    on mastery gating, retake rules and video completion for the course.
+self_paced_pacing:
+  applies_to: Course
+  state: hidden
+  display_name: "Self-Paced: Pacing"
+  description: |-
+    Generates a pacing plan for each student and keeps their due dates in step
+    with it.
+self_paced_teacher_dashboard:
+  applies_to: Account
+  state: hidden
+  display_name: "Self-Paced: Teacher Dashboard"
+  description: |-
+    Roster, live monitoring and student drill-down for teachers and mentors.
+self_paced_interventions:
+  applies_to: Account
+  state: hidden
+  display_name: "Self-Paced: Interventions"
+  description: |-
+    Logged intervention tools (unlock, extra attempts, exempt, notes, messages)
+    and bulk actions in the teacher dashboard.
+self_paced_alerts:
+  applies_to: Account
+  state: hidden
+  display_name: "Self-Paced: Alerts"
+  description: |-
+    Configurable alert rules for students who are behind, stuck or inactive,
+    with optional notifications.
+self_paced_reports:
+  applies_to: Account
+  state: hidden
+  display_name: "Self-Paced: Reports"
+  description: |-
+    CSV reports for progress, time on task, pacing, interventions and
+    attendance.
+self_paced_observer_view:
+  applies_to: Account
+  state: hidden
+  display_name: "Self-Paced: Observer View"
+  description: |-
+    Read-only progress, pacing, grades and time-on-task view for observers.
+self_paced_test_out:
+  applies_to: Course
+  state: hidden
+  display_name: "Self-Paced: Test Out"
+  description: |-
+    Lets teachers set up unit pretests that skip lessons a student has already
+    mastered.
