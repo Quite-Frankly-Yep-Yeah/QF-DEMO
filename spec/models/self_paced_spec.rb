@@ -85,4 +85,24 @@ describe SelfPaced do
         .to all(eql("hidden"))
     end
   end
+
+  describe ".dashboard_available?" do
+    let(:teacher) { teacher_in_course(course:, active_all: true).user }
+
+    it "is true for a teacher once the dashboard is on" do
+      root_account.enable_feature!(:self_paced)
+      root_account.enable_feature!(:self_paced_activity_tracking)
+      root_account.enable_feature!(:self_paced_teacher_dashboard)
+
+      expect(SelfPaced.dashboard_available?(teacher, Account.find(root_account.id))).to be true
+    end
+
+    it "is false while self-paced is off" do
+      expect(SelfPaced.dashboard_available?(teacher, root_account)).to be false
+    end
+
+    it "is false without a user" do
+      expect(SelfPaced.dashboard_available?(nil, root_account)).to be false
+    end
+  end
 end

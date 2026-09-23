@@ -114,6 +114,9 @@
         <a href="/groups" class="<%= 'active' if active_path?('/groups') %>"><%= t('Groups') %></a>
       <% end %>
     <% end %>
+    <% if SelfPaced.dashboard_available?(@current_user, @domain_root_account) %>
+      <a href="<%= self_paced_dashboard_path %>" class="<%= 'active' if active_path?('/self_paced') %>"><%= t('Students') %></a>
+    <% end %>
     <a href="/calendar" class="<%= 'active' if active_path?('/calendar') %>"><%= t('Calendar') %></a>
     <% if @current_user %>
       <a href="/conversations" class="<%= 'active' if active_path?('/conversations') %>"><%= t('Inbox') %></a>
@@ -207,6 +210,18 @@
             </div>
             <div class="menu-item__text">
               <%= t('Groups') %>
+            </div>
+          </a>
+        </li>
+      <% end %>
+      <% if SelfPaced.dashboard_available?(@current_user, @domain_root_account) %>
+        <li class="menu-item ic-app-header__menu-list-item <%= ' ic-app-header__menu-list-item--active' if active_path?('/self_paced') %>">
+          <a id="global_nav_self_paced_link" href="<%= self_paced_dashboard_path %>" class="ic-app-header__menu-list-link">
+            <div class="menu-item-icon-container" aria-hidden="true">
+              <%= render(partial: "shared/svg/svg_icon_self_paced_students", formats: [:svg]) %>
+            </div>
+            <div class="menu-item__text">
+              <%= t('Students') %>
             </div>
           </a>
         </li>

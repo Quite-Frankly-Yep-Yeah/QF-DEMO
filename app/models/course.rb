@@ -3535,7 +3535,6 @@ class Course < ApplicationRecord
   TAB_YOUTUBE_MIGRATION = 24
   TAB_AI_EXPERIENCES = 25
   TAB_NOTEBOOK = 26
-  TAB_SELF_PACED_DASHBOARD = 40
 
   CANVAS_K6_TAB_IDS = [TAB_HOME, TAB_ANNOUNCEMENTS, TAB_GRADES, TAB_MODULES].freeze
   COURSE_SUBJECT_TAB_IDS = [TAB_HOME, TAB_SCHEDULE, TAB_MODULES, TAB_GRADES, TAB_GROUPS].freeze
@@ -3751,16 +3750,6 @@ class Course < ApplicationRecord
                             css_class: "course_paces",
                             href: :course_course_pacing_path
                           })
-    end
-
-    if SelfPaced.feature_enabled?(self, :self_paced_teacher_dashboard) && grants_right?(user, :self_paced_view_dashboard)
-      default_tabs.push({
-                          id: TAB_SELF_PACED_DASHBOARD,
-                          label: t("Student Dashboard"),
-                          css_class: "self_paced_dashboard",
-                          href: :course_self_paced_dashboard_path,
-                          visibility: "admins"
-                        })
     end
 
     if a11y_checker_enabled? && grants_any_right?(user, *RoleOverride::GRANULAR_MANAGE_COURSE_CONTENT_PERMISSIONS)

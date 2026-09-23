@@ -18,39 +18,26 @@
 # with this program. If not, see <http://www.gnu.org/licenses/>.
 #
 
-# The teacher and mentor dashboard page (docs/fork-plan.md feature C). The page
-# is a React app (ui/features/self_paced_dashboard) that reads
-# SelfPaced::DashboardApiController.
+# The teacher and mentor dashboard page (docs/fork-plan.md feature C), reached
+# from "Students" in the global navigation. The page is a React app
+# (ui/features/self_paced_dashboard) that reads SelfPaced::DashboardApiController.
 #
-# /self_paced/dashboard shows every course the viewer can see;
-# /courses/:course_id/self_paced_dashboard opens it filtered to that course.
+# /self_paced/dashboard?course_id=4 opens it filtered to one course.
 module SelfPaced
   class DashboardController < ApplicationController
     before_action :require_user
-    before_action :require_context, only: :course
 
     def show
-      render_dashboard
-    end
-
-    def course
-      set_active_tab "self_paced_dashboard"
-      render_dashboard(course: @context)
-    end
-
-    private
-
-    def render_dashboard(course: nil)
       scope = DashboardScope.new(@current_user)
-      return render_unauthorized_action unless course ? scope.course(course.id) : scope.any?
+      return render_unauthorized_action unless scope.allowed?
 
-      @page_title = t("Student dashboard")
+      @page_title = t("Students")
       js_env({ SELF_PACED_DASHBOARD: {
                roster_url: api_v1_self_paced_roster_path,
                # templates; the app fills in the ids
                student_url: "/api/v1/self_paced/courses/:course_id/students/:student_id",
                caseload_url: "/api/v1/self_paced/caseload/:student_id",
-               course_id: course&.id&.to_s,
+               course_id: scope.course(params[:course_id])&.id&.to_s,
                idle_minutes: Roster::DEFAULT_IDLE_MINUTES,
                poll_seconds: 30
              } })

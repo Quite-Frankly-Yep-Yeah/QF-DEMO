@@ -375,3 +375,34 @@ describe('SideNav', () => {
     })
   })
 })
+
+describe('SideNav self-paced Students link', () => {
+  afterEach(() => {
+    cleanup()
+    fakeENV.teardown()
+  })
+
+  const renderNav = () =>
+    render(
+      <MockedQueryClientProvider client={queryClient}>
+        <SideNav />
+      </MockedQueryClientProvider>,
+    )
+
+  it('links staff who can use it to the student dashboard', () => {
+    fakeENV.setup({...baseEnvConfig, SELF_PACED_DASHBOARD_NAV_URL: '/self_paced/dashboard'})
+    renderNav()
+
+    expect(screen.getByRole('link', {name: /Students/})).toHaveAttribute(
+      'href',
+      '/self_paced/dashboard',
+    )
+  })
+
+  it('leaves the link out for everyone else', () => {
+    fakeENV.setup(baseEnvConfig)
+    renderNav()
+
+    expect(screen.queryByRole('link', {name: /Students/})).not.toBeInTheDocument()
+  })
+})

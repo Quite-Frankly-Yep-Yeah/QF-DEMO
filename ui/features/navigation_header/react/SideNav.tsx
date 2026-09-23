@@ -34,6 +34,7 @@ import {
   IconDashboardLine,
   IconExternalLinkLine,
   IconFolderLine,
+  IconGroupLine,
   IconHomeLine,
   IconInboxLine,
   IconInfoLine,
@@ -87,6 +88,9 @@ interface ISideNav {
 }
 
 const SideNav: React.FC<ISideNav> = ({externalTools = []}) => {
+  // set by the server for staff who can open the self-paced student dashboard
+  const selfPacedDashboardUrl = (window.ENV as {SELF_PACED_DASHBOARD_NAV_URL?: string} | undefined)
+    ?.SELF_PACED_DASHBOARD_NAV_URL
   const [collapseSideNav, setCollapseSideNav] = useState(window.ENV.SETTINGS.collapse_global_nav)
   const [state, dispatch] = useReducer(sideNavReducer, initialState)
   const {isTrayOpen, activeTray, selectedNavItem, previousSelectedNavItem} = state
@@ -361,6 +365,19 @@ const SideNav: React.FC<ISideNav> = ({externalTools = []}) => {
             }}
             minimized={collapseSideNav}
           />
+          {selfPacedDashboardUrl && (
+            <SideNavBar.Item
+              id="self-paced-dashboard-link"
+              icon={<IconGroupLine />}
+              label={I18n.t('Students')}
+              href={selfPacedDashboardUrl}
+              selected={window.location.pathname.startsWith('/self_paced')}
+              themeOverride={{
+                fontWeight: 400,
+              }}
+              minimized={collapseSideNav}
+            />
+          )}
           <SideNavBar.Item
             id="calendar-tray"
             icon={<IconCalendarMonthLine />}

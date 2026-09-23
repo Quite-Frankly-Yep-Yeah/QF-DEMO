@@ -58,4 +58,16 @@ module SelfPaced
                    end
     flag_context.feature_enabled?(flag)
   end
+
+  # Whether +user+ gets the "Students" item in the global navigation: the
+  # platform is on and they can open the dashboard for at least one course or
+  # school account. Cached briefly because it's checked on every page.
+  def self.dashboard_available?(user, root_account)
+    return false unless user && root_account&.feature_enabled?(UMBRELLA_FLAG)
+
+    Rails.cache.fetch(["self_paced_dashboard_available", user.global_id, root_account.global_id].cache_key,
+                      expires_in: 5.minutes) do
+      DashboardScope.new(user).allowed?
+    end
+  end
 end

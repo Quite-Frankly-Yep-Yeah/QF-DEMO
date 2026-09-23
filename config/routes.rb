@@ -523,7 +523,6 @@ CanvasRails::Application.routes.draw do
     end
 
     get "course_pacing" => "course_paces#index"
-    get "self_paced_dashboard" => "self_paced/dashboard#course", :as => :self_paced_dashboard
 
     post "collapse_all_modules" => "context_modules#toggle_collapse_all"
     resources :content_exports, only: %i[create index destroy show]

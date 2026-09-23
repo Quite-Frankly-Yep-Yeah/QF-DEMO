@@ -409,6 +409,7 @@ class ApplicationController < ActionController::Base
         if (self_paced_activity = self_paced_activity_env)
           @js_env[:SELF_PACED_ACTIVITY] = self_paced_activity
         end
+        @js_env[:SELF_PACED_DASHBOARD_NAV_URL] = self_paced_dashboard_path if SelfPaced.dashboard_available?(@current_user, @domain_root_account)
         if params[:session_timezone].present? && supported_timezones.include?(params[:session_timezone])
           timezone = context_timezone = params[:session_timezone]
         else

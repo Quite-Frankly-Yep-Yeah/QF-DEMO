@@ -138,4 +138,31 @@ describe "shared/_new_nav_header" do
       end
     end
   end
+
+  context "'Students' menu" do
+    let(:course) { course_factory(active_all: true) }
+
+    before do
+      Account.default.enable_feature!(:self_paced)
+      Account.default.enable_feature!(:self_paced_activity_tracking)
+      Account.default.enable_feature!(:self_paced_teacher_dashboard)
+    end
+
+    def students_link
+      render "shared/_new_nav_header"
+      Nokogiri::HTML5(response.body).at_css("#global_nav_self_paced_link")
+    end
+
+    it "links teachers to the self-paced student dashboard" do
+      assign(:current_user, teacher_in_course(course:, active_all: true).user)
+
+      expect(students_link["href"]).to eql("/self_paced/dashboard")
+    end
+
+    it "doesn't show students the link" do
+      assign(:current_user, student_in_course(course:, active_all: true).user)
+
+      expect(students_link).to be_nil
+    end
+  end
 end

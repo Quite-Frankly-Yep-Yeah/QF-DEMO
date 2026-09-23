@@ -47,6 +47,13 @@ module SelfPaced
 
     delegate :any?, to: :courses
 
+    # Whether the viewer may open the dashboard at all, even before any of
+    # their students are tracked: a mentor whose school has no activity yet
+    # should get an empty dashboard, not a "not allowed" page.
+    def allowed?
+      any? || dashboard_accounts.any?
+    end
+
     def grades_visible?(course)
       right?(course, :view_all_grades)
     end
@@ -66,6 +73,15 @@ module SelfPaced
     def right?(course, permission)
       @rights ||= {}
       @rights.fetch([course.id, permission]) { @rights[[course.id, permission]] = course.grants_right?(user, permission) }
+    end
+
+    # School accounts where the viewer holds the dashboard permission through
+    # an account role (mentors, admins).
+    def dashboard_accounts
+      @dashboard_accounts ||= Account.where(id: user.account_users.active.select(:account_id)).active.select do |account|
+        SelfPaced.feature_enabled?(account, :self_paced_teacher_dashboard) &&
+          account.grants_right?(user, :self_paced_view_dashboard)
+      end
     end
 
     def candidate_course_ids
