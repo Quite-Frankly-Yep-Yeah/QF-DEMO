@@ -29,6 +29,7 @@ class ContextModuleProgression < ApplicationRecord
   before_create :set_root_account_id
 
   after_save :touch_user
+  after_commit -> { SelfPaced::ModelHooks.progression_committed(self) }
 
   serialize :requirements_met, type: Array
   serialize :incomplete_requirements, type: Array

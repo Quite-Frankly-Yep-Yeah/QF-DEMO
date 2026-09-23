@@ -39,6 +39,7 @@ class ApplicationController < ActionController::Base
   include AuthenticationMethods
 
   include Canvas::RequestForgeryProtection
+  include SelfPaced::ActivityTracking
 
   protect_from_forgery with: :exception
 
@@ -405,6 +406,9 @@ class ApplicationController < ActionController::Base
         @js_env[:IS_LARGE_ROSTER] = true if !@js_env[:IS_LARGE_ROSTER] && @context.respond_to?(:large_roster?) && @context.large_roster?
         @js_env[:context_asset_string] = @context.try(:asset_string) unless @js_env[:context_asset_string]
         @js_env[:ping_url] = polymorphic_url([:api_v1, @context, :ping]) if @context.is_a?(Course)
+        if (self_paced_activity = self_paced_activity_env)
+          @js_env[:SELF_PACED_ACTIVITY] = self_paced_activity
+        end
         if params[:session_timezone].present? && supported_timezones.include?(params[:session_timezone])
           timezone = context_timezone = params[:session_timezone]
         else

@@ -41,6 +41,12 @@ if (ENV.page_view_update_url) {
   import(/* webpackChunkName: "[request]" */ './trackPageViews')
 }
 
+if (ENV.SELF_PACED_ACTIVITY) {
+  import(/* webpackChunkName: "self-paced-activity" */ '@canvas/self-paced/activityTracker').then(
+    ({startSelfPacedActivityTracking}) => startSelfPacedActivityTracking(ENV.SELF_PACED_ACTIVITY),
+  )
+}
+
 // preventDefault so we dont change the hash
 // this will make nested apps that use the hash happy
 $('#skip_navigation_link').on('click', function (event) {

@@ -41,6 +41,7 @@ class Score < ApplicationRecord
 
   before_validation :set_course_score, unless: :course_score_changed?
   before_save :set_root_account_id
+  after_commit -> { SelfPaced::ModelHooks.score_committed(self) }
 
   set_policy do
     given do |user, _session|

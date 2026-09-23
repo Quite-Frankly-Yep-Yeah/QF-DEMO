@@ -506,6 +506,7 @@ class Submission < ApplicationRecord
   after_save :create_alert
   after_save :reset_regraded
   after_save :create_audit_event!
+  after_commit -> { SelfPaced::ModelHooks.submission_committed(self) }
   after_save :handle_posted_at_changed, if: :saved_change_to_posted_at?
   after_save :delete_submission_drafts!, if: :saved_change_to_attempt?
   after_save :send_timing_data_if_needed

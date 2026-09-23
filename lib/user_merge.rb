@@ -213,6 +213,7 @@ class UserMerge
         scope.update_all(context_id: target_user.id, context_code: target_user.asset_string)
       end
 
+      SelfPaced::UserData.merge(from_user, target_user)
       merge_data.bulk_insert_merge_data(data) unless data.empty?
       @data = []
       Enrollment.delay.recompute_due_dates_and_scores(target_user.id)

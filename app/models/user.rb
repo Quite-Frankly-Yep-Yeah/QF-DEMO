@@ -1255,6 +1255,7 @@ class User < ApplicationRecord
 
     if was_saved
       eportfolios.active.in_batches.destroy_all
+      SelfPaced::UserData.purge_later(self)
       gradebook_filters.in_batches.destroy_all
       true
     end

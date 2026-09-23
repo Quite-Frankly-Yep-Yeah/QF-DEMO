@@ -2880,6 +2880,10 @@ CanvasRails::Application.routes.draw do
       delete "planner/overrides/:id", action: :destroy
     end
 
+    scope(controller: "self_paced/activity") do
+      post "courses/:course_id/self_paced/activity", action: :create, as: "course_self_paced_activity"
+    end
+
     scope(controller: :planner_notes) do
       get "planner_notes", action: :index, as: :planner_notes
       get "planner_notes/:id", action: :show, as: :planner_notes_show

@@ -1,6 +1,6 @@
 # Self-paced mastery platform: discovery and build plan
 
-Status: **revision 3. Decisions recorded (§7). No code has been written yet.**
+Status: **revision 3, being built. Phase 0 is on branch `self-paced/phase-0` and Phase 1 on `self-paced/phase-1` (see §5).**
 Date: 2026-09-22
 
 Revision 3 records your answers to the §7 questions. It updates gating (§2.1), due dates (§2.3), the mentor role (§2.6),
@@ -235,7 +235,7 @@ Paths are relative to the repo root. Line numbers are as of today's tree.
 | A. Student pacing | Yes/no status only | **Build** |
 | **B. Pacing engine** | Course Pacing calendar logic | **Build** a new engine. **Extract** the calendar logic into a shared service. Hide Course Pacing in self-paced courses. |
 | **C. Roster, live view, drill-down** | `last_activity_at`, `Score`, progressions | **Build** a read model and UI |
-| C. Activity data | Page views and the pinger | **Change the core:** feed our ledger from the request cycle and the pinger |
+| C. Activity data | Page views and the pinger | **Build** a separate pinger and ledger (§2.7) |
 | C. Alerts | `Alert` pattern, Notification system | **Build** rules, and **add** notification types |
 | C. Interventions | Excuse, `QuizExtension`, Conversations, the new overrides | **Build** a logged intervention service |
 | C. Student notes | None | **Build** |
@@ -382,9 +382,13 @@ Teachers keep course-level access through their teacher enrollment, as before.
 
 We only record what the features need. Decision 4: **ledger only. Page views stay off.**
 
-- The interaction pinger is changed to run in self-paced courses even when page views are off. It posts to `/api/v1/activity/pings` with the course, the item and the active seconds.
-- Each request in a self-paced course also counts as activity.
-- Pings add to Redis counters that flush every minute into `activity_days` and `item_times`.
+*As built in Phase 1:*
+- **The pinger.** A small tracker in the browser (`ui/shared/self-paced/activityTracker.ts`) runs for students in courses with activity tracking on. It counts seconds with mouse, keyboard, scroll or touch activity.
+  - While the tab is visible, it posts once a minute to `POST /api/v1/courses/:id/self_paced/activity`, with the active seconds (which may be 0), the module item id and the path.
+  - A beacon sends the remainder when the tab is hidden or closed.
+  - The existing page-view pinger is left alone.
+- **The ledger.** `SelfPaced::ActivityLedger` writes each ping straight to Postgres with single "add to the total" upserts into `activity_days`, `item_times` and the presence columns of `student_course_states`. At school scale that's about 5–15 small writes a second for 300 active students. It's simpler than Redis counters and can't lose counts, so Redis is only worth adding if write load ever shows up.
+- **What's ignored.** Pings from teachers, admins acting as students, and the test student are ignored. The ping endpoint doesn't update Canvas's own enrollment "last activity", so an idle tab doesn't inflate it.
 - Raw rows with URL, IP address and user agent are never stored.
 
 If staff later need page-level records for academic-integrity investigations, page views can be turned on separately. No feature depends on them.
@@ -393,10 +397,9 @@ State changes (submissions, quiz submissions, module progress, grades) reach our
 
 ### 2.8 Live monitoring
 
-- **Online:** any ping or request in the last 2 minutes. Presence is kept in Redis with a TTL, never in Postgres.
-- **Idle:** online, but no active seconds for N minutes (configurable).
-- **Pinger interval in player courses:** changed from 5 minutes to 60 seconds. It still only sends while the student is active, so the cost stays small. That gives about 1-minute resolution without adding new kinds of tracking.
-- **Current item and time on it:** the item from the last ping, and time since it was first opened.
+- **Online:** a ping in the last 2 minutes (`student_course_states.last_seen_at`). The pinger sends a ping every minute while the tab is visible, even with 0 active seconds, so an open-but-idle tab still counts as online.
+- **Idle:** online, but no active seconds for N minutes (`last_active_at`; N is configurable).
+- **Current item and time on it:** `viewing_content_tag_id` and `viewing_since`. That clock restarts only when the student moves to a different page.
 - **Refresh:** the dashboard polls every 30 seconds, and the server caches the roster for 15 seconds per course.
 - **Websockets** would only be needed if 30-second polling proves too slow. That's unlikely at school scale.
 
@@ -451,7 +454,7 @@ All new UI renders through `@canvas/react`, so it gets the Material 1 overrides 
 | Quizzes | `quizzes/quiz.rb`, `quizzes/quiz_eligibility.rb`, quiz settings UI | `retake_requires_review` (§2.2) |
 | Course | `course.rb` | `player` home page option, self-paced settings |
 | Layout | `application_controller.rb`, `layouts/application.html.erb`, `stylesheets/base/_layout.scss` | Player layout concern, player bar, `self-paced-player` body class |
-| Activity | `trackPageViews.ts`, `application_controller.rb` | Pinger in self-paced courses, ledger calls (§2.7) |
+| Activity | `application_controller.rb`, `runOnEveryPageButDontBlockAnythingElse.jsx`, `submission.rb`, `score.rb`, `context_module_progression.rb`, `user.rb`, `lib/user_merge.rb` | Pinger config and loader, one-line model hooks, purge and merge (§2.7) |
 | Media | `CanvasMediaPlayer.jsx`, embed rewriting | Progress events (§2.9) |
 | Pacing | `course_paces_date_helpers.rb`, `course_pace_due_dates_calculator.rb`, `course_pace.rb` | Extract `SchoolCalendar`. Reuse the override-writing part of `CoursePace#publish` for dynamic due dates (§2.3) |
 | Course copy | `lib/cc/module_meta.rb`, `lib/cc/importer/canvas/module_converter.rb`, `importers/context_module_importer.rb` | Carry item settings and quiz retake rules |
@@ -498,7 +501,7 @@ All new UI renders through `@canvas/react`, so it gets the Material 1 overrides 
 
 - **Dashboard reads** only use `student_course_states` joined to enrollments. Example: 300 students × 8 courses = 2,400 indexed rows, sorted and paged on the server. Per-student progress (`CourseProgress` is about 10–20 queries) only runs in background jobs.
 - **Refresh jobs:** a debounced singleton job per enrollment (`self_paced:state:<enrollment_id>`), on a per-course strand, plus a nightly full rebuild to repair drift.
-- **The ledger** writes to Redis counters and flushes in batches. It never touches Postgres on each ping, and it never scans `page_views`.
+- **The ledger** makes one small upsert per table per ping and never scans `page_views` (§2.7).
 - **Gating lookups:** `locked_for?` is called often. Per-student overrides are loaded once per user and course and cached with the progression. The self-paced check is a cached course setting, so other courses pay almost nothing.
 - **Caching:** per-course structure (ordered items, estimates, requirement map), keyed on the modules' latest `updated_at`. The live roster is cached for 15 seconds per course.
 - **Permissions across many courses:** preload the teacher's enrollments and role overrides once per request. Don't check course by course.
@@ -532,7 +535,7 @@ Every phase ends with passing RSpec (`bin/rspec spec/.../self_paced/...`) and JS
 - One spike: YouTube and Vimeo watch tracking inside sanitized page content (R2).
 
 **Phase 1: Activity ledger and read model.** Flag: `self_paced_activity_tracking`.
-- Pinger changes, ping endpoint, Redis counters and flush, `activity_days`, `item_times`.
+- Pinger, ping endpoint, ledger upserts into `activity_days`, `item_times` and presence columns. **Done 2026-09-22.**
 - Model hooks, the state refresher, the nightly rebuild.
 
 **Phase 2: Teacher dashboard v1.** Flag: `self_paced_teacher_dashboard`.
