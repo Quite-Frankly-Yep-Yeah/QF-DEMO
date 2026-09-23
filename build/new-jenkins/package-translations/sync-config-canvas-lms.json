@@ -1,0 +1,9 @@
+{
+  "to": "s3",
+  "project": "EXAMPLE LMS UI",
+  "projectSlug": "canvas-lms-ui",
+  "resource": "ui",
+  "resourceSlug": "{lang}.json",
+  "fileName": "../packages/translations/lib/canvas-lms/{lang}.json",
+  "sourceLanguage": "en"
+}

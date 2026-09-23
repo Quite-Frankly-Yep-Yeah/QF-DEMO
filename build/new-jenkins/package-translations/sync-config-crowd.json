@@ -1,0 +1,11 @@
+{
+  "to": "transifex",
+  "organization": "Instructure",
+  "organizationSlug": "instructure",
+  "project": "EXAMPLE (Crowdsource)",
+  "projectSlug": "canvas-crowdsource",
+  "resource": "EXAMPLE Packages",
+  "resourceSlug": "canvas-packages",
+  "fileName": "../packages/translations/lib/{lang}.json",
+  "sourceLanguage": "en"
+}
