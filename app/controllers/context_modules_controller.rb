@@ -271,6 +271,8 @@ class ContextModulesController < ApplicationController
 
   def index
     if authorized_action(@context, @current_user, :read)
+      return if self_paced_player_redirect
+
       log_asset_access(["modules", @context], "modules", "other")
 
       load_modules

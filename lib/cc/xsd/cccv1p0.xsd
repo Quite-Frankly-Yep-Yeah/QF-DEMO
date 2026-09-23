@@ -105,6 +105,8 @@
         <xs:element name="public_syllabus_to_auth" type="xs:boolean" minOccurs="0"/>
         <xs:element name="syllabus_course_summary" type="xs:boolean" minOccurs="0"/>
         <xs:element name="show_total_grade_as_points" type="xs:boolean" minOccurs="0"/>
+        <xs:element name="self_paced_mastery_threshold" type="xs:string" minOccurs="0"/>
+        <xs:element name="self_paced_provisional_checks" type="xs:boolean" minOccurs="0"/>
         <xs:element name="organize_epub_by_content_type" type="xs:boolean" minOccurs="0"/>
         <xs:element name="enable_offline_web_export" type="xs:boolean" minOccurs="0"/>
         <xs:element name="homeroom_course" type="xs:boolean" minOccurs="0"/>
@@ -446,6 +448,7 @@
                           <xs:element name="workflow_state" type="xs:string" minOccurs="0"/>
                           <xs:element name="new_tab" type="xs:string" minOccurs="0"/>
                           <xs:element name="link_settings_json" type="xs:string" minOccurs="0"/>
+                          <xs:element name="self_paced_settings_json" type="xs:string" minOccurs="0"/>
                         </xs:all>
                         <xs:attribute name="identifier" type="xs:ID" use="required"/>
                       </xs:complexType>

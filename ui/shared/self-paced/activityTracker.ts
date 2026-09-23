@@ -34,7 +34,15 @@ export type SelfPacedActivityConfig = {
 
 export const PING_INTERVAL_SECONDS = 60
 
-const ACTIVITY_EVENTS = ['mousemove', 'mousedown', 'keydown', 'scroll', 'touchstart'] as const
+// 'self-paced-activity' is sent by the video tracker while a video plays
+const ACTIVITY_EVENTS = [
+  'mousemove',
+  'mousedown',
+  'keydown',
+  'scroll',
+  'touchstart',
+  'self-paced-activity',
+] as const
 
 export function startSelfPacedActivityTracking(config: SelfPacedActivityConfig): () => void {
   let activeSeconds = 0

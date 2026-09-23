@@ -67,4 +67,15 @@ describe SelfPaced::CourseSetupController do
       expect(tag.context_module.reload.completion_requirements).to eql([])
     end
   end
+
+  describe "GET page" do
+    it "renders the setup screen for a teacher" do
+      enable_player
+      user_session(teacher)
+      get :page, params: { course_id: course.id }
+
+      expect(response).to be_successful
+      expect(controller.js_env[:SELF_PACED_SETUP]).to include(setup_url: "/api/v1/courses/#{course.id}/self_paced/setup")
+    end
+  end
 end

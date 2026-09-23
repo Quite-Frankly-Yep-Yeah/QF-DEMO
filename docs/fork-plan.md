@@ -275,10 +275,8 @@ These changes touch paths every course uses, so each one is behind a check for s
 - **The quiz's own settings stay the single source of truth:** `allowed_attempts` is the maximum, and `scoring_policy` is usually keep-highest.
 - **A new quiz setting, `retake_requires_review`.** Before a student can start attempt *n*+1 after a non-mastery attempt, `QuizEligibility` requires a review record for attempt *n*. A clear explanation is added to `declined_reason_renders`.
   - Because the quiz page and the API both use `QuizEligibility`, one check covers both.
-- **What counts as a review is configurable per quiz:**
-  - opening the graded attempt's results, and/or
-  - re-opening the lesson's instruction items after the failed attempt (checked with `AssetUserAccess.last_access`).
-  - The review is stored in `quiz_attempt_reviews`.
+- *As built:* the review setting lives on the item (`module_item_settings.retake_review`), not on the quiz.
+- **What counts as a review:** reopening one of the lesson's instruction items (the ones before the check in the same module) after the failed attempt. The check uses our item-time ledger, with `AssetUserAccess.last_access` as a fallback. Opening the results page doesn't count, because Canvas shows it automatically right after every attempt. So no `quiz_attempt_reviews` table is needed.
 - **Teacher unlock after the maximum** uses the existing `QuizExtension` extra attempts, logged as an intervention.
 
 ### 2.3 Pacing: a new engine and a shared calendar
@@ -469,7 +467,6 @@ All new UI renders through `@canvas/react`, so it gets the Material 1 overrides 
 |---|---|---|
 | `module_item_settings` | Role (instruction, practice, check, pretest), estimated minutes, weight, threshold override, video requirement | unique `content_tag_id`; `course_id` |
 | `module_item_student_overrides` | Unlock, exempt or complete, plus a link to the intervention | unique `(content_tag_id, user_id, kind)` where active; `(course_id, user_id)` |
-| `quiz_attempt_reviews` | Review done for an attempt | unique `(quiz_submission_id, attempt)` |
 | `video_progress` | Highest fraction watched, completion time | unique `(user_id, content_tag_id)` |
 | `instructional_calendars` | Weekday pattern and minutes per day, per account | `account_id` |
 | `pacing_plans` | Start date, target date, baseline and current schedule (jsonb), version | unique `(course_id, user_id)` where active |
@@ -554,6 +551,12 @@ Every phase ends with passing RSpec (`bin/rspec spec/.../self_paced/...`) and JS
   - each lesson's **Ready, Set, Go** quiz is the check: `min_percentage` 70%, `keep_latest`, provisional mode
   - the lesson page is instruction (`must_view`)
   - units are chained by prerequisites
+- **Done 2026-09-23.** What was built:
+  - **Course map:** `/courses/:id/player`.
+  - **Player bar:** added by `SelfPaced::PlayerLayout` from the layout, which hides the course menu (the layout sets `@show_left_side` itself, because helper methods run on the controller).
+  - **Setup screen:** the teacher-only **Course Player** tab (`/courses/:id/player_setup`).
+  - **Video tracking:** `ui/shared/self-paced/videoTracker.ts` (YouTube, Vimeo, HTML5/Canvas media).
+  - **Course copy:** via `self_paced_settings_json` on module items.
 
 **Phase 4: Pacing.** Flag: `self_paced_pacing`.
 - `SchoolCalendar` extraction and instructional calendars.

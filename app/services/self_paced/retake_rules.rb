@@ -28,6 +28,8 @@
 # (SelfPaced::ItemTime) and Canvas's own asset access records.
 module SelfPaced
   module RetakeRules
+    CHECK_ROLES = %w[check pretest].freeze
+
     class << self
       def review_pending?(quiz, user)
         !review_items_to_revisit(quiz, user).empty?
@@ -74,7 +76,7 @@ module SelfPaced
         tags = tag.context_module.content_tags.not_deleted.where(position: ...tag.position).order(:position).to_a
         settings = ItemSetting.where(content_tag_id: tags.map(&:id)).index_by(&:content_tag_id)
         role = ->(t) { settings[t.id]&.role || ItemSetting.suggested_role(t) }
-        lesson = tags.reverse.take_while { |t| !%w[check pretest].include?(role.call(t)) }
+        lesson = tags.reverse.take_while { |t| !CHECK_ROLES.include?(role.call(t)) }
         lesson.reverse.select { |t| role.call(t) == "instruction" }
       end
 

@@ -115,6 +115,9 @@ module CC
                   item_node.new_tab ct.new_tab
                   item_node.indent ct.indent
                   item_node.link_settings_json ct.link_settings.to_json
+                  if (self_paced = SelfPaced::ItemSetting.find_by(content_tag_id: ct.id))
+                    item_node.self_paced_settings_json self_paced.export_json
+                  end
                 end
               end
             end

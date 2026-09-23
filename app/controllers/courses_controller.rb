@@ -2382,6 +2382,7 @@ class CoursesController < ApplicationController
 
       # can't run in before_action because it needs @context
       return if load_canvas_career
+      return if self_paced_player_redirect
 
       assign_localizer
       if request.xhr?

@@ -366,6 +366,9 @@ module Importers
       items = []
       if item
         item_map[hash[:migration_id]] = item if hash[:migration_id]
+        if hash[:self_paced_settings_json].present?
+          SelfPaced::ItemSetting.import_from_migration(item, hash[:self_paced_settings_json])
+        end
         item.migration_id = hash[:migration_id]
         item.new_tab = hash[:new_tab]
         # add imported items starting from the last manually created item

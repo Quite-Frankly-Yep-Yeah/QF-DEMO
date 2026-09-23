@@ -523,6 +523,8 @@ CanvasRails::Application.routes.draw do
     end
 
     get "course_pacing" => "course_paces#index"
+    get "player" => "self_paced/player#show", :as => :self_paced_player
+    get "player_setup" => "self_paced/course_setup#page", :as => :self_paced_setup_page
 
     post "collapse_all_modules" => "context_modules#toggle_collapse_all"
     resources :content_exports, only: %i[create index destroy show]
@@ -2884,6 +2886,14 @@ CanvasRails::Application.routes.draw do
 
     scope(controller: "self_paced/activity") do
       post "courses/:course_id/self_paced/activity", action: :create, as: "course_self_paced_activity"
+    end
+
+    scope(controller: "self_paced/video_progress") do
+      post "courses/:course_id/self_paced/video_progress", action: :create, as: "course_self_paced_video_progress"
+    end
+
+    scope(controller: "self_paced/player") do
+      get "courses/:course_id/self_paced/map", action: :map, as: "course_self_paced_map"
     end
 
     scope(controller: "self_paced/course_setup") do

@@ -40,6 +40,7 @@ class ApplicationController < ActionController::Base
 
   include Canvas::RequestForgeryProtection
   include SelfPaced::ActivityTracking
+  include SelfPaced::PlayerLayout
 
   protect_from_forgery with: :exception
 

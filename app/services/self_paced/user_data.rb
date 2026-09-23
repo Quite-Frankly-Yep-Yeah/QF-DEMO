@@ -33,7 +33,7 @@ module SelfPaced
         return unless user
 
         Shard.with_each_shard(user.associated_shards) do
-          [ActivityDay, ItemTime, StudentCourseState].each do |klass|
+          [ActivityDay, ItemTime, StudentCourseState, VideoProgress, ItemOverride].each do |klass|
             klass.where(user_id: user).in_batches.delete_all
           end
           MentorCaseload.where(student_id: user).or(MentorCaseload.where(mentor_id: user)).in_batches.delete_all
@@ -47,6 +47,8 @@ module SelfPaced
         move(ActivityDay, from_user, target_user, %i[user_id course_id day], ActivityLedger::DAY_MERGE_SQL)
         move(ItemTime, from_user, target_user, %i[user_id content_tag_id], ActivityLedger::ITEM_MERGE_SQL)
         move_caseloads(from_user, target_user)
+        move_video_progress(from_user, target_user)
+        ItemOverride.where(user_id: from_user).update_all(user_id: target_user.id)
 
         states = StudentCourseState.where(user_id: from_user)
         states.pluck(:course_id, :root_account_id).each do |course_id, root_account_id|
@@ -56,6 +58,20 @@ module SelfPaced
       end
 
       private
+
+      # Keeps the higher share watched when both users watched the same video.
+      def move_video_progress(from_user, target_user)
+        VideoProgress.where(user_id: from_user).find_each do |row|
+          existing = VideoProgress.find_by(user_id: target_user.id, content_tag_id: row.content_tag_id)
+          if existing
+            existing.update!(max_fraction: [existing.max_fraction, row.max_fraction].max,
+                             completed_at: [existing.completed_at, row.completed_at].compact.min)
+            row.delete
+          else
+            row.update_columns(user_id: target_user.id)
+          end
+        end
+      end
 
       # Caseload pins follow the user on both sides: as the pinned student and
       # as the staff member who pinned.

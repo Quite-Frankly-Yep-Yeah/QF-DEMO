@@ -46,5 +46,23 @@ module SelfPaced
       else "instruction"
       end
     end
+
+    # Course copy and export (lib/cc/module_meta.rb, Importers::ContextModuleImporter)
+    EXPORTED_ATTRIBUTES = %w[role estimated_minutes mastery_threshold watch_fraction max_attempts retake_review].freeze
+
+    def export_json
+      attributes.slice(*EXPORTED_ATTRIBUTES).to_json
+    end
+
+    def self.import_from_migration(tag, json)
+      data = JSON.parse(json.to_s)
+      return unless data.is_a?(Hash) && tag.context.is_a?(Course)
+
+      setting = find_or_initialize_by(content_tag: tag) { |s| s.course = tag.context }
+      setting.assign_attributes(data.slice(*EXPORTED_ATTRIBUTES))
+      setting.save
+    rescue JSON::ParserError
+      nil
+    end
   end
 end

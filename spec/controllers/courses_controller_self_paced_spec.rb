@@ -56,4 +56,36 @@ describe CoursesController do
       expect(pinger_config).to be_nil
     end
   end
+
+  describe "GET show with the course player" do
+    let_once(:player_course) { course_factory(active_all: true) }
+    let_once(:player_student) { student_in_course(course: player_course, active_all: true).user }
+    let_once(:player_teacher) { teacher_in_course(course: player_course, active_all: true).user }
+
+    before do
+      player_course.root_account.enable_feature!(:self_paced)
+      player_course.enable_feature!(:self_paced_course_player)
+    end
+
+    it "sends students to the course map" do
+      user_session(player_student)
+      get :show, params: { id: player_course.id }
+
+      expect(response).to redirect_to("/courses/#{player_course.id}/player")
+    end
+
+    it "keeps the normal course home for teachers" do
+      user_session(player_teacher)
+      get :show, params: { id: player_course.id }
+
+      expect(response).to be_successful
+    end
+
+    it "keeps the normal course home when asked for the classic view" do
+      user_session(player_student)
+      get :show, params: { id: player_course.id, force_classic: 1 }
+
+      expect(response).to be_successful
+    end
+  end
 end

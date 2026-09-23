@@ -27,6 +27,18 @@ module SelfPaced
     before_action :require_context
     before_action :require_setup_rights
 
+    # GET /courses/:course_id/player_setup
+    def page
+      set_active_tab "self_paced_setup"
+      @page_title = t("Course player setup")
+      js_env({ SELF_PACED_SETUP: {
+               setup_url: api_v1_course_self_paced_setup_path(@context),
+               player_url: course_self_paced_player_path(@context)
+             } })
+      js_bundle :self_paced_setup
+      render html: '<div id="self_paced_setup"></div>'.html_safe, layout: true
+    end
+
     # GET /api/v1/courses/:course_id/self_paced/setup
     def show
       render json: CourseSetup.new(@context).as_json

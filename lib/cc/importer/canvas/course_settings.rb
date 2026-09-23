@@ -83,7 +83,8 @@ module CC::Importer::Canvas
          course_color
          alt_name
          time_zone
-         default_due_time].each do |string_type|
+         default_due_time
+         self_paced_mastery_threshold].each do |string_type|
         val = get_node_val(doc, string_type)
         course[string_type] = val unless val.nil?
       end
@@ -123,7 +124,8 @@ module CC::Importer::Canvas
          allow_final_grade_override
          enable_course_paces
          conditional_release
-         hide_sections_on_course_users_page].each do |bool_val|
+         hide_sections_on_course_users_page
+         self_paced_provisional_checks].each do |bool_val|
         val = get_bool_val(doc, bool_val)
         course[bool_val] = val unless val.nil?
       end
