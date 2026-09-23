@@ -85,4 +85,23 @@ describe SelfPaced::UserData do
       expect(SelfPaced::ActivityDay.where(course:).pluck(:user_id, :active_seconds)).to eql([[target_user.id, 40]])
     end
   end
+
+  describe "caseload pins" do
+    let_once(:mentor) { teacher_in_course(course:, active_all: true).user }
+
+    it "moves a merged student's pins to the target user" do
+      SelfPaced::MentorCaseload.create!(mentor:, student: from_user, root_account: course.root_account)
+      described_class.merge(from_user, target_user)
+
+      expect(SelfPaced::MentorCaseload.pluck(:mentor_id, :student_id)).to eql([[mentor.id, target_user.id]])
+    end
+
+    it "removes pins for and by a deleted user" do
+      SelfPaced::MentorCaseload.create!(mentor:, student: from_user, root_account: course.root_account)
+      SelfPaced::MentorCaseload.create!(mentor: from_user, student: target_user, root_account: course.root_account)
+      described_class.purge(from_user.id)
+
+      expect(SelfPaced::MentorCaseload.count).to be 0
+    end
+  end
 end

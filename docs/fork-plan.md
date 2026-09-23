@@ -1,6 +1,6 @@
 # Self-paced mastery platform: discovery and build plan
 
-Status: **revision 3, being built. Phase 0 is on branch `self-paced/phase-0` and Phase 1 on `self-paced/phase-1` (see §5).**
+Status: **revision 3, being built. Phases 0, 1 and 2 are done, each on its own `self-paced/phase-N` branch (see §5).**
 Date: 2026-09-22
 
 Revision 3 records your answers to the §7 questions. It updates gating (§2.1), due dates (§2.3), the mentor role (§2.6),
@@ -364,7 +364,7 @@ New permissions in `permissions_registry.rb`, available at course and account le
   - **off:** `manage_grades`, and everything that edits course content.
 
 **Caseload ("pinned" students)**
-- A new table, `mentor_caseloads`, stores mentor, student, account, and who pinned the student.
+- A new table, `mentor_caseloads`, stores the mentor, the student and the root account. *As built:* pins are kept per root account, not per school, so a pin follows a student who changes schools within the district.
 - Mentors pin and unpin students themselves. Admins can also assign students in bulk.
 - The dashboard shows a **"My caseload"** section above the full roster, and every roster filter can be limited to it.
 
@@ -541,6 +541,7 @@ Every phase ends with passing RSpec (`bin/rspec spec/.../self_paced/...`) and JS
 **Phase 2: Teacher dashboard v1.** Flag: `self_paced_teacher_dashboard`.
 - Roster (all columns except pacing), live monitoring, drill-down (timeline, attempts, time per item).
 - Permissions, the account-level Mentor role, and caseload pinning with the "My caseload" section (§2.6).
+- **Done 2026-09-23.** The page is at `/self_paced/dashboard`, with a "Student Dashboard" course tab for staff. Create the role with `SelfPaced::MentorRole.ensure!(root_account)`.
 
 **Phase 3: Course setup, gating and player.** Flag: `self_paced_course_player`.
 - Item settings and the setup screen.

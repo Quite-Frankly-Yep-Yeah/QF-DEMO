@@ -523,6 +523,7 @@ CanvasRails::Application.routes.draw do
     end
 
     get "course_pacing" => "course_paces#index"
+    get "self_paced_dashboard" => "self_paced/dashboard#course", :as => :self_paced_dashboard
 
     post "collapse_all_modules" => "context_modules#toggle_collapse_all"
     resources :content_exports, only: %i[create index destroy show]
@@ -1097,6 +1098,8 @@ CanvasRails::Application.routes.draw do
     post "comment_session" => "services_api#start_kaltura_session", :as => :dashboard_comment_session
     delete "ignore_stream_item/:id" => "users#ignore_stream_item", :as => :dashboard_ignore_stream_item
   end
+
+  get "self_paced/dashboard" => "self_paced/dashboard#show", :as => :self_paced_dashboard
 
   resources :plugins, only: %i[index show update]
 
@@ -2882,6 +2885,13 @@ CanvasRails::Application.routes.draw do
 
     scope(controller: "self_paced/activity") do
       post "courses/:course_id/self_paced/activity", action: :create, as: "course_self_paced_activity"
+    end
+
+    scope(controller: "self_paced/dashboard_api") do
+      get "self_paced/roster", action: :roster, as: "self_paced_roster"
+      get "self_paced/courses/:course_id/students/:student_id", action: :student, as: "self_paced_student"
+      put "self_paced/caseload/:student_id", action: :pin, as: "self_paced_caseload"
+      delete "self_paced/caseload/:student_id", action: :unpin
     end
 
     scope(controller: :planner_notes) do

@@ -36,6 +36,7 @@ module SelfPaced
           [ActivityDay, ItemTime, StudentCourseState].each do |klass|
             klass.where(user_id: user).in_batches.delete_all
           end
+          MentorCaseload.where(student_id: user).or(MentorCaseload.where(mentor_id: user)).in_batches.delete_all
         end
       end
 
@@ -45,6 +46,7 @@ module SelfPaced
       def merge(from_user, target_user)
         move(ActivityDay, from_user, target_user, %i[user_id course_id day], ActivityLedger::DAY_MERGE_SQL)
         move(ItemTime, from_user, target_user, %i[user_id content_tag_id], ActivityLedger::ITEM_MERGE_SQL)
+        move_caseloads(from_user, target_user)
 
         states = StudentCourseState.where(user_id: from_user)
         states.pluck(:course_id, :root_account_id).each do |course_id, root_account_id|
@@ -54,6 +56,18 @@ module SelfPaced
       end
 
       private
+
+      # Caseload pins follow the user on both sides: as the pinned student and
+      # as the staff member who pinned.
+      def move_caseloads(from_user, target_user)
+        %i[student_id mentor_id].each do |column|
+          MentorCaseload.where(column => from_user).find_each do |pin|
+            attributes = pin.attributes.slice("mentor_id", "student_id", "root_account_id").merge(column.to_s => target_user.id)
+            MentorCaseload.create_or_find_by!(attributes) unless attributes["mentor_id"] == attributes["student_id"]
+            pin.delete
+          end
+        end
+      end
 
       def move(klass, from_user, target_user, unique_by, merge_sql)
         klass.where(user_id: from_user).find_in_batches(batch_size: 500) do |rows|

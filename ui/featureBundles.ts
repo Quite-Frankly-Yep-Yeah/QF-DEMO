@@ -199,6 +199,7 @@ const featureBundles: {
   section: () => import('./features/section/index'),
   select_content_dialog: () => import('./features/select_content_dialog/index'),
   self_enrollment: () => import('./features/self_enrollment/index'),
+  self_paced_dashboard: () => import('./features/self_paced_dashboard/index'),
   settings_sidebar: () => import('./features/settings_sidebar/index'),
   sis_import: () => import('./features/sis_import/index'),
   slickgrid: () => import('./features/slickgrid/index'),
