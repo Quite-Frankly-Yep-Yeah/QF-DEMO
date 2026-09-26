@@ -129,32 +129,6 @@ module ConditionalRelease
         expect(adhoc_override.due_at.to_i).to eq noop_due_date.to_i
       end
 
-      it "groups students in same override when course pacing gives them the same due date" do
-        old_student = @student
-        student_in_course(course: @course, active_all: true)
-
-        module1 = @course.context_modules.create!(name: "Module 1")
-        module1.add_item(type: "assignment", id: @set1_assmt1.id)
-
-        course_pace = course_pace_model(course: @course)
-        course_pace.course_pace_module_items.create!(
-          duration: 5,
-          module_item: @set1_assmt1.context_module_tags.first,
-          root_account_id: @course.root_account_id
-        )
-        course_pace.publish
-
-        @trigger_assmt.grade_student(old_student, grade: 9, grader: @teacher)
-        run_jobs
-        @trigger_assmt.grade_student(@student, grade: 9, grader: @teacher)
-        run_jobs
-
-        expect(@set1_assmt1.assignment_overrides.where(set_type: "ADHOC").count).to eq 1
-        override = @set1_assmt1.assignment_overrides.where(set_type: "ADHOC").first
-        expect(override.assignment_override_students.count).to eq 2
-        expect(override.assignment_override_students.pluck(:user_id)).to contain_exactly(old_student.id, @student.id)
-      end
-
       it "assigns students with 100% score to the correct mastery path" do
         @rule.scoring_ranges.first.update!(lower_bound: 0.8, upper_bound: 1.0)
 
@@ -309,67 +283,6 @@ module ConditionalRelease
         expect(progression.current_position).to eq(1)
         expect(progression.workflow_state).to eq("unlocked")
       end
-
-      it "assigns due dates to quizzes with course pacing enabled" do
-        quiz = @course.quizzes.create!(title: "Quiz 1", quiz_type: "assignment")
-        quiz.workflow_state = "available"
-        quiz.save!
-
-        @set1_assmt1.destroy!
-        @rule.scoring_ranges.first.assignment_sets.first.assignment_set_associations.create!(
-          assignment: quiz.assignment,
-          root_account_id: @course.root_account_id
-        )
-
-        module1 = @course.context_modules.create!(name: "Module 1")
-        module1.add_item(type: "quiz", id: quiz.id)
-
-        course_pace = course_pace_model(course: @course)
-        course_pace.course_pace_module_items.create!(
-          duration: 5,
-          module_item: quiz.context_module_tags.first,
-          root_account_id: @course.root_account_id
-        )
-        course_pace.publish
-
-        @trigger_assmt.grade_student(@student, grade: 9, grader: @teacher)
-        run_jobs
-
-        adhoc_override = quiz.assignment_overrides.where(set_type: "ADHOC").first
-        expect(adhoc_override).to be_present
-        expect(adhoc_override.due_at).to be_present
-      end
-
-      it "assigns due dates to graded discussions with course pacing enabled" do
-        discussion = @course.discussion_topics.create!(
-          title: "Discussion 1",
-          assignment: @course.assignments.create!(title: "Discussion 1", submission_types: "discussion_topic")
-        )
-
-        @set1_assmt1.destroy!
-        @rule.scoring_ranges.first.assignment_sets.first.assignment_set_associations.create!(
-          assignment: discussion.assignment,
-          root_account_id: @course.root_account_id
-        )
-
-        module1 = @course.context_modules.create!(name: "Module 1")
-        module1.add_item(type: "discussion_topic", id: discussion.id)
-
-        course_pace = course_pace_model(course: @course)
-        course_pace.course_pace_module_items.create!(
-          duration: 5,
-          module_item: discussion.context_module_tags.first,
-          root_account_id: @course.root_account_id
-        )
-        course_pace.publish
-
-        @trigger_assmt.grade_student(@student, grade: 9, grader: @teacher)
-        run_jobs
-
-        adhoc_override = discussion.assignment.assignment_overrides.where(set_type: "ADHOC").first
-        expect(adhoc_override).to be_present
-        expect(adhoc_override.due_at).to be_present
-      end
     end
 
     context "handle_assignment_set_selection" do
@@ -431,32 +344,6 @@ module ConditionalRelease
         ConditionalRelease::OverrideHandler.handle_assignment_set_selection(@student, @trigger_assmt, @set_b.id) # now unassign
         expect(DifferentiableAssignment.scope_filter(@course.assignments, @student, @course).to_a).not_to include(@set3a_assmt)
         expect(DifferentiableAssignment.scope_filter(@course.assignments, old_student, @course).to_a).to include(@set3a_assmt)
-      end
-
-      context "with course pace" do
-        before :once do
-          @course.update start_at: "2021-06-30", restrict_enrollments_to_course_dates: true, time_zone: "UTC"
-          @course.enable_course_paces = true
-          @course.save!
-          @module = @course.context_modules.create!
-          @tags = [@trigger_assmt, @set1_assmt1, @set2_assmt1, @set3a_assmt, @set3b_assmt].map do |assignment|
-            assignment.context_module_tags.create! context_module: @module, context: @course, tag_type: "context_module"
-          end
-          @course_pace = @course.course_paces.create! workflow_state: "active", published_at: Time.zone.now, selected_days_to_skip: []
-          @course_pace_module_items = @tags.map do |tag|
-            @course_pace.course_pace_module_items.create! module_item: tag
-          end
-
-          @course_pace.publish
-        end
-
-        it "creates the assignment override with the due date from the course pace" do
-          ConditionalRelease::OverrideHandler.handle_assignment_set_selection(@student, @trigger_assmt, @set_a.id)
-
-          override = @set3a_assmt.assignment_overrides.last
-
-          expect(override.due_at).to eq Time.zone.now.end_of_day
-        end
       end
     end
   end

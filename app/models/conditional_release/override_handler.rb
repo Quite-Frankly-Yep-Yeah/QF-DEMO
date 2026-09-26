@@ -83,7 +83,6 @@ module ConditionalRelease
         ActiveRecord::Associations.preload(existing_overrides,
                                            :assignment_override_students,
                                            AssignmentOverrideStudent.where(user_id: student_id)) # only care about records for this student
-        existing_overrides_map_with_dates = existing_overrides.group_by { |override| [override.assignment_id, override.due_at] }
         existing_overrides_map = existing_overrides.group_by(&:assignment_id)
 
         noop_due_dates = AssignmentOverride.active
@@ -92,16 +91,7 @@ module ConditionalRelease
                                            .pluck(:assignment_id, :due_at)
                                            .to_h
 
-        due_dates = {}
-        course_pace = nil
-
         course = [assignments_to_assign.first, assignments_to_unassign.first].compact.first&.course
-
-        if course
-          enrollment = StudentEnrollment.current.find_by(user_id: student_id, course:)
-          course_pace = CoursePace.pace_for_context(course, enrollment)
-          due_dates = CoursePaceDueDatesCalculator.new(course_pace).get_due_dates(course_pace.course_pace_module_items, enrollment, by_assignment: true) if course_pace
-        end
 
         assignments_to_unassign.each do |to_unassign|
           overrides = existing_overrides_map[to_unassign.id] || []
@@ -111,24 +101,10 @@ module ConditionalRelease
         end
 
         assignments_to_assign.each do |to_assign|
-          due_at = if course_pace
-                     due_dates[to_assign.id]
-                   else
-                     noop_due_dates[to_assign.id]
-                   end
+          due_at = noop_due_dates[to_assign.id]
 
-          if due_at.present?
-            fancy_due_at = CanvasTime.fancy_midnight(due_at)
-            normalized_due_at = fancy_due_at.change(nsec: fancy_due_at.usec * 1000)
-          end
-
-          # With course pacing: group by assignment + due date (students get pace-calculated dates)
-          # Without course pacing: group by assignment only (allows manual due date edits)
-          overrides = if course_pace
-                        existing_overrides_map_with_dates[[to_assign.id, normalized_due_at]]
-                      else
-                        existing_overrides_map[to_assign.id]
-                      end
+          # group by assignment only (allows manual due date edits)
+          overrides = existing_overrides_map[to_assign.id]
           if overrides
             unless overrides.any? { |o| o.assignment_override_students.map(&:user_id).include?(student_id) }
               override = overrides.min_by(&:id)
@@ -144,11 +120,7 @@ module ConditionalRelease
               due_at:
             )
 
-            if course_pace
-              existing_overrides_map_with_dates[[to_assign.id, normalized_due_at]] = [new_override]
-            else
-              existing_overrides_map[to_assign.id] = [new_override]
-            end
+            existing_overrides_map[to_assign.id] = [new_override]
           end
         end
         if course

@@ -133,7 +133,6 @@ function Assignment() {
   this.iconType = this.iconType.bind(this)
   this.importantDates = this.importantDates.bind(this)
   this.inClosedGradingPeriod = this.inClosedGradingPeriod.bind(this)
-  this.inPacedCourse = this.inPacedCourse.bind(this)
   this.is_quiz_assignment = this.is_quiz_assignment.bind(this)
   this.isCloningAlignment = this.isCloningAlignment.bind(this)
   this.isDefaultTool = this.isDefaultTool.bind(this)
@@ -455,10 +454,6 @@ Assignment.prototype.hideInGradebook = function (hideInGradebookBoolean) {
 
 Assignment.prototype.courseID = function () {
   return this.get('course_id')
-}
-
-Assignment.prototype.inPacedCourse = function () {
-  return this.get('in_paced_course')
 }
 
 Assignment.prototype.submissionTypes = function (submissionTypes) {

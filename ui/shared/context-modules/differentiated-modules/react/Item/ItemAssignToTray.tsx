@@ -61,11 +61,8 @@ import {Text} from '@instructure/ui-text'
 import {Alert} from '@instructure/ui-alerts'
 import type {IconType, ItemType} from '../types'
 import ItemAssignToTrayContent from './ItemAssignToTrayContent'
-import CoursePacingNotice from '@canvas/due-dates/react/CoursePacingNotice'
 import useFetchAssignees from '../../utils/hooks/useFetchAssignees'
 import {calculateMasqueradeHeight} from '../../utils/miscHelpers'
-import MasteryPathToggle from '@canvas/mastery-path-toggle/react/MasteryPathToggle'
-import {FormField} from '@instructure/ui-form-field'
 import {
   CONVERT_DIFF_TAGS_MESSAGE,
   CONVERT_DIFF_TAGS_BUTTON,
@@ -220,10 +217,6 @@ export default function ItemAssignToTray({
   isTray = true,
   setOverrides,
 }: ItemAssignToTrayProps) {
-  const isPacedCourse = ENV?.IN_PACED_COURSE ?? false
-  const isMasteryPathCourse =
-    !!ENV?.CONDITIONAL_RELEASE_SERVICE_ENABLED &&
-    ENV?.FEATURES?.course_pace_pacing_with_mastery_paths
   const initialLoadRef = useRef(false)
   const cardsRefs = useRef<{[cardId: string]: RefObject<ItemAssignToCardRef>}>({})
   const [isLoading, setIsLoading] = useState(false)
@@ -335,7 +328,7 @@ export default function ItemAssignToTray({
   } = useFetchAssignees({
     courseId,
     groupCategoryId,
-    disableFetch: !overridesFetched || isPacedCourse,
+    disableFetch: !overridesFetched,
     everyoneOption,
     checkMasteryPaths: masteryPathsAllowed,
     defaultValues: [],
@@ -524,7 +517,6 @@ export default function ItemAssignToTray({
     return (
       <Flex.Item data-testid="module-item-edit-tray-footer" width="100%" padding={padding}>
         <TrayFooter
-          disableSave={isPacedCourse && !isMasteryPathCourse}
           saveButtonLabel={useApplyButton ? I18n.t('Apply') : I18n.t('Save')}
           onDismiss={handleDismiss}
           onUpdate={handleUpdate}
@@ -550,74 +542,55 @@ export default function ItemAssignToTray({
       >
         <Flex direction="column" height="100vh" width="100%">
           {Header()}
-          {isPacedCourse ? (
-            <Flex.Item padding="large medium small medium" shouldGrow={true} shouldShrink={true}>
-              <CoursePacingNotice courseId={courseId} />
-              {isMasteryPathCourse && (
-                <FormField id="mastery-path-toggle" label={I18n.t('Mastery Paths')}>
-                  <MasteryPathToggle
-                    overrides={assignToCards}
-                    onSync={setAssignToCards}
-                    courseId={courseId}
-                    itemType={itemType}
-                    itemContentId={itemContentId}
-                    useCards
-                    fetchOwnOverrides={false}
-                  />
-                </FormField>
-              )}
-            </Flex.Item>
-          ) : (
-            <ItemAssignToTrayContent
-              open={open}
-              initialLoadRef={initialLoadRef}
-              onClose={onClose}
-              onDismiss={onDismiss}
-              courseId={courseId}
-              itemType={itemType}
-              itemContentId={itemContentId}
-              locale={locale}
-              timezone={timezone}
-              initHasModuleOverrides={initHasModuleOverrides}
-              removeDueDateInput={removeDueDateInput}
-              isCheckpointed={isCheckpointed}
-              onInitialStateSet={handleInitialState}
-              defaultCards={defaultCards}
-              defaultSectionId={defaultSectionId}
-              defaultDisabledOptionIds={defaultDisabledOptionIds}
-              onSave={onSave}
-              onAddCard={onAddCard}
-              onAssigneesChange={onAssigneesChange}
-              onDatesChange={onDatesChange}
-              showGroupCategoryDeletedAlert={showGroupCategoryDeletedAlert}
-              setShowGroupCategoryDeletedAlert={setShowGroupCategoryDeletedAlert}
-              onCardRemove={onCardRemove}
-              setAssignToCards={setAssignToCards}
-              blueprintDateLocks={blueprintDateLocks}
-              setBlueprintDateLocks={setBlueprintDateLocks}
-              handleDismiss={handleDismiss}
-              hasModuleOverrides={hasModuleOverrides}
-              setHasModuleOverrides={setHasModuleOverrides}
-              hasDifferentiationTagOverrides={hasDifferentiationTagOverrides}
-              setHasDifferentiationTagOverrides={setHasDifferentiationTagOverrides}
-              cardsRefs={cardsRefs}
-              setModuleAssignees={setModuleAssignees}
-              setUnassignedOverrides={setUnassignedOverrides}
-              defaultGroupCategoryId={defaultGroupCategoryId}
-              allOptions={allOptions}
-              isLoadingAssignees={isLoadingAssignees}
-              isLoading={isLoading}
-              loadedAssignees={loadedAssignees}
-              setSearchTerm={setSearchTerm}
-              everyoneOption={everyoneOption}
-              setGroupCategoryId={setGroupCategoryId}
-              setOverridesFetched={setOverridesFetched}
-              postToSIS={postToSIS}
-              assignToCardsRef={assignToCardsRef}
-              disabledOptionIdsRef={disabledOptionIdsRef}
-              isTray={isTray}
-            />
-          )}
+          <ItemAssignToTrayContent
+            open={open}
+            initialLoadRef={initialLoadRef}
+            onClose={onClose}
+            onDismiss={onDismiss}
+            courseId={courseId}
+            itemType={itemType}
+            itemContentId={itemContentId}
+            locale={locale}
+            timezone={timezone}
+            initHasModuleOverrides={initHasModuleOverrides}
+            removeDueDateInput={removeDueDateInput}
+            isCheckpointed={isCheckpointed}
+            onInitialStateSet={handleInitialState}
+            defaultCards={defaultCards}
+            defaultSectionId={defaultSectionId}
+            defaultDisabledOptionIds={defaultDisabledOptionIds}
+            onSave={onSave}
+            onAddCard={onAddCard}
+            onAssigneesChange={onAssigneesChange}
+            onDatesChange={onDatesChange}
+            showGroupCategoryDeletedAlert={showGroupCategoryDeletedAlert}
+            setShowGroupCategoryDeletedAlert={setShowGroupCategoryDeletedAlert}
+            onCardRemove={onCardRemove}
+            setAssignToCards={setAssignToCards}
+            blueprintDateLocks={blueprintDateLocks}
+            setBlueprintDateLocks={setBlueprintDateLocks}
+            handleDismiss={handleDismiss}
+            hasModuleOverrides={hasModuleOverrides}
+            setHasModuleOverrides={setHasModuleOverrides}
+            hasDifferentiationTagOverrides={hasDifferentiationTagOverrides}
+            setHasDifferentiationTagOverrides={setHasDifferentiationTagOverrides}
+            cardsRefs={cardsRefs}
+            setModuleAssignees={setModuleAssignees}
+            setUnassignedOverrides={setUnassignedOverrides}
+            defaultGroupCategoryId={defaultGroupCategoryId}
+            allOptions={allOptions}
+            isLoadingAssignees={isLoadingAssignees}
+            isLoading={isLoading}
+            loadedAssignees={loadedAssignees}
+            setSearchTerm={setSearchTerm}
+            everyoneOption={everyoneOption}
+            setGroupCategoryId={setGroupCategoryId}
+            setOverridesFetched={setOverridesFetched}
+            postToSIS={postToSIS}
+            assignToCardsRef={assignToCardsRef}
+            disabledOptionIdsRef={disabledOptionIdsRef}
+            isTray={isTray}
+          />
           {Footer()}
         </Flex>
       </Tray>
@@ -634,62 +607,56 @@ export default function ItemAssignToTray({
           <Text size="small">{blueprintDateLocks.map(i => lockLabels[i]).join(' & ')}</Text>
         </Alert>
       ) : null}
-      {isPacedCourse ? (
-        <Flex.Item padding="small medium" shouldGrow={true} shouldShrink={true}>
-          <CoursePacingNotice courseId={courseId} />
-        </Flex.Item>
-      ) : (
-        <ItemAssignToTrayContent
-          open={open}
-          initialLoadRef={initialLoadRef}
-          onClose={onClose}
-          onDismiss={onDismiss}
-          courseId={courseId}
-          itemType={itemType}
-          itemContentId={itemContentId}
-          locale={locale}
-          timezone={timezone}
-          initHasModuleOverrides={initHasModuleOverrides}
-          removeDueDateInput={removeDueDateInput}
-          isCheckpointed={isCheckpointed}
-          onInitialStateSet={handleInitialState}
-          defaultCards={defaultCards}
-          defaultSectionId={defaultSectionId}
-          defaultDisabledOptionIds={defaultDisabledOptionIds}
-          onSave={onSave}
-          onAddCard={onAddCard}
-          onAssigneesChange={onAssigneesChange}
-          onDatesChange={onDatesChange}
-          onCardRemove={onCardRemove}
-          setAssignToCards={setAssignToCards}
-          blueprintDateLocks={blueprintDateLocks}
-          setBlueprintDateLocks={setBlueprintDateLocks}
-          handleDismiss={handleDismiss}
-          hasModuleOverrides={hasModuleOverrides}
-          setHasModuleOverrides={setHasModuleOverrides}
-          hasDifferentiationTagOverrides={hasDifferentiationTagOverrides}
-          setHasDifferentiationTagOverrides={setHasDifferentiationTagOverrides}
-          cardsRefs={cardsRefs}
-          setModuleAssignees={setModuleAssignees}
-          setUnassignedOverrides={setUnassignedOverrides}
-          defaultGroupCategoryId={defaultGroupCategoryId}
-          allOptions={allOptions}
-          isLoadingAssignees={isLoadingAssignees}
-          isLoading={isLoading}
-          loadedAssignees={loadedAssignees}
-          setSearchTerm={setSearchTerm}
-          everyoneOption={everyoneOption}
-          setGroupCategoryId={setGroupCategoryId}
-          setOverridesFetched={setOverridesFetched}
-          postToSIS={postToSIS}
-          assignToCardsRef={assignToCardsRef}
-          disabledOptionIdsRef={disabledOptionIdsRef}
-          isTray={isTray}
-          setOverrides={setOverrides}
-          showGroupCategoryDeletedAlert={showGroupCategoryDeletedAlert}
-          setShowGroupCategoryDeletedAlert={setShowGroupCategoryDeletedAlert}
-        />
-      )}
+      <ItemAssignToTrayContent
+        open={open}
+        initialLoadRef={initialLoadRef}
+        onClose={onClose}
+        onDismiss={onDismiss}
+        courseId={courseId}
+        itemType={itemType}
+        itemContentId={itemContentId}
+        locale={locale}
+        timezone={timezone}
+        initHasModuleOverrides={initHasModuleOverrides}
+        removeDueDateInput={removeDueDateInput}
+        isCheckpointed={isCheckpointed}
+        onInitialStateSet={handleInitialState}
+        defaultCards={defaultCards}
+        defaultSectionId={defaultSectionId}
+        defaultDisabledOptionIds={defaultDisabledOptionIds}
+        onSave={onSave}
+        onAddCard={onAddCard}
+        onAssigneesChange={onAssigneesChange}
+        onDatesChange={onDatesChange}
+        onCardRemove={onCardRemove}
+        setAssignToCards={setAssignToCards}
+        blueprintDateLocks={blueprintDateLocks}
+        setBlueprintDateLocks={setBlueprintDateLocks}
+        handleDismiss={handleDismiss}
+        hasModuleOverrides={hasModuleOverrides}
+        setHasModuleOverrides={setHasModuleOverrides}
+        hasDifferentiationTagOverrides={hasDifferentiationTagOverrides}
+        setHasDifferentiationTagOverrides={setHasDifferentiationTagOverrides}
+        cardsRefs={cardsRefs}
+        setModuleAssignees={setModuleAssignees}
+        setUnassignedOverrides={setUnassignedOverrides}
+        defaultGroupCategoryId={defaultGroupCategoryId}
+        allOptions={allOptions}
+        isLoadingAssignees={isLoadingAssignees}
+        isLoading={isLoading}
+        loadedAssignees={loadedAssignees}
+        setSearchTerm={setSearchTerm}
+        everyoneOption={everyoneOption}
+        setGroupCategoryId={setGroupCategoryId}
+        setOverridesFetched={setOverridesFetched}
+        postToSIS={postToSIS}
+        assignToCardsRef={assignToCardsRef}
+        disabledOptionIdsRef={disabledOptionIdsRef}
+        isTray={isTray}
+        setOverrides={setOverrides}
+        showGroupCategoryDeletedAlert={showGroupCategoryDeletedAlert}
+        setShowGroupCategoryDeletedAlert={setShowGroupCategoryDeletedAlert}
+      />
     </View>
   )
 

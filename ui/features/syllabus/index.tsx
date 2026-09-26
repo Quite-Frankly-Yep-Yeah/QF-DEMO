@@ -49,10 +49,8 @@ ready(() => {
   let collections: SyllabusCollectionSet[] = []
   let deferreds: JQuery.Deferred<void>[] = []
 
-  // If we're in a paced course, we're not showing the assignments
-  // so skip retrieving them.
-  // Also, ensure 'Show Course Summary' is checked otherwise don't bother.
-  if (!(ENV.IN_PACED_COURSE && !ENV.current_user_is_student) && showCourseSummary) {
+  // Only retrieve the assignments if 'Show Course Summary' is checked.
+  if (showCourseSummary) {
     // Setup the collections
     collections = [
       new SyllabusCalendarEventsCollection([ENV.context_asset_string], 'event'),
@@ -117,30 +115,23 @@ ready(() => {
     return
   }
 
-  let view: SyllabusView | undefined
-  if (ENV.IN_PACED_COURSE && !ENV.current_user_is_student) {
-    renderCoursePacingNotice()
-  } else {
-    // Create the aggregation collection and view
-    const acollection = new SyllabusCollection(collections as unknown as SyllabusCollectionLike[])
-    view = new SyllabusView({
-      el: '#syllabusTableBody',
-      collection: acollection,
-      // @ts-expect-error TS2339 (typescriptify) - page-specific ENV property.
-      can_read: ENV.CAN_READ,
-      is_valid_user: !!ENV.current_user_id,
-    })
-  }
+  // Create the aggregation collection and view
+  const acollection = new SyllabusCollection(collections as unknown as SyllabusCollectionLike[])
+  const view = new SyllabusView({
+    el: '#syllabusTableBody',
+    collection: acollection,
+    // @ts-expect-error TS2339 (typescriptify) - page-specific ENV property.
+    can_read: ENV.CAN_READ,
+    is_valid_user: !!ENV.current_user_id,
+  })
 
   // When all of the fetches have completed, render the view and bind behaviors
-  if (view) {
-    $.when(...deferreds)
-      .then(() => {
-        view?.render()
-        SyllabusBehaviors.bindToSyllabus()
-      })
-      .fail(() => {})
-  }
+  $.when(...deferreds)
+    .then(() => {
+      view.render()
+      SyllabusBehaviors.bindToSyllabus()
+    })
+    .fail(() => {})
 
   // Add the loading indicator now that the collections are fetching
   const node = document.querySelector('#loading_indicator')
@@ -176,20 +167,3 @@ ready(() => {
     }
   }
 })
-
-function renderCoursePacingNotice() {
-  const contextInfo = ENV.context_asset_string.split('_')
-  const courseId = contextInfo[0] === 'course' ? contextInfo[1] : undefined
-  const mountPoint = document.getElementById('syllabusContainer')
-  if (mountPoint) {
-    // replace the table with the notice
-    import(/* webpackChunkName: "[request]" */ '@canvas/due-dates/react/CoursePacingNotice')
-      .then(CoursePacingNoticeModule => {
-        const renderNotice = CoursePacingNoticeModule.renderCoursePacingNotice
-        renderNotice(mountPoint, courseId)
-      })
-      .catch(ex => {
-        console.error('Falied loading CoursePacingNotice', ex)
-      })
-  }
-}

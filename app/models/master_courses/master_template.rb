@@ -281,8 +281,6 @@ class MasterCourses::MasterTemplate < ApplicationRecord
       item_scope = case klass
                    when "Attachment"
                      course.attachments.deleted
-                   when "CoursePace"
-                     course.course_paces.where(workflow_state: "deleted")
                    when "MediaTrack"
                      MediaTrack.where(attachment: course.attachments.deleted)
                    else

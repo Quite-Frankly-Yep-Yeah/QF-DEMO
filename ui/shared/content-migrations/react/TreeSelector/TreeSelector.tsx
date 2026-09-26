@@ -31,7 +31,6 @@ import {
   IconDocumentLine,
   IconFolderLine,
   IconGroupLine,
-  IconHourGlassLine,
   IconLtiLine,
   IconModuleLine,
   IconNoteLine,
@@ -76,7 +75,6 @@ type ItemProps = {
 export type ItemType =
   | 'course_settings'
   | 'syllabus_body'
-  | 'course_paces'
   | 'context_modules'
   | 'assignments'
   | 'quizzes'
@@ -99,7 +97,6 @@ export type ItemType =
 const ICONS: Record<ItemType, ComponentClass<any>> = {
   course_settings: IconSettingsLine,
   syllabus_body: IconSyllabusLine,
-  course_paces: IconHourGlassLine,
   context_modules: IconModuleLine,
   assignments: IconAssignmentLine,
   quizzes: IconQuizLine,

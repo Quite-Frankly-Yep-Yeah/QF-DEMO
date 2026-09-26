@@ -271,15 +271,22 @@ describe('EditEventView', () => {
     it('is not shown when account level blackout dates are disabled', () => {
       fakeENV.setup({FEATURES: {account_level_blackout_dates: false}, TIMEZONE: 'Asia/Tokyo'})
       render()
-      expect(within(document.body).queryByText('Add to Course Pacing blackout dates')).toBeNull()
+      expect(within(document.body).queryByText('Add to blackout dates')).toBeNull()
+    })
+
+    it('is not shown for a course', async () => {
+      fakeENV.setup({FEATURES: {account_level_blackout_dates: true}, TIMEZONE: 'Asia/Tokyo'})
+      render({context_type: 'course'})
+      await waitForRender()
+      expect(within(document.body).queryByText('Add to blackout dates')).toBeNull()
     })
 
     it('is shown when account level blackout dates are enabled', async () => {
       fakeENV.setup({FEATURES: {account_level_blackout_dates: true}, TIMEZONE: 'Asia/Tokyo'})
-      render({context_type: 'course', course_pacing_enabled: 'true'})
+      render({context_type: 'account'})
       await waitForRender()
       expect(
-        within(document.body).getByLabelText('Add to Course Pacing blackout dates', {
+        within(document.body).getByLabelText('Add to blackout dates', {
           exact: false,
         }),
       ).toBeInTheDocument()
@@ -288,8 +295,7 @@ describe('EditEventView', () => {
     it('erases and renders irrelevant fields when checked', async () => {
       fakeENV.setup({FEATURES: {account_level_blackout_dates: true}, TIMEZONE: 'Asia/Tokyo'})
       render({
-        context_type: 'course',
-        course_pacing_enabled: 'true',
+        context_type: 'account',
         web_conference: {id: 1, conference_type: 'LtiConference', title: 'FooConf'},
       })
       await waitForRender()

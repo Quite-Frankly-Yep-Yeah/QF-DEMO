@@ -423,7 +423,6 @@ class Account < ApplicationRecord
 
   add_setting :default_due_time, inheritable: true
   add_setting :conditional_release, default: false, boolean: true, inheritable: true
-  add_setting :enable_course_paces, default: false, boolean: true, inheritable: true
   add_setting :enable_search_indexing, boolean: true, root_only: true, default: false
   add_setting :disable_login_search_indexing, boolean: true, root_only: true, default: false
   add_setting :allow_additional_email_at_registration, boolean: true, root_only: true, default: false
@@ -642,10 +641,6 @@ class Account < ApplicationRecord
 
   def conditional_release?
     conditional_release[:value]
-  end
-
-  def enable_course_paces?
-    enable_course_paces[:value]
   end
 
   def open_registration?

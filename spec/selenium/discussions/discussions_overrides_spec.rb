@@ -52,15 +52,6 @@ describe "discussions overrides" do
       @override_due_at_time = format_time_for_view(override_due_at)
     end
 
-    it "shows course pace notice when expanding grades in a course with pacing on" do
-      skip "Will be fixed in VICE-5411 2025-07-15"
-      @course.enable_course_paces = true
-      @course.save!
-      get "/courses/#{@course.id}/discussion_topics/#{@discussion_topic.id}"
-      fj("a:contains('Show Due Dates')").click
-      expect(f('[data-testid="CoursePacingNotice"]')).to be_displayed
-    end
-
     it "toggles between due dates", priority: "2" do
       skip "Will be fixed in VICE-5412 2025-07-15"
       get "/courses/#{@course.id}/discussion_topics/#{@discussion_topic.id}"

@@ -148,15 +148,6 @@ describe "calendar2" do
         wait_for_ajaximations
         expect(f(".more_options_link")["href"]).to match(original_more_options)
       end
-
-      it "course pacing calendars' assignments should not appear on teachers' calendars" do
-        Account.site_admin.enable_feature! :account_level_blackout_dates
-        @course.enable_course_paces = true
-        @course.save!
-        @course.active_assignments.create!(name: "cp assignment", due_at: Time.zone.now)
-        get "/calendar2"
-        expect(f("#content")).not_to contain_css(".fc-event")
-      end
     end
 
     context "event editing", priority: "1" do

@@ -35,7 +35,6 @@ class MasterCourses::ChildContentTag < ApplicationRecord
                                      :context_module,
                                      :content_tag,
                                      :course,
-                                     :course_pace,
                                      :discussion_topic,
                                      :learning_outcome,
                                      :learning_outcome_group,

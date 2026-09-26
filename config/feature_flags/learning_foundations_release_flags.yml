@@ -26,12 +26,6 @@ confetti_branding:
   display_name: 'Account branding for confetti'
   description: Applies account branding to confetti splashes
   applies_to: SiteAdmin
-
-course_paces_skip_selected_days:
-  state: hidden
-  display_name: 'Course Pacing Skip Selected Days'
-  description: Course pacing removes support for exclude weekends field and add the ability to select specific days of the week.
-  applies_to: RootAccount
   beta: true
   environments:
     development:

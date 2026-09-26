@@ -84,8 +84,6 @@ export function DiscussionDetails({...props}) {
                 <AssignmentAvailabilityContainer
                   assignment={props.discussionTopic?.assignment}
                   isAdmin={props.discussionTopic.permissions.readAsAdmin}
-                  inPacedCourse={props.inPacedCourse}
-                  courseId={props.courseId}
                   replyToEntryRequiredCount={props.discussionTopic.replyToEntryRequiredCount}
                   replyToTopicSubmission={props.replyToTopicSubmission}
                   replyToEntrySubmission={props.replyToEntrySubmission}
@@ -112,7 +110,6 @@ export function DiscussionDetails({...props}) {
                   anonymousState={props.discussionTopic.anonymousState}
                   groupSet={props.discussionTopic.groupSet}
                   assignment={props.discussionTopic.assignment}
-                  inPacedCourse={props.inPacedCourse}
                 />
               </Flex.Item>
             </Flex>
@@ -125,8 +122,6 @@ export function DiscussionDetails({...props}) {
 
 DiscussionDetails.propTypes = {
   discussionTopic: PropTypes.object,
-  inPacedCourse: PropTypes.bool,
-  courseId: PropTypes.string,
   replyToTopicSubmission: PropTypes.object,
   replyToEntrySubmission: PropTypes.object,
 }

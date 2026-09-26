@@ -89,7 +89,6 @@ module CC
     LTI_CONTEXT_CONTROLS_FOLDER = "lti_context_controls"
     MANIFEST = "imsmanifest.xml"
     MODULE_META = "module_meta.xml"
-    COURSE_PACES = "course_paces.xml"
     RUBRICS = "rubrics.xml"
     NAV_MENU_LINKS = "nav_menu_links.xml"
     EXTERNAL_TOOLS = "external_tools.xml"

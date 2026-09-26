@@ -78,7 +78,7 @@ const testTimezone = async (timezone, inputDate, expectedDate, time) => {
 const testBlackoutDateSuccess = () => {
   const component = render(<CalendarEventDetailsForm {...defaultProps} />)
 
-  component.getByText('Add to Course Pacing blackout dates').click()
+  component.getByText('Add to blackout dates').click()
   component.getByText('Submit').click()
   expect(defaultProps.event.save).toHaveBeenCalledWith(
     expect.objectContaining({
@@ -318,7 +318,12 @@ describe('CalendarEventDetailsForm', () => {
   })
 
   it('can change the date in Tokyo at 11:30 PM', async () => {
-    await testTimezone('Asia/Tokyo', '2022-07-13T15:00:00.000Z', '2022-07-14T14:30:00.000Z', '11:30 PM')
+    await testTimezone(
+      'Asia/Tokyo',
+      '2022-07-13T15:00:00.000Z',
+      '2022-07-14T14:30:00.000Z',
+      '11:30 PM',
+    )
   })
 
   it('can change the date in the UK at 12:00 AM', async () => {
@@ -326,7 +331,12 @@ describe('CalendarEventDetailsForm', () => {
   })
 
   it('can change the date in the UK at 11:30 PM', async () => {
-    await testTimezone('Etc/UTC', '2022-07-14T00:00:00.000Z', '2022-07-14T23:30:00.000Z', '11:30 PM')
+    await testTimezone(
+      'Etc/UTC',
+      '2022-07-14T00:00:00.000Z',
+      '2022-07-14T23:30:00.000Z',
+      '11:30 PM',
+    )
   })
 
   it('can change the date in eastern Brazil at 12:00 AM', async () => {
@@ -334,7 +344,12 @@ describe('CalendarEventDetailsForm', () => {
   })
 
   it('can change the date in eastern Brazil at 11:30 PM', async () => {
-    await testTimezone('Brazil/East', '2022-07-14T03:00:00.000Z', '2022-07-15T02:30:00.000Z', '11:30 PM')
+    await testTimezone(
+      'Brazil/East',
+      '2022-07-14T03:00:00.000Z',
+      '2022-07-15T02:30:00.000Z',
+      '11:30 PM',
+    )
   })
 
   it('does not show FrequencyPicker when the event is section-specific', () => {

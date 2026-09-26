@@ -32,7 +32,6 @@ module MasterCourses
     Attachment
     CalendarEvent
     Course
-    CoursePace
     ContextExternalTool
     ContextModule
     ContentTag
@@ -54,5 +53,5 @@ module MasterCourses
 
   LOCK_TYPES = %i[content settings points due_dates availability_dates state].freeze
 
-  RESTRICTED_OBJECT_TYPES = %w[Assignment Attachment DiscussionTopic Quizzes::Quiz WikiPage CoursePace].freeze
+  RESTRICTED_OBJECT_TYPES = %w[Assignment Attachment DiscussionTopic Quizzes::Quiz WikiPage].freeze
 end

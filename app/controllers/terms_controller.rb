@@ -143,12 +143,6 @@ class TermsController < ApplicationController
     SubmissionLifecycleManager.with_executing_user(@current_user) do
       if validate_dates(@term, term_params, overrides) && @term.update(term_params)
         @term.set_overrides(@context, overrides)
-        # Republish any courses with course paces that may be affected
-        if @term.saved_changes.keys.intersect?(%w[start_at end_at])
-          @term.courses.where("restrict_enrollments_to_course_dates IS NOT TRUE AND settings LIKE ?", "%enable_course_paces: true%").find_each do |course|
-            course.course_paces.find_each(&:create_publish_progress)
-          end
-        end
         render json: serialized_term
       else
         render json: @term.errors, status: :bad_request

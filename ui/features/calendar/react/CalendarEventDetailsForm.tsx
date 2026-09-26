@@ -105,10 +105,7 @@ const CalendarEventDetailsForm = ({event, closeCB, contextChangeCB, setSetContex
   const shouldShowContextField = () => event.can_change_context
   const shouldShowImportantDatesField = () => context.k5_course || context.k5_account
   const shouldShowBlackoutDateCheckbox = useCallback(() => {
-    return (
-      ENV.FEATURES.account_level_blackout_dates &&
-      (context.type === 'account' || (context.type === 'course' && context.course_pacing_enabled))
-    )
+    return ENV.FEATURES.account_level_blackout_dates && context.type === 'account'
   }, [context])
 
   const getMoreOptionsHref = useCallback(() => {
@@ -252,8 +249,6 @@ const CalendarEventDetailsForm = ({event, closeCB, contextChangeCB, setSetContex
     params.blackout_date = isBlackout
     // @ts-expect-error TS2339 (typescriptify)
     params.context_type = context.type
-    // @ts-expect-error TS2339 (typescriptify)
-    params.course_pacing_enabled = context.course_pacing_enabled
     // @ts-expect-error TS2339 (typescriptify)
     params.calendar_event_context_code = event.calendarEvent?.context_code
     if (typeof rrule === 'string') {
@@ -629,11 +624,11 @@ const CalendarEventDetailsForm = ({event, closeCB, contextChangeCB, setSetContex
           </FormField>
         )}
         {shouldShowBlackoutDateCheckbox() && (
-          <FormField id="course-pacing-field" label={I18n.t('Course Pacing:')}>
+          <FormField id="blackout-date-field" label={I18n.t('Blackout Date:')}>
             <Flex justifyItems="space-between">
               <Flex.Item padding="none x-small" shouldShrink={true}>
                 <Checkbox
-                  label={I18n.t('Add to Course Pacing blackout dates')}
+                  label={I18n.t('Add to blackout dates')}
                   checked={isBlackout}
                   onChange={e => setBlackout(e.currentTarget.checked)}
                 />
@@ -641,7 +636,7 @@ const CalendarEventDetailsForm = ({event, closeCB, contextChangeCB, setSetContex
               <Flex.Item padding="none x-small" shouldShrink={true}>
                 <Tooltip
                   renderTip={I18n.t(
-                    'Enabling this option automatically moves Course Pacing assignment due dates to after the end date. Input for Time, Location and Calendar will be disabled.',
+                    'Enabling this option makes this a blackout date, which student pacing skips. Input for Time, Location and Calendar will be disabled.',
                   )}
                   on={['click', 'hover', 'focus']}
                 >

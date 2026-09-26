@@ -2812,26 +2812,6 @@ describe CoursesController do
       expect(@course.students).to include(u1)
       expect(@course.students).to include(u2)
     end
-
-    context "enrollment tracking" do
-      before do
-        user_session(@teacher)
-      end
-
-      it "tracks enrollments for unpaced courses" do
-        allow(InstStatsd::Statsd).to receive(:count)
-        post "enroll_users", params: { course_id: @course.id, user_list: "\"Sam\" <sam@yahoo.com>, \"Fred\" <fred@yahoo.com>" }
-        expect(InstStatsd::Statsd).to have_received(:count).with("course.unpaced.student_enrollment_count", 3).once
-      end
-
-      it "tracks enrollments for paced courses" do
-        allow(InstStatsd::Statsd).to receive(:count)
-        @course.enable_course_paces = true
-        @course.save!
-        post "enroll_users", params: { course_id: @course.id, user_list: "\"Sam\" <sam@yahoo.com>, \"Fred\" <fred@yahoo.com>" }
-        expect(InstStatsd::Statsd).to have_received(:count).with("course.paced.student_enrollment_count", 3).once
-      end
-    end
   end
 
   describe "POST create" do
@@ -3953,40 +3933,6 @@ describe CoursesController do
         expect(response).not_to be_successful
         expect(response.body).to include "Invalid restrictions"
       end
-
-      context "logging master courses and course pacing" do
-        before do
-          allow(InstStatsd::Statsd).to receive(:distributed_increment)
-        end
-
-        it "does not increment the counter when course pacing is not enabled" do
-          put "update", params: { id: @course.id, course: { blueprint: "1" } }, format: "json"
-          expect(InstStatsd::Statsd).not_to have_received(:distributed_increment).with("course.paced.blueprint_course")
-        end
-
-        it "increments the counter when course pacing is already enabled" do
-          put "update", params: { id: @course.id, course: { enable_course_paces: "1" } }, format: "json"
-          put "update", params: { id: @course.id, course: { blueprint: "1" } }, format: "json"
-          expect(InstStatsd::Statsd).to have_received(:distributed_increment).with("course.paced.blueprint_course").once
-        end
-
-        it "increments the counter when course pacing is enabled at the same time as blueprint" do
-          put "update", params: { id: @course.id, course: { blueprint: "1", enable_course_paces: "1" } }, format: "json"
-          expect(InstStatsd::Statsd).to have_received(:distributed_increment).with("course.paced.blueprint_course").once
-        end
-
-        it "increments the counter when course pacing is enabled after blueprint has already been enabled" do
-          put "update", params: { id: @course.id, course: { blueprint: "1" } }, format: "json"
-          put "update", params: { id: @course.id, course: { enable_course_paces: "1" } }, format: "json"
-
-          expect(InstStatsd::Statsd).to have_received(:distributed_increment).with("course.paced.blueprint_course")
-        end
-
-        it "does not increment the count if a random course items is updated" do
-          put "update", params: { id: @course.id, course: { course_format: "online" } }, format: "json"
-          expect(InstStatsd::Statsd).not_to have_received(:distributed_increment).with("course.paced.blueprint_course")
-        end
-      end
     end
 
     it "updates pages' permissions even if course default is nil" do
@@ -4018,60 +3964,6 @@ describe CoursesController do
 
       # if the sync job runs, we'll know because restrict_enrollments_to_course_dates will be synced as true
       expect(subject.reload.restrict_enrollments_to_course_dates).to be_falsey
-    end
-
-    context "course paces" do
-      before do
-        @course.enable_course_paces = true
-        @course.restrict_enrollments_to_course_dates = true
-        @course.save!
-        @course_pace = course_pace_model(course: @course)
-      end
-
-      it "republishes course paces when dates have changed" do
-        user_session(@teacher)
-        put "update", params: { id: @course.id, course: { start_at: 1.day.from_now } }
-        expect(Progress.find_by(context: @course_pace)).to be_queued
-        Progress.destroy_all
-        put "update", params: { id: @course.id, course: { conclude_at: 1.year.from_now } }
-        expect(Progress.find_by(context: @course_pace)).to be_queued
-        Progress.destroy_all
-        put "update", params: { id: @course.id, course: { restrict_enrollments_to_course_dates: false } }
-        expect(Progress.find_by(context: @course_pace)).to be_queued
-        Progress.destroy_all
-        term = EnrollmentTerm.create!(start_at: 1.day.ago, end_at: 3.days.from_now, root_account: @course.account)
-        put "update", params: { id: @course.id, course: { term_id: term.id } }
-        expect(Progress.find_by(context: @course_pace)).to be_queued
-      end
-
-      it "does not republish course paces when dates have not changed" do
-        user_session(@teacher)
-        put "update", params: { id: @course.id, course: { name: "course paces" } }
-        expect(Progress.find_by(context: @course_pace)).to be_nil
-      end
-
-      it "does not allow course to be made a homeroom course" do
-        user_session(@teacher)
-        put "update", params: { id: @course.id, course: { homeroom_course: "true" }, format: :json }
-        expect(response).to have_http_status :bad_request
-        json = response.parsed_body
-        expect(json["errors"].keys).to include "homeroom_course"
-        expect(@course.reload.homeroom_course).to be_falsey
-      end
-    end
-
-    it "does not allow homeroom course to enable course pacing" do
-      toggle_k5_setting(@course.account)
-      homeroom = course_factory(active_all: true, account: @course.account)
-      homeroom.homeroom_course = true
-      homeroom.save!
-      user_session(@teacher)
-
-      put "update", params: { id: homeroom.id, course: { enable_course_paces: "true" }, format: :json }
-      expect(response).to have_http_status :bad_request
-      json = response.parsed_body
-      expect(json["errors"].keys).to include "enable_course_paces"
-      expect(@course.reload.enable_course_paces).to be_falsey
     end
 
     it "returns an error if syllabus_body content is nested too deeply" do

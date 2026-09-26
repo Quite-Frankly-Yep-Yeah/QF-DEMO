@@ -217,7 +217,6 @@ describe('EditView - Quizzes and Quiz LTI', () => {
       context_asset_string: 'course_1',
       SETTINGS: {},
       FEATURES: {},
-      IN_PACED_COURSE: false,
       DEEP_LINKING_POST_MESSAGE_ORIGIN: window.origin,
     })
 

@@ -159,10 +159,6 @@ class AssignmentCreateEditPage
       ff(error_box_selector)
     end
 
-    def mastery_path_toggle
-      f("[data-testid='MasteryPathToggle'] svg[name='IconCheck'], [data-testid='MasteryPathToggle'] svg[name='IconX']")
-    end
-
     def add_asset_processor_button
       f("#asset-processor-add-button")
     end

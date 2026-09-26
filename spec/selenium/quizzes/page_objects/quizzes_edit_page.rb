@@ -49,10 +49,6 @@ module QuizzesEditPage
     f(assign_to_card_selector)
   end
 
-  def course_pacing_notice
-    "[data-testid='CoursePacingNotice']"
-  end
-
   def due_date_container
     ".ContainerDueDate"
   end

@@ -555,7 +555,7 @@ module Calendar2Common
   end
 
   def edit_calendar_event_form_blackout_date_checkbox_selector
-    "label[for='course-pacing-field'] div"
+    "label[for='blackout-date-field'] div"
   end
 
   def edit_calendar_event_form_blackout_date_checkbox
@@ -567,7 +567,7 @@ module Calendar2Common
   end
 
   def calendar_event_is_blackout_date
-    f("label[for='course-pacing-field'] input").attribute("checked")
+    f("label[for='blackout-date-field'] input").attribute("checked")
   end
 
   def edit_calendar_event_form_more_options

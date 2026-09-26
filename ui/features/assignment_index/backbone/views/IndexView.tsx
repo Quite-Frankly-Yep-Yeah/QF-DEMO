@@ -149,7 +149,7 @@ IndexView.prototype.afterRender = function () {
           contextType,
           // @ts-expect-error
           contextId,
-          requestBulkEdit: !ENV.IN_PACED_COURSE ? requestBulkEditFn : void 0,
+          requestBulkEdit: requestBulkEditFn,
           setTrigger: this.assignmentSettingsView.setTrigger.bind(this.assignmentSettingsView),
           setDisableTrigger: this.assignmentSyncSettingsView.setTrigger.bind(
             this.assignmentSyncSettingsView,

@@ -126,49 +126,6 @@ describe "wiki pages edit page assign to" do
       visit_wiki_edit_page(@course.id, @page.title)
       expect(element_exists?(assign_to_card_selector)).to be_falsey
     end
-
-    context "with course pacing" do
-      before do
-        @course.enable_course_paces = true
-        @course.save!
-      end
-
-      it "mark only_visible_to_overrides to false" do
-        visit_course_wiki_index_page(@course.id)
-        page_index_new_page_btn.click
-        wait_for_ajaximations
-        wait_for_rce
-        replace_wiki_page_name("Course pacing page")
-
-        expect_new_page_load { save_wiki_page }
-
-        page = @course.wiki_pages.last
-
-        expect(page.only_visible_to_overrides).to be_falsey
-      end
-
-      context "with mastery paths" do
-        before do
-          @course.root_account.enable_feature!(:course_pace_pacing_with_mastery_paths)
-          @course.update(conditional_release: true)
-        end
-
-        it "sets toggles assignment override for mastery paths when mastery path toggle is toggled" do
-          visit_wiki_edit_page(@course.id, @page.title)
-          mastery_path_toggle.click
-          expect_new_page_load { save_wiki_page }
-
-          @page.reload
-          expect(@page.assignment.assignment_overrides.active.find_by(set_id: AssignmentOverride::NOOP_MASTERY_PATHS, set_type: AssignmentOverride::SET_TYPE_NOOP)).to be_present
-
-          visit_wiki_edit_page(@course.id, @page.title)
-          mastery_path_toggle.click
-          expect_new_page_load { save_wiki_page }
-
-          expect(@page.assignment.assignment_overrides.active.find_by(set_id: AssignmentOverride::NOOP_MASTERY_PATHS, set_type: AssignmentOverride::SET_TYPE_NOOP)).not_to be_present
-        end
-      end
-    end
   end
 
   context "differentiation tags" do

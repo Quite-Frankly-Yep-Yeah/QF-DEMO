@@ -186,10 +186,6 @@ function DiscussionTopicForm({
     )
   }
 
-  const masteryPathsWithCoursePaces =
-    ENV.CONDITIONAL_RELEASE_SERVICE_ENABLED &&
-    ENV.IN_PACED_COURSE &&
-    ENV.FEATURES.course_pace_pacing_with_mastery_paths
   // @ts-expect-error TS2339 (typescriptify)
   const userIsRestricted = ENV.USER_HAS_RESTRICTED_VISIBILITY
 
@@ -856,17 +852,14 @@ function DiscussionTopicForm({
           assignedInfoList.some(assignee => !assignee.dueDate)
       const postToSisEnabled = isGraded && postToSis && ENV.DUE_DATE_REQUIRED_FOR_ACCOUNT
 
-      const isPacedDiscussion = ENV.IN_PACED_COURSE
-      if (!isPacedDiscussion) {
-        sectionViewRef = document.getElementById(
-          'manage-assign-to-container',
-          // @ts-expect-error TS2339 (typescriptify)
-        )?.reactComponentInstance
-        // Runs custom validation for all cards with the current post to sis selection without re-renders
-        if (!isCheckpoints) {
-          formIsValid =
-            formIsValid && sectionViewRef?.allCardsValidCustom({dueDateRequired: postToSisEnabled})
-        }
+      sectionViewRef = document.getElementById(
+        'manage-assign-to-container',
+        // @ts-expect-error TS2339 (typescriptify)
+      )?.reactComponentInstance
+      // Runs custom validation for all cards with the current post to sis selection without re-renders
+      if (!isCheckpoints) {
+        formIsValid =
+          formIsValid && sectionViewRef?.allCardsValidCustom({dueDateRequired: postToSisEnabled})
       }
 
       // If hasAfterRenderIssue is true, a useEffect hook will be responsible to run the focus logic
@@ -915,7 +908,7 @@ function DiscussionTopicForm({
       sectionViewRef?.focusErrors()
       if (sectionViewRef?.mustConvertTags()) return false
 
-      if (!isEveryoneOrEveryoneElseSelected && !masteryPathsWithCoursePaces) {
+      if (!isEveryoneOrEveryoneElseSelected) {
         const selectedSectionIds = selectedAssignedTo
           // @ts-expect-error TS7006 (typescriptify)
           .filter(assignedTo => String(assignedTo).startsWith('course_section_'))

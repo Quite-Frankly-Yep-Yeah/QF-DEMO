@@ -22,7 +22,6 @@ module Canvas::Migration::Helpers
     BLUEPRINT_SETTING_TYPE = -> { I18n.t("Blueprint Settings") }
     COURSE_SETTING_TYPE = -> { I18n.t("lib.canvas.migration.course_settings", "Course Settings") }
     COURSE_SYLLABUS_TYPE = -> { I18n.t("lib.canvas.migration.syllabus_body", "Syllabus Body") }
-    COURSE_PACE_TYPE = -> { I18n.t("Course Pace") }
     SELECTIVE_CONTENT_TYPES = [
       ["context_modules", -> { I18n.t("lib.canvas.migration.context_modules", "Modules") }],
       ["assignments", -> { I18n.t("lib.canvas.migration.assignments", "Assignments") }],
@@ -120,9 +119,6 @@ module Canvas::Migration::Helpers
           if course_data["course"]["syllabus_body"]
             content_list << { type: "syllabus_body", property: "#{property_prefix}[all_syllabus_body]", title: COURSE_SYLLABUS_TYPE.call }
           end
-        end
-        if course_data["course_paces"]
-          content_list << { type: "course_paces", property: "#{property_prefix}[all_course_paces]", title: COURSE_PACE_TYPE.call }
         end
         SELECTIVE_CONTENT_TYPES.each do |type2, title|
           next unless course_data[type2] && course_data[type2].count > 0
@@ -315,7 +311,6 @@ module Canvas::Migration::Helpers
         else
           content_list << { type: "course_settings", property: "#{property_prefix}[all_course_settings]", title: COURSE_SETTING_TYPE.call }
           content_list << { type: "syllabus_body", property: "#{property_prefix}[all_syllabus_body]", title: COURSE_SYLLABUS_TYPE.call }
-          content_list << { type: "course_paces", property: "#{property_prefix}[all_course_paces]", title: COURSE_PACE_TYPE.call } if source.course_paces.primary.not_deleted.any?
 
           if @migration && MasterCourses::MasterTemplate.is_master_course?(source) && MasterCourses::MasterTemplate.blueprint_eligible?(@migration.context) &&
              @migration.context.account.grants_all_rights?(@migration.user, :manage_courses_admin, :manage_master_courses)

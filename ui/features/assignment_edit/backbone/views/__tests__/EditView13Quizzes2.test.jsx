@@ -205,7 +205,6 @@ describe('EditView - Quizzes 2', () => {
       CANCEL_TO: currentOrigin + '/cancel',
       SETTINGS: {},
       FEATURES: {},
-      IN_PACED_COURSE: false,
     }
 
     vi.mocked(getUrlWithHorizonParams).mockImplementation((url, additionalParams) => {

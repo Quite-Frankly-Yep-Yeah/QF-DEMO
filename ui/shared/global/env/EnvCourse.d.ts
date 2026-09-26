@@ -16,8 +16,6 @@
  * with this program. If not, see <http://www.gnu.org/licenses/>.
  */
 
-import {Course} from '../../../features/course_paces/react/shared/types'
-
 export type EnvCourse = EnvCourseCommon & Partial<EnvCourseCommon>
 
 /**
@@ -181,7 +179,6 @@ export interface EnvCourseSettings {
   MSFT_SYNC_CAN_BYPASS_COOLDOWN: boolean
   MSFT_SYNC_MAX_ENROLLMENT_MEMBERS: number
   MSFT_SYNC_MAX_ENROLLMENT_OWNERS: number
-  COURSE_PACES_ENABLED: false
 
   NEW_USER_TUTORIALS?: {
     is_enabled: boolean

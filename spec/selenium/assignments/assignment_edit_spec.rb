@@ -153,45 +153,6 @@ describe "assignment" do
     end
   end
 
-  describe "for assignments in a course with both mastery paths and course pacing" do
-    before(:once) do
-      course_with_teacher(active_all: true)
-      @course.root_account.enable_feature!(:course_pace_pacing_with_mastery_paths)
-      @course.update(
-        enable_course_paces: true,
-        conditional_release: true
-      )
-
-      @assignment = @course.assignments.create!(
-        title: "Existing Assignment",
-        points_possible: 10,
-        submission_types: "online_url,online_upload,online_text_entry"
-      )
-    end
-
-    before do
-      user_session(@teacher)
-    end
-
-    it "sets an assignment override for mastery paths when mastery path toggle is turned on" do
-      AssignmentCreateEditPage.visit_assignment_edit_page(@course.id, @assignment.id)
-      AssignmentCreateEditPage.mastery_path_toggle.click
-      AssignmentCreateEditPage.save_assignment
-
-      expect(@assignment.assignment_overrides.active.find_by(set_id: AssignmentOverride::NOOP_MASTERY_PATHS, set_type: AssignmentOverride::SET_TYPE_NOOP)).to be_present
-    end
-
-    it "removes assignment override for mastery paths when mastery path toggle is turned off" do
-      @assignment.assignment_overrides.create(set_id: AssignmentOverride::NOOP_MASTERY_PATHS, set_type: AssignmentOverride::SET_TYPE_NOOP)
-
-      AssignmentCreateEditPage.visit_assignment_edit_page(@course.id, @assignment.id)
-      AssignmentCreateEditPage.mastery_path_toggle.click
-      AssignmentCreateEditPage.save_assignment
-
-      expect(@assignment.assignment_overrides.active.find_by(set_id: AssignmentOverride::NOOP_MASTERY_PATHS, set_type: AssignmentOverride::SET_TYPE_NOOP)).not_to be_present
-    end
-  end
-
   context "peer review allocation and grading" do
     before(:once) do
       @pr_course = course_factory(name: "Peer Review Course", active_course: true)

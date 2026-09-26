@@ -438,30 +438,6 @@ def generate_course_with_dated_assignments
   puts "Teacher ID is #{@teacher.id}"
 end
 
-def generate_course_pace_course
-  puts "Generate a course pace course with module and assignments"
-  course_with_teacher_enrolled
-  course_with_students_enrolled
-
-  @course.update(enable_course_paces: true)
-
-  module1 = create_module(@course)
-  assignment1 = create_assignment(@course, "Assignment 1")
-  assignment2 = create_assignment(@course, "Assignment 2")
-  discussion1 = create_discussion(@course, @teacher)
-  quiz1 = create_quiz(@course)
-  module1.add_item(id: assignment1.id, type: "assignment")
-  module1.add_item(id: assignment2.id, type: "assignment")
-  module1.add_item(id: discussion1.id, type: "discussion_topic")
-  module1.add_item(id: quiz1.id, type: "quiz")
-
-  print_standard_course_info
-  puts "Assignment 1 ID is #{assignment1.id}"
-  puts "Assignment 2 ID is #{assignment2.id}"
-  puts "Discussion ID is #{discussion1.id}"
-  puts "Module ID is #{module1.id}"
-end
-
 def generate_mega_course
   puts "Generate Mega Course with #{@mega_course} learning objects"
   course_with_teacher_enrolled
@@ -758,8 +734,6 @@ def create_all_the_available_data
   generate_course_with_outcome_rubric
   @course_name = save_course_name + " (course with assignment groups)"
   generate_course_assignment_groups
-  @course_name = save_course_name + " (course pace course)"
-  generate_course_pace_course
   @course_name = save_course_name + " (mega course)"
   generate_mega_course
 end
@@ -772,7 +746,6 @@ option_parser = OptionParser.new do |opts|
   opts.on("-a", "--all_data", "Create all the available data with defaults")
   opts.on("-b", "--basic_course", "Course with teacher and students")
   opts.on("-c", "--course_name=COURSENAME", "Course Name")
-  opts.on("-e", "--course_pace", "Course Pacing Course")
   opts.on("-d", "--dated_assignments", "Course with Dated Assignments")
   opts.on("-g", "--assignment_groups", "Course with Assignments in assignment groups")
   opts.on("-i", "--account_id=ACCOUNTID", "Id Number of the root account")
@@ -851,8 +824,6 @@ options.each_key do |key|
     generate_course_and_submissions
   when :sections
     generate_sections
-  when :course_pace
-    generate_course_pace_course
   when :mega_course
     generate_mega_course
   when :horizon_hierarchy

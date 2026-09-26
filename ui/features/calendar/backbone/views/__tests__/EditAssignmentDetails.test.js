@@ -67,16 +67,6 @@ describe('EditAssignmentDetails', () => {
             can_create_assignments: true,
             assignment_groups: [{id: '9', name: 'Assignments'}],
           },
-          {
-            name: 'Course Pacing',
-            asset_string: 'course_3',
-            id: '3',
-            concluded: false,
-            course_pacing_enabled: true,
-            k5_course: false,
-            can_create_assignments: true,
-            assignment_groups: [{id: '9', name: 'Assignments'}],
-          },
         ]
       },
       isNewEvent() {
@@ -270,13 +260,5 @@ describe('EditAssignmentDetails', () => {
     view.$('#calendar_event_important_dates').click()
     const dataToSubmit = view.getFormData()
     expect(dataToSubmit.assignment.important_dates).toBe(true)
-  })
-
-  test('Should disable changing the date if course pacing is enabled', () => {
-    const modifiedEvent = {...event, contextInfo: {course_pacing_enabled: true}}
-    const view = createView(commonEvent(), modifiedEvent)
-    view.setContext('course_3')
-    view.contextChange({target: '#assignment_context'}, false)
-    expect(view.$('#assignment_due_at').prop('disabled')).toBe(true)
   })
 })

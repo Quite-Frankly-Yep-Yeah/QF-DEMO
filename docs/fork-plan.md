@@ -645,7 +645,11 @@ Every phase ends with passing RSpec (`bin/rspec spec/.../self_paced/...`) and JS
 - **Where it shows:** the student's course map says "Skipped: you already know this"; the Skills page says which lessons a skill skips and how many students have tested out.
 
 
-**Phase 10 (optional): Cleanup.** Remove the hosted-only features hidden in Phase 0 (§8).
+**Phase 10 (optional): Cleanup (started 2026-09-25).** Remove the hosted-only features hidden in Phase 0 (§8). Each removal is its own commit, after a checkpoint commit of Phases 4 to 9.
+- **Analytics Hub and Intelligent Insights (removed).** The `analytics_hub` tab, controller, service and remote module, the Canvas Course Criteria panel, the `analytics_hub` LTI placement, the `view_analytics_hub`, `view_ask_questions_*`, `view_students_in_need*`, `view_course_readiness`, `view_title_iv_financial_aid_report`, `view_rsi_report`, `view_accessibility_insights` and `view_advanced_analytics` permissions, and the flags for them. `analytics_2` and the `admin_analytics*` flags stay, because the old analytics tabs still use them.
+- **Course Pacing (removed).** `CoursePace` and its module items, the `/courses/:id/course_pacing` page and API (`CoursePacesController`, `CoursePacing::*`), the pace-document report (`CourseReport` and its API, which only ever made that document), the account and course `enable_course_paces` settings, the tab, the `course_pace_*` flags, blueprint, course copy and import/export support for it, the "due dates are managed by Course Pacing" notices, and the Mastery Paths toggle that only appeared in paced courses (`@canvas/mastery-path-toggle`). Paced/unpaced statsd metrics went too. Mastery Paths itself stays. The calendar's "blackout date" checkbox now shows for account calendars only, because a course's blackout dates are managed on the self-paced Pacing page. Migration `20260925120000` drops `course_paces`, `course_pace_module_items` and `course_reports`. `ENV` types that lived next to Course Pacing's (`SECTIONS`, `COURSE_ID`, `MASTER_COURSE_DATA`, and so on) moved to `EnvCourseShared.d.ts`.
+- **Canvas Career / Horizon (to do).**
+- **New Quizzes (to do).**
 
 The order is data → dashboard → player, because the dashboard is the core of the project and can run on native module data first. If you'd rather have students on the player sooner, Phases 2 and 3 can swap.
 

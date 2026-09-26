@@ -171,7 +171,6 @@ export interface EnvCommon {
   INCOMPLETE_REGISTRATION: boolean
   SETTINGS: Record<Setting, boolean>
   RAILS_ENVIRONMENT: 'development' | 'CD' | 'Beta' | 'Production' | string
-  IN_PACED_COURSE: boolean
   CONDITIONAL_RELEASE_SERVICE_ENABLED?: boolean
   PARSE_LINK_HEADER_THROW_ON_MAXLEN_EXCEEDED?: boolean
   PREFERENCES?: {
@@ -340,14 +339,6 @@ export type RootAccountFeatureId =
   | 'ams_advanced_content_organization'
   | 'buttons_and_icons_root_account'
   | 'canvas_apps_sub_account_access'
-  | 'course_pace_allow_bulk_pace_assign'
-  | 'course_pace_download_document'
-  | 'course_pace_draft_state'
-  | 'course_pace_pacing_status_labels'
-  | 'course_pace_pacing_with_mastery_paths'
-  | 'course_pace_time_selection'
-  | 'course_pace_weighted_assignments'
-  | 'course_paces_skip_selected_days'
   | 'create_course_subaccount_picker'
   | 'default_discussion_options'
   | 'disable_iframe_sandbox_file_show'

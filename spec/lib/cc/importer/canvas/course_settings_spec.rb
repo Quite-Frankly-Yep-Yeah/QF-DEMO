@@ -35,7 +35,6 @@ describe CC::Importer::Canvas::CourseSettings do
        allow_student_organized_groups
        allow_student_wiki_edits
        allow_wiki_comments
-       enable_course_paces
        enable_offline_web_export
        filter_speed_grader_by_student_group
        grading_standard_enabled

@@ -152,8 +152,6 @@ function SubmissionlessFooter({assignment, submission, onMarkAsDoneError}) {
 }
 
 function renderAttemptsAndAvailability(assignment) {
-  const coursePacingEnabled = window.ENV.course_pacing_enabled
-
   return (
     <StudentViewContext.Consumer>
       {context => (
@@ -170,11 +168,9 @@ function renderAttemptsAndAvailability(assignment) {
               )}
             </Text>
           )}
-          {!coursePacingEnabled && (
-            <Text as="div">
-              <AvailabilityDates assignment={assignment} formatStyle="long" />
-            </Text>
-          )}
+          <Text as="div">
+            <AvailabilityDates assignment={assignment} formatStyle="long" />
+          </Text>
         </View>
       )}
     </StudentViewContext.Consumer>

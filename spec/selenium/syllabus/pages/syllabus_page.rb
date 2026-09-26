@@ -46,10 +46,6 @@ module CourseSyllabusPage
     "div.mini_month .next_month_link"
   end
 
-  def course_pacing_notice_selector
-    "[data-testid='CoursePacingNotice']"
-  end
-
   def immersive_reader_css
     "#immersive_reader_mount_point [type='button']"
   end
@@ -97,10 +93,6 @@ module CourseSyllabusPage
 
   def mini_calendar_first_day_of_month_label
     f(mini_calendar_first_day_of_month_label_selector)
-  end
-
-  def course_pacing_notice
-    f(course_pacing_notice_selector)
   end
 
   def immersive_reader_btn

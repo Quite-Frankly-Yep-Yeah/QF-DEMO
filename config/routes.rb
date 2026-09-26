@@ -522,7 +522,6 @@ CanvasRails::Application.routes.draw do
       end
     end
 
-    get "course_pacing" => "course_paces#index"
     get "player" => "self_paced/player#show", :as => :self_paced_player
     get "player_setup" => "self_paced/course_setup#page", :as => :self_paced_setup_page
 
@@ -1991,12 +1990,6 @@ CanvasRails::Application.routes.draw do
       put "accounts/:account_id/reports/:report/:id/abort", action: :abort
     end
 
-    scope(controller: :course_reports) do
-      get "courses/:course_id/reports/:report_type", action: :last
-      get "courses/:course_id/reports/:report_type/:id", action: :show
-      post "courses/:course_id/reports/:report_type", action: :create
-    end
-
     scope(controller: :admins) do
       post "accounts/:account_id/admins", action: :create
       delete "accounts/:account_id/admins/:user_id", action: :destroy
@@ -3029,17 +3022,6 @@ CanvasRails::Application.routes.draw do
       put "courses/:course_id/apply_score_to_ungraded_submissions", action: "apply_score_to_ungraded_submissions"
     end
 
-    scope(controller: :course_paces) do
-      post "courses/:course_id/course_pacing", action: :create
-      get "courses/:course_id/course_pacing/new", action: :new
-      get "courses/:course_id/course_pacing/:id", action: :api_show
-      put "courses/:course_id/course_pacing/:id", action: :update
-      delete "courses/:course_id/course_pacing/:id", action: :destroy
-      post "courses/:course_id/course_pacing/:id/publish", action: :publish
-      post "courses/:course_id/course_pacing/compress_dates", action: :compress_dates
-      post "courses/:course_id/course_pacing/bulk_create_enrollment_paces", action: :bulk_create_enrollment_paces
-    end
-
     scope(controller: :blackout_dates) do
       get "courses/:course_id/blackout_dates", action: :index
       get "accounts/:account_id/blackout_dates", action: :index
@@ -3064,28 +3046,6 @@ CanvasRails::Application.routes.draw do
       put "eportfolios/:eportfolio_id/moderate", action: :moderate
       put "users/:user_id/eportfolios", action: :moderate_all
       put "eportfolios/:eportfolio_id/restore", action: :restore
-    end
-
-    scope(controller: "course_pacing/section_paces_api") do
-      get "courses/:course_id/sections/:course_section_id/pace", action: :show, as: :section_pace
-      post "courses/:course_id/sections/:course_section_id/paces", action: :create, as: :new_section_pace
-      patch "courses/:course_id/sections/:course_section_id/pace", action: :update, as: :patch_section_pace
-      delete "courses/:course_id/sections/:course_section_id/pace", action: :delete, as: :delete_section_pace
-    end
-
-    scope(controller: "course_pacing/student_enrollment_paces_api") do
-      get "courses/:course_id/student_enrollments/:student_enrollment_id/pace", action: :show, as: :student_enrollment_pace
-      post "courses/:course_id/student_enrollments/:student_enrollment_id/paces", action: :create, as: :new_student_enrollment_pace
-      patch "courses/:course_id/student_enrollments/:student_enrollment_id/pace", action: :update, as: :patch_student_enrollment_pace
-      delete "courses/:course_id/student_enrollments/:student_enrollment_id/pace", action: :delete, as: :delete_student_enrollment_pace
-    end
-
-    scope(controller: "course_pacing/bulk_student_enrollment_paces_api") do
-      get "courses/:course_id/bulk_student_enrollments/student_bulk_pace_edit_view", action: :student_bulk_pace_edit_view, as: :student_bulk_pace_edit_view
-    end
-
-    scope(controller: "course_pacing/pace_contexts_api") do
-      get "courses/:course_id/pace_contexts", action: :index, as: :pace_contexts
     end
 
     scope(controller: "smart_search") do

@@ -488,32 +488,6 @@ shared_examples_for "context modules for teachers" do
       expect(f(".due_date_display").text).not_to be_blank
       expect(f(".due_date_display").text).not_to eq "Multiple Due Dates"
     end
-
-    context "in a paced course" do
-      before do
-        @course.enable_course_paces = true
-        @course.save!
-      end
-
-      after do
-        @course.enable_course_paces = false
-      end
-
-      it "does not show due dates" do
-        modules = create_modules(1, published: true)
-        modules[0].add_item({ id: @assignment.id, type: "assignment", title: "An Assignment" })
-
-        @assignment.due_at = 3.days.from_now
-        @assignment.save!
-
-        get "/courses/#{@course.id}/modules"
-
-        wait_for_ajaximations
-
-        expect(fj(".context_module:contains('An Assignment')")).to be_displayed
-        expect(f(".context_module")).not_to contain_css(".due_date_display")
-      end
-    end
   end
 
   it "shows a vdd tooltip summary for assignments with multiple due dates" do
@@ -797,31 +771,6 @@ shared_examples_for "context modules for teachers" do
       expect(f("span.item_name").text).to include @topic.title
       details = f("div.ig-details").text
       expect(details).to eq "Reply to Topic: #{date_string(c1.due_at)}\nRequired Replies (#{@topic.reply_to_entry_required_count}): #{date_string(c2.due_at)}\n#{@topic.assignment.points_possible.to_i} pts"
-    end
-
-    it "does not show due dates when the enable_course_paces is set to true" do
-      @modules[0].add_item({ id: @topic.id, type: "discussion_topic" })
-      @course.enable_course_paces = true
-      @course.save!
-
-      Checkpoints::DiscussionCheckpointCreatorService.call(
-        discussion_topic: @topic,
-        checkpoint_label: CheckpointLabels::REPLY_TO_TOPIC,
-        dates: [{ type: "everyone", due_at: 5.years.ago }],
-        points_possible: 5
-      )
-      Checkpoints::DiscussionCheckpointCreatorService.call(
-        discussion_topic: @topic,
-        checkpoint_label: CheckpointLabels::REPLY_TO_ENTRY,
-        dates: [{ type: "everyone", due_at: 5.years.ago }],
-        points_possible: 5,
-        replies_required: 2
-      )
-
-      get "/courses/#{@course.id}/modules"
-      expect(f("span.item_name").text).to include @topic.title
-      details = f("div.ig-details").text
-      expect(details).to eq "Reply to Topic\nRequired Replies (2)\n10 pts"
     end
 
     it "shows multiple due dates as a hoverable link within each checkpoint" do

@@ -16,7 +16,7 @@
  * with this program. If not, see <http://www.gnu.org/licenses/>.
  */
 
-import React, {useContext} from 'react'
+import React from 'react'
 
 import {View} from '@instructure/ui-view'
 import {useScope as createI18nScope} from '@canvas/i18n'
@@ -29,9 +29,6 @@ import {GradingSchemesSelector} from '@canvas/grading-scheme'
 import {CheckpointsSettings} from './CheckpointsSettings'
 import {Text} from '@instructure/ui-text'
 import {ItemAssignToTrayWrapper} from './ItemAssignToTrayWrapper'
-import CoursePacingNotice from '@canvas/due-dates/react/CoursePacingNotice'
-import MasteryPathToggle from '@canvas/mastery-path-toggle/react/MasteryPathToggle'
-import {DiscussionDueDatesContext} from '../../util/constants'
 import {AssetProcessorsForDiscussion} from './AssetProcessorsForDiscussion'
 
 type Props = {
@@ -83,12 +80,6 @@ export const GradedDiscussionOptions = ({
   isCheckpoints,
   canManageAssignTo,
 }: Props) => {
-  const isPacedDiscussion = ENV.IN_PACED_COURSE
-  const isPacedWithMasteryPaths =
-    ENV.FEATURES.course_pace_pacing_with_mastery_paths && ENV.CONDITIONAL_RELEASE_SERVICE_ENABLED
-
-  const {assignedInfoList, setAssignedInfoList} = useContext(DiscussionDueDatesContext)
-
   const renderDiffModulesAssignTo = () => {
     if (!canManageAssignTo) {
       return
@@ -98,24 +89,7 @@ export const GradedDiscussionOptions = ({
         <Text size="large" as="h2">
           {I18n.t('Assignment Settings')}
         </Text>
-        {isPacedDiscussion ? (
-          <>
-            <CoursePacingNotice courseId={ENV.COURSE_ID} />
-            {isPacedWithMasteryPaths && (
-              <MasteryPathToggle
-                courseId={ENV.COURSE_ID}
-                fetchOwnOverrides={false}
-                overrides={assignedInfoList}
-                useCards={false}
-                onSync={setAssignedInfoList}
-                itemType="discussionTopic"
-                itemContentId={undefined}
-              />
-            )}
-          </>
-        ) : (
-          <ItemAssignToTrayWrapper />
-        )}
+        <ItemAssignToTrayWrapper />
       </>
     )
   }

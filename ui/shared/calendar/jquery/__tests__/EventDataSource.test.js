@@ -110,15 +110,7 @@ describe('EventDataSource', () => {
         undated,
       }
 
-      // Filter assignments based on course pacing settings
-      const filteredAssignments = server.assignments.filter(assignment => {
-        const context = ENV.CALENDAR?.CONTEXTS?.find(
-          ctx => ctx.asset_string === assignment.context_code,
-        )
-        return (
-          !context?.course_pacing_enabled || context?.user_is_student || context?.user_is_observer
-        )
-      })
+      const filteredAssignments = server.assignments
 
       if (filteredAssignments.length > 0) {
         dataCB(filteredAssignments, null, {type: 'assignments'})
@@ -188,49 +180,6 @@ describe('EventDataSource', () => {
       server.reset()
       source.getEvents(date1, date4, contexts, () => {})
       expect(server.lastQuery).toBeNull()
-    })
-  })
-
-  describe('course pacing assignments', () => {
-    beforeEach(() => {
-      window.ENV = {
-        CALENDAR: {
-          CONTEXTS: [
-            {
-              asset_string: 'course_1',
-              course_pacing_enabled: true,
-              user_is_student: false,
-            },
-          ],
-        },
-      }
-    })
-
-    afterEach(() => {
-      delete window.ENV
-    })
-
-    it('filters out course pacing assignments for teachers', () => {
-      server.addAssignment('course_1', '1', date1.toISOString())
-      source.getEvents(date1, date2, ['course_1'], list => {
-        expect(list).toHaveLength(0)
-      })
-    })
-
-    it('shows course pacing assignments for students', () => {
-      window.ENV.CALENDAR.CONTEXTS[0].user_is_student = true
-      server.addAssignment('course_1', '1', date1.toISOString())
-      source.getEvents(date1, date2, ['course_1'], list => {
-        expect(list).toHaveLength(1)
-      })
-    })
-
-    it('shows course pacing assignments for observers', () => {
-      window.ENV.CALENDAR.CONTEXTS[0].user_is_observer = true
-      server.addAssignment('course_1', '1', date1.toISOString())
-      source.getEvents(date1, date2, ['course_1'], list => {
-        expect(list).toHaveLength(1)
-      })
     })
   })
 })

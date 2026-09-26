@@ -39,7 +39,6 @@ import DirectShareCourseTray from '@canvas/direct-sharing/react/components/Direc
 import {setupSubmitHandler} from '@canvas/assignments/jquery/reuploadSubmissionsHelper'
 import ready from '@instructure/ready'
 import ItemAssignToManager from '@canvas/context-modules/differentiated-modules/react/Item/ItemAssignToManager'
-import {captureException} from '@sentry/browser'
 import {
   RubricAssignmentContainer,
   RubricSelfAssessmentSettingsWrapper,
@@ -96,7 +95,6 @@ ready(() => {
 
   const lockManager = new LockManager()
   lockManager.init({itemType: 'assignment', page: 'show'})
-  renderCoursePacingNotice()
 })
 
 let studentGroupSelectionRequestTrackers: Array<{selectedStudentGroupId: string}> = []
@@ -159,22 +157,6 @@ function renderStudentGroupFilter() {
       value={ENV.selected_student_group_id}
     />,
   )
-}
-
-function renderCoursePacingNotice() {
-  const $mountPoint = document.getElementById('course_paces_due_date_notice')
-
-  if ($mountPoint) {
-    import('@canvas/due-dates/react/CoursePacingNotice')
-      .then(CoursePacingNoticeModule => {
-        const renderNotice = CoursePacingNoticeModule.renderCoursePacingNotice
-        renderNotice($mountPoint, ENV.COURSE_ID)
-      })
-      .catch(ex => {
-        console.error('Failed loading CoursePacingNotice', ex)
-        captureException(ex)
-      })
-  }
 }
 
 ready(() => {

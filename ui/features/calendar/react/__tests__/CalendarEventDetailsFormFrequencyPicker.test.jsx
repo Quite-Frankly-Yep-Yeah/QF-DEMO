@@ -52,7 +52,6 @@ describe('CalendarEventDetailsForm frequency picker', () => {
       FEATURES: {
         calendar_series: true,
         account_level_blackout_dates: true,
-        course_paces: true,
         k5_course_welcome_pages: true,
         important_dates: true,
       },

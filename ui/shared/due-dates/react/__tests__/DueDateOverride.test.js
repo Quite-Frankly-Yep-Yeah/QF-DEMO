@@ -163,25 +163,6 @@ describe('DueDateOverride', () => {
         const errors = view.validateDatetimes(data, {})
         expect(errors.due_at.message).toBe('Due date cannot be after course end')
       })
-
-      it('does not validate dates for an assignment in a paced course', () => {
-        const view = new DueDateOverrideView({inPacedCourse: true, isModuleItem: true})
-        const dueDate = new Date('Nov 30, 2018').toISOString()
-        const overrides = [{rowKey: '1', student_ids: [1], due_at: dueDate}]
-        const data = {assignment_overrides: overrides}
-
-        const errors = view.validateBeforeSave(data, {})
-        expect(Object.keys(errors)).toHaveLength(0)
-      })
-    })
-
-    describe('with course pacing', () => {
-      it('shows notice when in a paced course', () => {
-        const view = new DueDateOverrideView({inPacedCourse: true, isModuleItem: true})
-        view.render()
-        const el = view.$el
-        expect(el[0].querySelector('[data-testid="CoursePacingNotice"]')).toBeTruthy()
-      })
     })
   })
 })

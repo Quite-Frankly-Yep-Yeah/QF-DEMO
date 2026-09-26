@@ -692,7 +692,6 @@ describe('TreeSelector', () => {
     const typeIconPair = [
       {type: 'course_settings', iconName: 'IconSettings'},
       {type: 'syllabus_body', iconName: 'IconSyllabus'},
-      {type: 'course_paces', iconName: 'IconHourGlass'},
       {type: 'context_modules', iconName: 'IconModule'},
       {type: 'assignments', iconName: 'IconAssignment'},
       {type: 'quizzes', iconName: 'IconQuiz'},

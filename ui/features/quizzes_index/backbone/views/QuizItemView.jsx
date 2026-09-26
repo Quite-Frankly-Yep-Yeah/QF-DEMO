@@ -500,12 +500,8 @@ export default class ItemView extends Backbone.View {
     base.failedToImport = this.model.get('workflow_state') === 'fail_to_import'
     base.isMasterCourseChildContent = this.model.isMasterCourseChildContent()
     base.failedToMigrate = this.model.get('workflow_state') === 'failed_to_migrate'
-    base.showAvailability =
-      !this.model.get('in_paced_course') &&
-      (this.model.multipleDueDates() || !this.model.defaultDates().available())
-    base.showDueDate =
-      !(this.model.get('in_paced_course') && this.canManage()) &&
-      (this.model.multipleDueDates() || this.model.singleSectionDueDate())
+    base.showAvailability = this.model.multipleDueDates() || !this.model.defaultDates().available()
+    base.showDueDate = this.model.multipleDueDates() || this.model.singleSectionDueDate()
     base.name = this.model.name()
     base.isQuizzesNext = this.model.isQuizzesNext()
     base.useQuizzesNextIcon = this.model.isQuizzesNext() || this.isStudent()

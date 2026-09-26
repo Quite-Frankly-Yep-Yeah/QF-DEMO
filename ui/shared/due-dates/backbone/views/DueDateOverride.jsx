@@ -25,7 +25,6 @@ import DueDateOverride from '@canvas/assignments/jst/DueDateOverride.handlebars'
 import DateValidator from '@canvas/grading/DateValidator'
 import ValidatedMixin from '@canvas/forms/backbone/views/ValidatedMixin'
 import {useScope as createI18nScope} from '@canvas/i18n'
-import CoursePacingNotice from '../../react/CoursePacingNotice'
 import StudentGroupStore from '../../react/StudentGroupStore'
 import AssignToContent from '../../react/AssignToContent'
 import GradingPeriodsAPI from '@canvas/grading/jquery/gradingPeriodsApi'
@@ -78,15 +77,6 @@ DueDateOverrideView.prototype.render = function () {
   if (!div) {
     return
   }
-  if (this.options && this.options.inPacedCourse && this.options.isModuleItem) {
-    return legacyRender(
-      React.createElement(CoursePacingNotice, {
-        courseId: this.options.courseId,
-      }),
-      div,
-    )
-  }
-
   const assignToSection = React.createElement(AssignToContent, {
     onSync: this.setNewOverridesCollection,
     defaultSectionId: this.model.defaultDueDateSectionId,
@@ -176,7 +166,7 @@ DueDateOverrideView.prototype.gradingPeriods = GradingPeriodsAPI.deserializePeri
 DueDateOverrideView.prototype.hasGradingPeriods = !!ENV.HAS_GRADING_PERIODS
 
 DueDateOverrideView.prototype.validateBeforeSave = function (data, errors) {
-  if (!data || (this.options && this.options.inPacedCourse && this.options.isModuleItem)) {
+  if (!data) {
     return errors
   }
   data = {

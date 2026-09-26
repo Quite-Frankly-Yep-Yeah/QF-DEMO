@@ -23,7 +23,6 @@ module CC::Importer::Canvas
     include LearningOutcomesConverter
     include RubricsConverter
     include ModuleConverter
-    include CoursePacesConverter
     include BlueprintSettingsConverter
 
     def settings_doc(file, html: false)
@@ -50,7 +49,6 @@ module CC::Importer::Canvas
       @course[:nav_menu_links] = convert_nav_menu_links(settings_doc(NAV_MENU_LINKS))
       @course[:learning_outcomes] = convert_learning_outcomes(settings_doc(LEARNING_OUTCOMES))
       @course[:modules] = convert_modules(settings_doc(MODULE_META))
-      @course[:course_paces] = convert_course_paces(settings_doc(COURSE_PACES))
       @course[:rubrics] = convert_rubrics(settings_doc(RUBRICS))
       @course[:calendar_events] = convert_events(settings_doc(EVENTS))
       @course[:late_policy] = convert_late_policy(settings_doc(LATE_POLICY))
@@ -122,7 +120,6 @@ module CC::Importer::Canvas
          restrict_enrollments_to_course_dates
          homeroom_course
          allow_final_grade_override
-         enable_course_paces
          conditional_release
          hide_sections_on_course_users_page
          self_paced_provisional_checks].each do |bool_val|

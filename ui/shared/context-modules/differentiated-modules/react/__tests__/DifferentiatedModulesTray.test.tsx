@@ -111,34 +111,4 @@ describe('DifferentiatedModulesTray', () => {
       expect(queryByRole('tab', {name: /Assign To/})).not.toBeInTheDocument()
     })
   })
-
-  describe('In a paced course', () => {
-    let overridesFetched: ReturnType<typeof vi.fn>
-
-    beforeEach(() => {
-      overridesFetched = vi.fn()
-      ENV.IN_PACED_COURSE = true
-      server.use(
-        http.get(/\/api\/v1\/courses\/.+\/modules\/.+\/assignment_overrides/, () => {
-          overridesFetched()
-          return HttpResponse.json([])
-        }),
-      )
-    })
-
-    it('shows the course pacing notice', () => {
-      const {getByTestId} = renderComponent()
-      expect(getByTestId('CoursePacingNotice')).toBeInTheDocument()
-    })
-
-    it('does not render the "Assign To" radio select', async () => {
-      const {queryByTestId} = renderComponent()
-      expect(queryByTestId('assign-to-panel-radio-group')).not.toBeInTheDocument()
-    })
-
-    it('does not fetch assignment overrides', () => {
-      renderComponent()
-      expect(overridesFetched).not.toHaveBeenCalled()
-    })
-  })
 })

@@ -30,7 +30,7 @@ import {EnvCommon} from './EnvCommon'
 import {EnvContextModules} from './EnvContextModules'
 import {EnvCourse} from './EnvCourse'
 import {EnvCourseLinkValidator} from './EnvCourseLinkValidator'
-import {EnvCoursePaces} from './EnvCoursePaces'
+import {EnvCourseShared} from './EnvCourseShared'
 import {EnvDeepLinking} from './EnvDeepLinking'
 import {EnvDeveloperKeys} from './EnvDeveloperKeys'
 import {EnvDiscussions} from './EnvDiscussions'
@@ -77,7 +77,7 @@ export type GlobalEnv =
         EnvAthena &
         EnvCourse &
         EnvCourseLinkValidator &
-        EnvCoursePaces &
+        EnvCourseShared &
         EnvDeepLinking &
         EnvGradebook &
         EnvGradingStandards &

@@ -31,7 +31,6 @@ import {useScope as createI18nScope} from '@canvas/i18n'
 import type {SettingsPanelState} from './settingsReducer'
 import {createModule, updateModule} from './SettingsPanel'
 import {type OptionValue, updateModuleAssignees} from './AssignToPanel'
-import CoursePacingNotice from '@canvas/due-dates/react/CoursePacingNotice'
 import type {AssigneeOption} from './Item/types'
 
 const I18n = createI18nScope('differentiated_modules')
@@ -120,7 +119,6 @@ function Body({
   onChangeAssignedTo,
   ...settingsProps
 }: DifferentiatedModulesTrayProps & {trayRef: React.RefObject<HTMLElement>}) {
-  const isPacedCourse = ENV.IN_PACED_COURSE
   const [selectedTab, setSelectedTab] = useState<string | undefined>(initialTab)
   const changes = useRef<Set<string>>(new Set())
   const settingsData = useRef<SettingsPanelState | null>(null)
@@ -227,28 +225,22 @@ function Body({
             isSelected={selectedTab === ASSIGN_TO_ID}
             padding="none"
           >
-            {isPacedCourse ? (
-              <View padding="small medium" as="div">
-                <CoursePacingNotice courseId={courseId} />
-              </View>
-            ) : (
-              <AssignToPanel
-                bodyHeight={bodyHeight}
-                footerHeight={footerHeight}
-                courseId={courseId}
-                moduleId={moduleId}
-                mountNodeRef={trayRef}
-                moduleElement={moduleElement}
-                onDismiss={onDismiss}
-                updateParentData={(newAssignToData, changed) => {
-                  assignToData.current = newAssignToData
-                  if (changed) changes.current.add(ASSIGN_TO_ID)
-                }}
-                defaultOption={assignToData.current?.selectedOption}
-                defaultAssignees={assignToData.current?.selectedAssignees}
-                onDidSubmit={handleOnDidSubmitAssignedTo}
-              />
-            )}
+            <AssignToPanel
+              bodyHeight={bodyHeight}
+              footerHeight={footerHeight}
+              courseId={courseId}
+              moduleId={moduleId}
+              mountNodeRef={trayRef}
+              moduleElement={moduleElement}
+              onDismiss={onDismiss}
+              updateParentData={(newAssignToData, changed) => {
+                assignToData.current = newAssignToData
+                if (changed) changes.current.add(ASSIGN_TO_ID)
+              }}
+              defaultOption={assignToData.current?.selectedOption}
+              defaultAssignees={assignToData.current?.selectedAssignees}
+              onDidSubmit={handleOnDidSubmitAssignedTo}
+            />
           </Tabs.Panel>
         </Tabs>
       )}

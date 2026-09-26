@@ -59,8 +59,6 @@ const useFetchAssignees = ({
   const [hasErrors, setHasErrors] = useState(false)
   const groupCategoryRef = useRef<string | null>(null)
 
-  const shouldFetch = !ENV?.IN_PACED_COURSE
-
   const params: Record<string, string | number> = useMemo(() => {
     return {per_page: 100}
   }, [])
@@ -73,7 +71,7 @@ const useFetchAssignees = ({
   } = useQuery<CourseSettings>({
     queryKey: ['courseSettings', courseId],
     queryFn: getCourseSettings,
-    enabled: shouldFetch && checkMasteryPaths,
+    enabled: checkMasteryPaths,
   })
 
   const {baseFetchedOptions, isLoading} = useGetAssigneeOptions({
@@ -81,7 +79,7 @@ const useFetchAssignees = ({
     courseId,
     defaultOptions: defaultValues,
     groupCategoryId,
-    shouldFetch,
+    shouldFetch: true,
     params,
     setHasErrors,
     onGroupCategoryNotFound,

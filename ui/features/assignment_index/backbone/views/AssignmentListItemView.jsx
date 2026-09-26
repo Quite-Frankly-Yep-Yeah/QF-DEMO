@@ -574,12 +574,9 @@ export default (AssignmentListItemView = (function () {
       data.is_locked = this.model.isRestrictedByMasterCourse()
       data.isCheckpoint = this.model.get('checkpoints') && this.model.get('checkpoints').length > 0
       data.showAvailability =
-        !this.model.inPacedCourse() &&
-        (this.model.multipleDueDates() || !this.model.defaultDates().available())
+        this.model.multipleDueDates() || !this.model.defaultDates().available()
       data.showDueDate =
-        !data.isCheckpoint &&
-        !(this.model.inPacedCourse() && this.canManage()) &&
-        (this.model.multipleDueDates() || this.model.singleSectionDueDate())
+        !data.isCheckpoint && (this.model.multipleDueDates() || this.model.singleSectionDueDate())
 
       data.cyoe = CyoeHelper.getItemData(
         data.id,

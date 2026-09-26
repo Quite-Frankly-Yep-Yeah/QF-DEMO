@@ -22,9 +22,6 @@ describe BlackoutDatesController do
   before :once do
     course_with_teacher(active_all: true)
 
-    @course.enable_course_paces = true
-    @course.save!
-
     @blackout_date = @course.blackout_dates.create!(start_date: "2022-02-14", end_date: "2022-02-18", event_title: "Test Week Off")
   end
 

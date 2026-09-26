@@ -65,7 +65,7 @@ const testBlackoutDateSuccess = async component => {
   expect(title.value).toBe('title')
 
   const blackoutCheckbox = component.getByRole('checkbox', {
-    name: 'Add to Course Pacing blackout dates',
+    name: 'Add to blackout dates',
   })
   expect(blackoutCheckbox).toBeInTheDocument()
 
@@ -106,7 +106,6 @@ describe('CalendarEventDetailsForm', () => {
       FEATURES: {
         calendar_series: true,
         account_level_blackout_dates: true,
-        course_paces: true,
         k5_course_welcome_pages: true,
         important_dates: true,
       },
@@ -126,9 +125,9 @@ describe('CalendarEventDetailsForm', () => {
       save: vi.fn().mockResolvedValue({}),
     }))
     // MSW will handle the actual network requests
-    vi
-      .spyOn(UpdateCalendarEventDialogModule, 'renderUpdateCalendarEventDialog')
-      .mockImplementation(() => Promise.resolve('all'))
+    vi.spyOn(UpdateCalendarEventDialogModule, 'renderUpdateCalendarEventDialog').mockImplementation(
+      () => Promise.resolve('all'),
+    )
   })
 
   afterEach(() => {
@@ -199,22 +198,17 @@ describe('CalendarEventDetailsForm', () => {
     )
   })
 
-  it('can create a blackout date event for a course with course pacing enabled', async () => {
+  it('does not render blackout checkbox in a course context', async () => {
     defaultProps.event.contextInfo = {...courseContext}
+    const component = render(<CalendarEventDetailsForm {...defaultProps} />)
 
-    // Use destructuring to get specific query methods from render
-    const {getByTestId, getByRole, getByText} = render(
-      <CalendarEventDetailsForm {...defaultProps} data-testid="calendar-event-form" />,
-    )
-
-    // Create component object with the same interface as the original test
-    const component = {getByTestId, getByRole, getByText}
-
-    // Run the test with our component wrapper
-    await testBlackoutDateSuccess(component)
+    expect(
+      component.queryByRole('checkbox', {name: 'Add to blackout dates'}),
+    ).not.toBeInTheDocument()
+    defaultProps.event.contextInfo = userContext
   })
 
-  it('can create a blackout date event for an account with course pacing enabled', async () => {
+  it('can create a blackout date event for an account', async () => {
     // Set up the context and ensure it's properly assigned before rendering
     defaultProps.event.contextInfo = {...accountContext}
 
@@ -240,7 +234,7 @@ describe('CalendarEventDetailsForm', () => {
     const component = render(<CalendarEventDetailsForm {...defaultProps} />)
 
     expect(
-      component.queryByRole('checkbox', {name: 'Add to Course Pacing blackout dates'}),
+      component.queryByRole('checkbox', {name: 'Add to blackout dates'}),
     ).not.toBeInTheDocument()
     defaultProps.event.contextInfo = userContext
   })
@@ -249,7 +243,7 @@ describe('CalendarEventDetailsForm', () => {
     const component = render(<CalendarEventDetailsForm {...defaultProps} />)
 
     expect(
-      component.queryByRole('checkbox', {name: 'Add to Course Pacing blackout dates'}),
+      component.queryByRole('checkbox', {name: 'Add to blackout dates'}),
     ).not.toBeInTheDocument()
   })
 
@@ -259,7 +253,7 @@ describe('CalendarEventDetailsForm', () => {
       ...eventFormProps(),
       event: {
         ...eventFormProps().event,
-        contextInfo: {...courseContext, course_pacing_enabled: true},
+        contextInfo: {...accountContext},
         calendarEvent: {
           ...eventFormProps().event.calendarEvent,
           parent_event_id: null,
@@ -269,7 +263,7 @@ describe('CalendarEventDetailsForm', () => {
 
     const component = render(<CalendarEventDetailsForm {...props} />)
     const blackoutCheckbox = component.getByRole('checkbox', {
-      name: /Add to Course Pacing blackout dates/i,
+      name: /Add to blackout dates/i,
     })
     expect(blackoutCheckbox).toBeInTheDocument()
 

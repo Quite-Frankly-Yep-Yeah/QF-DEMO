@@ -154,7 +154,6 @@
         <xs:element name="root_account_uuid" type="xs:string" minOccurs="0"/>
         <xs:element name="default_post_policy" type="postPolicyType" minOccurs="0"/>
         <xs:element name="late_policy" type="latePolicyType" minOccurs="0"/>
-        <xs:element name="enable_course_paces" type="xs:boolean" minOccurs="0"/>
         <xs:element name="conditional_release" type="xs:boolean" minOccurs="0"/>
       </xs:all>
       <xs:attribute name="identifier" type="xs:ID" use="required"/>
@@ -469,48 +468,6 @@
                           <xs:element name="max_score" type="optional_float" minOccurs="0"/>
                         </xs:all>
                         <xs:attribute name="type" type="xs:string" use="required"/>
-                      </xs:complexType>
-                    </xs:element>
-                  </xs:sequence>
-                </xs:complexType>
-              </xs:element>
-            </xs:all>
-            <xs:attribute name="identifier" type="xs:ID" use="required"/>
-          </xs:complexType>
-        </xs:element>
-      </xs:sequence>
-    </xs:complexType>
-  </xs:element>
-
-  <xs:element name="course_paces">
-    <xs:complexType>
-      <xs:sequence minOccurs="0" maxOccurs="unbounded">
-        <xs:element name="course_pace">
-          <xs:complexType>
-            <xs:all minOccurs="0">
-              <xs:element name="workflow_state" type="xs:string" minOccurs="0"/>
-              <xs:element name="start_date" type="xs:date" minOccurs="0"/>
-              <xs:element name="end_date" type="xs:date" minOccurs="0"/>
-              <xs:element name="published_at" type="xs:dateTime" minOccurs="0"/>
-              <xs:element name="exclude_weekends" type="xs:boolean" minOccurs="0"/>
-              <xs:element name="selected_days_to_skip">
-                <xs:complexType>
-                  <xs:sequence>
-                    <xs:element name="day_of_week" type="xs:string" maxOccurs="7"/>
-                  </xs:sequence>
-                </xs:complexType>
-              </xs:element>
-              <xs:element name="hard_end_dates" type="xs:boolean" minOccurs="0"/>
-              <xs:element name="time_to_complete_calendar_days" type="xs:integer" minOccurs="0"/>
-              <xs:element name="module_items" minOccurs="0">
-                <xs:complexType>
-                  <xs:sequence minOccurs="0" maxOccurs="unbounded">
-                    <xs:element name="module_item">
-                      <xs:complexType>
-                        <xs:all minOccurs="0">
-                          <xs:element name="duration" type="xs:integer" minOccurs="1"/>
-                          <xs:element name="module_item_identifierref" type="xs:string" minOccurs="0"/>
-                        </xs:all>
                       </xs:complexType>
                     </xs:element>
                   </xs:sequence>

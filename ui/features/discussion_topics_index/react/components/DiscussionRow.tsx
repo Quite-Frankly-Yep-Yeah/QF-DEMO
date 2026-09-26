@@ -346,11 +346,6 @@ class DiscussionRow extends Component {
       )
     }
 
-    // Don't show availability dates if course pacing is enabled
-    if (ENV.IN_PACED_COURSE) {
-      return ''
-    }
-
     // @ts-expect-error TS2339 (typescriptify)
     const assignment = this.props.discussion.assignment
 

@@ -55,12 +55,6 @@ const buildProps = options =>
         }[options.page],
         itemIdPath: 'WIKI_PAGE.page_id',
       },
-      course_pace: {
-        toggleWrapperSelector: {
-          show: '.blueprint-label',
-        }[options.page],
-        itemIdPath: 'COURSE_PACE_ID',
-      },
     }[options.itemType],
     options,
   )

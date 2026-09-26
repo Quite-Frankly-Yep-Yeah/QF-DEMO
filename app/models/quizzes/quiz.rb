@@ -474,10 +474,7 @@ class Quizzes::Quiz < ApplicationRecord
   def update_assignment
     delay_if_production.set_unpublished_question_count if id
     if !assignment_id && @old_assignment_id
-      context_module_tags.preload(context_module: :content_tags).find_each do |cmt|
-        cmt.confirm_valid_module_requirements
-        cmt.update_course_pace_module_items
-      end
+      context_module_tags.preload(context_module: :content_tags).find_each(&:confirm_valid_module_requirements)
     end
     if !graded? && (@old_assignment_id || last_assignment_id)
       ::Assignment.where(
@@ -525,7 +522,6 @@ class Quizzes::Quiz < ApplicationRecord
       end
       self.assignment_id = a.id
       Quizzes::Quiz.where(id: self).update_all(assignment_id: a.id)
-      context_module_tags.find_each(&:update_course_pace_module_items)
     end
   end
 
@@ -859,8 +855,8 @@ class Quizzes::Quiz < ApplicationRecord
 
       quiz_for_user = overridden_for(user)
 
-      unlock_time_not_yet_reached = quiz_for_user.unlock_at && quiz_for_user.unlock_at > Time.zone.now && !context.enable_course_paces?
-      lock_time_already_occurred = quiz_for_user.lock_at && quiz_for_user.lock_at <= Time.zone.now && !context.enable_course_paces?
+      unlock_time_not_yet_reached = quiz_for_user.unlock_at && quiz_for_user.unlock_at > Time.zone.now
+      lock_time_already_occurred = quiz_for_user.lock_at && quiz_for_user.lock_at <= Time.zone.now
       locked = false
       lock_info = { object: quiz_for_user }
       if unlock_time_not_yet_reached

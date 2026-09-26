@@ -83,11 +83,8 @@ class ChooseHomePageButton extends React.Component<
             store={this.props.store}
             open={this.state.dialogOpen}
             onRequestClose={this.onClose}
-            // @ts-expect-error - quite frankly an example LMS ENV global not fully typed
             courseId={ENV.COURSE.id}
-            // @ts-expect-error - quite frankly an example LMS ENV global not fully typed
             wikiFrontPageTitle={ENV.COURSE.front_page_title}
-            // @ts-expect-error - quite frankly an example LMS ENV global not fully typed
             wikiUrl={ENV.COURSE.pages_url}
             returnFocusTo={this.chooseButton}
             isPublishing={false}

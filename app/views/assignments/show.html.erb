@@ -233,24 +233,20 @@
       </fieldset>
     </form>
 
-    <% if @context.enable_course_paces? && @assignment.context_module_tags.size > 0 %>
-      <div id="course_paces_due_date_notice"></div>
-    <% else %>
-      <table class="ic-Table assignment_dates">
-        <thead>
-          <tr>
-            <th scope="col"><%= t(:due, 'Due') %></th>
-            <th scope="col"><%= t(:for, 'For') %></th>
-            <th scope="col"><%= t(:available_from, 'Available from') %></th>
-            <th scope="col"><%= t(:until, 'Until') %></th>
-          </tr>
-        </thead>
+    <table class="ic-Table assignment_dates">
+      <thead>
+        <tr>
+          <th scope="col"><%= t(:due, 'Due') %></th>
+          <th scope="col"><%= t(:for, 'For') %></th>
+          <th scope="col"><%= t(:available_from, 'Available from') %></th>
+          <th scope="col"><%= t(:until, 'Until') %></th>
+        </tr>
+      </thead>
 
-        <%= render 'shared/override_list', :assignment => @assignment,
-          :user => @current_user %>
+      <%= render 'shared/override_list', :assignment => @assignment,
+        :user => @current_user %>
 
-      </table>
-    <% end %>
+    </table>
 
     <% if Rubric.enhanced_rubrics_assignments_enabled?(@context) %>
       <div id="enhanced-rubric-assignment-edit-mount-point"></div>

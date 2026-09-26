@@ -1709,7 +1709,6 @@ class CoursesController < ApplicationController
                MSFT_SYNC_CAN_BYPASS_COOLDOWN: Account.site_admin.account_users_for(@current_user).present?,
                MSFT_SYNC_MAX_ENROLLMENT_MEMBERS: MicrosoftSync::MembershipDiff::MAX_ENROLLMENT_MEMBERS,
                MSFT_SYNC_MAX_ENROLLMENT_OWNERS: MicrosoftSync::MembershipDiff::MAX_ENROLLMENT_OWNERS,
-               COURSE_PACES_ENABLED: @context.enable_course_paces?,
                ARCHIVED_GRADING_SCHEMES_ENABLED: Account.site_admin.feature_enabled?(:archived_grading_schemes),
                COURSE_PUBLISHED: @context.published?,
                ALERTS: {
@@ -1918,7 +1917,6 @@ class CoursesController < ApplicationController
       :homeroom_course_id,
       :course_color,
       :friendly_name,
-      :enable_course_paces,
       :conditional_release,
       :show_student_only_module_id,
       :show_teacher_only_module_id,
@@ -2888,7 +2886,6 @@ class CoursesController < ApplicationController
         end
       if !@context.concluded? && (@enrollments = EnrollmentsFromUserList.process(list, @context, enrollment_options))
         ActiveRecord::Associations.preload(@enrollments, [:course_section, { user: [:communication_channel, :pseudonym] }])
-        InstStatsd::Statsd.count("course.#{@context.enable_course_paces ? "paced" : "unpaced"}.student_enrollment_count", @context.student_enrollments.count)
         json = @enrollments.map do |e|
           { "enrollment" =>
             { "associated_user_id" => e.associated_user_id,
@@ -3272,10 +3269,6 @@ class CoursesController < ApplicationController
   #   Elementary account, it will be shown instead of the course name. This setting takes priority over
   #   course nicknames defined by individual users.
   #
-  # @argument course[enable_course_paces] [Boolean]
-  #   Enable or disable Course Pacing for the course. This setting only has an effect when the Course Pacing feature flag is
-  #   enabled for the sub-account. Otherwise, Course Pacing are always disabled.
-  #
   # @argument course[conditional_release] [Boolean]
   #   Enable or disable individual learning paths for students based on assessment
   #
@@ -3383,7 +3376,6 @@ class CoursesController < ApplicationController
         return render_unauthorized_action
       end
 
-      term_id_param_was_sent = params[:course][:term_id] || params[:course][:enrollment_term_id]
       term_id = params[:course].delete(:term_id)
       enrollment_term_id = params[:course].delete(:enrollment_term_id) || term_id
       if enrollment_term_id && @course.account.grants_right?(@current_user, session, :manage_courses_admin)
@@ -3523,11 +3515,7 @@ class CoursesController < ApplicationController
 
       @default_wiki_editing_roles_was = @course.default_wiki_editing_roles || "teachers"
 
-      # Saving master course setting for statsd logging later
-      @old_save_master_course = false
-      @new_save_master_course = false
       if params[:course].key?(:blueprint)
-        @old_save_master_course = MasterCourses::MasterTemplate.is_master_course?(@course)
         master_course = value_to_boolean(params[:course].delete(:blueprint))
         if master_course != MasterCourses::MasterTemplate.is_master_course?(@course)
           return unless authorized_action(@course.account, @current_user, :manage_master_courses)
@@ -3538,7 +3526,6 @@ class CoursesController < ApplicationController
           else
             action = master_course ? "set" : "remove"
             MasterCourses::MasterTemplate.send(:"#{action}_as_master_course", @course)
-            @new_save_master_course = master_course
           end
         end
       end
@@ -3580,16 +3567,6 @@ class CoursesController < ApplicationController
         visibility_configuration(params[:course])
       end
 
-      if params[:course][:homeroom_course].present? && value_to_boolean(params[:course][:homeroom_course]) && @course.enable_course_paces
-        homeroom_message = t("Homeroom Course cannot be used with Course Pacing")
-        @course.errors.add(:homeroom_course, homeroom_message)
-      end
-
-      if params[:course][:enable_course_paces].present? && value_to_boolean(params[:course][:enable_course_paces]) && @course.homeroom_course
-        pacing_message = t("Course Pacing cannot be used with Homeroom Course")
-        @course.errors.add(:enable_course_paces, pacing_message)
-      end
-
       if params[:course][:horizon_course].present? && !@course.account.feature_enabled?(:horizon_course_setting)
         horizon_message = t("quite frankly an example LMS Career cannot be set without the feature flag enabled")
         @course.errors.add(:horizon_course, horizon_message)
@@ -3599,7 +3576,6 @@ class CoursesController < ApplicationController
       changes.delete(:start_at) if changes.dig(:start_at, 0)&.to_s == changes.dig(:start_at, 1)&.to_s
       changes.delete(:conclude_at) if changes.dig(:conclude_at, 0)&.to_s == changes.dig(:conclude_at, 1)&.to_s
       availability_changes = changes.keys & %w[start_at conclude_at restrict_enrollments_to_course_dates]
-      course_availability_changed = availability_changes.present?
       # allow dates to be dropped if using term dates, even if update is done by someone without permission
       unless @course.restrict_enrollments_to_course_dates
         availability_changes -= ["start_at"] if @course.start_at.nil?
@@ -3607,11 +3583,6 @@ class CoursesController < ApplicationController
       end
       return if availability_changes.present? && !authorized_action(@course, @current_user, :edit_course_availability)
 
-      # Republish course paces if the course dates have been changed
-      term_changed = (@course.enrollment_term_id != enrollment_term_id) && term_id_param_was_sent
-      if course_availability_changed || term_changed
-        @course.course_paces.find_each(&:create_publish_progress)
-      end
       disable_conditional_release if changes[:conditional_release]&.last == false
 
       @course.delay_if_production(priority: Delayed::LOW_PRIORITY).touch_content_if_public_visibility_changed(changes)
@@ -3633,17 +3604,6 @@ class CoursesController < ApplicationController
           # specific fields, delegating that to a job will cause the controller to return the old values, which will
           # force the user to refresh the page after the job finishes to see the changes
           @course.sync_homeroom_participation
-        end
-
-        # Increment a log if both master course and course pacing are on
-        if @old_save_master_course == @new_save_master_course
-          if !changes[:enable_course_paces].nil? && changes[:enable_course_paces][1] && MasterCourses::MasterTemplate.is_master_course?(@course)
-            InstStatsd::Statsd.distributed_increment("course.paced.blueprint_course")
-          end
-        elsif @old_save_master_course == false && @new_save_master_course == true
-          if @course.enable_course_paces == true
-            InstStatsd::Statsd.distributed_increment("course.paced.blueprint_course")
-          end
         end
 
         render_update_success
@@ -4722,7 +4682,6 @@ class CoursesController < ApplicationController
       :homeroom_course_id,
       :sync_enrollments_from_homeroom,
       :friendly_name,
-      :enable_course_paces,
       :default_due_time,
       :conditional_release,
       :post_manually,

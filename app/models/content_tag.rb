@@ -86,7 +86,6 @@ class ContentTag < ApplicationRecord
   after_save :clear_discussion_stream_items
   after_save :send_items_to_stream
   after_save :clear_total_outcomes_cache
-  after_save :update_course_pace_module_items
   after_save :update_module_item_submissions
   after_create :update_outcome_contexts
 
@@ -814,34 +813,6 @@ class ContentTag < ApplicationRecord
 
   def delete_outcome_friendly_description
     OutcomeFriendlyDescription.active.find_by(context:, learning_outcome_id: content_id)&.destroy
-  end
-
-  def update_course_pace_module_items
-    return unless tag_type == "context_module"
-
-    course = context.is_a?(Course) ? context : context.try(:course)
-    return unless course&.enable_course_paces
-
-    course.course_paces.published.find_each do |course_pace|
-      cpmi = course_pace.course_pace_module_items.find_by(module_item_id: id)
-      cpmi ||= course_pace.course_pace_module_items.create(module_item_id: id, duration: 0) unless deleted?
-      # Course paces takes over how and when assignment overrides are managed so if we are deleting an assignment from
-      # a module we need to reset it back to an untouched state with regards to overrides.
-      if deleted?
-        cpmi&.destroy
-        cpmi&.module_item&.assignment&.assignment_overrides&.destroy_all
-      elsif !cpmi.valid?
-        cpmi&.destroy
-      end
-
-      # Republish the course pace if changes were made
-      if deleted? ||
-         cpmi.destroyed? ||
-         cpmi.previously_new_record? ||
-         saved_change_to_position?
-        course_pace.create_publish_progress
-      end
-    end
   end
 
   def update_module_item_submissions(change_of_module: true)

@@ -23,9 +23,6 @@ class Discussion
     include SeleniumDependencies
 
     # ---------------------- Selectors ---------------------
-    def course_pacing_notice_selector
-      "[data-testid='CoursePacingNotice']"
-    end
 
     def assignee_selector_selector
       "[data-testid='assignee_selector']"
@@ -204,10 +201,6 @@ class Discussion
       f('[data-testid="discussion-thread-menuitem-copy"]')
     end
 
-    def course_pacing_notice
-      f(course_pacing_notice_selector)
-    end
-
     def assign_to_button
       f(assign_to_button_selector)
     end
@@ -246,10 +239,6 @@ class Discussion
 
     def sync_to_sis_checkbox
       f(sync_to_sis_checkbox_selector)
-    end
-
-    def mastery_path_toggle
-      f("[data-testid='MasteryPathToggle'] svg[name='IconCheck'], [data-testid='MasteryPathToggle'] svg[name='IconX']")
     end
 
     # ---------------------- Actions ----------------------

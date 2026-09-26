@@ -86,8 +86,7 @@ module Quizzes
                :has_access_code,
                :post_to_sis,
                :anonymous_submissions,
-               :migration_id,
-               :in_paced_course
+               :migration_id
 
     def_delegators :@controller,
                    # :api_v1_course_assignment_group_url,
@@ -451,10 +450,6 @@ module Quizzes
 
     def timer_autosubmit_disabled
       quiz.timer_autosubmit_disabled?
-    end
-
-    def in_paced_course
-      context.try(:enable_course_paces)
     end
   end
 end

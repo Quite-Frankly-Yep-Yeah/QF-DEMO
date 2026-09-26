@@ -315,7 +315,6 @@ class ApplicationController < ActionController::Base
         if @domain_root_account&.feature_enabled?(:restrict_student_access)
           @js_env[:current_user_has_teacher_enrollment] = @current_user&.teacher_enrollment?
         end
-        @js_env[:IN_PACED_COURSE] = @context.enable_course_paces? if @context.is_a?(Course)
         unless SentryExtensions::Settings.settings.blank?
           @js_env[:SENTRY_FRONTEND] = {
             dsn: SentryExtensions::Settings.settings[:frontend_dsn],
@@ -591,14 +590,6 @@ class ApplicationController < ActionController::Base
     buttons_and_icons_root_account
     canvas_apps_sub_account_access
     cookie_consent_necessary
-    course_pace_allow_bulk_pace_assign
-    course_pace_download_document
-    course_pace_draft_state
-    course_pace_pacing_status_labels
-    course_pace_pacing_with_mastery_paths
-    course_pace_time_selection
-    course_pace_weighted_assignments
-    course_paces_skip_selected_days
     create_course_subaccount_picker
     disable_iframe_sandbox_file_show
     extended_submission_state

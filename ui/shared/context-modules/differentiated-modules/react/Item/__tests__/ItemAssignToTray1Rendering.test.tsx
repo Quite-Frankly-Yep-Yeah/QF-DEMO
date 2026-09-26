@@ -207,38 +207,4 @@ describe('ItemAssignToTray - Rendering', () => {
     getAllByTestId('add-card')[0].click()
     expect(customAddCard).toHaveBeenCalled()
   })
-
-  describe('in a paced course', () => {
-    let overridesFetched: ReturnType<typeof vi.fn>
-
-    beforeEach(() => {
-      ENV.IN_PACED_COURSE = true
-      ENV.FEATURES ||= {}
-      ENV.FEATURES.course_pace_pacing_with_mastery_paths = true
-      overridesFetched = vi.fn()
-      server.use(
-        http.get(OVERRIDES_URL, () => {
-          overridesFetched()
-          return HttpResponse.json({})
-        }),
-      )
-    })
-
-    afterEach(() => {
-      ENV.IN_PACED_COURSE = false
-      ENV.FEATURES.course_pace_pacing_with_mastery_paths = false
-    })
-
-    it('shows the course pacing notice', () => {
-      const {getByTestId} = renderComponent()
-      expect(getByTestId('CoursePacingNotice')).toBeInTheDocument()
-    })
-
-    it('does not request existing overrides', async () => {
-      renderComponent()
-      // Wait a tick to ensure no async fetch would have been triggered
-      await new Promise(resolve => setTimeout(resolve, 50))
-      expect(overridesFetched).not.toHaveBeenCalled()
-    })
-  })
 })

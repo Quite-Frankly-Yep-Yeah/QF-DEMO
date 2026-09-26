@@ -23,7 +23,7 @@ import {responsiveQuerySizes} from '../../../utils/index'
 import fakeENV from '@canvas/test-utils/fakeENV'
 
 import React from 'react'
-import {act, fireEvent, render} from '@testing-library/react'
+import {fireEvent, render} from '@testing-library/react'
 
 vi.mock('../../../utils')
 
@@ -187,45 +187,6 @@ describe('AssignmentAvailabilityContainer', () => {
       fireEvent.click(dueDateTrayButton)
       expect(getByText('Due Mar 31, 2021')).toBeTruthy()
       expect(queryByTestId('due_date_tray_header_for')).toBeNull()
-    })
-  })
-  describe('in a paced course', () => {
-    it('always uses the multiple due dates UI even with 1 due dat', async () => {
-      const {findByTestId, getByTestId} = render(
-        <AssignmentAvailabilityContainer
-          assignment={Assignment.mock({assignmentOverrides: {nodes: []}})}
-          isAdmin={true}
-          inPacedCourse={true}
-          courseId="17"
-        />,
-      )
-      act(() => {
-        getByTestId('show-due-dates-button').click()
-      })
-
-      expect(await findByTestId('CoursePacingNotice')).toBeInTheDocument()
-      const pacingLink = getByTestId('course-pacing-link')
-      expect(pacingLink).toBeInTheDocument()
-      expect(pacingLink.href).toMatch(/\/courses\/17\/course_pacing/)
-    })
-
-    it('shows the course pacing notice', async () => {
-      const {findByTestId, getByTestId} = render(
-        <AssignmentAvailabilityContainer
-          assignment={Assignment.mock({assignmentOverrides: {nodes: mockOverrides}})}
-          isAdmin={true}
-          inPacedCourse={true}
-          courseId="17"
-        />,
-      )
-      act(() => {
-        getByTestId('show-due-dates-button').click()
-      })
-
-      expect(await findByTestId('CoursePacingNotice')).toBeInTheDocument()
-      const pacingLink = getByTestId('course-pacing-link')
-      expect(pacingLink).toBeInTheDocument()
-      expect(pacingLink.href).toMatch(/\/courses\/17\/course_pacing/)
     })
   })
 })

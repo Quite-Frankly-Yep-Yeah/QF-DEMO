@@ -62,26 +62,4 @@ describe "viewing a quiz with variable due dates on the quizzes index page" do
       )
     end
   end
-
-  context "as a teacher in a paced course" do
-    before(:once) { prepare_vdd_scenario_for_teacher }
-
-    before do
-      @course.enable_course_paces = true
-      @course.save!
-      user_session(@teacher1)
-      get "/courses/#{@course.id}/quizzes"
-    end
-
-    after do
-      @course.enable_course_paces = false
-      @course.save!
-    end
-
-    it "does not show due dates on index page" do
-      expect(fj("#assignment-quizzes:contains('Test Quiz')")).to be_displayed
-      expect(f("#assignment-quizzes")).not_to contain_css('[data-view="date-available"]')
-      expect(f("#assignment-quizzes")).not_to contain_css('[data-view="date-due"]')
-    end
-  end
 end

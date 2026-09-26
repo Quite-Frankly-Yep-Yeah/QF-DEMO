@@ -194,15 +194,4 @@ describe SelfPaced::Pacer do
       expect(json).to include(target_date: "2026-10-09", can_adjust: true)
     end
   end
-
-  describe "Course Pacing" do
-    it "is hidden in paced courses, so there's one pacing system" do
-      course.update!(enable_course_paces: true)
-      tab_ids = -> { Course.find(course.id).tabs_available(teacher).pluck(:id) }
-
-      expect(tab_ids.call).not_to include(Course::TAB_COURSE_PACES)
-      course.disable_feature!(:self_paced_pacing)
-      expect(tab_ids.call).to include(Course::TAB_COURSE_PACES)
-    end
-  end
 end

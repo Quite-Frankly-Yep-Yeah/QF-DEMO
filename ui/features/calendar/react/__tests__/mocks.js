@@ -25,7 +25,6 @@ export const userContext = {
   k5_course: false,
   can_create_calendar_events: true,
   type: 'user',
-  course_pacing_enabled: false,
 }
 
 export const courseContext = {
@@ -35,7 +34,6 @@ export const courseContext = {
   k5_course: false,
   can_create_calendar_events: true,
   type: 'course',
-  course_pacing_enabled: true,
 }
 
 export const accountContext = {
@@ -45,7 +43,6 @@ export const accountContext = {
   k5_course: false,
   can_create_calendar_events: true,
   type: 'account',
-  course_pacing_enabled: true,
 }
 
 const formHolder = document.getElementById('edit_calendar_event_form_holder')

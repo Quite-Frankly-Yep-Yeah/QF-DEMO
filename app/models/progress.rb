@@ -30,9 +30,7 @@ class Progress < ApplicationRecord
     :attachment,
     :epub_export,
     :sis_batch,
-    :course_pace,
     :context_external_tool,
-    :course_report,
     { context_user: "User", quiz_statistics: "Quizzes::QuizStatistics" },
   ] + (defined?(DsrRequest) ? [:dsr_request] : [])
 

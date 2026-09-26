@@ -88,7 +88,6 @@ export default class EditCalendarEventView extends Backbone.View {
         'important_dates',
         'blackout_date',
         'context_type',
-        'course_pacing_enabled',
         'course_sections',
         'rrule',
         'calendar_event_context_code',
@@ -655,11 +654,7 @@ export default class EditCalendarEventView extends Backbone.View {
 
   shouldShowBlackoutDatesCheckbox() {
     const context_type = this.model.get('context_type')
-    const course_pacing_enabled = this.model.get('course_pacing_enabled') === 'true'
-    return (
-      ENV.FEATURES?.account_level_blackout_dates &&
-      (context_type === 'account' || (context_type === 'course' && course_pacing_enabled))
-    )
+    return ENV.FEATURES?.account_level_blackout_dates && context_type === 'account'
   }
 
   toJSON() {

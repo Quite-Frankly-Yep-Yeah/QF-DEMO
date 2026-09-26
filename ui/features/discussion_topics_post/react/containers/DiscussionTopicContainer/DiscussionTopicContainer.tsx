@@ -476,8 +476,6 @@ export const DiscussionTopicContainer = ({
                         >
                           <DiscussionDetails
                             discussionTopic={props.discussionTopic}
-                            inPacedCourse={ENV.IN_PACED_COURSE}
-                            courseId={ENV.course_id}
                             replyToTopicSubmission={props.replyToTopicSubmission}
                             replyToEntrySubmission={props.replyToEntrySubmission}
                           />

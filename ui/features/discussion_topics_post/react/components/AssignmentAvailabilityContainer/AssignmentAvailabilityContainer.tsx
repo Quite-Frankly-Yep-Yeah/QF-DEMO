@@ -21,7 +21,6 @@ import {useScope as createI18nScope} from '@canvas/i18n'
 import {AssignmentSingleAvailabilityWindow} from '../AssignmentSingleAvailabilityWindow/AssignmentSingleAvailabilityWindow'
 import {AssignmentMultipleAvailabilityWindows} from '../AssignmentMultipleAvailabilityWindows/AssignmentMultipleAvailabilityWindows'
 import React, {useState} from 'react'
-import CoursePacingNotice from '@canvas/due-dates/react/CoursePacingNotice'
 import {TrayDisplayer} from '../TrayDisplayer/TrayDisplayer'
 import {DueDateTray} from '../DueDateTray/DueDateTray'
 import {CheckpointsTray} from '../CheckpointsTray/CheckpointsTray'
@@ -59,8 +58,6 @@ interface Assignment {
 interface AssignmentAvailabilityContainerProps {
   assignment?: Assignment
   isAdmin?: boolean
-  inPacedCourse?: boolean
-  courseId?: string
   replyToEntryRequiredCount?: number
   replyToTopicSubmission?: any
   replyToEntrySubmission?: any
@@ -100,9 +97,7 @@ export function AssignmentAvailabilityContainer({...props}: AssignmentAvailabili
 
   const useCheckpointsTray = (props.assignment?.checkpoints?.length || 0) > 0
   const trayComponent = () => {
-    if (props.inPacedCourse) {
-      return <CoursePacingNotice courseId={props.courseId} />
-    } else if (useCheckpointsTray && props.assignment?.checkpoints) {
+    if (useCheckpointsTray && props.assignment?.checkpoints) {
       return (
         <CheckpointsTray
           checkpoints={props.assignment.checkpoints}
@@ -128,9 +123,7 @@ export function AssignmentAvailabilityContainer({...props}: AssignmentAvailabili
 
   return (
     <>
-      {props.inPacedCourse ||
-      (props.isAdmin && assignmentOverrides.length > 1) ||
-      useCheckpointsTray ? (
+      {(props.isAdmin && assignmentOverrides.length > 1) || useCheckpointsTray ? (
         <AssignmentMultipleAvailabilityWindows
           assignmentOverrides={assignmentOverrides}
           onSetDueDateTrayOpen={setDueDateTrayOpen}

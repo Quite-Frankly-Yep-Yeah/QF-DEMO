@@ -53,8 +53,6 @@ module Api::V1::MasterCourses
             course_file_url(course_id: asset.context.id, id: asset.id)
           when "ContextExternalTool"
             course_external_tool_url(course_id: asset.context.id, id: asset.id)
-          when "CoursePace"
-            course_course_pacing_url(course_id: @course.id)
           when "LearningOutcome"
             course_outcome_url(course_id: asset.context&.id || @course.id, id: asset.id)
           when "LearningOutcomeGroup"

@@ -177,7 +177,6 @@ module Importers
           Importers::WikiPageImporter.process_migration_course_outline(data, migration)
           Importers::CalendarEventImporter.process_migration(data, migration)
           Importers::LtiResourceLinkImporter.process_migration(data, migration)
-          Importers::CoursePaceImporter.process_migration(data, migration)
 
           if migration.context.try(:horizon_course?)
             Importers::ContentTagImporter.process_migration(data, migration)
@@ -635,10 +634,6 @@ module Importers
 
       if settings.key?(:allow_final_grade_override) && course.account.feature_enabled?(:final_grades_override)
         course.allow_final_grade_override = settings[:allow_final_grade_override]
-      end
-
-      if settings.key?(:enable_course_paces)
-        course.enable_course_paces = settings[:enable_course_paces]
       end
 
       if settings.key?(:allow_student_discussion_reporting)

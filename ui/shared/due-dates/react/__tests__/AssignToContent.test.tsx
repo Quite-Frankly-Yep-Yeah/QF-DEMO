@@ -266,26 +266,6 @@ describe('AssignToContent', () => {
     expect(everyoneOverride.peer_review_available_to).toBe('2025-01-20T23:59:59.000Z')
   })
 
-  describe('in a paced course', () => {
-    beforeEach(() => {
-      ENV.IN_PACED_COURSE = true
-    })
-
-    afterEach(() => {
-      ENV.IN_PACED_COURSE = false
-    })
-
-    it('shows the course pacing notice', () => {
-      const {getByTestId} = setUp()
-      expect(getByTestId('CoursePacingNotice')).toBeInTheDocument()
-    })
-
-    it('does not fetch assignee options', () => {
-      setUp()
-      expect(sectionsCallCount).toBe(0)
-    })
-  })
-
   describe('important dates', () => {
     beforeAll(() => {
       ;(global as any).ENV = {

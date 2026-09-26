@@ -3295,8 +3295,7 @@ describe Canvas::LiveEvents do
         "DiscussionTopic" => { content: false, points: false, due_dates: false, availability_dates: false },
         "WikiPage" => { content: false },
         "Attachment" => { content: false },
-        "Quizzes::Quiz" => { content: false, points: false, due_dates: false, availability_dates: false },
-        "CoursePace" => { content: false }
+        "Quizzes::Quiz" => { content: false, points: false, due_dates: false, availability_dates: false }
       }
     end
 

@@ -339,68 +339,6 @@ describe "calendar2" do
         expect(@course.calendar_events.last.important_dates).to be_truthy
       end
 
-      context "with course pacing" do
-        before do
-          Account.site_admin.enable_feature! :account_level_blackout_dates
-          @course.enable_course_paces = true
-          @course.save!
-        end
-
-        after do
-          Account.site_admin.disable_feature! :account_level_blackout_dates
-        end
-
-        it "creates a blackout calendar event in when feature is enabled" do
-          get "/calendar2"
-          wait_for_ajaximations
-          calendar_create_event_button.click
-          replace_content(edit_calendar_event_form_title, "blackout event")
-          click_option(edit_calendar_event_form_context, @course.name)
-          edit_calendar_event_form_blackout_date_checkbox.click
-          edit_calendar_event_form_submit_button.click
-          wait_for_ajaximations
-          event_title_on_calendar.click
-          calendar_edit_event_link.click
-          expect(calendar_event_is_blackout_date).to be_truthy
-          edit_calendar_event_form_blackout_date_checkbox.click
-          edit_calendar_event_form_submit_button.click
-          wait_for_ajaximations
-          event_title_on_calendar.click
-          calendar_edit_event_link.click
-          expect(calendar_event_is_blackout_date).to be_falsey
-        end
-
-        it "cannot create a blackout date when feature is disabled" do
-          Account.site_admin.disable_feature! :account_level_blackout_dates
-          get "/calendar2"
-          wait_for_ajaximations
-          calendar_create_event_button.click
-          click_option(edit_calendar_event_form_context, @course.name)
-          expect(f("body")).not_to contain_css(
-            edit_calendar_event_form_blackout_date_checkbox_selector
-          )
-        end
-
-        it "creates a blackout calendar event in more options screen when feature is enabled" do
-          get "/calendar2"
-          wait_for_ajaximations
-          create_blackout_date_through_more_options_page(@course.name)
-          edit_calendar_event_in_more_options_page
-          expect(more_options_calendar_event_is_blackout_date).to be_truthy
-          check_more_options_blackout_date_and_submit
-          edit_calendar_event_in_more_options_page
-          expect(more_options_calendar_event_is_blackout_date).to be_falsey
-        end
-
-        it "cannot create a blackout date in more options screen when feature is disabled" do
-          Account.site_admin.disable_feature! :account_level_blackout_dates
-          get "/calendar2"
-          wait_for_ajaximations
-          edit_new_event_in_more_options_page
-          expect(f("body")).not_to contain_css("#calendar_event_blackout_date")
-        end
-      end
-
       it "can edit an all_day event in calendar", priority: "1" do
         @date = Time.zone.now.beginning_of_day
         @event = make_event(start: @date, end: @date, title: "An all day event")

@@ -90,31 +90,6 @@ export default class EditAssignmentDetailsRewrite extends ValidatedFormView {
     return this.event.possibleContexts().find(context => context.asset_string === code)
   }
 
-  disableDateField() {
-    this.$el.find('#assignment_due_at').val('')
-    this.$el.find('#assignment_due_at').prop('disabled', true)
-    this.$el.find('#assignment_override_due_at').val('')
-    this.$el.find('#assignment_override_due_at').prop('disabled', true)
-    this.$el.find('.ui-datepicker-trigger').prop('disabled', true)
-    this.$el.find('#edit_assignment_course_pacing_message').show()
-    this.$el.find('#assignment_override_course_pacing_message').show()
-    this.$el
-      .find('#assignment_override_course_pacing_link')
-      .attr('href', `/courses/${this.event.contextInfo.id}/course_pacing`)
-  }
-
-  enableDateField() {
-    if (this.event.endDate) {
-      this.$el.find('#assignment_due_at').val(this.event.endDate()?.format('ddd ll'))
-      this.$el.find('#assignment_override_due_at').val(this.event.endDate()?.format('ddd ll'))
-    }
-    this.$el.find('#assignment_due_at').prop('disabled', false)
-    this.$el.find('#assignment_override_due_at').prop('disabled', false)
-    this.$el.find('.ui-datepicker-trigger').prop('disabled', false)
-    this.$el.find('#edit_assignment_course_pacing_message').hide()
-    this.$el.find('#assignment_override_course_pacing_message').hide()
-  }
-
   activate() {
     this.$el.find('select.context_id').change()
     if (this.event.assignment && this.event.assignment.assignment_group_id) {
@@ -153,9 +128,6 @@ export default class EditAssignmentDetailsRewrite extends ValidatedFormView {
     if (this.currentContextInfo == null) return
 
     if (propagate !== false) this.contextChangeCB(context)
-
-    if (this.event.contextInfo.course_pacing_enabled) this.disableDateField()
-    else this.enableDateField()
 
     // TODO: support adding a new assignment group from this select box
     const assignmentGroupsSelectOptionsInfo = {

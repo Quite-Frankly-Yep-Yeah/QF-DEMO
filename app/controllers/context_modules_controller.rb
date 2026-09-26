@@ -665,10 +665,6 @@ class ContextModulesController < ApplicationController
         m.save_without_touching_context
         Canvas::LiveEvents.module_updated(m) if m.position != order_before[m.id]
       end
-      # Update course paces if enabled
-      if @context.enable_course_paces
-        @context.course_paces.published.find_each(&:create_publish_progress)
-      end
       @context.touch
 
       # # Background this, not essential that it happen right away

@@ -419,7 +419,6 @@
 /ui/features/context_modules_v2/ @instructure/learning-experience
 /ui/features/course/ @instructure/learning-experience
 /ui/features/course_list/ @instructure/learning-experience
-/ui/features/course_paces/ @instructure/learning-experience
 /ui/features/course_show/ @instructure/learning-experience
 /ui/features/course_show_secondary/ @instructure/learning-experience
 /ui/features/course_statistics/ @instructure/learning-experience
@@ -446,7 +445,6 @@
 /ui/shared/dashboard-card/ @instructure/learning-experience
 /ui/shared/easy-student-view/ @instructure/learning-experience
 /ui/shared/k5/ @instructure/learning-experience
-/ui/shared/mastery-path-toggle/ @instructure/learning-experience
 /ui/shared/module-sequence-footer/ @instructure/learning-experience
 /ui/shared/modules/ @instructure/learning-experience
 /ui/shared/relock-modules-dialog/ @instructure/learning-experience

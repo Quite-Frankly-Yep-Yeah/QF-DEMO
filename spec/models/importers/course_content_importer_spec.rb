@@ -490,22 +490,6 @@ describe Course do
       end
     end
 
-    describe "enable_course_paces" do
-      let(:migration) { build_migration(@course, {}, all_course_settings: true) }
-
-      it "is set to true when originally true" do
-        import_data = { course: { enable_course_paces: "true" } }.with_indifferent_access
-        Importers::CourseContentImporter.import_content(@course, import_data, nil, migration)
-        expect(@course.enable_course_paces).to be true
-      end
-
-      it "is set to false when originally false" do
-        import_data = { course: { enable_course_paces: "false" } }.with_indifferent_access
-        Importers::CourseContentImporter.import_content(@course, import_data, nil, migration)
-        expect(@course.enable_course_paces).to be false
-      end
-    end
-
     describe "import_blueprint_settings" do
       it "runs blueprint importer if set to do so" do
         migration = ContentMigration.create!(context: @course, user: account_admin_user, source_course: @course, migration_settings: { import_blueprint_settings: true })

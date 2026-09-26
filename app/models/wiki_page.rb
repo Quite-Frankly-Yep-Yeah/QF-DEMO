@@ -374,11 +374,11 @@ class WikiPage < ApplicationRecord
     RequestCache.cache(locked_request_cache_key(user)) do
       locked = false
       page_for_user = (assignment || self).overridden_for(user)
-      if page_for_user.unlock_at && page_for_user.unlock_at > Time.zone.now && !context.enable_course_paces?
+      if page_for_user.unlock_at && page_for_user.unlock_at > Time.zone.now
         locked = { object: page_for_user, unlock_at: page_for_user.unlock_at }
       elsif could_be_locked && (item = locked_by_module_item?(user, opts))
         locked = { object: self, module: item.context_module }
-      elsif page_for_user.lock_at && page_for_user.lock_at < Time.zone.now && !context.enable_course_paces?
+      elsif page_for_user.lock_at && page_for_user.lock_at < Time.zone.now
         locked = { object: page_for_user, lock_at: page_for_user.lock_at }
       end
       locked

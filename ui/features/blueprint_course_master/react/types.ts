@@ -63,7 +63,6 @@ export type MigrationAssetType =
   | 'calendar_event'
   | 'context_external_tool'
   | 'context_module'
-  | 'course_pace'
   | 'discussion_topic'
   | 'folder'
   | 'learning_outcome'

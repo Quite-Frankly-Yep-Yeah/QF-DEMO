@@ -193,11 +193,6 @@ module SIS
 
           update_enrollments = !course.new_record? && !!course.changes.keys.intersect?(%w[workflow_state name course_code])
 
-          # republish course paces if necessary
-          unless course.new_record? || !course.changes.keys.intersect?(%w[start_at conclude_at restrict_enrollments_to_course_dates])
-            course.course_paces.find_each(&:create_publish_progress)
-          end
-
           if course_format
             course_format = nil if course_format == "not_set"
             if course_format != course.course_format

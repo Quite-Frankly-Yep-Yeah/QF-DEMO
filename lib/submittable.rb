@@ -97,10 +97,7 @@ module Submittable
       end
     else
       if !assignment_id && @old_assignment_id
-        context_module_tags.find_each do |cmt|
-          cmt.confirm_valid_module_requirements
-          cmt.update_course_pace_module_items
-        end
+        context_module_tags.find_each(&:confirm_valid_module_requirements)
       end
       if @old_assignment_id
         Assignment.where(
@@ -113,7 +110,6 @@ module Submittable
         self.class.connection.after_transaction_commit do
           sync_assignment
           assignment.save
-          context_module_tags.find_each(&:update_course_pace_module_items)
         end
       end
     end

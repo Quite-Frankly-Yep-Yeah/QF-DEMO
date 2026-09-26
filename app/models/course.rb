@@ -263,7 +263,6 @@ class Course < ApplicationRecord
   has_many :content_migrations, as: :context, inverse_of: :context
   has_many :content_exports, as: :context, inverse_of: :context
   has_many :epub_exports, -> { where(type: nil).order(created_at: :desc) }
-  has_many :course_reports, dependent: :destroy
 
   has_many :gradebook_filters, inverse_of: :course, dependent: :destroy
   attr_accessor :latest_epub_export
@@ -326,7 +325,6 @@ class Course < ApplicationRecord
 
   has_many :comment_bank_items, inverse_of: :course
 
-  has_many :course_paces
   has_many :blackout_dates, as: :context, inverse_of: :context
   has_many :favorites, as: :context, inverse_of: :context, dependent: :destroy
   has_many :group_and_membership_importers, dependent: :destroy, inverse_of: :course
@@ -359,8 +357,6 @@ class Course < ApplicationRecord
   after_save :update_lti_context_controls_if_necessary
   after_save :update_enrollment_states_if_necessary
   after_save :clear_caches_if_necessary
-  after_save :log_published_assignment_count
-  after_save :remove_course_pacing_overrides_if_disabled
   after_save :queue_accent_color_sync, if: :should_sync_accent_color?
   after_commit :update_cached_due_dates
 
@@ -368,11 +364,6 @@ class Course < ApplicationRecord
   after_create :copy_from_course_template
 
   after_update :clear_cached_short_name, if: :saved_change_to_course_code?
-  after_update :log_create_to_publish_time, if: :saved_change_to_workflow_state?
-  after_update :track_end_date_stats
-  after_update :log_course_pacing_publish_update, if: :saved_change_to_workflow_state?
-  after_update :log_course_format_publish_update, if: :saved_change_to_workflow_state?
-  after_update :log_course_pacing_settings_update, if: :change_to_logged_settings?
   after_update :log_rqd_setting_enable_or_disable
   after_update :queue_remap_enrollment_roles
 
@@ -621,37 +612,6 @@ class Course < ApplicationRecord
     end
 
     @changed_settings = nil
-  end
-
-  def track_end_date_stats
-    return unless saved_changes.keys.intersect?(%w[restrict_enrollments_to_course_dates conclude_at enrollment_term_id settings workflow_state]) && published?
-
-    just_published = saved_change_to_workflow_state && workflow_state == "available"
-    has_end_date = restrict_enrollments_to_course_dates ? conclude_at.present? : enrollment_term&.end_at.present?
-    had_end_date = restrict_enrollments_to_course_dates_before_last_save ? conclude_at_before_last_save.present? : EnrollmentTerm.find(enrollment_term_id_before_last_save)&.end_at&.present?
-
-    return unless just_published || (has_end_date != had_end_date) || (settings_before_last_save[:enable_course_paces] != settings[:enable_course_paces])
-
-    InstStatsd::Statsd.increment(enable_course_paces ? "course.paced.has_end_date" : "course.unpaced.has_end_date") if has_end_date
-
-    return if just_published # Don't decrement on publish
-
-    InstStatsd::Statsd.decrement(settings_before_last_save[:enable_course_paces] ? "course.paced.has_end_date" : "course.unpaced.has_end_date") if had_end_date
-  end
-
-  def remove_course_pacing_overrides_if_disabled
-    return unless root_account&.feature_enabled?(:course_pace_remove_overrides_on_disable)
-    return unless saved_changes[:settings]
-
-    old_settings = saved_changes[:settings][0] || {}
-    new_settings = saved_changes[:settings][1] || {}
-
-    return unless old_settings[:enable_course_paces] == true && new_settings[:enable_course_paces] == false
-
-    CoursePacing::RemoveOverridesService.delay_if_production(
-      priority: Delayed::LOW_PRIORITY,
-      n_strand: ["course_pacing_remove_overrides", global_root_account_id]
-    ).call(id)
   end
 
   def module_based?
@@ -2795,28 +2755,6 @@ class Course < ApplicationRecord
                        .update_all(grade_publishing_status: "error", grade_publishing_message: "Timed out.")
   end
 
-  def run_bulk_assign_enrollment_paces_delayed_job(enrollment_ids, pace_create_params)
-    progress = Progress.create!(context: self, tag: "bulk_assign_paces")
-    progress.process_job(self,
-                         :bulk_assign_enrollment_paces,
-                         { priority: Delayed::HIGH_PRIORITY },
-                         enrollment_ids,
-                         pace_create_params.to_h)
-  end
-
-  def bulk_assign_enrollment_paces(_, enrollment_ids, pace_create_params)
-    Enrollment.where(id: enrollment_ids).find_each do |enrollment|
-      pace_create_params[:user_id] = enrollment.user_id
-      pace_create_params[:workflow_state] = "active"
-      pace_create_params[:course_id] = enrollment.course_id
-      pace = enrollment.course_paces.new(pace_create_params)
-
-      if pace.save
-        pace.create_publish_progress(run_at: Time.zone.now)
-      end
-    end
-  end
-
   def gradebook_to_csv_in_background(filename, user, options = {})
     progress = progresses.build(tag: "gradebook_to_csv", user:)
     progress.save!
@@ -3566,7 +3504,6 @@ class Course < ApplicationRecord
   TAB_COLLABORATIONS_NEW = 17
   TAB_RUBRICS = 18
   TAB_SCHEDULE = 19
-  TAB_COURSE_PACES = 20
   TAB_SEARCH = 21
   TAB_ACCESSIBILITY = 22
   TAB_ITEM_BANKS = 23
@@ -3779,16 +3716,6 @@ class Course < ApplicationRecord
                             label: t("IgniteAI Search"),
                             css_class: "search",
                             href: :course_search_path
-                          })
-    end
-
-    # Self-paced pacing replaces Course Pacing, so there's only one pacing system.
-    if enable_course_paces && !SelfPaced::Pacer.course?(self) && grants_any_right?(user, *RoleOverride::GRANULAR_MANAGE_COURSE_CONTENT_PERMISSIONS)
-      default_tabs.insert(default_tabs.index { |t| t[:id] == TAB_MODULES } + 1, {
-                            id: TAB_COURSE_PACES,
-                            label: t("#tabs.course_paces", "Course Pacing"),
-                            css_class: "course_paces",
-                            href: :course_course_pacing_path
                           })
     end
 
@@ -4201,8 +4128,6 @@ class Course < ApplicationRecord
   add_setting :syllabus_master_template_id
   add_setting :syllabus_course_summary, boolean: true, default: true
   add_setting :syllabus_updated_at
-
-  add_setting :enable_course_paces, boolean: true, default: false
 
   add_setting :usage_rights_required, boolean: true, default: false, inherited: true
 
@@ -5071,111 +4996,6 @@ class Course < ApplicationRecord
     self.use_default_discussion_settings = template.use_default_discussion_settings?
     defaults = template.default_discussion_settings
     self.default_discussion_settings = defaults if defaults.present?
-  end
-
-  def log_create_to_publish_time
-    return unless publishing?
-
-    publish_time = ((updated_at - created_at) * 1000).round
-    statsd_bucket = enable_course_paces? ? "paced" : "unpaced"
-    InstStatsd::Statsd.timing("course.#{statsd_bucket}.create_to_publish_time", publish_time)
-  end
-
-  def log_published_assignment_count
-    return unless publishing?
-
-    statsd_bucket = enable_course_paces? ? "paced" : "unpaced"
-    InstStatsd::Statsd.count("course.#{statsd_bucket}.assignment_count", assignments.published.size)
-  end
-
-  def publishing?
-    valid_workflow_states = %w[created claimed]
-    available? && valid_workflow_states.include?(workflow_state_before_last_save)
-  end
-
-  def log_course_pacing_publish_update
-    if publishing?
-      statsd_bucket = enable_course_paces? ? "paced" : "unpaced"
-      InstStatsd::Statsd.distributed_increment("course.#{statsd_bucket}.paced_courses")
-    end
-  end
-
-  def log_course_format_publish_update
-    if publishing?
-      statsd_bucket = enable_course_paces? ? "paced" : "unpaced"
-      course_format_value = course_format.nil? ? "unset" : course_format
-      InstStatsd::Statsd.distributed_increment("course.#{statsd_bucket}.#{course_format_value}")
-    end
-  end
-
-  def change_to_logged_settings?
-    return false unless saved_change_to_settings? && available? && !publishing?
-
-    @enable_paces_change = change_to_enable_paces?
-    @course_format_change = changes_to_course_format?
-
-    @enable_paces_change || @course_format_change
-  end
-
-  def change_to_enable_paces?
-    # Get the settings changes into a parameter
-    setting_changes = saved_changes[:settings]
-    old_enable_paces_setting = setting_changes[0][:enable_course_paces]
-    new_enable_paces_setting = setting_changes[1][:enable_course_paces]
-
-    # Check to see if enable_course_paces is in list of updated items
-    return false if new_enable_paces_setting.nil?
-
-    # If enable_course_paces IS in the list, then check to see if the original value is present or if it's nil
-    # It can be nil when a course is initially created and published without other settings present.
-    # In this case, then, it's going from nil to a value we care about one way or the other.
-    if old_enable_paces_setting.nil?
-      return true
-    end
-
-    # Finally this is the case where the list of settings may include enable_course_paces, but it didn't change --
-    # another setting changed.
-    old_enable_paces_setting != new_enable_paces_setting
-  end
-
-  def changes_to_course_format?
-    # Get the settings changes into a parameter
-    setting_changes = saved_changes[:settings]
-    old_course_format_setting = setting_changes[0][:course_format]
-    new_course_format_setting = setting_changes[1][:course_format]
-
-    old_course_format_setting != new_course_format_setting
-  end
-
-  def log_course_pacing_settings_update
-    if @enable_paces_change
-      log_enable_pacing_update
-    end
-
-    if @course_format_change
-      log_course_format_update
-    end
-  end
-
-  def log_enable_pacing_update
-    setting_changes = saved_changes[:settings]
-    new_enable_paces_setting = setting_changes[1][:enable_course_paces]
-
-    statsd_bucket = new_enable_paces_setting ? "paced" : "unpaced"
-
-    InstStatsd::Statsd.distributed_increment("course.#{statsd_bucket}.paced_courses")
-
-    log_course_format_update unless @course_format_change
-  end
-
-  def log_course_format_update
-    setting_changes = saved_changes[:settings]
-    new_enable_paces_setting = setting_changes[1][:enable_course_paces]
-
-    new_stats_course_format = setting_changes[1][:course_format].nil? ? "unset" : setting_changes[1][:course_format]
-
-    statsd_bucket = new_enable_paces_setting ? "paced" : "unpaced"
-    InstStatsd::Statsd.distributed_increment("course.#{statsd_bucket}.#{new_stats_course_format}")
   end
 
   def log_rqd_setting_enable_or_disable

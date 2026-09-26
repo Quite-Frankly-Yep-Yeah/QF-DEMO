@@ -47,10 +47,6 @@ module CoursesHomePage
     ".ic-notification button[name='accept']"
   end
 
-  def course_course_pace_selector
-    ".course_paces"
-  end
-
   def course_menu_toggle_selector
     "#courseMenuToggle"
   end
@@ -98,10 +94,6 @@ module CoursesHomePage
     f("#content")
   end
 
-  def course_course_pace_link
-    f(course_course_pace_selector)
-  end
-
   def course_menu_toggle
     f(course_menu_toggle_selector)
   end
@@ -127,14 +119,6 @@ module CoursesHomePage
     visit_course(@course)
     open_course_wizard
     wait_for(method: nil, timeout: 2) { wizard_box.displayed? }
-  end
-
-  def click_course_paces
-    course_course_pace_link.click
-  end
-
-  def course_paces_nav_exists?
-    element_exists?(course_course_pace_selector)
   end
 
   def click_course_menu_toggle

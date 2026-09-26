@@ -217,21 +217,5 @@ describe "editing a quiz" do
       click_save_settings_button
       expect(alert_present?).to be_falsey
     end
-
-    context "in a paced course" do
-      before(:once) do
-        @course.enable_course_paces = true
-        @course.save!
-      end
-
-      it "displays the course pacing notice in place of due dates" do
-        @quiz = create_quiz_with_due_date
-        item = add_quiz_to_module
-
-        get "/courses/#{@course.id}/quizzes/#{item.content_id}/edit"
-        expect(f(quiz_edit_form)).not_to contain_css(due_date_container)
-        expect(f(quiz_edit_form)).to contain_css(course_pacing_notice)
-      end
-    end
   end
 end

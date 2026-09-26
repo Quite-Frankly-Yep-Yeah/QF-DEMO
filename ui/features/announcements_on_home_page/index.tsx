@@ -45,7 +45,6 @@ if (ENV.SHOW_ANNOUNCEMENTS) {
       const url = '/api/v1/announcements'
 
       const params = {
-        // @ts-expect-error TS18048 (typescriptify)
         context_codes: [`course_${ENV.COURSE.id}`],
         // @ts-expect-error TS2339 (typescriptify)
         per_page: ENV.ANNOUNCEMENT_LIMIT || 3,

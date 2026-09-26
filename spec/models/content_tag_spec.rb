@@ -1136,53 +1136,6 @@ describe ContentTag do
     end
   end
 
-  describe "#update_course_pace_module_items" do
-    before do
-      course_factory
-      @course.enable_course_paces = true
-      @course.save!
-      @context_module = @course.context_modules.create!
-      @assignment = @course.assignments.create!
-      @course_pace = @course.course_paces.create!
-      @course_pace.publish
-      @context_module.add_item(id: @assignment.id, type: "assignment")
-      @tag = @context_module.content_tags.first
-    end
-
-    it "creates a course pace module item if a new content tag is created" do
-      assignment = @course.assignments.create!
-      @context_module.add_item(id: assignment.id, type: "assignment")
-      tag = @context_module.content_tags.find_by(content_id: assignment.id)
-      tag.update_course_pace_module_items
-      expect(@course_pace.course_pace_module_items.where(module_item_id: tag.id).exists?).to be(true)
-    end
-
-    it "deletes a CoursePaceModuleItem if a content tag is deleted" do
-      @tag.update_course_pace_module_items
-      expect(@course_pace.course_pace_module_items.where(module_item_id: @tag.id).exists?).to be(true)
-      @tag.destroy
-      @tag.update_course_pace_module_items
-      expect(@course_pace.course_pace_module_items.where(module_item_id: @tag.id).exists?).to be(false)
-    end
-
-    it "updates all published pace plans with content tags" do
-      section_pace = @course.course_paces.create!(course_section: @course.course_sections.create!)
-      section_pace.publish
-      assignment = @course.assignments.create!
-      @context_module.add_item(id: assignment.id, type: "assignment")
-      tag = @context_module.content_tags.find_by(content_id: assignment.id)
-      tag.update_course_pace_module_items
-      expect(@course_pace.course_pace_module_items.where(module_item_id: tag.id).exists?).to be(true)
-      expect(section_pace.course_pace_module_items.where(module_item_id: tag.id).exists?).to be(true)
-    end
-
-    it "does not make changes if the tag_type is not 'context_module'" do
-      assignment = @course.assignments.create!
-      tag = ContentTag.create!(context: @course, content: assignment, tag_type: "learning_outcome")
-      expect(@course_pace.course_pace_module_items.where(module_item_id: tag.id).exists?).to be(false)
-    end
-  end
-
   describe "#update_module_item_submissions" do
     before do
       course_factory

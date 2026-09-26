@@ -198,7 +198,7 @@ describe "context modules" do
         expect(element_exists?(remove_requirement_button_selector, xpath: true)).to be_falsey
       end
 
-      context "course_pace_time_selection is enabled" do
+      context "modules_requirements_allow_percentage is enabled" do
         before do
           @course.root_account.enable_feature!(:modules_requirements_allow_percentage)
           @course.root_account.reload

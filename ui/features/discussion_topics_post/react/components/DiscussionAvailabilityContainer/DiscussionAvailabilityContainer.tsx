@@ -123,42 +123,41 @@ export function DiscussionAvailabilityContainer({...props}) {
               {prefixText && <Text size={responsiveProps.textSize}>{prefixText}</Text>}
             </Flex.Item>
             <Flex.Item>
-              {!props.inPacedCourse &&
-                (availabilities.length === 1 ? (
-                  <AssignmentAvailabilityWindow
-                    availabilityWindowName={availabilities[0].name}
-                    availableDate={availabilities[0].delayedPostAt}
-                    untilDate={availabilities[0].lockAt}
-                    anonymousState={availabilities[0].anonymousState}
-                    showDateWithTime={true}
-                  />
-                ) : (
-                  <>
+              {availabilities.length === 1 ? (
+                <AssignmentAvailabilityWindow
+                  availabilityWindowName={availabilities[0].name}
+                  availableDate={availabilities[0].delayedPostAt}
+                  untilDate={availabilities[0].lockAt}
+                  anonymousState={availabilities[0].anonymousState}
+                  showDateWithTime={true}
+                />
+              ) : (
+                <>
+                  {/* @ts-expect-error TS18049 (typescriptify) */}
+                  {prefixText && <Text size={responsiveProps.textSize}>{' | '}</Text>}
+                  <Link
+                    isWithinText={false}
+                    as="button"
+                    onClick={() => {
+                      setAvailabilityTrayOpen(true)
+                    }}
+                    data-testid="view-availability-button"
+                    // @ts-expect-error TS18049 (typescriptify)
+                    margin={responsiveProps.margin}
+                  >
                     {/* @ts-expect-error TS18049 (typescriptify) */}
-                    {prefixText && <Text size={responsiveProps.textSize}>{' | '}</Text>}
-                    <Link
-                      isWithinText={false}
-                      as="button"
-                      onClick={() => {
-                        setAvailabilityTrayOpen(true)
-                      }}
-                      data-testid="view-availability-button"
-                      // @ts-expect-error TS18049 (typescriptify)
-                      margin={responsiveProps.margin}
-                    >
-                      {/* @ts-expect-error TS18049 (typescriptify) */}
-                      <Text weight="bold" size={responsiveProps.textSize}>
-                        {I18n.t('View Availability')}
-                      </Text>
-                    </Link>
-                    <TrayDisplayer
-                      setTrayOpen={setAvailabilityTrayOpen}
-                      trayTitle="Availability"
-                      isTrayOpen={availabilityTrayOpen}
-                      trayComponent={<DiscussionAvailabilityTray availabilities={availabilities} />}
-                    />
-                  </>
-                ))}
+                    <Text weight="bold" size={responsiveProps.textSize}>
+                      {I18n.t('View Availability')}
+                    </Text>
+                  </Link>
+                  <TrayDisplayer
+                    setTrayOpen={setAvailabilityTrayOpen}
+                    trayTitle="Availability"
+                    isTrayOpen={availabilityTrayOpen}
+                    trayComponent={<DiscussionAvailabilityTray availabilities={availabilities} />}
+                  />
+                </>
+              )}
             </Flex.Item>
           </Flex>
         )
@@ -175,5 +174,4 @@ DiscussionAvailabilityContainer.propTypes = {
   totalUserCount: PropTypes.number,
   groupSet: PropTypes.object,
   assignment: PropTypes.object,
-  inPacedCourse: PropTypes.bool,
 }

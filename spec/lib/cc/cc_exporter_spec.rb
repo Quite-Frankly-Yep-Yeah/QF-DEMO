@@ -138,8 +138,6 @@ describe "Common Cartridge exporting" do
       @event1 = @course.calendar_events.create!(title: "event2", start_at: 2.weeks.from_now)
       @bank = @course.assessment_question_banks.create!(title: "bank")
       @bank2 = @course.assessment_question_banks.create!(title: "bank2")
-      @pp1 = @course.course_paces.create! workflow_state: "unpublished"
-      @pp2 = @course.course_paces.create! workflow_state: "active"
       mt = MasterCourses::MasterTemplate.set_as_master_course(@course)
       [@asmnt, @asmnt2].each { |a| mt.content_tag_for(a).update(restrictions: { content: true, points: true, due_dates: false, availability_dates: false }) }
 
@@ -159,7 +157,6 @@ describe "Common Cartridge exporting" do
         wiki_pages: { mig_id(@wiki) => "1", mig_id(@wiki2) => "0" },
         calendar_events: { mig_id(@event) => "1", mig_id(@event2) => "0" },
         assessment_question_banks: { mig_id(@bank) => "1", mig_id(@bank2) => "0" },
-        course_paces: { mig_id(@pp1) => "1", mig_id(@pp2) => "0" },
         all_blueprint_settings: true
       }
       @ce.save!
@@ -210,11 +207,6 @@ describe "Common Cartridge exporting" do
       doc = Nokogiri::XML.parse(@zip_file.read("course_settings/events.xml"))
       expect(doc.at_css("event[identifier=#{mig_id(@event)}]")).not_to be_nil
       expect(doc.at_css("event[identifier=#{mig_id(@event2)}]")).to be_nil
-      expect(ccc_schema.validate(doc)).to be_empty
-
-      doc = Nokogiri::XML.parse(@zip_file.read("course_settings/course_paces.xml"))
-      expect(doc.at_css("course_pace[identifier=#{mig_id(@pp1)}]")).not_to be_nil
-      expect(doc.at_css("course_pace[identifier=#{mig_id(@pp2)}]")).to be_nil
       expect(ccc_schema.validate(doc)).to be_empty
 
       doc = Nokogiri::XML.parse(@zip_file.read("course_settings/blueprint.xml"))

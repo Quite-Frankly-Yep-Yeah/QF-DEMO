@@ -636,20 +636,6 @@ $(document).ready(function () {
     $('#course_home_page_announcement_limit').prop('disabled', !$(this).prop('checked'))
   })
 
-  $('#course_enable_course_paces')
-    .change(function () {
-      $('#homeroom_disabled_tooltip').toggleClass('shown', this.checked)
-      $('#course_homeroom_course').prop('disabled', $(this).prop('checked'))
-    })
-    .trigger('change')
-
-  $('#course_homeroom_course')
-    .change(function () {
-      $('#pacing_disabled_tooltip').toggleClass('shown', this.checked)
-      $('#course_enable_course_paces').prop('disabled', $(this).prop('checked'))
-    })
-    .trigger('change')
-
   $('#course_conditional_release').change(function () {
     $('#conditional_release_caution_text').toggleClass('shown', !this.checked)
   })

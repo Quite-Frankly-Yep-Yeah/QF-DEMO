@@ -34,7 +34,6 @@ class MasterCourses::MasterContentTag < ApplicationRecord
                                      :context_external_tool,
                                      :context_module,
                                      :course,
-                                     :course_pace,
                                      :discussion_topic,
                                      :learning_outcome,
                                      :media_track,

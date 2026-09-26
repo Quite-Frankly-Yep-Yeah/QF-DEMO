@@ -24,7 +24,6 @@ import EditView from './backbone/views/EditView'
 import SectionCollection from '@canvas/sections/backbone/collections/SectionCollection'
 import DueDateList from '@canvas/due-dates/backbone/models/DueDateList'
 import DueDateOverride from '@canvas/due-dates'
-import MasteryPathToggle from '@canvas/mastery-path-toggle'
 import AssignmentGroupSelector from '@canvas/assignments/backbone/views/AssignmentGroupSelector'
 import GradingTypeSelector from '@canvas/assignments/backbone/views/GradingTypeSelector'
 import QuizTypeSelector from '@canvas/assignments/backbone/views/QuizTypeSelector'
@@ -134,13 +133,9 @@ function loadBackboneComponents() {
           postToSIS: assignment.postToSIS(),
           dueDatesReadonly: !!lockedItems.due_dates,
           availabilityDatesReadonly: !!lockedItems.availability_dates,
-          inPacedCourse: assignment.inPacedCourse(),
           isModuleItem: ENV.IS_MODULE_ITEM,
           courseId: assignment.courseID(),
           ...(!ENV.horizon_course && {groupCategorySelector}),
-        }),
-        'js-assignment-overrides-mastery-path': new MasteryPathToggle({
-          model: dueDateList,
         }),
       },
       lockedItems: assignment.id ? lockedItems : {}, // if no id, creating a new assignment

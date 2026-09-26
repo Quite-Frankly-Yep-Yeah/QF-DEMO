@@ -119,23 +119,6 @@ describe "course syllabus" do
       expect(element_exists?(show_summary_chkbox_css)).to be_falsey
     end
 
-    context "in a paced course" do
-      before do
-        @course1.enable_course_paces = true
-        @course1.save!
-      end
-
-      after do
-        @course1.enable_course_paces = false
-        @course1.save!
-      end
-
-      it "shows the course pacing notice instead of the course summary table" do
-        visit_syllabus_page(@course1.id)
-        expect(course_pacing_notice).to be_displayed
-      end
-    end
-
     context "timezone information accessibility" do
       it "displays timezone information in InstUI tooltip" do
         @course1.time_zone = "America/Denver"

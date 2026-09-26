@@ -1366,12 +1366,6 @@ class AccountsController < ApplicationController
   # @argument account[settings][conditional_release][locked] [Boolean]
   #   Lock this setting for sub-accounts and courses
   #
-  # @argument account[settings][enable_course_paces][value] [Boolean]
-  #   Enable or disable course pacing
-  #
-  # @argument account[settings][enable_course_paces][locked] [Boolean]
-  #   Lock this setting for sub-accounts and courses
-  #
   # @argument account[settings][suppress_notifications] [Boolean|Array]
   #   Suppress notification messages from being created and sent. When set to
   #   +true+, all notifications are suppressed. When set to an array of
@@ -2506,7 +2500,6 @@ class AccountsController < ApplicationController
                                    :students_can_create_courses_anywhere,
                                    { default_due_time: [:value] }.freeze,
                                    { conditional_release: [:value, :locked] }.freeze,
-                                   { enable_course_paces: [:value, :locked] }.freeze,
                                    { allow_observers_in_appointment_groups: [:value] }.freeze,
                                    { default_allow_observer_signup: [:value] }.freeze,
                                    :enable_inbox_signature_block,
@@ -2552,8 +2545,7 @@ class AccountsController < ApplicationController
        lock_all_announcements
        sis_assignment_name_length_input
        suppress_notifications
-       conditional_release
-       enable_course_paces]
+       conditional_release]
   end
 
   def permitted_password_policy_settings

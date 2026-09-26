@@ -45,9 +45,6 @@ const itemTypeLabels = {
   get context_module() {
     return I18n.t('Module')
   },
-  get course_pace() {
-    return I18n.t('Course Pace')
-  },
   get discussion_topic() {
     return I18n.t('Discussion')
   },
@@ -89,9 +86,6 @@ const itemTypeLabelPlurals = {
   },
   get attachment() {
     return I18n.t('Files')
-  },
-  get course_pace() {
-    return I18n.t('Course Pace')
   },
   get quiz() {
     return I18n.t('Quizzes')

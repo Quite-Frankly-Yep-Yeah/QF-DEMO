@@ -310,16 +310,6 @@ module Api::V1::DiscussionTopics
     fields[:context_code] = Context.context_code_for(topic) if opts[:include_context_code]
     fields[:ungraded_discussion_overrides] = topic.ungraded_discussion_overrides(user) unless topic.assignment_id
 
-    topic_course = nil
-    if context.is_a?(Course)
-      topic_course = context
-    elsif context.context_type == "Course"
-      topic_course = Course.find_by(id: context.context_id)
-    end
-
-    paced_course = topic_course&.enable_course_paces?
-    fields[:in_paced_course] = paced_course if paced_course
-
     locked_json(fields, topic, user, "topic", check_policies: true, deep_check_if_needed: true)
     can_view = !fields[:lock_info].is_a?(Hash) || fields[:lock_info][:can_view]
     unless opts[:exclude_messages]

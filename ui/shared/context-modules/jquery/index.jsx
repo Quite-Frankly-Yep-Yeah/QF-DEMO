@@ -438,9 +438,7 @@ window.modules = (function () {
                   points: I18n.n(info.points_possible),
                 })
               }
-              if (ENV.IN_PACED_COURSE && !ENV.IS_STUDENT) {
-                $context_module_item.find('.due_date_display').remove()
-              } else if (info.todo_date != null && info.points_possible == null) {
+              if (info.todo_date != null && info.points_possible == null) {
                 data.due_date_display = dateString(info.todo_date)
               } else if (info.due_date != null) {
                 if (info.past_due != null) {
@@ -2201,23 +2199,19 @@ function updateSubAssignmentData(contextModuleItem, subAssignments) {
             required_replies: subAssignment.replies_required,
           })
     let dueDate = ''
-    if (!(ENV.IN_PACED_COURSE && !ENV.IS_STUDENT)) {
-      if (subAssignment.has_many_overrides != null) {
-        dueDate = I18n.t('Multiple Due Dates')
-      } else if (subAssignment.vdd_tooltip != null) {
-        subAssignment.vdd_tooltip.link_href = contextModuleItem.find('a.title').attr('href')
-        dueDate = vddTooltipView(subAssignment.vdd_tooltip)
-      } else if (subAssignment.due_date) {
-        dueDate = dateString(subAssignment.due_date)
-      } else {
-        dueDate = I18n.t('No Due Date')
-      }
-      contextModuleItem
-        .find(`.${subAssignment.sub_assignment_tag}_display`)
-        .html(`<b>${title}:</b> ${dueDate}`)
+    if (subAssignment.has_many_overrides != null) {
+      dueDate = I18n.t('Multiple Due Dates')
+    } else if (subAssignment.vdd_tooltip != null) {
+      subAssignment.vdd_tooltip.link_href = contextModuleItem.find('a.title').attr('href')
+      dueDate = vddTooltipView(subAssignment.vdd_tooltip)
+    } else if (subAssignment.due_date) {
+      dueDate = dateString(subAssignment.due_date)
     } else {
-      contextModuleItem.find(`.${subAssignment.sub_assignment_tag}_display`).html(`<b>${title}</b>`)
+      dueDate = I18n.t('No Due Date')
     }
+    contextModuleItem
+      .find(`.${subAssignment.sub_assignment_tag}_display`)
+      .html(`<b>${title}:</b> ${dueDate}`)
   })
 }
 

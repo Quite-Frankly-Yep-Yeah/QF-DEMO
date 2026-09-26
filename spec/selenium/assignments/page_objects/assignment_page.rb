@@ -26,10 +26,6 @@ class AssignmentPage
       f(assign_to_button_selector)
     end
 
-    def course_pacing_notice_selector
-      "[data-testid='CoursePacingNotice']"
-    end
-
     def assign_to_button_selector
       "button.assign-to-link"
     end
@@ -89,14 +85,6 @@ class AssignmentPage
 
     def allowed_attempts_count
       fj("div.control-group:contains('Allowed Attempts')")
-    end
-
-    def course_pacing_notice
-      f(course_pacing_notice_selector)
-    end
-
-    def mastery_path_toggle
-      f("[data-testid='MasteryPathToggle'] svg[name='IconCheck'], [data-testid='MasteryPathToggle'] svg[name='IconX']")
     end
 
     # Methods

@@ -840,8 +840,6 @@
 - verb: GET
   path: '/api/v1/courses/:course_id/brand_variables'
 - verb: GET
-  path: '/api/v1/courses/:course_id/bulk_student_enrollments/student_bulk_pace_edit_view'
-- verb: GET
   path: '/api/v1/courses/:course_id/bulk_user_progress'
 - verb: GET
   path: '/api/v1/courses/:course_id/bulk_user_tags'
@@ -907,22 +905,6 @@
   path: '/api/v1/courses/:course_id/course_copy'
 - verb: GET
   path: '/api/v1/courses/:course_id/course_copy/:id'
-- verb: POST
-  path: '/api/v1/courses/:course_id/course_pacing'
-- verb: DELETE
-  path: '/api/v1/courses/:course_id/course_pacing/:id'
-- verb: GET
-  path: '/api/v1/courses/:course_id/course_pacing/:id'
-- verb: PUT
-  path: '/api/v1/courses/:course_id/course_pacing/:id'
-- verb: POST
-  path: '/api/v1/courses/:course_id/course_pacing/:id/publish'
-- verb: POST
-  path: '/api/v1/courses/:course_id/course_pacing/bulk_create_enrollment_paces'
-- verb: POST
-  path: '/api/v1/courses/:course_id/course_pacing/compress_dates'
-- verb: GET
-  path: '/api/v1/courses/:course_id/course_pacing/new'
 - verb: POST
   path: '/api/v1/courses/:course_id/create_tool_with_verification'
 - verb: GET
@@ -1320,8 +1302,6 @@
 - verb: GET
   path: '/api/v1/courses/:course_id/outcomes/:outcome_id/contributing_scores'
 - verb: GET
-  path: '/api/v1/courses/:course_id/pace_contexts'
-- verb: GET
   path: '/api/v1/courses/:course_id/page_title_availability'
 - verb: GET
   path: '/api/v1/courses/:course_id/pages'
@@ -1453,12 +1433,6 @@
   path: '/api/v1/courses/:course_id/quizzes/assignment_overrides'
 - verb: GET
   path: '/api/v1/courses/:course_id/recent_students'
-- verb: GET
-  path: '/api/v1/courses/:course_id/reports/:report_type'
-- verb: POST
-  path: '/api/v1/courses/:course_id/reports/:report_type'
-- verb: GET
-  path: '/api/v1/courses/:course_id/reports/:report_type/:id'
 - verb: POST
   path: '/api/v1/courses/:course_id/reset_content'
 - verb: POST
@@ -1503,14 +1477,6 @@
   path: '/api/v1/courses/:course_id/sections'
 - verb: POST
   path: '/api/v1/courses/:course_id/sections'
-- verb: DELETE
-  path: '/api/v1/courses/:course_id/sections/:course_section_id/pace'
-- verb: GET
-  path: '/api/v1/courses/:course_id/sections/:course_section_id/pace'
-- verb: PATCH
-  path: '/api/v1/courses/:course_id/sections/:course_section_id/pace'
-- verb: POST
-  path: '/api/v1/courses/:course_id/sections/:course_section_id/paces'
 - verb: GET
   path: '/api/v1/courses/:course_id/sections/:id'
 - verb: GET
@@ -1523,14 +1489,6 @@
   path: '/api/v1/courses/:course_id/smartsearch/index_status'
 - verb: GET
   path: '/api/v1/courses/:course_id/smartsearch/log'
-- verb: DELETE
-  path: '/api/v1/courses/:course_id/student_enrollments/:student_enrollment_id/pace'
-- verb: GET
-  path: '/api/v1/courses/:course_id/student_enrollments/:student_enrollment_id/pace'
-- verb: PATCH
-  path: '/api/v1/courses/:course_id/student_enrollments/:student_enrollment_id/pace'
-- verb: POST
-  path: '/api/v1/courses/:course_id/student_enrollments/:student_enrollment_id/paces'
 - verb: GET
   path: '/api/v1/courses/:course_id/student_view_student'
 - verb: GET
