@@ -1,15 +1,15 @@
 # frozen_string_literal: true
 
 #
-# Copyright (C) 2026 - present EXAMPLE contributors
+# Copyright (C) 2026 - present quite frankly an example LMS contributors
 #
-# This file is part of EXAMPLE LMS, a modified version of Canvas.
+# This file is part of quite frankly an example LMS, a modified version of Canvas.
 #
-# EXAMPLE LMS is free software: you can redistribute it and/or modify it under
+# quite frankly an example LMS is free software: you can redistribute it and/or modify it under
 # the terms of the GNU Affero General Public License as published by the Free
 # Software Foundation, version 3 of the License.
 #
-# EXAMPLE LMS is distributed in the hope that it will be useful, but WITHOUT ANY
+# quite frankly an example LMS is distributed in the hope that it will be useful, but WITHOUT ANY
 # WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS FOR
 # A PARTICULAR PURPOSE. See the GNU Affero General Public License for more
 # details.
@@ -39,7 +39,7 @@ describe SelfPaced::MentorRole do
       # a freshly loaded course, as in a real request; the let_once one caches
       # account objects from before the flag was turned on
       fresh_course = Course.find(course.id)
-      allowed = %i[self_paced_view_dashboard self_paced_view_live_monitor self_paced_unlock_items view_all_grades]
+      allowed = %i[self_paced_view_dashboard self_paced_view_live_monitor self_paced_unlock_items view_all_grades send_messages]
       denied = %i[manage_grades self_paced_manage_attempts manage_course_content_edit]
       expect(allowed.map { |p| fresh_course.grants_right?(mentor, p) }).to all(be true)
       expect(denied.map { |p| fresh_course.grants_right?(mentor, p) }).to all(be false)

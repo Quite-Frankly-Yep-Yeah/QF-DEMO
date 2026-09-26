@@ -1,15 +1,15 @@
 # frozen_string_literal: true
 
 #
-# Copyright (C) 2026 - present EXAMPLE contributors
+# Copyright (C) 2026 - present quite frankly an example LMS contributors
 #
-# This file is part of EXAMPLE LMS, a modified version of Canvas.
+# This file is part of quite frankly an example LMS, a modified version of Canvas.
 #
-# EXAMPLE LMS is free software: you can redistribute it and/or modify it under
+# quite frankly an example LMS is free software: you can redistribute it and/or modify it under
 # the terms of the GNU Affero General Public License as published by the Free
 # Software Foundation, version 3 of the License.
 #
-# EXAMPLE LMS is distributed in the hope that it will be useful, but WITHOUT ANY
+# quite frankly an example LMS is distributed in the hope that it will be useful, but WITHOUT ANY
 # WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS FOR
 # A PARTICULAR PURPOSE. See the GNU Affero General Public License for more
 # details.
@@ -87,6 +87,36 @@ describe SelfPaced::DashboardApiController do
 
       expect(response).to have_http_status(:forbidden)
       expect(SelfPaced::MentorCaseload.where(student: outsider)).not_to exist
+    end
+  end
+
+  describe "GET roster with a course" do
+    it "returns only that course's students" do
+      other = course_factory(active_all: true)
+      teacher_in_course(course: other, user: teacher, active_all: true)
+      other_student = student_in_course(course: other, active_all: true).user
+      SelfPaced::StudentCourseState.create!(course: other, user: other_student, root_account: other.root_account)
+      user_session(teacher)
+      get :roster, params: { course_id: course.id }, format: :json
+
+      expect(response.parsed_body["rows"].map { |r| r.dig("course", "id") }).to eql([course.id.to_s])
+    end
+  end
+
+  describe "GET course_summary" do
+    it "returns the class summary and the viewer's tools" do
+      course.root_account.enable_feature!(:self_paced_course_view)
+      user_session(teacher)
+      get :course_summary, params: { course_id: course.id }, format: :json
+
+      expect(response.parsed_body.keys).to include("units", "hard_items", "items", "chart", "tools")
+    end
+
+    it "is refused while the course page is off" do
+      user_session(teacher)
+      get :course_summary, params: { course_id: course.id }, format: :json
+
+      expect(response).to have_http_status(:forbidden)
     end
   end
 end

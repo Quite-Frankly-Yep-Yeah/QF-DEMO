@@ -22,6 +22,30 @@ require "feedjira"
 require_relative "../helpers/k5_common"
 
 describe UsersController do
+  describe "GET user_dashboard for a student in a self-paced class" do
+    let_once(:course) { course_factory(active_all: true) }
+    let_once(:student) { student_in_course(course:, active_all: true).user }
+
+    before do
+      course.root_account.enable_feature!(:self_paced)
+      course.root_account.enable_feature!(:self_paced_student_home)
+      course.enable_feature!(:self_paced_course_player)
+      user_session(student)
+    end
+
+    it "shows the self-paced home" do
+      get :user_dashboard
+
+      expect(controller.js_env[:SELF_PACED_HOME]).to include(home_url: "/api/v1/self_paced/home")
+    end
+
+    it "still opens the usual dashboard with ?classic=1" do
+      get :user_dashboard, params: { classic: 1 }
+
+      expect(controller.js_env[:SELF_PACED_HOME]).to be_nil
+    end
+  end
+
   include K5Common
 
   let(:group_helper) { Factories::GradingPeriodGroupHelper.new }
@@ -2930,18 +2954,23 @@ describe UsersController do
   end
 
   describe "#toggle_hide_dashcard_color_overlays" do
-    it "updates user preference based on value provided" do
+    it "toggles away from and back to the hidden-by-default value" do
       course_factory
       user_factory(active_all: true)
       user_session(@user)
 
-      expect(@user.preferences[:hide_dashcard_color_overlays]).to be_falsy
+      # unset means overlays are hidden by default
+      expect(@user.preferences[:hide_dashcard_color_overlays]).to be_nil
 
       post :toggle_hide_dashcard_color_overlays
 
-      expect(@user.reload.preferences[:hide_dashcard_color_overlays]).to be_truthy
+      expect(@user.reload.preferences[:hide_dashcard_color_overlays]).to be false
       expect(response).to be_successful
       expect(response.parsed_body).to be_empty
+
+      post :toggle_hide_dashcard_color_overlays
+
+      expect(@user.reload.preferences[:hide_dashcard_color_overlays]).to be true
     end
   end
 
@@ -3156,6 +3185,24 @@ describe UsersController do
         get "user_dashboard"
         groups = assigns[:js_env][:STUDENT_PLANNER_GROUPS]
         expect(groups.pluck(:id)).to eq [group.id]
+      end
+    end
+
+    context "dashcard color overlay preference" do
+      it "defaults PREFERENCES.hide_dashcard_color_overlays to true when the user hasn't set it" do
+        user_factory(active_all: true)
+        user_session(@user)
+        get "user_dashboard"
+        expect(assigns[:js_env][:PREFERENCES][:hide_dashcard_color_overlays]).to be true
+      end
+
+      it "honors an explicit false preference" do
+        user_factory(active_all: true)
+        @user.preferences[:hide_dashcard_color_overlays] = false
+        @user.save!
+        user_session(@user)
+        get "user_dashboard"
+        expect(assigns[:js_env][:PREFERENCES][:hide_dashcard_color_overlays]).to be false
       end
     end
 

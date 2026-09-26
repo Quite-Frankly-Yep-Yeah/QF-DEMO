@@ -25,7 +25,7 @@ install the older version and switch to it:
 1. Follow the instructions in `script/prepare/README.md` to setup the `prepare`
 script.
 
-You'll use the `prepare` script later to automate installing and updating EXAMPLE
+You'll use the `prepare` script later to automate installing and updating quite frankly an example LMS
 on your computer.
 
 Note: some features of `prepare` only work if you have access to Instructure's
@@ -39,7 +39,7 @@ brew install chromedriver --cask # necessary for running tests in Chrome
 brew install geckodriver # necessary for running tests in Firefox
 ```
 
-Now let's get EXAMPLE ready to run the tests.
+Now let's get quite frankly an example LMS ready to run the tests.
 
 3. Copy the Selenium and database configuration files:
 
@@ -48,7 +48,7 @@ cp config/selenium.yml.example config/selenium.yml
 cp config/database.yml.example config/database.yml
 ```
 
-4. Use `prepare` to install EXAMPLE plugins and dependencies, create databases,
+4. Use `prepare` to install quite frankly an example LMS plugins and dependencies, create databases,
 run database migrations, etc:
 
 ```sh
@@ -57,7 +57,7 @@ prepare
 
 You might encounter problems with some Ruby dependencies. The ["Dependency
 Installation" section](https://github.com/instructure/canvas-lms/wiki/Quick-Start#dependency-installation)
-in the public EXAMPLE LMS Github wiki has some useful tips.
+in the public quite frankly an example LMS Github wiki has some useful tips.
 
 4.a. Optional. Run delayed jobs in the foreground (not all Selenium tests need
 this but some do):
@@ -108,7 +108,7 @@ of the `doc/docker/developing_with_docker.md` instructions.
 
 ### Using Helper Methods for Waiting
 
-For clarity and reliability, prefer using built-in helper methods instead of relying on numerous `expect` statements to handle asynchronous operations. EXAMPLE provides many useful helper methods in `spec/selenium/test_setup/common_helper_methods/` including:
+For clarity and reliability, prefer using built-in helper methods instead of relying on numerous `expect` statements to handle asynchronous operations. quite frankly an example LMS provides many useful helper methods in `spec/selenium/test_setup/common_helper_methods/` including:
 
 - `custom_wait_methods.rb` - Contains `wait_for`, `wait_for_new_page_load`, and other waiting utilities
 - `custom_page_loaders.rb` - Page loading and navigation helpers

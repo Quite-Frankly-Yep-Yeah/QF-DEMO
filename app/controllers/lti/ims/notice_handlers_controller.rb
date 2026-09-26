@@ -26,7 +26,7 @@ module Lti::IMS
   # Requires LTI Advantage (JWT OAuth2) tokens with the
   # `https://purl.imsglobal.org/spec/lti/scope/noticehandlers` scope.
   #
-  # See the EXAMPLE
+  # See the quite frankly an example LMS
   # <a href="file.pns.html">Platform Notification Service</a>
   # intro guide for an overview of these endpoints and information on specific
   # notice types.

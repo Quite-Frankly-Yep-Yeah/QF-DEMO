@@ -479,7 +479,7 @@ describe Outcomes::CourseOutcomeRollupCalculationService do
       end
     end
 
-    context "combining EXAMPLE and Outcomes Service results" do
+    context "combining quite frankly an example LMS and Outcomes Service results" do
       let(:quiz_assignment) { assignment_model(context: course, submission_types: "external_tool") }
 
       before do
@@ -492,7 +492,7 @@ describe Outcomes::CourseOutcomeRollupCalculationService do
         quiz_assignment.save!
       end
 
-      it "combines results from both EXAMPLE and Outcomes Service" do
+      it "combines results from both quite frankly an example LMS and Outcomes Service" do
         students[0..1].each_with_index do |student, i|
           LearningOutcomeResult.create!(
             learning_outcome: outcome,
@@ -533,7 +533,7 @@ describe Outcomes::CourseOutcomeRollupCalculationService do
         expect(rollups.find_by(user_id: students[2].id).aggregate_score).to eq(5.0)
       end
 
-      it "handles duplicate results (same student in both EXAMPLE and OS)" do
+      it "handles duplicate results (same student in both quite frankly an example LMS and OS)" do
         LearningOutcomeResult.create!(
           learning_outcome: outcome,
           context: course,

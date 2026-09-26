@@ -175,7 +175,7 @@ const RegisterCommunication = ({
                         {...field}
                         label={I18n.t(
                           'labels.enable_login_for_email',
-                          'I want to log in to EXAMPLE using this email address',
+                          'I want to log in to quite frankly an example LMS using this email address',
                         )}
                         value="medium"
                       />

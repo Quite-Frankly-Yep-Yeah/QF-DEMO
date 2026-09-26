@@ -3,9 +3,9 @@
 horizon_course_setting:
   applies_to: Account
   state: hidden
-  display_name: EXAMPLE Career
+  display_name: quite frankly an example LMS Career
   description: |-
-    Enables the EXAMPLE Career tab in account settings.
+    Enables the quite frankly an example LMS Career tab in account settings.
   beta: true
   after_state_change_proc: sync_with_salesforce
 
@@ -14,92 +14,92 @@ horizon_hris_integrations:
   applies_to: RootAccount
   state: hidden
   shadow: true
-  display_name: "EXAMPLE Career: HRIS Integrations"
+  display_name: "quite frankly an example LMS Career: HRIS Integrations"
   description: |-
-    Enables HRIS integrations in EXAMPLE Career.
+    Enables HRIS integrations in quite frankly an example LMS Career.
 horizon_user_profile_page:
   applies_to: RootAccount
   state: hidden
   shadow: true
-  display_name: "EXAMPLE Career: User Profile Page"
+  display_name: "quite frankly an example LMS Career: User Profile Page"
   description: |-
-    Enables the refreshed user profile page in EXAMPLE Career.
+    Enables the refreshed user profile page in quite frankly an example LMS Career.
 horizon_block_content_editor:
   applies_to: RootAccount
   state: hidden
   shadow: true
-  display_name: "EXAMPLE Career: Block Content Editor"
+  display_name: "quite frankly an example LMS Career: Block Content Editor"
   description: |-
-    Enables the block content editor in EXAMPLE Career.
+    Enables the block content editor in quite frankly an example LMS Career.
 horizon_manual_dashboard_builder:
   applies_to: RootAccount
   state: hidden
   shadow: true
-  display_name: "EXAMPLE Career: Manual Dashboard Builder"
+  display_name: "quite frankly an example LMS Career: Manual Dashboard Builder"
   description: |-
-    Enables manual dashboard builder in EXAMPLE Career.
+    Enables manual dashboard builder in quite frankly an example LMS Career.
 horizon_learning_library:
   applies_to: RootAccount
   state: hidden
   shadow: true
-  display_name: "EXAMPLE Career: Learning Library"
+  display_name: "quite frankly an example LMS Career: Learning Library"
   description: |-
-    Enables the Learning Library in EXAMPLE Career.
+    Enables the Learning Library in quite frankly an example LMS Career.
 horizon_learning_library_ms2:
   applies_to: RootAccount
   state: hidden
   shadow: true
-  display_name: "EXAMPLE Career: Learning Library Milestone 2"
+  display_name: "quite frankly an example LMS Career: Learning Library Milestone 2"
   description: |-
-    Enables Learning Library microlearning features in EXAMPLE Career.
+    Enables Learning Library microlearning features in quite frankly an example LMS Career.
 horizon_learning_library_ms3:
   applies_to: RootAccount
   state: hidden
   shadow: true
-  display_name: "EXAMPLE Career: Learning Library Milestone 3"
+  display_name: "quite frankly an example LMS Career: Learning Library Milestone 3"
   description: |-
-    Enables Learning Library recommendation features in EXAMPLE Career.
+    Enables Learning Library recommendation features in quite frankly an example LMS Career.
 horizon_chart_view:
   applies_to: RootAccount
   state: hidden
   shadow: true
-  display_name: "EXAMPLE Career: Chart View"
+  display_name: "quite frankly an example LMS Career: Chart View"
   description: |-
-    Enables chart view in EXAMPLE Career.
+    Enables chart view in quite frankly an example LMS Career.
 horizon_native_permissions_page:
   applies_to: RootAccount
   state: hidden
   shadow: true
-  display_name: "EXAMPLE Career: Permissions Page"
+  display_name: "quite frankly an example LMS Career: Permissions Page"
   description: |-
-    Enables native permissions page instead of the Academic iframe in EXAMPLE Career.
+    Enables native permissions page instead of the Academic iframe in quite frankly an example LMS Career.
 horizon_native_inbox:
   applies_to: RootAccount
   state: hidden
   shadow: true
-  display_name: "EXAMPLE Career: Native Inbox"
+  display_name: "quite frankly an example LMS Career: Native Inbox"
   description: |-
-    Enables the native inbox in EXAMPLE Career.
+    Enables the native inbox in quite frankly an example LMS Career.
 horizon_study_tools:
   applies_to: RootAccount
   state: hidden
   shadow: true
-  display_name: "EXAMPLE Career: Study Tools"
+  display_name: "quite frankly an example LMS Career: Study Tools"
   description: |-
-    Restricts AI study tools to Page and File learning object routes in EXAMPLE Career.
+    Restricts AI study tools to Page and File learning object routes in quite frankly an example LMS Career.
 
-# Feature flags read by EXAMPLE
+# Feature flags read by quite frankly an example LMS
 horizon_bulk_api_permission:
   applies_to: RootAccount
   state: hidden
   shadow: true
-  display_name: "EXAMPLE Career: Manage Bulk API & Permission"
+  display_name: "quite frankly an example LMS Career: Manage Bulk API & Permission"
   description: |-
-    Enables the ability to manage bulk API and permission settings in EXAMPLE Career.
+    Enables the ability to manage bulk API and permission settings in quite frankly an example LMS Career.
 horizon_autopilot:
   applies_to: RootAccount
   state: hidden
   shadow: true
-  display_name: "EXAMPLE Career: Rule-Based Automations"
+  display_name: "quite frankly an example LMS Career: Rule-Based Automations"
   description: |-
-    Enables creating & running rule-based automations in EXAMPLE Career.
+    Enables creating & running rule-based automations in quite frankly an example LMS Career.

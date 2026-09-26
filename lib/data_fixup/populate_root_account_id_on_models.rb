@@ -293,7 +293,7 @@ module DataFixup::PopulateRootAccountIdOnModels
         elsif incomplete_tables.include?(class_name) || tables_in_progress.include?(class_name)
           false
         elsif table == CommunicationChannel
-          # For single-sharded (OSS) EXAMPLE, if any users have been filled in
+          # For single-sharded (OSS) quite frankly an example LMS, if any users have been filled in
           # and User jobs are complete, we are good to fill in comm channels
           User.where.not(root_account_ids: nil).any?
         else

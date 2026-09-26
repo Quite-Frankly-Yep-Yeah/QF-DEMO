@@ -98,7 +98,7 @@ describe LoginController do
       expect(response).to redirect_to(saml_login_url(aac))
     end
 
-    it "redirects to EXAMPLE auth by default" do
+    it "redirects to quite frankly an example LMS auth by default" do
       get "new"
       expect(response).to redirect_to(canvas_login_url)
     end
@@ -276,7 +276,7 @@ describe LoginController do
       expect(response.location).to match(%r{localhost/cas/})
     end
 
-    it "returns you to EXAMPLE login if you logged in via EXAMPLE, but something else is the primary provider" do
+    it "returns you to quite frankly an example LMS login if you logged in via quite frankly an example LMS, but something else is the primary provider" do
       account_with_saml(account: Account.default, saml_log_out_url: "https://www.google.com/")
       session[:login_aac] = Account.default.canvas_authentication_provider.id
       delete "destroy"

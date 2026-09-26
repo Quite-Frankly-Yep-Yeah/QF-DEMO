@@ -17,7 +17,7 @@
         "Archived grading schemes in use can still be used, but cannot be added to new courses or assignments.": "Les barèmes de notation archivés peuvent toujours être utilisés, mais vous ne pouvez pas les ajouter à de nouveaux cours ou travaux.",
         "Are you sure you want to delete this grading scheme?": "Voulez-vous vraiment supprimer ce système de notation ?",
         "Cancel": "Annuler",
-        "EXAMPLE Default": "Paramètres EXAMPLE par défaut",
+        "quite frankly an example LMS Default": "Paramètres quite frankly an example LMS par défaut",
         "Close": "Fermer",
         "Confirm": "Confirmer",
         "Confirm Default Grading Scheme Change": "Confirmer la modification du barème de notation par défaut",
@@ -45,7 +45,7 @@
         "There was an error while archiving the grading scheme": "Une erreur s’est produite lors de l’archivage du barème de notation.",
         "There was an error while creating the grading scheme": "Une erreur est survenue lors de la création du système de notation",
         "There was an error while loading grading schemes": "Une erreur est survenue lors du chargement des systèmes de notation",
-        "There was an error while loading the default canvas grading scheme": "Une erreur est survenue lors du chargement du système de notation par défaut de EXAMPLE",
+        "There was an error while loading the default canvas grading scheme": "Une erreur est survenue lors du chargement du système de notation par défaut de quite frankly an example LMS",
         "There was an error while loading the default grading scheme": "Une erreur est survenue lors du chargement du système de notation par défaut",
         "There was an error while removing the grading scheme": "Une erreur est survenue lors de la suppression du système de notation",
         "There was an error while unarchiving the grading scheme": "Une erreur s’est produite lors du désarchivage du barème de notation.",
@@ -80,7 +80,7 @@
         "Save": "Enregistrer"
     },
     "GradingSchemes": {
-        "A table that contains the default canvas grading scheme data.  Each row contains a name, a maximum percentage, and a minimum percentage.": "Un tableau qui contient les données de notation par défaut du système EXAMPLE.  Chaque ligne contient un nom, un pourcentage maximum et un pourcentage minimum.",
+        "A table that contains the default canvas grading scheme data.  Each row contains a name, a maximum percentage, and a minimum percentage.": "Un tableau qui contient les données de notation par défaut du système quite frankly an example LMS.  Chaque ligne contient un nom, un pourcentage maximum et un pourcentage minimum.",
         "A table that contains the grading scheme data.  Each row contains a name, a maximum percentage, and a minimum percentage.": "Un tableau qui contient les données du système de notation.  Chaque ligne contient un nom, un pourcentage maximum et un pourcentage minimum.",
         "Cannot have duplicate or empty row names. Fix the names and try clicking 'Save' again.": "Impossible de conserver des noms de lignes vides ou en double. Corrigez les noms et essayez à nouveau de cliquer sur « Enregistrer ».",
         "Cannot have overlapping or empty ranges. Fix the ranges and try clicking 'Save' again.": "Impossible de conserver des plages vides ou qui se chevauchent. Corrigez les plages et essayez à nouveau de cliquer sur « Enregistrer ».",
@@ -157,10 +157,10 @@
     "assignments.grading_type_selector": {
         "(course default)": "(valeur par défaut du cours)",
         "Account Level": "Niveau du compte",
-        "EXAMPLE Grading Scheme (course default)": "Système de notation EXAMPLE (valeur par défaut du cours)",
+        "quite frankly an example LMS Grading Scheme (course default)": "Système de notation quite frankly an example LMS (valeur par défaut du cours)",
         "Close": "Fermer",
         "Course Level": "Niveau du cours",
-        "Default EXAMPLE Grading Scheme": "Système de notation EXAMPLE par défaut",
+        "Default quite frankly an example LMS Grading Scheme": "Système de notation quite frankly an example LMS par défaut",
         "Grading scheme was successfully removed.": "Le schéma de notation a été supprimé avec succès.",
         "Grading scheme was successfully updated.": "Le barème de notation a bien été mis à jour.",
         "Manage All Grading Schemes": "Gérer tous les systèmes de notation",
@@ -181,7 +181,7 @@
         "Course Catalog": "Catalogue du cours"
     },
     "confetti": {
-        "Great work! From the EXAMPLE developers": "Bon travail ! De la part des développeurs de EXAMPLE"
+        "Great work! From the quite frankly an example LMS developers": "Bon travail ! De la part des développeurs de quite frankly an example LMS"
     },
     "content_copy_redesign": {
         "Cancel": "Annuler",

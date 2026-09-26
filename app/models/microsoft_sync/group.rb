@@ -21,7 +21,7 @@
 #
 # MicrosoftSync contains models used to sync course enrollments to Microsoft
 # Teams via Microsoft's APIs. For customers using their new (in development as
-# of 2021) Teams tool, Microsoft needs up-to-date EXAMPLE course enrollment
+# of 2021) Teams tool, Microsoft needs up-to-date quite frankly an example LMS course enrollment
 # details.
 #
 # This model is the main model, and is created when a teacher turns on (in

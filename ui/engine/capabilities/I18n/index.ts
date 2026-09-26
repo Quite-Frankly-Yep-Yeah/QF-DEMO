@@ -53,7 +53,7 @@ const Translations: Capability = {
   up: oncePerPage('translations', async () => {
     const locale = ENV.LOCALE || navigator.language || 'en'
 
-    // Sync i18next locale with EXAMPLE locale
+    // Sync i18next locale with quite frankly an example LMS locale
     initI18next(locale)
 
     if (ENV.RAILS_ENVIRONMENT === 'test' || locale === 'en') {

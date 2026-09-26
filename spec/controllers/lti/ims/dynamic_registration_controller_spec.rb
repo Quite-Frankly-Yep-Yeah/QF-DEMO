@@ -250,7 +250,7 @@ describe Lti::IMS::DynamicRegistrationController do
           end
         end
 
-        # Context: In production EXAMPLE cloud, all Dynamic Registration install requests
+        # Context: In production quite frankly an example LMS cloud, all Dynamic Registration install requests
         # are routed through sso.canvaslms.com and we handle routing to the correct shard.
         # This test ensures that even with that happening, we still create all the right records
         # in all the right places.

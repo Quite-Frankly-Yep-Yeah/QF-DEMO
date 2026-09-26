@@ -194,7 +194,7 @@ export async function confirmViewUngradedAsZero({
   const showDialog = () =>
     showConfirmationDialog({
       body: I18n.t(
-        'This setting only affects your view of student grades and displays grades as if all ungraded assignments were given a score of zero. This setting is a visual change only and does not affect grades for students or other users of this Gradebook. When this setting is enabled, EXAMPLE will not populate zeros in the Gradebook for student submissions within individual assignments. Only the assignment groups and total columns will automatically factor scores of zero into the overall percentages for each student.',
+        'This setting only affects your view of student grades and displays grades as if all ungraded assignments were given a score of zero. This setting is a visual change only and does not affect grades for students or other users of this Gradebook. When this setting is enabled, quite frankly an example LMS will not populate zeros in the Gradebook for student submissions within individual assignments. Only the assignment groups and total columns will automatically factor scores of zero into the overall percentages for each student.',
       ),
       confirmText: I18n.t('OK'),
       label: I18n.t('View Ungraded as Zero'),

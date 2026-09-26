@@ -22,7 +22,7 @@ require_relative "../pages/admin_account_page"
 require_relative "../pages/course_page"
 require_relative "../../../factories/admin_analytics_tool_factory"
 
-describe "analytics in EXAMPLE" do
+describe "analytics in quite frankly an example LMS" do
   include_context "in-process server selenium tests"
   include AdminSettingsPage
   include CourseHomePage

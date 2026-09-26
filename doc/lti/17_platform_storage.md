@@ -43,22 +43,22 @@ would tell the platform "store this value in your localStorage for me" and then 
 
 > "The OIDC specification relies on browser cookies to validate the user agent starting the authorization workflow is the same one that finishes it. However, since an LTI integration is most often inside an iFrame there can be many issues involved with setting a state cookie for this purpose. This implementation guide explains how to use LTI Client Side postMessages with LTI postMessage Storage to replace the function of cookies in validating the state between stages of an OIDC launch."
 
-## External EXAMPLE Docs
+## External quite frankly an example LMS Docs
 
 1. See "Launching without Cookies" in [this API doc page](https://canvas.instructure.com/doc/api/file.lti_dev_key_config.html)
    for a brief overview of the OIDC login process, similar to spec doc #3 above.
 
 2. See "lti.put_data" and "lti.get_data" in [Using window.postMessage in LTI Tools](https://canvas.instructure.com/doc/api/file.lti_window_post_message.html)
-   for a description of the postMessage API EXAMPLE supports, similar to spec doc #2 above.
+   for a description of the postMessage API quite frankly an example LMS supports, similar to spec doc #2 above.
 
-## EXAMPLE Implementation
+## quite frankly an example LMS Implementation
 
 > tl;dr search for "platform_storage" or "post_message_forwarding" to find most of the code.
 
 ### JS postMessage Listening
 
-`ui/shared/lti/jquery/messages.ts` has been around in EXAMPLE for a while and handles many different
-types of postMessages. It exposes `monitorLtiMessages`, which is called on various pages in EXAMPLE.
+`ui/shared/lti/jquery/messages.ts` has been around in quite frankly an example LMS for a while and handles many different
+types of postMessages. It exposes `monitorLtiMessages`, which is called on various pages in quite frankly an example LMS.
 Evidently it's also called by the tool launch page, in the `external_tools_show` JS. It's possible
 that only calling it once on every page would be more foolproof in the future.
 
@@ -76,19 +76,19 @@ that only calling it once on every page would be more foolproof in the future.
 
 To signal support of LTI Platform Storage, an `lti_storage_target` is included in both the
 OIDC login and LTI launch requests. This parameter defaults to `_parent`, which tells the
-tool to address messages to the parent EXAMPLE window.
+tool to address messages to the parent quite frankly an example LMS window.
 
 However, per the Platform Storage spec, tools are required to target their postMessages to the platform's
 OIDC Auth domain so that the tool can be confident that the message is only sent to the platform.
-For EXAMPLE, this means that the base postMessage listening isn't enough for Platform Storage, since
-messages sent to the parent EXAMPLE window either need to be targeted to the `*` wildcard, or
-the current EXAMPLE domain. The spec allows for this by sending the name of an iframe that is a sibling
-to the tool launch iframe in the `lti_storage_target` parameter. EXAMPLE sends the value
+For quite frankly an example LMS, this means that the base postMessage listening isn't enough for Platform Storage, since
+messages sent to the parent quite frankly an example LMS window either need to be targeted to the `*` wildcard, or
+the current quite frankly an example LMS domain. The spec allows for this by sending the name of an iframe that is a sibling
+to the tool launch iframe in the `lti_storage_target` parameter. quite frankly an example LMS sends the value
 `post_message_forwarding` in this parameter.
 
-EXAMPLE only sends this parameter in the web app, since the mobile apps don't support or need this spec.
+quite frankly an example LMS only sends this parameter in the web app, since the mobile apps don't support or need this spec.
 For the most part, the mobile apps all use 1st-party WebViews instead of 3rd-party iframes to render
-tools, and so can continue to set cookies. Plus, the postMessage listeners are in the EXAMPLE web
+tools, and so can continue to set cookies. Plus, the postMessage listeners are in the quite frankly an example LMS web
 front-end, and so would need to be reimplemented for each mobile app.
 
 - defined: `lib/lti/platform_storage.rb#lti_storage_target`
@@ -98,9 +98,9 @@ front-end, and so would need to be reimplemented for each mobile app.
 
 ### postMessage Forwarding
 
-EXAMPLE renders an iframe on every page that listens for postMessages and forwards them from
-the tool to EXAMPLE, and from EXAMPLE back to the tool. As mentioned above, this frame's domain
-is required by spec to match the OIDC Auth endpoint, which for INST-hosted production EXAMPLE
+quite frankly an example LMS renders an iframe on every page that listens for postMessages and forwards them from
+the tool to quite frankly an example LMS, and from quite frankly an example LMS back to the tool. As mentioned above, this frame's domain
+is required by spec to match the OIDC Auth endpoint, which for INST-hosted production quite frankly an example LMS
 is `sso.canvaslms.com`.
 
 - frame added to every page: `app/views/lti/platform_storage/_forwarding_frame.html.erb`
@@ -112,12 +112,12 @@ is `sso.canvaslms.com`.
 
 Tool launches from the RCE (Rich Content Editor) are a bit of a special case, since the RCE
 (backed by TinyMCE) uses an iframe to wrap all of the rich content being edited. In that situation,
-tools that launch from an iframe can't send postMessages to EXAMPLE out of the box, since the
-parent window is now the RCE and not EXAMPLE.
+tools that launch from an iframe can't send postMessages to quite frankly an example LMS out of the box, since the
+parent window is now the RCE and not quite frankly an example LMS.
 
 To circumvent this, tool launches in the RCE use the `in_rce` display type, which renders the tool
 launch iframe alongside a sibling forwarder frame, and also forwards any postMessages received to
-the parent EXAMPLE window. This uses the same forwarding code as the Platform Storage forwarder frame,
+the parent quite frankly an example LMS window. This uses the same forwarding code as the Platform Storage forwarder frame,
 with slightly different parameters.
 
 - in_rce HTML page: `app/views/lti/in_rce_launch.html.erb`

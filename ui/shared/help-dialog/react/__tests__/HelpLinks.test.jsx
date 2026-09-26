@@ -37,7 +37,7 @@ describe('HelpLinks', () => {
     id: 'search_the_canvas_guides',
     type: 'default',
     available_to: ['user', 'student', 'teacher', 'admin', 'observer', 'unenrolled'],
-    text: 'Search the EXAMPLE Guides',
+    text: 'Search the quite frankly an example LMS Guides',
     subtext: 'Find answers to common questions',
     url: 'https://community.canvaslms.test/t5/Canvas/ct-p/canvas',
     is_featured: true,
@@ -59,7 +59,7 @@ describe('HelpLinks', () => {
     type: 'default',
     available_to: ['user', 'student', 'teacher', 'admin', 'observer', 'unenrolled'],
     text: 'Report a Problem',
-    subtext: 'If EXAMPLE misbehaves, tell us about it',
+    subtext: 'If quite frankly an example LMS misbehaves, tell us about it',
     url: '#create_ticket',
     is_featured: false,
     is_new: false,
@@ -96,7 +96,7 @@ describe('HelpLinks', () => {
   it('renders all the links', () => {
     const {queryByText} = render(<HelpLinks {...props} />)
     expect(queryByText('Google')).toBeInTheDocument()
-    expect(queryByText('Search the EXAMPLE Guides')).toBeInTheDocument()
+    expect(queryByText('Search the quite frankly an example LMS Guides')).toBeInTheDocument()
     expect(queryByText('Report a Problem')).toBeInTheDocument()
   })
 

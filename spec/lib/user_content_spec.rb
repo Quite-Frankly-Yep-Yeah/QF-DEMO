@@ -119,7 +119,7 @@ describe UserContent do
       expect(rewriter.user_can_view_content?(att2)).to be_falsey
     end
 
-    it "adds lazy loading to EXAMPLE iframes and images" do
+    it "adds lazy loading to quite frankly an example LMS iframes and images" do
       course = course_factory
       att = attachment_model(context: @course)
 

@@ -3,9 +3,9 @@
   "definition": "The event is emitted anytime when a submission is graded. These can happen as the result of a teacher changing a grade in the gradebook or speedgrader, a quiz being automatically scored, or changing an assignment's points possible or grade type. In the case of a quiz being scored, the `grade_change` event will be emitted as the result of a student turning in a quiz, and the `user_id` in the message attributes will be the student's user ID.",
   "trigger": "Triggered anytime a grade is created or modified.",
   "schema": {
-    "assignment_id": "The EXAMPLE id of the assignment associated with the submission.",
+    "assignment_id": "The quite frankly an example LMS id of the assignment associated with the submission.",
     "grade": "The new grade.",
-    "grader_id": "The EXAMPLE id of the user making the grade change. Null if this was the result of automatic grading.",
+    "grader_id": "The quite frankly an example LMS id of the user making the grade change. Null if this was the result of automatic grading.",
     "grading_complete": "The boolean state that the submission is completely graded.  False if the assignment is only partially graded, for example a quiz with automatically and manuall...",
     "muted": "The boolean muted state of the submissions's assignment.  Muted grade changes should not be published to students.",
     "old_grade": "The previous grade, if there was one.",
@@ -15,8 +15,8 @@
     "score": "The new score.",
     "student_id": "Same as the user_id.",
     "student_sis_id": "The SIS ID of the student.",
-    "submission_id": "The EXAMPLE id of the submission that the grade is changing on.",
-    "user_id": "The EXAMPLE id of the user associated with the submission with the change."
+    "submission_id": "The quite frankly an example LMS id of the submission that the grade is changing on.",
+    "user_id": "The quite frankly an example LMS id of the user associated with the submission with the change."
   },
   "examples": [
     {

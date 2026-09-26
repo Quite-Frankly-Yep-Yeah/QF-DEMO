@@ -491,7 +491,7 @@ describe TabsController, type: :request do
           "id" => "sis_import",
           "html_url" => "/accounts/#{@account.id}/sis_import",
           "full_url" => "#{HostUrl.protocol}://#{HostUrl.context_host(@account)}/accounts/#{@account.id}/sis_import",
-          "label" => "SIS Import",
+          "label" => "SISi",
           "position" => 14,
           "visibility" => "public",
           "type" => "internal"

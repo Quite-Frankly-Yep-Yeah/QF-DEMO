@@ -155,7 +155,7 @@ namespace :db do
     if !Rails.env.test? && (ENV["CANVAS_LMS_STATS_COLLECTION"] || "").empty?
       require "highline/import"
       choose do |menu|
-        menu.header = "To help our developers better serve you, Instructure would like to collect some usage data about your EXAMPLE installation. You can change this setting at any time."
+        menu.header = "To help our developers better serve you, Instructure would like to collect some usage data about your quite frankly an example LMS installation. You can change this setting at any time."
         menu.prompt = "> "
         menu.choice("Opt in") do
           gather_data = "opt_in"

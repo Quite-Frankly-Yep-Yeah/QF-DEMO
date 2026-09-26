@@ -17,7 +17,7 @@
         "Archived grading schemes in use can still be used, but cannot be added to new courses or assignments.": "لا يزال بالإمكان استخدام مخططات التقييم المؤرشفة، لكن لا يمكن إضافتها إلى مساقات أو مهام جديدة.",
         "Are you sure you want to delete this grading scheme?": "هل ترغب بالتأكيد في حذف نظام التقييم هذا؟",
         "Cancel": "إلغاء",
-        "EXAMPLE Default": "الوضع الافتراضي لـ EXAMPLE",
+        "quite frankly an example LMS Default": "الوضع الافتراضي لـ quite frankly an example LMS",
         "Close": "إغلاق",
         "Confirm": "تأكيد",
         "Confirm Default Grading Scheme Change": "تأكيد تغيير مخطط التقييم الافتراضي",
@@ -45,7 +45,7 @@
         "There was an error while archiving the grading scheme": "حدث خطأ أثناء أرشفة مخطط التقييم",
         "There was an error while creating the grading scheme": "حدث خطأ أثناء إنشاء نظام التقييم",
         "There was an error while loading grading schemes": "حدث خطأ أثناء تحميل أنظمة التقييم",
-        "There was an error while loading the default canvas grading scheme": "حدث خطأ أثناء تحميل نظام تقييم EXAMPLE الافتراضي",
+        "There was an error while loading the default canvas grading scheme": "حدث خطأ أثناء تحميل نظام تقييم quite frankly an example LMS الافتراضي",
         "There was an error while loading the default grading scheme": "حدث خطأ أثناء تحميل نظام التقييم الافتراضي",
         "There was an error while removing the grading scheme": "حدث خطأ أثناء إزالة نظام التقييم",
         "There was an error while unarchiving the grading scheme": "حدث خطأ أثناء إلغاء أرشفة مخطط التقييم",
@@ -80,7 +80,7 @@
         "Save": "حفظ"
     },
     "GradingSchemes": {
-        "A table that contains the default canvas grading scheme data.  Each row contains a name, a maximum percentage, and a minimum percentage.": "جدول يحتوي على بيانات نظام تقييم EXAMPLE الافتراضي.  يحتوي كل صف على اسم ونسبة مئوية قصوى ونسبة مئوية دنيا.",
+        "A table that contains the default canvas grading scheme data.  Each row contains a name, a maximum percentage, and a minimum percentage.": "جدول يحتوي على بيانات نظام تقييم quite frankly an example LMS الافتراضي.  يحتوي كل صف على اسم ونسبة مئوية قصوى ونسبة مئوية دنيا.",
         "A table that contains the grading scheme data.  Each row contains a name, a maximum percentage, and a minimum percentage.": "جدول يحتوي على بيانات نظام التقييم.  يحتوي كل صف على اسم ونسبة مئوية قصوى ونسبة مئوية دنيا.",
         "Cannot have duplicate or empty row names. Fix the names and try clicking 'Save' again.": "لا يمكن أن يحتوي على أسماء صفوف مكررة أو فارغة. أصلح الأسماء وحاول النقر فوق \\\"حفظ\\\" مرة أخرى.",
         "Cannot have overlapping or empty ranges. Fix the ranges and try clicking 'Save' again.": "لا يمكن أن يحتوي على نطاقات متداخلة أو فارغة. أصلح النطاقات وحاول النقر فوق \\\"حفظ\\\" مرة أخرى.",
@@ -157,10 +157,10 @@
     "assignments.grading_type_selector": {
         "(course default)": "(افتراضي المساق)",
         "Account Level": "مستوى الحساب",
-        "EXAMPLE Grading Scheme (course default)": "نظام التقييم EXAMPLE (المخطط الافتراضي للمساق)",
+        "quite frankly an example LMS Grading Scheme (course default)": "نظام التقييم quite frankly an example LMS (المخطط الافتراضي للمساق)",
         "Close": "إغلاق",
         "Course Level": "مستوى المساق",
-        "Default EXAMPLE Grading Scheme": "نظام تقييم EXAMPLE الافتراضي",
+        "Default quite frankly an example LMS Grading Scheme": "نظام تقييم quite frankly an example LMS الافتراضي",
         "Grading scheme was successfully removed.": "تمت إزالة نظام التقييم بنجاح.",
         "Grading scheme was successfully updated.": "تم تحديث مخطط التقييم بنجاح.",
         "Manage All Grading Schemes": "إدارة كل أنظمة التقييم",
@@ -181,7 +181,7 @@
         "Course Catalog": "كتالوج المساق"
     },
     "confetti": {
-        "Great work! From the EXAMPLE developers": "عمل رائع! من مطوري EXAMPLE"
+        "Great work! From the quite frankly an example LMS developers": "عمل رائع! من مطوري quite frankly an example LMS"
     },
     "content_copy_redesign": {
         "Cancel": "إلغاء",

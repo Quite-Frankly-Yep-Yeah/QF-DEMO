@@ -33,7 +33,7 @@ function defaultProps(overrides) {
 }
 
 const privacyNoticeText =
-  'Notice: Some notifications may contain confidential information. Selecting to receive notifications at an email other than your institution provided address may result in sending sensitive EXAMPLE course and group information outside of the institutional system.'
+  'Notice: Some notifications may contain confidential information. Selecting to receive notifications at an email other than your institution provided address may result in sending sensitive quite frankly an example LMS course and group information outside of the institutional system.'
 
 describe('Notification Preferences', () => {
   it('renders the context name next to mute toggle', () => {

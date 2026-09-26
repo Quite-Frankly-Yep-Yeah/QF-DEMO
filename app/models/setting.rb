@@ -49,7 +49,7 @@ class Setting < Switchman::UnshardedRecord
     default&.to_s
   end
 
-  # Note that after calling this, you should send SIGHUP to all running EXAMPLE processes
+  # Note that after calling this, you should send SIGHUP to all running quite frankly an example LMS processes
   def self.set(name, value, secret: nil)
     s = Setting.where(name:).first_or_initialize
     s.value = value&.to_s
@@ -60,7 +60,7 @@ class Setting < Switchman::UnshardedRecord
     MultiCache.delete("all_settings")
 
     if defined?(Rails::Console)
-      message = Setting.get("setting_set_sighup_required_message", "** NOTE: After calling `Setting.set`, SIGHUP must be sent to all EXAMPLE processes **")
+      message = Setting.get("setting_set_sighup_required_message", "** NOTE: After calling `Setting.set`, SIGHUP must be sent to all quite frankly an example LMS processes **")
       Rails.logger.info(message)
     end
   end

@@ -236,7 +236,7 @@ function CanvasFileChooser({allowedExtensions, courseID, onFileSelect, userID}) 
     <BaseUploadTool
       renderFooter={footerContents}
       icon={<IconFolderLine size="medium" color="primary" width="24px" height="24px" />}
-      label={I18n.t('EXAMPLE Files')}
+      label={I18n.t('quite frankly an example LMS Files')}
     >
       {() => contents}
     </BaseUploadTool>

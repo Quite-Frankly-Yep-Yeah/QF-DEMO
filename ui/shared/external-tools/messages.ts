@@ -60,7 +60,7 @@ export type MessageHandlerCleanupFunction = () => void
 
 /**
  * Sets up handlers to listen to externalContentReady and/or
- * externalContentCancel postMessages. These messages are sent from EXAMPLE
+ * externalContentCancel postMessages. These messages are sent from quite frankly an example LMS
  * inside the tool iframe, after redirecting to the external content success
  * URL. Success messages contain content items provided by the tool for
  * processing.

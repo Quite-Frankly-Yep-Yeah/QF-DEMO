@@ -1,0 +1,5 @@
+<% define_content :subject do %>
+  <%= t "An update about %{student} in %{course}", student: asset.student.name, course: asset.course.name %>
+<% end %>
+
+<%= t "%{student}: %{problem}.", student: asset.student.name, problem: asset.description %>

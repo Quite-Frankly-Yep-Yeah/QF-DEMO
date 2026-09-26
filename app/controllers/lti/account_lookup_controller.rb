@@ -37,7 +37,7 @@ module Lti
   #         },
   #         "name": {
   #           "description": "The display name of the account",
-  #           "example": "EXAMPLE Account",
+  #           "example": "quite frankly an example LMS Account",
   #           "type": "string"
   #         },
   #         "uuid": {

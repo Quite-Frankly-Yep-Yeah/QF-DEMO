@@ -216,7 +216,7 @@ describe Canvas::ExecutionContext do
   end
 
   describe "enrichment behavior" do
-    it "enriches context with region and revision from EXAMPLE module" do
+    it "enriches context with region and revision from quite frankly an example LMS module" do
       Canvas::ExecutionContext.clear_cache
 
       expect(Canvas::ExecutionContext[:region]).to eq("us-east-1")

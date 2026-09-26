@@ -18,11 +18,11 @@
 # with this program. If not, see <http://www.gnu.org/licenses/>.
 #
 
-# EXAMPLE → SwaggerYard adapter for SwaggerYard 1.1.1
-# - Registers EXAMPLE-style YARD tags (@API, @argument, @returns, @model)
-# - Patches SwaggerYard::Operation to handle EXAMPLE tags
+# quite frankly an example LMS → SwaggerYard adapter for SwaggerYard 1.1.1
+# - Registers quite frankly an example LMS-style YARD tags (@API, @argument, @returns, @model)
+# - Patches SwaggerYard::Operation to handle quite frankly an example LMS tags
 #
-# This adapter allows SwaggerYard to parse EXAMPLE's existing YARD documentation
+# This adapter allows SwaggerYard to parse quite frankly an example LMS's existing YARD documentation
 # and generate OpenAPI 3.0 specifications from it.
 
 module SwaggerYard
@@ -51,10 +51,10 @@ module SwaggerYard
     end
 
     TAGS = {
-      API: { name: "EXAMPLE API summary", handler: :API },
-      argument: { name: "EXAMPLE argument", handler: :argument },
-      returns: { name: "EXAMPLE returns", handler: :returns },
-      model: { name: "EXAMPLE model", handler: :model },
+      API: { name: "quite frankly an example LMS API summary", handler: :API },
+      argument: { name: "quite frankly an example LMS argument", handler: :argument },
+      returns: { name: "quite frankly an example LMS returns", handler: :returns },
+      model: { name: "quite frankly an example LMS model", handler: :model },
       example_request: { name: "Example request", handler: :example_request },
       example_response: { name: "Example response", handler: :example_response },
     }.freeze
@@ -68,7 +68,7 @@ module SwaggerYard
       collect_model_schemas!
     end
 
-    # Load EXAMPLE routes to map controller#action to actual route paths
+    # Load quite frankly an example LMS routes to map controller#action to actual route paths
     # Uses TokenScopes.api_routes_for_openapi_docs to extract routes
     def self.load_canvas_routes!
       @canvas_routes = {}
@@ -344,7 +344,7 @@ module SwaggerYard
       end
     end
 
-    # Convert EXAMPLE JSON schema format to OpenAPI 3.0 format
+    # Convert quite frankly an example LMS JSON schema format to OpenAPI 3.0 format
     def self.convert_canvas_schema_to_openapi(canvas_schema)
       openapi_schema = {
         "type" => "object"
@@ -371,7 +371,7 @@ module SwaggerYard
       fix_refs_recursive(openapi_schema)
     end
 
-    # Convert properties from EXAMPLE format to OpenAPI format
+    # Convert properties from quite frankly an example LMS format to OpenAPI format
     def self.convert_properties(properties)
       properties.transform_values do |prop_def|
         convert_single_property(prop_def)
@@ -542,7 +542,7 @@ module SwaggerYard
       private
 
       def define_canvas_tags
-        # Register EXAMPLE tags with YARD
+        # Register quite frankly an example LMS tags with YARD
         YARD::Tags::Library.define_tag(TAGS[:API][:name], :API)
         YARD::Tags::Library.define_tag(TAGS[:argument][:name], :argument, :with_types_and_name)
         YARD::Tags::Library.define_tag(TAGS[:returns][:name], :returns, :with_types)
@@ -557,7 +557,7 @@ module SwaggerYard
           def add_info(yard_object)
             super
 
-            # EXAMPLE doesn't use @resource tags. Instead, the resource name is defined
+            # quite frankly an example LMS doesn't use @resource tags. Instead, the resource name is defined
             # in @API tags (e.g., "@API Users", "@API Courses"). SwaggerYard needs a
             # @resource for grouping operations, so we generate it from the class name.
             # Note: This typically matches the resource name used in @API tags within
@@ -594,7 +594,7 @@ module SwaggerYard
           private
 
           def paths_from_yard_object_canvas(yard_object)
-            # EXAMPLE methods use @API tags; infer path and method from routes
+            # quite frankly an example LMS methods use @API tags; infer path and method from routes
             api_tag = yard_object.docstring.tags(:API).first
             return nil unless api_tag # Skip methods without @API
 
@@ -606,7 +606,7 @@ module SwaggerYard
             # e.g., Quizzes::QuizzesApiController -> quizzes/quizzes_api
             controller_name = underscore(class_name_str).sub(/_controller$/, "")
 
-            # Find routes from EXAMPLE routes.rb
+            # Find routes from quite frankly an example LMS routes.rb
             route_key = "#{controller_name}##{method_name}"
             route_infos = SwaggerYard::CanvasAdapter.canvas_routes[route_key]
 
@@ -632,14 +632,14 @@ module SwaggerYard
         end)
       end
 
-      # Patch SwaggerYard::Operation.from_yard_object to handle EXAMPLE tags
+      # Patch SwaggerYard::Operation.from_yard_object to handle quite frankly an example LMS tags
       def patch_operation!
         SwaggerYard::Operation.singleton_class.prepend(Module.new do
           def from_yard_object(yard_object, path_item)
             # Call original method
             operation = super
 
-            # Process EXAMPLE tags
+            # Process quite frankly an example LMS tags
             process_canvas_tags(yard_object, operation)
 
             operation
@@ -855,7 +855,7 @@ module SwaggerYard
 
           def method_uses_pagination?(yard_object, visited = Set.new)
             # Check if the method source contains Api.paginate or .paginate( calls
-            # This is the definitive way to know if EXAMPLE endpoint is paginated
+            # This is the definitive way to know if quite frankly an example LMS endpoint is paginated
             return false unless yard_object.respond_to?(:source)
 
             # Prevent infinite recursion
@@ -989,7 +989,7 @@ module SwaggerYard
           def sanitize_type_list(types)
             tlist = types.map { |t| t.to_s.strip }.reject(&:empty?)
 
-            # Remove EXAMPLE modifiers that aren't actual types
+            # Remove quite frankly an example LMS modifiers that aren't actual types
             modifiers = ["optional", "required"]
             tlist = tlist.reject { |t| modifiers.include?(t.downcase) }
 
@@ -999,7 +999,7 @@ module SwaggerYard
           end
 
           def extract_enum_values(types)
-            # EXAMPLE uses pattern like String, "val1"|"val2"|"val3"
+            # quite frankly an example LMS uses pattern like String, "val1"|"val2"|"val3"
             # Extract quoted strings as enum values
             types[1..]&.map { |t| t.scan(/"([^"]+)"/) }&.flatten&.compact || []
           end
@@ -1063,7 +1063,7 @@ module SwaggerYard
 
           def required_param?(types)
             # Check if parameter is marked as required
-            # EXAMPLE uses "Required" in type list (e.g., [Required, String])
+            # quite frankly an example LMS uses "Required" in type list (e.g., [Required, String])
             # Do not check description to avoid false positives from
             # conditionally required params (e.g., "Required for 'Page' type")
             types_str = types.join(" ").downcase

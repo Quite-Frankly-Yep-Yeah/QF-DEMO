@@ -35,7 +35,7 @@ module Accessibility
       # @param input_description [String] Optional description for the input field
       # @param input_max_length [Integer] Optional maximum length for the input field
       # @param value [String] Optional default value for the input field
-      # @param is_canvas_image [Boolean] Optional flag to indicate if image is from EXAMPLE
+      # @param is_canvas_image [Boolean] Optional flag to indicate if image is from quite frankly an example LMS
       def initialize(checkbox_label:,
                      input_label:,
                      undo_text:,

@@ -202,11 +202,11 @@ describe('CheckboxTextInput', () => {
       const message = screen.getByTestId('alt-text-generation-not-available-message')
       expect(message).toBeInTheDocument()
       expect(message).toHaveTextContent(
-        'AI alt text generation is only available for images uploaded to EXAMPLE.',
+        'AI alt text generation is only available for images uploaded to quite frankly an example LMS.',
       )
     })
 
-    it('does not show message when the image is from EXAMPLE', () => {
+    it('does not show message when the image is from quite frankly an example LMS', () => {
       render(<CheckboxTextInput {...withGenerateFix()} />)
 
       const message = screen.queryByTestId('alt-text-generation-not-available-message')

@@ -1,0 +1,177 @@
+/*
+ * Copyright (C) 2015 - present Instructure, Inc.
+ *
+ * This file is part of Canvas.
+ *
+ * Canvas is free software: you can redistribute it and/or modify it under
+ * the terms of the GNU Affero General Public License as published by the Free
+ * Software Foundation, version 3 of the License.
+ *
+ * Canvas is distributed in the hope that it will be useful, but WITHOUT ANY
+ * WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS FOR
+ * A PARTICULAR PURPOSE. See the GNU Affero General Public License for more
+ * details.
+ *
+ * You should have received a copy of the GNU Affero General Public License along
+ * with this program. If not, see <http://www.gnu.org/licenses/>.
+ */
+
+// Account settings as Material 1: each group of settings is a white card
+// (legend as its title), the tab bar is a raised white strip, and form
+// controls have quiet, consistent borders.
+@if not $use_high_contrast {
+  #account_settings_tabs_mount {
+    [role="tablist"] {
+      background: #ffffff;
+      border-radius: 2px;
+      box-shadow: $md-elevation-1;
+      margin: 0 0 24px;
+      padding: 0 $ic-sp;
+
+      [role="tab"] {
+        font-size: 0.875rem;
+        font-weight: 500;
+        letter-spacing: 0.5px;
+        text-transform: uppercase;
+      }
+    }
+
+    [role="tabpanel"] {
+      background: transparent;
+      padding: 0;
+    }
+
+    // a group of settings
+    fieldset,
+    [id^="tab-"][id$="-mount"]:not(:has(fieldset)) {
+      box-sizing: border-box;
+      background: #ffffff;
+      border: 0;
+      border-radius: 2px;
+      box-shadow: $md-elevation-1;
+      margin: 0 0 24px;
+      padding: 24px 32px;
+    }
+
+    fieldset legend:not(.screenreader-only) {
+      float: none;
+      width: auto;
+      margin: 0 0 16px;
+      padding: 0;
+      border: 0;
+      font-size: 1.5rem;
+      font-weight: 300;
+      line-height: 1.3;
+      color: #212121;
+    }
+
+    // a nested group sits inside its card without a card of its own
+    fieldset fieldset,
+    fieldset.nested {
+      box-shadow: none;
+      margin: 0 0 16px;
+      padding: 0;
+    }
+
+    .formtable {
+      td {
+        padding: 6px 12px 6px 0;
+        vertical-align: middle;
+      }
+    }
+
+    input[type="text"],
+    input[type="email"],
+    input[type="number"],
+    input[type="password"],
+    input[type="url"],
+    input[type="search"],
+    select,
+    textarea {
+      box-sizing: border-box;
+      min-height: 36px;
+      padding: 6px 10px;
+      border: 1px solid #bdbdbd;
+      border-radius: 2px;
+      background: #ffffff;
+      color: #212121;
+      font: inherit;
+      box-shadow: none;
+
+      &:hover {
+        border-color: #757575;
+      }
+
+      &:focus {
+        outline: 2px solid var(--ic-brand-primary);
+        outline-offset: 0;
+        border-color: var(--ic-brand-primary);
+      }
+    }
+
+    .form-actions,
+    .button-container {
+      margin: 0;
+      padding: 16px 0 0;
+      background: transparent;
+      border: 0;
+    }
+
+    table:not(.formtable) {
+      background: #ffffff;
+      width: 100%;
+
+      th {
+        font-weight: 500;
+        color: #616161;
+        text-align: left;
+      }
+
+      th,
+      td {
+        padding: 12px 8px;
+        border-bottom: 1px solid rgba(0, 0, 0, 0.08);
+      }
+    }
+  }
+
+  // Feature Options: one white card per group, a roomy row per feature
+  #account_settings_tabs_mount {
+    .feature-flags {
+      background: #ffffff;
+      border: 0;
+      border-radius: 2px;
+      box-shadow: $md-elevation-1;
+      color: #616161;
+      margin: 0 0 24px;
+      overflow: hidden;
+    }
+
+    .feature-flag {
+      border-bottom: 1px solid rgba(0, 0, 0, 0.08);
+      padding: 12px 24px;
+      line-height: 1.5;
+
+      &:hover {
+        background: rgba(0, 0, 0, 0.03);
+      }
+
+      &:last-child {
+        border-bottom: 0;
+      }
+    }
+
+    .feature-title {
+      color: #212121;
+      font-weight: 500;
+    }
+
+    .feature-flag-group-title {
+      margin: 24px 0 8px;
+      padding: 0;
+      font-size: 1.25rem;
+      font-weight: 400;
+      color: #212121;
+    }
+  }
+}

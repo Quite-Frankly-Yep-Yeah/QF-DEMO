@@ -99,7 +99,7 @@ module Lti::Concerns
 
     # In some situations for nested LTI tools, such as if the nested tool needs
     # to go thru an OAuth flow, parent_frame_context is not available. In these
-    # scenarios, we can allow the EXAMPLE page (e.g. OAuth confirm page) to be
+    # scenarios, we can allow the quite frankly an example LMS page (e.g. OAuth confirm page) to be
     # framed inside any trusted tool for the root account. (This requires the
     # outer tool to be installed at the root account, as is the case for NQ)
     def allow_trusted_tools_to_embed_this_page!

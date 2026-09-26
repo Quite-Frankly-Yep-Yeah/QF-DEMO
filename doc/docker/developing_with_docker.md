@@ -1,11 +1,11 @@
-# Using Docker for EXAMPLE Development
+# Using Docker for quite frankly an example LMS Development
 
 _*Instructure employees should use the `inst` CLI. Go [here](./../../inst-cli/doc/docker/developing_with_docker.md) for more info.*_
 
 You can use Docker in your development environment for a more seamless
-way to get started developing EXAMPLE.
+way to get started developing quite frankly an example LMS.
 
-**Note for previous Docker for EXAMPLE development users**
+**Note for previous Docker for quite frankly an example LMS development users**
 If you have a `docker-compose.override.yml`, you'll need to update it to version 2 or delete it.
 
 ## Automated setup script
@@ -16,7 +16,7 @@ The easiest way to get a working development environment is to run:
 ./script/docker_dev_setup.sh
 ```
 
-This will guide you through the process of building the docker images and setting up EXAMPLE.
+This will guide you through the process of building the docker images and setting up quite frankly an example LMS.
 
 If you would rather do things manually, read on! And be sure to check the [Troubleshooting](#Troubleshooting) section below.
 
@@ -101,7 +101,7 @@ open http://canvas.docker/
 ## Normal Usage
 
 Normally you can just start everything with `docker compose up -d` and
-access EXAMPLE at http://canvas.docker/
+access quite frankly an example LMS at http://canvas.docker/
 
 After pulling new code, you'll want to update all your local gems, rebuild your
 docker images, pull plugin code, run migrations, and recompile assets. This can
@@ -130,7 +130,7 @@ Go ahead and do so.
 Debug configurations will already be set up.
 You can attach to the currently running web server, or run specs for the currently active spec file.
 
-EXAMPLE also comes with the Ruby LSP rspec extension in development mode.
+quite frankly an example LMS also comes with the Ruby LSP rspec extension in development mode.
 
 Add the following to your VS Code settings to run rspec tests via CodeLense UI elements:
 ```json
@@ -274,9 +274,9 @@ To enable Mail Catcher: Add `docker-compose/mailcatcher.override.yml` to your `C
 
 Email is often sent through background jobs in the jobs container. If you would like to test or preview any notifications, simply trigger the email through its normal actions, and it should immediately show up in the emulated webmail inbox available here: <http://mail.canvas.docker>
 
-### EXAMPLE RCE API
+### quite frankly an example LMS RCE API
 
-The EXAMPLE RCE relies on the EXAMPLE RCE API service.
+The quite frankly an example LMS RCE relies on the quite frankly an example LMS RCE API service.
 
 Add `docker-compose/rce-api.override.yml` to your `COMPOSE_FILE` var in `.env`.
 
@@ -296,7 +296,7 @@ To enable this service, add `docker-compose/statsd.override.yml` to your .env fi
 
 Next, stop and start any running containers (a restart is not sufficient since environment variables change).
 
-Finally, tail the statsd service logs to see what metrics EXAMPLE is recording: `docker compose logs -ft statsd`.
+Finally, tail the statsd service logs to see what metrics quite frankly an example LMS is recording: `docker compose logs -ft statsd`.
 
 ### Kafka
 To enable Kafka, add `docker-compose/kafka.override.yml` to your `COMPOSE_FILE` var in `.env`. The broker is reachable

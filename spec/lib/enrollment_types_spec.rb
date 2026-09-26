@@ -46,7 +46,7 @@ describe EnrollmentTypes do
   describe ".labels" do
     let(:account) { account_model }
 
-    context "without EXAMPLE Career overrides" do
+    context "without quite frankly an example LMS Career overrides" do
       before do
         allow(CanvasCareer::LabelOverrides).to receive(:enrollment_type_overrides).and_return({})
       end
@@ -62,7 +62,7 @@ describe EnrollmentTypes do
       end
     end
 
-    context "with EXAMPLE Career overrides" do
+    context "with quite frankly an example LMS Career overrides" do
       before do
         overrides = {
           "StudentEnrollment" => {
@@ -77,7 +77,7 @@ describe EnrollmentTypes do
         allow(CanvasCareer::LabelOverrides).to receive(:enrollment_type_overrides).and_return(overrides)
       end
 
-      it "applies EXAMPLE Career overrides" do
+      it "applies quite frankly an example LMS Career overrides" do
         labels = EnrollmentTypes.labels(account)
 
         student_enrollment = labels.find { |l| l[:name] == "StudentEnrollment" }

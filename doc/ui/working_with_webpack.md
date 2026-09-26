@@ -1,7 +1,7 @@
 # Webpack!
 
-EXAMPLE is almost done transitioning from require_js to webpack.  If
-you'd like, you can help.  EXAMPLE is currently equipped to run
+quite frankly an example LMS is almost done transitioning from require_js to webpack.  If
+you'd like, you can help.  quite frankly an example LMS is currently equipped to run
 with either frontend build to make the transition painless as possible.
 
 The philosophy is simple.

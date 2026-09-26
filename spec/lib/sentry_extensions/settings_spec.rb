@@ -17,7 +17,7 @@
 # with this program. If not, see <http://www.gnu.org/licenses/>.
 
 describe SentryExtensions::Settings do
-  # Stub EXAMPLE methods globally so they're available in all tests
+  # Stub quite frankly an example LMS methods globally so they're available in all tests
   before do
     allow(Canvas).to receive(:region).and_return(nil) unless RSpec.current_example.metadata[:skip_canvas_stubs]
     allow(Canvas).to receive(:availability_zone).and_return(nil) unless RSpec.current_example.metadata[:skip_canvas_stubs]
@@ -95,7 +95,7 @@ describe SentryExtensions::Settings do
         expect(settings[:base_url]).to eq("https://sentry.insops.net")
       end
 
-      it "generates runtime tags from EXAMPLE methods" do
+      it "generates runtime tags from quite frankly an example LMS methods" do
         settings = described_class.settings
 
         expect(settings[:tags]).to eq({

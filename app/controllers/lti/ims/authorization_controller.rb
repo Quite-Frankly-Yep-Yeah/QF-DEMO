@@ -27,10 +27,10 @@ module Lti
     # @model AuthorizationJWT
     #     {
     #       "id": "AuthorizationJWT",
-    #       "description": "This is a JWT (https://tools.ietf.org/html/rfc7519), we highly recommend using a library to create these tokens. The token should be signed with the shared secret found in the Tool Proxy, which must be using the 'splitSecret' capability. If a tool proxy has not yet been created in EXAMPLE a developer key may be used to sign the token. In this case the ‘sub’ claim of the token should be the developer key ID.",
+    #       "description": "This is a JWT (https://tools.ietf.org/html/rfc7519), we highly recommend using a library to create these tokens. The token should be signed with the shared secret found in the Tool Proxy, which must be using the 'splitSecret' capability. If a tool proxy has not yet been created in quite frankly an example LMS a developer key may be used to sign the token. In this case the ‘sub’ claim of the token should be the developer key ID.",
     #       "properties": {
     #         "sub":{
-    #           "description": "The Tool Proxy Guid OR Developer key ID. A developer key ID should only be used if a tool proxy has not been created in EXAMPLE. In this case the token should be signed with the developer key rather than the tool proxy shared secret.",
+    #           "description": "The Tool Proxy Guid OR Developer key ID. A developer key ID should only be used if a tool proxy has not been created in quite frankly an example LMS. In this case the token should be signed with the developer key rather than the tool proxy shared secret.",
     #           "example": "81c4fc5f-4931-4199-ae3b-2077de8f9325",
     #           "type": "string"
     #         },

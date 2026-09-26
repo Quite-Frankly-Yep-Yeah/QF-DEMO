@@ -170,7 +170,7 @@ function print_results {
 
 ensure_in_canvas_root_directory
 create_log_file
-init_log_file "Rebase EXAMPLE and Plugins"
+init_log_file "Rebase quite frankly an example LMS and Plugins"
 check_for_changes
 [[ -n "$SKIP_CANVAS" ]] || rebase_canvas
 [[ -n "$SKIP_PLUGINS" ]] || rebase_plugins

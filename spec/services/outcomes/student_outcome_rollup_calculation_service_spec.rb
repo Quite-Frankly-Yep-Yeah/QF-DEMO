@@ -304,7 +304,7 @@ describe Outcomes::StudentOutcomeRollupCalculationService do
       it "deduplicates results with same outcome, user, and assignment" do
         result = subject.send(:combine_results, [canvas_result], [os_result])
         expect(result.length).to eq(1)
-        # EXAMPLE results should be preferred over OS results when keys are identical
+        # quite frankly an example LMS results should be preferred over OS results when keys are identical
         expect(result.first).to eq(canvas_result)
       end
     end
@@ -407,7 +407,7 @@ describe Outcomes::StudentOutcomeRollupCalculationService do
       end
     end
 
-    context "combining EXAMPLE and Outcomes Service results" do
+    context "combining quite frankly an example LMS and Outcomes Service results" do
       before do
         # Set up the outcome with proper rubric criterion and calculation method
         outcome.rubric_criterion = {
@@ -452,7 +452,7 @@ describe Outcomes::StudentOutcomeRollupCalculationService do
         allow(subject).to receive(:fetch_outcomes_service_results).and_return([os_result])
       end
 
-      it "combines EXAMPLE and Outcomes Service results" do
+      it "combines quite frankly an example LMS and Outcomes Service results" do
         rollups = subject.call
 
         # We should get one rollup
@@ -464,7 +464,7 @@ describe Outcomes::StudentOutcomeRollupCalculationService do
         expect(rollup.aggregate_score).to eq(4)
       end
 
-      context "with different outcomes in EXAMPLE and Outcomes Service" do
+      context "with different outcomes in quite frankly an example LMS and Outcomes Service" do
         let(:outcome2) { outcome_model(context: course) }
         let(:assignment2) { assignment_model(context: course) }
         let(:alignment2) { outcome2.align(assignment2, course) }
@@ -521,7 +521,7 @@ describe Outcomes::StudentOutcomeRollupCalculationService do
           outcome2_rollup = rollups.find_by(outcome_id: outcome2.id)
 
           expect(outcome1_rollup).to be_present
-          expect(outcome1_rollup.aggregate_score).to eq(3) # EXAMPLE result score
+          expect(outcome1_rollup.aggregate_score).to eq(3) # quite frankly an example LMS result score
 
           expect(outcome2_rollup).to be_present
           expect(outcome2_rollup.aggregate_score).to eq(4) # OS result score
@@ -625,7 +625,7 @@ describe Outcomes::StudentOutcomeRollupCalculationService do
         # Stub course.linked_learning_outcomes to return our outcome
         allow(course).to receive(:linked_learning_outcomes).and_return([outcome])
 
-        # Create a EXAMPLE result first
+        # Create a quite frankly an example LMS result first
         @canvas_result = LearningOutcomeResult.create!(
           learning_outcome: outcome,
           user: student,
@@ -1104,7 +1104,7 @@ describe Outcomes::StudentOutcomeRollupCalculationService do
 
           # Score should be scaled according to outcome proficiency
           # With a score of 2 out of 5, and proficiency max of 4, scaled score should be (2/5) * 4 = 1.6
-          expect(rollup.aggregate_score).to eq(1.6) # EXAMPLE scales based on outcome proficiency
+          expect(rollup.aggregate_score).to eq(1.6) # quite frankly an example LMS scales based on outcome proficiency
         end
       end
 
@@ -1271,7 +1271,7 @@ describe Outcomes::StudentOutcomeRollupCalculationService do
           allow(active_scope).to receive(:where).and_return(where_scope)
           allow(where_scope).to receive(:quiz_lti).and_return([quiz_assignment])
 
-          # Regular EXAMPLE result - using score from our common set
+          # Regular quite frankly an example LMS result - using score from our common set
           @canvas_result = LearningOutcomeResult.create!(
             learning_outcome: outcome,
             user: student,
@@ -1307,7 +1307,7 @@ describe Outcomes::StudentOutcomeRollupCalculationService do
       end
     end
 
-    context "with EXAMPLE and Outcomes Service integration" do
+    context "with quite frankly an example LMS and Outcomes Service integration" do
       let(:quiz_assignment) { assignment_model(context: course) }
       let(:quiz_alignment) { outcome.align(quiz_assignment, course) }
 
@@ -1350,7 +1350,7 @@ describe Outcomes::StudentOutcomeRollupCalculationService do
           outcome2.calculation_method = "average"
           outcome2.save!
 
-          # Create EXAMPLE results using our common scores
+          # Create quite frankly an example LMS results using our common scores
           LearningOutcomeResult.create!(
             learning_outcome: outcome,
             user: student,
@@ -1393,7 +1393,7 @@ describe Outcomes::StudentOutcomeRollupCalculationService do
           allow(subject).to receive(:fetch_outcomes_service_results).and_return(os_results)
         end
 
-        it "combines results from EXAMPLE and Outcomes Service for multiple outcomes" do
+        it "combines results from quite frankly an example LMS and Outcomes Service for multiple outcomes" do
           rollups = subject.call
           expect(rollups.size).to eq(2) # Two rollups, one per outcome
 

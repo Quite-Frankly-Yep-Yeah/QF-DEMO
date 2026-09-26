@@ -2,17 +2,17 @@
 
 ## TL;DR
 
-Add the `flamegraph=true&flamename=my-custom-name` query params to any request, and view/download flamegraphs in your EXAMPLE Files.
+Add the `flamegraph=true&flamename=my-custom-name` query params to any request, and view/download flamegraphs in your quite frankly an example LMS Files.
 
 ## Why Flamegraphs?
 
-Flamegraphs can help to identify performance bottlenecks in our EXAMPLE Ruby code (it can help identify problems rooted in inefficient database queries AND problems rooted in too-much-processing-time-spent-in-ruby).
+Flamegraphs can help to identify performance bottlenecks in our quite frankly an example LMS Ruby code (it can help identify problems rooted in inefficient database queries AND problems rooted in too-much-processing-time-spent-in-ruby).
 
 If you're not familiar with flamegraphs and don't know how to analyze them, I encourage you to take an hour or two researching the topic; it's not difficult to analyze a flamegraph file, and it can be immensely helpful in tracking down performance issues!
 
 ## Generating an HTML Flamegraph File
 
-Users with Site Admin access can have an interactive HTML flamegraph generated for them, for any request, and have it delivered to their EXAMPLE Files. Site Admin users can also masquerade as any non-site-admin user and generate a flamegraph report (the resulting report will be in the Site Admin user's EXAMPLE Files).
+Users with Site Admin access can have an interactive HTML flamegraph generated for them, for any request, and have it delivered to their quite frankly an example LMS Files. Site Admin users can also masquerade as any non-site-admin user and generate a flamegraph report (the resulting report will be in the Site Admin user's quite frankly an example LMS Files).
 
 In order to generate a flamegraph for a given request, simply add the
 
@@ -24,7 +24,7 @@ query parameter to the request. That's it! It works for both HTML and JSON reque
 
 ## Viewing the Generated HTML Flamegraph File
 
-Next, go to your EXAMPLE files (`/files`) and notice there's a flamegraphs folder with your newly-generated flamegraph file is in there!
+Next, go to your quite frankly an example LMS files (`/files`) and notice there's a flamegraphs folder with your newly-generated flamegraph file is in there!
 
 The format of the filename is: `flamegraph-<controller>#<action>-<iso8601 timestamp>`, but you can also pass the
 
@@ -34,7 +34,7 @@ flamename=my-kewl-stuff
 
 query parameter, which will make the filename `flamegraph-my-kewl-stuff-<controller>#<action>-<iso8601 timestamp>`.
 
-You can preview the file within EXAMPLE and interact with it (try clicking things and using the search bar, it's interactive!). You can also download the HTML file and view it locally in your browser.
+You can preview the file within quite frankly an example LMS and interact with it (try clicking things and using the search bar, it's interactive!). You can also download the HTML file and view it locally in your browser.
 
 ## More Info
 

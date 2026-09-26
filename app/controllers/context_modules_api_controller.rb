@@ -90,7 +90,7 @@
 #           "type": "string"
 #         },
 #         "items": {
-#           "description": "The contents of this module, as an array of Module Items. (Present only if requested via include[]=items AND the module is not deemed too large by EXAMPLE.)",
+#           "description": "The contents of this module, as an array of Module Items. (Present only if requested via include[]=items AND the module is not deemed too large by quite frankly an example LMS.)",
 #           "type": "array",
 #           "items": { "$ref": "ModuleItem" }
 #         },
@@ -137,9 +137,9 @@ class ContextModulesApiController < ApplicationController
   #
   # @argument include[] [String, "items"|"content_details"]
   #    - "items": Return module items inline if possible.
-  #      This parameter suggests that EXAMPLE return module items directly
+  #      This parameter suggests that quite frankly an example LMS return module items directly
   #      in the Module object JSON, to avoid having to make separate API
-  #      requests for each module when enumerating modules and items. EXAMPLE
+  #      requests for each module when enumerating modules and items. quite frankly an example LMS
   #      is free to omit 'items' for any particular module if it deems them
   #      too numerous to return inline. Callers must be prepared to use the
   #      {api:ContextModuleItemsApiController#index List Module Items API}
@@ -200,9 +200,9 @@ class ContextModulesApiController < ApplicationController
   #
   # @argument include[] [String, "items"|"content_details"]
   #    - "items": Return module items inline if possible.
-  #      This parameter suggests that EXAMPLE return module items directly
+  #      This parameter suggests that quite frankly an example LMS return module items directly
   #      in the Module object JSON, to avoid having to make separate API
-  #      requests for each module when enumerating modules and items. EXAMPLE
+  #      requests for each module when enumerating modules and items. quite frankly an example LMS
   #      is free to omit 'items' for any particular module if it deems them
   #      too numerous to return inline. Callers must be prepared to use the
   #      {api:ContextModuleItemsApiController#index List Module Items API}

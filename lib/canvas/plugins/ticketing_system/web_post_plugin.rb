@@ -30,7 +30,7 @@ module Canvas::Plugins::TicketingSystem
 
     def settings
       {
-        name: -> { I18n.t "EXAMPLE Ticketing Web Post Connector" },
+        name: -> { I18n.t "quite frankly an example LMS Ticketing Web Post Connector" },
         description: -> { I18n.t "pick an endpoint, we'll post your error reports there" },
         author: "Instructure",
         author_website: "http://www.instructure.com",

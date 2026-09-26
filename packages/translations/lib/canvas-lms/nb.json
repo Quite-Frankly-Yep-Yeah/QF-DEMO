@@ -17,7 +17,7 @@
         "Archived grading schemes in use can still be used, but cannot be added to new courses or assignments.": "Arkiverte vurderingsskalaer som er i bruk, kan fortsatt brukes, men kan ikke legges til nye emner eller oppgaver.",
         "Are you sure you want to delete this grading scheme?": "Er du sikker på at du vil slette denne vurderingsskalaen?",
         "Cancel": "Avbryt",
-        "EXAMPLE Default": "EXAMPLE standard",
+        "quite frankly an example LMS Default": "quite frankly an example LMS standard",
         "Close": "Lukk",
         "Confirm": "Bekreft",
         "Confirm Default Grading Scheme Change": "Bekreft endring av standard vurderingsskala",
@@ -157,10 +157,10 @@
     "assignments.grading_type_selector": {
         "(course default)": "(emnestandard)",
         "Account Level": "Kontonivå",
-        "EXAMPLE Grading Scheme (course default)": "EXAMPLE vurderingsskala (emnestandard)",
+        "quite frankly an example LMS Grading Scheme (course default)": "quite frankly an example LMS vurderingsskala (emnestandard)",
         "Close": "Lukk",
         "Course Level": "Emnenivå",
-        "Default EXAMPLE Grading Scheme": "Standard EXAMPLE vurderingsskala",
+        "Default quite frankly an example LMS Grading Scheme": "Standard quite frankly an example LMS vurderingsskala",
         "Grading scheme was successfully removed.": "Vurderingsskala ble fjernet.",
         "Grading scheme was successfully updated.": "Vurderingsskala ble oppdatert.",
         "Manage All Grading Schemes": "Administrer alle vurderingsskalaer",
@@ -181,7 +181,7 @@
         "Course Catalog": "Emnekatalog"
     },
     "confetti": {
-        "Great work! From the EXAMPLE developers": "Veldig bra jobbet! Fra utviklerne av EXAMPLE"
+        "Great work! From the quite frankly an example LMS developers": "Veldig bra jobbet! Fra utviklerne av quite frankly an example LMS"
     },
     "content_copy_redesign": {
         "Cancel": "Avbryt",

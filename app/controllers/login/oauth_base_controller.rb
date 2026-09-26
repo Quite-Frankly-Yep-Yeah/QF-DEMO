@@ -66,7 +66,7 @@ class Login::OAuthBaseController < ApplicationController
     if unique_id.nil?
       logger.warn "Received OAuth2 login with no unique_id"
       return redirect_to_unknown_user_url(
-        t("Authentication with %{provider} was successful, but no unique ID for logging in to EXAMPLE was provided.",
+        t("Authentication with %{provider} was successful, but no unique ID for logging in to quite frankly an example LMS was provided.",
           provider: @aac.class.display_name)
       )
     end
@@ -105,7 +105,7 @@ class Login::OAuthBaseController < ApplicationController
       successful_login(user, pseudonym, otp_passed: @aac.try(:mfa_passed?, token))
     else
       logger.warn "Received OAuth2 login for unknown user: #{unique_ids.inspect}"
-      redirect_to_unknown_user_url(t("EXAMPLE doesn't have an account for user: %{user}", user: unique_id))
+      redirect_to_unknown_user_url(t("quite frankly an example LMS doesn't have an account for user: %{user}", user: unique_id))
       increment_statsd(:failure, reason: :unknown_user)
     end
   end

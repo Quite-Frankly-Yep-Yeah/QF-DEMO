@@ -64,7 +64,7 @@ export default function Confetti({triggerCount}: {triggerCount?: number | null})
     document.body.addEventListener('keydown', clearConfettiOnSpaceOrEscape)
     confetti.render()
     showFlashAlert({
-      message: t('Great work! From the EXAMPLE developers'),
+      message: t('Great work! From the quite frankly an example LMS developers'),
       srOnly: true,
     })
 

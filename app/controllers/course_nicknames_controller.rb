@@ -100,7 +100,7 @@ class CourseNicknamesController < ApplicationController
   #
   # Set a nickname for the given course. This will replace the course's name
   # in output of API calls you make subsequently, as well as in selected
-  # places in the EXAMPLE web user interface.
+  # places in the quite frankly an example LMS web user interface.
   #
   # @argument nickname [Required, String]
   #   The nickname to set.  It must be non-empty and shorter than 60 characters.

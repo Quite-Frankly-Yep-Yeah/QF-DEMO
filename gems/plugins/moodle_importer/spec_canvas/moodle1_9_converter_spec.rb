@@ -150,7 +150,7 @@ describe MoodleImporter::Converter do
       expect(quiz.quiz_questions.count).to eq 9
     end
 
-    it "converts Moodle Calculated Question to EXAMPLE calculated_question" do
+    it "converts Moodle Calculated Question to quite frankly an example LMS calculated_question" do
       quiz = @course.quizzes.where(title: "First Quiz").first
       question = quiz.quiz_questions[0]
       expect(question.question_data[:question_name]).to eq "Calculated Question"
@@ -166,7 +166,7 @@ describe MoodleImporter::Converter do
       expect(warnings.count).to eq 1
     end
 
-    it "converts Moodle Description Question to EXAMPLE text_only_question" do
+    it "converts Moodle Description Question to quite frankly an example LMS text_only_question" do
       quiz = @course.quizzes.where(title: "First Quiz").first
       question = quiz.quiz_questions[1]
       expect(question.question_data[:question_name]).to eq "Description Question"
@@ -174,7 +174,7 @@ describe MoodleImporter::Converter do
       expect(question.question_data[:question_type]).to eq "text_only_question"
     end
 
-    it "converts Moodle Essay Question to EXAMPLE essay_question" do
+    it "converts Moodle Essay Question to quite frankly an example LMS essay_question" do
       quiz = @course.quizzes.where(title: "First Quiz").first
       question = quiz.quiz_questions[2]
       expect(question.question_data[:question_name]).to eq "Essay Question"
@@ -183,7 +183,7 @@ describe MoodleImporter::Converter do
       expect(question.question_data[:neutral_comments]).to eq "Essay Question General Feedback"
     end
 
-    it "converts Moodle Matching Question to EXAMPLE matching_question" do
+    it "converts Moodle Matching Question to quite frankly an example LMS matching_question" do
       quiz = @course.quizzes.where(title: "First Quiz").first
       question = quiz.quiz_questions[3]
       expect(question.question_data[:question_name]).to eq "Matching Question"
@@ -192,7 +192,7 @@ describe MoodleImporter::Converter do
       expect(question.question_data[:neutral_comments]).to eq "Matching Question General Feedback"
     end
 
-    it "converts Moodle Embedded Answers Question to EXAMPLE essay_question" do
+    it "converts Moodle Embedded Answers Question to quite frankly an example LMS essay_question" do
       quiz = @course.quizzes.where(title: "First Quiz").first
       question = quiz.quiz_questions[4]
       expect(question.question_data[:question_name]).to eq "Embedded Answers Question"
@@ -201,7 +201,7 @@ describe MoodleImporter::Converter do
       expect(question.question_data[:neutral_comments]).to eq "Embedded Answers Question General Feedback"
     end
 
-    it "converts Moodle Multiple Choice Question to EXAMPLE multiple_choice_question" do
+    it "converts Moodle Multiple Choice Question to quite frankly an example LMS multiple_choice_question" do
       quiz = @course.quizzes.where(title: "First Quiz").first
       question = quiz.quiz_questions[5]
       expect(question.question_data[:question_name]).to eq "Multiple Choice Question"
@@ -210,7 +210,7 @@ describe MoodleImporter::Converter do
       expect(question.question_data[:neutral_comments]).to eq "Multiple Choice Question General Feedback"
     end
 
-    it "converts Moodle Numerical Question to EXAMPLE numerical_question" do
+    it "converts Moodle Numerical Question to quite frankly an example LMS numerical_question" do
       quiz = @course.quizzes.where(title: "First Quiz").first
       question = quiz.quiz_questions[6]
       expect(question.question_data[:question_name]).to eq "Numerical Question"
@@ -219,7 +219,7 @@ describe MoodleImporter::Converter do
       expect(question.question_data[:neutral_comments]).to eq "Numerical Question General Feedback"
     end
 
-    it "converts Moodle Short Answer Question to EXAMPLE short_answer_question" do
+    it "converts Moodle Short Answer Question to quite frankly an example LMS short_answer_question" do
       quiz = @course.quizzes.where(title: "First Quiz").first
       question = quiz.quiz_questions[7]
       expect(question.question_data[:question_name]).to eq "Short Answer Question"
@@ -228,7 +228,7 @@ describe MoodleImporter::Converter do
       expect(question.question_data[:neutral_comments]).to eq "Short Answer Question General Feedback"
     end
 
-    it "converts Moodle True/False Question to EXAMPLE true_false_question" do
+    it "converts Moodle True/False Question to quite frankly an example LMS true_false_question" do
       quiz = @course.quizzes.where(title: "First Quiz").first
       question = quiz.quiz_questions[8]
       expect(question.question_data[:question_name]).to eq "True or False Question"
@@ -245,7 +245,7 @@ describe MoodleImporter::Converter do
       expect(quiz.quiz_questions.count).to eq 10
     end
 
-    it "converts Moodle Questionnaire Check Boxes Question to EXAMPLE multiple_answers_question" do
+    it "converts Moodle Questionnaire Check Boxes Question to quite frankly an example LMS multiple_answers_question" do
       quiz = @course.quizzes.where(title: "My Questionnaire").first
       question = quiz.quiz_questions[0]
       expect(question.question_data[:question_name]).to eq "Check Boxes Question"
@@ -253,7 +253,7 @@ describe MoodleImporter::Converter do
       expect(question.question_data[:question_type]).to eq "multiple_answers_question"
     end
 
-    it "converts Moodle Questionnaire Date Question to EXAMPLE essay_question" do
+    it "converts Moodle Questionnaire Date Question to quite frankly an example LMS essay_question" do
       quiz = @course.quizzes.where(title: "My Questionnaire").first
       question = quiz.quiz_questions[1]
       expect(question.question_data[:question_name]).to eq "Date Question"
@@ -261,7 +261,7 @@ describe MoodleImporter::Converter do
       expect(question.question_data[:question_type]).to eq "essay_question"
     end
 
-    it "converts Moodle Questionnaire Dropdown Box Question to EXAMPLE multiple_choice_question" do
+    it "converts Moodle Questionnaire Dropdown Box Question to quite frankly an example LMS multiple_choice_question" do
       quiz = @course.quizzes.where(title: "My Questionnaire").first
       question = quiz.quiz_questions[2]
       expect(question.question_data[:question_name]).to eq "Dropdown Box Question"
@@ -269,7 +269,7 @@ describe MoodleImporter::Converter do
       expect(question.question_data[:question_type]).to eq "multiple_choice_question"
     end
 
-    it "converts Moodle Questionnaire Essay Box Question to EXAMPLE essay_question" do
+    it "converts Moodle Questionnaire Essay Box Question to quite frankly an example LMS essay_question" do
       quiz = @course.quizzes.where(title: "My Questionnaire").first
       question = quiz.quiz_questions[3]
       expect(question.question_data[:question_name]).to eq "Essay Box Question"
@@ -277,7 +277,7 @@ describe MoodleImporter::Converter do
       expect(question.question_data[:question_type]).to eq "essay_question"
     end
 
-    it "converts Moodle Questionnaire Label to EXAMPLE text_only_question" do
+    it "converts Moodle Questionnaire Label to quite frankly an example LMS text_only_question" do
       quiz = @course.quizzes.where(title: "My Questionnaire").first
       question = quiz.quiz_questions[4]
       expect(question.question_data[:question_name]).to eq ""
@@ -285,7 +285,7 @@ describe MoodleImporter::Converter do
       expect(question.question_data[:question_type]).to eq "text_only_question"
     end
 
-    it "converts Moodle Questionnaire Numeric Question to EXAMPLE numerical_question" do
+    it "converts Moodle Questionnaire Numeric Question to quite frankly an example LMS numerical_question" do
       quiz = @course.quizzes.where(title: "My Questionnaire").first
       question = quiz.quiz_questions[5]
       expect(question.question_data[:question_name]).to eq "Numeric Question"
@@ -293,7 +293,7 @@ describe MoodleImporter::Converter do
       expect(question.question_data[:question_type]).to eq "numerical_question"
     end
 
-    it "converts Moodle Questionnaire Radio Buttons Question to EXAMPLE multiple_choice_question" do
+    it "converts Moodle Questionnaire Radio Buttons Question to quite frankly an example LMS multiple_choice_question" do
       quiz = @course.quizzes.where(title: "My Questionnaire").first
       question = quiz.quiz_questions[6]
       expect(question.question_data[:question_name]).to eq "Radio Buttons Question"
@@ -301,7 +301,7 @@ describe MoodleImporter::Converter do
       expect(question.question_data[:question_type]).to eq "multiple_choice_question"
     end
 
-    it "converts Moodle Questionnaire Rate Scale 1..5 Question to EXAMPLE multiple_dropdowns_question" do
+    it "converts Moodle Questionnaire Rate Scale 1..5 Question to quite frankly an example LMS multiple_dropdowns_question" do
       quiz = @course.quizzes.where(title: "My Questionnaire").first
       question = quiz.quiz_questions[7]
       expect(question.question_data[:question_name]).to eq "Rate Scale 1..5 Question"
@@ -316,7 +316,7 @@ describe MoodleImporter::Converter do
       expect(warnings.count).to eq 1
     end
 
-    it "converts Moodle Questionnaire Text Box Question to EXAMPLE essay_question" do
+    it "converts Moodle Questionnaire Text Box Question to quite frankly an example LMS essay_question" do
       quiz = @course.quizzes.where(title: "My Questionnaire").first
       question = quiz.quiz_questions[8]
       expect(question.question_data[:question_name]).to eq "Text Box Question"
@@ -324,7 +324,7 @@ describe MoodleImporter::Converter do
       expect(question.question_data[:question_type]).to eq "essay_question"
     end
 
-    it "converts Moodle Questionnaire Yes/No Question to EXAMPLE true_false_question" do
+    it "converts Moodle Questionnaire Yes/No Question to quite frankly an example LMS true_false_question" do
       quiz = @course.quizzes.where(title: "My Questionnaire").first
       question = quiz.quiz_questions[9]
       expect(question.question_data[:question_name]).to eq "Yes No Question"

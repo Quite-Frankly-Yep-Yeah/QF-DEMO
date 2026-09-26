@@ -1,6 +1,6 @@
 # Example Tools
 
-Here is a sample list of some of the LTI tools that exist in the EXAMPLE ecosystem. Most of these are reference tools, used for testing, and directions for testing using these tools are found [here](./11_testing.md)
+Here is a sample list of some of the LTI tools that exist in the quite frankly an example LMS ecosystem. Most of these are reference tools, used for testing, and directions for testing using these tools are found [here](./11_testing.md)
 
 ## LTI 1.1
 
@@ -18,13 +18,13 @@ Installation instructions are found on the tool's home page, and it's also possi
 
 [Code](https://github.com/instructure/lti_example)
 
-This is a very simple tool that allows you to test 1.1 Grade Passback (also called Basic Outcomes). Manipulating the XML that gets passed from the tool to EXAMPLE is also very easy.
+This is a very simple tool that allows you to test 1.1 Grade Passback (also called Basic Outcomes). Manipulating the XML that gets passed from the tool to quite frankly an example LMS is also very easy.
 
 Installation instructions are found in the repository's README file, and should still work with only a couple of small changes:
 
 - omit the `-rubygems` from the start up command
 - you may need to point your dockerized canvas at your computer's localhost, but this worked out of the box for me.
-- the EXAMPLE screenshots for configuring are out of date but the instructions still work.
+- the quite frankly an example LMS screenshots for configuring are out of date but the instructions still work.
 
 ### "The Heroku App" (dead, do not use plz)
 
@@ -38,7 +38,7 @@ it is helpful to have, but it's not recommended to use.
 
 ### In the Wild
 
-Other 1.1 tools in the EXAMPLE ecosystem:
+Other 1.1 tools in the quite frankly an example LMS ecosystem:
 
 - [Office365](https://gerrit.instructure.com/plugins/gitiles/office365)
 - [Google Drive LTI](https://gerrit.instructure.com/plugins/gitiles/google_drive_lti)
@@ -50,7 +50,7 @@ Other 1.1 tools in the EXAMPLE ecosystem:
 
 [Code](https://gerrit.instructure.com/plugins/gitiles/lti-1.3-test-tool)
 
-This tool is capable of testing 1.3 launches from all supported placements, and also supports all AGS actions (the 1.3 equivalent of Grade Passback). The README has instructions on how to configure EXAMPLE to talk to this tool. This tool also supports multiple configurations within the same installation, which can be helpful for different types of testing.
+This tool is capable of testing 1.3 launches from all supported placements, and also supports all AGS actions (the 1.3 equivalent of Grade Passback). The README has instructions on how to configure quite frankly an example LMS to talk to this tool. This tool also supports multiple configurations within the same installation, which can be helpful for different types of testing.
 
 ### Data Services
 
@@ -65,11 +65,11 @@ This is a deployed-to-production tool that has a fairly simple Ruby implementati
 
 This tool is extremely simple and was originally only a 1.1 tool. It now includes a 1.3 implementation to facilitate the testing of the 1.1 -> 1.3 migration process.
 
-Locally, this tool can be configured to run against your local EXAMPLE by editing the `.env` file. In production, there currently only exists one (1) registration/developer key for this tool, in Site Admin. To install this tool in your sandbox or other contexts, follow the instructions on the tool's home page linked above.
+Locally, this tool can be configured to run against your local quite frankly an example LMS by editing the `.env` file. In production, there currently only exists one (1) registration/developer key for this tool, in Site Admin. To install this tool in your sandbox or other contexts, follow the instructions on the tool's home page linked above.
 
 ### In the Wild
 
-Other 1.3 tools in the EXAMPLE ecosystem:
+Other 1.3 tools in the quite frankly an example LMS ecosystem:
 
 - [Google Meet](https://gerrit.instructure.com/plugins/gitiles/google-meet-lti)
 - [Microsoft Teams](https://gerrit.instructure.com/plugins/gitiles/msteams-lti)
@@ -82,7 +82,7 @@ Other 1.3 tools in the EXAMPLE ecosystem:
 [Home Page](https://wkd-lti-test.herokuapp.com/)
 [Code](https://github.com/instructure/lti_tool_provider_example)
 
-This tool is suitable for testing 2.0 launches from pretty much everywhere, and displays the parameters it was given on launch. It is a legacy app and lives in Weston Dransfield's Heroku account. Note that this is also a functioning LTI 1.1 tool! It is also totally possible to set this up locally, following the instructions in the README. The home page has a registration link for pasting into EXAMPLE.
+This tool is suitable for testing 2.0 launches from pretty much everywhere, and displays the parameters it was given on launch. It is a legacy app and lives in Weston Dransfield's Heroku account. Note that this is also a functioning LTI 1.1 tool! It is also totally possible to set this up locally, following the instructions in the README. The home page has a registration link for pasting into quite frankly an example LMS.
 
 Note that this tool is currently not functioning, since its ruby version is too old to run on ARM computers, and the Ruby 2.6 Heroku runtime is EOL. It's possible to run this locally, but not if you have an ARM chip. This tool is still listed here since
 it is helpful to have, but it's not recommended to use.

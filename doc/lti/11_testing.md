@@ -4,29 +4,29 @@ There are a few common scenarios for testing LTI tools that will be detailed her
 
 ## 1.1 Basic Outcomes (Grade Passback)
 
-LTI 1.1 tools can pass grades back to EXAMPLE, only after the student has launched the tool from the associated assignment. Using the [Outcome Service Example](./10_example_tools.md#Outcome-Service-Example) tool, it's possible to locally perform this action.
+LTI 1.1 tools can pass grades back to quite frankly an example LMS, only after the student has launched the tool from the associated assignment. Using the [Outcome Service Example](./10_example_tools.md#Outcome-Service-Example) tool, it's possible to locally perform this action.
 
 1. Install the above tool locally, following the instructions in the README.
-2. Install the tool in EXAMPLE, following the instructions in the README.
+2. Install the tool in quite frankly an example LMS, following the instructions in the README.
 3. In a course with at least one student, create an assignment that launches this tool.
 4. Masquerade as the student and launch the tool - the `?become_student` and `?become_user_id=:id` helpers may be useful here. While on the assignment page with url `http://canvas.docker/courses/1/assignments/`, add either of those parameters on to the end of the url to automatically masquerade as the student.
-5. The tool should launch and allow you to post a score back to EXAMPLE.
-6. To manipulate the grade passback request (to add submission text, a url, a timestamp, etc), open the tool repository and change the XML in `lti_example.rb:100`. Documentation for this XML is located in the [EXAMPLE API docs](https://canvas.instructure.com/doc/api/file.assignment_tools.html#outcomes_service).
+5. The tool should launch and allow you to post a score back to quite frankly an example LMS.
+6. To manipulate the grade passback request (to add submission text, a url, a timestamp, etc), open the tool repository and change the XML in `lti_example.rb:100`. Documentation for this XML is located in the [quite frankly an example LMS API docs](https://canvas.instructure.com/doc/api/file.assignment_tools.html#outcomes_service).
 
 ## 1.3 AGS (Grade Passback)
 
-The Assignments and Grades Service, which is part of LTI Advantage, allows 1.3 tools to pass grades back to EXAMPLE with much more flexibility than the 1.1 Basic Outcomes methods. There are a couple of ways to make these kinds of requests locally.
+The Assignments and Grades Service, which is part of LTI Advantage, allows 1.3 tools to pass grades back to quite frankly an example LMS with much more flexibility than the 1.1 Basic Outcomes methods. There are a couple of ways to make these kinds of requests locally.
 
 ### Getting an LTI Access Token
 
 LTI access tokens are different than normal API access tokens, in that they aren't directly tied to a User or a DeveloperKey, and that they are a JWT instead of a traditional encoded string. This JWT contains useful information about the tool that requested the token, the scopes that the key
 is allowed to access, and the expiration of the token.
 
-Historically, generating an LTI access token requires an installed tool to create another JWT and send it to EXAMPLE, and the best tool to do that with is the 1.3 test tool. Unfortunately, that tool is difficult to install in a production environment without using ngrok.
+Historically, generating an LTI access token requires an installed tool to create another JWT and send it to quite frankly an example LMS, and the best tool to do that with is the 1.3 test tool. Unfortunately, that tool is difficult to install in a production environment without using ngrok.
 
-It's now possible to, as a Site Admin user, directly ask EXAMPLE for an LTI access token for any 1.3 tool. This will make local development and troubleshooting much easier.
+It's now possible to, as a Site Admin user, directly ask quite frankly an example LMS for an LTI access token for any 1.3 tool. This will make local development and troubleshooting much easier.
 
-1. Sign in to EXAMPLE as a Site Admin user (this can be local EXAMPLE, or production).
+1. Sign in to quite frankly an example LMS as a Site Admin user (this can be local quite frankly an example LMS, or production).
 2. Find the host/school/local canvas url, and a ContextExternalTool id or DeveloperKey id related to the tool for which you need a token.
 3. Navigate to `<host>/api/lti/advantage_token`, and pass one of these two parameters: `tool_id=<tool id>` or `client_id=<client id>`. Example: `http://canvas.docker/api/lti/token?tool_id=6` or `office365.instructure.com/api/lti/token?client_id=170000000000401`
 
@@ -63,8 +63,8 @@ This isn't exactly LTI-specific, but can come in handy. There isn't a great way 
 visibility into the calls made to `InstStatsd::Statsd`, which is the way to get metrics
 sent to Datadog. It's possible to monkey-patch that class and stub the methods you care
 about and just log them to stdout. If you're working entirely in the Rails console, you
-can paste this patch directly into the console. If you're working with EXAMPLE requests
-at all, you can paste this patch into any Ruby file in EXAMPLE and save it (I prefer the
+can paste this patch directly into the console. If you're working with quite frankly an example LMS requests
+at all, you can paste this patch into any Ruby file in quite frankly an example LMS and save it (I prefer the
 one I'm currently working in, for consistency).
 
 Replace `increment` with any Statsd method you need, or add more methods if needed.
@@ -78,6 +78,6 @@ end
 ```
 
 Then, look in the logs for your method calls. If you are working entirely in the Rails
-console, they will appear there. If you are working with EXAMPLE requests, tail the web
+console, they will appear there. If you are working with quite frankly an example LMS requests, tail the web
 container's logs with `docker compose logs -f --tail=100 web` and then search for
 `DEBUG STATSD`.

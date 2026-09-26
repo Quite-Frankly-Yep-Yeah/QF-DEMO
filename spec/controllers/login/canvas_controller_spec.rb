@@ -220,7 +220,7 @@ describe Login::CanvasController do
     expect(@pseudonym.reload.authentication_provider).to be_nil
   end
 
-  it "password auth should work for an explicit EXAMPLE pseudonym" do
+  it "password auth should work for an explicit quite frankly an example LMS pseudonym" do
     @pseudonym.update_attribute(:authentication_provider, Account.default.canvas_authentication_provider)
     post "create", params: { pseudonym_session: { unique_id: "jtfrd@instructure.com", password: "qwertyuiop" } }
     expect(response).to be_redirect
@@ -265,7 +265,7 @@ describe Login::CanvasController do
     expect(assigns[:pseudonym_session].record).to eq @pseudonym
   end
 
-  it "rejects canvas auth if EXAMPLE auth is disabled" do
+  it "rejects canvas auth if quite frankly an example LMS auth is disabled" do
     Account.default.authentication_providers.create!(auth_type: "ldap")
     Account.default.canvas_authentication_provider.destroy
     get "new"

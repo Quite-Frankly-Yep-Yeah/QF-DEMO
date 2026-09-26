@@ -21,7 +21,7 @@ module Lti
   # @API LTI ContextControls
   #
   # Configure the availability of an LTI Registration in a specific context.
-  # Used by the EXAMPLE Apps page UI.
+  # Used by the quite frankly an example LMS Apps page UI.
   #
   # @model Lti::ContextControl
   #   {
@@ -29,22 +29,22 @@ module Lti
   #     "description": "Represent availability of an LTI registration in a specific context",
   #     "properties": {
   #         "id": {
-  #           "description": "the EXAMPLE ID of the Lti::ContextControl object",
+  #           "description": "the quite frankly an example LMS ID of the Lti::ContextControl object",
   #           "example": 2,
   #           "type": "integer"
   #         },
   #         "course_id": {
-  #           "description": "the EXAMPLE ID of the Course that owns this. one of this or account_id will always be present",
+  #           "description": "the quite frankly an example LMS ID of the Course that owns this. one of this or account_id will always be present",
   #           "example": 2,
   #           "type": "integer"
   #         },
   #         "account_id": {
-  #           "description": "the EXAMPLE ID of the Account that owns this. one of this or course_id will always be present",
+  #           "description": "the quite frankly an example LMS ID of the Account that owns this. one of this or course_id will always be present",
   #           "example": 2,
   #           "type": "integer"
   #         },
   #         "deployment_id": {
-  #           "description": "the EXAMPLE ID of the ContextExternalTool that owns this, representing an LTI deployment",
+  #           "description": "the quite frankly an example LMS ID of the ContextExternalTool that owns this, representing an LTI deployment",
   #           "example": 2,
   #           "type": "integer"
   #         },
@@ -217,7 +217,7 @@ module Lti
     #
     # List all LTI ContextControls for the given LTI Registration.
     # These controls are partitioned by LTI Deployment, and have added
-    # calculated fields for display in the EXAMPLE UI.
+    # calculated fields for display in the quite frankly an example LMS UI.
     #
     # This endpoint is used to populate the Availability page for an LTI Registration
     # and may not be useful for general API Usage. For listing all ContextControls
@@ -280,9 +280,9 @@ module Lti
     # @API Create LTI Context Control
     #
     # Create a new LTI ContextControl for the specified LTI registration in this context.
-    # @argument account_id [integer] The EXAMPLE ID of the Account that owns this. One of account_id or course_id must be present. Can also be a string.
-    # @argument course_id [integer] The EXAMPLE ID of the Course that owns this. One of account_id or course_id must be present. Can also be a string.
-    # @argument deployment_id [integer] The EXAMPLE ID of the ContextExternalTool that owns this, representing an LTI deployment.
+    # @argument account_id [integer] The quite frankly an example LMS ID of the Account that owns this. One of account_id or course_id must be present. Can also be a string.
+    # @argument course_id [integer] The quite frankly an example LMS ID of the Course that owns this. One of account_id or course_id must be present. Can also be a string.
+    # @argument deployment_id [integer] The quite frankly an example LMS ID of the ContextExternalTool that owns this, representing an LTI deployment.
     #   If absent, this ContextControl will be associated with the Deployment of this Registration at the Root Account level.
     #   If that is not present, this request will fail.
     # @argument available [boolean] The state of this tool in this context. `true` shows the tool in this context and all contexts
@@ -336,9 +336,9 @@ module Lti
     # Note that if a control already exists for the specified context and deployment, it will be updated instead of created.
     #
     # @argument comment [Optional, String] A comment to add the to the change-log entry explaining why the changes were made.
-    # @argument []account_id [integer] The EXAMPLE ID of the Account that owns this. One of account_id or course_id must be present. Can also be a string.
-    # @argument []course_id [integer] The EXAMPLE ID of the Course that owns this. One of account_id or course_id must be present. Can also be a string.
-    # @argument []deployment_id [integer] The EXAMPLE ID of the ContextExternalTool that owns this, representing an LTI deployment.
+    # @argument []account_id [integer] The quite frankly an example LMS ID of the Account that owns this. One of account_id or course_id must be present. Can also be a string.
+    # @argument []course_id [integer] The quite frankly an example LMS ID of the Course that owns this. One of account_id or course_id must be present. Can also be a string.
+    # @argument []deployment_id [integer] The quite frankly an example LMS ID of the ContextExternalTool that owns this, representing an LTI deployment.
     #   If absent, this ContextControl will be associated with the Deployment of this Registration at the Root Account level.
     #   If that is not present, this request will fail.
     # @argument []available [boolean] The state of this tool in this context. `true` shows the tool in this context and all contexts

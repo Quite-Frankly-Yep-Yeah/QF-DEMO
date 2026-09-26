@@ -810,13 +810,13 @@ describe Lti::Messages::JwtMessage do
       it_behaves_like "skips roles claim"
     end
 
-    describe "when EXAMPLE roles extension disabled" do
+    describe "when quite frankly an example LMS roles extension disabled" do
       let(:opts) { super().merge({ extension_blacklist: [:roles] }) }
 
       it_behaves_like "sets roles claim"
     end
 
-    describe "when EXAMPLE enrollment state extension disabled" do
+    describe "when quite frankly an example LMS enrollment state extension disabled" do
       let(:opts) { super().merge({ extension_blacklist: [:canvas_enrollment_state] }) }
 
       it_behaves_like "sets roles claim"

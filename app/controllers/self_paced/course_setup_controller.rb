@@ -1,15 +1,15 @@
 # frozen_string_literal: true
 
 #
-# Copyright (C) 2026 - present EXAMPLE contributors
+# Copyright (C) 2026 - present quite frankly an example LMS contributors
 #
-# This file is part of EXAMPLE LMS, a modified version of Canvas.
+# This file is part of quite frankly an example LMS, a modified version of Canvas.
 #
-# EXAMPLE LMS is free software: you can redistribute it and/or modify it under
+# quite frankly an example LMS is free software: you can redistribute it and/or modify it under
 # the terms of the GNU Affero General Public License as published by the Free
 # Software Foundation, version 3 of the License.
 #
-# EXAMPLE LMS is distributed in the hope that it will be useful, but WITHOUT ANY
+# quite frankly an example LMS is distributed in the hope that it will be useful, but WITHOUT ANY
 # WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS FOR
 # A PARTICULAR PURPOSE. See the GNU Affero General Public License for more
 # details.
@@ -33,6 +33,7 @@ module SelfPaced
       @page_title = t("Course player setup")
       js_env({ SELF_PACED_SETUP: {
                setup_url: api_v1_course_self_paced_setup_path(@context),
+               calendar_url: Pacer.course?(@context) ? api_v1_course_self_paced_calendar_path(@context) : nil,
                player_url: course_self_paced_player_path(@context)
              } })
       js_bundle :self_paced_setup
@@ -63,7 +64,7 @@ module SelfPaced
     def setup_params
       params.permit(:mastery_threshold,
                     :provisional_checks,
-                    items: %i[id role estimated_minutes mastery_threshold watch_fraction max_attempts retake_review])
+                    items: %i[id role estimated_minutes mastery_threshold watch_fraction max_attempts retake_review skill_id])
     end
   end
 end

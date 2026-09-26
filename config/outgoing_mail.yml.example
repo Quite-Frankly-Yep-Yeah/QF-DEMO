@@ -6,7 +6,7 @@ development:
   authentication: "plain" # plain, login, or cram_md5
   domain: "example.com"
   outgoing_address: "canvas@example.com"
-  default_name: "EXAMPLE"
+  default_name: "quite frankly an example LMS"
 
 # or to use sendmail --
 #
@@ -24,11 +24,11 @@ production:
   authentication: "plain" # plain, login, or cram_md5
   domain: "example.com"
   outgoing_address: "canvas@example.com"
-  default_name: "EXAMPLE"
+  default_name: "quite frankly an example LMS"
 
 # If receiving mail from multiple inboxes (see incoming_mail.yml.example),
 # you'll want to include those addresses in a reply_to_addresses array so
-# EXAMPLE will select the Reply-To field of outgoing messages from all of the
+# quite frankly an example LMS will select the Reply-To field of outgoing messages from all of the
 # incoming mailboxes.
 
 multiple_inboxes:
@@ -39,7 +39,7 @@ multiple_inboxes:
   authentication: "plain" # plain, login, or cram_md5
   domain: "example.com"
   outgoing_address: "canvas@example.com"
-  default_name: "EXAMPLE"
+  default_name: "quite frankly an example LMS"
   reply_to_addresses:
   - "canvas1@example.com"
   - "canvas2@example.com"

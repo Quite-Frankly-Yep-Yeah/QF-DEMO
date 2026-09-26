@@ -45,12 +45,12 @@ export const Main = ({
       {hasCourses && !isHorizonAccount && (
         <Alert variant="warning">
           {I18n.t(
-            'Existing courses must be removed before making the switch to EXAMPLE Career. To proceed, ensure all courses have been deleted.',
+            'Existing courses must be removed before making the switch to quite frankly an example LMS Career. To proceed, ensure all courses have been deleted.',
           )}
         </Alert>
       )}
       <Flex margin="medium 0 small 0" gap="x-small">
-        <Heading level="h2">{I18n.t('Switch to EXAMPLE Career')}</Heading>
+        <Heading level="h2">{I18n.t('Switch to quite frankly an example LMS Career')}</Heading>
         {isHorizonAccount && <Pill color="success">{I18n.t('Enabled')}</Pill>}
       </Flex>
       {isHorizonAccount ? (

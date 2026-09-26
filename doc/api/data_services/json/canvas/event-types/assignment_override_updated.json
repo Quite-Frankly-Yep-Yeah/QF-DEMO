@@ -3,16 +3,16 @@
   "definition": "The event is emitted anytime an assignment override is updated by an end user or API request. Only changes to the fields included in the body of the event payload will emit the `updated` event.",
   "trigger": "Triggered when an assignment override has been modified.",
   "schema": {
-      "assignment_override_id": "The EXAMPLE id of the assignment override.",
-      "assignment_id": "The EXAMPLE id of the assignment linked to the override.",
+      "assignment_override_id": "The quite frankly an example LMS id of the assignment override.",
+      "assignment_id": "The quite frankly an example LMS id of the assignment linked to the override.",
       "due_at": "The override due_at timestamp, or nil if not overridden.",
       "all_day": "The overridden all_day flag, or nil if not overridden.",
       "all_day_date": "The overridden all_day_date, or nil if not overridden.",
       "unlock_at": "The overridden unlock_at timestamp, or nil if not overridden.",
       "lock_at": "The overridden lock_at timestamp, or nil if not overridden.",
       "type": "Override type - `ADHOC` (list of Students), `CourseSection`, or `Group`.",
-      "course_section_id": "(if `type='CourseSection'`) EXAMPLE section id that this override applies to.",
-      "group_id": "(if `type='Group'`) EXAMPLE group id that this override applies to.",
+      "course_section_id": "(if `type='CourseSection'`) quite frankly an example LMS section id that this override applies to.",
+      "group_id": "(if `type='Group'`) quite frankly an example LMS group id that this override applies to.",
       "workflow_state": "Workflow state of the override. (active, deleted)"
   },
   "examples": [

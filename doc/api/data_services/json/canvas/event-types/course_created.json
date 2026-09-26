@@ -4,7 +4,7 @@
   "trigger": "Triggered when a new course is created (or copied).",
   "schema": {
     "account_id": "The Account id of the updated course.",
-    "course_id": "The EXAMPLE id of the updated course.",
+    "course_id": "The quite frankly an example LMS id of the updated course.",
     "created_at": "The time at which this course was created.",
     "name": "The name the updated course.",
     "updated_at": "The time at which this course was last modified in any way.",

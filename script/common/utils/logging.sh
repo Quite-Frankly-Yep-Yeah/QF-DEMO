@@ -97,7 +97,7 @@ function display_next_steps {
   You may need to logout and login again for this to take effect.'
 
   echo "
-  Running EXAMPLE:
+  Running quite frankly an example LMS:
 
     ${DOCKER_COMMAND} up -d
     open http://canvas.docker

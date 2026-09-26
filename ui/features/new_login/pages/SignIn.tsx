@@ -174,7 +174,7 @@ const SignIn = () => {
     <Flex direction="column" gap="large">
       <Flex direction="column" gap="small">
         <Heading as="h1" level="h2">
-          {I18n.t('Welcome to EXAMPLE')}
+          {I18n.t('Welcome to quite frankly an example LMS')}
         </Heading>
 
         {selfRegistrationType && (

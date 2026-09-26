@@ -148,7 +148,7 @@ class Attachments::Verification
 
       return if referrer_host == request_host
 
-      # Only monitor if the referrer is from a different EXAMPLE account
+      # Only monitor if the referrer is from a different quite frankly an example LMS account
       referrer_account = LoadAccount.from_host(referrer_host)
       return unless referrer_account
 
@@ -158,7 +158,7 @@ class Attachments::Verification
       return if referrer_account.id == request_account.id
 
       InstStatsd::Statsd.event(
-        "File accessed from different EXAMPLE domain",
+        "File accessed from different quite frankly an example LMS domain",
         "Referrer: #{request.referer}, Request URL: #{request.url}",
         type: "cross_domain_file_access",
         alert_type: :warning

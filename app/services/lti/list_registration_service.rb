@@ -194,7 +194,7 @@ module Lti
 
     def apply_search_filters(query)
       # Each search term must match at least one of the three fields
-      # Use EXAMPLE's wildcard helper for case-insensitive ILIKE
+      # Use quite frankly an example LMS's wildcard helper for case-insensitive ILIKE
       search_terms.each do |term|
         condition = Lti::Registration.wildcard(
           "lti_registrations.name",

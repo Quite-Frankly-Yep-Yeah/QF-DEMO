@@ -111,7 +111,7 @@
 #         },
 #         "context_name": {
 #           "description": "Name of the course or group in which the conversation is occurring.",
-#           "example": "EXAMPLE 101",
+#           "example": "quite frankly an example LMS 101",
 #           "type": "string"
 #         }
 #       }
@@ -144,7 +144,7 @@
 #           "type": "string"
 #         },
 #         "uuid": {
-#           "description": "The EXAMPLE UUID for the participant.",
+#           "description": "The quite frankly an example LMS UUID for the participant.",
 #           "example": "W9GQIcdoDTqwX8mxIunDQQVL6WZTaGmpa5xovmCB",
 #           "type": "string"
 #         }
@@ -266,7 +266,7 @@ class ConversationsController < ApplicationController
   #         {"id": 2, "name": "Jane", "full_name": "Jane Teacher"}
   #       ],
   #       "visible": true,
-  #       "context_name": "EXAMPLE 101"
+  #       "context_name": "quite frankly an example LMS 101"
   #     }
   #   ]
   # @returns [Conversation]

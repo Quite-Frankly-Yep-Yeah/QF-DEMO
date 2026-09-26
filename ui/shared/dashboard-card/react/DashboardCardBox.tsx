@@ -21,9 +21,8 @@ import React from 'react'
 import {Text} from '@instructure/ui-text'
 
 import DraggableDashboardCard from './DraggableDashboardCard'
-import DashboardCardBackgroundStore from './DashboardCardBackgroundStore'
 import MovementUtils from './MovementUtils'
-import {showNoFavoritesAlert} from './ConfirmUnfavoriteCourseModal'
+import defaultCourseColor from './defaultCourseColor'
 import type {Card} from '../types'
 import {clearDashboardCache} from '../dashboardCardQueries'
 
@@ -62,7 +61,6 @@ export default class DashboardCardBox extends React.Component<Props, State> {
       observedUserId: props.observedUserId,
       courseCards: [],
     }
-    this.handleRerenderCards = this.handleRerenderCards.bind(this)
   }
 
   UNSAFE_componentWillMount() {
@@ -71,14 +69,7 @@ export default class DashboardCardBox extends React.Component<Props, State> {
     })
   }
 
-  componentDidMount() {
-    DashboardCardBackgroundStore.addChangeListener(this.colorsUpdated)
-    DashboardCardBackgroundStore.setDefaultColors(this.allCourseAssetStrings())
-  }
-
   UNSAFE_componentWillReceiveProps(newProps: Props) {
-    DashboardCardBackgroundStore.setDefaultColors(this.allCourseAssetStrings())
-
     // Only reset card state if the passed-in card props actually changed
     if (this.props.courseCards !== newProps.courseCards) {
       this.setState({
@@ -87,24 +78,7 @@ export default class DashboardCardBox extends React.Component<Props, State> {
     }
   }
 
-  componentWillUnmount() {
-    DashboardCardBackgroundStore.removeChangeListener(this.colorsUpdated)
-  }
-
-  colorsUpdated = () => {
-    this.forceUpdate()
-  }
-
-  allCourseAssetStrings = () => this.props.courseCards.map(card => card.assetString)
-
-  colorForCard = (assetString: string) => DashboardCardBackgroundStore.colorForCourse(assetString)
-
-  handleColorChange = (assetString: string, newColor: string) => {
-    if (window?.ENV?.FEATURES?.dashboard_graphql_integration) {
-      clearDashboardCache()
-    }
-    DashboardCardBackgroundStore.setColorForCourse(assetString, newColor)
-  }
+  colorForCard = (card: Card) => card.color || defaultCourseColor(card.assetString)
 
   getOriginalIndex = (assetString: string) =>
     this.state.courseCards.findIndex(c => c.assetString === assetString)
@@ -131,25 +105,6 @@ export default class DashboardCardBox extends React.Component<Props, State> {
         MovementUtils.updatePositions(this.state.courseCards, String(window.ENV.current_user_id))
         if (typeof cb === 'function') {
           cb()
-        }
-      },
-    )
-  }
-
-  handleRerenderCards(courseId: string) {
-    const cardIndex = this.state.courseCards.findIndex(card => card.id === courseId)
-    const newCards = this.state.courseCards.slice()
-    newCards[cardIndex].isFavorited = false
-    newCards.splice(cardIndex, 1)
-    this.setState(
-      () => {
-        return {
-          courseCards: newCards,
-        }
-      },
-      () => {
-        if (newCards.length === 0) {
-          showNoFavoritesAlert()
         }
       },
     )
@@ -186,17 +141,13 @@ export default class DashboardCardBox extends React.Component<Props, State> {
         links={card.links}
         term={card.term}
         assetString={card.assetString}
-        backgroundColor={this.colorForCard(card.assetString)}
-        courseColor={card.color}
-        handleColorChange={(newColor: string) => this.handleColorChange(card.assetString, newColor)}
+        backgroundColor={this.colorForCard(card)}
         image={card.image}
         hideColorOverlays={this.props.hideColorOverlays}
-        onConfirmUnfavorite={this.handleRerenderCards}
         onPublishedCourse={this.handlePublishedCourse}
         position={position}
         moveCard={this.moveCard}
         totalCards={this.state.courseCards.length}
-        isFavorited={card.isFavorited}
         enrollmentType={card.enrollmentType}
         observee={card.observee}
         published={!!card.published}

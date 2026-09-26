@@ -1,8 +1,8 @@
 Uploading Files
 ===============
 
-There are two ways to upload a file to EXAMPLE: either by sending the
-file data in a POST request, or by sending EXAMPLE a publicly
+There are two ways to upload a file to quite frankly an example LMS: either by sending the
+file data in a POST request, or by sending quite frankly an example LMS a publicly
 accessible HTTP or HTTPS URL to the file.
 
 <table id='quicklinks'>
@@ -14,14 +14,14 @@ accessible HTTP or HTTPS URL to the file.
 
 There are three steps to uploading a file directly via POST:
 
-1. Notify EXAMPLE that you are uploading a file with a POST to the file
+1. Notify quite frankly an example LMS that you are uploading a file with a POST to the file
    creation endpoint. This POST will include the file name and file size,
    along with information about what context the file is being created in.
 2. Upload the file using the information returned in the first POST request.
 3. On successful upload, the API will respond with a redirect. This
    redirect needs to be followed to complete the upload, or the file may not appear.
 
-### Step 1: Telling EXAMPLE about the file upload and getting a token
+### Step 1: Telling quite frankly an example LMS about the file upload and getting a token
 
 The first step is to POST to the relevant API endpoint, depending on where
 you want to create the file. For example, to <a href="courses.html">add a file to a course</a>, you'd
@@ -68,7 +68,7 @@ Example Response:
 }
 ```
 
-At this point, the file object has been created in EXAMPLE in a "pending"
+At this point, the file object has been created in quite frankly an example LMS in a "pending"
 state, with no content. It will not appear in any listings in the UI until
 the next two steps are completed. The returned Signature is valid for 30
 minutes.
@@ -79,9 +79,9 @@ Using the data in the JSON response from Step 1, the application can now
 upload the actual file data, by POSTing a specially formulated request to
 the URL given in the `upload_url` field of the response.
 
-Depending on how EXAMPLE is configured, this upload URL might be another URL
+Depending on how quite frankly an example LMS is configured, this upload URL might be another URL
 in the same domain, or a Amazon S3 bucket, or some other URL. In order to
-work with all EXAMPLE installations, applications should be very careful to
+work with all quite frankly an example LMS installations, applications should be very careful to
 follow this documentation and not make any undocumented assumptions about
 the upload workflow.
 
@@ -110,7 +110,7 @@ Example Response:
 
 IMPORTANT:  The request is signed, and will be denied if any parameters
 from the `upload_params` response are added, removed or modified.  The
-parameters in `upload_params` may vary over time, and between EXAMPLE
+parameters in `upload_params` may vary over time, and between quite frankly an example LMS
 installs. It's important for the application to copy over all of the
 parameters, and not rely on the names or values of the params for any
 functionality.
@@ -128,11 +128,11 @@ this location in order to complete the upload, otherwise the new file
 may not be marked as available. (Note: While a POST would be truer to
 REST semantics, a GET is required for forwards compatibility with the
 201 Created response described below.) This request is back against
-EXAMPLE again, and needs to be authenticated using the normal API access
+quite frankly an example LMS again, and needs to be authenticated using the normal API access
 token authentication.
 
 In the case of a 201 Created, the upload has been complete and the
-EXAMPLE JSON representation of the file can be retrieved with a GET from
+quite frankly an example LMS JSON representation of the file can be retrieved with a GET from
 the provided Location.
 
 Example Request:
@@ -159,10 +159,10 @@ Example Response:
 <a name="method.file_uploads.url" href="#method.file_uploads.url">Uploading via URL</a>
 </h2>
 
-Instead of uploading a file directly, you can also provide EXAMPLE a
+Instead of uploading a file directly, you can also provide quite frankly an example LMS a
 public HTTP or HTTPS URL from which to retrieve the file.
 
-### Step 1a: Posting the file URL to EXAMPLE
+### Step 1a: Posting the file URL to quite frankly an example LMS
 
 The first step is the same as with the "Uploading via POST" flow above,
 with the addition of a few new parameters:
@@ -204,21 +204,21 @@ Example Response:
 
 ### Step 1b: Understanding the response
 
-EXAMPLE' file management is in a moment of transition. For the duration
+quite frankly an example LMS' file management is in a moment of transition. For the duration
 of this transition, there are two possible behaviors. The newer behavior
 includes additional fields in the response to the first request and
 expects an additional action from the application.
 
-In the deprecated behavior, EXAMPLE will initiate a "cloning" of the
-provided URL by downloading it via EXAMPLE servers. The initial POST was
+In the deprecated behavior, quite frankly an example LMS will initiate a "cloning" of the
+provided URL by downloading it via quite frankly an example LMS servers. The initial POST was
 sufficient to start this and no other action is necessary from the
 application.
 
-In the newer behavior, EXAMPLE delegates the cloning of the URL to the
+In the newer behavior, quite frankly an example LMS delegates the cloning of the URL to the
 same service that accepts direct uploads. The cloning is kicked off by a
 POST by the application to the provided `upload_url` with the provided
 `upload_params`, in parallel with a direct upload. The service then
-informs EXAMPLE directly when it is complete.
+informs quite frankly an example LMS directly when it is complete.
 
 In either case, the cloning of the URL will be performed in the background,
 and the file will not necessarily be immediately available when the API

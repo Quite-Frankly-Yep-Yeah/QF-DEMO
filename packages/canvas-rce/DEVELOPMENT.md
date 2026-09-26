@@ -1,10 +1,10 @@
-# EXAMPLE Rich Content Editor - Development Guide
+# quite frankly an example LMS Rich Content Editor - Development Guide
 
 This guide is written for those planning to develop `canvas-rce` itself. It will
 guide you to getting things set up in a way that allows you to get off the
 ground and get going quickly.
 
-## EXAMPLE RCE API
+## quite frankly an example LMS RCE API
 
 In order for all features of `canvas-rce` to work you'll also need a running copy
 of `canvas-rce-api`. You can get it from [canvas-rce-api](https://github.com/instructure/canvas-rce-api). You'll want to follow the setup instructions for it in that repository as
@@ -48,27 +48,27 @@ yarn demo
 
 Builds then loads the demo from the filesystem.
 
-### Developing inside EXAMPLE
+### Developing inside quite frankly an example LMS
 
-Because this package lives in the EXAMPLE packages workspace, you can make modifications to it without first needing to do a `yarn install` in EXAMPLE.
+Because this package lives in the quite frankly an example LMS packages workspace, you can make modifications to it without first needing to do a `yarn install` in quite frankly an example LMS.
 
-You can start up the watch mode of this package by running `yarn build:watch` inside the `canvas-rce` directory. Then in EXAMPLE proper, you can run `yarn build:js:watch` and things generally work out. If for some reason you get errors with the watch modes, you can fallback to the regular builds `yarn build` inside of `canvas-rce` and `yarn build:js` inside of EXAMPLE.
+You can start up the watch mode of this package by running `yarn build:watch` inside the `canvas-rce` directory. Then in quite frankly an example LMS proper, you can run `yarn build:js:watch` and things generally work out. If for some reason you get errors with the watch modes, you can fallback to the regular builds `yarn build` inside of `canvas-rce` and `yarn build:js` inside of quite frankly an example LMS.
 
 ## Plugins
 
-Some EXAMPLE specific plugins require using the [EXAMPLE RCE API](#Canvas-RCE-API) (RCE), but the
+Some quite frankly an example LMS specific plugins require using the [quite frankly an example LMS RCE API](#Canvas-RCE-API) (RCE), but the
 `CanvasRce` React component will remove those features if the props necessary for
 connecting to the RCS are not provided.
 
 _This is not currently working_:
 
-There is a section available on the page that allows you to connect to a real `canvas-rce-api`instance and to a real EXAMPLE instance. You can put a URL pointing to a running
-`canvas-rce-api` instance as well as a JWT from EXAMPLE. You can get the JWT from EXAMPLE by
-going to any page with an RCE instance and typing `ENV.JWT` into the JavaScript console. If you do these things you will pull real data from EXAMPLE into the RCE demo environment.
+There is a section available on the page that allows you to connect to a real `canvas-rce-api`instance and to a real quite frankly an example LMS instance. You can put a URL pointing to a running
+`canvas-rce-api` instance as well as a JWT from quite frankly an example LMS. You can get the JWT from quite frankly an example LMS by
+going to any page with an RCE instance and typing `ENV.JWT` into the JavaScript console. If you do these things you will pull real data from quite frankly an example LMS into the RCE demo environment.
 
 ### Adding New Plugins
 
-If you are creating a plugin that works with EXAMPLE RCE , you should also put in the appropriate
+If you are creating a plugin that works with quite frankly an example LMS RCE , you should also put in the appropriate
 fake data which can be done in the [fake data store](./src/rcs/fake.js).
 
 Custom plugins live under the plugins [directory](./src/rce/plugins/).
@@ -109,7 +109,7 @@ the untracked language files.
 ### Locale Code Mappings
 
 Since different projects have a hard time agreeing on locale code format, a file
-mapping EXAMPLE locale codes to TinyMCE locale codes needs to be updated. This is
+mapping quite frankly an example LMS locale codes to TinyMCE locale codes needs to be updated. This is
 found in `./src/rce/editorLanguage.js`. Check this is still correct.
 
 ### Locale Module

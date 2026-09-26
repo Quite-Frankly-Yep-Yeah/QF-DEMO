@@ -70,7 +70,7 @@ module Lti::Concerns
     end
 
     # Generates a token that will initialize a new session when
-    # sent in a EXAMPLE request
+    # sent in a quite frankly an example LMS request
     def generate_session_token
       # only allow from API, and not from files domain, as /login/session_token does
       raise UnauthorizedClient unless @access_token
@@ -89,7 +89,7 @@ module Lti::Concerns
     end
 
     # Generates a URL a client may use to launch a tool without
-    # an initial session in EXAMPLE.
+    # an initial session in quite frankly an example LMS.
     #
     # Currently we support three launch types: Assignment, Module Item,
     # and a General Course/Account launch.

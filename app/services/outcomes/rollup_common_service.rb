@@ -27,7 +27,7 @@ module Outcomes
     include OutcomesServiceAuthoritativeResultsHelper
     include CanvasOutcomesHelper
 
-    # Fetches EXAMPLE learning outcome results
+    # Fetches quite frankly an example LMS learning outcome results
     # @param course [Course] the course context
     # @param users [Array<User>] the users to fetch results for
     # @param outcomes [ActiveRecord::Relation<LearningOutcome>, Array<LearningOutcome>, nil]

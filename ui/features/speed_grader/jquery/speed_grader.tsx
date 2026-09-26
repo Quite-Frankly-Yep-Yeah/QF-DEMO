@@ -3493,7 +3493,7 @@ EG = {
 
     const canvadocMessage = I18n.t(
       'canvadoc_expiring',
-      'Your EXAMPLE DocViewer session is expiring soon.  Please ' +
+      'Your quite frankly an example LMS DocViewer session is expiring soon.  Please ' +
         'reload the window to avoid losing any work.',
     )
 

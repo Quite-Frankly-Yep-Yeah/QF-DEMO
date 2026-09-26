@@ -687,9 +687,9 @@ export function TempEnrollAssign(props: Props) {
               <Text as="p" data-testid="temp-enroll-summary">
                 {I18n.t(
                   {
-                    one: 'EXAMPLE will enroll %{recipient} as a %{role} in the selected courses of %{source} from %{start} - %{end} with an ending enrollment state of %{state}',
+                    one: 'quite frankly an example LMS will enroll %{recipient} as a %{role} in the selected courses of %{source} from %{start} - %{end} with an ending enrollment state of %{state}',
                     other:
-                      'EXAMPLE will enroll %{count} users as a %{role} in the selected courses of %{source} from %{start} - %{end} with an ending enrollment state of %{state}',
+                      'quite frankly an example LMS will enroll %{count} users as a %{role} in the selected courses of %{source} from %{start} - %{end} with an ending enrollment state of %{state}',
                   },
                   {
                     count: enrollmentProps.length,

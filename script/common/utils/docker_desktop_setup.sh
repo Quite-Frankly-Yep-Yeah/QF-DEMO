@@ -30,7 +30,7 @@ function check_docker_memory {
   docker_memory="$(docker info --format "{{.MemTotal}}")"
   if [[ "$docker_memory" -lt '8300000000' ]]; then
     echo_console_and_log "
-  EXAMPLE requires at least 8GB of memory dedicated to Docker Desktop. Please refer to
+  quite frankly an example LMS requires at least 8GB of memory dedicated to Docker Desktop. Please refer to
   https://docs.docker.com/desktop/settings/mac/#advanced for more info on increasing your memory."
     exit 1
   fi

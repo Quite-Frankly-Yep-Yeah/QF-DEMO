@@ -17,7 +17,7 @@
         "Archived grading schemes in use can still be used, but cannot be added to new courses or assignments.": "Arkiverede karaktersystemer i brug kan stadig bruges, men kan ikke tilføjes til nye fag eller opgaver.",
         "Are you sure you want to delete this grading scheme?": "Er du sikker på, at du vil slette denne karakterordning?",
         "Cancel": "Annuller",
-        "EXAMPLE Default": "EXAMPLE-standard",
+        "quite frankly an example LMS Default": "quite frankly an example LMS-standard",
         "Close": "Luk",
         "Confirm": "Bekræft",
         "Confirm Default Grading Scheme Change": "Bekræft ændring af standard karakterordning",
@@ -45,7 +45,7 @@
         "There was an error while archiving the grading scheme": "Der opstod en fejl under arkivering af karaktersystemet",
         "There was an error while creating the grading scheme": "Der opstod en fejl under oprettelse af karaktersystemet",
         "There was an error while loading grading schemes": "Der opstod en fejl under indlæsning af karaktersystemet",
-        "There was an error while loading the default canvas grading scheme": "Der opstod en fejl under indlæsning af standard karaktersystemet for EXAMPLE",
+        "There was an error while loading the default canvas grading scheme": "Der opstod en fejl under indlæsning af standard karaktersystemet for quite frankly an example LMS",
         "There was an error while loading the default grading scheme": "Der opstod en fejl under indlæsning af standard karaktersystemet",
         "There was an error while removing the grading scheme": "Der opstod en fejl under fjernelse af karaktersystemet",
         "There was an error while unarchiving the grading scheme": "Der opstod en fejl under fjernelse af arkivering af karaktersystemet",
@@ -80,7 +80,7 @@
         "Save": "Gem"
     },
     "GradingSchemes": {
-        "A table that contains the default canvas grading scheme data.  Each row contains a name, a maximum percentage, and a minimum percentage.": "En tabel, der indeholder EXAMPLE’ standard karaktersystemdata.  Hver række indeholder et navn, en maksimal procentdel og en minimal procentdel.",
+        "A table that contains the default canvas grading scheme data.  Each row contains a name, a maximum percentage, and a minimum percentage.": "En tabel, der indeholder quite frankly an example LMS’ standard karaktersystemdata.  Hver række indeholder et navn, en maksimal procentdel og en minimal procentdel.",
         "A table that contains the grading scheme data.  Each row contains a name, a maximum percentage, and a minimum percentage.": "En tabel, der indeholder data fra karaktersystemet.  Hver række indeholder et navn, en maksimal procentdel og en minimal procentdel.",
         "Cannot have duplicate or empty row names. Fix the names and try clicking 'Save' again.": "Kan ikke have duplikerede eller tomme rækkenavne. Ret navnene, og prøv at klikke på 'Gem' igen.",
         "Cannot have overlapping or empty ranges. Fix the ranges and try clicking 'Save' again.": "Kan ikke have overlappende eller tomme områder. Ret intervallerne, og prøv at klikke på 'Gem' igen.",
@@ -157,10 +157,10 @@
     "assignments.grading_type_selector": {
         "(course default)": "(fagstandard)",
         "Account Level": "Kontoniveau",
-        "EXAMPLE Grading Scheme (course default)": "EXAMPLE-karaktersystem (fagstandard)",
+        "quite frankly an example LMS Grading Scheme (course default)": "quite frankly an example LMS-karaktersystem (fagstandard)",
         "Close": "Luk",
         "Course Level": "Fagniveau",
-        "Default EXAMPLE Grading Scheme": "Standard EXAMPLE karaktersystem",
+        "Default quite frankly an example LMS Grading Scheme": "Standard quite frankly an example LMS karaktersystem",
         "Grading scheme was successfully removed.": "Karaktersystem blev fjernet.",
         "Grading scheme was successfully updated.": "Karaktersystemet blev opdateret.",
         "Manage All Grading Schemes": "Administrer alle karaktersystemer",
@@ -181,7 +181,7 @@
         "Course Catalog": "Fag-katalog"
     },
     "confetti": {
-        "Great work! From the EXAMPLE developers": "Godt klaret! Fra EXAMPLE-udviklerne"
+        "Great work! From the quite frankly an example LMS developers": "Godt klaret! Fra quite frankly an example LMS-udviklerne"
     },
     "content_copy_redesign": {
         "Cancel": "Annuller",

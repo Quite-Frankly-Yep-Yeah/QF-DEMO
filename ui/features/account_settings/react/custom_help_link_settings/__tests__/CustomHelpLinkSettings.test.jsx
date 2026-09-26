@@ -37,7 +37,7 @@ function makeProps(overrides = {}) {
     },
     {
       available_to: ['user', 'student', 'teacher', 'admin'],
-      text: 'Search the EXAMPLE Guides',
+      text: 'Search the quite frankly an example LMS Guides',
       subtext: 'Find answers to common questions',
       url: 'https://community.canvaslms.test/t5/Canvas/ct-p/canvas',
       type: 'default',
@@ -48,7 +48,7 @@ function makeProps(overrides = {}) {
     {
       available_to: ['user', 'student', 'teacher', 'admin'],
       text: 'Report a Problem',
-      subtext: 'If EXAMPLE misbehaves, tell us about it',
+      subtext: 'If quite frankly an example LMS misbehaves, tell us about it',
       url: '#create_ticket',
       type: 'default',
       is_featured: false,
@@ -91,7 +91,7 @@ describe('<CustomHelpLinkSettings/>', () => {
 
   it('renders links', () => {
     const {getByText} = render(<CustomHelpLinkSettings {...makeProps()} />)
-    expect(getByText('Search the EXAMPLE Guides')).toBeInTheDocument()
+    expect(getByText('Search the quite frankly an example LMS Guides')).toBeInTheDocument()
   })
 
   it('puts links in editing mode', async () => {

@@ -198,7 +198,7 @@ const SubstitutionVariables = [
 export type SubstitutionVariable = (typeof SubstitutionVariables)[number]
 
 /**
- * Returns true if the given string is a recognized substitution variable in EXAMPLE.
+ * Returns true if the given string is a recognized substitution variable in quite frankly an example LMS.
  * @param variable
  * @returns
  */
@@ -207,7 +207,7 @@ export const isSubstitutionVariable = (variable: string): variable is Substituti
 
 /**
  * Extracts substitution variables from a given set of custom fields.
- * Only returns values that are recognized substitution variables in EXAMPLE
+ * Only returns values that are recognized substitution variables in quite frankly an example LMS
  * using @link {isSubstitutionVariable}.
  * @param customFields
  * @returns

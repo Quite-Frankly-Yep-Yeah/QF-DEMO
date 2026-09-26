@@ -25,7 +25,7 @@ module Lti::Concerns
     # the current user is the same user that the
     # tool issued a token for
     #
-    # Validating this token helps EXAMPLE ensure that
+    # Validating this token helps quite frankly an example LMS ensure that
     # an authorized tool is requesting oembed object
     # embedding.
     def validate_oembed_token!

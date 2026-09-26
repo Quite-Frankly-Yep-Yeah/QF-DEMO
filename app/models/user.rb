@@ -2643,7 +2643,7 @@ class User < ApplicationRecord
   end
   private :cached_course_ids
 
-  # Returns courses the user can read via EXAMPLE permissions:
+  # Returns courses the user can read via quite frankly an example LMS permissions:
   # public courses, institution-public courses, enrolled courses, or admin access.
   # All courses must be published to be accessible.
   def accessible_courses_by_ids(course_ids, opts = {})

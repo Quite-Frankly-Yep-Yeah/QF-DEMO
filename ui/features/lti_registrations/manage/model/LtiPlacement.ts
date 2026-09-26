@@ -22,9 +22,9 @@ import {LtiDeepLinkingRequest, LtiResourceLinkRequest} from './LtiMessageType'
 // We should consolidate some of the lti "models" into a shared package that both features depend on
 
 /**
- * Within an { @see LtiImsRegistration }, all EXAMPLE-specific placements are prefixed by this string.
+ * Within an { @see LtiImsRegistration }, all quite frankly an example LMS-specific placements are prefixed by this string.
  * Note that the { @see LtiToolConfiguration } does *not* have this prefix, as any placements within that
- * object are known to be EXAMPLE-specific already.
+ * object are known to be quite frankly an example LMS-specific already.
  */
 export const canvasPlacementPrefix = 'https://canvas.instructure.com/lti/'
 

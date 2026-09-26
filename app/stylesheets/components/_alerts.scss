@@ -196,7 +196,7 @@ a.Button--flash {
 
 // .ic-alert-masquerade-student-view is used when a user is
 // masquerading or using student view. In the new UI, it gives
-// Canvas the appearance of being inside a 3px frame.
+// quite frankly an example LMS the appearance of being inside a 3px frame.
 .ic-alert-masquerade-student-view {
   padding: $ic-sp*0.5 $ic-sp;
   box-sizing: border-box;
@@ -221,7 +221,7 @@ a.Button--flash {
 }
 
 // When the fixed bottom alert is showing, add a
-// left and right border, making Canvas appear as if
+// left and right border, making quite frankly an example LMS appear as if
 // it is inside a frame.
 body.is-masquerading-or-student-view {
   &:not(.bare-layout):not(.embedded):not(.content-only) {

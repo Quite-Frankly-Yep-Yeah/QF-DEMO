@@ -4,13 +4,13 @@
   "trigger": "Triggered anytime a file is deleted from a course or user file directory.",
   "schema": {
     "data[0].group.extensions[\"com.instructure.canvas\"]": {
-      "context_type": "EXAMPLE context type where the action took place e.g context_type = Course.",
-      "entity_id": "EXAMPLE context ID"
+      "context_type": "quite frankly an example LMS context type where the action took place e.g context_type = Course.",
+      "entity_id": "quite frankly an example LMS context ID"
     },
     "data[0].object.extensions[\"com.instructure.canvas\"]": {
-      "context_id": "The EXAMPLE id of the current context",
+      "context_id": "The quite frankly an example LMS id of the current context",
       "context_type": "The type of context where the event happened",
-      "entity_id": "EXAMPLE global ID of the object affected by the event",
+      "entity_id": "quite frankly an example LMS global ID of the object affected by the event",
       "filename": "The file name of the attachment. NOTE: This field will be truncated to only include the first 8192 characters.",
       "folder_id": "The id of the folder where the attachment was saved"
     },

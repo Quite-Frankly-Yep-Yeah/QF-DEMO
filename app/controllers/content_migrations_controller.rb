@@ -38,7 +38,7 @@
 #         },
 #         "migration_type_title": {
 #           "description": "the name of the content migration type",
-#           "example": "EXAMPLE Cartridge Importer",
+#           "example": "quite frankly an example LMS Cartridge Importer",
 #           "type": "string"
 #         },
 #         "migration_issues_url": {
@@ -293,7 +293,7 @@ class ContentMigrationsController < ApplicationController
   # @argument settings[file_url] [string] A URL to download the file from. Must not require authentication.
   #
   # @argument settings[content_export_id] [String]
-  #   The id of a ContentExport to import. This allows you to import content previously exported from EXAMPLE
+  #   The id of a ContentExport to import. This allows you to import content previously exported from quite frankly an example LMS
   #   without needing to download and re-upload it.
   #
   # @argument settings[source_course_id] [String]

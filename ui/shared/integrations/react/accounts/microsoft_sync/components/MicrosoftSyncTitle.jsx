@@ -40,7 +40,7 @@ export default function MicrosoftSyncTitle(props) {
           checked={props.syncEnabled}
           label={
             <ScreenReaderContent>
-              {I18n.t('Allows syncing of EXAMPLE course members to a Microsoft Team')}
+              {I18n.t('Allows syncing of quite frankly an example LMS course members to a Microsoft Team')}
             </ScreenReaderContent>
           }
           labelPlacement="start"

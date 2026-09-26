@@ -61,7 +61,7 @@ class CourseForMenuPresenter
       canManage: course.grants_right?(@user, :manage_course_content_edit),
       canReadAnnouncements: course.grants_right?(@user, :read_announcements),
       image: course.image,
-      color: course.elementary_enabled? ? course.course_color : nil,
+      color: course.course_color,
       position: position.presence&.to_i,
       published: course.published?
     }.tap do |hash|

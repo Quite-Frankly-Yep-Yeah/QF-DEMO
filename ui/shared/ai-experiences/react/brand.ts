@@ -52,7 +52,7 @@ export const publishedButtonTheme = {
   primaryBorderColor: GREEN,
 }
 
-// Light blue — used for secondary action buttons (e.g. "Choose from EXAMPLE files", "Cancel")
+// Light blue — used for secondary action buttons (e.g. "Choose from quite frankly an example LMS files", "Cancel")
 export const LIGHT_BLUE = '#90CDF4'
 export const LIGHT_BLUE_HOVER = '#63B3ED'
 export const LIGHT_BLUE_ACTIVE = '#4299E1'

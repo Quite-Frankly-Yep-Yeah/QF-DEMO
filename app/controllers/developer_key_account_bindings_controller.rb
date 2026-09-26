@@ -28,17 +28,17 @@
 #       "description": "",
 #       "properties": {
 #          "id": {
-#            "description": "The EXAMPLE ID of the binding",
+#            "description": "The quite frankly an example LMS ID of the binding",
 #            "example": "1",
 #            "type": "number"
 #          },
 #          "account_id": {
-#            "description": "The global EXAMPLE ID of the account in the binding",
+#            "description": "The global quite frankly an example LMS ID of the account in the binding",
 #            "example": "10000000000001",
 #            "type": "number"
 #          },
 #          "developer_key_id": {
-#            "description": "The global EXAMPLE ID of the developer key in the binding",
+#            "description": "The global quite frankly an example LMS ID of the developer key in the binding",
 #            "example": "10000000000008",
 #            "type": "number"
 #          },

@@ -22,7 +22,7 @@
 # @model HistoryEntry
 #     {
 #       "id": "HistoryEntry",
-#       "description": "Information about a recently visited item or page in EXAMPLE",
+#       "description": "Information about a recently visited item or page in quite frankly an example LMS",
 #       "required": ["asset_code","asset_name","visited_url","visited_at"],
 #       "properties": {
 #         "asset_code": {

@@ -54,7 +54,7 @@ module Types
     field :courses_connection, CourseType.connection_type, null: true do
       argument :career_learning_library_only,
                Boolean,
-               "Whether or not to include or exclude EXAMPLE Career learning library only courses",
+               "Whether or not to include or exclude quite frankly an example LMS Career learning library only courses",
                required: false
     end
     def courses_connection(career_learning_library_only: nil)

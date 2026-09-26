@@ -426,7 +426,7 @@ components:
           description: Space-separated string of OAuth2 scopes including LTI scopes and "openid"
         https://purl.imsglobal.org/spec/lti-tool-configuration:
           type: object
-          description: LTI tool configuration object with placements and EXAMPLE-specific extensions
+          description: LTI tool configuration object with placements and quite frankly an example LMS-specific extensions
           properties:
             domain:
               type: string
@@ -451,10 +451,10 @@ components:
                       type: string
             https://canvas.instructure.com/lti/registration_config_url:
               type: string
-              description: URL to view/manage the registration in EXAMPLE
+              description: URL to view/manage the registration in quite frankly an example LMS
         registration_client_uri:
           type: string
-          description: URL to view/manage the registration in EXAMPLE
+          description: URL to view/manage the registration in quite frankly an example LMS
         deployment_id:
           type: string
           description: The deployment ID for the root account deployment (if exists)

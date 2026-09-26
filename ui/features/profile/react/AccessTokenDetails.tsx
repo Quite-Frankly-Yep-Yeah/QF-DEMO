@@ -197,7 +197,7 @@ const AccessTokenDetails = ({
             dangerouslySetInnerHTML={{
               __html: raw(
                 I18n.t(
-                  'Access tokens can be used to allow other applications to make API calls on your behalf. You can also generate access tokens and *use the EXAMPLE Open API* to come up with your own integrations.',
+                  'Access tokens can be used to allow other applications to make API calls on your behalf. You can also generate access tokens and *use the quite frankly an example LMS Open API* to come up with your own integrations.',
                   {
                     wrapper:
                       '<a href="https://developerdocs.instructure.com/services/canvas" class="external" target="_blank" rel="noreferrer noopener">$1</a>',

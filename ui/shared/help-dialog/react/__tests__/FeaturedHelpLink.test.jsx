@@ -23,7 +23,7 @@ describe('FeaturedHelpLink', () => {
     id: 'search_the_canvas_guides',
     type: 'default',
     available_to: ['user', 'student', 'teacher', 'admin', 'observer', 'unenrolled'],
-    text: 'Search the EXAMPLE Guides',
+    text: 'Search the quite frankly an example LMS Guides',
     subtext: 'Find answers to common questions',
     url: 'https://community.canvaslms.test/t5/Canvas/ct-p/canvas',
     is_featured: true,

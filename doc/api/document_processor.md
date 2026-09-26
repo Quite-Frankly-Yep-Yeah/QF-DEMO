@@ -1,8 +1,8 @@
 Document Processor
 ==============
 
-Asset Processor (called Document Processor in EXAMPLE) is a collection of LTI Advantage extensions, which provide a standardized way for tools to process documents (files) and send back reports to EXAMPLE. 
-The LTI 1.3 Asset Processor is the new standard for conducting plagiarism checks with external tools. For all new integrations, we recommend using the Asset Processor instead of the deprecated LTI 2.0 CPF (EXAMPLE Plagiarism Framework).
+Asset Processor (called Document Processor in quite frankly an example LMS) is a collection of LTI Advantage extensions, which provide a standardized way for tools to process documents (files) and send back reports to quite frankly an example LMS. 
+The LTI 1.3 Asset Processor is the new standard for conducting plagiarism checks with external tools. For all new integrations, we recommend using the Asset Processor instead of the deprecated LTI 2.0 CPF (quite frankly an example LMS Plagiarism Framework).
 
 The main use-case for Document Processors is the plagiarism check of student submissions (text or file upload).
 
@@ -203,7 +203,7 @@ Example LtiAssetProcessorSettingsRequest:
 
 
 ## Submission
-When a student submits a file or text assignment to which at least one asset processor is attached, EXAMPLE sends an `LtiAssetProcessorSubmissionNotice` to the tool's registered notice handler (via PNS). Every attached asset processor will get a separate notice. One notice will contain multiple assets if the submission contains multiple files.
+When a student submits a file or text assignment to which at least one asset processor is attached, quite frankly an example LMS sends an `LtiAssetProcessorSubmissionNotice` to the tool's registered notice handler (via PNS). Every attached asset processor will get a separate notice. One notice will contain multiple assets if the submission contains multiple files.
 ```json
 {
   "https://purl.imsglobal.org/spec/lti/claim/version": "1.3.0",
@@ -276,7 +276,7 @@ GET http://host/api/lti/asset_processors/83/assets/dd33081e-81ba-4651-b528-09831
 Authorization: Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJodHRwczovL2NhbnZhcy5pbnN0cnVjdHVyZS5jb20iLCJzdWIiOiIxMDAwMDAwMDAwMDA2OCIsImF1ZCI6WyJodHRwOi8vY2FudmFzLXdlYi5pbnNlbmcudGVzdC9sb2dpbi9vYXV0aDIvdG9rZW4iLCJjYW52YXMtd2ViLmluc2VuZy50ZXN0Il0sImlhdCI6MTc1NDM4NTM4MSwiZXhwIjoxNzU0Mzg4OTgxLCJqdGkiOiIxYWY1MmFkYS00NzIwLTRlMDAtYjVjMi0wMTY4M2YzZWM5NTQiLCJzY29wZXMiOiJodHRwczovL3B1cmwuaW1zZ2xvYmFsLm9yZy9zcGVjL2x0aS9zY29wZS9hc3NldC5yZWFkb25seSIsImNhbnZhcy5pbnN0cnVjdHVyZS5jb20iOnsiYWNjb3VudF91dWlkIjoialRlemh1S1E1VUJKME9nN2ZON2I4ZER6NERUdWpVeGVXTnhxT25OUiJ9fQ.tm4BJhja-7hwgD0U82nfXvKCwgyFFaIT3YYRO2b_M0I
 ```
 Response:
-EXAMPLE may return a redirect. Make sure your client follows redirects when downloading the asset. Text entry assets are returned with text/html content-type.
+quite frankly an example LMS may return a redirect. Make sure your client follows redirects when downloading the asset. Text entry assets are returned with text/html content-type.
 
 ## Uploading an Asset Report
 The tool can upload reports to specific assets using the Asset Report Service. To use the service, the tool should have the `https://purl.imsglobal.org/spec/lti/scope/report` scope. 
@@ -319,7 +319,7 @@ A successful response has http status 201 Created and the request body sent back
 }
 ```
 
-The endpoint uses the standard LTI Advantage authentication scheme. A given asset can have reports from multiple asset processors. An asset processor can upload multiple reports to the same asset. EXAMPLE will show the latest report for a given (asset processor, asset, report type) combination.
+The endpoint uses the standard LTI Advantage authentication scheme. A given asset can have reports from multiple asset processors. An asset processor can upload multiple reports to the same asset. quite frankly an example LMS will show the latest report for a given (asset processor, asset, report type) combination.
 
 <img src="./images/document_processor/asset_processor_reports_diagram.png" alt="Asset Processor Diagram" width="800">
 
@@ -330,7 +330,7 @@ In this diagram, we have a user submission with multiple assets and reports. Onl
 * Report 11 has the same type and asset processor as Report 4, but it belongs to a different asset.
 * Reports 6-10 describe a typical case where initial processing fails, but the teacher resubmits the notice, which eventually succeeds.
 
-## Reports in EXAMPLE
+## Reports in quite frankly an example LMS
 Teachers can check reports in SpeedGrader in the right panel:
 
 <img src="./images/document_processor/reports_in_speedgrader.png" alt="Reports in SpeedGrader" width="500">
@@ -377,7 +377,7 @@ Payload example:
 |---|---|
 | https://purl.imsglobal.org/spec/lti/claim/activity | Id of the assignment |
 | https://purl.imsglobal.org/spec/lti/claim/submission | Id of the submission |
-| https://purl.imsglobal.org/spec/lti/claim/assetreport_type | EXAMPLE does not use the value of an uploaded report's type field in its business logic. This field serves only to differentiate between reports; for a given report type, only the one with the latest timestamp is displayed. |
+| https://purl.imsglobal.org/spec/lti/claim/assetreport_type | quite frankly an example LMS does not use the value of an uploaded report's type field in its business logic. This field serves only to differentiate between reports; for a given report type, only the one with the latest timestamp is displayed. |
 | https://purl.imsglobal.org/spec/lti/claim/for_user | The user who wants to see the report. |
 | https://purl.imsglobal.org/spec/lti/claim/asset | Id of the asset to which the report belongs. |
 | https://purl.imsglobal.org/spec/lti/claim/custom | Merged values of custom parameters defined in developer key, asset processor content item/custom, and asset processor content item/report/custom. |
@@ -434,7 +434,7 @@ Configuration:
 }
 ```
 
-When a student opens an assignment that has an asset processor with EULA support, EXAMPLE will launch the tool with an LtiEulaRequest if:
+When a student opens an assignment that has an asset processor with EULA support, quite frankly an example LMS will launch the tool with an LtiEulaRequest if:
 * the tool hasn't opted out from EULA by sending `eulaRequired: false` with EULA deployment service
 * the user hasn’t already accepted the EULA of the tool
 
@@ -533,6 +533,6 @@ A successful response has http status 200 OK and the request body sent back as r
 | Asset | An asset is a document uploaded to a submission. It can be a text entry or a file. When students send a new submission attempt even with the same attachments, new assets are created.
 | Activity | Assignment
 | Asset Processor | An Asset Processor in this context is a capability of an LTI 1.3 tool that can be attached to an assignment to automatically process digital assets (documents, videos, files, etc.) submitted by students. The processor analyzes the submitted content and generates reports that are returned to the platform, enabling automated feedback, grading, or content analysis.
-| Report | A report is the output generated by an asset processor after analyzing submitted assets. Report metadata (score, comment etc) are sent back to EXAMPLE via Asset Report Service, report details can be checked by the `LtiReportReviewRequest`.
-| Submission | In the context of the Asset Processor standard, a submission refers to an event where a student submits assets (documents, videos, files, etc.) to an assignment. This can be mapped to a submission attempt in EXAMPLE.
+| Report | A report is the output generated by an asset processor after analyzing submitted assets. Report metadata (score, comment etc) are sent back to quite frankly an example LMS via Asset Report Service, report details can be checked by the `LtiReportReviewRequest`.
+| Submission | In the context of the Asset Processor standard, a submission refers to an event where a student submits assets (documents, videos, files, etc.) to an assignment. This can be mapped to a submission attempt in quite frankly an example LMS.
 

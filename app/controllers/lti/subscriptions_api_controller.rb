@@ -21,14 +21,14 @@ module Lti
   # @API Webhooks Subscriptions for Plagiarism Platform
   # **LTI API for Webhook Subscriptions (Must use <a href="file.jwt_access_tokens.html">JWT access tokens</a> with this API).**
   #
-  # This is intended for use with EXAMPLE'
+  # This is intended for use with quite frankly an example LMS'
   # <a href="file.plagiarism_platform.html">Plagiarism Detection Platform</a>. For
   # general-purpose event subscriptions see
   # <a href="file.data_service_introduction.html">Live Events</a>.
   #
   # The tool proxy must also have the appropriate enabled capabilities (See appendix).
   #
-  # Webhooks from EXAMPLE are your way to know that a change (e.g. new or updated submission,
+  # Webhooks from quite frankly an example LMS are your way to know that a change (e.g. new or updated submission,
   # new or updated assignment, etc.) has taken place.
   #
   # Webhooks are available via HTTPS to an endpoint you own and specify, or via

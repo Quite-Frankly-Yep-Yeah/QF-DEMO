@@ -2884,23 +2884,23 @@ RSpec.describe ApplicationController do
   end
 
   describe "#native_app?" do
-    context "with iOS EXAMPLE apps" do
-      it "detects EXAMPLE iOS Teacher app" do
+    context "with iOS quite frankly an example LMS apps" do
+      it "detects quite frankly an example LMS iOS Teacher app" do
         controller.request.user_agent = "iosTeacher/1.0"
         expect(controller.send(:native_app?)).to be_truthy
       end
 
-      it "detects EXAMPLE iOS Teacher app with version" do
+      it "detects quite frankly an example LMS iOS Teacher app with version" do
         controller.request.user_agent = "iosTeacher/2.1.0 (iOS 15.0; iPhone)"
         expect(controller.send(:native_app?)).to be_truthy
       end
 
-      it "detects EXAMPLE iOS Parent app" do
+      it "detects quite frankly an example LMS iOS Parent app" do
         controller.request.user_agent = "iosParent/1.0"
         expect(controller.send(:native_app?)).to be_truthy
       end
 
-      it "detects EXAMPLE iOS Parent app with version" do
+      it "detects quite frankly an example LMS iOS Parent app with version" do
         controller.request.user_agent = "iosParent/3.2.1 (iOS 16.0; iPad)"
         expect(controller.send(:native_app?)).to be_truthy
       end
@@ -2916,33 +2916,33 @@ RSpec.describe ApplicationController do
       end
     end
 
-    context "with Android EXAMPLE apps" do
-      it "detects EXAMPLE Android Student app" do
+    context "with Android quite frankly an example LMS apps" do
+      it "detects quite frankly an example LMS Android Student app" do
         controller.request.user_agent = "candroid/1.0"
         expect(controller.send(:native_app?)).to be_truthy
       end
 
-      it "detects EXAMPLE Android Student app with version" do
+      it "detects quite frankly an example LMS Android Student app with version" do
         controller.request.user_agent = "candroid/2.5.0 (Android 12; Samsung Galaxy)"
         expect(controller.send(:native_app?)).to be_truthy
       end
 
-      it "detects EXAMPLE Android Parent app" do
+      it "detects quite frankly an example LMS Android Parent app" do
         controller.request.user_agent = "androidParent/1.0"
         expect(controller.send(:native_app?)).to be_truthy
       end
 
-      it "detects EXAMPLE Android Parent app with version" do
+      it "detects quite frankly an example LMS Android Parent app with version" do
         controller.request.user_agent = "androidParent/1.5.0 (Android 13; Pixel 6)"
         expect(controller.send(:native_app?)).to be_truthy
       end
 
-      it "detects EXAMPLE Android Teacher app" do
+      it "detects quite frankly an example LMS Android Teacher app" do
         controller.request.user_agent = "androidTeacher/1.0"
         expect(controller.send(:native_app?)).to be_truthy
       end
 
-      it "detects EXAMPLE Android Teacher app with version" do
+      it "detects quite frankly an example LMS Android Teacher app with version" do
         controller.request.user_agent = "androidTeacher/3.1.0 (Android 11; OnePlus 9)"
         expect(controller.send(:native_app?)).to be_truthy
       end

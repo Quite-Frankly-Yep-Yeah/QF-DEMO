@@ -26,7 +26,7 @@ describe "flash notifications" do
     # fix console errors in DE-186 (8/10/2020)
     allow_any_instance_of(ApplicationController).to receive(:browser_supported?).and_return(false)
     get "/login"
-    expect(f(flash_message_selector)).to include_text "Your browser does not meet the minimum requirements for EXAMPLE"
+    expect(f(flash_message_selector)).to include_text "Your browser does not meet the minimum requirements for quite frankly an example LMS"
     dismiss_flash_messages
 
     get "/login"

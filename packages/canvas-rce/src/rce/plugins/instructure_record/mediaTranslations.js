@@ -77,7 +77,7 @@ const uploadMediaTranslations = {
     WEBCAM_AUDIO_SELECTION_LABEL: formatMessage('Select audio source'),
     NO_WEBCAM: formatMessage('No Video'),
     // Modified string to match from ui/shared/media-recorder/react/components/MediaRecorder.js
-    NOT_ALLOWED_ERROR: formatMessage('Please allow EXAMPLE to access your microphone and webcam.'),
+    NOT_ALLOWED_ERROR: formatMessage('Please allow quite frankly an example LMS to access your microphone and webcam.'),
     NOT_READABLE_ERROR: formatMessage('Your webcam may already be in use.'),
     PLAYBACK_PAUSE: formatMessage('Pause'),
     PLAYBACK_PLAY: formatMessage('Play'),

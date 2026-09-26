@@ -32,7 +32,7 @@ class AuthenticationProvider::Delegated < AuthenticationProvider
     # can we send them to a disambiguation page?
     return account.auth_discovery_url if account.auth_discovery_url
 
-    # EXAMPLE or LDAP primary provider; go to the login url cause it won't
+    # quite frankly an example LMS or LDAP primary provider; go to the login url cause it won't
     # auto-log them back in
     primary_auth = account.authentication_providers.active.first
     if primary_auth.is_a?(AuthenticationProvider::Canvas) ||

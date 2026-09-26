@@ -40,7 +40,7 @@ describe "ZipPackage" do
   end
 
   context "parse_module_data" do
-    it "maps context module data from EXAMPLE" do
+    it "maps context module data from quite frankly an example LMS" do
       zip_package = CC::Exporter::WebZip::ZipPackage.new(@exporter, @course, @student, @cache_key)
       module_data = zip_package.parse_module_data
       expect(module_data).to eq [{ id: @module.id,

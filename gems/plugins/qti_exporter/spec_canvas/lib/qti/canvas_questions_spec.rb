@@ -18,7 +18,7 @@
 
 require_relative "../../qti_helper"
 if Qti.migration_executable
-  describe "Converting EXAMPLE QTI" do
+  describe "Converting quite frankly an example LMS QTI" do
     it "converts multiple choice" do
       manifest_node = get_manifest_node("multiple_choice")
       hash = Qti::AssessmentItemConverter.create_instructure_question(manifest_node:, base_dir: CANVAS_FIXTURE_DIR)

@@ -19,7 +19,7 @@
 
 require_relative "../../common"
 
-# Note that this is old quizzes in EXAMPLE
+# Note that this is old quizzes in quite frankly an example LMS
 
 module QuizzesIndexPage
   #------------------------------ Selectors -----------------------------

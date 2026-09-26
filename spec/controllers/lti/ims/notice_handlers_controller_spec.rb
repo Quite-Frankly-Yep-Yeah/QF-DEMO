@@ -119,7 +119,7 @@ describe Lti::IMS::NoticeHandlersController do
       end
 
       context "when the request has extra fields" do
-        let(:body_overrides) { { notice_type:, handler: handler_url, extraField: "EXAMPLE should ignore this" } }
+        let(:body_overrides) { { notice_type:, handler: handler_url, extraField: "quite frankly an example LMS should ignore this" } }
 
         it "subscribes the tool for given notice and returns the created handler while ignoring the extra field" do
           send_request

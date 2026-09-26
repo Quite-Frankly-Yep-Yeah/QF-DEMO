@@ -133,7 +133,7 @@ describe('AccessTokensSection', () => {
 
     await waitFor(() => {
       expect(
-        screen.getByText('These are the access tokens this user has generated to access EXAMPLE:'),
+        screen.getByText('These are the access tokens this user has generated to access quite frankly an example LMS:'),
       ).toBeInTheDocument()
     })
 

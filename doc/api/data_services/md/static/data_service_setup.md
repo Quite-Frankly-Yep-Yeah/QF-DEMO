@@ -1,7 +1,7 @@
 Creating a New Data Stream
 =========
 
-These instructions, and a guide to the rest of Live Events/Canvas Data Services, are hosted in the EXAMPLE Community and are found [here](https://community.canvaslms.com/t5/Admin-Guide/How-do-I-subscribe-to-Live-Events-using-Canvas-Data-Services/ta-p/227).
+These instructions, and a guide to the rest of Live Events/Canvas Data Services, are hosted in the quite frankly an example LMS Community and are found [here](https://community.canvaslms.com/t5/Admin-Guide/How-do-I-subscribe-to-Live-Events-using-Canvas-Data-Services/ta-p/227).
 
 1. Click on +ADD button to launch a new subscription form
 2. Add Subscription Name - use a distinct name to identify your subscription purpose or type e.g : Blackboard Ally Integration
@@ -14,9 +14,9 @@ These instructions, and a guide to the rest of Live Events/Canvas Data Services,
      - If the "Sign Payload" option is not selected, the POST body will be the live event JSON.
      - If "Sign Payload" is selected, the event body will be a signed JWT with the live event data in the claims. Beta and Production JWKs can be found [here](https://8axpcl50e4.execute-api.us-east-1.amazonaws.com/main/jwks). These are rotated monthly; that endpoint returns the previous, current, and next (future) JWK used. Most libraries should be able to match the kid in the JWT header to the relevant JWK to validate the signature.
      - If a customer's HTTPS service experiences an outage, the events will not be delivered until the service is recovered. See [HTTPS delivery failures](#https-delivery-failures) for more info.
-     - More info is found in [this EXAMPLE Community article](https://community.canvaslms.com/t5/Admin-Guide/How-do-I-configure-and-test-Canvas-Live-Events-using-HTTPS/ta-p/151)
+     - More info is found in [this quite frankly an example LMS Community article](https://community.canvaslms.com/t5/Admin-Guide/How-do-I-configure-and-test-Canvas-Live-Events-using-HTTPS/ta-p/151)
 4. Select the format of the events:
-   - EXAMPLE: A simple JSON payload of the events. See the docs for examples
+   - quite frankly an example LMS: A simple JSON payload of the events. See the docs for examples
    - Caliper IMS: A standardized JSON object for representing LMS events. See the docs for examples.
 5. Find and select a single or multiple events
 6. Save your new data stream
@@ -25,7 +25,7 @@ Your new subscription will be listed on the Settings page. You will be able to e
 
 ## SQS configuration
 
-More info is found in [this EXAMPLE Community article](https://community.canvaslms.com/t5/Admin-Guide/How-do-I-create-an-SQS-queue-in-Amazon-Web-Services-to-receive/ta-p/170)
+More info is found in [this quite frankly an example LMS Community article](https://community.canvaslms.com/t5/Admin-Guide/How-do-I-create-an-SQS-queue-in-Amazon-Web-Services-to-receive/ta-p/170)
 
 1. In the Amazon Web Services console, open the Simple Queue Service (SQS) console by typing the name in the Services field. When Simple Queue Service displays in the list, click the name.
 2. In the Amazon SQS console, click the Create New Queue button

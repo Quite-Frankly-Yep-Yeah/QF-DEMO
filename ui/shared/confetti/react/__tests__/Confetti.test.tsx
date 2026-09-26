@@ -51,11 +51,11 @@ describe('Confetti', () => {
   describe('screenreader content', () => {
     it('announces the text', () => {
       const {queryByText} = render(<Confetti />)
-      expect(queryByText('Great work! From the EXAMPLE developers')).toBeInTheDocument()
+      expect(queryByText('Great work! From the quite frankly an example LMS developers')).toBeInTheDocument()
       act(() => {
         vi.advanceTimersByTime(10000)
       })
-      expect(queryByText('Great work! From the EXAMPLE developers')).not.toBeInTheDocument()
+      expect(queryByText('Great work! From the quite frankly an example LMS developers')).not.toBeInTheDocument()
     })
   })
 

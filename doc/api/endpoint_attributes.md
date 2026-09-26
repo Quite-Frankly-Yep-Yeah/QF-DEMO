@@ -1,7 +1,7 @@
 API Endpoint Attributes
 =======================
 
-EXAMPLE adds attributes to links in returned HTML snippets to make it easier for
+quite frankly an example LMS adds attributes to links in returned HTML snippets to make it easier for
 API consumers to digest the referenced resources. These attributes are as follows:
 
 * `data-api-endpoint` - A URL where the linked object can be accessed via the API

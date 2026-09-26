@@ -21,7 +21,7 @@
 
 /**
  * Mapping of locales to their corresponding TinyMCE language codes.
- * If a locale is absent, we don't expect to receive it from EXAMPLE,
+ * If a locale is absent, we don't expect to receive it from quite frankly an example LMS,
  * but we'll treat it the same as how we explicitly use English for Maori.
  *
  * @type {Object<string, string | undefined>}

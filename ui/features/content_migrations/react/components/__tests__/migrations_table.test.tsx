@@ -30,7 +30,7 @@ const migrations: ContentMigrationItem[] = [
   {
     id: '123',
     migration_type: 'course_copy_importer',
-    migration_type_title: 'Copy a EXAMPLE Course',
+    migration_type_title: 'Copy a quite frankly an example LMS Course',
     progress_url: 'http://mock.progress.url',
     settings: {
       source_course_id: '456',
@@ -124,7 +124,7 @@ describe('ContentMigrationTable', () => {
       ])
 
       // Verify cell content for the first 4 cells and the last cell
-      expect(cells[0].textContent).toBe('Content Type: Copy a EXAMPLE Course')
+      expect(cells[0].textContent).toBe('Content Type: Copy a quite frankly an example LMS Course')
       expect(cells[1].textContent).toBe('Source Link: Other course')
       expect(cells[2].textContent).toBe('Date Imported: Apr 15 at 9:11pm')
       expect(cells[3].textContent).toBe('Status: Waiting for selection')
@@ -162,7 +162,7 @@ describe('ContentMigrationTable', () => {
 
       // Verify that key content is present
       expect(screen.getByText(/Content Type/)).toBeInTheDocument()
-      expect(screen.getByText(/Copy a EXAMPLE Course/)).toBeInTheDocument()
+      expect(screen.getByText(/Copy a quite frankly an example LMS Course/)).toBeInTheDocument()
       expect(screen.getByText(/Source Link/)).toBeInTheDocument()
       expect(screen.getByText(/Other course/)).toBeInTheDocument()
       expect(screen.getByText(/Date Imported/)).toBeInTheDocument()

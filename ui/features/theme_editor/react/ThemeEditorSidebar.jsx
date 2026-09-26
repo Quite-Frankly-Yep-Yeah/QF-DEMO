@@ -77,7 +77,7 @@ export default function ThemeEditorSidebar({
               <div>
                 <p className="Theme__editor-upload-warning_text-emphasis">
                   {I18n.t(
-                    'Custom CSS and Javascript may cause accessibility issues or conflicts with future EXAMPLE updates!',
+                    'Custom CSS and Javascript may cause accessibility issues or conflicts with future quite frankly an example LMS updates!',
                   )}
                 </p>
                 <p
@@ -94,7 +94,7 @@ export default function ThemeEditorSidebar({
             </div>
 
             <div className="Theme__editor-upload-overrides_header">
-              {I18n.t('File(s) will be included on all pages in the EXAMPLE desktop application.')}
+              {I18n.t('File(s) will be included on all pages in the quite frankly an example LMS desktop application.')}
             </div>
 
             <div className="Theme__editor-upload-overrides_form">
@@ -124,7 +124,7 @@ export default function ThemeEditorSidebar({
           <div className="Theme__editor-upload-overrides">
             <div className="Theme__editor-upload-overrides_header">
               {I18n.t(
-                'File(s) will be included when user content is displayed within the EXAMPLE iOS or Android apps, and in third-party apps built on our API.',
+                'File(s) will be included when user content is displayed within the quite frankly an example LMS iOS or Android apps, and in third-party apps built on our API.',
               )}
             </div>
 

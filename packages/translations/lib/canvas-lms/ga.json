@@ -17,7 +17,7 @@
         "Archived grading schemes in use can still be used, but cannot be added to new courses or assignments.": "Is féidir scéimeanna marcála cartlainne atá in úsáid a úsáid go fóill, ach ní féidir iad a chur le cúrsaí nó tascanna nua.",
         "Are you sure you want to delete this grading scheme?": "An bhfuil tú cinnte gur mhaith leat an scéim mharcála seo a scriosadh?",
         "Cancel": "Cealaigh",
-        "EXAMPLE Default": "Réamhshocrú EXAMPLE",
+        "quite frankly an example LMS Default": "Réamhshocrú quite frankly an example LMS",
         "Close": "Dún",
         "Confirm": "Deimhnigh",
         "Confirm Default Grading Scheme Change": "Deimhnigh Athrú ar an Scéim Marcála Réamhshocraithe",
@@ -157,10 +157,10 @@
     "assignments.grading_type_selector": {
         "(course default)": "réamhshocrú cúrsa)",
         "Account Level": "Leibhéal an Chuntais",
-        "EXAMPLE Grading Scheme (course default)": "Scéim Marcála EXAMPLE (réamhshocrú an chúrsa)",
+        "quite frankly an example LMS Grading Scheme (course default)": "Scéim Marcála quite frankly an example LMS (réamhshocrú an chúrsa)",
         "Close": "Dún",
         "Course Level": "Leibhéal an Chúrsa",
-        "Default EXAMPLE Grading Scheme": "Scéim Marcála EXAMPLE Réamhshocraithe",
+        "Default quite frankly an example LMS Grading Scheme": "Scéim Marcála quite frankly an example LMS Réamhshocraithe",
         "Grading scheme was successfully removed.": "Baineadh an scéim Marcála go rathúil.",
         "Grading scheme was successfully updated.": "Nuashonraíodh an scéim marcála go rathúil.",
         "Manage All Grading Schemes": "Bainistigh na Scéimeanna Marcaithe go léir",
@@ -181,7 +181,7 @@
         "Course Catalog": "Catalóg Cúrsa"
     },
     "confetti": {
-        "Great work! From the EXAMPLE developers": "Obair iontach! Ó fhorbróirí EXAMPLE"
+        "Great work! From the quite frankly an example LMS developers": "Obair iontach! Ó fhorbróirí quite frankly an example LMS"
     },
     "content_copy_redesign": {
         "Cancel": "Cealaigh",

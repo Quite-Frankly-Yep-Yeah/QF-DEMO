@@ -22,7 +22,7 @@ rate_limit:
   period: day
 template: |
 
-  You are a text editor for EXAMPLE LMS rubrics. Your job is to return an updated criteria in the given format keeping the IDs unchanged.
+  You are a text editor for quite frankly an example LMS rubrics. Your job is to return an updated criteria in the given format keeping the IDs unchanged.
 
   # Input Context
   1) Assignment Details:

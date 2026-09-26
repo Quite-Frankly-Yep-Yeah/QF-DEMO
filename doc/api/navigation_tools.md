@@ -1,6 +1,6 @@
 # Navigation Tools
 
-EXAMPLE allows External Tools to be surfaced in a variety of navigation menus. The primary use case for using a navigation placement is to permit SSO to display a dashboard of some type. The Top Navigation placement launches in a drawer which allows the tool to be displayed alongside EXAMPLE content.
+quite frankly an example LMS allows External Tools to be surfaced in a variety of navigation menus. The primary use case for using a navigation placement is to permit SSO to display a dashboard of some type. The Top Navigation placement launches in a drawer which allows the tool to be displayed alongside quite frankly an example LMS content.
 
 - [Course Navigation Placement](#course_navigation)
 - [Account Navigation Placement](#account_navigation)
@@ -87,23 +87,23 @@ For more examples, refer to the <a href="file.lti_dev_key_config.html" target="_
 
 ### Advantages
 
-The Course Navigation Placement is well suited for external apps that wish to be surfaced in EXAMPLE without having to implement an LTI deep linking workflow. Once the tool is configured, no additional steps are required for users to see the launch point (unless the tool is disabled by default). It is well suited for tools that want to provide a simple SSO connection from EXAMPLE to the external application. A dashboard type experience can be provided by apps offering services like:
+The Course Navigation Placement is well suited for external apps that wish to be surfaced in quite frankly an example LMS without having to implement an LTI deep linking workflow. Once the tool is configured, no additional steps are required for users to see the launch point (unless the tool is disabled by default). It is well suited for tools that want to provide a simple SSO connection from quite frankly an example LMS to the external application. A dashboard type experience can be provided by apps offering services like:
 
 - Course-level Analytics or tool settings
 - Management of external course resources
 - Rostering or Attendance
-- EXAMPLE-to-app SSO
+- quite frankly an example LMS-to-app SSO
 - Allowing users to select multiple resources and generate line items for them (LTI Advantage tools only)
 - Allowing teachers or students to complete an <a href="file.oauth.html#accessing-canvas-api" target="_blank">OAuth2 flow</a> so a tool can run API requests on their behalf.
 
 ### Limitations/Challenges
 
-- EXAMPLE does not support Deep Linking from this placement, however, Assignment and Grading Services could be used to generate many line items in EXAMPLE.
+- quite frankly an example LMS does not support Deep Linking from this placement, however, Assignment and Grading Services could be used to generate many line items in quite frankly an example LMS.
 - There is no 'resource' context, only course context.
 
 ### Workflow
 
-1. After configuring a course navigation tool, the instructor or student navigates to their course in EXAMPLE.
+1. After configuring a course navigation tool, the instructor or student navigates to their course in quite frankly an example LMS.
 2. Then, they click a link in the course navigation menu.
 3. The tool consumes the LTI launch and renders the application.
 
@@ -145,22 +145,22 @@ All of these settings are contained under "course_navigation"
 
   <ul style="list-style-type: circle;margin-left: 1em">
     <li>default
-      <p>Includes EXAMPLE global navigation, breadcrumb, and course navigation.</p>
+      <p>Includes quite frankly an example LMS global navigation, breadcrumb, and course navigation.</p>
     </li>
     <li>full_width
-      <p>Includes EXAMPLE global navigation but does not include breadcrumb or course navigation.</p>
+      <p>Includes quite frankly an example LMS global navigation but does not include breadcrumb or course navigation.</p>
     </li>
     <li>full_width_in_context
-      <p>Includes EXAMPLE global_navigation, breadcrumb, and course navigation, and gives the tool access to the rest of the horizontal screen width.</p>
+      <p>Includes quite frankly an example LMS global_navigation, breadcrumb, and course navigation, and gives the tool access to the rest of the horizontal screen width.</p>
     </li>
     <li>full_width_with_nav
-      <p>Includes EXAMPLE global_navigation, breadcrumb, and course navigation, and gives the tool access to the rest of the horizontal screen width.</p>
+      <p>Includes quite frankly an example LMS global_navigation, breadcrumb, and course navigation, and gives the tool access to the rest of the horizontal screen width.</p>
     </li>
     <li>in_nav_context
-      <p>Includes EXAMPLE global_navigation, breadcrumbs, and course navigation.</p>
+      <p>Includes quite frankly an example LMS global_navigation, breadcrumbs, and course navigation.</p>
     </li>
     <li>borderless
-      <p>Does not include EXAMPLE global_navigation, course navigation, or breadcrumbs.</p>
+      <p>Does not include quite frankly an example LMS global_navigation, course navigation, or breadcrumbs.</p>
     </li>
   </ul>
 
@@ -182,13 +182,13 @@ Once configured, the account_navigation placement surfaces the LTI launch point 
 
 - Account-level reporting and analytics tools
 - Management of account-level tool resources or settings
-- EXAMPLE-to-app SSO
+- quite frankly an example LMS-to-app SSO
 - Allowing admins to complete an <a href="file.oauth.html#accessing-canvas-api" target="_blank">OAuth2 flow</a> so a tool can run API requests on their behalf.
 
 ### Limitations/Challenges
 
 - This placement does not provide any course or resource level context in the Launch.
-- This is primarily a one-way launch; returning data to EXAMPLE requires using EXAMPLE API.
+- This is primarily a one-way launch; returning data to quite frankly an example LMS requires using quite frankly an example LMS API.
 
 ### Workflow
 
@@ -224,22 +224,22 @@ All of these settings are contained under "account_navigation"
 
   <ul style="list-style-type: circle;margin-left: 1em">
     <li>default
-      <p>Includes EXAMPLE global navigation, breadcrumb, and account navigation.</p>
+      <p>Includes quite frankly an example LMS global navigation, breadcrumb, and account navigation.</p>
     </li>
     <li>full_width
-      <p>Includes EXAMPLE global navigation but does not include breadcrumb or account navigation. This is the default and recommended display type for global navigation.</p>
+      <p>Includes quite frankly an example LMS global navigation but does not include breadcrumb or account navigation. This is the default and recommended display type for global navigation.</p>
     </li>
     <li>full_width_in_context
-      <p>Includes EXAMPLE global navigation, breadcrumb, and account navigation, and gives the tool access to the rest of the horizontal screen width.</p>
+      <p>Includes quite frankly an example LMS global navigation, breadcrumb, and account navigation, and gives the tool access to the rest of the horizontal screen width.</p>
     </li>
     <li>full_width_with_nav
-      <p>Includes EXAMPLE global navigation, breadcrumb, and account navigation, and gives the tool access to the rest of the horizontal screen width.</p>
+      <p>Includes quite frankly an example LMS global navigation, breadcrumb, and account navigation, and gives the tool access to the rest of the horizontal screen width.</p>
     </li>
     <li>in_nav_context
-      <p>Includes EXAMPLE global navigation, breadcrumbs, and course navigation.</p>
+      <p>Includes quite frankly an example LMS global navigation, breadcrumbs, and course navigation.</p>
     </li>
     <li>borderless
-      <p>Does not include EXAMPLE global navigation, account navigation, or breadcrumbs.</p>
+      <p>Does not include quite frankly an example LMS global navigation, account navigation, or breadcrumbs.</p>
     </li>
   </ul>
 
@@ -268,14 +268,14 @@ Once configured, the user_navigation placement surfaces the LTI launch point in 
 - Student Planners
 - Portfolio Management
 - Management of user-level resources in an external application
-- EXAMPLE-to-app SSO
+- quite frankly an example LMS-to-app SSO
 - User-level analytics or tool settings
 - Allowing users to complete an <a href="file.oauth.html#accessing-canvas-api" target="_blank">OAuth2 flow</a> so a tool can run API requests on their behalf.
 
 ### Limitations/Challenges
 
 - This placement does not provide any course or resource level context in the Launch.
-- This is primarily a one-way launch. Returning data to EXAMPLE requires using EXAMPLE API.
+- This is primarily a one-way launch. Returning data to quite frankly an example LMS requires using quite frankly an example LMS API.
 
 ### Workflow
 
@@ -316,7 +316,7 @@ All of these settings are contained under "user_navigation"
 Top Navigation Placement <a name="top_navigation"></a>
 ==============
 
-External tools can be configured to appear in the Top Navigation menu and will launch in a drawer alongside the EXAMPLE content. A preview of this can be seen in [Placements Overview](file.placements_overview.html).
+External tools can be configured to appear in the Top Navigation menu and will launch in a drawer alongside the quite frankly an example LMS content. A preview of this can be seen in [Placements Overview](file.placements_overview.html).
 
 ### Configuring
 
@@ -360,9 +360,9 @@ All of these settings are present for the **top_navigation** placement:
 
 ### Post Message API
 
-We have also introduced two new postMessage functions to enhance the Top Navigation placement. The first, **lti.getPageContent**, allows an LTI tool to request the content of the current page, providing valuable context data directly from the front end without the need for a REST API call. The second, **lti.getPageSettings**, returns an object containing locale, timezone, and theme information, enabling tools to match EXAMPLE's appearance for improved accessibility and cohesion.
+We have also introduced two new postMessage functions to enhance the Top Navigation placement. The first, **lti.getPageContent**, allows an LTI tool to request the content of the current page, providing valuable context data directly from the front end without the need for a REST API call. The second, **lti.getPageSettings**, returns an object containing locale, timezone, and theme information, enabling tools to match quite frankly an example LMS's appearance for improved accessibility and cohesion.
 
-Currently, only `Assignments` and `Wiki Pages` are supported by getPageContent, but support for additional pages is planned. Further documentation for making use of EXAMPLE Post Message functions is located in the Using window.postMessage in LTI Tools section of the EXAMPLE REST API and Extensions Documentation.
+Currently, only `Assignments` and `Wiki Pages` are supported by getPageContent, but support for additional pages is planned. Further documentation for making use of quite frankly an example LMS Post Message functions is located in the Using window.postMessage in LTI Tools section of the quite frankly an example LMS REST API and Extensions Documentation.
 
 #### Security
 

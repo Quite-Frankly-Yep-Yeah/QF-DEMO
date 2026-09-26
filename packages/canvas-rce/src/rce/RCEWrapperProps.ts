@@ -136,7 +136,7 @@ export const externalToolsConfigPropType = PropTypes.shape({
   // List of iframe allow statements to used with LTI iframes.
   ltiIframeAllowances: PropTypes.arrayOf(PropTypes.string),
 
-  // Tool id of the LTI tool using the RCE. Used to allow the RCE to launch additional LTI tools from EXAMPLE.
+  // Tool id of the LTI tool using the RCE. Used to allow the RCE to launch additional LTI tools from quite frankly an example LMS.
   containingCanvasLtiToolId: PropTypes.string,
 
   // Override URL for LTI resource selection

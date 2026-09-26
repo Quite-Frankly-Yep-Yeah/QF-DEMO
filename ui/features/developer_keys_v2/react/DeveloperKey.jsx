@@ -197,11 +197,11 @@ class DeveloperKey extends React.Component {
                   renderIcon={<IconExternalLinkLine />}
                   target="_blank"
                   href={`/accounts/${this.props.ctx.params.contextId}/apps/manage/${developerKey.lti_registration_id}`}
-                  screenReaderLabel={I18n.t('View LTI key %{name} in EXAMPLE Apps', {
+                  screenReaderLabel={I18n.t('View LTI key %{name} in quite frankly an example LMS Apps', {
                     name: developerKey.name,
                   })}
                 >
-                  {I18n.t('View in EXAMPLE Apps')}
+                  {I18n.t('View in quite frankly an example LMS Apps')}
                 </Link>
               </div>
             )}

@@ -403,7 +403,7 @@ describe GradingSchemesJsonController, type: :request do
         get "/accounts/#{@account.id}/grading_schemes/default", as: :json
         expect(response).to have_http_status(:ok)
         response_json = response.parsed_body
-        expect(response_json["title"]).to eq "Default EXAMPLE Grading Scheme"
+        expect(response_json["title"]).to eq "Default quite frankly an example LMS Grading Scheme"
         expect(response_json["data"]).to eq [{ "name" => "A", "value" => 0.94 },
                                              { "name" => "A-", "value" => 0.9 },
                                              { "name" => "B+", "value" => 0.87 },
@@ -912,7 +912,7 @@ describe GradingSchemesJsonController, type: :request do
         get "/courses/#{@course.id}/grading_schemes/default", as: :json
         expect(response).to have_http_status(:ok)
         response_json = response.parsed_body
-        expect(response_json["title"]).to eq "Default EXAMPLE Grading Scheme"
+        expect(response_json["title"]).to eq "Default quite frankly an example LMS Grading Scheme"
         expect(response_json["data"]).to eq [{ "name" => "A", "value" => 0.94 },
                                              { "name" => "A-", "value" => 0.9 },
                                              { "name" => "B+", "value" => 0.87 },

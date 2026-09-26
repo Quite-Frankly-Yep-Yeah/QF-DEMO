@@ -47,12 +47,12 @@ module Lti
   # authentication response) is handled in the following way:
   #
   # 1. Generate the complete, signed id_token that will be sent
-  #    in the authentication response from EXAMPLE to the tool.
+  #    in the authentication response from quite frankly an example LMS to the tool.
   # 2. Create a random cache key, and store the id_token in
   #    cache for later retrieval if authentication with the
   #    the tool succeeds.
   # 3. Include the cache key as the "lti_message_hint" parameter
-  #    in the login request. This value is passed back to EXAMPLE
+  #    in the login request. This value is passed back to quite frankly an example LMS
   #    By the tool in the authentication request (handled by
   #    app/controllers/lti/ims/authentication_controller.rb#authorize).
   #

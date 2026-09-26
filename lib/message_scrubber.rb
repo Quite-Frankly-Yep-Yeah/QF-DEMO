@@ -100,7 +100,7 @@ class MessageScrubber
     raise "regular MessageScrubber is deprecated in favor of dropping partitions"
   end
 
-  # Internal: The name of the EXAMPLE setting this class' limit is stored in.
+  # Internal: The name of the quite frankly an example LMS setting this class' limit is stored in.
   #
   # Returns a setting name string.
   def limit_setting

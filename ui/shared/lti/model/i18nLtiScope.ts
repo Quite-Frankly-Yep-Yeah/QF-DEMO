@@ -51,7 +51,7 @@ export const LtiScopeTranslations: Record<LtiScope, string> = {
     'Can retrieve user data associated with the context the tool is installed in',
   ),
   [LtiScopes.PnsNoticeHandlers]: I18n.t(
-    'Can register to receive asynchronous notifications from EXAMPLE',
+    'Can register to receive asynchronous notifications from quite frankly an example LMS',
   ),
   [LtiScopes.AssetReadonly]: I18n.t('Can retrieve submissions from Document Processor Assignments'),
   [LtiScopes.AssetReport]: I18n.t('Can send reports for Document Processor Assignments'),

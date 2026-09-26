@@ -3,10 +3,10 @@
   "definition": "The event is emitted anytime a module item is updated in a module by an end user or API request. Only changes to the fields included in the body of the event payload will emit the `updated` event.",
   "trigger": "Triggered when a new module item is updated.",
   "schema": {
-    "context_id": "The local EXAMPLE id of the context.",
+    "context_id": "The local quite frankly an example LMS id of the context.",
     "context_type": "The type of module's context.",
-    "module_id": "The EXAMPLE id of the module.",
-    "module_item_id": "The EXAMPLE id of the module item.",
+    "module_id": "The quite frankly an example LMS id of the module.",
+    "module_item_id": "The quite frankly an example LMS id of the module item.",
     "position": "The position of the module item in the module.",
     "workflow_state": "The workflow state of the module item (active, deleted, unpublished)."
   },

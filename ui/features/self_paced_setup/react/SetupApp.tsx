@@ -1,13 +1,13 @@
 /*
- * Copyright (C) 2026 - present EXAMPLE contributors
+ * Copyright (C) 2026 - present quite frankly an example LMS contributors
  *
- * This file is part of EXAMPLE LMS, a modified version of Canvas.
+ * This file is part of quite frankly an example LMS, a modified version of Canvas.
  *
- * EXAMPLE LMS is free software: you can redistribute it and/or modify it under
+ * quite frankly an example LMS is free software: you can redistribute it and/or modify it under
  * the terms of the GNU Affero General Public License as published by the Free
  * Software Foundation, version 3 of the License.
  *
- * EXAMPLE LMS is distributed in the hope that it will be useful, but WITHOUT ANY
+ * quite frankly an example LMS is distributed in the hope that it will be useful, but WITHOUT ANY
  * WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS FOR
  * A PARTICULAR PURPOSE. See the GNU Affero General Public License for more
  * details.
@@ -29,6 +29,7 @@ import {Spinner} from '@instructure/ui-spinner'
 import {Text} from '@instructure/ui-text'
 import {View} from '@instructure/ui-view'
 import {ScreenReaderContent} from '@instructure/ui-a11y-content'
+import PacingPanel from './PacingPanel'
 
 const I18n = createI18nScope('self_paced_setup')
 
@@ -42,6 +43,7 @@ export type SetupItem = {
   scoreable: boolean
   role: Role
   estimated_minutes: number | null
+  suggested_minutes?: number | null // the estimate used when estimated_minutes is empty
   mastery_threshold: number | null
   watch_fraction: number | null
   max_attempts: number | null
@@ -54,7 +56,7 @@ export type Setup = {
   modules: {id: string; name: string; items: SetupItem[]}[]
 }
 
-type Config = {setup_url: string; player_url: string}
+type Config = {setup_url: string; player_url: string; calendar_url?: string | null}
 
 const ROLE_OPTIONS: {value: Role; label: () => string}[] = [
   {value: 'instruction', label: () => I18n.t('Lesson')},
@@ -66,7 +68,7 @@ const ROLE_OPTIONS: {value: Role; label: () => string}[] = [
 
 const DEFAULT_WATCH_FRACTION = 0.95
 
-// What Canvas will require for the item once saved, in the teacher's words.
+// What quite frankly an example LMS will require for the item once saved, in the teacher's words.
 // Mirrors SelfPaced::CourseSetup#requirement_for.
 export function requirementPreview(item: SetupItem, courseThreshold: number): string | null {
   switch (item.role) {
@@ -230,6 +232,8 @@ export default function SetupApp({config}: {config: Config}) {
         </div>
       </View>
 
+      {config.calendar_url && <PacingPanel url={config.calendar_url} />}
+
       {setup.modules.map(mod => (
         <View key={mod.id} as="section" margin="large 0 0">
           <Heading level="h2" margin="0 0 small">
@@ -354,7 +358,11 @@ function ItemRow({
             {I18n.t('Minutes for %{title}', {title: item.title})}
           </ScreenReaderContent>
         }
-        placeholder={I18n.t('min')}
+        placeholder={
+          item.suggested_minutes
+            ? I18n.t('%{minutes} min', {minutes: item.suggested_minutes})
+            : I18n.t('min')
+        }
         showArrows={false}
         value={item.estimated_minutes === null ? '' : String(item.estimated_minutes)}
         onChange={(_e, value) => onChange({estimated_minutes: numberOrNull(value)})}

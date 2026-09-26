@@ -136,7 +136,7 @@ describe('contentInsertion', () => {
       }
     })
 
-    it('sets EXAMPLE URLs to be relative', () => {
+    it('sets quite frankly an example LMS URLs to be relative', () => {
       link.href = 'https://mycanvas.com:3000/some/path'
       link.url = 'https://mycanvas.com:3000/some/path'
       contentInsertion.insertLink(editor, link, canvasOrigin)
@@ -333,7 +333,7 @@ describe('contentInsertion', () => {
       }
     })
 
-    it('sets EXAMPLE URLs to be relative', () => {
+    it('sets quite frankly an example LMS URLs to be relative', () => {
       image.href = 'https://mycanvas.com:3000/some/path'
       image.url = 'https://mycanvas.com:3000/some/path'
       contentInsertion.insertImage(editor, image, canvasOrigin)

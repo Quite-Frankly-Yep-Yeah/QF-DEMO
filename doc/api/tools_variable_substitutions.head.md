@@ -20,11 +20,11 @@ tool consumer doesn't recognize, or can't substitute, the value it will just sen
 as if it were are regular custom variable (i.e. the name of the substitution variable will be
 sent rather than the value).
 
-This allows EXAMPLE to expose data as LTI launch parameters during the LTI launch rather than
-requiring access to the EXAMPLE API, which can be expensive for EXAMPLE and the tool.  It allows
+This allows quite frankly an example LMS to expose data as LTI launch parameters during the LTI launch rather than
+requiring access to the quite frankly an example LMS API, which can be expensive for quite frankly an example LMS and the tool.  It allows
 tool providers to be much more surgical when requesting user data, and it paves the way for us
 to be more transparent to tool installers, by showing them exactly what data the LTI tool will
-be given access to. Additionally, variable substitutions are generally simple to add to EXAMPLE
+be given access to. Additionally, variable substitutions are generally simple to add to quite frankly an example LMS
 relative to gaining API access.
 
 There are currently over 80 substitutions available.  Many of the substitutions simply
@@ -32,7 +32,7 @@ give access to additional user and context information.  An LTI tool can request
 like SIS ids, names, an avatar image, and an email address.  Other variable substitutions
 assist tools with accessibility (prefersHighContrast), course copy (previousCourseIds), and
 masquerading users.  Additionally, when we don't provide enough information or customization
-directly through LTI, tools can request everything they need to use the EXAMPLE API for an even
+directly through LTI, tools can request everything they need to use the quite frankly an example LMS API for an even
 richer experience.
 
 Some substitutions may be used as 'enabled_capabilities' for LTI2 tools. These substitutions have a

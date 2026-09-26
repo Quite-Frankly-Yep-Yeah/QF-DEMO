@@ -67,7 +67,7 @@ allow_attachment_association_creation:
   shadow: true
   applies_to: RootAccount
   display_name: Allow Attachment Association Creation
-  description: Allow attachment associations creation for any attachments on EXAMPLE assets
+  description: Allow attachment associations creation for any attachments on quite frankly an example LMS assets
   environments:
     development:
       state: allowed_on

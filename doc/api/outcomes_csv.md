@@ -47,7 +47,7 @@ canvas will auto-assign vendor_guid values from internal identifiers. These ids 
 prefix "canvas_outcome:" and "canvas_outcome_group:" for outcomes and groups respectively.  We
 recommend that you *do not* change these values once they have been assigned.
 If you want to set your own vendor_guid values for existing outcomes, you should do that using the
-EXAMPLE API prior to exporting outcomes from an account.
+quite frankly an example LMS API prior to exporting outcomes from an account.
 In addition, these prefixes are reserved; newly created outcomes and groups may not
 have vendor_guid fields with these prefixes.
 </td>

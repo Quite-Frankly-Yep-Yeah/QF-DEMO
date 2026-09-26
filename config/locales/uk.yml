@@ -158,7 +158,7 @@ uk:
   _b4455c8b: "%"
   a_calculation_value_is_not_used_with_this_calculat_b1e854b4: "Розраховане значення не використовується при цьому методі розрахунку"
   a_file_named_itemname_already_exists_in_this_folde_b0dc7185: "Файл з назвою %{itemName} вже існує в цій папці."
-  a_full_size_logo_that_appears_in_the_right_sidebar_18873685: "Повнорозмірний логотип, який з'являється на правій бічній інформаційній панелі EXAMPLE. Ідеальний розмір 360 x 140 pixels. Приймаються формати: svg, png, jpeg, gif"
+  a_full_size_logo_that_appears_in_the_right_sidebar_18873685: "Повнорозмірний логотип, який з'являється на правій бічній інформаційній панелі quite frankly an example LMS. Ідеальний розмір 360 x 140 pixels. Приймаються формати: svg, png, jpeg, gif"
   a_handy_key_value_dump_of_a_host_of_interesting_en_d0518dfe: "Зручний дамп хоста з потрібною інформацією про середовище для підзвітного користувача у вигляді ключ/значення "
   a_locked_item_named_name_already_exists_in_this_lo_ab03ee39: "Блокований елемент з ім'ям \"%{name}\" вже існує в цьому місці. Будь ласка, введіть нове ім'я."
   a_message_is_required_129e1814: "Повідомлення обов'язкове"
@@ -211,8 +211,8 @@ uk:
     errors: 
       invalid_discovery_url: "Типізована URL-адреса не дійсна"
     feedback_coach: "Запитайте спільноту"
-    feedback_coach_sub: "Отримати допомогу від експерта EXAMPLE"
-    feedback_feature_request_sub: "Маєте ідею для поліпшення EXAMPLE?"
+    feedback_coach_sub: "Отримати допомогу від експерта quite frankly an example LMS"
+    feedback_feature_request_sub: "Маєте ідею для поліпшення quite frankly an example LMS?"
     manually_created_courses: "Створені вручну курси"
     root_account_cant_have_sis_id: "SIS ідентифікатори не можуть бути встановлені для кореневих облікових записів"
     sis_id_in_use: "Ідентифікатор SIS \"%{sis_id}\" вже використовується"
@@ -260,7 +260,7 @@ uk:
     index: 
       delete_auth_confirmation: "Ви впевнені? Після видалення вхід користувачів в систему буде неможливий."
       delete_auth_link: "Видалити аутентифікація"
-      ip_address_list_description: "При використанні служби аутентифікації, що вимагає, щоб сервери EXAMPLE безпосередньо підключалися до серверів, таким як LDAP, необхідно переконатися, що сервери можуть приймати підключення від наступних IP-адрес:"
+      ip_address_list_description: "При використанні служби аутентифікації, що вимагає, щоб сервери quite frankly an example LMS безпосередньо підключалися до серверів, таким як LDAP, необхідно переконатися, що сервери можуть приймати підключення від наступних IP-адрес:"
       no_auth_type_description: "Цей обліковий запис наразі не інтегрований з провайдером ідентифікації."
       page_title: "Налаштування аутентифікації"
       profile_page_link_example: "Наприклад, ось ваша сторінка профілю: [%{friendlyname}](%{url})"
@@ -269,8 +269,8 @@ uk:
       test_ldap_link: "Тестування LDAP аутентифікації"
     ldap_fields: 
       auth_filter_description: "Застосовуйте *%{placeholder}* як заповнювач для імені користувача, зазначеного користувачем. Наприклад: *(sAMAccountName=%{placeholder})*"
-      identifer_format_description: "Атрибут LDAP використовується для пошуку ім'я користувача системи EXAMPLE. Залиште порожнім, у разі використання ім'я наданого користувачем."
-      ldap_timeout_failure_help2: "Якщо EXAMPLE занадто багато разів перериває зв'язок з LDAP сервером, він буде блокувати спроби входу до системи з використанням цього LDAP серверу на %{time}. Ваш LDAP сервер останній раз переходив в тайм-аут о %{timestamp}."
+      identifer_format_description: "Атрибут LDAP використовується для пошуку ім'я користувача системи quite frankly an example LMS. Залиште порожнім, у разі використання ім'я наданого користувачем."
+      ldap_timeout_failure_help2: "Якщо quite frankly an example LMS занадто багато разів перериває зв'язок з LDAP сервером, він буде блокувати спроби входу до системи з використанням цього LDAP серверу на %{time}. Ваш LDAP сервер останній раз переходив в тайм-аут о %{timestamp}."
     ldap_settings_test: 
       labels: 
         pass: Пароль
@@ -278,14 +278,14 @@ uk:
       ldap_test_login_button: "Тест входу в систему"
       test_ldap_bind_help_body: "Ваш LDAP сервер відхилив спробу зв'язування. Слід врахувати:"
       test_ldap_bind_help_fixes_1: "Перевірте наданий рядок фільтра (тобто '(sAMAccountName={{login}})')."
-      test_ldap_bind_help_fixes_2: "Чи потребує ім'я користувача додаткової уточнюючої інформації? (тобто 'cn=EXAMPLE,ou=people,dc=example,dc=com')."
-      test_ldap_bind_help_header: "EXAMPLE не може зв'язати (увійти) на ваш LDAP сервер"
+      test_ldap_bind_help_fixes_2: "Чи потребує ім'я користувача додаткової уточнюючої інформації? (тобто 'cn=quite frankly an example LMS,ou=people,dc=example,dc=com')."
+      test_ldap_bind_help_header: "quite frankly an example LMS не може зв'язати (увійти) на ваш LDAP сервер"
       test_ldap_bind_label: "Тестування зв'язування LDAP ..."
       test_ldap_connection_help_body: "Час з'єднання або минув або було відмовлено в з'єднанні. Слід врахувати:"
-      test_ldap_connection_help_fixes_1: "EXAMPLE підключається до %{ips}"
+      test_ldap_connection_help_fixes_1: "quite frankly an example LMS підключається до %{ips}"
       test_ldap_connection_help_fixes_2: "Це було тільки тест з'єднання. SSL-сертифікати не були перевірені на дійсність."
-      test_ldap_connection_help_fixes_3: "Перевірте налаштування брандмауера. Чи всім IP-адресам EXAMPLE дозволений доступ до вашого сервера?"
-      test_ldap_connection_help_header: "EXAMPLE не може підключитися до LDAP сервера"
+      test_ldap_connection_help_fixes_3: "Перевірте налаштування брандмауера. Чи всім IP-адресам quite frankly an example LMS дозволений доступ до вашого сервера?"
+      test_ldap_connection_help_header: "quite frankly an example LMS не може підключитися до LDAP сервера"
       test_ldap_connection_label: "Перевірка з'єднання ..."
       test_ldap_dialog_close: Закрити
       test_ldap_dialog_page_title: "Тестування конфігурації LDAP "
@@ -296,7 +296,7 @@ uk:
       test_ldap_search_help_fixes_1: "Перевірте наданий рядок фільтра (тобто '(sAMAccountName={{login}})')."
       test_ldap_search_help_fixes_2: "Перевірте надану базу пошуку (тобто 'ou=people,dc=example,dc=com')."
       test_ldap_search_help_fixes_3: "Переконайтеся, що об'єкт користувача в LDAP має привілеї пошуку для наданої пошукової бази."
-      test_ldap_search_help_header: "EXAMPLE не може знайти Ваш екземпляр LDAP"
+      test_ldap_search_help_header: "quite frankly an example LMS не може знайти Ваш екземпляр LDAP"
       test_ldap_search_label: "Тестування пошуку LDAP..."
     linkedin_fields: 
       description: |-
@@ -318,7 +318,7 @@ uk:
       auth_request_to_idp: "AuthnRequest відправлено IdP"
       auth_response_from_idp: "AuthnResponse від IdP"
       labels: 
-        canvas_login_fail_message: "Повідомлення   про помилку входу EXAMPLE"
+        canvas_login_fail_message: "Повідомлення   про помилку входу quite frankly an example LMS"
         fingerprint_from_idp: "IdP відбиток сертифікату "
         idp_in_response_to: "IdP inResponseTo"
         idp_login_destination: "IdP LoginResponse призначення"
@@ -329,10 +329,10 @@ uk:
         idp_response_encoded: "IdP LoginResponse закодований"
         idp_response_xml_decrypted: "IdP LoginResponse розшифрований"
         idp_response_xml_encrypted: "IdP LoginResponse зашифрований"
-        is_valid_login_response: "EXAMPLE вважає відповідь дійсною"
+        is_valid_login_response: "quite frankly an example LMS вважає відповідь дійсною"
         logged_in_user_id: "Ідентифікатор користувача, який увійшов в систему "
         login_response_validation_error: "Помилка перевірки"
-        login_to_canvas_success: "Користувач успішно увійшов в EXAMPLE"
+        login_to_canvas_success: "Користувач успішно увійшов в quite frankly an example LMS"
         logout_request_id: "Запит ідентифікатора виходу "
         logout_to_idp_url: "LogoutRequest закодованої URL-адреси"
         logout_to_idp_xml: "LogoutRequest XML відправлено IdP"
@@ -343,10 +343,10 @@ uk:
       logout_request_to_idp: "LogoutRequest відправлено IdP"
       logout_response_from_idp: "LogoutResponse від IdP"
     sso_settings_form: 
-      change_password_url_help: "Залиште порожнім поводження EXAMPLE за умовчанням"
-      discovery_url_description: "Якщо встановлено URL-адресу для відкриття, EXAMPLE пересилає всіх користувачів на цю URL-адресу, коли вони потребують аутентифікації. Ця сторінка повинна допомогти користувачеві з'ясувати, куди вони повинні зайти, щоб увійти в систему. Якщо URL-адреси відкриття не налаштовано, перша конфігурація буде використана для спроби аутентифікації користувача."
+      change_password_url_help: "Залиште порожнім поводження quite frankly an example LMS за умовчанням"
+      discovery_url_description: "Якщо встановлено URL-адресу для відкриття, quite frankly an example LMS пересилає всіх користувачів на цю URL-адресу, коли вони потребують аутентифікації. Ця сторінка повинна допомогти користувачеві з'ясувати, куди вони повинні зайти, щоб увійти в систему. Якщо URL-адреси відкриття не налаштовано, перша конфігурація буде використана для спроби аутентифікації користувача."
       login_handle_name_description: "Позначка використовується для унікальних ідентифікаторів входу в систему. Наприклад: Вхід, Ім'я користувача, студентський ID тощо."
-      unknown_user_url_description: "URL-адреса для перенаправлення, коли ідентифікований користувач не знайдений в EXAMPLE."
+      unknown_user_url_description: "URL-адреса для перенаправлення, коли ідентифікований користувач не знайдений в quite frankly an example LMS."
   account_course_and_user_search_22bf297a: "Пошук облікових записів курсів та користувачів"
   account_domain_78f43049: "Домен облікового запису"
   account_groups_2f301732: "Групи облікових записів"
@@ -1096,7 +1096,7 @@ uk:
       account_reports: 
         sis_export: 
           description: 
-            text: "Цей звіт буде експортувати всю необхідну інформацію, яка відноситься до резервування  EXAMPLE у його відповідних категоріях."
+            text: "Цей звіт буде експортувати всю необхідну інформацію, яка відноситься до резервування  quite frankly an example LMS у його відповідних категоріях."
     provisioning_csv_parameters: 
       account_reports: 
         default: 
@@ -1185,11 +1185,11 @@ uk:
     settings: 
       about_google_docs: |-
           Google Docs Previews дозволяє користувачам переглядати документи з
-          EXAMPLE, замість того, щоб завантажувати їх і
+          quite frankly an example LMS, замість того, щоб завантажувати їх і
           відкривати відповідною програмою (напр. Word або Excel).
           
           Google Docs Previews може також візуалізувати типи файлів
-          які не підтримуються перегдачем документів EXAMPLE.
+          які не підтримуються перегдачем документів quite frankly an example LMS.
           
           Використовуючи цей сервіс, Ви
           підтверджуєте, що прочитали та погоджуєтесь з
@@ -1217,7 +1217,7 @@ uk:
       create_courses_description: "(Адміністратори облікових записів завжди можуть створювати курси)"
       create_courses_title: "Хто може створювати нові курси?"
       default_language_description: "Це скасує будь-які мовні налаштування браузера/ОС. Мови, яким надається перевага, все ще можуть бути встановлені на рівні курсу/користувача. "
-      email_notification_from_description: "Цей параметр дозволяє Адміністратору маркувати або позначати текст у полі 'From' для всіх повідомлень, які відправляє EXAMPLE з цього облікового запису. "
+      email_notification_from_description: "Цей параметр дозволяє Адміністратору маркувати або позначати текст у полі 'From' для всіх повідомлень, які відправляє quite frankly an example LMS з цього облікового запису. "
       email_notification_from_settings: "Налаштування поля \"From\"  для E-mail повідомлення"
       equall_endpoint_help: "Це URL для Ваших equella сервісів. Він імовірніше виглядатиме на кшталт \"%{sample_url}\"."
       equella_settings_title: "Equella налаштування"
@@ -1234,7 +1234,7 @@ uk:
         sections: Звіти
         settings: "Налаштування облікового запису"
       interpolate_account_domain: "Введіть \"{{ACCOUNT_DOMAIN}}\" для заміни кореневого домену облікового запису користувача"
-      interpolate_user_id: "Введіть \"{{CANVAS_USER_ID}}\" для заміни унікального EXAMPLE ID користувача"
+      interpolate_user_id: "Введіть \"{{CANVAS_USER_ID}}\" для заміни унікального quite frankly an example LMS ID користувача"
       labels: 
         admins_can_change_passwords: "Налаштування паролю адміністраторами"
         admins_can_view_notifications: "Адміністратори можуть бачити повідомлення"
@@ -1269,7 +1269,7 @@ uk:
         originality_report_visibility: "Студенти можуть бачити звіт про оригінальність"
         outgoing_email_default_name: "Ім'я:"
         outgoing_email_default_name_option_custom: "Назва поля \"From\" , надана користувачем"
-        outgoing_email_default_name_option_default: "Налаштування EXAMPLE по замовчуванню"
+        outgoing_email_default_name_option_default: "Налаштування quite frankly an example LMS по замовчуванню"
         prevent_course_renaming_by_teachers: "Не дозволяти викладачам перейменування їх курсів"
         restrict_quiz_questions: "Обмежити студентів у перегляді запитань контрольної роботи  після дати закінчення курсу"
         restrict_student_future_listing: "Обмежити студентів від перегляду майбутніх курсів в списку реєстрацій"
@@ -1305,17 +1305,17 @@ uk:
       no_enrollment_roles: "Відраховані користувачі"
       no_language_preference: "Не встановлено (по замовчуванню %{language})"
       notifications: 
-        custom_name_description: "Якщо вибрано, воно буде замінювати всі інші помітки про джерело в повідомленнях EXAMPLE."
+        custom_name_description: "Якщо вибрано, воно буде замінювати всі інші помітки про джерело в повідомленнях quite frankly an example LMS."
         email_date: Дата
         email_reply_to: Відповісти-на
         email_to: Для
         example: "Приклад:"
         external_services: "Повідомлення надіслані зовнішнім сервісам"
         external_services_label: "Показати один раз спливаюче попередження на сторінці Налаштування сповіщень."
-        external_services_warning: "Зауваження: Деякі повідомлення можуть містити конфіденційну інформацію. Вибираючи опцію отримувати повідомлення на електронну пошту з інших адрес, ніж надані Вашим навчальним закладом, Ви можете призвести до відправлення конфіденційної інформації про EXAMPLE курс і інформації про групу за межі системи Вашого навчального закладу."
+        external_services_warning: "Зауваження: Деякі повідомлення можуть містити конфіденційну інформацію. Вибираючи опцію отримувати повідомлення на електронну пошту з інших адрес, ніж надані Вашим навчальним закладом, Ви можете призвести до відправлення конфіденційної інформації про quite frankly an example LMS курс і інформації про групу за межі системи Вашого навчального закладу."
         external_services_warning_label: "Зміст спливаючого повідомлення:"
         from: Від
-        sample_subject: "Останні повідомлення EXAMPLE"
+        sample_subject: "Останні повідомлення quite frankly an example LMS"
         subject: Тема
       open_registration_delegated_warning_message: "Зовнішній провайдер перевірки автентичності включений, і користувачі. які були створені через відкриту реєстрацію, можливо не зможуть увійти до системи якщо форма входу зовнішнього провайдера не має зворотного посилання на %{url}."
       open_registration_delegated_warning_tooltip: "Постачальник зовнішньої ідентифікації  увімкнено"
@@ -1360,7 +1360,7 @@ uk:
       tab_quotas: Квоти
       tab_reports: Звіти
       tab_settings: Налаштування
-      transifex_message: "Приєднуйся до [EXAMPLE Translation Community](%{transifex_url})"
+      transifex_message: "Приєднуйся до [quite frankly an example LMS Translation Community](%{transifex_url})"
       turnitin_comments_help: "ці коментарі будуть показані студентам при подачі завдання з підтримкою Turnitin"
       turnitin_pledge_help: "студенти мають поставити позначку в діалоговому вікні, підтверджуючи, що вони згодні з цими правилами"
       turnitin_settings_title: "Turnitin налаштування"
@@ -2021,11 +2021,11 @@ uk:
   allowed_attempts_4e229caa: "Дозволені спроби"
   allows_creating_announcements_for_a_specific_secti_14e0a63d: "Дозволяє створення оголошень для конкретного розділу"
   allows_teachers_to_mark_grade_data_to_be_exported__a6bf77cf: "Дозволяє вчителям маркувати оціночні дані для пакетного експорту до SIS інтеграції."
-  allows_the_duplicating_of_modules_in_canvas_2e15b444: "Дозволяє дублювати модулі у EXAMPLE"
+  allows_the_duplicating_of_modules_in_canvas_2e15b444: "Дозволяє дублювати модулі у quite frankly an example LMS"
   allows_the_scheduling_of_recurring_calendar_events_aac71007: "Дозволяє планувати події календаря, що повторюються"
   allows_user_to_edit_grading_schemes_98c35117: "Дозволити користувачу редагувати схеми оцінювання курсу."
   allows_user_to_edit_the_course_syllabus_a28ff262: "Дозволити користувачу редагувати програму курсу."
-  allows_users_with_international_phone_numbers_to_r_f90f8522: "Дозволяє користувачам з міжнародними телефонними номерами отримувати текстові повідомлення від EXAMPLE."
+  allows_users_with_international_phone_numbers_to_r_f90f8522: "Дозволяє користувачам з міжнародними телефонними номерами отримувати текстові повідомлення від quite frankly an example LMS."
   alphabetical_55b5b4e0: Алфавітний
   alphabetically_60ab47e4: "В алфавітному порядку"
   alt_text_611fb322: "Альтернативний текст"
@@ -2069,9 +2069,9 @@ uk:
   an_error_ocurred_while_loading_sync_history_ad9dc6df: "Виникла помилка при завантаженні синхронізованої історії"
   an_error_ocurred_while_loading_unsynced_changes_aed0d04d: "Виникла помилка при завантаженні несинхронізованої історії"
   an_error_ocurred_while_saving_the_appointment_grou_e19452cd: "Виникла помилка при збереженні групи призначення "
-  an_existing_canvas_user_with_the_sis_id_user_id_ha_4b64d1c1: "Існуючий користувач EXAMPLE з SIS ID %{user_id} вже заявив запитувану інформацію для входу користувача з user_id %{other_user_id}, пропустити"
-  an_existing_canvas_user_with_the_user_id_has_alrea_aabbea6e: "Існуючий користувач EXAMPLE з  %{user_id} вже вимагав запитану вхідну інформацію для користувача з user_id %{other_user_id}, пропустити"
-  an_existing_canvas_user_with_the_user_id_has_alrea_e487b0: "Існуючий користувач EXAMPLE з %{user_id} вже вимагав запитуваний integration_id %{other_user_id}, пропустити"
+  an_existing_canvas_user_with_the_sis_id_user_id_ha_4b64d1c1: "Існуючий користувач quite frankly an example LMS з SIS ID %{user_id} вже заявив запитувану інформацію для входу користувача з user_id %{other_user_id}, пропустити"
+  an_existing_canvas_user_with_the_user_id_has_alrea_aabbea6e: "Існуючий користувач quite frankly an example LMS з  %{user_id} вже вимагав запитану вхідну інформацію для користувача з user_id %{other_user_id}, пропустити"
+  an_existing_canvas_user_with_the_user_id_has_alrea_e487b0: "Існуючий користувач quite frankly an example LMS з %{user_id} вже вимагав запитуваний integration_id %{other_user_id}, пропустити"
   an_export_is_already_in_progress_54270f01: "Експорт вже триває."
   an_external_identity_provider_is_enabled_7859c6fb: "Постачальник зовнішньої ідентифікації  увімкнено"
   an_integer_value_is_required_e073bd46: "Вимагається ціле значення"
@@ -2230,7 +2230,7 @@ uk:
       page_disabled_for_group: "Це сторінка була відключена для даної групи"
     warnings: 
       details: 
-        suspended: "Дія облікового запису EXAMPLE для цієї установи була призупинена. Тільки адміністратори облікового запису можуть увійти, щоб виправити будь-які проблеми."
+        suspended: "Дія облікового запису quite frankly an example LMS для цієї установи була призупинена. Тільки адміністратори облікового запису можуть увійти, щоб виправити будь-які проблеми."
       please_log_in: "В цілях безпеки, будь ласка, введіть пароль для продовження роботи"
       titles: 
         suspended: "Установа тимчасово призупинена"
@@ -2258,7 +2258,7 @@ uk:
   approved_c3b285d4: Підтвердити
   approximate_value_with_precision_precision_6b7cc6ef: "%{approximate_value} з точністю %{precision}"
   apps_54d24a47: Застосунки
-  apps_are_an_easy_way_to_add_new_features_to_canvas_2cbc2531: "Додатки - це простий спосіб додавання нових функцій до EXAMPLE. Вони можуть бути додані до окремих курсів, або до всіх курсів в обліковому записі. Після налаштування, ви можете зв'язатися з ними через модулі курсу і створити завдання для інструментів оцінки."
+  apps_are_an_easy_way_to_add_new_features_to_canvas_2cbc2531: "Додатки - це простий спосіб додавання нових функцій до quite frankly an example LMS. Вони можуть бути додані до окремих курсів, або до всіх курсів в обліковому записі. Після налаштування, ви можете зв'язатися з ними через модулі курсу і створити завдання для інструментів оцінки."
   appt_calendar_event_dialog: 
     invalid_participants: "Ви повинні дозволити принаймні одному користувачу прийняти участь"
     title: "Редагувати %{name}"
@@ -2663,7 +2663,7 @@ uk:
       gpa_scale_input_explainer: "Результати вводяться за шкалою 4.0. Наприклад, якщо завдання максимально оцінюється у 100 баллів, вводиться результат 4.0 якщо результат 100%, 3.0 для результату у 87%, і т.д."
       gpa_scale_letters_explainer: "Оцінювання літерами може бути використано на додаток до числових оцінок."
       gpa_scale_percentage_explainer: "Ви не можете ввести бали безпосередньо, але можете ввести відсотки. Наприклад, якщо завдання складється з 50 балів, ввести \"40\" не вийде, але \"80%\" працюватиме."
-      gpa_scale_recommendation: "Якщо Ваша школа не використовує шкалу 4.0 (або 5.0/6.0) для оцінювання, EXAMPLE рекомендує відображати оцінки у вигляді літер. "
+      gpa_scale_recommendation: "Якщо Ваша школа не використовує шкалу 4.0 (або 5.0/6.0) для оцінювання, quite frankly an example LMS рекомендує відображати оцінки у вигляді літер. "
       gpa_scale_scores_explainer: "Лише дозволені оцінки визначені в шкалі оцінювання."
       gpa_scale_title: "\"Що таке GPA Шкала оцінювання?\""
       grading_type_options: 
@@ -2914,15 +2914,15 @@ uk:
           website: "URL вебсайту"
       loading_tools: "Завантаження інструментів..."
       messages: 
-        google_drives_auth_required: "Перш ніж Ви зможете відправити завдання безпосередньо з Google Drive, Вам необхідно авторизуватися в EXAMPLE для доступу до Вашого облікового запису  Google Drive:"
+        google_drives_auth_required: "Перш ніж Ви зможете відправити завдання безпосередньо з Google Drive, Вам необхідно авторизуватися в quite frankly an example LMS для доступу до Вашого облікового запису  Google Drive:"
         media_recording_ready: "Говові відправити! Натисніть кнопку 'Відправити Завдання' для завершення."
-        media_recordings_disabled: "Медіа записи не доступні для цього EXAMPLE сайту, і ви не зможете відправити ці типи завдань. Будь ласка, зверніться до викладача щодо зміни параметрів цього завдання, або до Вашого системного адміністратора щодо дозволу медіа записів."
+        media_recordings_disabled: "Медіа записи не доступні для цього quite frankly an example LMS сайту, і ви не зможете відправити ці типи завдань. Будь ласка, зверніться до викладача щодо зміни параметрів цього завдання, або до Вашого системного адміністратора щодо дозволу медіа записів."
         submitting: Відправлення...
         uploading: "Отримання копії Вашого Google Doc для відправлення цього Завдання. Це може зайняти деякий час, залежно від розміру файлу ..."
       no_submission: "Матеріали не вибрані"
       submission_url: "Матеріал:"
       titles: 
-        media_recordings_disabled: "Медіа записи не дозволені для цього EXAMPLE майту"
+        media_recordings_disabled: "Медіа записи не дозволені для цього quite frankly an example LMS майту"
     submit_online_text_entry: 
       additional_comments: "Додаткові коментарі"
       buttons: 
@@ -3108,7 +3108,7 @@ uk:
     index: 
       delete_auth_confirmation: "Ви впевнені? Після видалення вхід користувачів в систему буде неможливий."
       delete_auth_link: "Видалити аутентифікацію"
-      ip_address_list_description: "При використанні служби аутентифікації, що вимагає, щоб сервери EXAMPLE безпосередньо підключалися до серверів, таким як LDAP, необхідно переконатися, що сервери можуть приймати підключення від наступних IP-адрес:"
+      ip_address_list_description: "При використанні служби аутентифікації, що вимагає, щоб сервери quite frankly an example LMS безпосередньо підключалися до серверів, таким як LDAP, необхідно переконатися, що сервери можуть приймати підключення від наступних IP-адрес:"
       no_auth_type_description: "Цей обліковий запис наразі не інтегрований з провайдером ідентифікації."
       page_title: "Налаштування аутентифікації"
       profile_page_link_example: "Наприклад, ось ваша сторінка профілю: [%{friendlyname}](%{url})"
@@ -3117,8 +3117,8 @@ uk:
       test_ldap_link: "Тестування LDAP аутентифікації"
     ldap_fields: 
       auth_filter_description: "Застосовуйте *%{placeholder}* як заповнювач для імені користувача, зазначеного користувачем. Наприклад: *(sAMAccountName=%{placeholder})*"
-      identifer_format_description: "Атрибут LDAP використовується для пошуку ім'я користувача системи EXAMPLE. Залиште порожнім, у разі використання ім'я наданого користувачем."
-      ldap_timeout_failure_help2: "Якщо EXAMPLE занадто багато разів перериває зв'язок з LDAP сервером, він буде блокувати спроби входу до системи з використанням цього LDAP серверу на %{time}. Ваш LDAP сервер останній раз переходив в тайм-аут о %{timestamp}."
+      identifer_format_description: "Атрибут LDAP використовується для пошуку ім'я користувача системи quite frankly an example LMS. Залиште порожнім, у разі використання ім'я наданого користувачем."
+      ldap_timeout_failure_help2: "Якщо quite frankly an example LMS занадто багато разів перериває зв'язок з LDAP сервером, він буде блокувати спроби входу до системи з використанням цього LDAP серверу на %{time}. Ваш LDAP сервер останній раз переходив в тайм-аут о %{timestamp}."
     ldap_settings_test: 
       labels: 
         pass: Пароль
@@ -3126,14 +3126,14 @@ uk:
       ldap_test_login_button: "Тест входу в систему"
       test_ldap_bind_help_body: "Ваш LDAP сервер відхилив спробу зв'язування. Слід врахувати:"
       test_ldap_bind_help_fixes_1: "Перевірте наданий рядок фільтра (тобто '(sAMAccountName={{login}})')."
-      test_ldap_bind_help_fixes_2: "Чи потребує ім'я користувача додаткової уточнюючої інформації? (тобто 'cn=EXAMPLE,ou=people,dc=example,dc=com')."
-      test_ldap_bind_help_header: "EXAMPLE не може зв'язати (увійти) на ваш LDAP сервер"
+      test_ldap_bind_help_fixes_2: "Чи потребує ім'я користувача додаткової уточнюючої інформації? (тобто 'cn=quite frankly an example LMS,ou=people,dc=example,dc=com')."
+      test_ldap_bind_help_header: "quite frankly an example LMS не може зв'язати (увійти) на ваш LDAP сервер"
       test_ldap_bind_label: "Тестування зв'язування LDAP ..."
       test_ldap_connection_help_body: "Час з'єднання або минув або було відмовлено в з'єднанні. Слід врахувати:"
-      test_ldap_connection_help_fixes_1: "EXAMPLE підключається до %{ips}"
+      test_ldap_connection_help_fixes_1: "quite frankly an example LMS підключається до %{ips}"
       test_ldap_connection_help_fixes_2: "Це було тільки тест з'єднання. SSL-сертифікати не були перевірені на дійсність."
-      test_ldap_connection_help_fixes_3: "Перевірте налаштування брандмауера. Чи всім IP-адресам EXAMPLE дозволений доступ до вашого сервера?"
-      test_ldap_connection_help_header: "EXAMPLE не може підключитися до LDAP сервера"
+      test_ldap_connection_help_fixes_3: "Перевірте налаштування брандмауера. Чи всім IP-адресам quite frankly an example LMS дозволений доступ до вашого сервера?"
+      test_ldap_connection_help_header: "quite frankly an example LMS не може підключитися до LDAP сервера"
       test_ldap_connection_label: "Перевірка з'єднання ..."
       test_ldap_dialog_close: Закрити
       test_ldap_dialog_page_title: "Тестування конфігурації LDAP "
@@ -3144,7 +3144,7 @@ uk:
       test_ldap_search_help_fixes_1: "Перевірте наданий рядок фільтра (тобто '(sAMAccountName={{login}})')."
       test_ldap_search_help_fixes_2: "Перевірте надану базу пошуку (тобто 'ou=people,dc=example,dc=com')."
       test_ldap_search_help_fixes_3: "Переконайтеся, що об'єкт користувача в LDAP має привілеї пошуку для наданої пошукової бази."
-      test_ldap_search_help_header: "EXAMPLE не може знайти Ваш екземпляр LDAP"
+      test_ldap_search_help_header: "quite frankly an example LMS не може знайти Ваш екземпляр LDAP"
       test_ldap_search_label: "Тестування пошуку LDAP..."
     linkedin_fields: 
       description: |-
@@ -3155,12 +3155,12 @@ uk:
     no_changing_auth_types: "Не можливо змінити тип конфігурації авторизації, будь-ласка видаліть і створіть нову конфігурацію."
     password_required: "має бути надано"
     sso_settings_form: 
-      change_password_url_help: "Залиште порожнім поле Поведінка EXAMPLE за умовчанням"
-      discovery_url_description: "Якщо встановлено URL-адресу для відкриття, EXAMPLE пересилає всіх користувачів на цю URL-адресу, коли вони потребують аутентифікації. Ця сторінка повинна допомогти користувачеві з'ясувати, куди вони повинні зайти, щоб увійти в систему. Якщо URL-адреси відкриття не налаштовано, перша конфігурація буде використана для спроби аутентифікації користувача."
+      change_password_url_help: "Залиште порожнім поле Поведінка quite frankly an example LMS за умовчанням"
+      discovery_url_description: "Якщо встановлено URL-адресу для відкриття, quite frankly an example LMS пересилає всіх користувачів на цю URL-адресу, коли вони потребують аутентифікації. Ця сторінка повинна допомогти користувачеві з'ясувати, куди вони повинні зайти, щоб увійти в систему. Якщо URL-адреси відкриття не налаштовано, перша конфігурація буде використана для спроби аутентифікації користувача."
       login_handle_name_description: "Позначка використовується для унікальних ідентифікаторів входу в систему. Наприклад: Вхід, Ім'я користувача, студентський ID тощо."
-      unknown_user_url_description: "URL-адреса для перенаправлення, коли ідентифікований користувач не знайдений в EXAMPLE."
+      unknown_user_url_description: "URL-адреса для перенаправлення, коли ідентифікований користувач не знайдений в quite frankly an example LMS."
   authentication_settings_5c2078a3: "Налаштування аутентифікації"
-  authentication_with_provider_was_successful_but_no_6a194137: "Аутентифікація з %{provider} була успішною, але неунікальний ідентифікатор для входу в систему EXAMPLE був наданий."
+  authentication_with_provider_was_successful_but_no_6a194137: "Аутентифікація з %{provider} була успішною, але неунікальний ідентифікатор для входу в систему quite frankly an example LMS був наданий."
   authnrequest_sent_to_idp_74e030fc: "AuthnRequest відправлено IdP"
   authnresponse_from_idp_185037e9: "AuthnResponse від IdP"
   author_215203d2: Автор
@@ -3266,7 +3266,7 @@ uk:
   breadcrumb_2_95ba94be: "Ієрархія 2"
   bring_existing_content_from_another_course_or_cour_6e740692: |-
       Переносьте існуючий вміст іншого курсу або системи керування курсом
-      до вашого курсу EXAMPLE.
+      до вашого курсу quite frankly an example LMS.
   bring_your_content_into_your_course_c0f3df7e: "Введіть свій контент в свій курс"
   broken_file_link_found_in_your_course_7cc24395: "В вашому курсі знайдено недійсне посилання на файл"
   browse_courses_c8af1754: "Перегляд курсів"
@@ -3281,9 +3281,9 @@ uk:
     export_failed: "Виникла помилка експортування курсу з bb_lcid %{id} з Blackboard"
     export_failed_no_id: "Виникла помилка імпортування курсу"
     export_failed_not_found: "Курс з bb_lcid %{id} не може бути знайдений у Blackboard для користувача %{user_name}"
-    export_failed_with_id: "Виникла помилка імпортування курсу з bb_lcid %{id} до EXAMPLE"
+    export_failed_with_id: "Виникла помилка імпортування курсу з bb_lcid %{id} до quite frankly an example LMS"
     no_course_found: "Не знайдено курс з %{id_type} із %{id}"
-    no_course_id_given: "Відсутні EXAMPLE курси, визначені для bb_lcid %{id}"
+    no_course_id_given: "Відсутні quite frankly an example LMS курси, визначені для bb_lcid %{id}"
     no_credentials_found: "Повноважень не знайдено для користувача %{user_name}"
     no_credentials_given: "Відсутні користувачі, додані на курс %{course_identifier}"
     no_lcid_found: "Не було зазаначено bb_lcid для рядку"
@@ -3293,7 +3293,7 @@ uk:
       exporting: "Експортовано з Blackboard"
       failed: "Не відбулося"
       finished: Завершено
-      importing: "Імпортовано до EXAMPLE"
+      importing: "Імпортовано до quite frankly an example LMS"
       migration_cancelled_on: "Скасовано %{date}"
       migration_failed_on: "Помилка %{date}"
       migration_finished_on: "Завершено %{date}"
@@ -3303,7 +3303,7 @@ uk:
       see_results: "Побачити результати"
       show_warnings: "Показати попередження"
       waiting_to_export: "Очікування експорту з Blackboard"
-      waiting_to_import: "Очікування імпорту до EXAMPLE"
+      waiting_to_import: "Очікування імпорту до quite frankly an example LMS"
     index: 
       available_courses: "Доступні курси"
       bulk_description: "Наступні заголовки очікуються в CSV:"
@@ -3312,7 +3312,7 @@ uk:
         migrate_courses: "Мігрувати курси"
       column_name: "Назва стовпчика"
       course_id_description: "Сanvas id курсу для імпорту до."
-      credential_description: "Цей інструмент допоможе вам переміщати кілька курсів одночасно з Blackboard Vista/CE системи. Додати набір повноважень для Blackboard системи, потім додати EXAMPLE ідентифікатори курсів за вказаним шаблоном CSV для міграції Ваших курсів. "
+      credential_description: "Цей інструмент допоможе вам переміщати кілька курсів одночасно з Blackboard Vista/CE системи. Додати набір повноважень для Blackboard системи, потім додати quite frankly an example LMS ідентифікатори курсів за вказаним шаблоном CSV для міграції Ваших курсів. "
       csv_description: "Всі інші стовпці можуть бути додані, але вони будуть проігноровані. Ось приклад простого CSV для 3 курсів в обліковому записі для користувача \"greg\":"
       csv_template: "CSV Шаблон"
       current_migration_batch: "Поточний пакет міграцій"
@@ -3728,7 +3728,7 @@ uk:
     ics_description_course: "Календарні події для курсу, %{course_name}"
     ics_description_group: "Календарні події для групи, %{group_name}"
     ics_description_user: "Календарні події для користувача, %{user_name}"
-    ics_title: "%{course_or_group_name} Календар (EXAMPLE)"
+    ics_title: "%{course_or_group_name} Календар (quite frankly an example LMS)"
     invalid_date_or_time: "Неприпустима дата або дата та час для %{attr}"
   calendar_frequency_picker: 
     daily: Щодня
@@ -3833,46 +3833,46 @@ uk:
         login_expiration_minimum: "Час тривалості сесії повинен бути 20 хвилин або більше"
         need_integer: "Будь ласка, введіть ціле число для кеша плейлиста"
         stream_name_required: "Потрібне ім'я  для kinesis потоку."
-  canvas_3962b702: EXAMPLE
+  canvas_3962b702: quite frankly an example LMS
   canvas_account_id_97b0471f: canvas_account_id
-  canvas_alert_change_assignment_name_course_name_2fc63d9c: "EXAMPLE Оповіщення - Зміни: %{assignment_name}, %{course_name}"
-  canvas_alert_invited_course_as_role_type_9ed79ce3: "EXAMPLE Оповіщення - Запрошено: %{course} як %{role_type}"
-  canvas_alert_invited_course_as_role_type_ea825937: "EXAMPLE Оповіщення - Запрошено: курс як %{role_type}"
-  canvas_alert_late_submission_user_name_assignment__ee1301ac: "EXAMPLE Оповіщення - Пізнє завдання: %{user_name}, %{assignment_name}"
-  canvas_attribute_eaa7e31a: EXAMPLE-атрибут
-  canvas_by_instructure_1490381: "EXAMPLE"
-  canvas_can_t_bind_login_to_your_ldap_server_2642aef1: "EXAMPLE не може зв'язати (увійти) на ваш LDAP сервер"
-  canvas_can_t_connect_to_your_ldap_server_ca901b43: "EXAMPLE не може підключитися до LDAP сервера"
-  canvas_can_t_search_your_ldap_instance_7f5f53c3: "EXAMPLE не може знайти Ваш екземпляр LDAP"
+  canvas_alert_change_assignment_name_course_name_2fc63d9c: "quite frankly an example LMS Оповіщення - Зміни: %{assignment_name}, %{course_name}"
+  canvas_alert_invited_course_as_role_type_9ed79ce3: "quite frankly an example LMS Оповіщення - Запрошено: %{course} як %{role_type}"
+  canvas_alert_invited_course_as_role_type_ea825937: "quite frankly an example LMS Оповіщення - Запрошено: курс як %{role_type}"
+  canvas_alert_late_submission_user_name_assignment__ee1301ac: "quite frankly an example LMS Оповіщення - Пізнє завдання: %{user_name}, %{assignment_name}"
+  canvas_attribute_eaa7e31a: quite frankly an example LMS-атрибут
+  canvas_by_instructure_1490381: "quite frankly an example LMS"
+  canvas_can_t_bind_login_to_your_ldap_server_2642aef1: "quite frankly an example LMS не може зв'язати (увійти) на ваш LDAP сервер"
+  canvas_can_t_connect_to_your_ldap_server_ca901b43: "quite frankly an example LMS не може підключитися до LDAP сервера"
+  canvas_can_t_search_your_ldap_instance_7f5f53c3: "quite frankly an example LMS не може знайти Ваш екземпляр LDAP"
   canvas_cartridge_description: "Це дає змогу перетворювати експорт canvas до проміжного json формату для імпорту"
-  canvas_cartridge_display: "Загальний картридж EXAMPLE"
-  canvas_cartridge_file_description: "Пакет експорту курсу EXAMPLE"
-  canvas_cartridge_name: "Імпортер картриджів EXAMPLE"
-  canvas_cloud_information_fdd404f2: "Хмарні дані EXAMPLE"
+  canvas_cartridge_display: "Загальний картридж quite frankly an example LMS"
+  canvas_cartridge_file_description: "Пакет експорту курсу quite frankly an example LMS"
+  canvas_cartridge_name: "Імпортер картриджів quite frankly an example LMS"
+  canvas_cloud_information_fdd404f2: "Хмарні дані quite frankly an example LMS"
   canvas_course_id_db4de2b8: canvas_course_id
-  canvas_dashboard_links_will_navigate_to_the_catalo_4143635e: "Посилання панелі інструментів EXAMPLE будуть приводити до панелі інструментів Каталогу"
-  canvas_default_7f81a6b8: "EXAMPLE по замовчуванню"
-  canvas_demo_7a005cf3: "Демонстрація EXAMPLE"
-  canvas_did_not_recognize_your_identity_provider_cb0e50fc: "EXAMPLE не може розпізнати провайдера Вашої тотожності"
-  canvas_doesn_t_have_an_account_for_user_user_5bcae0dd: "EXAMPLE не має облікового запису для користувача: %{user}"
+  canvas_dashboard_links_will_navigate_to_the_catalo_4143635e: "Посилання панелі інструментів quite frankly an example LMS будуть приводити до панелі інструментів Каталогу"
+  canvas_default_7f81a6b8: "quite frankly an example LMS по замовчуванню"
+  canvas_demo_7a005cf3: "Демонстрація quite frankly an example LMS"
+  canvas_did_not_recognize_your_identity_provider_cb0e50fc: "quite frankly an example LMS не може розпізнати провайдера Вашої тотожності"
+  canvas_doesn_t_have_an_account_for_user_user_5bcae0dd: "quite frankly an example LMS не має облікового запису для користувача: %{user}"
   canvas_enrollment_id_d0e8b9a4: canvas_enrollment_id
-  canvas_error_report_ff678539: "Звіт про помилки EXAMPLE"
+  canvas_error_report_ff678539: "Звіт про помилки quite frankly an example LMS"
   canvas_group_category_id_38d8cfd7: canvas_group_category_id
-  canvas_introduction_video_2d81f3ad: "вступне відео до EXAMPLE "
-  canvas_is_connecting_to_ips_9af7da93: "EXAMPLE підключається до %{ips}"
-  canvas_lms_6ce68514: "EXAMPLE LMS"
-  canvas_login_failure_message_4c922f2f: "Повідомлення   про помилку входу EXAMPLE"
-  canvas_login_instructure_271b8d00: "Увійти до EXAMPLE"
-  canvas_multi_factor_authentication_backup_codes_4bd08f93: "Запасні коди багатофакторної аутентифікації EXAMPLE"
+  canvas_introduction_video_2d81f3ad: "вступне відео до quite frankly an example LMS "
+  canvas_is_connecting_to_ips_9af7da93: "quite frankly an example LMS підключається до %{ips}"
+  canvas_lms_6ce68514: "quite frankly an example LMS"
+  canvas_login_failure_message_4c922f2f: "Повідомлення   про помилку входу quite frankly an example LMS"
+  canvas_login_instructure_271b8d00: "Увійти до quite frankly an example LMS"
+  canvas_multi_factor_authentication_backup_codes_4bd08f93: "Запасні коди багатофакторної аутентифікації quite frankly an example LMS"
   canvas_observer_id_59db0918: canvas_observer_id
-  canvas_parent_improved_description: "Це налаштування контролює чи можуть батьки, які створюють власні облікові записи EXAMPLE Parent, зв'язуватися зі студентами з Вашої установи використовуючи мобільний застосунок EXAMPLE Parent. Зауваження: Батьки, зареєстровані як Спостерігачі EXAMPLE можуть використовувати мобільний застосунок EXAMPLE Parent навіть, коли цю властивість не активовано."
+  canvas_parent_improved_description: "Це налаштування контролює чи можуть батьки, які створюють власні облікові записи quite frankly an example LMS Parent, зв'язуватися зі студентами з Вашої установи використовуючи мобільний застосунок quite frankly an example LMS Parent. Зауваження: Батьки, зареєстровані як Спостерігачі quite frankly an example LMS можуть використовувати мобільний застосунок quite frankly an example LMS Parent навіть, коли цю властивість не активовано."
   canvas_revision_unknown: Невідомий
   canvas_student_id_c74f57bf: canvas_student_id
-  canvas_thinks_response_is_valid_8cc4a67d: "EXAMPLE вважає відповідь дійсною"
-  canvas_ticketing_email_connector_27e253ae: "EXAMPLE Ticketing Email Connector"
-  canvas_ticketing_web_post_connector_11158897: "EXAMPLE Ticketing Web Post Connector"
+  canvas_thinks_response_is_valid_8cc4a67d: "quite frankly an example LMS вважає відповідь дійсною"
+  canvas_ticketing_email_connector_27e253ae: "quite frankly an example LMS Ticketing Email Connector"
+  canvas_ticketing_web_post_connector_11158897: "quite frankly an example LMS Ticketing Web Post Connector"
   canvas_user_id_4c18b78a: canvas_user_id
-  canvas_user_id_caf65ef5: "Ідентифікатор користувача EXAMPLE "
+  canvas_user_id_caf65ef5: "Ідентифікатор користувача quite frankly an example LMS "
   card_view_eaf73185: "Вигляд карти"
   careful_changes_to_group_membership_will_apply_to__19a9089c: "Обережно! Зміни у членстві в групах будуть застосовані до груп, які вже мають підтвердження для завдань. Підтвердження для групових завдань можуть не збігатися з результатом. Хочете створити новий набір груп для майбутніх завдань?"
   cas_url_4ba2843e: "CAS URL"
@@ -3925,7 +3925,7 @@ uk:
   check_to_add_a_user_for_loginid_6cd25597: "Перевірити, щоб додати користувача для %{loginid}"
   check_to_select_all_98e484f1: "Перевірте, щоб вибрати всі"
   check_to_skip_adding_a_user_for_loginid_5fa643da: "Перевірте, щоб пропустити додавання користувача для %{loginid}"
-  check_your_firewall_settings_are_all_canvas_ip_add_cbd119c5: "Перевірте налаштування брандмауера. Чи всім IP-адресам EXAMPLE дозволений доступ до вашого сервера?"
+  check_your_firewall_settings_are_all_canvas_ip_add_cbd119c5: "Перевірте налаштування брандмауера. Чи всім IP-адресам quite frankly an example LMS дозволений доступ до вашого сервера?"
   checked_883b93fd: перевірено
   child_course_must_belong_to_the_same_root_account__66ed7b8e: "Дочірній курс повинен належати до того ж кореневого облікового запису, що і майстер-курс"
   child_s_username_dde3aa9: "Ім'я користувача дитини"
@@ -3935,7 +3935,7 @@ uk:
   choose_a_color_or_course_nickname_or_move_course_c_dd23f754: "Оберіть колір або екранну назву курсу або перемістіть картку курсу для %{course}"
   choose_a_course_home_page_8059c7b: "Виберіть головну сторінку курсу "
   choose_a_csv_file_to_upload_9644480c: "Вибрати .csv файл для завантаження:"
-  choose_a_regrade_option_for_students_who_have_alre_2878244f: "Виберіть варіант переоцінювання для студентів, котрі вже пройшли опитування. EXAMPLE буде переоцінювати всі ваші матеріали після збереження опитування (оцінки студентів можуть бути затронуті)."
+  choose_a_regrade_option_for_students_who_have_alre_2878244f: "Виберіть варіант переоцінювання для студентів, котрі вже пройшли опитування. quite frankly an example LMS буде переоцінювати всі ваші матеріали після збереження опитування (оцінки студентів можуть бути затронуті)."
   choose_an_authentication_service_47dc8875: "Виберіть службу аутентифікації"
   choose_and_publish_980812cb: "Обрати та опублікувати"
   choose_assignment_b0132c5e: "-- Виберіть завдання --"
@@ -4002,7 +4002,7 @@ uk:
   client_id_cb2502af: "Ідентифікатор користувача"
   clone_group_set_c2a40e15: "Клонувати налаштування групи"
   close_17f50799: закрити
-  close_and_return_to_canvas_80544344: "Закрити і повернутися до EXAMPLE"
+  close_and_return_to_canvas_80544344: "Закрити і повернутися до quite frankly an example LMS"
   close_d634289d: Закрити
   close_date_a2f617b3: "Дата закриття"
   close_details_sidebar_ff8f663d: "Закрити деталі бічної панелі"
@@ -4030,7 +4030,7 @@ uk:
       google: 
         drive: 
           upgrade: 
-            description: "Для доступу до цієї співпраці необхідно авторизуватись у EXAMPLE, щоб отримати доступ до Вашого облікового запису Google Drive"
+            description: "Для доступу до цієї співпраці необхідно авторизуватись у quite frankly an example LMS, щоб отримати доступ до Вашого облікового запису Google Drive"
     collaboration: 
       delete: "Ви впевнені, що хочете видалити цю взаємодію?"
     collaboration_footer: 
@@ -4065,14 +4065,14 @@ uk:
       cannot_load_collaboration: "Не можливо завантажити співробітництво"
       create_failed: "Створення співробітництва не вдалося"
       no_name: "Будь ласка, введіть ім'я для цього співробітництва."
-      not_enabled: "Взаємодії не дозволені для цього сайту EXAMPLE "
+      not_enabled: "Взаємодії не дозволені для цього сайту quite frankly an example LMS "
       title_too_long: "Будь ласка, використовуйте %{maxLength} символів або менше для імені. Використовуйте опис для додаткового контенту."
       update_failed: "Оновлення співробітництва не вдалося"
     forms: 
       buttons: 
         delete_from_canvas: |-
             Просто Видалити
-            з EXAMPLE
+            з quite frankly an example LMS
         delete_from_google_docs: |-
             Також видалити з
             Google Документів
@@ -4094,7 +4094,7 @@ uk:
         description: "Опис:"
         document_name: "назва Документа:"
       messages: 
-        delete_google_doc_as_well: "Ця співпраця зберігається як Google Doc. Ви хочете видалити її тільки з EXAMPLE чи також видалити його з Google Docs?"
+        delete_google_doc_as_well: "Ця співпраця зберігається як Google Doc. Ви хочете видалити її тільки з quite frankly an example LMS чи також видалити його з Google Docs?"
       titles: 
         new: "Почати Нове Співробітництво"
     google_drive: 
@@ -4150,8 +4150,8 @@ uk:
   comm_messages: 
     from_beginning: початок
     to_now: зараз
-  comment_by_replying_to_this_message_or_join_the_co_52b5ac1c: "Прокоментуйте, відповівши на це повідомлення, або долучіться до розмови за посиланням: %{link}. Якщо потрібно додати вкладення, за наявності дозволу, будь ласка увійдіть у EXAMPLE та надішліть відповідь на це обговорення."
-  comment_by_replying_to_this_message_or_join_the_co_886bc612: "Прокоментуйте, відповівши на це повідомлення або долучіться до розмови за посиланням: %{link}. Якщо потрібно додати вкладення, за наявності дозволу, будь ласка увійдіть у EXAMPLE та надішліть відповідь на це оголошення."
+  comment_by_replying_to_this_message_or_join_the_co_52b5ac1c: "Прокоментуйте, відповівши на це повідомлення, або долучіться до розмови за посиланням: %{link}. Якщо потрібно додати вкладення, за наявності дозволу, будь ласка увійдіть у quite frankly an example LMS та надішліть відповідь на це обговорення."
+  comment_by_replying_to_this_message_or_join_the_co_886bc612: "Прокоментуйте, відповівши на це повідомлення або долучіться до розмови за посиланням: %{link}. Якщо потрібно додати вкладення, за наявності дозволу, будь ласка увійдіть у quite frankly an example LMS та надішліть відповідь на це оголошення."
   comment_from_files: 
     few: "Дивись прікріплений файл"
     many: "Дитвись прікріплені файли"
@@ -4169,7 +4169,7 @@ uk:
       вбудований навчальний план на основі завдань і подій, які ви створили.
   communication_5255723c: Зв'язок
   communication_channel: 
-    body: "Код підтвердження EXAMPLE %{verification_code}"
+    body: "Код підтвердження quite frankly an example LMS %{verification_code}"
     default_twitter_handle: "оброблювач Twitter"
     default_yo_name: "Yo Ім'я"
   communication_channel_id_197ef6f9: "Ідентифікатор каналу зв'язку"
@@ -4180,7 +4180,7 @@ uk:
         back: Назад
         continue: Продовжити
         create_account: "Створити мій обліковий запис"
-        have_account: "Я маю обліковий запис EXAMPLE"
+        have_account: "Я маю обліковий запис quite frankly an example LMS"
         login_as: "Увійти як %{invited_user}"
         merge: Скомбінувати
         new_account: Ні
@@ -4195,7 +4195,7 @@ uk:
             Цей обліковий запис користувача вже асоційований з %{email}.
             
             **Ви є %{name}?**
-        account_needed: "Ви запрошені приєднатися **%{course}**. Для того, щоб прийняти цей запит, вам потрібен обліковий запис EXAMPLE. Натисніть на посилання нижче, щоб створити обліковий запис EXAMPLE."
+        account_needed: "Ви запрошені приєднатися **%{course}**. Для того, щоб прийняти цей запит, вам потрібен обліковий запис quite frankly an example LMS. Натисніть на посилання нижче, щоб створити обліковий запис quite frankly an example LMS."
         add_email: "Ви хочете додати цю адресу електронної пошти до свого поточного облікового запису?"
         choose_login: "Виберіть, де ви хочете увійти."
         logged_in_other_user: "**%{email}** є новим обліковим записом, але зараз ви увійшли як **%{user}**."
@@ -4269,7 +4269,7 @@ uk:
           
           Ви не зможете знов її відкрити.
       delete: "Ви впевнені, що хочете видалити цю конференцію?"
-    disabled_error: "Веб-конференції не ввімкнено для цього сайту EXAMPLE "
+    disabled_error: "Веб-конференції не ввімкнено для цього сайту quite frankly an example LMS "
     edit_conference_form: 
       advanced_settings: "Керувати додатковими налаштуваннями..."
       conference_type: Тип
@@ -4323,7 +4323,7 @@ uk:
       buttons: 
         close: "Завершіть це зараз"
         join: "Долучайтеся зараз"
-    type_disabled_error: "Цей тип конференції більше не є увімненим для цього EXAMPLE сайту"
+    type_disabled_error: "Цей тип конференції більше не є увімненим для цього quite frankly an example LMS сайту"
   conferences_a0a8984b: Конференції
   conferences_tutorial_tray_6f071ce2: "Вказівки для проведення конференцій"
   config_url_e96ceaf3: "Конфігураційний URL"
@@ -4657,7 +4657,7 @@ uk:
         user_services: "Зареєстровані Web сервіси"
       help: 
         list_services: "Ви не включили Ваш список зареєстрованих сервісів. Увімкнення цього списку дозволить слідувати курсу  і члени групи зможуть легше зв'язуватися з Вами за межами класу. "
-        services: "Вм не прив'язали свій профіль користувача до будь-яких зовнішніх сервісів. Ви можете прив'язати свій обліковий запис EXAMPLE до таких сервісів якTwitter. Це спростить можливість слідувати курсу та учасникам групи зв'язуватися з Вами за межами класу."
+        services: "Вм не прив'язали свій профіль користувача до будь-яких зовнішніх сервісів. Ви можете прив'язати свій обліковий запис quite frankly an example LMS до таких сервісів якTwitter. Це спростить можливість слідувати курсу та учасникам групи зв'язуватися з Вами за межами класу."
       labels: 
         public_list_services: "Дозволити співучасникам курсу/ учасникам групи бачити, які сервіси я прив'язав до свого профілю."
         user_privileges: Привілеї
@@ -4693,9 +4693,9 @@ uk:
         registered_services: "Зареєстровані сервіси"
         service_types: "Типи сервісів"
       help: 
-        no_services: "Ви не прив'язали свій профіль користувача до будь-яких зовнішніх сервісів.  Ви можете прив'язати свій обліковий запис EXAMPLE до таких сервісів як Twitter."
-        services_private: "Ви не включили Ваш список зареєстрованих сервісів. Увімкнення цього списку дозволить слідувати курсу та учасники групи бачитимуть, які сервіси Ви під'єднали до облікового запису EXAMPLE. "
-        user_services: "Якщо інші члени виберуть, вони можуть дозволити вам побачити, які зовнішні послуги пов'язані з їхнім обліковим записом EXAMPLE. Це може зробити більш легкою координацію групових проектів, а також зв'язатися за межами класу."
+        no_services: "Ви не прив'язали свій профіль користувача до будь-яких зовнішніх сервісів.  Ви можете прив'язати свій обліковий запис quite frankly an example LMS до таких сервісів як Twitter."
+        services_private: "Ви не включили Ваш список зареєстрованих сервісів. Увімкнення цього списку дозволить слідувати курсу та учасники групи бачитимуть, які сервіси Ви під'єднали до облікового запису quite frankly an example LMS. "
+        user_services: "Якщо інші члени виберуть, вони можуть дозволити вам побачити, які зовнішні послуги пов'язані з їхнім обліковим записом quite frankly an example LMS. Це може зробити більш легкою координацію групових проектів, а також зв'язатися за межами класу."
       labels: 
         allow_view_services: "Дозволити співучасникам курсу/ учасникам групи бачити, які сервіси я прив'язав до свого профілю."
       links: 
@@ -5113,7 +5113,7 @@ uk:
   could_not_duplicate_discussion_953ed67f: "Неможливо дублювати обговорення"
   could_not_save_chosencolor_741b74ce: "Не вдалося зберегти '%{chosenColor}'"
   couldn_t_find_an_authority_to_update_44d9407e: "Не вдалося знайти authority для оновлення"
-  couldn_t_find_canvas_csv_import_headers_487f1b6c: "Не вдалося знайти EXAMPLE CSV імпорту заголовків"
+  couldn_t_find_canvas_csv_import_headers_487f1b6c: "Не вдалося знайти quite frankly an example LMS CSV імпорту заголовків"
   couldn_t_generate_diff_message_a0528b20: "Не можливо згенерувати розбіжність: %{message}"
   couldn_t_update_standards_for_authority_auth_81206187: "Не вдалося оновити стандарти для повноважень %{auth}"
   count_apps_found_f4d86860: "%{count} застосунків знайдено"
@@ -5323,7 +5323,7 @@ uk:
   course_assignments_menu_fa6aeb23: "Меню завдань курсу"
   course_atom_feed_9d95214e: "Базовий канал курсу"
   course_calendar_7d3cba7b: "Календар курсу"
-  course_canvas_id_9e36b24c: "Номер курсу EXAMPLE"
+  course_canvas_id_9e36b24c: "Номер курсу quite frankly an example LMS"
   course_card_color_region_for_course_c356a69c: "Колір області для картки курсу %{course}"
   course_catalog_4cc7c8ce: "Каталог курсу"
   course_collaborations_dadb327e: "Сумісна робота в курсі"
@@ -5332,8 +5332,8 @@ uk:
   course_copy_argument_error: "Копія курсу потребує вихідного курсу."
   course_copy_description: "Плагін міграції для копіювання canvas курсів"
   course_copy_display: "Копія курсу"
-  course_copy_file_description: "Копіювати EXAMPLE курс"
-  course_copy_name: "Копія EXAMPLE курсу"
+  course_copy_file_description: "Копіювати quite frankly an example LMS курс"
+  course_copy_name: "Копія quite frankly an example LMS курсу"
   course_copy_no_course_error: "Джерело курсу не знайдено."
   course_copy_not_allowed_error: "Вам не дозволено копіювати вихідний курс."
   course_details_25cdf103: "Детальна інформація про курc"
@@ -5508,7 +5508,7 @@ uk:
   course_sections: "Розділи курсу"
   course_selection_245808bf: "Вибір курсу"
   course_set_up_tutorial_6ab7c2d1: "Вказівки для налаштування курсу"
-  course_set_up_tutorial_provides_tips_on_how_to_lev_3c098131: "Вказівки щодо налаштування курсу надають підказки щодо того як застосовувати можливості для кожної сторінки у EXAMPLE. Особливо це корисно, коли ви незнайомі з  роботою у EXAMPLE або вперше за довгий час налаштовуєте новий курс."
+  course_set_up_tutorial_provides_tips_on_how_to_lev_3c098131: "Вказівки щодо налаштування курсу надають підказки щодо того як застосовувати можливості для кожної сторінки у quite frankly an example LMS. Особливо це корисно, коли ви незнайомі з  роботою у quite frankly an example LMS або вперше за довгий час налаштовуєте новий курс."
   course_settings: 
     buttons: 
       add_section: "Додати розділ"
@@ -5546,7 +5546,7 @@ uk:
       reset_course_content_dialog_help: "Очистити контент курсу"
       section_enrollments: "Реєстрації розділу"
   course_settings_f6d0bbf8: "Налаштування курсу"
-  course_settings_sub_navigation_b95deae: "Додаткова навігація по налаштуваннях EXAMPLE"
+  course_settings_sub_navigation_b95deae: "Додаткова навігація по налаштуваннях quite frankly an example LMS"
   course_setup_checklist_78dcff7e: "Листа налаштування курсу"
   course_setup_wizard_is_showing_a7c087c1: "Майстер установки курсу показує."
   course_sis_7ae8f649: "sis курса"
@@ -5554,7 +5554,7 @@ uk:
   course_sis_id_bbed1a60: "ідентифікатор sis курса "
   course_sis_id_c026d0f3: "SIS ID курсу"
   course_sis_id_cd834b3c: "SIS ID курсу:"
-  course_sis_id_sis_id_or_canvas_id_4d323f5c: "SIS ID курсу (SIS_ID:####) або EXAMPLE ID: (###)"
+  course_sis_id_sis_id_or_canvas_id_4d323f5c: "SIS ID курсу (SIS_ID:####) або quite frankly an example LMS ID: (###)"
   course_starts_at_3a01f9da: "Курс починається в "
   course_statistics: 
     unknown: невідомо
@@ -5704,7 +5704,7 @@ uk:
         name: Ім'я
         next: Наступний
         section: Розділ
-        user_might_not_exist: "Якщо ваш формат правильний, зверніться до Адміністратора EXAMPLE для перевірки, що користувач має обліковий запис EXAMPLE."
+        user_might_not_exist: "Якщо ваш формат правильний, зверніться до Адміністратора quite frankly an example LMS для перевірки, що користувач має обліковий запис quite frankly an example LMS."
         user_role: "Роль:"
         validating: Перевірка...
         will_not_be_added: "Ці користувачі мають помилки і не будуть додані. Будь ласка, переконайтеся, що вони відформатовані правильно."
@@ -5749,7 +5749,7 @@ uk:
         pending_acceptance_explanation: "Цей користувач ще не прийняв запрошення до курсу"
         pending_acceptance_of_invitation: очікується
       roster_users: 
-        canvas_user_id: "Ідентифікатор користувача EXAMPLE "
+        canvas_user_id: "Ідентифікатор користувача quite frankly an example LMS "
         last_activity: "Остання активність"
         login_name: "Ідентифікатор облікового запису"
         name: ім'я
@@ -5883,7 +5883,7 @@ uk:
         edit_navigation: "Редагування навігації курсу"
       tooltips: 
         cannot_unpublish_course: "Ви не можете скасувати публікацію цього курсу, якщо існують матеріали оцінених студентів"
-      transifex_message: "Приєднуйся до [EXAMPLE Translation Community](%{transifex_url})"
+      transifex_message: "Приєднуйся до [quite frankly an example LMS Translation Community](%{transifex_url})"
       turnitin: "ці коментарі будуть показані студентам при подачі завдання з підтримкою Turnitin"
       view_grading_scheme: "переглянути схему оцінювання"
       wiki_editing_roles_change_existing: "Змінити сторінки, які на даний час доступні для редагування  \"%{current_setting}\" на \"%{new_setting}\"."
@@ -6164,7 +6164,7 @@ uk:
     this_is_permanent: "Викривлення оцінок не може бути скасовано. Попередньо вигнуті історії оцінок будуть доступні, але дія викривлення є незворотньою."
   curving_assignments_e9479ee3: "Викривлення завдань"
   custom_6979cd81: Звичай
-  custom_css_and_javascript_may_cause_accessibility__93d2a823: "Призначені для користувача CSS і Javascript може викликати проблеми доступності або конфлікти з майбутніми оновленнями EXAMPLE!"
+  custom_css_and_javascript_may_cause_accessibility__93d2a823: "Призначені для користувача CSS і Javascript може викликати проблеми доступності або конфлікти з майбутніми оновленнями quite frankly an example LMS!"
   custom_fields_fc3e55af: "Поля користувача"
   custom_from_name_38a3d784: "Назва поля \"From\" , надана користувачем"
   custom_link_details_35fd38fc: "Подробиці посилання на замовлення "
@@ -6408,7 +6408,7 @@ uk:
   deep_purple_bb3e2907: Темно-фіолетовий
   default_9db103d: "За замовчуванням"
   default_account_quotas_e34112fd: "Квоти облікового запису за замовчуванням"
-  default_canvas_setting_fa6e6f81: "Налаштування EXAMPLE по замовчуванню"
+  default_canvas_setting_fa6e6f81: "Налаштування quite frankly an example LMS по замовчуванню"
   default_conference_title: "%{course_name} конференція"
   default_email_5cb9fa04: "Електронна пошта за замовчуванням"
   default_email_9efb7fbd: "Електронна пошта за замовчуванням"
@@ -6477,7 +6477,7 @@ uk:
   deleting_6421031e: видалення...
   deleting_e2bd8cc9: Видалення...
   delicious_7f9ac66f: Смачний
-  demo_sites_require_recaptcha_settings_to_be_config_8bf9c7e3: "Демо-сайти вимагають налаштування параметрів Recaptcha. Будь ласка, зверніться до адміністратора сайту стосовно цього випадку EXAMPLE."
+  demo_sites_require_recaptcha_settings_to_be_config_8bf9c7e3: "Демо-сайти вимагають налаштування параметрів Recaptcha. Будь ласка, зверніться до адміністратора сайту стосовно цього випадку quite frankly an example LMS."
   demos: 
     _register: 
       add_site: "Додати сайт"
@@ -6544,7 +6544,7 @@ uk:
       provost: Ректор
       school_administrator: "Шкільний адміністратор"
       school_technology_coordinator: "Шкільний координатор з питань технологій"
-      sign_up_to_canvas: "Зареєструйтесь, щоб спробувати EXAMPLE"
+      sign_up_to_canvas: "Зареєструйтесь, щоб спробувати quite frankly an example LMS"
       south_america_central_america_and_caribbean: "Південна Африка, Центральна Африка та Кариби"
       student: Студент
       subscribe: "Я хочу отримувати новини, поради та інформацію від Instructure"
@@ -6603,7 +6603,7 @@ uk:
     saving: Збереження...
   different_course_b875770e: "інший курс"
   diigo_993c4646: Diigo
-  diigo_is_a_social_bookmarking_tool_tailored_specif_1bff1643: "Diigo - це інструмент соціальних закладок, спеціально розроблений для досліджень та освіти. Редактор змісту EXAMPLE дозволить вам шукати свої теги Diigo, щоб легко посилатись з EXAMPLE на інші ресурси, які ви вважаєте корисними."
+  diigo_is_a_social_bookmarking_tool_tailored_specif_1bff1643: "Diigo - це інструмент соціальних закладок, спеціально розроблений для досліджень та освіти. Редактор змісту quite frankly an example LMS дозволить вам шукати свої теги Diigo, щоб легко посилатись з quite frankly an example LMS на інші ресурси, які ви вважаєте корисними."
   disableWhileLoading: 
     loading: Завантаження...
   disable_a5c05db3: Відключити
@@ -6943,7 +6943,7 @@ uk:
   do_not_count_this_assignment_towards_the_final_gra_4dd92e00: "Не враховувати це завдання у кінцевому підсумку."
   do_nothing_9672b478: "Нічого не робити"
   does_not_meet_expectations_b0736d20: "Не відповідає очікуванням"
-  does_the_username_require_more_scoping_information_40d51df: "Чи потребує ім'я користувача додаткової уточнюючої інформації? (тобто 'cn=EXAMPLE,ou=people,dc=example,dc=com')."
+  does_the_username_require_more_scoping_information_40d51df: "Чи потребує ім'я користувача додаткової уточнюючої інформації? (тобто 'cn=quite frankly an example LMS,ou=people,dc=example,dc=com')."
   domain_3b54c511: Домен
   domain_69fe564b: "Домен:"
   domain_is_required_1d4c8b25: "Домен обов'язковий"
@@ -7178,7 +7178,7 @@ uk:
   el_salvador_503_b0907d30: "Респу́бліка Ель-Сальвадо́р (+503)"
   element_option_missing_error_an_element_to_attach__be433478: "Помилка, відсутня опція `елемент`: Елемент для прикріплення до TreeBrowserView повинен бути зазначений при встановленні значення «істина» для опції рендеринга для BBTreeBrowserView"
   email: 
-    default_from_name: "EXAMPLE"
+    default_from_name: "quite frankly an example LMS"
   email_22a7d52d: "Електронна пошта"
   email_actions_a9bfe457: "Дії електронної пошти"
   email_address_6e0443a5: "Адреса електронної пошти"
@@ -7295,7 +7295,7 @@ uk:
   enter_a_shorter_group_name_8f7fc42c: "Введіть коротшу назву групи"
   enter_a_what_if_score_668c91a3: "Введіть оцінку Що-якщо "
   enter_account_domain_to_substitute_the_user_s_root_1b79eac2: "Введіть \"{{ACCOUNT_DOMAIN}}\" для заміни домену кореневого облікового запису користувача"
-  enter_canvas_user_id_to_substitute_the_user_s_uniq_b2a75735: "Введіть \"{{CANVAS_USER_ID}}\" для заміни унікального EXAMPLE ID користувача"
+  enter_canvas_user_id_to_substitute_the_user_s_uniq_b2a75735: "Введіть \"{{CANVAS_USER_ID}}\" для заміни унікального quite frankly an example LMS ID користувача"
   enter_grades_as_e113e606: "Введіть Оцінки як"
   enter_or_find_an_external_tool_url_6aebbd0d: "Введіть або знайдіть URL-адресу зовнішнього інструменту"
   enter_the_access_token_for_your_organization_from__cc77493d: "Введіть маркер доступу для Вашої організації від *eduappcenter.com*.  Після застосування, лише застосунки, схалені Вашою організацією у                          EduAppCenter,  будуть відображатися на сторінці Зовнішніх Застосунків.                         Дізнайтеся як  **згенерувати маркер доступу**."
@@ -7481,7 +7481,7 @@ uk:
       write_only_comments: "Коментарі на цій сторінці є приватними. Ви можете коментувати, але їх буде бачити лише власник цього портфоліо."
     show_me: "показати мені"
     static_page: 
-      created_with_canvas: "Створено у EXAMPLE"
+      created_with_canvas: "Створено у quite frankly an example LMS"
       headers: 
         page_comments: "Коментарі сторінки"
       links: 
@@ -7811,7 +7811,7 @@ uk:
   feature_options_37a2c317: "Варіанти функції"
   features: 
     allow_opt_out_of_inbox: "Дозволити користувачам відмовитися від Вхідних"
-    canvas_parent_display_name: "Батько EXAMPLE"
+    canvas_parent_display_name: "Батько quite frankly an example LMS"
     google_docs_domain_restriction: "Обмеження Домену Google Docs"
     gradebook_list_students_by_sortable_name: "Журнал оцінок - Список студентів відсортовано за ім'ям"
     high_contrast: "Користувацький інтерфейс високої контрастності "
@@ -7825,7 +7825,7 @@ uk:
     student_outcome_gradebook: "Щоденник навчальної майстерності студента"
   features_2581da: Особливості
   federated_attributes_5cbe6441: "Інтегровані Атрибути"
-  federated_attributes_are_information_sent_from_you_2116fb61: "Федеративні атрибути - це інформація, яка надійшла від Вашого постачальника аутентифікації, яку можна використовувати для автоматичного обновлення відповідної інформації для користувачів у EXAMPLE щоразу при їх вході у систему."
+  federated_attributes_are_information_sent_from_you_2116fb61: "Федеративні атрибути - це інформація, яка надійшла від Вашого постачальника аутентифікації, яку можна використовувати для автоматичного обновлення відповідної інформації для користувачів у quite frankly an example LMS щоразу при їх вході у систему."
   feed_entry_title: "Завдання: %{assignment}"
   feed_entry_title_with_course: "Завдання, %{course}: %{assignment}"
   feed_url_is_required_253fda4e: "URL-адреса каналу обов'язкова"
@@ -7857,8 +7857,8 @@ uk:
         download: Завантажити
         download_file: "Завантажити *назва файлу*"
         no_preview_available: "Попередній перегляд  для цього файлу недоступний."
-  file_s_will_be_included_on_all_pages_in_the_canvas_80569935: "Файл(и) буде долучено до всіх сторінок у настільному застосунку EXAMPLE."
-  file_s_will_be_included_when_user_content_is_displ_5e1fa73d: "Файл(и) буде включений, коли контент користувача відображатиметься у iOS або Android застосунках EXAMPLE, та сторонніх застосунках, побудованих на нашому API."
+  file_s_will_be_included_on_all_pages_in_the_canvas_80569935: "Файл(и) буде долучено до всіх сторінок у настільному застосунку quite frankly an example LMS."
+  file_s_will_be_included_when_user_content_is_displ_5e1fa73d: "Файл(и) буде включений, коли контент користувача відображатиметься у iOS або Android застосунках quite frankly an example LMS, та сторонніх застосунках, побудованих на нашому API."
   file_size_limit_user_file_quota_applies_19b9b466: "Застосовується квота файлів користувача %{file_size_limit} "
   file_status: 
     hidden_status: "Приховано. Доступне за посиланням"
@@ -7985,7 +7985,7 @@ uk:
   for: для
   for_974cbb84: Для
   for_all_devices_1f603968: "для всіх пристроїв"
-  for_an_instant_answer_see_if_your_issue_is_address_48280e89: "Для моментальної відповіді, дивіться чи Ваше питання розглядається на *EXAMPLE Guides*."
+  for_an_instant_answer_see_if_your_issue_is_address_48280e89: "Для моментальної відповіді, дивіться чи Ваше питання розглядається на *quite frankly an example LMS Guides*."
   for_best_results_crop_image_to_262px_wide_by_146px_af81a540: "Для кращих результатів обріжте зображення до 262px шириною 146px висотою. Доступні типи файлів - JPG, PNG або GIF"
   for_each_late_62aecf41: "Для кожного спізнення"
   for_title_69d92b3a: "для %{title}"
@@ -8873,9 +8873,9 @@ uk:
     message_will_be_sent_to_all_the_teachers_tas_in_the_course: "Повідомлення буде відправлено всім викладачам / ТА в курсі."
     please_select_one: "Будь ласка, виберіть один..."
     report_problem: "Повідомити про проблему"
-    report_problem_sub: "Якщо EXAMPLE поводиться погано, скажіть нам про це"
-    search_the_canvas_guides: "Знайти керівництво EXAMPLE "
-    see_if_your_issue_is_addressed_in_the_canvas_guides: "Дивіться, якщо ваше запитання розглядається на *EXAMPLE Guides*."
+    report_problem_sub: "Якщо quite frankly an example LMS поводиться погано, скажіть нам про це"
+    search_the_canvas_guides: "Знайти керівництво quite frankly an example LMS "
+    see_if_your_issue_is_addressed_in_the_canvas_guides: "Дивіться, якщо ваше запитання розглядається на *quite frankly an example LMS Guides*."
     send_message: "Відправити повідомлення"
     sending: Відправка...
     somethings_broken_but_i_can_work_around_it_for_now: "Щось зламано, але я можу працювати зараз"
@@ -9022,7 +9022,7 @@ uk:
   if_enabled_content_designers_must_provide_copyrigh_eca21f5e: "Якщо дозволено, дизайнери контенту повинні надавати інформацію про авторські права та ліцензію для файлів, перш ніж вони будуть опубліковані. Використовується лише якщо увімкнено функцію Перегляду Кращого Файлу."
   if_enabled_oauth_1_0a_signing_may_be_used_by_lti_t_f2d6da3b: "Якщо активовано, аутентифікація OAuth 1.0a може використовуватися засобами LTI для доступу до Membership Service API"
   if_enabled_query_parameters_will_not_be_copied_to__4c6ed625: "Якщо увімкнено, параметри запиту не копіюватимуться до частини POST протягом запуску LTI."
-  if_enabled_sourcedids_used_by_canvas_for_basic_out_aa2ea4b1: "Якщо увімкнено, Sourcedids, використовувані EXAMPLE для Основних Результатів, будуть шифруватися."
+  if_enabled_sourcedids_used_by_canvas_for_basic_out_aa2ea4b1: "Якщо увімкнено, Sourcedids, використовувані quite frankly an example LMS для Основних Результатів, будуть шифруватися."
   if_none_are_selected_send_to_everyone_in_the_entir_16aa0bb0: "(Якщо нічого не вибрано, відправити всім у всьому обліковому записі)"
   if_none_are_selected_send_to_everyone_in_the_entir_21119709: "(Якщо нічого не вибрано, відправити всім у всьому суб-обліковому записі)"
   if_you_change_an_assignment_s_points_possible_you__25a0edad: "При зміні можливих балів завдання, його слід переоцінити."
@@ -9037,7 +9037,7 @@ uk:
       Студенти побачать змінені файли у коментарях до їх подання.
       
       *Переконайтесь, що ви не змінили назви файлів подання, щоб ми могли їх розпізнати.*
-  if_you_ve_been_using_another_course_management_sys_67edfab1: "Якщо ви використовували іншу систему управління курсом, ви мабуть маєте матеріал, який ви захочете перемістити до EXAMPLE. Ми допоможемо вам у цьому процесі для полегшення  переходу на EXAMPLE."
+  if_you_ve_been_using_another_course_management_sys_67edfab1: "Якщо ви використовували іншу систему управління курсом, ви мабуть маєте матеріал, який ви захочете перемістити до quite frankly an example LMS. Ми допоможемо вам у цьому процесі для полегшення  переходу на quite frankly an example LMS."
   if_you_wish_you_can_rename_sis_to_something_more_f_ac9ef13b: "Якщо ви хочете, можете перейменувати \"SIS\" на більш звичне для вашої команди"
   if_you_would_like_to_keep_your_unsubmitted_comment_b7e349ce: "Якщо ви хочете зберегти ваші невідправлені коментарі, будь ласка, збережіть їх, перш ніж перейти на іншу сторінку."
   ignore_assignment_738b3c99: "Ігнорувати завдання"
@@ -9112,7 +9112,7 @@ uk:
   incomplete_da3c2ea2: Незавершений
   incompleteregistration: 
     get_started: Почати
-    welcome_to_canvas: "Ласкаво просимо до EXAMPLE!"
+    welcome_to_canvas: "Ласкаво просимо до quite frankly an example LMS!"
   incorrect_answer_7c17e63b: "Неправильна відповідь"
   increase_indent_6af90f7c: "Збільшити відступ"
   increase_indent_6d550a4a: "Збільшити відступ"
@@ -9149,7 +9149,7 @@ uk:
   installed_7b284a91: Установлено
   institution_14179014: Установа
   instructions: 
-    authorize_google_drive: "Перш ніж Ви зможете співпрацювати над документами, Вам необхідно авторизуватися  в EXAMPLE  для доступу до Вашого облікового запису Google Drive:"
+    authorize_google_drive: "Перш ніж Ви зможете співпрацювати над документами, Вам необхідно авторизуватися  в quite frankly an example LMS  для доступу до Вашого облікового запису Google Drive:"
   instructions_2f88ee72: Інструкції
   instructor_comments_205e0ec8: "Коментарі інструктора"
   instructor_id_ed9c0d8b: "Ідентифікатор інструктора"
@@ -9161,7 +9161,7 @@ uk:
   instructors_cdd595d0: Інструктори
   instructure: 
     alerts: 
-      file_previews_disabled: "Попередній перегляд файлу не доступний на цьому сайті EXAMPLE "
+      file_previews_disabled: "Попередній перегляд файлу не доступний на цьому сайті quite frankly an example LMS "
     browsers: 
       unrecognized: "Нерозпізнаний браузер"
     buttons: 
@@ -9178,7 +9178,7 @@ uk:
         minute: хв
     draft: Чернетка
     errors: 
-      cannot_view_document_in_canvas: "Цей документ не може бути показаний в EXAMPLE."
+      cannot_view_document_in_canvas: "Цей документ не може бути показаний в quite frankly an example LMS."
       document_preview_processing: "Попередній перегляд документа в даний момент обробляється. Будь-ласка спробуйте пізніше."
       field_is_required: "Це поле є обов'язковим"
       invalid_datetime: "Некоректні дата і час"
@@ -9218,12 +9218,12 @@ uk:
   instructure_default_73317bb1: "Структура за замовчуванням"
   instructure_inline_media_comment: 
     alerts: 
-      kaltura_disabled: "Kaltura була відключена для цього сайту EXAMPLE"
+      kaltura_disabled: "Kaltura була відключена для цього сайту quite frankly an example LMS"
     links: 
       minimize_embedded_kaltura_content: "Мінімізувати вбудований контент"
   instructure_js: 
     alerts: 
-      file_previews_disabled: "Попередній перегляд файлу не доступний на цьому сайті EXAMPLE "
+      file_previews_disabled: "Попередній перегляд файлу не доступний на цьому сайті quite frankly an example LMS "
     buttons: 
       next_module: "Наступний модуль"
       previous_module: "Попередній модуль"
@@ -9383,7 +9383,7 @@ uk:
       previous: Попередній
   jquery_doc_previews: 
     errors: 
-      cannot_view_document_in_canvas: "Цей документ не може бути показаний в EXAMPLE."
+      cannot_view_document_in_canvas: "Цей документ не може бути показаний в quite frankly an example LMS."
       document_preview_processing: "Попередній перегляд документа в даний момент обробляється. Будь-ласка спробуйте пізніше."
   jquery_media_comments: 
     loading: "Завантаження медіа..."
@@ -9466,9 +9466,9 @@ uk:
         reset_explanation: "Скидання тестового студента очистить всю історію цього студента, що дозволить переглядати курс в якості абсолютно нового студента."
         warning_title: "Ви в даний час увійшли в Перегляд зі сторони студента"
     head: 
-      default_page_title: "EXAMPLE LMS"
+      default_page_title: "quite frankly an example LMS"
     mobile_auth: 
-      log_in_to_canvas: "Увійти до EXAMPLE"
+      log_in_to_canvas: "Увійти до quite frankly an example LMS"
   lbs_report_header_course_code: "Код курсу"
   lbs_report_header_final_score: "Остаточна оцінка"
   lbs_report_header_student_name: "Ім'я студента"
@@ -9506,7 +9506,7 @@ uk:
   lib: 
     angel: 
       failed_import_link: "Не вдалося імпортувати посилання"
-      failed_import_link_body: "Це посилання вказувало на функцію Angel, яку неможливо було під'єднати через EXAMPLE, або на те, що залишилося поза експортом."
+      failed_import_link_body: "Це посилання вказувало на функцію Angel, яку неможливо було під'єднати через quite frankly an example LMS, або на те, що залишилося поза експортом."
     api: 
       attachments: 
         only_one_folder: "Неможливо встановити шлях до теки і ідентифікатор теки"
@@ -9563,16 +9563,16 @@ uk:
     incoming_message_processor: 
       failure_message: 
         body: |-
-            Повідомлення під назвою "%{subject}" неможливо доставити, оскільки воно було надіслано за невідомою поштовою адресою.  Якщо ви намагаєтесь зв'язатися з кимось через EXAMPLE, можете спробувати увійти до свого облікового запису і надіслати повідомлення за допомогою інструменту Inbox.
+            Повідомлення під назвою "%{subject}" неможливо доставити, оскільки воно було надіслано за невідомою поштовою адресою.  Якщо ви намагаєтесь зв'язатися з кимось через quite frankly an example LMS, можете спробувати увійти до свого облікового запису і надіслати повідомлення за допомогою інструменту Inbox.
             
             Дякуюємо,
-            Служба підтримки EXAMPLE
+            Служба підтримки quite frankly an example LMS
       locked_topic: 
         body: |-
-            Повідомлення під назвою "%{subject}" неможливо доставити, оскільки тема обговорення заблокована. Якщо ви намагаєтесь зв'язатися з кимось через EXAMPLE, ви можете спробувати увійти до свого облікового запису і надіслати повідомлення за допомогою інструменту Inbox.
+            Повідомлення під назвою "%{subject}" неможливо доставити, оскільки тема обговорення заблокована. Якщо ви намагаєтесь зв'язатися з кимось через quite frankly an example LMS, ви можете спробувати увійти до свого облікового запису і надіслати повідомлення за допомогою інструменту Inbox.
             
             Дякуємо,
-            Служба підтримки EXAMPLE
+            Служба підтримки quite frankly an example LMS
     progress_runner: 
       completed_message: 
         few: "%{count} елементи оброблено"
@@ -9734,7 +9734,7 @@ uk:
         sending: Відправка...
         sent: Надісланий!
       new: 
-        page_title: "Увійти до EXAMPLE"
+        page_title: "Увійти до quite frankly an example LMS"
       new_login_content: 
         back_to_login: "Увійти знову"
         browse_courses: "Перегляд курсів"
@@ -9749,7 +9749,7 @@ uk:
     logout_confirm: 
       cancel: Скасувати
       details: 
-        log_out: "Ви впевнені, що хочете вийти з EXAMPLE?"
+        log_out: "Ви впевнені, що хочете вийти з quite frankly an example LMS?"
       log_out: Вийти
       page_title: Вийти
     logout_landing: 
@@ -9764,7 +9764,7 @@ uk:
         details: 
           mfa_enrollment: |-
               Багатофакторна аутентифікація підвищує безпеку, вимагаючи, щоб ви мали щось у своєму фізичному володінні,
-              на додачу до знання паролю,  для входу у EXAMPLE. Це може бути пристрій, який може генерувати
+              на додачу до знання паролю,  для входу у quite frankly an example LMS. Це може бути пристрій, який може генерувати
               коди підтвердження або телефон, який може одержувати смс-повідомлення. Застосунок Google Authenticator для  [iPhone](%{iphone_url}) або
               [Android](%{android_url}) можна налаштувати шляхом сканування QR коду, наданого нижче. Інші маркери можна налаштувати через введення
               секретного ключа **%{secret_key}**. Після налаштування багатофакторної аутентифікації рекомендовано перейти на сторінку свого профілю
@@ -9941,7 +9941,7 @@ uk:
   media_comment_submission_14e224dc: "Відправка медіа-коментара"
   media_comments: 
     alerts: 
-      kaltura_disabled: "Kaltura була відключена для цього сайту EXAMPLE"
+      kaltura_disabled: "Kaltura була відключена для цього сайту quite frankly an example LMS"
     buttons: 
       submit: "Підтвердити медіа-файл"
     cancel: Скасувати
@@ -10024,7 +10024,7 @@ uk:
   membership_service_configuration_d8ba5a74: "Налаштування Служби Членства"
   merge_user_accounts_a49e8fb1: "Об`єднати облікові записи користувача"
   message: 
-    default_subject: "EXAMPLE попередження"
+    default_subject: "quite frankly an example LMS попередження"
   message_5c38209d: Повідомлення
   message_896d2ed0: "%{message}"
   message_body_1f782712: "Тіло повідомлення"
@@ -10071,34 +10071,34 @@ uk:
           click_to_finish_registration: "Натисніть тут для завершення процесу реєстрації "
           email: Email
           name: Ім'я
-          subject: "Запрошення адміністратора облікових записів EXAMPLE "
-          url_info_label: "Вам потрібно буде зареєструватися в EXAMPLE , перш ніж ви зможете працювати під обліковим записом адміністратора."
+          subject: "Запрошення адміністратора облікових записів quite frankly an example LMS "
+          url_info_label: "Вам потрібно буде зареєструватися в quite frankly an example LMS , перш ніж ви зможете працювати під обліковим записом адміністратора."
           username: "Ім'я користувача"
         name_info: "Ім'я: %{name}"
-        subject: "Запрошення адміністратора облікових записів EXAMPLE"
+        subject: "Запрошення адміністратора облікових записів quite frankly an example LMS"
         url_info: |-
-            Вам потрібно буде зареєструватися на EXAMPLE , перш ніж ви зможете працювати під обліковим записом адміністратора. Ви можете закінчити процес реєстрації тут:
+            Вам потрібно буде зареєструватися на quite frankly an example LMS , перш ніж ви зможете працювати під обліковим записом адміністратора. Ви можете закінчити процес реєстрації тут:
             %{url}
         username_info: "Ім'я користувача: %{username}"
     added_to_conversation: 
       email: 
         html: 
-          body: "%{user_name} щойно додав Вас до бесіди в EXAMPLE."
+          body: "%{user_name} щойно додав Вас до бесіди в quite frankly an example LMS."
           link_text: "Переглянути бесіду"
-          subject: "%{user_name} щойно додав Вас до бесіди в EXAMPLE."
+          subject: "%{user_name} щойно додав Вас до бесіди в quite frankly an example LMS."
           unknown_user: "Невідомий користувач"
-        subject: "%{user_name} щойно додав Вас до бесіди в EXAMPLE."
+        subject: "%{user_name} щойно додав Вас до бесіди в quite frankly an example LMS."
         unknown_user: "Невідомий користувач"
       sms: 
-        body: "%{user_name} щойно додав Вас до бесіди в EXAMPLE."
+        body: "%{user_name} щойно додав Вас до бесіди в quite frankly an example LMS."
         more_info: "Більше інформації тут %{url}"
         unknown_user: "Невідомий користувач"
       summary: 
-        body: "%{user_name} щойно додав Вас до бесіди в EXAMPLE."
-        subject: "%{user_name} щойно додав Вас до бесіди в EXAMPLE."
+        body: "%{user_name} щойно додав Вас до бесіди в quite frankly an example LMS."
+        subject: "%{user_name} щойно додав Вас до бесіди в quite frankly an example LMS."
         unknown_user: "Невідомий користувач"
       twitter: 
-        tweet: "EXAMPLE попередження - Додано бесіду %{user_name}."
+        tweet: "quite frankly an example LMS попередження - Додано бесіду %{user_name}."
         unknown_user: "Невідомий користувач"
     alert: 
       email: 
@@ -10188,13 +10188,13 @@ uk:
       sms: 
         details: "Більше інформації тут %{url}"
       twitter: 
-        body: "EXAMPLE попередження - Ви створили це оголошення:  %{title}, %{course}."
+        body: "quite frankly an example LMS попередження - Ви створили це оголошення:  %{title}, %{course}."
     announcement_reply: 
       email: 
         body: "%{user} опубліковано новий коментар на оголошення: %{discussion_topic} для %{course}:"
         html: 
           body: "%{user} опублікував новий коментар до оголошення: %{discussion_topic} для %{course}:"
-          discussion_entry_reply_message: "Приєднайтесь до розмови за допомогою посилання нижче або залиште коментар, відповівши на це повідомлення. Якщо дозволено, для додавання вкладення, будь ласка, увійдіть до EXAMPLE та надішліть відповідь на це оголошення."
+          discussion_entry_reply_message: "Приєднайтесь до розмови за допомогою посилання нижче або залиште коментар, відповівши на це повідомлення. Якщо дозволено, для додавання вкладення, будь ласка, увійдіть до quite frankly an example LMS та надішліть відповідь на це оголошення."
           link: "Натисніть тут для перегляду цього оголошення"
           subject: "Новий коментар до оголошення %{discussion_topic}: %{course}"
         subject: "Новий коментар до оголошення %{discussion_topic}: %{course}"
@@ -10203,7 +10203,7 @@ uk:
       summary: 
         subject: "Новий коментар до оголошення %{discussion_topic}: %{course}"
       twitter: 
-        body: "EXAMPLE попередження - Коментар оголошення:  %{discussion_topic}, %{course}."
+        body: "quite frankly an example LMS попередження - Коментар оголошення:  %{discussion_topic}, %{course}."
     appointment_canceled_by_user: 
       email: 
         html: 
@@ -10235,7 +10235,7 @@ uk:
         message: "%{user} відмінив своє резервування для \"%{appointment_name}\"."
         more_info: "Більше інформації тут %{url}"
       twitter: 
-        message: "EXAMPLE Оповіщення - %{user} відмінив своє резервування для \"%{appointment_name}\"."
+        message: "quite frankly an example LMS Оповіщення - %{user} відмінив своє резервування для \"%{appointment_name}\"."
     appointment_deleted_for_user: 
       email: 
         html: 
@@ -10266,7 +10266,7 @@ uk:
         message: "Ваш часовий інтервал для \"%{appointment_name} був змінений\"."
         more_info: "Більше інформації тут %{url}"
       twitter: 
-        message: "EXAMPLE Оповіщення - Ваш часовий інтервал для \"%{appointment_name} було відмінено\"."
+        message: "quite frankly an example LMS Оповіщення - Ваш часовий інтервал для \"%{appointment_name} було відмінено\"."
     appointment_group_deleted: 
       email: 
         html: 
@@ -10290,7 +10290,7 @@ uk:
         message: "Всі призначення для \"%{appointment_name} були скасовані\"."
         more_info: "Більше інформації тут %{url}"
       twitter: 
-        message: "EXAMPLE Оповіщення - Всі призначення для \"%{appointment_name} були скасовані\"."
+        message: "quite frankly an example LMS Оповіщення - Всі призначення для \"%{appointment_name} були скасовані\"."
     appointment_group_published: 
       email: 
         group_signup: "Група (%{group_category})"
@@ -10322,7 +10322,7 @@ uk:
         message: "Часові інтервали для \"%{appointment_name}\" тепер доступні для реєстрації (%{dates})."
         subject: "Призначення \"%{appointment_name}\" доступні для реєстрації (%{course})"
       twitter: 
-        message: "EXAMPLE Оповіщення - Реєстрації відкрито для \"%{appointment_name}\"."
+        message: "quite frankly an example LMS Оповіщення - Реєстрації відкрито для \"%{appointment_name}\"."
     appointment_group_updated: 
       email: 
         group_signup: "Група (%{group_category})"
@@ -10353,7 +10353,7 @@ uk:
         message: "Часові інтервали були додані до \"%{appointment_name}\"  і доступні для реєстрації (%{dates})."
         subject: "Призначення для \"%{appointment_name}\" були оновлені (%{course})"
       twitter: 
-        message: "EXAMPLE Оповіщення - Нові часові інтервали доступні для \"%{appointment_name}\"."
+        message: "quite frankly an example LMS Оповіщення - Нові часові інтервали доступні для \"%{appointment_name}\"."
     appointment_reserved_by_user: 
       email: 
         html: 
@@ -10382,7 +10382,7 @@ uk:
         message: "%{user} зареєструвався для \"%{appointment_name}\"."
         more_info: "Більше інформації тут %{url}"
       twitter: 
-        message: "Оповіщення EXAMPLE - %{user} підписався на \"%{appointment_name}\"."
+        message: "Оповіщення quite frankly an example LMS - %{user} підписався на \"%{appointment_name}\"."
     appointment_reserved_for_user: 
       email: 
         html: 
@@ -10414,7 +10414,7 @@ uk:
         message: "%{user} підписав Вас на \"%{appointment_name}\" (%{date_and_time})."
         subject: "Ви підписані на \"%{appointment_name}\" (%{course})"
       twitter: 
-        message: "Оповіщення EXAMPLE - Ви підписані на \"%{appointment_name}\"."
+        message: "Оповіщення quite frankly an example LMS - Ви підписані на \"%{appointment_name}\"."
     assignment_changed: 
       email: 
         body: |-
@@ -10435,7 +10435,7 @@ uk:
       summary: 
         subject: "Завдання змінено: %{title}, %{course}"
       twitter: 
-        assignment_change: "EXAMPLE Оповіщення - Зміни: %{assignment_name}, %{course_name}"
+        assignment_change: "quite frankly an example LMS Оповіщення - Зміни: %{assignment_name}, %{course_name}"
     assignment_created: 
       email: 
         labels: 
@@ -10459,7 +10459,7 @@ uk:
         due_at: "очікується:  %{assignment_due_date_time}"
         no_due_date: "очікується: Відсутня очікувана дата"
       twitter: 
-        assignment_change: "EXAMPLE Оповіщення - Зміна дати: %{assignment_name}, %{course_name}"
+        assignment_change: "quite frankly an example LMS Оповіщення - Зміна дати: %{assignment_name}, %{course_name}"
         due_at: "очікується:  %{assignment_due_date_time}"
         no_due_date: "очікується: Відсутній термін виконання"
     assignment_due_date_override_changed: 
@@ -10481,7 +10481,7 @@ uk:
         due_at: "очікується:  %{assignment_due_date_time}"
         no_due_date: "очікується: Відсутня очікувана дата"
       twitter: 
-        assignment_change: "EXAMPLE Оповіщення - Зміна дати: %{assignment_name}, %{course_name} (%{override})"
+        assignment_change: "quite frankly an example LMS Оповіщення - Зміна дати: %{assignment_name}, %{course_name} (%{override})"
         due_at: "очікується:  %{assignment_due_date_time}"
         no_due_date: "очікується: Відсутній термін виконання"
     assignment_graded: 
@@ -10501,7 +10501,7 @@ uk:
         assignment_graded: "Завдання оцінено: %{assignment_name}, %{course_name}"
         the_assignment_is_graded: "Завдання %{assignment_name} було оцінено."
       twitter: 
-        assignment_graded: "EXAMPLE Оповіщення - Оцінено: %{assignment_name}, %{course_name}"
+        assignment_graded: "quite frankly an example LMS Оповіщення - Оцінено: %{assignment_name}, %{course_name}"
     assignment_locked: "Це завдання на даний час заблоковано."
     assignment_locked_at: "Це завдання було заблоковано %{at}."
     assignment_locked_module: "Це завдання є частиною модуля *%{module}* та не було ще разблоковано."
@@ -10523,7 +10523,7 @@ uk:
         turned_in_at: "здано: %{submission_date}"
         user_resubmitted: "Повторна подача: %{user_name}, %{assignment_name}"
       twitter: 
-        user_resubmitted: "EXAMPLE Оповіщення - Повторна подача: %{user_name}, %{assignment_name}"
+        user_resubmitted: "quite frankly an example LMS Оповіщення - Повторна подача: %{user_name}, %{assignment_name}"
     assignment_submitted: 
       email: 
         html: 
@@ -10541,7 +10541,7 @@ uk:
         turned_in_at: "здано: %{submission_date}"
         user_submitted: "Матеріал: %{user_name}, %{assignment_name}"
       twitter: 
-        user_submitted: "Сповіщення EXAMPLE - Подання: %{user_name}, %{assignment_name}"
+        user_submitted: "Сповіщення quite frankly an example LMS - Подання: %{user_name}, %{assignment_name}"
     assignment_submitted_late: 
       email: 
         html: 
@@ -10559,7 +10559,7 @@ uk:
         turned_in_at: "здано: %{submission_date}"
         user_submitted: "Пізнє завдання: %{user_name}, %{assignment_name}"
       twitter: 
-        user_submitted: "EXAMPLE Оповіщення - Пізнє завдання: %{user_name}, %{assignment_name}"
+        user_submitted: "quite frankly an example LMS Оповіщення - Пізнє завдання: %{user_name}, %{assignment_name}"
     assignment_unmuted: 
       email: 
         body: |-
@@ -10596,7 +10596,7 @@ uk:
         body: "Синхронізація проекту: Зміни синхронізовано з %{name}."
         subject: "Синхронізація Проекту: %{name}"
       twitter: 
-        tweet: "Сповіщення EXAMPLE - Зміни проектного курсу синхронізовано з %{name}"
+        tweet: "Сповіщення quite frankly an example LMS - Зміни проектного курсу синхронізовано з %{name}"
     blueprint_sync_complete: 
       email: 
         body: "Ваш проектний курс, %{name}, синхронізував зміни з усіма пов'язаними курсами."
@@ -10613,7 +10613,7 @@ uk:
         body: "Синхронізація проекту: Зміни синхронізовано від %{name}."
         subject: "Синхронізацію проектного курсу завершено: %{name}"
       twitter: 
-        tweet: "Сповіщення EXAMPLE - Зміни проектного курсу синхронізовано від %{name}."
+        tweet: "Сповіщення quite frankly an example LMS - Зміни проектного курсу синхронізовано від %{name}."
     checkpoints_created: 
       email: 
         labels: 
@@ -10663,7 +10663,7 @@ uk:
             у %{service} і вас запросили через вашу електронну адресу, %{email}.
         subject: "Запрошення до спільної роботи: %{course_or_group}"
       twitter: 
-        body: "EXAMPLE Оповіщення - Запросити до спільної роботи: %{document}, %{course_or_group}"
+        body: "quite frankly an example LMS Оповіщення - Запросити до спільної роботи: %{document}, %{course_or_group}"
     confirm_email_communication_channel: 
       email: 
         body: "Ця адреса електронної пошти %{email} iбула зареєстрована на %{website} для користувача %{user}."
@@ -10671,8 +10671,8 @@ uk:
         html: 
           body: "Ця адреса електронної пошти %{email} iбула зареєстрована на %{website} для користувача %{user}."
           details: "Натисніть тут для підтвердження цієї реєстрації "
-          subject: "Підтвердити адресу електронної пошти: EXAMPLE"
-        subject: "Підтвердити адресу електронної пошти: EXAMPLE"
+          subject: "Підтвердити адресу електронної пошти: quite frankly an example LMS"
+        subject: "Підтвердити адресу електронної пошти: quite frankly an example LMS"
     confirm_registration: 
       email: 
         body: "Дякуємо за реєстрацію %{product_name}! Цей лист є підтвердженням того, що користувач %{user} реєструється для нового облікового запису на сайті %{website}. "
@@ -10685,7 +10685,7 @@ uk:
     confirm_sms_communication_channel: 
       sms: 
         body: |-
-            Підтвердити реєстрацію EXAMPLE w/ code %{confirmation_code} для %{user}, відвідавши
+            Підтвердити реєстрацію quite frankly an example LMS w/ code %{confirmation_code} для %{user}, відвідавши
             %{website}
     content_export_failed: 
       email: 
@@ -10717,21 +10717,21 @@ uk:
           attached_files: "Вкладені файли:"
           audio_comment: "Це повідомлення включає медіа-коментарів. Для прослуховування або відповіді, перейдіть за посиланням нижче:"
           download: завантажити
-          reply_to_conversation_message: "Ви можете відповісти на це повідомлення у EXAMPLE,відповівши безпосередньо на цей електронний лист. Якщо вам потрібно додати вкладення, будь ласка, увійдіть до EXAMPLE і надішліть відповідь через папку \"Вхідні\"."
-          subject: "%{user_name}, Ви тільки що відправили повідомлення в EXAMPLE."
+          reply_to_conversation_message: "Ви можете відповісти на це повідомлення у quite frankly an example LMS,відповівши безпосередньо на цей електронний лист. Якщо вам потрібно додати вкладення, будь ласка, увійдіть до quite frankly an example LMS і надішліть відповідь через папку \"Вхідні\"."
+          subject: "%{user_name}, Ви тільки що відправили повідомлення в quite frankly an example LMS."
           unknown_user: "Невідомий користувач"
           view_message: "Переглянути це повідомлення у бесідах."
-        subject: "%{user_name}, Ви тільки що відправили повідомлення в EXAMPLE."
+        subject: "%{user_name}, Ви тільки що відправили повідомлення в quite frankly an example LMS."
         unknown_user: "Невідомий користувач"
         view_message: "Переглянути це повідомлення у бесідах."
       sms: 
         more_info: "Більше інформації тут %{url}"
       summary: 
-        body: "%{user_name}, Ви тільки що відправили повідомлення в EXAMPLE."
-        subject: "%{user_name}, Ви тільки що відправили повідомлення в EXAMPLE."
+        body: "%{user_name}, Ви тільки що відправили повідомлення в quite frankly an example LMS."
+        subject: "%{user_name}, Ви тільки що відправили повідомлення в quite frankly an example LMS."
         unknown_user: "Невідомий користувач"
       twitter: 
-        tweet: "EXAMPLE Оповіщення - Повідомлення від %{user_name}."
+        tweet: "quite frankly an example LMS Оповіщення - Повідомлення від %{user_name}."
     conversation_message: 
       email: 
         attached_files: "Вкладені файли:"
@@ -10740,28 +10740,28 @@ uk:
           attached_files: "Вкладені файли:"
           audio_comment: "Це повідомлення включає медіа-коментарів. Для прослуховування або відповіді, перейдіть за посиланням нижче:"
           download: завантажити
-          reply_to_conversation_message: "Ви можете відповісти на це повідомлення у EXAMPLE,відповівши безпосередньо на цей електронний лист. Якщо вам потрібно додати вкладення, будь ласка, увійдіть до EXAMPLE і надішліть відповідь через папку \"Вхідні\"."
-          subject: "%{user_name}, Ви тільки що відправили повідомлення в EXAMPLE."
+          reply_to_conversation_message: "Ви можете відповісти на це повідомлення у quite frankly an example LMS,відповівши безпосередньо на цей електронний лист. Якщо вам потрібно додати вкладення, будь ласка, увійдіть до quite frankly an example LMS і надішліть відповідь через папку \"Вхідні\"."
+          subject: "%{user_name}, Ви тільки що відправили повідомлення в quite frankly an example LMS."
           unknown_user: "Невідомий користувач"
           view_message: "Переглянути це повідомлення у бесідах."
-        subject: "%{user_name}, Ви тільки що відправили повідомлення в EXAMPLE."
+        subject: "%{user_name}, Ви тільки що відправили повідомлення в quite frankly an example LMS."
         unknown_user: "Невідомий користувач"
         view_message: "Переглянути це повідомлення у бесідах."
       sms: 
         more_info: "Більше інформації тут %{url}"
         unknown_user: "Невідомий користувач"
       summary: 
-        body: "%{user_name} Ви тільки що відправили повідомлення в EXAMPLE."
-        subject: "%{user_name}, Ви тільки що відправили повідомлення в EXAMPLE."
+        body: "%{user_name} Ви тільки що відправили повідомлення в quite frankly an example LMS."
+        subject: "%{user_name}, Ви тільки що відправили повідомлення в quite frankly an example LMS."
         unknown_user: "Невідомий користувач"
       twitter: 
-        tweet: "EXAMPLE Оповіщення - Повідомлення від %{user_name}."
+        tweet: "quite frankly an example LMS Оповіщення - Повідомлення від %{user_name}."
     course_already_started: 
       email: 
         body: |-
             Привіт %{user},
             
-            %{course}, ваш курс EXAMPLE Network, почався декілька днів назад, і ми повідомляємо, що ви ще заходили. Ми тільки хочемо надіслати вам останнє нагадування, щоб ви не забули.
+            %{course}, ваш курс quite frankly an example LMS Network, почався декілька днів назад, і ми повідомляємо, що ви ще заходили. Ми тільки хочемо надіслати вам останнє нагадування, щоб ви не забули.
             
             Щоб зайти, перейдіть сюди %{site} і введіть ваш логін та пароль. Якщо ви ще не встановили пароль, то можете це зробити тут: %{password_url}
             
@@ -10769,52 +10769,52 @@ uk:
             
             Ми чекаємо на вас,
             
-            EXAMPLE Network
+            quite frankly an example LMS Network
         course_already_started: "Ваш курс вже розпочато"
     course_required_materials: 
       email: 
         body: |-
             Вітаю %{user},
             
-            Гарні новини! %{course}, курс, на який ти зареєструвався у Мережі EXAMPLE, скоро розпочинається.
+            Гарні новини! %{course}, курс, на який ти зареєструвався у Мережі quite frankly an example LMS, скоро розпочинається.
             
-            Аби досягти максимального ефекту від курсу, тобі слід звернутися до спеціальних рекомендацій або матеріалів курсу, наданих інструктором, які можна знайти на сторінці інформації про курс у Мережі EXAMPLE або просто перейшовши за посиланням нижче.
+            Аби досягти максимального ефекту від курсу, тобі слід звернутися до спеціальних рекомендацій або матеріалів курсу, наданих інструктором, які можна знайти на сторінці інформації про курс у Мережі quite frankly an example LMS або просто перейшовши за посиланням нижче.
             
             %{url}
             
             Продовжуй навчатися,
             
-            Мережа EXAMPLE
+            Мережа quite frankly an example LMS
         course_required_materials: "Матеріали та інструкції для %{course}"
     course_started: 
       email: 
         body: |-
             Привіт %{user},
             
-            Це нагадування що %{course}, ваш курс у EXAMPLE Network, починається сьогодні. Тепер ви можете зайти на %{site} і почати!
+            Це нагадування що %{course}, ваш курс у quite frankly an example LMS Network, починається сьогодні. Тепер ви можете зайти на %{site} і почати!
             
-            Не забудьте налаштувати ваш EXAMPLE Network профіль, щоб інші з вашого курсу знали хто ви. Ви можете оновити ваш профіль тут %{profile_url}
+            Не забудьте налаштувати ваш quite frankly an example LMS Network профіль, щоб інші з вашого курсу знали хто ви. Ви можете оновити ваш профіль тут %{profile_url}
             
             Успіхів,
             
-            EXAMPLE Network
+            quite frankly an example LMS Network
         course_starts_today: "Ваш курс розпочинається сьогодні"
     course_starts_in_week: 
       email: 
         body: |-
             %{user},
             
-            Час майже настав! %{course}, курс, на який ти зареєструвався у Мережі EXAMPLE, розпочинається наступного тижня. Ми знаємо, ти мабуть схвильований, так само як і ми.
+            Час майже настав! %{course}, курс, на який ти зареєструвався у Мережі quite frankly an example LMS, розпочинається наступного тижня. Ми знаємо, ти мабуть схвильований, так само як і ми.
             
             Що зробити аби підготуватися?
             
-            Якщо ти ще не створив власний обліковий запис у Мережі EXAMPLE, можеш увійти і налаштувати його на Canvas.net. Твій профіль допоможе іншим людям на курсі дізнатися про тебе . Також там ти можеш налаштувати параметри системи сповіщення.
+            Якщо ти ще не створив власний обліковий запис у Мережі quite frankly an example LMS, можеш увійти і налаштувати його на Canvas.net. Твій профіль допоможе іншим людям на курсі дізнатися про тебе . Також там ти можеш налаштувати параметри системи сповіщення.
             
             Нарешті, ти можеш переглядати необхідні матеріали і будь-які інструкції до свого курсу тут: %{url}
             
             Продовжуй навчатися,
             
-            Мережа EXAMPLE
+            Мережа quite frankly an example LMS
         course_starts_next_week: "Ваш курс почнеться наступного тижня"
     dialog: 
       title: "Відправити повідомлення у відповідь"
@@ -10824,7 +10824,7 @@ uk:
           link: "Натисніть тут для приєднання до бесіди"
     email: 
       footer: |-
-          Ви отримали це повідомлення, тому що ви є учасником одного чи декількох класів у системі EXAMPLE.  Аби змінити чи вимкнути сповіщення через електронну пошту відвідайте:
+          Ви отримали це повідомлення, тому що ви є учасником одного чи декількох класів у системі quite frankly an example LMS.  Аби змінити чи вимкнути сповіщення через електронну пошту відвідайте:
           %{url}
     enrollment_accepted: 
       email: 
@@ -10890,13 +10890,13 @@ uk:
       summary: 
         subject: "Реєстрація на курс"
       twitter: 
-        body: "EXAMPLE Оповіщення - Записано: курс як %{role_type}"
+        body: "quite frankly an example LMS Оповіщення - Записано: курс як %{role_type}"
     enrollment_registration: 
       email: 
-        details: "Вам потрібно буде зареєструватися на EXAMPLE , перш ніж ви зможете брати участь в класі. Щоб почати роботу, перейдіть на сторінку курсу тут:"
+        details: "Вам потрібно буде зареєструватися на quite frankly an example LMS , перш ніж ви зможете брати участь в класі. Щоб почати роботу, перейдіть на сторінку курсу тут:"
         html: 
           body: "Ви були запрошені взяти участь в класі на %{website}. Клас називається %{course}. Роль курсу: %{role_type}"
-          details: "Вам потрібно буде зареєструватися на EXAMPLE , перш ніж ви зможете брати участь в класі."
+          details: "Вам потрібно буде зареєструватися на quite frankly an example LMS , перш ніж ви зможете брати участь в класі."
           email: Email
           link: "Натисніть тут, щоб переглянути сторінку курсу"
           name: Ім'я
@@ -10962,8 +10962,8 @@ uk:
           login_at_account: "%{login_email} в %{account_name}"
           login_managed_by_account: "Облікові дані профіля здійстнюються %{account_name}"
           password_from_account: "Пароль для входу в цю систему повинен був наданий Вам системним адміністраторам %{account_name}, а інструктор не має доступу до вашого паролю. Якщо пароль не працює, будь ласка, зверніться до системного адміністратора щодо зміни або перевірки пароля."
-          requested_password_reset: "Ви запросили підтвердження свого пароля для входу в EXAMPLE."
-          subject: "Забули пароль: EXAMPLE"
+          requested_password_reset: "Ви запросили підтвердження свого пароля для входу в quite frankly an example LMS."
+          subject: "Забули пароль: quite frankly an example LMS"
         labels: 
           associated_with_accounts: "Ця адреса асоційована з наступними обліковими записами"
           change_password_at: "змінити пароль цього логіну на"
@@ -10971,8 +10971,8 @@ uk:
         login_at_account: "%{login_email} в %{account_name}"
         login_managed_by_account: "Облікові дані профіля здійстнюються %{account_name}"
         password_from_account: "Пароль для входу в цю систему повинен був наданий Вам системним адміністраторам %{account_name}, а інструктор не має доступу до вашого паролю. Якщо пароль не працює, будь ласка, зверніться до системного адміністратора щодо зміни або перевірки пароля."
-        requested_password_reset: "Ви запросили підтвердження свого пароля для входу в EXAMPLE."
-        subject: "Забули пароль: EXAMPLE"
+        requested_password_reset: "Ви запросили підтвердження свого пароля для входу в quite frankly an example LMS."
+        subject: "Забули пароль: quite frankly an example LMS"
     grade_weight_changed: 
       email: 
         grade_changed: "Політика оцінювання для курсу %{course_name} була змінена."
@@ -10998,7 +10998,7 @@ uk:
           grades_based_on_percent: "Оцінювання базується на зважених результатах для кожної групи завдань."
           subject: "Ваги оцінювання змінені"
       twitter: 
-        grade_changed: "EXAMPLE Оповіщення - Політика оцінювання змінена: %{course_name}"
+        grade_changed: "quite frankly an example LMS Оповіщення - Політика оцінювання змінена: %{course_name}"
     group_assignment_submitted_late: 
       email: 
         body: "Група %{group_name} щойно повернула із запізненням подання %{assignment_name} у курсі %{course_name}."
@@ -11016,7 +11016,7 @@ uk:
         body: "Група %{group_name} щойно повернула із запізненням подання %{assignment_name} у курсі %{course_name}."
         subject: "Пізнє завдання: %{group_name}, %{assignment_name}"
       twitter: 
-        subject: "Сповіщення EXAMPLE - Пізнє групове подання: %{group_name}, %{assignment_name}"
+        subject: "Сповіщення quite frankly an example LMS - Пізнє групове подання: %{group_name}, %{assignment_name}"
     group_membership_accepted: 
       email: 
         account_group: "Ваш запит на приєднання до групи %{group_name} для облікового запису %{account_name} був прийнятий."
@@ -11038,8 +11038,8 @@ uk:
         course_group: "Ваш запит на приєднання до групи %{group_name} для курсу %{course_name} був прийнятий."
         subject: "Прийнято участь в групі: %{group_name}"
       twitter: 
-        account_group: "EXAMPLE Оповіщення -Прийнято участь у групі: %{group_name} для облікового запису %{account_name}."
-        course_group: "EXAMPLE Оповіщення - Прийнято участь у групі: %{group_name} для курсу %{course_name}."
+        account_group: "quite frankly an example LMS Оповіщення -Прийнято участь у групі: %{group_name} для облікового запису %{account_name}."
+        course_group: "quite frankly an example LMS Оповіщення - Прийнято участь у групі: %{group_name} для курсу %{course_name}."
     group_membership_rejected: 
       email: 
         account_group: "Ваш запит на приєднання до групи %{group_name} для облікового запису %{account_name} був відкинуто."
@@ -11061,8 +11061,8 @@ uk:
         course_group: "Ваш запит на приєднання до групи %{group_name} для курсу %{course_name} був відкинуто."
         subject: "Відкинуто участь в групі для %{group_name}"
       twitter: 
-        account_group: "EXAMPLE Оповіщення - Відкинуто участь у групі: %{group_name} для облікового запису %{account_name}."
-        course_group: "EXAMPLE Оповіщення - Відкинуто участь у групі: %{group_name} для курсу %{course_name}."
+        account_group: "quite frankly an example LMS Оповіщення - Відкинуто участь у групі: %{group_name} для облікового запису %{account_name}."
+        course_group: "quite frankly an example LMS Оповіщення - Відкинуто участь у групі: %{group_name} для курсу %{course_name}."
     html_message: 
       html_not_exist: "HTML-версія цього повідомлення не була ні створена, ні відправлена"
     index: 
@@ -11074,12 +11074,12 @@ uk:
           click_to_preferences: "Оновити Ваші налаштування оповіщень"
     merge_email_communication_channel: 
       email: 
-        body: "Обліковий запис було створено для вас на %{host}, але у Вас вже є обліковий запис EXAMPLE. Якщо ви хочете об'єднати їх разом, будь ласка, відвідайте наступний URL:"
+        body: "Обліковий запис було створено для вас на %{host}, але у Вас вже є обліковий запис quite frankly an example LMS. Якщо ви хочете об'єднати їх разом, будь ласка, відвідайте наступний URL:"
         html: 
-          account_created: "Обліковий запис було створено для вас на %{host}, але у Вас вже є обліковий запис EXAMPLE. "
+          account_created: "Обліковий запис було створено для вас на %{host}, але у Вас вже є обліковий запис quite frankly an example LMS. "
           merge2: "Якщо Ви хочете об'єднати їх разом, *натисніть тут*"
-          subject: "Новий обліковий запис EXAMPLE"
-        subject: "Новий обліковий запис EXAMPLE"
+          subject: "Новий обліковий запис quite frankly an example LMS"
+        subject: "Новий обліковий запис quite frankly an example LMS"
     message: 
       actions: 
         reply: Відповісти
@@ -11114,7 +11114,7 @@ uk:
         body: "Новий адміністратор %{user} був доданий для облікового запису %{account}"
         subject: "Новий обліковий запис користувача"
       twitter: 
-        body: "EXAMPLE Оповіщення - Новий адміністратор: %{user}, %{account}"
+        body: "quite frankly an example LMS Оповіщення - Новий адміністратор: %{user}, %{account}"
     new_announcement: 
       email: 
         html: 
@@ -11125,7 +11125,7 @@ uk:
       sms: 
         details: "Більше інформації тут %{url}"
       twitter: 
-        body: "EXAMPLE Оповіщення - Оголошення:  %{title}, %{course}."
+        body: "quite frankly an example LMS Оповіщення - Оголошення:  %{title}, %{course}."
     new_context_group_membership: 
       email: 
         body_account: "Вас додали до нової групи для облікового запису %{account}. Назва групи - %{group_name}."
@@ -11147,8 +11147,8 @@ uk:
         body_course: "Вас додали до нової групи для курсу %{course}. Назва групи - %{group_name}."
         subject: "Участь в новій групі для %{course_or_account}"
       twitter: 
-        body_account: "EXAMPLE Оповіщення - Нова група: %{group} для облікового запису %{account}"
-        body_course: "EXAMPLE Оповіщення - Нова група: %{group} для курсу %{course}"
+        body_account: "quite frankly an example LMS Оповіщення - Нова група: %{group} для облікового запису %{account}"
+        body_course: "quite frankly an example LMS Оповіщення - Нова група: %{group} для курсу %{course}"
     new_context_group_membership_invitation: 
       email: 
         body_account: "Ви прийняли запрошення на приєднання до групи %{group} для облікового запису %{account}."
@@ -11170,8 +11170,8 @@ uk:
         body_course: "Ви запрошені приєднатися до групи %{group} групи для курсу %{course}."
         subject: "Участь в новій групі для %{course_or_account}"
       twitter: 
-        body_account: "EXAMPLE Оповіщення - Запрошення: %{group} для облікового запису %{account}"
-        body_course: "EXAMPLE Оповіщення - Запрошення: %{group} для курсу %{course}."
+        body_account: "quite frankly an example LMS Оповіщення - Запрошення: %{group} для облікового запису %{account}"
+        body_course: "quite frankly an example LMS Оповіщення - Запрошення: %{group} для курсу %{course}."
     new_course: 
       email: 
         body: "Курс %{course} був доданий до облікового запису %{account}"
@@ -11197,13 +11197,13 @@ uk:
           teachers: Вчителі
         subject: "Новий курс"
       twitter: 
-        body: "EXAMPLE Оповіщення - Новий курс: %{course}, %{account}"
+        body: "quite frankly an example LMS Оповіщення - Новий курс: %{course}, %{account}"
     new_discussion_entry: 
       email: 
         body: "%{user} опублікований новий коментар на ланцюжку повідомлень %{discussion_topic} для %{course}:"
         html: 
           body: "%{user} опублікований новий коментар на  ланцюжку повідомлень  :%{discussion_topic}для  %{course}:"
-          discussion_entry_reply_message: "Приєднайтесь до розмови за допомогою посилання нижче або залиште коментар, відповівши на це повідомлення. Якщо дозволено, для додавання вкладення, будь ласка, увійдіть до EXAMPLE та надішліть відповідь на це обговорення."
+          discussion_entry_reply_message: "Приєднайтесь до розмови за допомогою посилання нижче або залиште коментар, відповівши на це повідомлення. Якщо дозволено, для додавання вкладення, будь ласка, увійдіть до quite frankly an example LMS та надішліть відповідь на це обговорення."
           link: "Натисніть тут для приєднання до бесіди"
           subject: "Новий коментар для %{discussion_topic}: %{course}"
         subject: "Новий коментар для %{discussion_topic}: %{course}"
@@ -11212,7 +11212,7 @@ uk:
       summary: 
         subject: "Новий коментар для %{discussion_topic}: %{course}"
       twitter: 
-        body: "EXAMPLE Оповіщення - Коментар:  %{discussion_topic}, %{course}."
+        body: "quite frankly an example LMS Оповіщення - Коментар:  %{discussion_topic}, %{course}."
     new_discussion_mention: 
       email: 
         html: 
@@ -11235,7 +11235,7 @@ uk:
       summary: 
         subject: "Нове обговорення - %{discussion_topic}: %{course}"
       twitter: 
-        subject: "EXAMPLE Оповіщення - Тема:  %{discussion_topic}, %{course}."
+        subject: "quite frankly an example LMS Оповіщення - Тема:  %{discussion_topic}, %{course}."
     new_event_created: 
       email: 
         body: "Заплановано нову подію для %{course_name}, про яку Ви маєте знати: "
@@ -11261,7 +11261,7 @@ uk:
       twitter: 
         from_to_time: "від %{start_date_time} до %{end_date_time}"
         no_time_set: "Немає налаштувань часу"
-        subject: "EXAMPLE Оповіщення - Подія: %{event_title}, %{course_name}"
+        subject: "quite frankly an example LMS Оповіщення - Подія: %{event_title}, %{course_name}"
     new_file_added: 
       email: 
         body: "Новий файл додано до курсу %{name}:"
@@ -11277,7 +11277,7 @@ uk:
       summary: 
         subject: "Новий файл додано: %{title}, %{name}"
       twitter: 
-        body: "EXAMPLE Оповіщення - Новий файл: %{title} (%{size}) for %{name}:"
+        body: "quite frankly an example LMS Оповіщення - Новий файл: %{title} (%{size}) for %{name}:"
     new_files_added: 
       email: 
         body: "%{count} нових файлів додано в курс %{name}:"
@@ -11295,7 +11295,7 @@ uk:
         link: "Ви можете переглянути їх тут"
         subject: "%{count} нових файлів додані в курс %{name}:"
       twitter: 
-        body: "EXAMPLE Оповіщення - %{count} нових файлів в %{name}"
+        body: "quite frankly an example LMS Оповіщення - %{count} нових файлів в %{name}"
     new_student_organized_group: 
       email: 
         body_account: "Новий студент організував групу під  назвою \"%{group_name}\", яку створив для облікового запису %{account}. Першим учасником є %{user}."
@@ -11317,8 +11317,8 @@ uk:
         body_course: "Новий студент організував групу під  назвою \"%{group_name}\", яку створив для курсу %{course}. Першим учасником є %{user}."
         subject: "Нова група студентів %{course_or_account}"
       twitter: 
-        body_account: "EXAMPLE Оповіщення - Нова група: %{group_name} для облікового запису %{account}"
-        body_course: "EXAMPLE Оповіщення - Нова група: %{group_name} для курсу %{course}"
+        body_account: "quite frankly an example LMS Оповіщення - Нова група: %{group_name} для облікового запису %{account}"
+        body_course: "quite frankly an example LMS Оповіщення - Нова група: %{group_name} для курсу %{course}"
     new_user: 
       email: 
         body: "Новий користувач %{user} щойно зареєструвався в обліковому записі %{account}"
@@ -11335,7 +11335,7 @@ uk:
         body: "Новий користувач %{user} щойно зареєструвався в обліковому записі %{account}"
         subject: "Новий користувач"
       twitter: 
-        body: "EXAMPLE Оповіщення - Новий користувач: %{user}, %{account}"
+        body: "quite frankly an example LMS Оповіщення - Новий користувач: %{user}, %{account}"
     page_locked: "Ця сторінка зараз заблокована."
     page_locked_at: "Ця сторінка була заблокована %{at}."
     page_locked_module: "Ця сторінка є частиною модуля *%{module}* та не була ще разблокована."
@@ -11354,40 +11354,40 @@ uk:
         body: "Вас запросили провести рецензування%{reviewee}. Перейдіть за посиланням нижче, щоб ознайомитися з ним!"
     pseudonym_registration: 
       email: 
-        body: "Ви були зареєстровані для облікового запису EXAMPLE %{account}! Перед тим, як можна буде увійти і почати використовувати EXAMPLE, вам потрібно закінчити процес налаштування."
+        body: "Ви були зареєстровані для облікового запису quite frankly an example LMS %{account}! Перед тим, як можна буде увійти і почати використовувати quite frankly an example LMS, вам потрібно закінчити процес налаштування."
         html: 
-          body: "Ви були зареєстровані для облікового запису EXAMPLE %{account}! Перед тим, як можна буде увійти і почати використовувати EXAMPLE, вам потрібно буде закінчити процес налаштування."
+          body: "Ви були зареєстровані для облікового запису quite frankly an example LMS %{account}! Перед тим, як можна буде увійти і почати використовувати quite frankly an example LMS, вам потрібно буде закінчити процес налаштування."
           link: "Натисніть тут для завершення процесу реєстрації "
-          subject: "Закінчити реєстрацію: EXAMPLE"
+          subject: "Закінчити реєстрацію: quite frankly an example LMS"
         link_message: "Для завершення процесу реєстрації. будь ласка, відвідайте наступний URL:"
-        subject: "Закінчити реєстрацію: EXAMPLE"
+        subject: "Закінчити реєстрацію: quite frankly an example LMS"
       sms: 
-        body: "Ви були зареєстровані для облікового запису EXAMPLE %{account}! Перед тим, як можна буде увійти і почати використовувати EXAMPLE, вам потрібно закінчити процес налаштування."
+        body: "Ви були зареєстровані для облікового запису quite frankly an example LMS %{account}! Перед тим, як можна буде увійти і почати використовувати quite frankly an example LMS, вам потрібно закінчити процес налаштування."
         link: "Натисніть на наступне посилання для завершення процесу реєстрації: %{link}"
       summary: 
-        body: "Ви були зареєстровані для облікового запису EXAMPLE %{account}! Перед тим, як можна буде увійти і почати використовувати EXAMPLE, вам потрібно закінчити процес налаштування."
+        body: "Ви були зареєстровані для облікового запису quite frankly an example LMS %{account}! Перед тим, як можна буде увійти і почати використовувати quite frankly an example LMS, вам потрібно закінчити процес налаштування."
         link_message: "Для завершення процесу реєстрації. будь ласка, відвідайте наступний URL:"
-        subject: "Закінчити реєстрацію: EXAMPLE"
+        subject: "Закінчити реєстрацію: quite frankly an example LMS"
       twitter: 
-        body: "EXAMPLE Оповіщення - Вас зареєстровано у EXAMPLE з  %{account}"
+        body: "quite frankly an example LMS Оповіщення - Вас зареєстровано у quite frankly an example LMS з  %{account}"
     pseudonym_registration_done: 
       email: 
-        body: "Ви зареєструвалися у EXAMPLE з %{account}"
+        body: "Ви зареєструвалися у quite frankly an example LMS з %{account}"
         html: 
-          body: "Ви зареєструвалися у EXAMPLE з %{account}!"
+          body: "Ви зареєструвалися у quite frankly an example LMS з %{account}!"
           link: "Натисніть тут для доступу до свого облікового запису"
-          subject: "Реєстрація EXAMPLE виконана"
+          subject: "Реєстрація quite frankly an example LMS виконана"
         link_message: "Відвідайте наступне посилання для доступу до свого облікового запису"
-        subject: "Реєстрація EXAMPLE виконана"
+        subject: "Реєстрація quite frankly an example LMS виконана"
       sms: 
-        body: "Ви зареєструвалися у EXAMPLE з %{account}"
+        body: "Ви зареєструвалися у quite frankly an example LMS з %{account}"
         link: "Відвідайте наступне посилання для доступу до свого облікового запису %{link}"
       summary: 
-        body: "Ви зареєструвалися у EXAMPLE з %{account}"
+        body: "Ви зареєструвалися у quite frankly an example LMS з %{account}"
         link_message: "Відвідайте наступне посилання для доступу до свого облікового запису"
-        subject: "Реєстрація EXAMPLE виконана"
+        subject: "Реєстрація quite frankly an example LMS виконана"
       twitter: 
-        body: "EXAMPLE Оповіщення - Вас зареєстровано у EXAMPLE з  %{account}!"
+        body: "quite frankly an example LMS Оповіщення - Вас зареєстровано у quite frankly an example LMS з  %{account}!"
     quiz_locked: "Ця контрольна робота зараз заблокована."
     quiz_locked_at: "Цей тест був заблокований %{at}."
     quiz_locked_module: "Це опитування є частиною модуля *%{module}* та не було ще разблоковано."
@@ -11409,7 +11409,7 @@ uk:
         body: "Переоцінювання було завершено для Вашої  контрольної роботи %{title}."
         subject: "Переоцінювання контрольної роботи: %{quiz}, %{context}"
       twitter: 
-        body: "EXAMPLE Оповіщення - Контрольну роботу переоцінено: %{quiz}"
+        body: "quite frankly an example LMS Оповіщення - Контрольну роботу переоцінено: %{quiz}"
     quiz_unpublished_module: "Ця контрольна робота є частиною неопублікованого модуля та не доступна ще."
     report_generated: 
       email: 
@@ -11438,7 +11438,7 @@ uk:
         body: "Вам нагадали оцінити: %{rubric}, %{context}:"
         subject: "Нагадування для Оцінювання: %{rubric}, %{context}"
       twitter: 
-        tweet: "Сповіщення EXAMPLE - Нагадування: оцінити %{rubric}, %{context}"
+        tweet: "Сповіщення quite frankly an example LMS - Нагадування: оцінити %{rubric}, %{context}"
     rubric_association_created: 
       email: 
         body: "Нове завдання було створено для %{context}:"
@@ -11455,7 +11455,7 @@ uk:
         body: "Нове завдання було створено для %{context}:"
         subject: "Нове завдання: %{title}, %{context}"
       twitter: 
-        tweet: "EXAMPLE Оповіщення - Нове завдання: %{title}, %{context}."
+        tweet: "quite frankly an example LMS Оповіщення - Нове завдання: %{title}, %{context}."
     send_form: 
       labels: 
         message_body: Повідомлення
@@ -11467,7 +11467,7 @@ uk:
           body: "%{author} щойно зробив коментар на матеріал для %{user} для %{assignment}"
           link_message: "Натисніть тут для перегляду коментарів"
           subject: "Коментар матеріалу: %{user}, %{assignment}, %{context}"
-          submission_comment_link_message: "Ви можете переглянути деталі подання, скориставшись посиланням нижче, або можете відповісти на цей коментар, надіславши відповідь на це повідомлення. За наявності дозволу, для долучення вкладення, будь ласка, увійдіть до EXAMPLE та надішліть відповідь на це подання."
+          submission_comment_link_message: "Ви можете переглянути деталі подання, скориставшись посиланням нижче, або можете відповісти на цей коментар, надіславши відповідь на це повідомлення. За наявності дозволу, для долучення вкладення, будь ласка, увійдіть до quite frankly an example LMS та надішліть відповідь на це подання."
         subject: "Коментар матеріалу: %{user}, %{assignment}, %{context}"
       sms: 
         body: "Новий коментар %{author} для %{assignment}, %{user}, %{context}."
@@ -11476,7 +11476,7 @@ uk:
         body: "%{author} щойно створив новий коментар на матеріал для %{user} для %{assignment}."
         subject: "Коментар матеріалу: %{user}, %{assignment}, %{context}"
       twitter: 
-        tweet: "EXAMPLE Оповіщення - Коментар: %{author} для %{assignment}, %{user}, %{context}."
+        tweet: "quite frankly an example LMS Оповіщення - Коментар: %{author} для %{assignment}, %{user}, %{context}."
     submission_comment_for_teacher: 
       email: 
         body: "%{author} щойно зробив коментар на матеріал для %{user} для %{assignment}"
@@ -11496,7 +11496,7 @@ uk:
         someone: Дехто
         subject: "Коментар матеріалу: %{user}, %{assignment}, %{context}"
       twitter: 
-        tweet: "EXAMPLE Оповіщення - Коментар: %{author} для %{assignment}, %{user}, %{context}."
+        tweet: "quite frankly an example LMS Оповіщення - Коментар: %{author} для %{assignment}, %{user}, %{context}."
     submission_grade_changed: 
       email: 
         body: "Оцінка Вашого завдання, %{assignment_title} було змінено."
@@ -11538,7 +11538,7 @@ uk:
         not_applicable: Недоступно
         score: "оцінка: %{score} з %{total}"
         score_pending: "(очікується повторний перегляд)"
-        tweet: "EXAMPLE Оповіщення - Оцінка змінена: %{date}"
+        tweet: "quite frankly an example LMS Оповіщення - Оцінка змінена: %{date}"
     submission_graded: 
       email: 
         body: "Ваше завдання %{assignment} було оцінено."
@@ -11580,7 +11580,7 @@ uk:
         not_applicable: Недоступно
         score: "оцінка: %{score} з %{total}"
         score_pending_review: "(очікується повторний перегляд)"
-        tweet: "EXAMPLE Оповіщення - Оцінено: %{assignment}, %{context}"
+        tweet: "quite frankly an example LMS Оповіщення - Оцінено: %{assignment}, %{context}"
     submission_needs_grading: 
       email: 
         body: "%{user_name} завершив контрольну роботу %{quiz_title}, яка потребує ручного оцінювання."
@@ -11605,7 +11605,7 @@ uk:
         subject: "Вікторина відправлена: %{quiz}, %{context}"
         submitted_date: "відправлено: %{date}"
       twitter: 
-        body: "Сповіщення EXAMPLE - Контрольну роботу надіслано: %{quiz}, %{user_name}"
+        body: "Сповіщення quite frankly an example LMS - Контрольну роботу надіслано: %{quiz}, %{user_name}"
     submission_posted: 
       email: 
         body: "Ваш інструктор опублікував зміни оцінок і нові коментарі для%{title}. Ці зміни не є видимими."
@@ -11637,20 +11637,20 @@ uk:
         score_pending_review: "оцінка в очікуванні повторного перегляду учителем"
     summaries: 
       email: 
-        daily_body: "Ви підписалися отримувати щоденний звіт про деякі повідомлення з вашого облікового запису EXAMPLE. Нижче наводиться звіт для %{date}:"
+        daily_body: "Ви підписалися отримувати щоденний звіт про деякі повідомлення з вашого облікового запису quite frankly an example LMS. Нижче наводиться звіт для %{date}:"
         html: 
           click_to_preferences: "Натисніть тут для редагування Ваших вподобань сповіщень"
-          daily_body: "Ви підписалися отримувати щоденний звіт про деякі повідомлення з вашого облікового запису EXAMPLE. Нижче наводиться звіт для %{date}:"
-          subject: "Останні повідомлення EXAMPLE "
+          daily_body: "Ви підписалися отримувати щоденний звіт про деякі повідомлення з вашого облікового запису quite frankly an example LMS. Нижче наводиться звіт для %{date}:"
+          subject: "Останні повідомлення quite frankly an example LMS "
           view: "Натисніть для перегляду"
-          weekly_body: "Ви підписалися отримувати щотижневий звіт про деякі повідомлення з вашого облікового запису EXAMPLE. Нижче наводиться звіт для кінця тижня %{date}:"
+          weekly_body: "Ви підписалися отримувати щотижневий звіт про деякі повідомлення з вашого облікового запису quite frankly an example LMS. Нижче наводиться звіт для кінця тижня %{date}:"
         notifications_link: "Ви можете змінити Ваші налаштування сповіщень, відвідавши наступну сторінку:"
-        subject: "Останні повідомлення EXAMPLE"
-        weekly_body: "Ви підписалися отримувати щотижневий звіт про деякі повідомлення з вашого облікового запису EXAMPLE. Нижче наводиться звіт для кінця тижня %{date}:"
+        subject: "Останні повідомлення quite frankly an example LMS"
+        weekly_body: "Ви підписалися отримувати щотижневий звіт про деякі повідомлення з вашого облікового запису quite frankly an example LMS. Нижче наводиться звіт для кінця тижня %{date}:"
       sms: 
         notifications_sms: "%{notifications_count} нове сповіщення на %{url}"
       twitter: 
-        tweet: "EXAMPLE Оповіщення - %{notification_count} нові сповіщення"
+        tweet: "quite frankly an example LMS Оповіщення - %{notification_count} нові сповіщення"
     topic_locked_at: "Ця тема була заблокована %{at}."
     topic_locked_module: "Ця тема є частиною модуля *%{module}* та не була ще разблокована."
     topic_locked_until: "Ця тема заблокована до %{date}."
@@ -11670,7 +11670,7 @@ uk:
       summary: 
         subject: "Оновлено сторінку Вікі: %{title}, %{user}"
       twitter: 
-        tweet: "EXAMPLE Оповіщення - Сторінку оновлено: %{title}, %{user}."
+        tweet: "quite frankly an example LMS Оповіщення - Сторінку оновлено: %{title}, %{user}."
     web_conference_invitation: 
       email: 
         body: "Ви були запрошені взяти участь в веб-конференції %{title} for %{name}."
@@ -11687,7 +11687,7 @@ uk:
         body: "Ви були запрошені взяти участь в веб-конференції %{title} для %{name}."
         subject: "Запрошення до веб-конференції: %{name}"
       twitter: 
-        tweet: "EXAMPLE Оповіщення - Запрошення: присутні %{title}, %{name}"
+        tweet: "quite frankly an example LMS Оповіщення - Запрошення: присутні %{title}, %{name}"
     web_conference_recording_ready: 
       email: 
         body: "Ваш запис %{title} для %{name} готовий."
@@ -11704,7 +11704,7 @@ uk:
         body: "Ваш запис %{title} для %{name} готовий."
         subject: "Запис веб-конференції готовий: %{name}"
       twitter: 
-        tweet: "Сповіщення EXAMPLE - Запис готовий: %{title}, %{name}"
+        tweet: "Сповіщення quite frankly an example LMS - Запис готовий: %{title}, %{name}"
   messages_64e7435f: Повідомлення
   messages_deleted_8f781481: 
     few: "Повідомлення видалені!"
@@ -11908,7 +11908,7 @@ uk:
   multi_factor_authentication_configured_865b1bde: "Багатофакторна аутентифікація налаштована"
   multiple_are_marked_current_theme_because_the_same_3bdebbe1: "Декілька позначено як \"Поточна тема\" , тому що однакове значення було збержене під різними іменами—тобто , вони всі однакові, у поточному застосуванні"
   multiple_ba5220cd: Множинний
-  multiple_canvas_accounts_are_associated_with_cleve_c1739660: "Декілька облікових записів EXAMPLE пов'язано з Clever District %{district_id}"
+  multiple_canvas_accounts_are_associated_with_cleve_c1739660: "Декілька облікових записів quite frankly an example LMS пов'язано з Clever District %{district_id}"
   multiple_choice_9f931ee6: "Множинний вибір"
   multiple_dates_e3a122f7: "Кілька дат"
   multiple_due_dates_283dd861: "Кілька термінів"
@@ -12003,7 +12003,7 @@ uk:
   nav_text_active_a924ae88: "Текст навігації активовано"
   navigation_ee9af92d: Навігація
   near_mastery_f25174a4: "Майже майстерність"
-  need_a_canvas_account_221d18ed: "Необхідний обліковий запис EXAMPLE?"
+  need_a_canvas_account_221d18ed: "Необхідний обліковий запис quite frankly an example LMS?"
   netherlands_31_63e4f1b9: "Нідерланди (+31)"
   never_1ed1244d: ніколи
   never_df100b49: Ніколи
@@ -12047,8 +12047,8 @@ uk:
   new_rating_canceled_eed3c4ff: "Новий Рейтинг Скасовано"
   new_rating_created_54125331: "Створено новий рейтинг"
   new_sis_integrations: |-
-      Ця властивість стосується установ за наявності SIS EXAMPLE integration.
-      Будь-які користувачі, що використовують рішення для зворотного оцінювання у EXAMPLE або
+      Ця властивість стосується установ за наявності SIS quite frankly an example LMS integration.
+      Будь-які користувачі, що використовують рішення для зворотного оцінювання у quite frankly an example LMS або
       партнерські продукти повинні активувати цю функцію для розширеного процесу перевірки даних по завданнях
       . При увімкненні ця функція відображає нові налаштування SIS
       Integration для синхронізації SIS (Зворотній зв'язок для рівнів оцінювання завдань) у налаштуваннях облікового запису
@@ -12191,7 +12191,7 @@ uk:
   note_that_email_may_not_always_be_populated_in_the_bb4a1572: "Зверніть увагу, що електронна пошта не завжди може бути заповнені в профілі користувача в Microsoft. OID не буде заповнюватися для особистих облікових записів Microsoft."
   note_that_some_attributes_may_not_be_populated_for_7c1f2854: "Зверніть увагу, що деякі атрибути не можуть бути заповнені для всіх користувачів на Clever."
   note_this_is_not_your_official_score_f2d4582f: "*Примітка*: Це не ваша офіційна оцінка."
-  note_this_login_s_account_uses_delegated_authentic_89227914: "Примітка: Обліковий запис із цим логіном використовує делеговану аутентифікацію, але, як запасне рішення, дозволяє покладатися на аутентифікацію за паролем EXAMPLE. Поля паролю у цій формі оновлює запасний пароль EXAMPLE, *не* делеговану аутентифікацію."
+  note_this_login_s_account_uses_delegated_authentic_89227914: "Примітка: Обліковий запис із цим логіном використовує делеговану аутентифікацію, але, як запасне рішення, дозволяє покладатися на аутентифікацію за паролем quite frankly an example LMS. Поля паролю у цій формі оновлює запасний пароль quite frankly an example LMS, *не* делеговану аутентифікацію."
   notes_6cfc3988: "Нотатки:"
   notes_c42e0fd5: Замітки
   nothing_for_now_e3e3ce2a: "Зараз нічого"
@@ -12204,7 +12204,7 @@ uk:
   nothing_to_split_off_of_this_user_28ba9dd5: "Нічого поділити з цим користувачем"
   notice_concluded_student_6d416c4: "Сповіщення: заключний студент"
   notice_inactive_student_bcc4248a: "Сповіщення: неактивний студент"
-  notice_some_notifications_may_contain_confidential_5985f52a: "Зауваження: Деякі повідомлення можуть містити конфіденційну інформацію. Вибираючи опцію отримувати повідомлення на електронну пошту з інших адрес, ніж надані Вашим навчальним закладом, Ви можете призвести до відправлення конфіденційної інформації про EXAMPLE курс і інформації про групу за межі системи Вашого навчального закладу."
+  notice_some_notifications_may_contain_confidential_5985f52a: "Зауваження: Деякі повідомлення можуть містити конфіденційну інформацію. Вибираючи опцію отримувати повідомлення на електронну пошту з інших адрес, ніж надані Вашим навчальним закладом, Ви можете призвести до відправлення конфіденційної інформації про quite frankly an example LMS курс і інформації про групу за межі системи Вашого навчального закладу."
   notice_the_grading_period_is_closed_for_this_stude_6c3ce0f9: "Примітка: Період оцінювання закритий для цього студента"
   notification: 
     account_notification_display: "Глобальні оголошення"
@@ -12708,7 +12708,7 @@ uk:
       instructions: 
         main: 
           manage: 
-            description: "*Результати створені тут для відстеження рівня майстерновсті у курсі. Для початку перевірте панель меню вгорі. Натисніть на кнопку Новий для створення нового результату або на кнопку Нова група для створення нової групи для об'єднання ваших результатів. Кнопка Знайти дозволить вам використовувати результати, які були створені державою або установою. Під час створення та використання результатів ви зможете використати панель зліва для переміщення по результатах. Ви можете перетягувати результати між різними рівнями для створення структури.* *Ще більш важливим є те, що EXAMPLE дозволяє вам додавати результати до ваших критеріїв оцінювання для оцінки майстерності при оцінюванні завдань. Після налаштування результатів натисніть на Управління Рубриками щоб розпочати використання ваших результатів для оцінювання.*"
+            description: "*Результати створені тут для відстеження рівня майстерновсті у курсі. Для початку перевірте панель меню вгорі. Натисніть на кнопку Новий для створення нового результату або на кнопку Нова група для створення нової групи для об'єднання ваших результатів. Кнопка Знайти дозволить вам використовувати результати, які були створені державою або установою. Під час створення та використання результатів ви зможете використати панель зліва для переміщення по результатах. Ви можете перетягувати результати між різними рівнями для створення структури.* *Ще більш важливим є те, що quite frankly an example LMS дозволяє вам додавати результати до ваших критеріїв оцінювання для оцінки майстерності при оцінюванні завдань. Після налаштування результатів натисніть на Управління Рубриками щоб розпочати використання ваших результатів для оцінювання.*"
             title: "Налаштування результатів"
     mastery_error: "Має бути більше або дорівнювати 0"
     missing_outcome: "Не вадлося знайти цей результат навчання"
@@ -12884,7 +12884,7 @@ uk:
   panama_507_831fbc99: "Панама (+507)"
   paper_view_7405eeab: "Вигляд Статті"
   paraguay_595_ca58b83a: "Парагвай (+595)"
-  parent_of_a_canvas_user_afba1624: "Батько користувача EXAMPLE?"
+  parent_of_a_canvas_user_afba1624: "Батько користувача quite frankly an example LMS?"
   parent_signup_b7c6bf0a: "Бітьківська реєстрація"
   parents_sign_up_here_f0aa8f4f: "Батьки реєструються тут"
   participated_6279fba: Використано
@@ -13027,7 +13027,7 @@ uk:
   please_wait_e6355980: "Будь ласка, зачекайте..."
   plugins: 
     academic_benchmark_importer: 
-      description: "Це дозволяє імпортування стандартів Academic Benchmark до EXAMPLE."
+      description: "Це дозволяє імпортування стандартів Academic Benchmark до quite frankly an example LMS."
     account_reports: 
       description: "Обрати звіти облікового запису"
       name: "Звіти по обліковому запису"
@@ -13035,7 +13035,7 @@ uk:
       description: "Налаштуйте, як відповідати на запити адресної книги."
       name: "Адресна книга"
     app_center: 
-      description: "Центр застосунків для відстеження/встановлення зовнішніх інструментів до EXAMPLE"
+      description: "Центр застосунків для відстеження/встановлення зовнішніх інструментів до quite frankly an example LMS"
       name: "Центр додатків"
     app_center_settings: 
       labels: 
@@ -13053,7 +13053,7 @@ uk:
       no_copying_frozen: "Не дозволяйте копіювати зафіксовані завдання"
     banner_grade_exchange_settings: 
       labels: 
-        canvas_source_identifier: "Ім'я Вашого екземляра EXAMPLE "
+        canvas_source_identifier: "Ім'я Вашого екземляра quite frankly an example LMS "
         sis_source_identifier: "Назва екземпляру вашого заголовку"
     big_blue_button: 
       description: "Підтримка веб-конференції BigBlueButton"
@@ -13076,7 +13076,7 @@ uk:
       saving: Збереження...
     canvadocs: 
       description: "Увімкніть Canvadocs (сумісний з Box View)  як параметр попереднього перегляду документа"
-      name: "Документ EXAMPLE"
+      name: "Документ quite frankly an example LMS"
     canvadocs_settings: 
       description: "Цей плагін інтегрується з Canvadocs (або будь яким АРІ сумісним з Box View) для забезпечення перегляду документів HTML5."
       labels: 
@@ -13085,10 +13085,10 @@ uk:
         base_url: "Основний URL"
         hijack_crocodoc_sessions: "Захопити сеанси Crocodoc"
     canvas_webhooks: 
-      description: "Плагін для веб-камер для EXAMPLE"
-      name: "Веб-камери EXAMPLE"
+      description: "Плагін для веб-камер для quite frankly an example LMS"
+      name: "Веб-камери quite frankly an example LMS"
     catalog_provisioner: 
-      description: "Провайдер каталогу облікового запису для EXAMPLE"
+      description: "Провайдер каталогу облікового запису для quite frankly an example LMS"
       name: "Постачальник Каталогу"
     clever: 
       description: "Вхід до Clever"
@@ -13206,7 +13206,7 @@ uk:
         default_enrollment_status: "Статус для видалених реєстрацій"
         email_preference: "Налаштування електронної пошти"
         lms_delivery_name: "Назва доставки LMS"
-        map_sections_to_courses: "Карта розділів IMS для курсів EXAMPLE"
+        map_sections_to_courses: "Карта розділів IMS для курсів quite frankly an example LMS"
         section_end_days_adjustment: "Розділ налаштувань кінцевих дат"
         section_name_selection: "Розділ вибору імен"
         section_start_days_adjustment: "Роділ налаштувань початкових дат"
@@ -13216,8 +13216,8 @@ uk:
       author: Автор
       description: "Опис:"
       name: Ім'я
-      no_plugins: "Плагіни EXAMPLE не встановлені"
-      page_title: "EXAMPLE Модулі"
+      no_plugins: "Плагіни quite frankly an example LMS не встановлені"
+      page_title: "quite frankly an example LMS Модулі"
       tag: Тег
       version: Версія
       website: Веб-сайт
@@ -13236,7 +13236,7 @@ uk:
       cache_explanation: "Пусте  означає кешувати необмежено, 0 означає не кешувати."
       headers: 
         account_settings: "Налаштування облікового запису"
-        canvas_settings: "Налаштування EXAMPLE "
+        canvas_settings: "Налаштування quite frankly an example LMS "
         domain_settings: "Налаштування домену"
         misc_settings: "Різні налаштування"
         ui_conf_ids: "UI Conf IDs"
@@ -13310,7 +13310,7 @@ uk:
     notices: 
       settings_updated: "Налаштування плагіну успішно оновлені."
     panda_pub_settings: 
-      description: "PandaPub - це pub / sub служба, яка, коли налаштовується, дозволяє деяким частинам EXAMPLE отримувати сповіщення про події в межах веб-переглядача, а не проводити огляд змін."
+      description: "PandaPub - це pub / sub служба, яка, коли налаштовується, дозволяє деяким частинам quite frankly an example LMS отримувати сповіщення про події в межах веб-переглядача, а не проводити огляд змін."
       labels: 
         application_id: "Ідентифікатор додатка"
         base_url: "Основний URL"
@@ -13390,7 +13390,7 @@ uk:
       plagiarism_compatibility: "Повідомлення про сумісність схожих плагінів:"
       pledge_description: "*Текст, введений тут, буде показаний студентам під час здачею завдання. Студент буде зобов'язаний встановити підтвердити для заявки перед здачею. Якщо залишити порожнім, заявка не відображається або не потрібна для здачі. *"
     webct_scraper_settings: 
-      description: "Якщо установи не використовують \"Навчальні модулі\" WebCT (включаючи школи, які прийняли WebCT до версії 4.0, коли модулі були доступними), міграції курсів можна покращити, імпортуючи \"Зміст курсу\" як модулі EXAMPLE, а не \"Навчальні модулі\" \". Ця сторінка дозволяє встановити по замовчуванню поведінки WebCT-мігратора щодо модулів вмісту. Важливо пам'ятати, що, хоча міграції окремих курсів зберігають можливість вибору, основний мігратор завжди використовує значення, налаштоване тут і не може бути змінено через міграцію."
+      description: "Якщо установи не використовують \"Навчальні модулі\" WebCT (включаючи школи, які прийняли WebCT до версії 4.0, коли модулі були доступними), міграції курсів можна покращити, імпортуючи \"Зміст курсу\" як модулі quite frankly an example LMS, а не \"Навчальні модулі\" \". Ця сторінка дозволяє встановити по замовчуванню поведінки WebCT-мігратора щодо модулів вмісту. Важливо пам'ятати, що, хоча міграції окремих курсів зберігають можливість вибору, основний мігратор завжди використовує значення, налаштоване тут і не може бути змінено через міграцію."
       labels: 
         allow_outline_selection: "Відобразити параметр використання змісту курсу як модулів у майстрі перенесення"
         folders_as_outline: "Використовуйте WebCT \"Course Content\" для модулів за замовчуванням"
@@ -13528,7 +13528,7 @@ uk:
   process_data_2f5f962f: "Обробка даних"
   processing_2fcc9739: Обробка
   processing_8c569014: Обробка...
-  product_name: EXAMPLE
+  product_name: quite frankly an example LMS
   profile: 
     access_token: 
       default_app_name: "Немає додатків"
@@ -13578,7 +13578,7 @@ uk:
       registration_failed: "Помилка при реєстрації. Перевірте ім'я користувача та пароль, та спробуйте знову."
     failed_resending: "Не вдалося виконати запит. Спробуйте ще раз."
     labels: 
-      enable_login_for_email: "Я хочу увійти до EXAMPLE, використовуючи цю електронну адресу "
+      enable_login_for_email: "Я хочу увійти до quite frankly an example LMS, використовуючи цю електронну адресу "
     links: 
       resend_confirmation: "Повторна відправка підтвердження"
       resend_confirmation_failed: "Не вдалося виконати запит. Спробуйте ще раз."
@@ -13593,7 +13593,7 @@ uk:
     page_title: "Студенти, за якими спостерігають"
     please_select_an_option: "Будь ласка, виберіть опцію"
     profile: 
-      approved_integrations: "Це сторонні додатки, ви можете авторизувати їх, щоб здійснювати доступ до EXAMPLE сайту через них:"
+      approved_integrations: "Це сторонні додатки, ви можете авторизувати їх, щоб здійснювати доступ до quite frankly an example LMS сайту через них:"
       buttons: 
         add_picture_file: "Додати файл"
         authorize_google_drive: "Авторизація доступу до Google Drive"
@@ -13607,8 +13607,8 @@ uk:
         save_yo_name: "Зберегти ім'я для Yo"
         select_image: "Вибрати зображення"
         update_settings: "Налаштування оновлення"
-      delicious_description: "Delicious - це інструмент, який дозволяє зберігати та надсилати свої закладки іншим. Редактор змісту EXAMPLE дозволить вам шукати в Delicious теги, щоб легко посилатися з EXAMPLE на інші ресурси, які ви вважаєте корисними."
-      diigo_description: "Diigo - це інструмент соціальних закладок, спеціально розроблений для досліджень та освіти. Редактор змісту EXAMPLE дозволить вам шукати свої теги Diigo, щоб легко посилатись з EXAMPLE на інші ресурси, які ви вважаєте корисними."
+      delicious_description: "Delicious - це інструмент, який дозволяє зберігати та надсилати свої закладки іншим. Редактор змісту quite frankly an example LMS дозволить вам шукати в Delicious теги, щоб легко посилатися з quite frankly an example LMS на інші ресурси, які ви вважаєте корисними."
+      diigo_description: "Diigo - це інструмент соціальних закладок, спеціально розроблений для досліджень та освіти. Редактор змісту quite frankly an example LMS дозволить вам шукати свої теги Diigo, щоб легко посилатись з quite frankly an example LMS на інші ресурси, які ви вважаєте корисними."
       error_loading_token_details: "Деталі помилки завантаження маркера"
       feature_options: "Особливі можливості"
       full_token_warning: "**Скопіюйте цей маркер зараз**. Після того як ви залишите цю сторінку, ви більше не зможете отримати повний маркер, вам доведеться відновити його, щоб отримати нове значення."
@@ -13691,7 +13691,7 @@ uk:
         view_your_profile: "переглянути ваш профіль"
         yo: Yo
       loading_token_details: "Завантаження деталей маркеру"
-      no_approved_integrations: "Сторонні програми можуть запитувати дозвіл на доступ до сайту EXAMPLE від вашого імені. Почавши авторизацію програм, ви побачите їх у списку."
+      no_approved_integrations: "Сторонні програми можуть запитувати дозвіл на доступ до сайту quite frankly an example LMS від вашого імені. Почавши авторизацію програм, ви побачите їх у списку."
       no_registered_services: "Немає зареєстрованих сервісів"
       none: Ні
       profile_pictures: "Виберіть зображення, яке ви хотіли б використовувати в якості профілю, або завантажити нове зображення:"
@@ -13715,7 +13715,7 @@ uk:
           
           Ви також можете зареєструватися, щоб отримувати сповіщення на свій обліковий запис Twitter. Ці сповіщення надсилатимуться як прямі повідомлення від себе, і вони не відображатимуться у вашому публічному потоці.
       unknown_service: Невідомий
-      web_services: "EXAMPLE може зробити ваше життя набагато простіше, пов'язавши себе з веб-інструментами, які ви вже використовуєте.  Натисніть будь-яку з послуг в «Інші послуги», щоб побачити, що ми маємо на увазі."
+      web_services: "quite frankly an example LMS може зробити ваше життя набагато простіше, пов'язавши себе з веб-інструментами, які ви вже використовуєте.  Натисніть будь-яку з послуг в «Інші послуги», щоб побачити, що ми маємо на увазі."
       yo_description: |-
           Yo - це універсальний комунікаційний інструмент для нульового символу. Якщо у вас є обліковий запис Yo, ви можете зареєструвати його тут. Тоді, якщо ви дозволите учасникам курсу / групи побачити свої зареєстровані служби, вони можуть легко з'єднатися з вашою обліковою системою Yo.
           
@@ -13741,8 +13741,8 @@ uk:
     twitter_select: 
       twitter: Twitter
     ways_to_contact: 
-      bouncing_channel: "EXAMPLE не вдалося надіслати вам повідомлення, використовуючи цей метод контакту. Будь ласка, переконайтесь, що контактна інформація є правильною, щоб продовжувати отримувати повідомлення від EXAMPLE."
-      bouncing_email: "EXAMPLE не вдалося надіслати електронний лист на цю адресу. Будь ласка, переконайтеся, що адреса правильна, щоб продовжувати отримувати електронні листи з EXAMPLE."
+      bouncing_channel: "quite frankly an example LMS не вдалося надіслати вам повідомлення, використовуючи цей метод контакту. Будь ласка, переконайтесь, що контактна інформація є правильною, щоб продовжувати отримувати повідомлення від quite frankly an example LMS."
+      bouncing_email: "quite frankly an example LMS не вдалося надіслати електронний лист на цю адресу. Будь ласка, переконайтеся, що адреса правильна, щоб продовжувати отримувати електронні листи з quite frankly an example LMS."
       buttons: 
         confirm: Підтвердити
         ok_thanks: "Ок, дякуємо"
@@ -13761,7 +13761,7 @@ uk:
         cell_number: "Номер мобільного"
         country: Країна
         email_address: "Електронна адреса"
-        enable_login_for_email: "Я хочу увійти до EXAMPLE, використовуючи цю електронну адресу "
+        enable_login_for_email: "Я хочу увійти до quite frankly an example LMS, використовуючи цю електронну адресу "
         sms_email: "SMS Email"
       links: 
         add_contact_method: "Метод контактування"
@@ -13801,7 +13801,7 @@ uk:
     notifications: 
       privacy_notice: 
         ok: Ok
-        privacy_notice: "Зауваження: Деякі повідомлення можуть містити конфіденційну інформацію. Вибираючи опцію отримувати повідомлення на електронну пошту з інших адрес, ніж надані Вашим навчальним закладом, Ви можете призвести до відправлення конфіденційної інформації про EXAMPLE курс і інформації про групу за межі системи Вашого навчального закладу."
+        privacy_notice: "Зауваження: Деякі повідомлення можуть містити конфіденційну інформацію. Вибираючи опцію отримувати повідомлення на електронну пошту з інших адрес, ніж надані Вашим навчальним закладом, Ви можете призвести до відправлення конфіденційної інформації про quite frankly an example LMS курс і інформації про групу за межі системи Вашого навчального закладу."
         privacy_notice_title: Конфіденційність
     take_picture_view: 
       retry: "Спробувати ще раз"
@@ -13812,7 +13812,7 @@ uk:
   progress_for_account_name_ef203250: "Стан для %{account_name}"
   progress_loading_bar_a26b8861: Стан/завантаження
   project_groups_1fa0320b: "Групи проекту"
-  provide_a_space_for_users_to_work_on_a_single_goog_8edec82b: "Надайте користувачам змогу працювати з одним Документом Google із вашого курсу EXAMPLE."
+  provide_a_space_for_users_to_work_on_a_single_goog_8edec82b: "Надайте користувачам змогу працювати з одним Документом Google із вашого курсу quite frankly an example LMS."
   provide_a_uri_to_your_idp_s_metadata_to_automatica_38e985bd: "Надайте URI для метаданих вашої ідентифікаційної системи, щоб автоматично заповнювати інші поля. Якщо ваша школа є частиною InCommon або Федерації керування доступом до Великобританії, укажіть urn:mace:incommon або http://ukfederation.org.uk, відповідно, для URI метаданих, а також вкажіть ідентифікатор юридичної особи вашої школи."
   provide_tutorial_information_for_new_users_in_a_fl_c23462ac: "Надайте навчальну інформацію новим користувачам у спливаючій панелі."
   provider_attribute_b1cad655: "Атрибут постачальника"
@@ -14020,7 +14020,7 @@ uk:
       give_everyone_full_credit: "Дайте кожному повну довіру на це питання"
       no_scores_reduced: "Призові бали для виправлених і попередньо правильних відповідей (*не буде зменшуватися кількість балів*)"
       regrade_disabled: "Повторне використання не дозволено на це питання, оскільки або відповідь була вилучена, або тип питання був змінений після того, як студент завершив відправлення."
-      regrade_options: "Виберіть варіант переоцінювання для студентів, котрі вже пройшли опитування. EXAMPLE буде переоцінювати всі ваші матеріали після збереження опитування (оцінки студентів можуть бути затронуті)."
+      regrade_options: "Виберіть варіант переоцінювання для студентів, котрі вже пройшли опитування. quite frankly an example LMS буде переоцінювати всі ваші матеріали після збереження опитування (оцінки студентів можуть бути затронуті)."
       some_scores_reduced: "Тільки ухвалені бали за правильну відповідь (*деякі результати учнів можуть бути зменшені*)"
       update_question_without_regrading: "Оновити питання без переоцінки"
   quiz_40ee61b1: "контрольна робота"
@@ -14037,7 +14037,7 @@ uk:
         action_log: "Журнал дій"
       notices: 
         no_events_available: "Жодних подій не зафіксовано протягом сесії проходження контрольної."
-      page_blurred: "Зупинено перегляд EXAMPLE-сторінки проходження контрольної..."
+      page_blurred: "Зупинено перегляд quite frankly an example LMS-сторінки проходження контрольної..."
       page_focused: Відновлено.
       question_answered: 
         few: "Надано відповіді на наступні запитання:"
@@ -14286,7 +14286,7 @@ uk:
     ldb_login_popup: 
       email: "Електронна адреса"
       log_in: Увійти
-      logged_out_of_canvas: "*Ви вийшли з EXAMPLE.* Для продовження, будь ласка, увійдіть у систему."
+      logged_out_of_canvas: "*Ви вийшли з quite frankly an example LMS.* Для продовження, будь ласка, увійдіть у систему."
       password: Пароль
       titles: 
         log_in: "Будь ласка, увійдіть"
@@ -15289,7 +15289,7 @@ uk:
   recaptcha_not_configured_3a6ef9ee: "Recaptcha не налаштована"
   recent_activity_51239235: "Недавня активність"
   recent_announcements_8becc59c: "Останні оголошення"
-  recent_canvas_notifications_81395de6: "Останні повідомлення EXAMPLE"
+  recent_canvas_notifications_81395de6: "Останні повідомлення quite frankly an example LMS"
   recent_student: 
     last_logged_in: "Останній вхід %{last_login}"
   recentint_remainderint_decaying_average_79bc09fb: "%{recentInt}/%{remainderInt}Розкладений середній"
@@ -15381,7 +15381,7 @@ uk:
       labels: 
         email: "Електронна адреса"
         name: ім'я
-    welcome_to_canvas: "Ласкаво просимо до EXAMPLE!"
+    welcome_to_canvas: "Ласкаво просимо до quite frankly an example LMS!"
   registration_url_60e0eaaa: "URL-адреса реєстрації"
   regrading_is_not_allowed_on_this_question_because__2ac314cb: "Повторне використання не дозволено на це питання, оскільки або відповідь була вилучена, або тип питання був змінений після того, як студент завершив відправлення."
   regular_style_checkbox_ee3d71c1: "Звичайний прапорець"
@@ -15441,7 +15441,7 @@ uk:
   replies_4a8577c8: Відповіді
   reply_389d6fb9: Відповідь
   reply_all_80298bee: "Відповісти всім"
-  reply_from_name: "%{name}через EXAMPLE - повідомлення"
+  reply_from_name: "%{name}через quite frankly an example LMS - повідомлення"
   reply_to_9fa43ebe: Відповісти-на
   reply_to_comment_72d96728: "Відповісти на коментар"
   reply_to_current_message_55391f5b: "Відповісти на поточне повідомлення"
@@ -15534,7 +15534,7 @@ uk:
       manage_announcements: "Керувати глобальними оголошеннями"
       manage_assignments: "Керувати (додавати / редагувати / видаляти) завданнями та контрольними роботами"
       manage_calendar: "Додати, відредагувати та видалити події у календарі курсу"
-      manage_canvasnet_courses: "Керувати курсами EXAMPLE Network"
+      manage_canvasnet_courses: "Керувати курсами quite frankly an example LMS Network"
       manage_catalog: "Керувати каталогом"
       manage_content: "Керувати всім іншим вмістом курсу"
       manage_courses: "Керувати (додавати / редагувати / видаляти) курсами"
@@ -16041,7 +16041,7 @@ uk:
   sections_are_an_additional_way_to_organize_users_t_57551e0: "Секції є додатковим способом організації користувачів. Це може дозволити вам навчити кілька класів з того ж курсу, так що ви можете мати вміст курсу в одному місці. Нижче ви можете перемістити користувача в інший розділ, або додати / видалити розділ контингенту слухачів. Користувачі повинні мати принаймні один розділ в будь-який час."
   see_rubric_results_62a6447d: "Побачити результати рубрики"
   see_scoring_details_f7fd1f3b: "Побачити деталі оцінки"
-  see_some_lti_tools_that_work_great_with_canvas_16ef75a0: "*Деякі інструменти LTI *, які чудово працюють з EXAMPLE."
+  see_some_lti_tools_that_work_great_with_canvas_16ef75a0: "*Деякі інструменти LTI *, які чудово працюють з quite frankly an example LMS."
   see_this_assignment_in_speedgrader_14b8abaf: "Переглянути це завдання у SpeedGrader"
   see_turnitin_results_cd9d4a6c: "Побачити Turnitin результати"
   see_vericite_results_b44dd8c8: "Побачити результати VeriCite "
@@ -16454,7 +16454,7 @@ uk:
       sample_course_code: Курс-101
       start_a_new_course: "Почати Новий  Курс "
     new_nav_header: 
-      default_page_title: "EXAMPLE LMS"
+      default_page_title: "quite frankly an example LMS"
       links: 
         dashboard: "Панель інструментів"
         skip_to_content: "Перейти до змісту"
@@ -16481,9 +16481,9 @@ uk:
       links_title: Заголовок
       links_url: URL
       manage_settings: "Управління зареєстрованими сервісами"
-      message_me: "написати мені в EXAMPLE"
+      message_me: "написати мені в quite frankly an example LMS"
       message_title: Повідомлення
-      message_user_canvas: "Повідомлення %{user} у EXAMPLE"
+      message_user_canvas: "Повідомлення %{user} у quite frankly an example LMS"
       name: Ім'я
       no_links: "%{name} не додав жодних посилань"
       nothing_in_common: "У вас немає нічого спільного"
@@ -16505,9 +16505,9 @@ uk:
       links_title: Назва
       links_url: URL
       manage_settings: "Управління зареєстрованими сервісами"
-      message_me: "написати мені в EXAMPLE"
+      message_me: "написати мені в quite frankly an example LMS"
       message_title: Повідомлення
-      message_user_canvas: "Повідомлення %{user} у EXAMPLE"
+      message_user_canvas: "Повідомлення %{user} у quite frankly an example LMS"
       name: ім'я
       nothing_in_common: "У вас немає нічого спільного"
       save_profile: "Зберегти Профіль"
@@ -16816,7 +16816,7 @@ uk:
   short_name_42f454a1: "Коротке ім'я"
   short_name_ad9bf84f: "коротке ім'я"
   should_be_10_digit_number_d30ef02d: "має бути 10-значний номер"
-  should_be_self_evident_the_canvas_id_of_the_report_44378262: "ID EXAMPLE звітуючого користувача повинен бути самоочевидним"
+  should_be_self_evident_the_canvas_id_of_the_report_44378262: "ID quite frankly an example LMS звітуючого користувача повинен бути самоочевидним"
   show_76c0ed1c: Показати
   show_account_navigation_menu_d97270a9: "Показати Меню навігації облікового запису"
   show_admin_navigation_menu_92fb579f: "Показати Меню навігації адміністратора"
@@ -16928,14 +16928,14 @@ uk:
     view_privacy_policy: "Переглянути політику конфіденційності"
   site_admin: 
     domain_not_found: 
-      body_description: "Будь ласка, перевірте URL-адресу EXAMPLE і повторіть спробу. Якщо ви не знаєте свою URL-адресу EXAMPLE, зв'яжіться зі своїм навчальним закладом або інструктором курсу."
-      body_reference: "Якщо ви зацікавлені мати безкоштовний обліковий запис EXAMPLE, який не прив'язаний до певної установи, ви можете зареєструватися за допомогою "
+      body_description: "Будь ласка, перевірте URL-адресу quite frankly an example LMS і повторіть спробу. Якщо ви не знаєте свою URL-адресу quite frankly an example LMS, зв'яжіться зі своїм навчальним закладом або інструктором курсу."
+      body_reference: "Якщо ви зацікавлені мати безкоштовний обліковий запис quite frankly an example LMS, який не прив'язаний до певної установи, ви можете зареєструватися за допомогою "
       links: 
         canvas_instructure: canvas.instructure.com
-      page_title: "На жаль EXAMPLE не може знайти вашу сторінку входу."
+      page_title: "На жаль quite frankly an example LMS не може знайти вашу сторінку входу."
       you_typed: "Ви ввели"
     institution_suspended: 
-      body: "Дію облікового запису EXAMPLE вашого навчального закладу тимчасово призупинено. Будь ласка, зв'яжіться з вашим адміністратором EXAMPLE."
+      body: "Дію облікового запису quite frankly an example LMS вашого навчального закладу тимчасово призупинено. Будь ласка, зв'яжіться з вашим адміністратором quite frankly an example LMS."
       links: 
         logout: "Вийти з системи"
         stop_masquerading: "[Зупинити маскування]"
@@ -16952,7 +16952,7 @@ uk:
   small_matches_581ab241: "Невеликі співпадання"
   sms_f0ddceeb: смс
   snapshots_6e1806b4: Знімки
-  snapshots_are_backups_of_your_canvas_trial_taking__f18bd571: "Знімки - це резервні копії вашої пробної версії EXAMPLE. Знімок створить унікальну \"версію\", яка зробить точний запис стану вашої пробної версії на момент моментального знімка."
+  snapshots_are_backups_of_your_canvas_trial_taking__f18bd571: "Знімки - це резервні копії вашої пробної версії quite frankly an example LMS. Знімок створить унікальну \"версію\", яка зробить точний запис стану вашої пробної версії на момент моментального знімка."
   some_assignments_could_not_be_created_because_they_d91f2f21: "Деякі завдання не могли бути створені, оскільки вони потраплять у закритий період оцінювання."
   some_conferences_on_this_page_are_hidden_because_o_789684fd: "Деякі конференції на цій сторінці приховані через помилки під час отримання їх статусу"
   some_module_items_could_not_be_published_e4be3c0: "Деякі елементи розділу не можуть бути опубліковані"
@@ -17565,7 +17565,7 @@ uk:
   teacher_s_fdefb2c: Викладач(і)
   teachers_52e2423f: Викладачі
   teal_f729a294: Бірюзовий
-  tell_us_how_and_when_you_would_like_to_be_notified_de3ed2bc: "Повідомте нас коли і як ви б хотіли отримувати повідомлення про події в EXAMPLE."
+  tell_us_how_and_when_you_would_like_to_be_notified_de3ed2bc: "Повідомте нас коли і як ви б хотіли отримувати повідомлення про події в quite frankly an example LMS."
   templates_4ca13d07: "Шаблони "
   tenant_d2a41f78: Орендар
   term_41f37cae: семестр
@@ -17700,7 +17700,7 @@ uk:
   the_app_was_deactivated_573520ab: "Застосунок було деактивовано "
   the_app_was_updated_successfully_3d71cd1b: "Застосунок було успішно  оновлено "
   the_canvas_saml_entity_id_is_metadata_url_and_the__af7349ab: |-
-      %{metadata_url} - це, EXAMPLE SAML Entity ID, метадані Провайдера послуг,
+      %{metadata_url} - це, quite frankly an example LMS SAML Entity ID, метадані Провайдера послуг,
       доступні за цією URL.
   the_connection_either_timed_out_or_was_refused_thi_570177f7: "Час з'єднання або минув або було відмовлено в з'єднанні. Слід врахувати:"
   the_course_link_validator_searches_through_course__76f0bc63: "Валідатор посилань веде пошук по контенту курсу та повертає кожне неправильне посилання або таке, що не реагує. Будь ласка прийміть до уваги, що деякі посилання, які будуть відмічені як некорректні, можуть бути недоступні лише з наших серверів і будуть працювати для студентів."
@@ -17711,7 +17711,7 @@ uk:
       цю сторінку і вам прийде повідомлення коли завантаження
       буде завершено.
   the_error_stack_trace_if_there_is_one_b7e008a1: "Стек відслідковування помилки, якщо вона є"
-  the_files_tab_is_the_place_to_share_lecture_slides_95a93bce: "Вкладка Файли  - це місце, де можна ділитися слайдами, документами з прикладами, навчальними посібниками - усім, що ваші студенти забажають завантажити. Завантажувати та організовувати ваші файли легко з EXAMPLE. Ми покажемо вам як."
+  the_files_tab_is_the_place_to_share_lecture_slides_95a93bce: "Вкладка Файли  - це місце, де можна ділитися слайдами, документами з прикладами, навчальними посібниками - усім, що ваші студенти забажають завантажити. Завантажувати та організовувати ваші файли легко з quite frankly an example LMS. Ми покажемо вам як."
   the_following_content_is_partner_provided_ed1da756: "Наступний контент наданий партнером"
   the_following_fields_are_invalid_fields_b3565800: "Наступні поля не некоректні: %{fields}"
   the_following_users_are_ready_to_be_added_to_the_c_1ea01560: "Наступні користувачі готові для додавання до курсу."
@@ -17732,15 +17732,15 @@ uk:
   the_material_is_licensed_under_creative_commons_3242cb5e: "Матеріал опубліковано під ліцензією Creative Commons"
   the_material_is_subject_to_fair_use_exception_41bc6a4b: "Матеріал є предметом виключно сумлінного використання"
   the_message_titled_subject_could_not_be_delivered__f063857e: |-
-      Повідомлення з назвою "%{subject}" не може бути доставлено, бо тема цього обговорення була видалена. Якщо ви намагаєтесь зв'язатися з кимось через EXAMPLE, то можете спробувати зайти до Вашого облікового запису та відправити їм повідомлення за допомогою Inbox tool.
+      Повідомлення з назвою "%{subject}" не може бути доставлено, бо тема цього обговорення була видалена. Якщо ви намагаєтесь зв'язатися з кимось через quite frankly an example LMS, то можете спробувати зайти до Вашого облікового запису та відправити їм повідомлення за допомогою Inbox tool.
       
       Дякуємо,
-      Служба підтримки EXAMPLE
+      Служба підтримки quite frankly an example LMS
   the_message_you_sent_with_the_subject_line_subject_c73f92e4: |-
-      Повідомлення, що ви відправили з темою "%{subject}", не було доставлене. Щоб відповісти на повідомлення EXAMPLE з цієї поштової скриньки, має бути підтверджений канал комунікації у вашому профілі EXAMPLE. Будь ласка зайдіть до вашого профілю та відправте повторно листа з підтвердженням для цієї email  адреси [Дивись https://community.canvaslms.com/docs/DOC-2281]. Також ви можете звязатися з цією людиною через EXAMPLE Inbox [Дивись https://community.canvaslms.com/docs/DOC-2670].
+      Повідомлення, що ви відправили з темою "%{subject}", не було доставлене. Щоб відповісти на повідомлення quite frankly an example LMS з цієї поштової скриньки, має бути підтверджений канал комунікації у вашому профілі quite frankly an example LMS. Будь ласка зайдіть до вашого профілю та відправте повторно листа з підтвердженням для цієї email  адреси [Дивись https://community.canvaslms.com/docs/DOC-2281]. Також ви можете звязатися з цією людиною через quite frankly an example LMS Inbox [Дивись https://community.canvaslms.com/docs/DOC-2670].
       
       Дякуємо,
-      Служба підтримки EXAMPLE
+      Служба підтримки quite frankly an example LMS
   the_module_item_is_locked_27fe420b: "Елемент модуля заблоковано."
   the_most_recent_scores_for_user_current_user_name__ea82f0b6: "Останні оцінки для користувача %{current_user_name}та результат %{outcome_name}"
   the_preceding_content_is_partner_provided_d753928c: "Попередній контент наданий партнером"
@@ -17850,7 +17850,7 @@ uk:
   this_course_cannot_be_added_to_the_courses_menu_at_a3fbb11e: "Цей курс не можна додати до меню курсів на даний час."
   this_course_does_not_allow_score_uploads_4b35fe07: "Цей курс не дозволяє завантажити оцінки."
   this_course_hasn_t_started_yet_you_will_not_be_abl_c828c423: "Цей курс ще не розпочався. Ви не зможете брати участь у цьому курсі до %{date}."
-  this_course_is_claimed_and_ready_but_you_ll_need_t_25b95a0a: "Цей курс затверджений та готовий, але вам доведеться завершити процес реєстрації, перш ніж ви зможете опублікувати курс. Ви мали отримати електронного листа від EXAMPLE з посиланням, щоб завершити процес. Обов'язково перевірте у спамі."
+  this_course_is_claimed_and_ready_but_you_ll_need_t_25b95a0a: "Цей курс затверджений та готовий, але вам доведеться завершити процес реєстрації, перш ніж ви зможете опублікувати курс. Ви мали отримати електронного листа від quite frankly an example LMS з посиланням, щоб завершити процес. Обов'язково перевірте у спамі."
   this_course_is_visible_only_to_teachers_until_it_i_ce972f0: "Цей курс видимий тільки для викладачів, доки його не буде опубліковано."
   this_criterion_is_linked_to_a_learning_outcome_c8aa57bf: "Цей критерій зв'язаний з Learning Outcome"
   this_element_is_a_more_accessible_alternative_to_d_e17b4e51: "Цей елемент є більш доступною альтернативою для переміщення шляхом перетаскування елемента. Натисніть клавішу Enter або Пробіл, щоб перемістити це запитання."
@@ -17867,7 +17867,7 @@ uk:
   this_grade_differs_from_the_student_s_view_of_the__56742bd0: "Ця оцінка виглядає по-іншому зі сторони студента, бо деякі завдання були заблоковані."
   this_grade_is_currently_dropped_for_this_student_7bc78b78: "Оцінка цього студента зараз відсутня."
   this_image_appears_as_a_background_watermark_to_yo_1c6b4497: "Це зображення виглядає як водяний знак для вашої сторінки. Сприйнятні формати: png, svg, gif, jpeg"
-  this_is_a_comma_separated_list_of_url_s_to_trust_t_a6611f4: "Це список URL, яким можна довіряти, відокремлених комами. Кожна URL в цьому списку буде обходити CSRF токен при вході до EXAMPLE."
+  this_is_a_comma_separated_list_of_url_s_to_trust_t_a6611f4: "Це список URL, яким можна довіряти, відокремлених комами. Кожна URL в цьому списку буде обходити CSRF токен при вході до quite frankly an example LMS."
   this_is_a_feature_to_allow_the_development_of_a_re_8452eb0d: "Це функція, яка дозволяє розробляти адаптивний макет"
   this_is_a_full_batch_update_99d726e0: "Це повне пакетне оновлення"
   this_is_a_group_discussion_2f9acdae: "Це групове обговорення"
@@ -17887,7 +17887,7 @@ uk:
   this_may_take_a_bit_c061d0f6: "це може зайняти трохи ..."
   this_message_includes_media_comments_to_listen_or__5fc98641: "Це повідомлення містить медіа-коментарі. Для прослуховування або відповіді, перейдіть за посиланням: %{link}."
   this_message_includes_media_comments_to_listen_or__75ea03a1: "Це повідомлення включає медіа-коментарів. Для прослуховування або відповіді, перейдіть за посиланням нижче:"
-  this_message_includes_media_comments_to_listen_or__df72d662: "Це повідомлення містить медіа-коментарі. Щоб прослухати або відповісти, натисніть на це посилання: %{link}. Якщо вам потрібно додати якесь вкладення та якщо це дозволено, будь ласка увійдіть до EXAMPLE і відповідайте на відправлення."
+  this_message_includes_media_comments_to_listen_or__df72d662: "Це повідомлення містить медіа-коментарі. Щоб прослухати або відповісти, натисніть на це посилання: %{link}. Якщо вам потрібно додати якесь вкладення та якщо це дозволено, будь ласка увійдіть до quite frankly an example LMS і відповідайте на відправлення."
   this_module_is_locked_until_completing_all_of_the__ddf06070: "Цей модуль заблоковано, поки не буде виконано всі вимоги для наступних модулів: %{prerequisites}"
   this_module_is_locked_until_datetime_b2486751: "Цей модуль заблокований до %{datetime}"
   this_most_likely_happened_because_you_imported_cou_a78ea880: "Найвірогідніше це відбувається бо ви імпортували контент курсу без файлів, з ним асоційованих. "
@@ -17895,11 +17895,11 @@ uk:
   this_name_will_be_used_by_teachers_for_grading_9b6aa8a0: "Це ім'я буде використано викладачами для оцінювання."
   this_outcome_has_been_used_to_assess_a_student_and_5a925169: "Цей результат було використано для оцінки студента та не може бути відредагований чи видалений "
   this_outcome_has_been_used_to_assess_a_student_onl_4b4c1e95: "Цей результат було використано для оцінки студента. Тільки текстові поля можуть бути оновлені "
-  this_package_includes_apip_file_s_which_are_not_co_b50b30a7: "Цей пакет містить APIP файл(и), які не сумісні з  EXAMPLE та не можуть бути додані по імпорту."
-  this_package_includes_curriculum_standards_which_a_1a137060: "Цей пакет містить Curriculum Standards, які не сумісні з  EXAMPLE та не можуть бути додані по імпорту."
-  this_package_includes_epub3_file_s_which_are_not_c_bbafef30: "Цей пакет містить EPub3 файл(и), які не сумісні з  EXAMPLE та не можуть бути додані по імпорту."
-  this_package_includes_iwb_file_s_which_are_not_com_6e3c37d2: "Пакет містить IWB файл(и), які не сумісні з  EXAMPLE та не можуть бути додані по імпорту."
-  this_package_includes_the_question_type_pattern_ma_ce3dadc6: "Цей пакет містить тип питання, патерн порівняння, який не сумісний з EXAMPLE. Ми маємо конвертувати тип питання, щоб заповнити бланк "
+  this_package_includes_apip_file_s_which_are_not_co_b50b30a7: "Цей пакет містить APIP файл(и), які не сумісні з  quite frankly an example LMS та не можуть бути додані по імпорту."
+  this_package_includes_curriculum_standards_which_a_1a137060: "Цей пакет містить Curriculum Standards, які не сумісні з  quite frankly an example LMS та не можуть бути додані по імпорту."
+  this_package_includes_epub3_file_s_which_are_not_c_bbafef30: "Цей пакет містить EPub3 файл(и), які не сумісні з  quite frankly an example LMS та не можуть бути додані по імпорту."
+  this_package_includes_iwb_file_s_which_are_not_com_6e3c37d2: "Пакет містить IWB файл(и), які не сумісні з  quite frankly an example LMS та не можуть бути додані по імпорту."
+  this_package_includes_the_question_type_pattern_ma_ce3dadc6: "Цей пакет містить тип питання, патерн порівняння, який не сумісний з quite frankly an example LMS. Ми маємо конвертувати тип питання, щоб заповнити бланк "
   this_page_cannot_be_modified_because_grades_have_a_48646991: "Сторінка не може бути модифікована, оскільки оцінки вже було опубліковано."
   this_panel_lists_the_users_ready_to_be_added_to_th_79efad22: "Ця панель вміщує користувачів, які готові для додання до курсу."
   this_question_group_is_set_to_pick_more_questions__2e3552c4: "Ця група питань налаштована вибирати більшу кількість питань, ніж доступно."
@@ -17910,7 +17910,7 @@ uk:
   this_recorder_uses_flash_as_a_result_you_may_find__427d2ddb: "Цей рекордер використовує Flash. Можливо для вас буде легше зробити запис на локальному комп'ютері, а потім скористатись вкладкою завантаження, щоб завантажити його."
   this_report_shows_all_the_courses_for_a_given_term_3cdc11e5: "Цей звіт показує всі курси за певний термін. Отриманий csv файл буде мати наступний формат: одни рядок на курс де буде показано ідентифікатор курсу, sis-ідентифікатор  курсу, коротке ім'я курсу, назва курсу, id облікового запису, id облікового запису sis, ім'я облікового запису, розмір використаного сховища в МБ та сума всіх файлів у МБ . Використане сховище відображає всі файли, що суперечать квоті курсів. Сума всіх файлів у курсі - це сума всіх файлів, що знаходяться в курсі, незалежно від квоти на курси."
   this_report_shows_grading_period_grades_and_overal_a86346a: "Цей звіт показує оцінки періодів оцінювання (і загальні оцінки курсу) для кожного студента, зарахованого на певний термін. Отриманий csv файл буде мати один рядок для кожного зарахованого студента."
-  this_sample_page_includes_common_ui_elements_in_ca_331f4ac4: "Ця сторінка зразка містить звичайні елементи інтерфейсу в EXAMPLE, які допоможуть вам створити власний бренд. Коли ви починаєте змінювати значення кольорів та зображення на лівій бічній панелі, ви побачите кнопку * Попередній перегляд ваших змін *. Клацніть по ній, щоб оновити цю сторінку та подивитися, як виглядають ваші зміни."
+  this_sample_page_includes_common_ui_elements_in_ca_331f4ac4: "Ця сторінка зразка містить звичайні елементи інтерфейсу в quite frankly an example LMS, які допоможуть вам створити власний бренд. Коли ви починаєте змінювати значення кольорів та зображення на лівій бічній панелі, ви побачите кнопку * Попередній перегляд ваших змін *. Клацніть по ній, щоб оновити цю сторінку та подивитися, як виглядають ваші зміни."
   this_student_f8239fed: "Цей студент"
   this_student_s_enrollment_has_been_concluded_c03bfafe: "Дану студентську реєстрацію на курс було завершено."
   this_student_was_just_awarded_an_unusually_high_gr_9ad835f3: "Цей студент тільки що отримав незвичайно високу оцінку"
@@ -17933,7 +17933,7 @@ uk:
   this_user_is_currently_not_able_to_access_the_cour_39cabed1: "Цей користувач на даний момент не може отримати доступ до курсу"
   this_user_is_currently_not_able_to_access_the_cour_b17d5df1: "\"Цей користувач на даний момент не може отримати доступ до курсу\""
   this_was_only_a_connection_test_ssl_certificates_w_79ec9c54: "Це було тільки тест з'єднання. SSL-сертифікати не були перевірені на дійсність."
-  this_will_allow_you_to_authenticate_canvas_for_pos_fdfca40: "Це дозволить вам аутентифікувати EXAMPLE для розміщення оцінок у SIS"
+  this_will_allow_you_to_authenticate_canvas_for_pos_fdfca40: "Це дозволить вам аутентифікувати quite frankly an example LMS для розміщення оцінок у SIS"
   this_will_apply_this_theme_to_your_entire_account__4cfabbe5: "Це застосує цю тему для всього вашого акаунту. Ви бажаєте продовжити? "
   ticket_successfully_submitted_f6254460: "Квиток був успішно відправлений."
   ticketing_system_52205bff: "Система видачі квитків"
@@ -18140,7 +18140,7 @@ uk:
       alt_help_text: "Опишіть зображення, щоб покращити доступність"
       alt_text: "Альтернативний текст"
       attributes: Атрибути
-      canvas: EXAMPLE
+      canvas: quite frankly an example LMS
       dimension_help_text: "Співвідношення сторін збережеться"
       dimensions: Розміри
       flickr: Flickr
@@ -18210,7 +18210,7 @@ uk:
   to_restrict_to_users_from_a_specific_clever_distri_dc3b89fb: "Щоб обмежити користувачів певним округом Clever, введіть ідентифікаційний номер округу Clever тут. Це потрібно для миттєвого входу до Clever, для того щоб працювати в середовищі, що має багато орендарів."
   to_restrict_to_users_from_specific_google_apps_dom_3a57f0fd: "Щоб обмежити користувачів певного домену Google Apps, введіть тут домен."
   to_restrict_to_users_of_your_azure_active_director_df7cdd41: "Щоб обмежити користувачів Azure Active Directory, введіть тут свого орендаря."
-  to_view_all_notifications_sent_to_a_canvas_user_se_6172daa: "Щоб переглянути всі повідомлення, надіслані користувачу EXAMPLE, виберіть користувача та діапазон дат для свого пошуку."
+  to_view_all_notifications_sent_to_a_canvas_user_se_6172daa: "Щоб переглянути всі повідомлення, надіслані користувачу quite frankly an example LMS, виберіть користувача та діапазон дат для свого пошуку."
   today_76e10f9c: Сьогодні
   today_b7202098: сьогодні
   toggle_course_card_color_overlays_b5b8137a: "Переключити кольорові картки курсу"
@@ -18460,7 +18460,7 @@ uk:
   use_remote_service_for_notifications_9fe667c6: "Використовуйте віддалений сервіс для оповіщення"
   use_the_new_collaborations_external_tool_enabling__5f0ed73: "Використовуйте новий зовнішній інструмент Collaborations, який дає змогу використовувати інші інструменти для спільної роботи"
   use_the_new_document_annotation_tool_2cbc98d0: "Використовуйте новий інструмент анотації документів"
-  use_the_new_quiz_lti_tool_in_place_of_regular_canv_d7cb0c7f: "Використовуйте новий інструмент quiz LTI замість звичайних Контрольних робіт EXAMPLE"
+  use_the_new_quiz_lti_tool_in_place_of_regular_canv_d7cb0c7f: "Використовуйте новий інструмент quiz LTI замість звичайних Контрольних робіт quite frankly an example LMS"
   use_the_new_scheduler_1273b832: "Використовуйте новий планувальник"
   use_this_list_to_remove_assigned_students_add_new__ad6205ad: "Використовуйте цей список для видалення призначених студентів. Додайте нових студентів з вікна під списком."
   use_this_panel_to_resolve_duplicate_results_or_peo_856d1c96: "Використовуйте цю панель для вирішення проблеми дублювання результатів або людей, не знайдені у вашому пошуку."
@@ -18578,11 +18578,11 @@ uk:
   user_name_dc9baa66: "Ім'я користувача"
   user_name_fe5887fb: "імя користувача"
   user_name_has_just_turned_in_a_late_submission_for_874a9a31: "%{user_name} повернули подання із запізненням для  %{assignment_name} у курсі %{course_name}"
-  user_name_just_added_you_to_a_conversation_in_canv_7b278b51: "%{user_name}щойно додав вас до бесіди в EXAMPLE. Щоб переглянути бесіду, натисніть це посилання: %{link}."
-  user_name_just_sent_you_a_message_in_canvas_9e911af7: "%{user_name} щойно надіслав вам повідомлення в EXAMPLE"
-  user_name_just_sent_you_a_message_in_canvas_a2cb3bf4: "%{user_name}, Ви щойно відправили повідомлення в EXAMPLE."
+  user_name_just_added_you_to_a_conversation_in_canv_7b278b51: "%{user_name}щойно додав вас до бесіди в quite frankly an example LMS. Щоб переглянути бесіду, натисніть це посилання: %{link}."
+  user_name_just_sent_you_a_message_in_canvas_9e911af7: "%{user_name} щойно надіслав вам повідомлення в quite frankly an example LMS"
+  user_name_just_sent_you_a_message_in_canvas_a2cb3bf4: "%{user_name}, Ви щойно відправили повідомлення в quite frankly an example LMS."
   user_name_just_turned_in_their_assignment_late_ass_a54b128a: "%{user_name} щойно повернувся до свого завдання (із запізненням), %{assignment_name}"
-  user_name_you_just_sent_a_message_in_canvas_b1fd4598: "%{user_name}, Ви щойно відправили повідомлення в EXAMPLE."
+  user_name_you_just_sent_a_message_in_canvas_b1fd4598: "%{user_name}, Ви щойно відправили повідомлення в quite frankly an example LMS."
   user_name_you_ll_need_to_log_in_before_you_can_vie_164c8e30: "%{user_name}, вам потрібно буде *увійти*, перш ніж ви зможете переглянути цю сторінку."
   user_navigation_a097be0f: "Навігація користувача"
   user_not_authorized_to_manage_sis_data_account_sis_47bd4eec: "користувач, не уповноважений керувати даними SIS - обліковим записом[sis_account_id]"
@@ -18826,7 +18826,7 @@ uk:
         name_and_email: "Ім'я та електронна пошта"
       update_instructions: "Ви можете оновити деяку інформацію про користувача, але вони зможуть повернути зміни назад."
     new: 
-      create_a_canvas_account: "Створити обліковий запис EXAMPLE"
+      create_a_canvas_account: "Створити обліковий запис quite frankly an example LMS"
       privacy_policy: "Політика конфіденційності"
       terms_of_use: "Умови використання"
     no_self_registration: "Самостійна реєстрація не активована для цього облікового запису"
@@ -18892,7 +18892,7 @@ uk:
           ці курси стануть доступними, ви побачите інформацію про них тут
           і в навігації ліворуч. Тим часом можете зареєструватися на
           більше курсів або налаштувати свій профіль.
-      welcome_to_happiness: "Ласкаво просимо до EXAMPLE!"
+      welcome_to_happiness: "Ласкаво просимо до quite frankly an example LMS!"
   users_d1b60cb0: Користувачі
   users_matching_search_term_c604db9e: "Відповідність користувачів \"%{search_term}\""
   users_must_post_before_seeing_replies_d1761968: "Користувачі повинні опублікувати, перш ніж побачать відповіді"
@@ -18987,13 +18987,13 @@ uk:
   warning_for_improved_accessibility_please_use_the__1075c150: "Увага! Для поліпшення доступності будь ласка використовуйте  в Календарі \"Перегляд порядку денного\"."
   warnings: 
     test_install: 
-      periodic_message: "Ця установка EXAMPLE призначена лише для тестування та періодично оновлюється."
-      title: "Установка тесту EXAMPLE"
+      periodic_message: "Ця установка quite frankly an example LMS призначена лише для тестування та періодично оновлюється."
+      title: "Установка тесту quite frankly an example LMS"
       weekly_message: 
-        few: "Ця установка EXAMPLE призначена тільки для тестування,  і буде оновлюватися  кожні %{count}тижні. "
-        many: "Ця установка EXAMPLE призначена тільки для тестування,  і буде оновлюватися  кожні %{count}тижні. "
-        one: "Ця установка EXAMPLE призначена тільки для тестування,  і буде оновлюватися  кожен тиждень. "
-        other: "Ця установка EXAMPLE призначена тільки для тестування, і буде оновлюватися кожні %{count}тижні. "
+        few: "Ця установка quite frankly an example LMS призначена тільки для тестування,  і буде оновлюватися  кожні %{count}тижні. "
+        many: "Ця установка quite frankly an example LMS призначена тільки для тестування,  і буде оновлюватися  кожні %{count}тижні. "
+        one: "Ця установка quite frankly an example LMS призначена тільки для тестування,  і буде оновлюватися  кожен тиждень. "
+        other: "Ця установка quite frankly an example LMS призначена тільки для тестування, і буде оновлюватися кожні %{count}тижні. "
   watermark_c93fae0d: "Водяний знак"
   watermark_opacity_ce3d3097: "Непрозорість водяного знака"
   watermarks_other_images_e970fc6a: "Водяні знаки та інші зображення"
@@ -19036,7 +19036,7 @@ uk:
   weight_of_final_abbbe82f: "%{weight}від фінальної"
   weight_of_grade_dff535d9: "%{weight}від оцінки"
   weighted_grading_periods_ae4edd70: "Періоди вагового оцінювання"
-  welcome_to_the_canvas_theme_editor_73091d1: "Ласкаво просимо до редактора тем EXAMPLE"
+  welcome_to_the_canvas_theme_editor_73091d1: "Ласкаво просимо до редактора тем quite frankly an example LMS"
   welcome_to_your_courses_to_customize_the_list_of_c_22de652e: "Ласкаво просимо до ваших курсів! Щоб налаштувати список курсів, натисніть посилання \"Усі курси\" та помітьте зірочкою курси, які потрібно відображати."
   well_below_mastery_37664bdc: "Суттєво нижча майстерність"
   what_does_provisioning_only_mean_eac9a4a1: "Що означає Provisioning Only?"
@@ -19246,7 +19246,7 @@ uk:
   you_are_currently_logged_into_student_view_3e8a1da: "Ви в даний час увійшли в Перегляд зі сторони студента"
   you_are_here_54075d8c: "Ви тут:"
   you_are_logged_in_at_institution1_using_your_crede_3f5bb205: "Ви ввійшли у %{institution1}, використовуючи свої облікові дані з %{institution2}"
-  you_are_logged_out_of_canvas_8b5fc59a: "Ви вийшли з EXAMPLE."
+  you_are_logged_out_of_canvas_8b5fc59a: "Ви вийшли з quite frankly an example LMS."
   you_are_not_authorized_to_disable_the_sync_to_name_d283c3e0: "Ви не авторизовані для відключення синхронізації %{name}опції."
   you_are_not_authorized_to_disable_the_sync_to_sisn_54aebeb0: "Ви не авторизовані для відключення синхронізації %{sisName}опції. "
   you_are_not_enrolled_in_any_courses_a5c63286: "Ви не зараховані на жоден з курсів."
@@ -19270,9 +19270,9 @@ uk:
   you_can_publish_your_course_from_the_home_page_whe_a36d49d6: |-
       Ви можете опублікувати свій курс з домашньої сторінки, коли будете готові
       поділитися ним зі студентами. Доки ваш курс не буде опубліковано, лише інструктори зможуть отримати доступ до нього.
-  you_can_reply_to_this_comment_by_responding_to_thi_4fd1379e: "Ви можете відповісти на цей коментар, відповівши на це повідомлення, або перегляньте деталі выдправлення за допомогою цього посилання:%{link}. Якщо це дозволено та якщо вам потрібно додати вкладення, будь ласка, увійдіть у EXAMPLE та дайте відповідь на відправлення"
-  you_can_reply_to_this_message_in_canvas_by_clickin_f5f5f7a3: "Ви можете відповісти на це повідомлення в EXAMPLE, натиснувши це посилання:%{link}."
-  you_can_reply_to_this_message_in_canvas_by_replyin_c9f9abb: "Ви можете відповісти на це повідомлення у EXAMPLE, відповівши безпосередньо на цей електронний лист або натиснувши це посилання:%{link}. Якщо вам потрібно додати вкладення, будь ласка, увійдіть у EXAMPLE і надайте відповідь через папку \"Вхідні\"."
+  you_can_reply_to_this_comment_by_responding_to_thi_4fd1379e: "Ви можете відповісти на цей коментар, відповівши на це повідомлення, або перегляньте деталі выдправлення за допомогою цього посилання:%{link}. Якщо це дозволено та якщо вам потрібно додати вкладення, будь ласка, увійдіть у quite frankly an example LMS та дайте відповідь на відправлення"
+  you_can_reply_to_this_message_in_canvas_by_clickin_f5f5f7a3: "Ви можете відповісти на це повідомлення в quite frankly an example LMS, натиснувши це посилання:%{link}."
+  you_can_reply_to_this_message_in_canvas_by_replyin_c9f9abb: "Ви можете відповісти на це повідомлення у quite frankly an example LMS, відповівши безпосередньо на цей електронний лист або натиснувши це посилання:%{link}. Якщо вам потрібно додати вкладення, будь ласка, увійдіть у quite frankly an example LMS і надайте відповідь через папку \"Вхідні\"."
   you_can_review_the_submission_details_by_clicking__58a7753: "Ви можете переглянути деталі матеріалу, натиснувши на посилання нижче:"
   you_can_review_the_submission_details_by_clicking__9abc5515: "Ви можете переглянути деталі відправлення, натиснувши це посилання:%{link}."
   you_can_review_the_submission_details_using_the_li_c25dd615: "Ви можете переглянути деталі відправлення, використовуючи посилання нижче."
@@ -19317,7 +19317,7 @@ uk:
   you_have_reached_the_maximum_webhooks_per_account__ae9a7f83: "Ви досягли максимальної кількості веб-вузлів на ліміт облікового запису (%{max})"
   you_have_reached_the_maximum_webhooks_per_user_lim_2af4b256: "Ви досягли максимального розміру веб-вузлів на ліміт користувача (%{max})"
   you_have_unsynced_changes_that_will_sync_to_all_as_9028e711: "У вас є несинхронізовані зміни, які синхронізуватимуться з усіма пов'язаними курсами при збереженні нової асоціації."
-  you_just_sent_a_message_in_canvas_86b4945c: "Ви надіслали повідомлення у EXAMPLE"
+  you_just_sent_a_message_in_canvas_86b4945c: "Ви надіслали повідомлення у quite frankly an example LMS"
   you_ll_definitely_want_some_of_these_what_s_the_fu_f4f3578b: "Ви напевне хочете щось з цього. Яке задоволення від викладання курсу, якщо ніхто навіть не слухає?"
   you_ll_need_a_refresh_token_follow_the_steps_at_th_79a3984b: "Вам знадобиться токен оновлення, виконайте кроки за цим посиланням, можливо, вам знадобиться допомога технічного експерта"
   you_may_not_reproduce_or_communicate_any_of_the_co_7636b552: |-
@@ -19347,8 +19347,8 @@ uk:
   you_need_to_preview_changes_before_saving_85e60232: "Перш ніж зберегти, потрібно натиснути \"Переглянути зміни\""
   you_need_to_preview_changes_before_you_can_apply_t_212d1cca: "Потрібно натиснути \"Переглянути зміни\", перш ніж застосувати це до свого облікового запису"
   you_need_to_save_before_applying_to_this_account_7436a5ae: "Потрібно \"Зберегти\", перш ніж застосувати до цього облікового запису"
-  you_re_editing_your_canvas_theme_apply_or_cancel_c_1633384e: "Ви редагуєте тему EXAMPLE! Застосувати або скасувати зміни з *Редактора тем*."
-  you_re_editing_your_canvas_theme_the_changes_have__c0ae1bd1: "Ви редагуєте тему EXAMPLE! Зміни ще не застосовані."
+  you_re_editing_your_canvas_theme_apply_or_cancel_c_1633384e: "Ви редагуєте тему quite frankly an example LMS! Застосувати або скасувати зміни з *Редактора тем*."
+  you_re_editing_your_canvas_theme_the_changes_have__c0ae1bd1: "Ви редагуєте тему quite frankly an example LMS! Зміни ще не застосовані."
   you_scored_a_score_a5dd5561: "Ваша оцінка %{score}"
   you_ve_been_enrolled_in_the_course_course_67b2e1b7: "Ви були зараховані на курс,%{course}."
   you_ve_been_enrolled_in_the_course_course_course_r_2b2f00f9: "Ви були зараховані на курс, %{course} Роль в курсі:%{role_type}"
@@ -19369,7 +19369,7 @@ uk:
       Після створення застосунку запишіть Client ID та Client Secret,  і введіть їх тут.
   you_will_not_be_able_to_preview_your_changes_f7b868fb: "Ви не зможете попередньо переглянути свої зміни"
   your_answer_8dad6ea4: "Ваша відповідь:"
-  your_browser_does_not_meet_the_minimum_requirement_2fa7c11f: "Ваш браузер не відповідає мінімальним вимогам для EXAMPLE. Будь ласка, відвідайте *EXAMPLE Community* для отримання повного списку підтримуваних веб-браузерів."
+  your_browser_does_not_meet_the_minimum_requirement_2fa7c11f: "Ваш браузер не відповідає мінімальним вимогам для quite frankly an example LMS. Будь ласка, відвідайте *quite frankly an example LMS Community* для отримання повного списку підтримуваних веб-браузерів."
   your_comment_was_auto_saved_as_a_draft_c49d3510: "Ваш коментар автоматично зберігся як чернетка."
   your_content_has_been_exported_bbb57764: "Ваш контент був експортований."
   your_course_db806851: "Ваш курс"

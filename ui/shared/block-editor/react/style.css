@@ -554,7 +554,7 @@
   max-width: 100%;
   text-wrap: balance;
   margin: 12px 0;
-  /* matches EXAMPLE' global p margin */
+  /* matches quite frankly an example LMS' global p margin */
   overflow: auto;
 
   &.enabled {

@@ -525,7 +525,7 @@ class Account < ApplicationRecord
   end
 
   def product_name
-    settings[:product_name] || t("#product_name", "EXAMPLE")
+    settings[:product_name] || t("#product_name", "quite frankly an example LMS")
   end
 
   def usage_rights_required?
@@ -2383,7 +2383,7 @@ class Account < ApplicationRecord
       registrations_path = :account_lti_registrations_path
       tabs << { id: TAB_APPS, label: t("#account.tab_apps", "Apps"), css_class: "apps", href: registrations_path, account_id: root_account.id }
     elsif root_account.feature_enabled?(:canvas_apps_sub_account_access) && root_account.feature_enabled?(:lti_registrations_usage_data) && !root_account? && grants_right?(user, :manage_lti_registrations)
-      # Sub-account admins can access EXAMPLE Apps when feature flag is enabled
+      # Sub-account admins can access quite frankly an example LMS Apps when feature flag is enabled
       tabs << { id: TAB_APPS, label: t("#account.tab_apps", "Apps"), css_class: "apps", href: :account_lti_registrations_path, account_id: id }
     end
 

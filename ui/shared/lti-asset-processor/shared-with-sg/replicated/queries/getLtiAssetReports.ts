@@ -49,7 +49,7 @@ export const LTI_ASSET_REPORT_COMMON_FIELDS: GqlTemplateStringType = gql`
   }
 `
 
-// For Student views in EXAMPLE.
+// For Student views in quite frankly an example LMS.
 export const LTI_ASSET_REPORT_FOR_STUDENT_FRAGMENT: GqlTemplateStringType = gql`
   fragment LtiAssetReportForStudent on LtiAssetReport {
     ...LtiAssetReportCommonFields
@@ -60,7 +60,7 @@ export const LTI_ASSET_REPORT_FOR_STUDENT_FRAGMENT: GqlTemplateStringType = gql`
   ${LTI_ASSET_REPORT_COMMON_FIELDS}
 `
 
-// Query used in SpeedGrader. Exported for use in EXAMPLE.
+// Query used in SpeedGrader. Exported for use in quite frankly an example LMS.
 export const LTI_ASSET_REPORTS_QUERY: GqlTemplateStringType = gql`
   query SpeedGrader_LtiAssetReportsQuery($assignmentId: ID!, $studentUserId: ID, $studentAnonymousId: ID) {
     submission(assignmentId: $assignmentId, userId: $studentUserId, anonymousId: $studentAnonymousId) {

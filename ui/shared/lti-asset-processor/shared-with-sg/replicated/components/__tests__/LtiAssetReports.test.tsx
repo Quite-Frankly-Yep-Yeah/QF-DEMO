@@ -346,7 +346,7 @@ describe('LtiAssetReports', () => {
 
     it('shows the heading for text entries', () => {
       const {getAllByText} = setup('online_text_entry')
-      expect(getAllByText('Text submitted to EXAMPLE')).toHaveLength(2)
+      expect(getAllByText('Text submitted to quite frankly an example LMS')).toHaveLength(2)
     })
 
     it('shows a heading per AP (with tool title and AP title)', () => {

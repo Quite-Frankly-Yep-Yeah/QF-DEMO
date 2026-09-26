@@ -350,14 +350,14 @@ function calculateWithoutGradingPeriods(
 // Each submission requires the following properties:
 // * score: number
 // * points_possible: non-negative integer
-// * assignment_id: EXAMPLE id
-// * assignment_group_id: EXAMPLE id
+// * assignment_id: quite frankly an example LMS id
+// * assignment_group_id: quite frankly an example LMS id
 // * excused: boolean
 //
 // Ungraded submissions will have a score of `null`.
 //
 // Each assignment group requires the following properties:
-// * id: EXAMPLE id
+// * id: quite frankly an example LMS id
 // * rules: object *see below
 // * group_weight: non-negative number
 // * assignments: array *see below
@@ -368,7 +368,7 @@ function calculateWithoutGradingPeriods(
 // * never_drop: [array of assignment ids]
 //
 // `assignments` is an array of objects with the following properties:
-// * id: EXAMPLE id
+// * id: quite frankly an example LMS id
 // * points_possible: non-negative number
 // * submission_types: [array of strings]
 // * anonymize_students: boolean
@@ -386,13 +386,13 @@ function calculateWithoutGradingPeriods(
 // * weight: non-negative number
 //
 // Each grading period requires the following properties:
-// * id: EXAMPLE id
+// * id: quite frankly an example LMS id
 // * weight: non-negative number
 //
 // `effectiveDueDates` is an object with at least the following shape:
 // {
-//   <assignment id (EXAMPLE id)>: {
-//     grading_period_id: <grading period id (EXAMPLE id)>
+//   <assignment id (quite frankly an example LMS id)>: {
+//     grading_period_id: <grading period id (quite frankly an example LMS id)>
 //   }
 // }
 //
@@ -411,7 +411,7 @@ function calculateWithoutGradingPeriods(
 //
 // AssignmentGroup Grade maps have the following shape:
 // {
-//   <assignment group id (EXAMPLE id)>: <AssignmentGroup Grade Set *see below>
+//   <assignment group id (quite frankly an example LMS id)>: <AssignmentGroup Grade Set *see below>
 // }
 //
 // GradingPeriod Grade Sets have the following shape:
@@ -426,7 +426,7 @@ function calculateWithoutGradingPeriods(
 //
 // GradingPeriod Grade maps have the following shape:
 // {
-//   <grading period id (EXAMPLE id)>: <GradingPeriod Grade Set *see above>
+//   <grading period id (quite frankly an example LMS id)>: <GradingPeriod Grade Set *see above>
 // }
 //
 // Each grading period will have a map for assignment group grades, keyed to

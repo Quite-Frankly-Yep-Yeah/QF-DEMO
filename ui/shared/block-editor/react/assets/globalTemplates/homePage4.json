@@ -656,7 +656,7 @@
         },
         "isCanvas": false,
         "props": {
-          "text": "<p><span style=\"font-weight: 400;\">If you are accessing this course from a mobile device, please review the following: </span><a href=\"https://design.instructure.com/courses/178/pages/canvas-student-app\"><span style=\"font-weight: 400;\">EXAMPLE Student App.</span></a></p>",
+          "text": "<p><span style=\"font-weight: 400;\">If you are accessing this course from a mobile device, please review the following: </span><a href=\"https://design.instructure.com/courses/178/pages/canvas-student-app\"><span style=\"font-weight: 400;\">quite frankly an example LMS Student App.</span></a></p>",
           "sizeVariant": "auto"
         },
         "displayName": "Text",

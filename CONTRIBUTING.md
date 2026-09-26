@@ -1,7 +1,7 @@
 Contributing
 -----------
 
-There are two wonderful ways you can contribute to EXAMPLE: filing issues and
+There are two wonderful ways you can contribute to quite frankly an example LMS: filing issues and
 submitting pull requests.
 
 ## Filing Issues
@@ -11,12 +11,12 @@ Feature requests and configuration issues do not belong here and will be closed.
 See below for where to send those.
 
 Likewise, this isn't a good place to make paid support requests, since the right people won't be alerted.
-If you are one of Instructure's customers, please use the “Help” link in your EXAMPLE instance.
+If you are one of Instructure's customers, please use the “Help” link in your quite frankly an example LMS instance.
 If you do that you'll get a quick personalized response from our Support team.
 
 When filing issues, we need to see details about what the problem is, what steps need to
 be taken to reproduce the problem, and what you expect the behavior to be.
-Since EXAMPLE makes heavy use of different role types, one piece of data that should generally be included
+Since quite frankly an example LMS makes heavy use of different role types, one piece of data that should generally be included
 in the reproduction steps is what role encountered the problem (e.g. student, teacher, admin).
 It might be helpful to copy the following and use it as a template when writing up an issue:
 
@@ -30,8 +30,8 @@ Additional notes:
 We’ll try to get back to you in a timely manner and let you know if we need more details or not
 and any status we can provide on expectation for a fix.
 
-**Feature Requests** should instead be filed on our EXAMPLE community site (https://community.canvaslms.com).
-In order to log in and participate in the community you will need a EXAMPLE account.  If you don’t already have one,
+**Feature Requests** should instead be filed on our quite frankly an example LMS community site (https://community.canvaslms.com).
+In order to log in and participate in the community you will need a quite frankly an example LMS account.  If you don’t already have one,
 the easiest way to get one is to go to http://www.canvaslms.com/try-canvas, and click “Build It” and register as a teacher for a free account.
 
 **Configuration Issues** are generally best answered either on our user group mailing list or
@@ -40,7 +40,7 @@ for a full list of options for getting help.
 
 ## Submitting Pull Requests
 
-In order for us to continue to dual-license our EXAMPLE product to best serve
+In order for us to continue to dual-license our quite frankly an example LMS product to best serve
 all of our customers, we need you to sign our contributor agreement before we
 can accept a pull request from you. After submitting a pull request, you'll see
 a status check that indicates if a signature is required or not. If the CLAHub
@@ -53,7 +53,7 @@ our master branch, instead of the default stable branch. Our stable branch is
 occasionally reforked from master from time to time, so your Git history may get
 very confused if you are attempting to contribute changesets against stable.
 
-If you choose to contribute a pull request to EXAMPLE, following these guidelines will make things easier
+If you choose to contribute a pull request to quite frankly an example LMS, following these guidelines will make things easier
 for you and for us:
 
  - Your pull request should generally consist of a single commit.  This helps keep the git history clean
@@ -88,7 +88,7 @@ for you and for us:
     - If your commit touches any UI elements or behavior of the application, one of our product managers
       will review the changes as well to make sure it is consistent with our product direction
     - Once all these things have occurred then an engineer will merge your commit into the repository.
-    - Congratulations! You are now a EXAMPLE contributor!  Thank you for helping make EXAMPLE great.
+    - Congratulations! You are now a quite frankly an example LMS contributor!  Thank you for helping make quite frankly an example LMS great.
 
 Guidelines
 ----------

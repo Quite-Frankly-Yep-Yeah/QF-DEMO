@@ -20,11 +20,11 @@ tool consumer doesn't recognize, or can't substitute, the value it will just sen
 as if it were are regular custom variable (i.e. the name of the substitution variable will be
 sent rather than the value).
 
-This allows EXAMPLE to expose data as LTI launch parameters during the LTI launch rather than
-requiring access to the EXAMPLE API, which can be expensive for EXAMPLE and the tool.  It allows
+This allows quite frankly an example LMS to expose data as LTI launch parameters during the LTI launch rather than
+requiring access to the quite frankly an example LMS API, which can be expensive for quite frankly an example LMS and the tool.  It allows
 tool providers to be much more surgical when requesting user data, and it paves the way for us
 to be more transparent to tool installers, by showing them exactly what data the LTI tool will
-be given access to. Additionally, variable substitutions are generally simple to add to EXAMPLE
+be given access to. Additionally, variable substitutions are generally simple to add to quite frankly an example LMS
 relative to gaining API access.
 
 There are currently over 80 substitutions available.  Many of the substitutions simply
@@ -32,7 +32,7 @@ give access to additional user and context information.  An LTI tool can request
 like SIS ids, names, an avatar image, and an email address.  Other variable substitutions
 assist tools with accessibility (prefersHighContrast), course copy (previousCourseIds), and
 masquerading users.  Additionally, when we don't provide enough information or customization
-directly through LTI, tools can request everything they need to use the EXAMPLE API for an even
+directly through LTI, tools can request everything they need to use the quite frankly an example LMS API for an even
 richer experience.
 
 Some substitutions may be used as 'enabled_capabilities' for LTI2 tools. These substitutions have a
@@ -302,7 +302,7 @@ with the content item launch.
 ```
 ## com.instructure.PostMessageToken
 A token that can be used for frontend communication between an LTI tool
-and EXAMPLE via the Window.postMessage API.
+and quite frankly an example LMS via the Window.postMessage API.
 
 **Availability**: **  
 **Launch Parameter**: *com_instructure_post_message_token*  
@@ -342,7 +342,7 @@ substitution will be performed.
 "docx,pdf,txt"
 ```
 ## com.instructure.OriginalityReport.id
-The EXAMPLE id of the Originality Report associated
+The quite frankly an example LMS id of the Originality Report associated
 with the launch.
 
 **Availability**: **  
@@ -352,7 +352,7 @@ with the launch.
 23
 ```
 ## com.instructure.Submission.id
-The EXAMPLE id of the submission associated with the
+The quite frankly an example LMS id of the submission associated with the
 launch.
 
 **Availability**: **  
@@ -362,7 +362,7 @@ launch.
 23
 ```
 ## com.instructure.File.id
-The EXAMPLE id of the file associated with the submission
+The quite frankly an example LMS id of the file associated with the submission
 in the launch.
 
 **Availability**: **  
@@ -390,7 +390,7 @@ an opaque identifier that uniquely identifies the context of the tool launch.
 "cdca1fe2c392a208bd8a657f8865ddb9ca359534"
 ```
 ## com.instructure.Context.globalId
-The EXAMPLE global identifier for the launch context.
+The quite frankly an example LMS global identifier for the launch context.
 
 **Availability**: *always*  
 
@@ -399,7 +399,7 @@ The EXAMPLE global identifier for the launch context.
 10000000000070
 ```
 ## com.instructure.Context.uuid
-The EXAMPLE UUID for the launch context.
+The quite frankly an example LMS UUID for the launch context.
 
 **Availability**: *always*  
 
@@ -442,7 +442,7 @@ The result is limited to 1000 ids. When the number passes 1000, 'truncated' will
 "25de3090-de71-4419-9a7c-53b509945710,057361e2-87f9-4597-b072-4b7464bdefde"
 ```
 ## Message.documentTarget
-communicates the kind of browser window/frame where the EXAMPLE has launched a tool.
+communicates the kind of browser window/frame where the quite frankly an example LMS has launched a tool.
 
 **Availability**: *always*  
 **Launch Parameter**: *launch_presentation_document_target*  
@@ -460,7 +460,7 @@ returns the current locale.
 "de"
 ```
 ## ToolConsumerInstance.guid
-returns a unique identifier for the Tool Consumer (EXAMPLE).
+returns a unique identifier for the Tool Consumer (quite frankly an example LMS).
 
 **Availability**: *always*  
 **Launch Parameter**: *tool_consumer_instance_guid*  
@@ -498,7 +498,7 @@ returns the base URL for the current context.
 ## ToolProxyBinding.memberships.url
 returns the URL for the membership service associated with the current context.
 
-This variable is for future use only. Complete support for the IMS Membership Service has not been added to EXAMPLE. This will be updated when we fully support and certify the IMS Membership Service.
+This variable is for future use only. Complete support for the IMS Membership Service has not been added to quite frankly an example LMS. This will be updated when we fully support and certify the IMS Membership Service.
 
 **Availability**: *always*  
 
@@ -887,7 +887,7 @@ With respect to the current course, returns the course ids of the courses from w
 ## com.instructure.Course.rce_studio_embed_improvements
 Returns "true" if the RCE Studio embed improvements feature is enabled
 for the current course, or account context "false" otherwise.
-This allows LTI tools to adapt their UI based on EXAMPLE feature flags.
+This allows LTI tools to adapt their UI based on quite frankly an example LMS feature flags.
 
 **Availability**: *always*  
 
@@ -986,7 +986,7 @@ Returns the profile picture URL of the launching user.
 "https://example.com/picture.jpg"
 ```
 ## User.id [duplicates Canvas.user.id]
-Returns the EXAMPLE user_id of the launching user.
+Returns the quite frankly an example LMS user_id of the launching user.
 
 **Availability**: *when launched by a logged in user*  
 **Launch Parameter**: *user_id*  
@@ -995,7 +995,7 @@ Returns the EXAMPLE user_id of the launching user.
 420000000000042
 ```
 ## Canvas.user.id [duplicates User.id]
-Returns the EXAMPLE user_id of the launching user.
+Returns the quite frankly an example LMS user_id of the launching user.
 
 **Availability**: *when launched by a logged in user*  
 
@@ -1004,7 +1004,7 @@ Returns the EXAMPLE user_id of the launching user.
 420000000000042
 ```
 ## vnd.instructure.User.uuid [duplicates User.uuid]
-Returns the EXAMPLE user_uuid of the launching user for the context.
+Returns the quite frankly an example LMS user_uuid of the launching user for the context.
 
 **Availability**: *when launched by a logged in user*  
 
@@ -1013,7 +1013,7 @@ Returns the EXAMPLE user_uuid of the launching user for the context.
 "N2ST123dQ9zyhurykTkBfXFa3Vn1RVyaw9Os6vu3"
 ```
 ## vnd.instructure.User.current_uuid [duplicates User.uuid]
-Returns the current EXAMPLE user_uuid of the launching user.
+Returns the current quite frankly an example LMS user_uuid of the launching user.
 
 **Availability**: *when launched by a logged in user*  
 
@@ -1040,7 +1040,7 @@ Returns the users preference for using a dyslexia friendly font (an accessibilit
 false
 ```
 ## com.instructure.Course.groupIds
-returns the EXAMPLE ids of all active groups in the current course.
+returns the quite frankly an example LMS ids of all active groups in the current course.
 
 **Availability**: *when launched in a course (or a Group within a course)*  
 **Launch Parameter**: *com_instructure_course_groupids*  
@@ -1095,7 +1095,7 @@ Same as "Canvas.xuser.allRoles", but uses roles formatted for LTI Advantage.
  "http://purl.imsglobal.org/vocab/lis/v2/system/person#User"
 ```
 ## Canvas.user.globalId
-Returns the EXAMPLE global user_id of the launching user.
+Returns the quite frankly an example LMS global user_id of the launching user.
 
 **Availability**: *when launched by a logged in user*  
 
@@ -1205,7 +1205,7 @@ It may not hold all the sis info needed in other launch substitutions.
 "https://<domain>.instructure.com/api/lti/v1/logout_service/<external_tool_id>-<user_id>-<current_unix_timestamp>-<opaque_string>"
 ```
 ## Canvas.masqueradingUser.id
-Returns the EXAMPLE user_id for the masquerading user.
+Returns the quite frankly an example LMS user_id for the masquerading user.
 This is the pseudonym the user is actually logged in as.
 It may not hold all the sis info needed in other launch substitutions.
 
@@ -1340,7 +1340,7 @@ Returns the assignment_description of the assignment that was launched.
 "Example Description"
 ```
 ## CourseGroup.id
-Returns the EXAMPLE id of the group the current user is in if launching
+Returns the quite frankly an example LMS id of the group the current user is in if launching
 from a group assignment otherwise empty string.
 
 **Availability**: *when launched by a logged in user and when launched as an assignment*  
@@ -1350,7 +1350,7 @@ from a group assignment otherwise empty string.
 481
 ```
 ## com.instructure.Group.id
-Returns the EXAMPLE id of the group the current user is in if launching
+Returns the quite frankly an example LMS id of the group the current user is in if launching
 from a group assignment.
 
 This is similar to `CourseGroup.id` but unlike that this returns
@@ -1373,7 +1373,7 @@ from a group assignment.
 "Group One"
 ```
 ## com.instructure.Tag.id
-Returns the EXAMPLE id of the differentiation tag the current user is assigned to
+Returns the quite frankly an example LMS id of the differentiation tag the current user is assigned to
 for the current assignment context.
 
 **Availability**: *when launched by a logged in user and when launched as an assignment*  
@@ -1506,7 +1506,7 @@ date to be considered.
 2018-02-19:00:00Z
 ```
 ## Canvas.assignment.allDueAts.iso8601
-In EXAMPLE, users, sections and groups can have distinct due dates for the same assignment.
+In quite frankly an example LMS, users, sections and groups can have distinct due dates for the same assignment.
 This returns all possible `due_at` dates of the assignment that was launched.
 If the assignment is assigned to anyone without a due date, an empty string
 will be present in the list (hence the ",," in the example)
@@ -1687,7 +1687,7 @@ Value is a comma-separated array of one or more values of: ["assignment", "assig
 "discussion_topic", "document", "image", "module", "quiz", "page", "video"]
 
 Only functional when `com_instructure_course_accept_canvas_resource_types` is included as a query param
-in EXAMPLE-side GET request that triggers the LTI launch.
+in quite frankly an example LMS-side GET request that triggers the LTI launch.
 
 **Availability**: *when a tool is launched (excludes background messages like PNS notices)*  
 
@@ -1706,7 +1706,7 @@ Value is the largest logical unit of the page. Possible values are: ["assignment
   and so on.
 
 Only functional when `com_instructure_course_canvas_resource_type` is included as a query param
-in EXAMPLE-side GET request that triggers the LTI launch.
+in quite frankly an example LMS-side GET request that triggers the LTI launch.
 
 **Availability**: *when a tool is launched (excludes background messages like PNS notices)*  
 
@@ -1730,7 +1730,7 @@ Returns whether a content can be imported into a specific group on the page, for
 True for Modules page and Assignment Groups page. False for other content index pages.
 
 Only functional when `com_instructure_course_allow_canvas_resource_selection` is included as a query param
-in EXAMPLE-side GET request that triggers the LTI launch.
+in quite frankly an example LMS-side GET request that triggers the LTI launch.
 
 **Availability**: *when a tool is launched (excludes background messages like PNS notices)*  
 
@@ -1744,7 +1744,7 @@ forwarded from the request.
 Empty value if com.instructure.Course.allow_canvas_resource_selection is false.
 
 Only functional when `com_instructure_course_available_canvas_resources` is included as a query param
-in EXAMPLE-side GET request that triggers the LTI launch.
+in quite frankly an example LMS-side GET request that triggers the LTI launch.
 
 **Availability**: *when a tool is launched (excludes background messages like PNS notices)*  
 

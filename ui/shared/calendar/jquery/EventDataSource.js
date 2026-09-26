@@ -469,7 +469,7 @@ export default class EventDataSource {
         if (event && event.object.workflow_state !== 'deleted') {
           if (event.blackout_date && event.end && event.start !== event.end) {
             // We need to add a day to the end of multiple day events on the calendar because fullcalendar
-            // treats event end dates as exclusive while EXAMPLE blackout date calculations treat them as
+            // treats event end dates as exclusive while quite frankly an example LMS blackout date calculations treat them as
             // inclusive.
             event.end = moment(event.end.toISOString()).add(1, 'days')
           }

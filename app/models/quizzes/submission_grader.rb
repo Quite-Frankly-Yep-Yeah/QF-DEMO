@@ -101,7 +101,21 @@ module Quizzes
       }
       result[:answer_id] = user_answer.answer_id if user_answer.answer_id
       result.merge!(user_answer.answer_details)
+      add_sylla_answers(result, question, params)
       result
+    end
+
+    CONFIDENCE_LEVELS = %w[guess unsure sure].freeze
+
+    # How sure the student said they were, and the unit they picked, kept with
+    # the graded answer so results and reports can show them.
+    def self.add_sylla_answers(result, question, params)
+      question = question.to_h.with_indifferent_access
+      id = question[:id]
+      confidence = params["question_#{id}_confidence"].to_s
+      result[:confidence] = confidence if question[:sylla_confidence].present? && CONFIDENCE_LEVELS.include?(confidence)
+      unit = params["question_#{id}_unit"].to_s.strip
+      result[:unit] = unit.first(255) if question[:sylla_unit_choices].present? && unit.present?
     end
 
     def outcomes_require_update(submission, original_score, original_workflow_state)

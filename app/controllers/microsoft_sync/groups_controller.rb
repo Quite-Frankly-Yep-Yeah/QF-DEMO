@@ -25,7 +25,7 @@
 # @model MicrosoftSync::Group
 #     {
 #       "id": "MicrosoftSync::Group",
-#       "description": "The membership of a Microsoft group as well as the status of syncing EXAMPLE enrollments to that group.",
+#       "description": "The membership of a Microsoft group as well as the status of syncing quite frankly an example LMS enrollments to that group.",
 #       "properties": {
 #         "id": {
 #           "description": "The id of the MicrosoftSync::Group",
@@ -87,7 +87,7 @@
 #           "example": [
 #             {
 #               "timestamp": "2024-01-03T11:50:07Z",
-#               "msg": "2 EXAMPLE users without corresponding Microsoft user:",
+#               "msg": "2 quite frankly an example LMS users without corresponding Microsoft user:",
 #               "user_ids": [1, 3]
 #             }
 #           ]

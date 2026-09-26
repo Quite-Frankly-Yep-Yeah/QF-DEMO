@@ -26,7 +26,7 @@ admin_analytics:
   display_name: Admin Analytics
   description:
     admin_analytics_description: Enables Analytics at the account-level. Admin Analytics dashboards provide
-      details on EXAMPLE usage, EXAMPLE course success, and student engagement.
+      details on quite frankly an example LMS usage, quite frankly an example LMS course success, and student engagement.
   after_state_change_proc: analytics_2_after_state_change_hook
   root_opt_in: true
   beta: false

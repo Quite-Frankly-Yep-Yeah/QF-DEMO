@@ -40,7 +40,7 @@ has no support for custom scalars at this time).
 
 ### Pagination and Lists
 
-Most lists should be paginated.  EXAMPLE follows the [Relay
+Most lists should be paginated.  quite frankly an example LMS follows the [Relay
 connection](http://graphql-ruby.org/relay/connections.html) spec for
 pagination.  By convention, all paginated fields should have "Connection" as a
 suffix (e.g., "AssignmentsConnection").

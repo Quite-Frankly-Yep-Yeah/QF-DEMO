@@ -4,11 +4,11 @@
   "trigger": "Triggered when a user replies to the discussion topic or thread.",
   "schema": {
     "data[0].group.extensions[\"com.instructure.canvas\"]": {
-      "context_type": "EXAMPLE context type where the action took place e.g context_type = Course.",
-      "entity_id": "EXAMPLE context ID"
+      "context_type": "quite frankly an example LMS context type where the action took place e.g context_type = Course.",
+      "entity_id": "quite frankly an example LMS context ID"
     },
     "data[0].object.extensions[\"com.instructure.canvas\"]": {
-      "entity_id": "EXAMPLE global ID of the object affected by the event"
+      "entity_id": "quite frankly an example LMS global ID of the object affected by the event"
     },
     "data[0].object": {
       "type": "Message"

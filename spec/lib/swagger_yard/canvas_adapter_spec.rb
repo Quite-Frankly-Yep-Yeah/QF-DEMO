@@ -24,7 +24,7 @@ describe SwaggerYard::CanvasAdapter do
       expect { described_class.install! }.not_to raise_error
     end
 
-    it "defines EXAMPLE YARD tags" do
+    it "defines quite frankly an example LMS YARD tags" do
       described_class.install!
       expect(YARD::Tags::Library.instance_variable_get(:@labels)).to include(:API, :argument, :returns, :model)
     end
@@ -103,7 +103,7 @@ describe SwaggerYard::CanvasAdapter do
   end
 
   describe "TAGS constant" do
-    it "defines all required EXAMPLE tags" do
+    it "defines all required quite frankly an example LMS tags" do
       expect(described_class::TAGS).to include(:API, :argument, :returns, :model)
     end
 
@@ -506,7 +506,7 @@ describe SwaggerYard::CanvasAdapter do
       Class.new do
         def required_param?(types)
           # Check if parameter is marked as required
-          # EXAMPLE uses "Required" in type list (e.g., [Required, String])
+          # quite frankly an example LMS uses "Required" in type list (e.g., [Required, String])
           # Do not check description to avoid false positives from
           # conditionally required params (e.g., "Required for 'Page' type")
           types_str = types.join(" ").downcase
@@ -568,7 +568,7 @@ describe SwaggerYard::CanvasAdapter do
 
         # Include the actual private method we're testing
         def paths_from_yard_object_canvas(yard_object)
-          # EXAMPLE methods use @API tags; infer path and method from routes
+          # quite frankly an example LMS methods use @API tags; infer path and method from routes
           api_tag = yard_object.docstring.tags(:API).first
           return nil unless api_tag # Skip methods without @API
 
@@ -580,7 +580,7 @@ describe SwaggerYard::CanvasAdapter do
           # e.g., Quizzes::QuizzesApiController -> quizzes/quizzes_api
           controller_name = underscore(class_name_str).sub(/_controller$/, "")
 
-          # Find routes from EXAMPLE routes.rb
+          # Find routes from quite frankly an example LMS routes.rb
           route_key = "#{controller_name}##{method_name}"
           route_infos = SwaggerYard::CanvasAdapter.canvas_routes[route_key]
 

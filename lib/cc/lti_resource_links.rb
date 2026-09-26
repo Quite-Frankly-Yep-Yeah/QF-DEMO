@@ -78,7 +78,7 @@ module CC
     # Populates a document with the `imslticc_v1p3` representation
     # of an LTi::ResourceLink
     #
-    # EXAMPLE exports/imports these documents to preserve
+    # quite frankly an example LMS exports/imports these documents to preserve
     # custom parameters set by a tool at a per-link level
     # via custom parameters
     def add_lti_resource_link(resource_link, tool, document)

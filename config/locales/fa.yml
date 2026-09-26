@@ -194,7 +194,7 @@ fa:
   a_locked_file_named_name_already_exists_please_ent_3b2e65a: "یک مورد قفل شده به نام \"%{name}\" در حال حاضر در این مکان وجود دارد. لطفا یک نام جدید وارد کنید."
   a_locked_item_named_name_already_exists_in_this_lo_ab03ee39: "یک مورد قفل شده به نام \"%{name}در حال حاضر در این مکان وجود دارد. لطفا یک نام جدید وارد کنید."
   a_message_is_required_129e1814: "یک پیام لازم است"
-  a_microsoft_365_group_must_have_owners_and_no_user_96f91864: "یک گروه Microsoft 365 باید دارای مالک باشد و هیچ کاربری مطابق با مدرسان دوره EXAMPLE در سمت مایکروسافت یافت نشده است. اگر اخیرا مالکان دوره را اضافه و حذف کرده‌اید، ممکن است همگام‌سازی مجدد مشکل را حل نماید."
+  a_microsoft_365_group_must_have_owners_and_no_user_96f91864: "یک گروه Microsoft 365 باید دارای مالک باشد و هیچ کاربری مطابق با مدرسان دوره quite frankly an example LMS در سمت مایکروسافت یافت نشده است. اگر اخیرا مالکان دوره را اضافه و حذف کرده‌اید، ممکن است همگام‌سازی مجدد مشکل را حل نماید."
   a_name_for_this_set_is_required_222bad23: "یک نام برای این مجموعه لازم است"
   a_name_is_required_b5df38a9: "یک نام لازم است"
   a_new_assignment_has_been_created_for_your_course__12b72639: "یک تکلیف جدید برای درس شما با عنوان %{course_name} ایجاد شده است"
@@ -355,7 +355,7 @@ fa:
       ldap_test_login_button: "آزمایش ورود"
       test_ldap_bind_help_body: "سرور LDAP شما تلاش برای اتصال را رد کرد. چیزهایی که باید در نظر بگیرید:"
       test_ldap_bind_help_fixes_1: "رشته فیلتر ارائه شده  (یعنی '(sAMAccountName={{login}})') را تأیید کنید."
-      test_ldap_bind_help_fixes_2: "آیا نام کاربری به اطلاعات محدوده ای بیشتر (یعنی 'cn=EXAMPLE,ou=people,dc=example,dc=com') نیاز دارد؟"
+      test_ldap_bind_help_fixes_2: "آیا نام کاربری به اطلاعات محدوده ای بیشتر (یعنی 'cn=quite frankly an example LMS,ou=people,dc=example,dc=com') نیاز دارد؟"
       test_ldap_bind_help_header: "کانواس نمی تواند (ورود) را به سرور LDAP شما متصل کند"
       test_ldap_bind_label: "در حال آزمایش اتصال LDAP..."
       test_ldap_connection_help_body: "اتصال متوقف و یا رد شده است. چیزهایی که باید در نظر بگیرید:"
@@ -2896,7 +2896,7 @@ fa:
   an_error_ocurred_while_loading_unsynced_changes_aed0d04d: "هنگام بارگذاری تغییرات همگام سازی نشده خطایی رخ داد"
   an_error_ocurred_while_publishing_course_3760cf04: "در هنگام انتشار درس خطایی رخ داد"
   an_error_ocurred_while_saving_the_appointment_grou_e19452cd: "هنگام ذخیره سازی گروه قرار ملاقات خطایی رخ داد"
-  an_existing_canvas_user_with_the_sis_id_user_id_ha_4b64d1c1: "یک کاربر EXAMPLE موجود با شناسه سامانه اطلاعات دانشجوی %{user_id} قبلا اطلاعات ورود درخواست شده شناسه_کاربر %{other_user_id} را ادعا کرده است، نادیده گرفتن"
+  an_existing_canvas_user_with_the_sis_id_user_id_ha_4b64d1c1: "یک کاربر quite frankly an example LMS موجود با شناسه سامانه اطلاعات دانشجوی %{user_id} قبلا اطلاعات ورود درخواست شده شناسه_کاربر %{other_user_id} را ادعا کرده است، نادیده گرفتن"
   an_existing_canvas_user_with_the_sis_id_user_id_or_64c7d5fa: "یک کاربر کانواس موجود با شناسه سامانه اطلاعات دانشجوی %{user_id}  یا ورود %{login}در حال حاضر وجود دارد. نادیده گرفتن "
   an_existing_canvas_user_with_the_user_id_has_alrea_aabbea6e: "یک کاربر کانواس موجود با شناسه %{user_id} قبلا اطلاعات ورود درخواست شده شناسه_کابر %{other_user_id} را ادعا کرده است، نادیده گرفتن"
   an_existing_canvas_user_with_the_user_id_has_alrea_e487b0: "یک کاربر کانواس موجود با شناسه %{user_id} قبلا شناسه_یکپارچه سازی درخواست شده %{other_user_id} را ادعا کرده است، از قلم انداختن"
@@ -4308,7 +4308,7 @@ fa:
       ldap_test_login_button: "آزمایش ورود"
       test_ldap_bind_help_body: "سرور LDAP شما تلاش برای اتصال را رد کرد. چیزهایی که باید در نظر بگیرید:"
       test_ldap_bind_help_fixes_1: "رشته فیلتر ارائه شده  (یعنی '(sAMAccountName={{login}})') را تأیید کنید."
-      test_ldap_bind_help_fixes_2: "آیا نام کاربری به اطلاعات محدوده ای بیشتر (یعنی 'cn=EXAMPLE,ou=people,dc=example,dc=com') نیاز دارد؟"
+      test_ldap_bind_help_fixes_2: "آیا نام کاربری به اطلاعات محدوده ای بیشتر (یعنی 'cn=quite frankly an example LMS,ou=people,dc=example,dc=com') نیاز دارد؟"
       test_ldap_bind_help_header: "کانواس نمی تواند (ورود) را به سرور LDAP شما متصل کند"
       test_ldap_bind_label: "در حال آزمایش اتصال LDAP..."
       test_ldap_connection_help_body: "اتصال متوقف و یا رد شده است. چیزهایی که باید در نظر بگیرید:"
@@ -5308,8 +5308,8 @@ fa:
   canvas_notifications_tutorial_video_79b8e768: "فیلم آموزشی اطلاعیه ی کانواس"
   canvas_now_has_two_quiz_engines_please_choose_whic_4aa9821: "کانواس اکنون دارای دو موتور آزمون است. لطفا یکی را انتخاب کنید که می خواهید استفاده کنید."
   canvas_observer_id_59db0918: شناسه_بیننده_کانواس
-  canvas_parent_description: "این تنظیم بازبینی می کند که آیا والدین می توانند با استفاده از برنامه همراه EXAMPLE Parent به دانشجویان دانشگاه شما متصل شوند یا خیر."
-  canvas_parent_improved_description: "این تنظیمات کنترل می‌کند که آیا والدینی که EXAMPLE Parent خود را ایجاد می‌کنند، می‌توانند با استفاده از نرم‌افزار تلفن همراه EXAMPLE Parent به دانشجویان دانشگاه شما متصل شوند. نکته: والدین ثبت شده به عنوان بیننده های کانواس می‌توانند از برنامه تلفن همراه EXAMPLE Parent حتی زمانی که پرچم این ویژگی غیرفعال شده است، استفاده کنند."
+  canvas_parent_description: "این تنظیم بازبینی می کند که آیا والدین می توانند با استفاده از برنامه همراه quite frankly an example LMS Parent به دانشجویان دانشگاه شما متصل شوند یا خیر."
+  canvas_parent_improved_description: "این تنظیمات کنترل می‌کند که آیا والدینی که quite frankly an example LMS Parent خود را ایجاد می‌کنند، می‌توانند با استفاده از نرم‌افزار تلفن همراه quite frankly an example LMS Parent به دانشجویان دانشگاه شما متصل شوند. نکته: والدین ثبت شده به عنوان بیننده های کانواس می‌توانند از برنامه تلفن همراه quite frankly an example LMS Parent حتی زمانی که پرچم این ویژگی غیرفعال شده است، استفاده کنند."
   canvas_release_notes_f3dc5359: "یادداشت های انتشار کانواس"
   canvas_revision_unknown: ناشناس
   canvas_student_id_c74f57bf: شناسه_دانشجو_کانواس
@@ -9406,7 +9406,7 @@ fa:
   docviewer_strikeout_deleted_ddca34b0: "ابطال مستندساز حذف شد"
   docviewer_strikeout_updated_f06aec74: "ابطال مستندساز به هنگام سازی شد"
   does_not_meet_expectations_b0736d20: "مطابق با انتظارات نیست"
-  does_the_username_require_more_scoping_information_40d51df: "آیا نام کاربری به اطلاعات محدوده ای بیشتر (یعنی 'cn=EXAMPLE,ou=people,dc=example,dc=com') نیاز دارد؟"
+  does_the_username_require_more_scoping_information_40d51df: "آیا نام کاربری به اطلاعات محدوده ای بیشتر (یعنی 'cn=quite frankly an example LMS,ou=people,dc=example,dc=com') نیاز دارد؟"
   domain_3b54c511: دامنه
   domain_69fe564b: "دامنه:"
   domain_is_required_1d4c8b25: "دامنه لازم است"
@@ -17865,7 +17865,7 @@ fa:
   please_add_at_least_one_non_blank_answer_213c2c8e: "لطفا حداقل یک پاسخ غیر خالی بیفزایید."
   please_add_at_least_one_non_blank_answer_for_each__a05a55f9: "لطفا حداقل یک پاسخ غیر خالی برای هر متغیر بیفزایید."
   please_adjust_your_security_preferences_before_con_fd568e8d: "لطفاً تنظیمات امنیتی خود را قبل از ادامه تنظیم کنید."
-  please_allow_canvas_to_access_your_microphone_and__dc2c3079: "لطفاً به EXAMPLE اجازه دهید تا به میکروفون و وب کم شما دسترسی پیدا کند."
+  please_allow_canvas_to_access_your_microphone_and__dc2c3079: "لطفاً به quite frankly an example LMS اجازه دهید تا به میکروفون و وب کم شما دسترسی پیدا کند."
   please_create_a_group_set_8db6e8fe: "لطفا یک مجموعه گروه ایجاد کنید"
   please_do_not_reply_to_this_email_it_will_not_be_d_1e49982a: "لطفاً به این ایمیل پاسخ ندهید ، تحویل داده نخواهد شد."
   please_enter_a_due_date_on_or_after_earliestdate_b3fe6d29: "لطفا یک تاریخ مهلت در یا بعد از %{earliestDate} وارد کنید"
@@ -18562,7 +18562,7 @@ fa:
     page_title: "دانشجویانی که در حال مشاهده شدن هستند"
     please_select_an_option: "لطفا یک گزینه را انتخاب کنید"
     profile: 
-      access_token_description: "از نشانه های دسترسی می توان برای دادن اجازه برقراری تماس های API از طرف شما به برنامه های دیگر استفاده کرد. همچنین می توانید نشانه های دسترسی را ایجاد کنید و *از EXAMPLE Open API استفاده کنید* تا یکپارچه‌سازی های خود را ایجاد کنید."
+      access_token_description: "از نشانه های دسترسی می توان برای دادن اجازه برقراری تماس های API از طرف شما به برنامه های دیگر استفاده کرد. همچنین می توانید نشانه های دسترسی را ایجاد کنید و *از quite frankly an example LMS Open API استفاده کنید* تا یکپارچه‌سازی های خود را ایجاد کنید."
       approved_integrations: "اینها برنامه‌های شخص ثالث هستند که از طرف شما اجازه دسترسی به کانواس را دارند:"
       buttons: 
         add_picture_file: "افزودن فایل"

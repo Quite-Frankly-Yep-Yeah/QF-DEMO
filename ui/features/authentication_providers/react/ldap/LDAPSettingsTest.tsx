@@ -182,19 +182,19 @@ const LDAPSettingsTest = ({accountId, ldapIps}: LDAPSettingsTestProps) => {
               {connectionTestStatus === TestStatus.FAILED && (
                 <LDAPTroubleshootInfo
                   info={{
-                    title: I18n.t("EXAMPLE can't connect to your LDAP server"),
+                    title: I18n.t("quite frankly an example LMS can't connect to your LDAP server"),
                     description: I18n.t(
                       'The connection either timed out or was refused. Things to consider:',
                     ),
                     hints: [
-                      I18n.t('EXAMPLE is connecting to %{ips}', {
+                      I18n.t('quite frankly an example LMS is connecting to %{ips}', {
                         ips: ldapIps || '<no IP found>',
                       }),
                       I18n.t(
                         'This was only a connection test. SSL certificates were not validated.',
                       ),
                       I18n.t(
-                        'Check your firewall settings. Are all EXAMPLE IP address allowed to access your server?',
+                        'Check your firewall settings. Are all quite frankly an example LMS IP address allowed to access your server?',
                       ),
                     ],
                   }}
@@ -207,7 +207,7 @@ const LDAPSettingsTest = ({accountId, ldapIps}: LDAPSettingsTestProps) => {
               {bindTestStatus === TestStatus.FAILED && (
                 <LDAPTroubleshootInfo
                   info={{
-                    title: I18n.t("EXAMPLE can't bind (login) to your LDAP server"),
+                    title: I18n.t("quite frankly an example LMS can't bind (login) to your LDAP server"),
                     description: I18n.t(
                       'Your LDAP server rejected the bind attempt. Things to consider:',
                     ),
@@ -216,7 +216,7 @@ const LDAPSettingsTest = ({accountId, ldapIps}: LDAPSettingsTestProps) => {
                         "Verify the provided filter string (i.e. '(sAMAccountName={{login}})').",
                       ),
                       I18n.t(
-                        "Does the username require more scoping information? (i.e. 'cn=EXAMPLE,ou=people,dc=example,dc=com').",
+                        "Does the username require more scoping information? (i.e. 'cn=quite frankly an example LMS,ou=people,dc=example,dc=com').",
                       ),
                     ],
                   }}
@@ -231,7 +231,7 @@ const LDAPSettingsTest = ({accountId, ldapIps}: LDAPSettingsTestProps) => {
                   {
                     <LDAPTroubleshootInfo
                       info={{
-                        title: I18n.t("EXAMPLE can't search your LDAP instance"),
+                        title: I18n.t("quite frankly an example LMS can't search your LDAP instance"),
                         description: I18n.t(
                           'The search either failed or returned 0 results. Things to consider:',
                         ),

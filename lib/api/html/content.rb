@@ -112,7 +112,7 @@ module Api
           APPLICABLE_ATTRS.each do |attr|
             next unless (link = node[attr])
 
-            # only process relative URLs or EXAMPLE URLs
+            # only process relative URLs or quite frankly an example LMS URLs
             next unless canvas_url?(link)
 
             match = link.match ASSOCIABLE_ATTACHMENT_LINKS_REGEXP
@@ -248,10 +248,10 @@ module Api
         self.class.apply_mathml(node)
       end
 
-      # check if a URL is a EXAMPLE URL (relative/pointing to a EXAMPLE host)
+      # check if a URL is a quite frankly an example LMS URL (relative/pointing to a quite frankly an example LMS host)
       # Returns true for:
       #   - Relative URLs (no host): /files/123
-      #   - Absolute URLs pointing to EXAMPLE hosts: https://canvas.example.com/files/123
+      #   - Absolute URLs pointing to quite frankly an example LMS hosts: https://canvas.example.com/files/123
       # Returns false for:
       #   - External URLs: https://external.com/files/123
       def canvas_url?(url)
@@ -262,7 +262,7 @@ module Api
         end
         return false unless uri
 
-        # Relative URLs (no host) are always EXAMPLE URLs
+        # Relative URLs (no host) are always quite frankly an example LMS URLs
         return true unless uri&.host
 
         LoadAccount.from_host(uri.host).present?

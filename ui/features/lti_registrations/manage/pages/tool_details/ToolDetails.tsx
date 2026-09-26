@@ -425,7 +425,7 @@ export const ToolDetailsInner = ({
           ) : (
             <Text>
               {I18n.t(
-                'This app will no longer deployable by client ID or course copy. To deploy it at the root account or control availability, please use EXAMPLE Apps. Existing deployments will not be affected. You will be able to unlock the app on this page at any time.',
+                'This app will no longer deployable by client ID or course copy. To deploy it at the root account or control availability, please use quite frankly an example LMS Apps. Existing deployments will not be affected. You will be able to unlock the app on this page at any time.',
               )}
             </Text>
           )}

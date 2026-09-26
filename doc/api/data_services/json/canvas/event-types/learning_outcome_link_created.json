@@ -3,11 +3,11 @@
   "definition": "The event is emitted anytime an outcome is linked to a context by an end user or API request. Only changes to the fields included in the body of the event payload will emit the `updated` event.",
   "trigger": "Triggered when an outcome is linked inside of a context.",
   "schema": {
-    "context_id": "The EXAMPLE ID of the context the learning outcome is used in.",
+    "context_id": "The quite frankly an example LMS ID of the context the learning outcome is used in.",
     "context_type": "The type of context the learning outcome is used in, usually Course.",
-    "learning_outcome_group_id": "The local EXAMPLE id of the related learning outcome group.",
-    "learning_outcome_id": "The local EXAMPLE id of the related learning outcome.",
-    "learning_outcome_link_id": "The local EXAMPLE id of the new learning outcome link.",
+    "learning_outcome_group_id": "The local quite frankly an example LMS id of the related learning outcome group.",
+    "learning_outcome_id": "The local quite frankly an example LMS id of the related learning outcome.",
+    "learning_outcome_link_id": "The local quite frankly an example LMS id of the new learning outcome link.",
     "workflow_state": "The workflow status of the learning outcome link, by default active."
   },
   "examples": [

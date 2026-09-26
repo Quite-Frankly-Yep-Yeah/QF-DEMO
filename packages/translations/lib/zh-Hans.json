@@ -453,7 +453,7 @@
         "message": "版权持有者："
     },
     "could_not_insert_content_itemtype_items_are_not_cu_638dfecd": {
-        "message": "无法插入内容：EXAMPLE 目前不支持“{ itemType }”项目。"
+        "message": "无法插入内容：quite frankly an example LMS 目前不支持“{ itemType }”项目。"
     },
     "count_40eced3b": {
         "message": "计数"
@@ -1878,7 +1878,7 @@
         "message": "播放器布局"
     },
     "please_allow_canvas_to_access_your_microphone_and__dc2c3079": {
-        "message": "请允许 EXAMPLE 访问您的麦克风和网络摄像头。"
+        "message": "请允许 quite frankly an example LMS 访问您的麦克风和网络摄像头。"
     },
     "please_choose_a_file_c2449cc": {
         "message": "请选择文件"
@@ -2544,7 +2544,7 @@
         "message": "厚向上箭头"
     },
     "this_document_cannot_be_displayed_within_canvas_7aba77be": {
-        "message": "无法在 EXAMPLE 中显示此文档。"
+        "message": "无法在 quite frankly an example LMS 中显示此文档。"
     },
     "this_equation_cannot_be_rendered_in_basic_view_9b6c07ae": {
         "message": "无法在基本视图中呈现此公式。"

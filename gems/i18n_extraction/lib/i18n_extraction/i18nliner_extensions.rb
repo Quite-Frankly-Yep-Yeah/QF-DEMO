@@ -61,7 +61,7 @@ module I18nExtraction::Extensions
     CANVAS_TRANSLATE_CALLS = [:mt, :ot].freeze
     ALL_CALLS = (I18nliner::Extractors::RubyExtractor::TRANSLATE_CALLS +
       LABEL_CALLS + CANVAS_TRANSLATE_CALLS +
-      # this one can go away when EXAMPLE' initializer that adds it changes to Module#prepend
+      # this one can go away when quite frankly an example LMS' initializer that adds it changes to Module#prepend
       [:label_with_symbol_translation]).freeze
 
     module ClassMethods

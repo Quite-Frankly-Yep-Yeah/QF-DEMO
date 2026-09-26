@@ -463,7 +463,7 @@
 #           "type": "string"
 #         },
 #         "canvas_icon_class": {
-#           "description": "The EXAMPLE icon class to use for this placement instead of an icon URL",
+#           "description": "The quite frankly an example LMS icon class to use for this placement instead of an icon URL",
 #           "example": "icon-lti",
 #           "type": "string"
 #         },
@@ -484,7 +484,7 @@
 #           "enum": ["public", "members", "admins"]
 #         },
 #         "required_permissions": {
-#           "description": "Comma-separated list of EXAMPLE permissions required to launch from this placement. The user must have all permissions in order to launch the tool.",
+#           "description": "Comma-separated list of quite frankly an example LMS permissions required to launch from this placement. The user must have all permissions in order to launch the tool.",
 #           "example": "manage_course_content_edit,manage_course_content_read",
 #           "type": "string"
 #         },
@@ -1996,7 +1996,7 @@ class ExternalToolsController < ApplicationController
 
     if @tool.use_1_3?
       # Create a launch URL that uses a session token to
-      # initialize a EXAMPLE session and launch the tool.
+      # initialize a quite frankly an example LMS session and launch the tool.
       begin
         launch_link = sessionless_launch_link(
           options.merge(id: tool_id, launch_type:, lookup_id: resource_link_lookup_uuid),

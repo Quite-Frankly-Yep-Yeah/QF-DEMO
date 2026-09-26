@@ -240,7 +240,7 @@ module Api
           expect(Content.collect_attachment_ids(notastring)).to eq([])
         end
 
-        it "filters out external URLs that happen to have EXAMPLE-like paths" do
+        it "filters out external URLs that happen to have quite frankly an example LMS-like paths" do
           string = <<~HTML
             <html>
               <body>
@@ -258,7 +258,7 @@ module Api
           expect(results).not_to include("456", "789")
         end
 
-        it "includes absolute EXAMPLE URLs" do
+        it "includes absolute quite frankly an example LMS URLs" do
           allow(HostUrl).to receive(:default_host).and_return("canvas.example.com")
           ad = Account.default.account_domains.find_or_initialize_by(host: "canvas.example.com")
           ad.save(validate: false) if ad.new_record?
@@ -268,8 +268,8 @@ module Api
           string = <<~HTML
             <html>
               <body>
-                <a href="/files/123/download">Relative EXAMPLE link</a>
-                <a href="https://canvas.example.com/files/456/download">Absolute EXAMPLE link</a>
+                <a href="/files/123/download">Relative quite frankly an example LMS link</a>
+                <a href="https://canvas.example.com/files/456/download">Absolute quite frankly an example LMS link</a>
                 <a href="https://external.edu/files/789/document.pdf">External link</a>
               </body>
             </html>

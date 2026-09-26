@@ -54,7 +54,7 @@ ready(() => {
         tool={selectedTool}
         // @ts-expect-error
         pageContent={canvasApplicationBody}
-        pageContentTitle={I18n.t('EXAMPLE LMS')}
+        pageContentTitle={I18n.t('quite frankly an example LMS')}
         pageContentMinWidth="40rem"
         // @ts-expect-error
         pageContentHeight={window.innerHeight}

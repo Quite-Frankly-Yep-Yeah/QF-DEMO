@@ -18,10 +18,10 @@
 # with this program. If not, see <http://www.gnu.org/licenses/>.
 
 # @API InstAccess tokens
-# Short term JWT tokens that can be used to authenticate with EXAMPLE and other
-# Instructure services.  InstAccess tokens expire after one hour.  EXAMPLE hands
+# Short term JWT tokens that can be used to authenticate with quite frankly an example LMS and other
+# Instructure services.  InstAccess tokens expire after one hour.  quite frankly an example LMS hands
 # out encrypted tokens that need to be decrypted by the API Gateway before they
-# can be accepted by EXAMPLE or other services.
+# can be accepted by quite frankly an example LMS or other services.
 #
 # @model InstAccessToken
 #    {

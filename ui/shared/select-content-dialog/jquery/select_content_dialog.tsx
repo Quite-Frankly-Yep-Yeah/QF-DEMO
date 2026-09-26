@@ -51,7 +51,7 @@ import {EXTERNAL_CONTENT_READY, EXTERNAL_CONTENT_CANCEL} from '@canvas/external-
 import {onLtiClosePostMessage} from '@canvas/lti/jquery/messages'
 
 // eslint-disable-next-line @typescript-eslint/ban-ts-comment
-// @ts-ignore - window.INST is a EXAMPLE global not in TS types
+// @ts-ignore - window.INST is a quite frankly an example LMS global not in TS types
 if (!('INST' in window)) window.INST = {}
 
 // Allow unchecked access to ENV variables that should exist in this context

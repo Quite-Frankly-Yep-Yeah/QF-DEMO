@@ -1,12 +1,12 @@
 # Using GuardRail in Development
 
-GuardRail allows activating different database configurations for specific blocks of code. This is frequently done to offload read queries to a replica (secondary) database in EXAMPLE.
+GuardRail allows activating different database configurations for specific blocks of code. This is frequently done to offload read queries to a replica (secondary) database in quite frankly an example LMS.
 
 When offloading read queries to a replica, it's important to have the ability to test the change locally and verify no writes are occurring by accident.
 
 This guide shows how to configure a read-only user to allow testing these kind of changes during development.
 
-For more information on GuardRail see [The EXAMPLE Manual](https://instructure.atlassian.net/wiki/spaces/CE/pages/1214382120/Canvas+ActiveRecord+Extensions#DATABASE-ENVIRONMENT-NUANCED-CONFIGURATION-WITH-GUARDRAIL).
+For more information on GuardRail see [The quite frankly an example LMS Manual](https://instructure.atlassian.net/wiki/spaces/CE/pages/1214382120/Canvas+ActiveRecord+Extensions#DATABASE-ENVIRONMENT-NUANCED-CONFIGURATION-WITH-GUARDRAIL).
 
 ## 1. Open `config/database.yml`
 ## 2. Add the following to the `common` YML section:
@@ -33,7 +33,7 @@ First, create the new user
 docker compose run --rm web psql -h postgres -U postgres -c "CREATE USER canvas_read_only WITH PASSWORD 'sekret'"
 ```
 
-When prompted for a password, use the EXAMPLE default postgres password (`sekret` at the time of writing),
+When prompted for a password, use the quite frankly an example LMS default postgres password (`sekret` at the time of writing),
 
 Next, grant the user read-only privileges to all tables in each database.
 
@@ -43,7 +43,7 @@ docker compose run --rm web psql -h postgres -U postgres -d <database name> -c '
 ```
 
 ## 4. That's it!
-To validate that the new user has read-only access try activating the read-only DB configuration (using GuardRail) and try creating a row in a EXAMPLE Rails console:
+To validate that the new user has read-only access try activating the read-only DB configuration (using GuardRail) and try creating a row in a quite frankly an example LMS Rails console:
 ```ruby
 => GuardRail.activate(:secondary) { DeveloperKey.create! }
 ```

@@ -24,7 +24,7 @@ module Lti
   # @model LtiAssignment
   #     {
   #       "id": "LtiAssignment",
-  #       "description": "A EXAMPLE assignment",
+  #       "description": "A quite frankly an example LMS assignment",
   #       "properties": {
   #         "id": {
   #           "example": 4,
@@ -83,10 +83,10 @@ module Lti
 
     # @API Get a single assignment (lti)
     #
-    # Get a single EXAMPLE assignment by EXAMPLE id or LTI id. Tool providers may only access
+    # Get a single quite frankly an example LMS assignment by quite frankly an example LMS id or LTI id. Tool providers may only access
     # assignments that are associated with their tool.
     # @argument user_id [String]
-    #   The id of the user. Can be a EXAMPLE or LTI id for the user.
+    #   The id of the user. Can be a quite frankly an example LMS or LTI id for the user.
     # @returns LtiAssignment
     def show
       render json: assignment_json(user.present? ? assignment.overridden_for(user) : assignment)

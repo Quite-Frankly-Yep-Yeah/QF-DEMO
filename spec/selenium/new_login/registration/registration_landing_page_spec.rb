@@ -95,7 +95,7 @@ describe "new login Registration Landing page" do
   describe "registration routes access control" do
     it "redirects away from /login/canvas/register when self-registration is disabled" do
       get "/login/canvas/register"
-      expect(f("h1").text).to include("Welcome to EXAMPLE")
+      expect(f("h1").text).to include("Welcome to quite frankly an example LMS")
     end
   end
 

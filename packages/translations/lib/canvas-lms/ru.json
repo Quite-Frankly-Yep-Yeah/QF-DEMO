@@ -17,7 +17,7 @@
         "Archived grading schemes in use can still be used, but cannot be added to new courses or assignments.": "Используемые архивированные схемы выставления оценок можно продолжать использовать, но нельзя добавлять их в новые курсы или задания.",
         "Are you sure you want to delete this grading scheme?": "Вы уверены, что хотите удалить эту схему оценок?",
         "Cancel": "Отменить",
-        "EXAMPLE Default": "EXAMPLE по умолчанию",
+        "quite frankly an example LMS Default": "quite frankly an example LMS по умолчанию",
         "Close": "Закрыть",
         "Confirm": "Подтвердить",
         "Confirm Default Grading Scheme Change": "Подтвердить изменение схемы оценивания по умолчанию",
@@ -80,7 +80,7 @@
         "Save": "Сохранить"
     },
     "GradingSchemes": {
-        "A table that contains the default canvas grading scheme data.  Each row contains a name, a maximum percentage, and a minimum percentage.": "Таблица, которая содержит данные схем выставления оценок EXAMPLE по умолчанию.  Каждый ряд содержит имя, максимальное и минимальное процентное значение.",
+        "A table that contains the default canvas grading scheme data.  Each row contains a name, a maximum percentage, and a minimum percentage.": "Таблица, которая содержит данные схем выставления оценок quite frankly an example LMS по умолчанию.  Каждый ряд содержит имя, максимальное и минимальное процентное значение.",
         "A table that contains the grading scheme data.  Each row contains a name, a maximum percentage, and a minimum percentage.": "Таблица, которая содержит данные схем выставления оценок.  Каждый ряд содержит имя, максимальное и минимальное процентное значение.",
         "Cannot have duplicate or empty row names. Fix the names and try clicking 'Save' again.": "Дублирующиеся или пустые имена строк не допускаются. Исправьте имена и снова нажмите «Сохранить».",
         "Cannot have overlapping or empty ranges. Fix the ranges and try clicking 'Save' again.": "Перекрывающиеся или пустые диапазоны не допускаются. Исправьте диапазоны и снова нажмите «Сохранить».",
@@ -157,10 +157,10 @@
     "assignments.grading_type_selector": {
         "(course default)": "(курс по умолчанию)",
         "Account Level": "Уровень учетной записи",
-        "EXAMPLE Grading Scheme (course default)": "Схема выставления оценок EXAMPLE (курс по умолчанию)",
+        "quite frankly an example LMS Grading Scheme (course default)": "Схема выставления оценок quite frankly an example LMS (курс по умолчанию)",
         "Close": "Закрыть",
         "Course Level": "Уровень курса",
-        "Default EXAMPLE Grading Scheme": "Схема выставления оценок EXAMPLE по умолчанию",
+        "Default quite frankly an example LMS Grading Scheme": "Схема выставления оценок quite frankly an example LMS по умолчанию",
         "Grading scheme was successfully removed.": "Схема выставления оценок успешно удалена.",
         "Grading scheme was successfully updated.": "Схема выставления оценок успешно обновлена.",
         "Manage All Grading Schemes": "Управление всеми схемами выставления оценок",
@@ -181,7 +181,7 @@
         "Course Catalog": "Каталог курсов"
     },
     "confetti": {
-        "Great work! From the EXAMPLE developers": "Отличная работа! От разработчиков EXAMPLE"
+        "Great work! From the quite frankly an example LMS developers": "Отличная работа! От разработчиков quite frankly an example LMS"
     },
     "content_copy_redesign": {
         "Cancel": "Отменить",

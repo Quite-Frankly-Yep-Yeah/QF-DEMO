@@ -17,7 +17,7 @@
         "Archived grading schemes in use can still be used, but cannot be added to new courses or assignments.": "Kullanımda olan arşivlenmiş notlandırma şemaları hâlâ kullanılabilir; ancak yeni derslere veya ödevlere eklenemez.",
         "Are you sure you want to delete this grading scheme?": "Bu notlandırma şemasını silmek istediğinize emin misiniz?",
         "Cancel": "İptal",
-        "EXAMPLE Default": "EXAMPLE Varsayılan",
+        "quite frankly an example LMS Default": "quite frankly an example LMS Varsayılan",
         "Close": "Kapat",
         "Confirm": "Onayla",
         "Confirm Default Grading Scheme Change": "Varsayılan Notlandırma Şeması Değişikliğini Onayla",
@@ -45,7 +45,7 @@
         "There was an error while archiving the grading scheme": "Notlandırma şemasını arşivlerken hata oluştu",
         "There was an error while creating the grading scheme": "Notlandırma şemasını oluştururken hata oluştu",
         "There was an error while loading grading schemes": "Notlandırma şemaları yüklenirken hata oluştu",
-        "There was an error while loading the default canvas grading scheme": "Varsayılan EXAMPLE notlandırma şeması yüklenirken hata oluştu",
+        "There was an error while loading the default canvas grading scheme": "Varsayılan quite frankly an example LMS notlandırma şeması yüklenirken hata oluştu",
         "There was an error while loading the default grading scheme": "Varsayılan notlandırma şeması yüklenirken hata oluştu",
         "There was an error while removing the grading scheme": "Notlandırma şemasını kaldırırken hata oluştu",
         "There was an error while unarchiving the grading scheme": "Notlandırma şemasını arşivden çıkarırken hata oluştu",
@@ -80,7 +80,7 @@
         "Save": "Kaydet"
     },
     "GradingSchemes": {
-        "A table that contains the default canvas grading scheme data.  Each row contains a name, a maximum percentage, and a minimum percentage.": "Varsayılan EXAMPLE notlandırma şeması verilerini içeren bir tablo. Her satır bir ad, maksimum yüzde ve minimum yüzde içerir.",
+        "A table that contains the default canvas grading scheme data.  Each row contains a name, a maximum percentage, and a minimum percentage.": "Varsayılan quite frankly an example LMS notlandırma şeması verilerini içeren bir tablo. Her satır bir ad, maksimum yüzde ve minimum yüzde içerir.",
         "A table that contains the grading scheme data.  Each row contains a name, a maximum percentage, and a minimum percentage.": "Notlandırma şeması verilerini içeren bir tablo. Her satır bir ad, maksimum yüzde ve minimum yüzde içerir.",
         "Cannot have duplicate or empty row names. Fix the names and try clicking 'Save' again.": "Yinelenen veya boş satır adları olamaz. Adları düzeltin ve 'Kaydet' düğmesine yeniden tıklayın.",
         "Cannot have overlapping or empty ranges. Fix the ranges and try clicking 'Save' again.": "Çakışan veya boş aralıklar olamaz. Aralıkları düzeltin ve 'Kaydet' düğmesine yeniden tıklayın.",
@@ -157,10 +157,10 @@
     "assignments.grading_type_selector": {
         "(course default)": "(ders varsayılanı)",
         "Account Level": "Hesap Düzeyi",
-        "EXAMPLE Grading Scheme (course default)": "EXAMPLE Notlandırma Şeması (ders varsayılanı)",
+        "quite frankly an example LMS Grading Scheme (course default)": "quite frankly an example LMS Notlandırma Şeması (ders varsayılanı)",
         "Close": "Kapat",
         "Course Level": "Ders Düzeyi",
-        "Default EXAMPLE Grading Scheme": "Varsayılan EXAMPLE Notlandırma Şeması",
+        "Default quite frankly an example LMS Grading Scheme": "Varsayılan quite frankly an example LMS Notlandırma Şeması",
         "Grading scheme was successfully removed.": "Notlandırma şeması başarıyla kaldırıldı.",
         "Grading scheme was successfully updated.": "Notlandırma şeması başarıyla güncellendi.",
         "Manage All Grading Schemes": "Tüm Notlandırma Şemalarını Yönet",
@@ -181,7 +181,7 @@
         "Course Catalog": "Ders Kataloğu"
     },
     "confetti": {
-        "Great work! From the EXAMPLE developers": "Harika iş! EXAMPLE geliştiricilerinden"
+        "Great work! From the quite frankly an example LMS developers": "Harika iş! quite frankly an example LMS geliştiricilerinden"
     },
     "content_copy_redesign": {
         "Cancel": "İptal",

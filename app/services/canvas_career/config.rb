@@ -19,7 +19,7 @@
 #
 
 # This service class should be used exclusively to load configuration settings related to
-# EXAMPLE Career.
+# quite frankly an example LMS Career.
 module CanvasCareer
   class Config
     def initialize(root_account, session = nil)

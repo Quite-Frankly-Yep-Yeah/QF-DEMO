@@ -1,15 +1,15 @@
 # frozen_string_literal: true
 
 #
-# Copyright (C) 2026 - present EXAMPLE contributors
+# Copyright (C) 2026 - present quite frankly an example LMS contributors
 #
-# This file is part of EXAMPLE LMS, a modified version of Canvas.
+# This file is part of quite frankly an example LMS, a modified version of Canvas.
 #
-# EXAMPLE LMS is free software: you can redistribute it and/or modify it under
+# quite frankly an example LMS is free software: you can redistribute it and/or modify it under
 # the terms of the GNU Affero General Public License as published by the Free
 # Software Foundation, version 3 of the License.
 #
-# EXAMPLE LMS is distributed in the hope that it will be useful, but WITHOUT ANY
+# quite frankly an example LMS is distributed in the hope that it will be useful, but WITHOUT ANY
 # WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS FOR
 # A PARTICULAR PURPOSE. See the GNU Affero General Public License for more
 # details.
@@ -48,6 +48,16 @@ describe SelfPaced::PlayerMap do
     map[:units].first[:items].to_h { |item| [item[:title], item[:status] || item[:type]] }
   end
 
+
+  it "marks the items a student skipped by mastering their skill" do
+    @context = course
+    outcome_model(context: course)
+    SelfPaced::ItemOverride.create!(content_tag: next_tag, user: student, kind: "exempt", learning_outcome_id: @outcome.id)
+    SelfPaced::ItemOverride.create!(content_tag: practice_tag, user: student, kind: "exempt", created_by: teacher)
+    items = map_for(student)[:units].first[:items].to_h { |item| [item[:title], item[:tested_out]] }
+
+    expect(items).to include("1.2 Lesson" => true, "1.1 Classwork" => false, "1.1 Lesson" => false)
+  end
   it "shows what the student has done, what they're on, and what is locked" do
     lesson_tag.context_module_action(student, :read)
 

@@ -19,7 +19,7 @@
 import {Button, CloseButton} from '@instructure/ui-buttons'
 import {Flex, FlexItem} from '@instructure/ui-flex'
 import {Heading} from '@instructure/ui-heading'
-// biome-ignore lint/style/noRestrictedImports: the modal in SG's instui-bindings is incompatible with all three of EXAMPLE's modals and doesn't permit pendo tracking
+// biome-ignore lint/style/noRestrictedImports: the modal in SG's instui-bindings is incompatible with all three of quite frankly an example LMS's modals and doesn't permit pendo tracking
 import {Modal} from '@instructure/ui-modal'
 import {Text} from '@instructure/ui-text'
 import {View} from '@instructure/ui-view'

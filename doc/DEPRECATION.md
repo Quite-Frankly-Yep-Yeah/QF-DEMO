@@ -1,4 +1,4 @@
-# EXAMPLE API Deprecation
+# quite frankly an example LMS API Deprecation
 In the examples below, the deprecation dates should follow these rules:
   * The `NOTICE` date should be the date that the deprecation warning
     will first be visible in production.

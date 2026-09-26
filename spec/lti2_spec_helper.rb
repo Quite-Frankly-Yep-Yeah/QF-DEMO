@@ -150,7 +150,7 @@ RSpec.shared_context "lti2_spec_helper", shared_context: :metadata do
                 "default_value" => "Instructure"
               },
               "description" => {
-                "default_value" => "EXAMPLE Learning Management System"
+                "default_value" => "quite frankly an example LMS Learning Management System"
               }
             }
           },

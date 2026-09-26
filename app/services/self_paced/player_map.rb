@@ -1,15 +1,15 @@
 # frozen_string_literal: true
 
 #
-# Copyright (C) 2026 - present EXAMPLE contributors
+# Copyright (C) 2026 - present quite frankly an example LMS contributors
 #
-# This file is part of EXAMPLE LMS, a modified version of Canvas.
+# This file is part of quite frankly an example LMS, a modified version of Canvas.
 #
-# EXAMPLE LMS is free software: you can redistribute it and/or modify it under
+# quite frankly an example LMS is free software: you can redistribute it and/or modify it under
 # the terms of the GNU Affero General Public License as published by the Free
 # Software Foundation, version 3 of the License.
 #
-# EXAMPLE LMS is distributed in the hope that it will be useful, but WITHOUT ANY
+# quite frankly an example LMS is distributed in the hope that it will be useful, but WITHOUT ANY
 # WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS FOR
 # A PARTICULAR PURPOSE. See the GNU Affero General Public License for more
 # details.
@@ -83,8 +83,22 @@ module SelfPaced
         role: setting&.role || ItemSetting.suggested_role(tag),
         estimated_minutes: setting&.estimated_minutes,
         requirement: requirement&.slice(:type, :min_percentage, :min_score),
-        status: status(mod, tag, progression, met, current_id)
+        status: status(mod, tag, progression, met, current_id),
+        tested_out: tested_out_ids.include?(tag.id),
+        planned_date: planned_dates[tag.id]&.iso8601
       }
+    end
+
+    # Items skipped because the student mastered the skill they teach (Phase 9).
+    def tested_out_ids
+      @tested_out_ids ||= @user ? ItemOverride.active.where(user: @user, course: @course, kind: "exempt").where.not(learning_outcome_id: nil).pluck(:content_tag_id).to_set : Set.new
+    end
+
+    # The student's current pacing plan, when the course is paced.
+    def planned_dates
+      return @planned_dates if defined?(@planned_dates)
+
+      @planned_dates = (Pacer.course?(@course) && @user && PacingPlan.find_by(course: @course, user: @user)&.planned_dates) || {}
     end
 
     def status(mod, tag, progression, met, current_id)

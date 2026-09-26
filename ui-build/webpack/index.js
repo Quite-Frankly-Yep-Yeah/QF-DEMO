@@ -183,6 +183,12 @@ module.exports = {
 
     extensions: ['.js', '.jsx', '.ts', '.tsx', '.graphql'],
 
+    alias: {
+      // Material Symbols (Sharp) in place of InstUI's icons, app-wide
+      // (script/material_icons). Exact match only: ui/shared/material-icons
+      // itself imports the package's es/index.js.
+      '@instructure/ui-icons$': resolve(canvasDir, 'ui/shared/material-icons/index.ts'),
+    },
   },
   module: {
     parser: {

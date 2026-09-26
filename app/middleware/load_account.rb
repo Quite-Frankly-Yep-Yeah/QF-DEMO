@@ -60,7 +60,7 @@ class LoadAccount
     Shard.current
   end
 
-  # This is used for URL filtering to determine if a URL points to a EXAMPLE instance
+  # This is used for URL filtering to determine if a URL points to a quite frankly an example LMS instance
   def self.from_host(hostname)
     return nil if hostname.blank?
 

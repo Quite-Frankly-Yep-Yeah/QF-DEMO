@@ -28,7 +28,7 @@ const CollaborationsTray = () => (
     subheading={I18n.t('Work and create together')}
     image="/images/tutorial-tray-images/Panda_Collaborations.svg"
     seeAllLink={{
-      label: I18n.t('See more in EXAMPLE Guides'),
+      label: I18n.t('See more in quite frankly an example LMS Guides'),
       href: I18n.t('#community.instructor_guide'),
     }}
     links={[
@@ -50,7 +50,7 @@ const CollaborationsTray = () => (
       },
     ]}
   >
-    {I18n.t(`EXAMPLE helps you leverage collaborative technology so multiple
+    {I18n.t(`quite frankly an example LMS helps you leverage collaborative technology so multiple
       users can work together on the same document at the same time. Create
       collaborative documents that are saved in real time—a change made by
       any user will be visible to everyone immediately.`)}

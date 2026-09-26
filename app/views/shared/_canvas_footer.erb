@@ -30,5 +30,13 @@
     <a id="ot-sdk-link" class="ot-sdk-show-settings" href="#"><%= t('cookie_consent_settings', 'Consent Settings') %></a>
     <% end %>
     <%= render :partial => 'shared/footer_links' %>
+    <% if @current_user %>
+      <form action="/logout" method="post" style="display: inline; margin: 0;">
+        <input name="utf8" value="✓" type="hidden">
+        <input name="_method" value="delete" type="hidden">
+        <input name="authenticity_token" value="<%= form_authenticity_token %>" type="hidden">
+        <button type="submit" id="footer-logout" style="background: none; border: 0; padding: 0; font: inherit; color: inherit; text-decoration: underline; cursor: pointer;"><%= t("Log out") %></button>
+      </form>
+    <% end %>
   </div>
 </footer>

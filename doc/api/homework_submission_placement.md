@@ -15,13 +15,13 @@ with **homework_submission** in the XML (LTI 1.0, 1.1, and 1.2) or JSON (LTI 1.3
 examples.
 
 ### Advantages
-- Allows EXAMPLE to have a full copy of the file, which may be of importance for
+- Allows quite frankly an example LMS to have a full copy of the file, which may be of importance for
 auditing or other administrative purposes.
 - Allows students to choose whether or not they want to use the tool to submit.
 - Files can be checked for plagiarism by tools that use the <a
 href="file.plagiarism_platform.html"
 target="_blank">Plagiarism Detection Platform</a>.
-- Integrates into the native EXAMPLE submission workflow that students are already familiar with.
+- Integrates into the native quite frankly an example LMS submission workflow that students are already familiar with.
 
 ### Limitations/Challenges
 - Tools cannot use <a href="file.assignment_tools.html"
@@ -35,13 +35,13 @@ target="_blank">configured to accept file uploads</a>, any LTI tool that uses
 the **homework_submission** placement will be exposed as a tab when the student
 attempts to submit to the assignment. Students will be able to choose to either
 upload a file directly from their system, or click on a tool's tab. When the
-tab is clicked, EXAMPLE initiates an LTI launch to the tool and indicates that
+tab is clicked, quite frankly an example LMS initiates an LTI launch to the tool and indicates that
 a deep linking selection request is happening. The tool can then present the
 student with a UI to select and/or create content and return it to the LMS as a
-file download url. EXAMPLE then attempts to download the file and attach it to the
-EXAMPLE submission.
+file download url. quite frankly an example LMS then attempts to download the file and attach it to the
+quite frankly an example LMS submission.
 
-The end result is Instructors can ask students to submit a file to EXAMPLE as the
+The end result is Instructors can ask students to submit a file to quite frankly an example LMS as the
 submission. The student can then choose from multiple sources for that file
 without having to go to the source in a separate window and download the file
 locally to their machine.
@@ -79,7 +79,7 @@ All of these settings are contained for the **homework_submission** placement:
 
     Sets the message_type to be sent during the LTI launch. It is expected that
     the tool use this to determine if a Deep Linking flow is being requested by
-    EXAMPLE and present an appropriate UI. A Deep Linking flow is highly recommended
+    quite frankly an example LMS and present an appropriate UI. A Deep Linking flow is highly recommended
     for this placement, but is not required. See the
     <a href="file.content_item.html" target="_blank">Deep Linking
     documentation</a> for more information, including accepted values.
@@ -94,10 +94,10 @@ All of these settings are contained for the **homework_submission** placement:
 
 -   selection_width: &lt;pixels&gt; (optional)
 
-    This sets the width (px) of the selection launch iframe. EXAMPLE may set a
+    This sets the width (px) of the selection launch iframe. quite frankly an example LMS may set a
     maximum or minimum width that overrides this option.
 
 -   selection_height: &lt;pixels&gt; (optional)
 
-    This sets the height (px) of the selection launch iframe. EXAMPLE may set a
+    This sets the height (px) of the selection launch iframe. quite frankly an example LMS may set a
     maximum or minimum height that overrides this option.

@@ -23,7 +23,7 @@ module Canvas
   # ActiveSupport::ExecutionContext as the underlying store.
   #
   # When ActiveSupport::ExecutionContext changes, this module automatically infers
-  # EXAMPLE-specific attributes canvas-specif attributes based on the changes.
+  # quite frankly an example LMS-specific attributes canvas-specif attributes based on the changes.
   #
   # Get an atribute by arbitrary key. Returns nil if the key doesn't exist.
   #   Canvas::ExecutionContext[:request_id]

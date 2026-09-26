@@ -3,8 +3,8 @@
   "definition": "The event is emitted anytime a new assignment group is created by an end user or API request.",
   "trigger": "Triggered when a new assignment group is created in a course.",
   "schema": {
-    "assignment_group_id": "The EXAMPLE id of the new assignment group.",
-    "context_id": "The EXAMPLE context id of the new assignment group.",
+    "assignment_group_id": "The quite frankly an example LMS id of the new assignment group.",
+    "context_id": "The quite frankly an example LMS context id of the new assignment group.",
     "context_type": "The context type of the new assignment group.",
     "group_weight": "The group weight of the new assignment group.",
     "integration_data": "Integration data for the new assignment group.",

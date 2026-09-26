@@ -35,7 +35,7 @@ const server = setupServer()
 
 const mockMigrators = [
   {
-    name: 'Copy a EXAMPLE Course',
+    name: 'Copy a quite frankly an example LMS Course',
     type: 'course_copy_importer',
   },
   {

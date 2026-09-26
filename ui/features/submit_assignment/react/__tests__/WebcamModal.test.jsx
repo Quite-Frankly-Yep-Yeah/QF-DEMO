@@ -139,7 +139,7 @@ describe('WebcamModal', () => {
     const {getByText} = render(<WebcamModal {...getProps({open: true})} />)
 
     act(() => vi.advanceTimersByTime(500))
-    expect(getByText('EXAMPLE needs acccess to your camera.')).toBeInTheDocument()
+    expect(getByText('quite frankly an example LMS needs acccess to your camera.')).toBeInTheDocument()
   })
 
   it('shows request message if user has declined', async () => {
@@ -149,7 +149,7 @@ describe('WebcamModal', () => {
     await act(async () => {
       result = render(<WebcamModal {...getProps({open: true})} />)
     })
-    expect(result.getByText('EXAMPLE needs acccess to your camera.')).toBeInTheDocument()
+    expect(result.getByText('quite frankly an example LMS needs acccess to your camera.')).toBeInTheDocument()
   })
 
   it('displays Try Again button when granted and has already took picture', async () => {

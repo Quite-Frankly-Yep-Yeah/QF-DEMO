@@ -37,13 +37,13 @@ const Header = React.forwardRef(({children}, ref) => (
     <hr aria-hidden="true" style={{marginTop: '8px'}} />
     <p>
       {I18n.t(
-        'Apps are an easy way to add new features to EXAMPLE. They can be added to individual courses, or to all courses in an account. Once configured, you can link to them through course modules and create assignments for assessment tools.',
+        'Apps are an easy way to add new features to quite frankly an example LMS. They can be added to individual courses, or to all courses in an account. Once configured, you can link to them through course modules and create assignments for assessment tools.',
       )}
     </p>
     <p>
       <Link ref={ref} href="https://www.eduappcenter.com/">
         <ScreenReaderContent>{I18n.t('Link to lti tools.')}</ScreenReaderContent>
-        {I18n.t('See some LTI tools that work great with EXAMPLE.')}
+        {I18n.t('See some LTI tools that work great with quite frankly an example LMS.')}
       </Link>
     </p>
   </View>

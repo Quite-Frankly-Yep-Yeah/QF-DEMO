@@ -1,15 +1,15 @@
 # frozen_string_literal: true
 
 #
-# Copyright (C) 2026 - present EXAMPLE contributors
+# Copyright (C) 2026 - present quite frankly an example LMS contributors
 #
-# This file is part of EXAMPLE LMS, a modified version of Canvas.
+# This file is part of quite frankly an example LMS, a modified version of Canvas.
 #
-# EXAMPLE LMS is free software: you can redistribute it and/or modify it under
+# quite frankly an example LMS is free software: you can redistribute it and/or modify it under
 # the terms of the GNU Affero General Public License as published by the Free
 # Software Foundation, version 3 of the License.
 #
-# EXAMPLE LMS is distributed in the hope that it will be useful, but WITHOUT ANY
+# quite frankly an example LMS is distributed in the hope that it will be useful, but WITHOUT ANY
 # WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS FOR
 # A PARTICULAR PURPOSE. See the GNU Affero General Public License for more
 # details.
@@ -33,22 +33,32 @@ module SelfPaced
         return unless user
 
         Shard.with_each_shard(user.associated_shards) do
-          [ActivityDay, ItemTime, StudentCourseState, VideoProgress, ItemOverride].each do |klass|
+          [ActivityDay, ItemTime, StudentCourseState, VideoProgress, ItemOverride, PacingPlan].each do |klass|
             klass.where(user_id: user).in_batches.delete_all
           end
           MentorCaseload.where(student_id: user).or(MentorCaseload.where(mentor_id: user)).in_batches.delete_all
+          # the log and notes about the student go; rows they wrote as staff
+          # stay, since they're the record of what was done for other students
+          Intervention.where(student_id: user).in_batches.delete_all
+          Alert.where(student_id: user).in_batches.delete_all
+          StudentNote.where(student_id: user).in_batches.delete_all
         end
       end
 
       # Moves +from_user+'s rows on the current shard to +target_user+, adding
       # totals together where both users have a row for the same day or item.
-      # Progress rows are dropped and rebuilt for the target user.
+      # Progress rows and pacing plans are dropped and rebuilt for the target
+      # user.
       def merge(from_user, target_user)
+        PacingPlan.where(user_id: from_user).delete_all
         move(ActivityDay, from_user, target_user, %i[user_id course_id day], ActivityLedger::DAY_MERGE_SQL)
         move(ItemTime, from_user, target_user, %i[user_id content_tag_id], ActivityLedger::ITEM_MERGE_SQL)
         move_caseloads(from_user, target_user)
         move_video_progress(from_user, target_user)
         ItemOverride.where(user_id: from_user).update_all(user_id: target_user.id)
+        # alerts are rebuilt from the target user's own progress
+        Alert.where(student_id: from_user).delete_all
+        move_interventions(from_user, target_user)
 
         states = StudentCourseState.where(user_id: from_user)
         states.pluck(:course_id, :root_account_id).each do |course_id, root_account_id|
@@ -71,6 +81,15 @@ module SelfPaced
             row.update_columns(user_id: target_user.id)
           end
         end
+      end
+
+      # The log and notes follow the user as the student and as the staff member.
+      def move_interventions(from_user, target_user)
+        Intervention.where(student_id: from_user).update_all(student_id: target_user.id)
+        Intervention.where(actor_id: from_user).update_all(actor_id: target_user.id)
+        Intervention.where(real_actor_id: from_user).update_all(real_actor_id: target_user.id)
+        StudentNote.where(student_id: from_user).update_all(student_id: target_user.id)
+        StudentNote.where(author_id: from_user).update_all(author_id: target_user.id)
       end
 
       # Caseload pins follow the user on both sides: as the pinned student and

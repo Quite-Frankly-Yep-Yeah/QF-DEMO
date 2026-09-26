@@ -76,9 +76,9 @@ class Lti::IMS::Registration < ApplicationRecord
 
   # An IMS::Registration (this class) denotes a registration of a tool with a platform. This
   # follows the IMS Dynamic Registration specification. A "Tool Configuration" is
-  # EXAMPLE' proprietary representation of a tool's configuration, which predates
+  # quite frankly an example LMS' proprietary representation of a tool's configuration, which predates
   # the dynamic registration specification. This method converts an ims registration
-  # into the EXAMPLE proprietary configuration format.
+  # into the quite frankly an example LMS proprietary configuration format.
   def canvas_configuration
     config = lti_tool_configuration
 
@@ -210,7 +210,7 @@ class Lti::IMS::Registration < ApplicationRecord
   end
 
   # This method converts an IMS Registration into an "InternalLtiConfiguration",
-  # the flattened and standardized version of the EXAMPLE proprietary configuration
+  # the flattened and standardized version of the quite frankly an example LMS proprietary configuration
   # format meant for internal use with LTI Registrations.
   def internal_lti_configuration
     Lti::IMS::Registration.to_internal_lti_configuration(self)
@@ -234,11 +234,11 @@ class Lti::IMS::Registration < ApplicationRecord
 
   # Builds a placement object for a given message and placement type
   # returns a list with one item, or an empty list if the placement
-  # type is not supported by EXAMPLE
+  # type is not supported by quite frankly an example LMS
   def self.build_placement_for(placement_type, message)
     placement_name = canvas_placement_name(placement_type)
 
-    # Return no placement if the placement type is not supported by EXAMPLE
+    # Return no placement if the placement type is not supported by quite frankly an example LMS
     unless Lti::ResourcePlacement::PLACEMENTS.include?(placement_name.to_sym)
       return []
     end
@@ -273,7 +273,7 @@ class Lti::IMS::Registration < ApplicationRecord
 
   # This supports a very old parameter (hence the obtuse name) that *only* applies to the course navigation placement. It hides the
   # tool from the course navigation by default. Teachers can still add the tool to the course navigation using the course
-  # settings page if they'd like. The IMS Message stores this value as a boolean, but the EXAMPLE config expects a string
+  # settings page if they'd like. The IMS Message stores this value as a boolean, but the quite frankly an example LMS config expects a string
   # value of "enabled" or "disabled" (nil/not present is equivalent to "enabled").
   def self.fetch_default_enabled_setting(message, placement_name)
     (message[COURSE_NAV_DEFAULT_ENABLED_EXTENSION] == false && placement_name == "course_navigation") ? "disabled" : nil
@@ -325,11 +325,11 @@ class Lti::IMS::Registration < ApplicationRecord
   end
 
   def self.canvas_placement_name(placement)
-    # IMS placement names that have different names in EXAMPLE
+    # IMS placement names that have different names in quite frankly an example LMS
     return "link_selection" if placement == "ContentArea"
     return "editor_button" if placement == "RichTextEditor"
 
-    # Otherwise, remove our URL prefix from the EXAMPLE-specific placements
+    # Otherwise, remove our URL prefix from the quite frankly an example LMS-specific placements
     canvas_extension = CANVAS_EXTENSION_PREFIX + "/"
     placement.start_with?(canvas_extension) ? placement.sub(canvas_extension, "") : placement
   end
@@ -424,11 +424,11 @@ class Lti::IMS::Registration < ApplicationRecord
   end
 
   def canvas_placement_name(placement)
-    # IMS placement names that have different names in EXAMPLE
+    # IMS placement names that have different names in quite frankly an example LMS
     return "link_selection" if placement == "ContentArea"
     return "editor_button" if placement == "RichTextEditor"
 
-    # Otherwise, remove our URL prefix from the EXAMPLE-specific placements
+    # Otherwise, remove our URL prefix from the quite frankly an example LMS-specific placements
     canvas_extension = CANVAS_EXTENSION_PREFIX + "/"
     placement.start_with?(canvas_extension) ? placement.sub(canvas_extension, "") : placement
   end

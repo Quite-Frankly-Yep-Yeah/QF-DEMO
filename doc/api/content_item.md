@@ -3,7 +3,7 @@ Using Deep Linking to Select Resources
 ## Introduction
 
 Deep Linking (formerly named Content-Item) is an extension to LTI that allows
-data to be passed back to the Tool Consumer (i.e., EXAMPLE) in context of an LTI
+data to be passed back to the Tool Consumer (i.e., quite frankly an example LMS) in context of an LTI
 Launch. A few common use cases are:
 
 *   Providing a teacher the ability to select a customized LTI launch link from
@@ -20,7 +20,7 @@ directly from the tool.
 
 *   Using an external tool to create multiple pieces of content directly from,
 the tool, whether ungraded (like module items), or graded (like assignments),
-and return them to EXAMPLE in bulk.
+and return them to quite frankly an example LMS in bulk.
 
 Deep Linking is supported in the LTI 1.1 Outcomes Service and LTI Advantage
 specifications. To see the full spec for content item and other code examples
@@ -31,11 +31,11 @@ see these documents:
 * <a href="https://www.imsglobal.org/spec/lti-dl/v2p0" target="_blank">IMS LTI
 Advantage Deep Linking v2.0 Documentation (For LTI Advantage)</a>
 
-Deep Linking is not applicable to all placements in EXAMPLE, but can be used with
+Deep Linking is not applicable to all placements in quite frankly an example LMS, but can be used with
  the following placements:
 
 * <a href="file.editor_button_placement.html" target="_blank">editor_button</a>:
- Allows users that have access to the EXAMPLE Rich Content
+ Allows users that have access to the quite frankly an example LMS Rich Content
 Editor to select a variety of content types from the tool and embed them
 directly in the editor.
 
@@ -88,7 +88,7 @@ This document will continue referring to this process as "Content-Item" for LTI
 
 # LTI Advantage Deep Linking Process
 
-LTI Advantage tools can be configured in EXAMPLE to send an LTI launch request
+LTI Advantage tools can be configured in quite frankly an example LMS to send an LTI launch request
 with a deep linking message type for certain placements. The specific details of
  a deep linking interaction are best presented in the <a
  href="https://www.imsglobal.org/spec/lti-dl/v2p0#lti-deep-linking-interaction"
@@ -97,7 +97,7 @@ with a deep linking message type for certain placements. The specific details of
 
 
 ## Supported Content Item Types
-The IMS LTI Deep Linking specification <a href="https://www.imsglobal.org/spec/lti-dl/v2p0#content-item-types">defines several content items types</a> that a tool may return to the platform via Deep linking. EXAMPLE supports all of these
+The IMS LTI Deep Linking specification <a href="https://www.imsglobal.org/spec/lti-dl/v2p0#content-item-types">defines several content items types</a> that a tool may return to the platform via Deep linking. quite frankly an example LMS supports all of these
 content item types and their respective required properties with additional support for the optional properties listed here:
 
 ### File
@@ -135,7 +135,7 @@ Support for the following optional properties:
 If a returned content item has the `lineItem` property, then it is used to create
 a new assignment, instead of a normal LTI link. The `available` and `submission`
 properties are also used for the assignment unlock, lock, and due dates. Note that
-since EXAMPLE has no notion of a start date for submissions, it ignores the
+since quite frankly an example LMS has no notion of a start date for submissions, it ignores the
 `submission.startDateTime` sub-property.
 
 There are only 3 places that support assigment creation using Line Items, and each of
@@ -183,12 +183,12 @@ Support for the following optional properties:
 ## Configuring Deep Linking
 Deep linking is configured by <a
 href="https://community.canvaslms.com/t5/Admin-Guide/How-do-I-configure-an-LTI-key-for-an-account/ta-p/140"
-target="_blank">creating a EXAMPLE LTI Developer Key</a> with a
+target="_blank">creating a quite frankly an example LMS LTI Developer Key</a> with a
 `LtiDeepLinkingRequest` message type set on a supported placement. This can be
-done via the UI, or by supplying EXAMPLE with JSON.
+done via the UI, or by supplying quite frankly an example LMS with JSON.
 
 For example, the following JSON would allow an LTI Advantage tool to be
-installed that uses deep linking return items back to EXAMPLE as an assignment or
+installed that uses deep linking return items back to quite frankly an example LMS as an assignment or
 within the canvas Rich Content Editor:
 
 ```json
@@ -205,7 +205,7 @@ within the canvas Rich Content Editor:
             "icon_url":"https://some.icon.url",
             "placements":[
                {
-                  "text":"Embed Tool Content in EXAMPLE RCE",
+                  "text":"Embed Tool Content in quite frankly an example LMS RCE",
                   "enabled":true,
                   "icon_url":"https://some.icon.url",
                   "placement":"editor_button",
@@ -213,7 +213,7 @@ within the canvas Rich Content Editor:
                   "target_link_uri":"https://your.target_link_uri/deeplinkexample"
                },
                {
-                  "text":"Embed Tool Content as a EXAMPLE Assignment",
+                  "text":"Embed Tool Content as a quite frankly an example LMS Assignment",
                   "enabled":true,
                   "icon_url":"https://some.icon.url",
                   "placement":"assignment_selection",
@@ -241,9 +241,9 @@ within the canvas Rich Content Editor:
 Once the developer key is configured, it can then be used to
 <a href="https://community.canvaslms.com/t5/Admin-Guide/How-do-I-configure-an-external-app-for-an-account-using-a-client/ta-p/202"
 target="_blank">install the LTI tool</a>. Links will then be exposed in the
-EXAMPLE Rich Content Editor toolbar and Assignment edit view. Clicking the links
+quite frankly an example LMS Rich Content Editor toolbar and Assignment edit view. Clicking the links
 will then initiate a deep linking LTI workflow to allow the user to select a
-resource from the tool and have them embedded in EXAMPLE.
+resource from the tool and have them embedded in quite frankly an example LMS.
 
 # LTI 1.1 Content-Item Process
 
@@ -345,10 +345,10 @@ _does not_ use content-item:
 [external tools documentation](file.tools_xml.html).
 
 To begin using content-item we need to specify at least one valid placement for
-EXAMPLE to use. Placements are used to help the tool consumer (EXAMPLE in this
+quite frankly an example LMS to use. Placements are used to help the tool consumer (quite frankly an example LMS in this
 case) know where the tool should be placed within the LMS. For example, adding
 the following node as a child of the **blti:extensions** element in the above
-XML would tell EXAMPLE to add a link in the course navigation to the LTI tool:
+XML would tell quite frankly an example LMS to add a link in the course navigation to the LTI tool:
 
 
 
@@ -383,6 +383,6 @@ To enable content-item with the **assignment_selection** placement, we add lines
 ```
 
 
-Adding the element on line 6 lets EXAMPLE know the tool should be placed in the
-assignments menu. Line 7 tells EXAMPLE the tool is using content-item, and line 8
- provides EXAMPLE the launch URL.
+Adding the element on line 6 lets quite frankly an example LMS know the tool should be placed in the
+assignments menu. Line 7 tells quite frankly an example LMS the tool is using content-item, and line 8
+ provides quite frankly an example LMS the launch URL.

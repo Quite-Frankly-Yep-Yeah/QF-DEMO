@@ -43,7 +43,7 @@ module Canvas::Plugins::TicketingSystem
              to: :__getobj__
 
     # whether sending to a web endpoint, or an email message,
-    # this is the canonical way to present a EXAMPLE ErrorReport
+    # this is the canonical way to present a quite frankly an example LMS ErrorReport
     # to the outside world. The "reporter" element has info
     # about the user involved in the trouble ticket or
     # exception, and the "canvas_details" element has

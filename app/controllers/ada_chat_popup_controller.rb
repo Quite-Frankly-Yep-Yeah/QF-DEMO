@@ -19,7 +19,7 @@
 #
 
 # Serves the Ada chatbot popup host page. User metadata is never passed via URL
-# params — it arrives through a same-origin postMessage from the EXAMPLE page
+# params — it arrives through a same-origin postMessage from the quite frankly an example LMS page
 # that opened this popup, then forwarded to the Ada Embed2 SDK.
 class AdaChatPopupController < ApplicationController
   def show

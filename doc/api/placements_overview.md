@@ -181,7 +181,7 @@ name: migration_selection
 
 name: module_group_menu
 
-<img class="lti-placement-image" src="./images/placements/module_group_menu.png" alt="A screenshot of the location of the Module Group Menu placement within EXAMPLE, located underneath the three-dot menu in any module group.">
+<img class="lti-placement-image" src="./images/placements/module_group_menu.png" alt="A screenshot of the location of the Module Group Menu placement within quite frankly an example LMS, located underneath the three-dot menu in any module group.">
 
 After clicking on the placement:
 
@@ -203,7 +203,7 @@ name: module_index_menu
 
 name: module_menu_modal
 
-<img class="lti-placement-image" src="./images/placements/module_menu_modal.png" alt="A screenshot of the Module Menu Modal placement within EXAMPLE, located underneath the three-dot menu in any module group.">
+<img class="lti-placement-image" src="./images/placements/module_menu_modal.png" alt="A screenshot of the Module Menu Modal placement within quite frankly an example LMS, located underneath the three-dot menu in any module group.">
 
 After clicking on the placement:
 
@@ -283,7 +283,7 @@ name: user_navigation
 
 name: resource_selection <span title="this placement is deprecated!">⚠️</span>
 
-This is a placement that once was the default for 1.1 tools, and was one of the very first placements for EXAMPLE. It makes the tool show up both in - [assignment_selection](#assignment-selection) and [link_selection](#link-selection) (new module item), but is deprecated now.
+This is a placement that once was the default for 1.1 tools, and was one of the very first placements for quite frankly an example LMS. It makes the tool show up both in - [assignment_selection](#assignment-selection) and [link_selection](#link-selection) (new module item), but is deprecated now.
 
 For 1.3 tools using this placement we highly recommend to use assignment_selection or link_selection instead!
 You can read about those in details [here](file.assignment_selection_placement.html) and [here](file.link_selection_placement.html).

@@ -4,7 +4,7 @@ assignments_2_student:
   display_name: Assignment Enhancements - Student
   description:
     wrapper: <a href="https://community.canvaslms.com/t5/Assignment-Enhancements-Users/gh-p/student_enhancements">\1</a>
-    assignments_2_student_description: This feature enhances the assignment submission and feedback workflow for students. When this flag is enabled, early access to ongoing improvements will be displayed automatically with every release. For full details, please see the *Assignment Enhancements User Group* in the EXAMPLE Community.
+    assignments_2_student_description: This feature enhances the assignment submission and feedback workflow for students. When this flag is enabled, early access to ongoing improvements will be displayed automatically with every release. For full details, please see the *Assignment Enhancements User Group* in the quite frankly an example LMS Community.
   applies_to: Course
   root_opt_in: true
   beta: true
@@ -191,7 +191,7 @@ module_external_url_seamless_redirect:
   display_name: Seamless External URL Redirect for Modules
   description: |-
     When enabled, external URL module items set to "Load in New Tab" will open
-    seamlessly in a new tab. The EXAMPLE intermediate page (which tracks progression)
+    seamlessly in a new tab. The quite frankly an example LMS intermediate page (which tracks progression)
     will automatically redirect to the external URL using native browser navigation.
   applies_to: SiteAdmin
   environments:
@@ -217,7 +217,7 @@ use_dyslexic_font:
   state: allowed
   display_name: Use a dyslexia friendly font
   description: |-
-    When enabled, this setting replaces the default font in EXAMPLE with OpenDyslexic,
+    When enabled, this setting replaces the default font in quite frankly an example LMS with OpenDyslexic,
     an open source font created to help increase readability for readers with dyslexia.
   applies_to: User
 

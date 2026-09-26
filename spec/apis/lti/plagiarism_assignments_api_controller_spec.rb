@@ -95,7 +95,7 @@ module Lti
         expect(response).to be_not_found
       end
 
-      it "returns an assignment by EXAMPLE id" do
+      it "returns an assignment by quite frankly an example LMS id" do
         get "#{endpoint}/#{assignment.id}", headers: request_headers
         parsed_body = JSON.parse(response.body)
         expect(parsed_body).to eq expected_assignment
@@ -120,7 +120,7 @@ module Lti
         expect(parsed_body).to eq expected_assignment
       end
 
-      it "returns an assignment with user EXAMPLE id" do
+      it "returns an assignment with user quite frankly an example LMS id" do
         get "#{endpoint}/#{assignment.id}", params: { user_id: student.id }, headers: request_headers
         parsed_body = JSON.parse(response.body)
         expect(parsed_body).to eq expected_assignment

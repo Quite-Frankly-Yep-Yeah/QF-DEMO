@@ -17,7 +17,7 @@
         "Archived grading schemes in use can still be used, but cannot be added to new courses or assignments.": "使用中のアーカイブされた評定スキームは引き続き使用することができますが、新しいコースや課題に追加することはできません。",
         "Are you sure you want to delete this grading scheme?": "この採点スキームを削除してもよろしいですか?",
         "Cancel": "キャンセル",
-        "EXAMPLE Default": "EXAMPLE のデフォルト",
+        "quite frankly an example LMS Default": "quite frankly an example LMS のデフォルト",
         "Close": "閉じる",
         "Confirm": "確認",
         "Confirm Default Grading Scheme Change": "デフォルトの評定スキームの変更確認",
@@ -45,7 +45,7 @@
         "There was an error while archiving the grading scheme": "評定スキームのアーカイブ中にエラーが発生しました。",
         "There was an error while creating the grading scheme": "採点スキームの作成中にエラーがありました",
         "There was an error while loading grading schemes": "採点スキームの読み込み中にエラーが発生しました",
-        "There was an error while loading the default canvas grading scheme": "デフォルトのEXAMPLE採点スキームの読み込み中にエラーが発生しました",
+        "There was an error while loading the default canvas grading scheme": "デフォルトのquite frankly an example LMS採点スキームの読み込み中にエラーが発生しました",
         "There was an error while loading the default grading scheme": "採点スキームの更新中にエラーが発生しました",
         "There was an error while removing the grading scheme": "採点スキームの保存中にエラーが発生しました",
         "There was an error while unarchiving the grading scheme": "評定スキームのアーカイブ解除中にエラーが発生しました。",
@@ -80,7 +80,7 @@
         "Save": "保存"
     },
     "GradingSchemes": {
-        "A table that contains the default canvas grading scheme data.  Each row contains a name, a maximum percentage, and a minimum percentage.": "デフォルトのEXAMPLE採点スキームデータを含む表。各行には、名前、最大パーセンテージ、最小パーセンテージが含まれます。",
+        "A table that contains the default canvas grading scheme data.  Each row contains a name, a maximum percentage, and a minimum percentage.": "デフォルトのquite frankly an example LMS採点スキームデータを含む表。各行には、名前、最大パーセンテージ、最小パーセンテージが含まれます。",
         "A table that contains the grading scheme data.  Each row contains a name, a maximum percentage, and a minimum percentage.": "採点スキームデータを含む表。各行には、名前、最大パーセンテージ、最小パーセンテージが含まれます。",
         "Cannot have duplicate or empty row names. Fix the names and try clicking 'Save' again.": "行の名前が重複することや空であることは認められません。行名を修正し、再度「保存」をクリックしてみてください。",
         "Cannot have overlapping or empty ranges. Fix the ranges and try clicking 'Save' again.": "範囲が重複する、または空であることは認められません。範囲を修正し、再度「保存」をクリックしてみてください。",
@@ -157,10 +157,10 @@
     "assignments.grading_type_selector": {
         "(course default)": "(コースデフォルト)",
         "Account Level": "アカウントレベル",
-        "EXAMPLE Grading Scheme (course default)": "EXAMPLEの評定スキーム (コースデフォルト)",
+        "quite frankly an example LMS Grading Scheme (course default)": "quite frankly an example LMSの評定スキーム (コースデフォルト)",
         "Close": "閉じる",
         "Course Level": "コースレベル",
-        "Default EXAMPLE Grading Scheme": "EXAMPLE のデフォルトの採点スキーム",
+        "Default quite frankly an example LMS Grading Scheme": "quite frankly an example LMS のデフォルトの採点スキーム",
         "Grading scheme was successfully removed.": "採点スキームが正常に削除されました。",
         "Grading scheme was successfully updated.": "評定スキームは正常に更新されました。",
         "Manage All Grading Schemes": "すべての採点スキームを管理する",
@@ -181,7 +181,7 @@
         "Course Catalog": "コース カタログ"
     },
     "confetti": {
-        "Great work! From the EXAMPLE developers": "すばらしい！EXAMPLE 開発者より"
+        "Great work! From the quite frankly an example LMS developers": "すばらしい！quite frankly an example LMS 開発者より"
     },
     "content_copy_redesign": {
         "Cancel": "キャンセル",

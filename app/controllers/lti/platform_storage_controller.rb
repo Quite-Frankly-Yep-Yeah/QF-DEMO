@@ -20,16 +20,16 @@
 module Lti
   # Provides a page to be loaded in an invisible iframe alongside LTI launches
   # for tools to send postMessages to the OIDC Auth domain instead of the
-  # current EXAMPLE domain. This is part of the LTI Platform Storage spec,
+  # current quite frankly an example LMS domain. This is part of the LTI Platform Storage spec,
   # which allows tools to securely launch in browsers like Safari, and store
-  # key/value data in EXAMPLE' localstorage.
+  # key/value data in quite frankly an example LMS' localstorage.
   #
   # For ease of rendering this sibling iframe alongside the LTI launch iframe,
   # this iframe initially has a src of `current_domain\post_message_forwarding`
   # which this controller will HTTP redirect to the needed src of
   # `OIDC_domain\post_message_forwarding?token=<JWT>`. The JWT contains the
   # original current_domain so that postMessages can be proxied from
-  # EXAMPLE to tool.
+  # quite frankly an example LMS to tool.
   #
   # Other references:
   # * standard postMessage listener: ui/shared/lti/jquery/messages.ts
@@ -70,7 +70,7 @@ module Lti
     end
 
     # render a *very* bare-bones page that only has the JS it needs
-    # to forward postMessages to the parent EXAMPLE window
+    # to forward postMessages to the parent quite frankly an example LMS window
     def post_message_forwarding
       @parent_origin = "#{HostUrl.protocol}://#{parent_domain}"
 
@@ -98,7 +98,7 @@ module Lti
     #   after redirect to `canvas.instructure.com`
     #     Content-Security-Policy: frame-ancestors 'self' canvas.instructure.com ... school.instructure.com;
     #
-    # Adding `school.instructure.com` allows the main EXAMPLE window (showing `school.instructure.com`) to
+    # Adding `school.instructure.com` allows the main quite frankly an example LMS window (showing `school.instructure.com`) to
     # load an iframe that points to `canvas.instructure.com`
     def set_extra_csp_frame_ancestor!
       csp_frame_ancestors << parent_domain
@@ -120,9 +120,9 @@ module Lti
       render status: :forbidden, plain: "Invalid token"
     end
 
-    # We generate a JWT on EXAMPLE pages with the iframe and pass it in to
+    # We generate a JWT on quite frankly an example LMS pages with the iframe and pass it in to
     # ensure that the iframe (on our trusted domain) will only forward messages
-    # to domains that are really EXAMPLE.
+    # to domains that are really quite frankly an example LMS.
     def decoded_jwt
       @decoded_jwt ||=
         if params[:token].blank?

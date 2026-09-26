@@ -3,12 +3,12 @@
   "definition": "The event is emitted anytime an end user or API request comments on a submission.",
   "trigger": "Triggered when a new comment is added to a submission.",
   "schema": {
-    "attachment_ids": "Array of EXAMPLE ids (as strings) of attachments for this comment.",
+    "attachment_ids": "Array of quite frankly an example LMS ids (as strings) of attachments for this comment.",
     "body": "The text of the comment. NOTE: This field will be truncated to only include the first 8192 characters.",
     "created_at": "The timestamp when the comment was created.",
-    "submission_comment_id": "The EXAMPLE id of the new comment.",
-    "submission_id": "The EXAMPLE id of the new submission.",
-    "user_id": "The EXAMPLE id of the user who authored the comment."
+    "submission_comment_id": "The quite frankly an example LMS id of the new comment.",
+    "submission_id": "The quite frankly an example LMS id of the new submission.",
+    "user_id": "The quite frankly an example LMS id of the user who authored the comment."
   },
   "examples": [
     {

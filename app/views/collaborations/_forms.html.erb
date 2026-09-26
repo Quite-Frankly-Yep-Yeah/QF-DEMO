@@ -74,7 +74,7 @@
   </div>
   <div id="collaborate_authorize_google_docs" class="collaboration_authorization" style="display: none;">
     <% if !@user_has_google_drive %>
-      <%= t '#instructions.authorize_google_drive', "Before you can collaborate on documents, you need to authorize EXAMPLE
+      <%= t '#instructions.authorize_google_drive', "Before you can collaborate on documents, you need to authorize quite frankly an example LMS
               to access your Google Drive account:" %>
       <div class="button-container">
         <a class="btn button-default-action" href="<%= oauth_url(:service => :google_drive, :return_to => (request.url + "#add_collaboration")) %>"><%= t '#buttons.authorize_google_drive', "Authorize Google Drive Access" %></a>
@@ -92,9 +92,9 @@
 <% end %>
 <div id="delete_collaboration_dialog" style="display: none;">
   <%= t 'messages.delete_google_doc_as_well', "This collaboration is being stored as a Google Doc.  Did you want to delete it just
-  from EXAMPLE, or remove it from Google Docs as well?" %>
+  from quite frankly an example LMS, or remove it from Google Docs as well?" %>
   <div style="margin-top: 15px;">
-  <button type="button" class="btn delete_button"><%= mt 'buttons.delete_from_canvas', "Just Delete  \nfrom EXAMPLE" %></button>
+  <button type="button" class="btn delete_button"><%= mt 'buttons.delete_from_canvas', "Just Delete  \nfrom quite frankly an example LMS" %></button>
   <button type="button" class="btn delete_button delete_document_button"><%= mt 'buttons.delete_from_google_docs', "Also Delete From  \nGoogle Docs" %></button>
   </div>
 </div>

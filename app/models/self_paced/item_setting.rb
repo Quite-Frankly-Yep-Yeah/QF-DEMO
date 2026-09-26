@@ -1,15 +1,15 @@
 # frozen_string_literal: true
 
 #
-# Copyright (C) 2026 - present EXAMPLE contributors
+# Copyright (C) 2026 - present quite frankly an example LMS contributors
 #
-# This file is part of EXAMPLE LMS, a modified version of Canvas.
+# This file is part of quite frankly an example LMS, a modified version of Canvas.
 #
-# EXAMPLE LMS is free software: you can redistribute it and/or modify it under
+# quite frankly an example LMS is free software: you can redistribute it and/or modify it under
 # the terms of the GNU Affero General Public License as published by the Free
 # Software Foundation, version 3 of the License.
 #
-# EXAMPLE LMS is distributed in the hope that it will be useful, but WITHOUT ANY
+# quite frankly an example LMS is distributed in the hope that it will be useful, but WITHOUT ANY
 # WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS FOR
 # A PARTICULAR PURPOSE. See the GNU Affero General Public License for more
 # details.
@@ -28,13 +28,26 @@ module SelfPaced
     belongs_to :content_tag
     belongs_to :course
     belongs_to :root_account, class_name: "Account"
+    # the skill this item teaches; mastering it skips the item (docs/fork-plan.md Phase 9)
+    belongs_to :learning_outcome, optional: true
 
     validates :role, inclusion: { in: ROLES }
     validates :mastery_threshold, numericality: { greater_than: 0, less_than_or_equal_to: 100 }, allow_nil: true
     validates :watch_fraction, numericality: { greater_than: 0, less_than_or_equal_to: 1 }, allow_nil: true
     validates :max_attempts, numericality: { greater_than: 0, only_integer: true }, allow_nil: true
+    validate :skill_belongs_to_a_lesson_in_this_course
 
     before_validation { self.root_account_id ||= course&.root_account_id }
+
+    # A skill can only be set on a lesson or practice item, and it has to be one
+    # of the course's own skills, so test-out can't reach into another course.
+    def skill_belongs_to_a_lesson_in_this_course
+      return unless learning_outcome_id
+
+      errors.add(:learning_outcome_id, "can only be set on lessons and practice") unless SelfPaced::TestOut::ROLES.include?(role)
+      linked = course&.learning_outcome_links&.active&.where(content_type: "LearningOutcome", content_id: learning_outcome_id)&.exists?
+      errors.add(:learning_outcome_id, "isn't a skill in this course") unless linked
+    end
 
     # The role a module item gets before a teacher changes it. (Not
     # "default_role": ActiveRecord uses that name to pick a database role.)

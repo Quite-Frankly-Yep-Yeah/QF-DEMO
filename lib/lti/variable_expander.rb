@@ -427,7 +427,7 @@ module Lti
                        default_name: "com_instructure_editor_selection"
 
     # A token that can be used for frontend communication between an LTI tool
-    # and EXAMPLE via the Window.postMessage API
+    # and quite frankly an example LMS via the Window.postMessage API
     # @launch_parameter com_instructure_post_message_token
     # @example
     #   ```
@@ -496,7 +496,7 @@ module Lti
                        FILE_UPLOAD_GUARD,
                        default_name: "com_instructure_assignment_allowed_file_extensions"
 
-    # The EXAMPLE id of the Originality Report associated
+    # The quite frankly an example LMS id of the Originality Report associated
     # with the launch.
     # @launch_parameter com_instructure_originality_report_id
     # @example
@@ -511,7 +511,7 @@ module Lti
                        ORIGINALITY_REPORT_GUARD,
                        default_name: "com_instructure_originality_report_id"
 
-    # The EXAMPLE id of the submission associated with the
+    # The quite frankly an example LMS id of the submission associated with the
     # launch.
     # @launch_parameter com_instructure_submission_id
     # @example
@@ -524,7 +524,7 @@ module Lti
                        ORIGINALITY_REPORT_GUARD,
                        default_name: "com_instructure_submission_id"
 
-    # The EXAMPLE id of the file associated with the submission
+    # The quite frankly an example LMS id of the file associated with the submission
     # in the launch.
     # @launch_parameter com_instructure_file_id
     # @example
@@ -560,7 +560,7 @@ module Lti
                        -> { Lti::V1p1::Asset.opaque_identifier_for(@context) },
                        default_name: "context_id"
 
-    # The EXAMPLE global identifier for the launch context
+    # The quite frankly an example LMS global identifier for the launch context
     # @example
     #   ```
     #   10000000000070
@@ -569,7 +569,7 @@ module Lti
                        [],
                        -> { @context&.global_id }
 
-    # The EXAMPLE UUID for the launch context
+    # The quite frankly an example LMS UUID for the launch context
     # @example
     #   ```
     #   4TVeERS266frWLG5RVK0L8BbSC831mUZHaYpK4KP
@@ -633,7 +633,7 @@ module Lti
                        -> { activity_id_history },
                        ASSIGNMENT_GUARD
 
-    # communicates the kind of browser window/frame where the EXAMPLE has launched a tool
+    # communicates the kind of browser window/frame where the quite frankly an example LMS has launched a tool
     # @launch_parameter launch_presentation_document_target
     # @example
     #   ```
@@ -655,7 +655,7 @@ module Lti
                        -> { I18n.locale || I18n.default_locale },
                        default_name: "launch_presentation_locale"
 
-    # returns a unique identifier for the Tool Consumer (EXAMPLE)
+    # returns a unique identifier for the Tool Consumer (quite frankly an example LMS)
     # @launch_parameter tool_consumer_instance_guid
     # @example
     #   ```
@@ -705,7 +705,7 @@ module Lti
 
     # returns the URL for the membership service associated with the current context.
     #
-    # This variable is for future use only. Complete support for the IMS Membership Service has not been added to EXAMPLE. This will be updated when we fully support and certify the IMS Membership Service.
+    # This variable is for future use only. Complete support for the IMS Membership Service has not been added to quite frankly an example LMS. This will be updated when we fully support and certify the IMS Membership Service.
     # @example
     #   ```
     #   "https://canvas.instructure.com/api/lti/courses/1/membership_service"
@@ -1205,7 +1205,7 @@ module Lti
 
     # Returns "true" if the RCE Studio embed improvements feature is enabled
     # for the current course, or account context "false" otherwise.
-    # This allows LTI tools to adapt their UI based on EXAMPLE feature flags.
+    # This allows LTI tools to adapt their UI based on quite frankly an example LMS feature flags.
     # @example
     #   ```
     #   "true"
@@ -1329,7 +1329,7 @@ module Lti
                        USER_GUARD,
                        default_name: "user_image"
 
-    # Returns the EXAMPLE user_id of the launching user.
+    # Returns the quite frankly an example LMS user_id of the launching user.
     # @duplicates Canvas.user.id
     # @launch_parameter user_id
     # @example
@@ -1342,7 +1342,7 @@ module Lti
                        USER_GUARD,
                        default_name: "user_id"
 
-    # Returns the EXAMPLE user_id of the launching user.
+    # Returns the quite frankly an example LMS user_id of the launching user.
     # @duplicates User.id
     # @example
     #   ```
@@ -1353,7 +1353,7 @@ module Lti
                        -> { @current_user.id },
                        USER_GUARD
 
-    # Returns the EXAMPLE user_uuid of the launching user for the context.
+    # Returns the quite frankly an example LMS user_uuid of the launching user for the context.
     # @duplicates User.uuid
     # @example
     #   ```
@@ -1364,7 +1364,7 @@ module Lti
                        -> { UserPastLtiId.uuid_for_user_in_context(@current_user, @context) },
                        USER_GUARD
 
-    # Returns the current EXAMPLE user_uuid of the launching user.
+    # Returns the current quite frankly an example LMS user_uuid of the launching user.
     # @duplicates User.uuid
     # @example
     #   ```
@@ -1422,7 +1422,7 @@ module Lti
                        -> { @current_user.prefers_dyslexic_font? ? "true" : "false" },
                        USER_GUARD
 
-    # returns the EXAMPLE ids of all active groups in the current course.
+    # returns the quite frankly an example LMS ids of all active groups in the current course.
     # @example
     #   ```
     #   "23,24,..."
@@ -1488,7 +1488,7 @@ module Lti
                        [],
                        -> { lti_helper.all_roles("lti1_3") }
 
-    # Returns the EXAMPLE global user_id of the launching user.
+    # Returns the quite frankly an example LMS global user_id of the launching user.
     # @example
     #   ```
     #   420000000000042
@@ -1614,7 +1614,7 @@ module Lti
                        CONTROLLER_GUARD,
                        -> { @current_pseudonym && @tool }
 
-    # Returns the EXAMPLE user_id for the masquerading user.
+    # Returns the quite frankly an example LMS user_id for the masquerading user.
     # This is the pseudonym the user is actually logged in as.
     # It may not hold all the sis info needed in other launch substitutions.
     #
@@ -1799,7 +1799,7 @@ module Lti
                        -> { @assignment.lti_safe_description },
                        ASSIGNMENT_GUARD
 
-    # Returns the EXAMPLE id of the group the current user is in if launching
+    # Returns the quite frankly an example LMS id of the group the current user is in if launching
     # from a group assignment otherwise empty string
     #
     # @example
@@ -1812,7 +1812,7 @@ module Lti
                        USER_GUARD,
                        ASSIGNMENT_GUARD
 
-    # Returns the EXAMPLE id of the group the current user is in if launching
+    # Returns the quite frankly an example LMS id of the group the current user is in if launching
     # from a group assignment.
     #
     # This is similar to `CourseGroup.id` but unlike that this returns
@@ -1843,7 +1843,7 @@ module Lti
                        ASSIGNMENT_GUARD,
                        default_name: "vnd_canvas_group_name"
 
-    # Returns the EXAMPLE id of the differentiation tag the current user is assigned to
+    # Returns the quite frankly an example LMS id of the differentiation tag the current user is assigned to
     # for the current assignment context.
     #
     # @example
@@ -2004,7 +2004,7 @@ module Lti
                        -> { earliest_due_at&.utc&.iso8601.to_s },
                        ASSIGNMENT_GUARD
 
-    # In EXAMPLE, users, sections and groups can have distinct due dates for the same assignment.
+    # In quite frankly an example LMS, users, sections and groups can have distinct due dates for the same assignment.
     # This returns all possible `due_at` dates of the assignment that was launched.
     # If the assignment is assigned to anyone without a due date, an empty string
     # will be present in the list (hence the ",," in the example)
@@ -2202,7 +2202,7 @@ module Lti
     # "discussion_topic", "document", "image", "module", "quiz", "page", "video"]
     #
     # Only functional when `com_instructure_course_accept_canvas_resource_types` is included as a query param
-    # in EXAMPLE-side GET request that triggers the LTI launch.
+    # in quite frankly an example LMS-side GET request that triggers the LTI launch.
     #
     # @example
     #   ```
@@ -2226,7 +2226,7 @@ module Lti
     #   and so on.
     #
     # Only functional when `com_instructure_course_canvas_resource_type` is included as a query param
-    # in EXAMPLE-side GET request that triggers the LTI launch.
+    # in quite frankly an example LMS-side GET request that triggers the LTI launch.
     #
     # @example
     #   ```
@@ -2254,7 +2254,7 @@ module Lti
     # True for Modules page and Assignment Groups page. False for other content index pages.
     #
     # Only functional when `com_instructure_course_allow_canvas_resource_selection` is included as a query param
-    # in EXAMPLE-side GET request that triggers the LTI launch.
+    # in quite frankly an example LMS-side GET request that triggers the LTI launch.
     #
     # @example
     #   ```
@@ -2270,7 +2270,7 @@ module Lti
     # Empty value if com.instructure.Course.allow_canvas_resource_selection is false.
     #
     # Only functional when `com_instructure_course_available_canvas_resources` is included as a query param
-    # in EXAMPLE-side GET request that triggers the LTI launch.
+    # in quite frankly an example LMS-side GET request that triggers the LTI launch.
     #
     # @example
     #   ```

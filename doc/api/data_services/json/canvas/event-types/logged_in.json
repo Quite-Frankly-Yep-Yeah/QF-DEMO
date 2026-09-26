@@ -1,9 +1,9 @@
 {
   "name": "logged_in",
-  "definition": "The event is emitted anytime an end user logs into EXAMPLE",
+  "definition": "The event is emitted anytime an end user logs into quite frankly an example LMS",
   "trigger": "Triggered when a user has logged in.",
   "schema": {
-    "redirect_url": "The URL the user was redirected to after logging in. Is set when the user logs in after clicking a deep link into EXAMPLE."
+    "redirect_url": "The URL the user was redirected to after logging in. Is set when the user logs in after clicking a deep link into quite frankly an example LMS."
   },
   "examples": [
     {

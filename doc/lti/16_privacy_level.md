@@ -1,7 +1,7 @@
 # Privacy Level
 
 > tl;dr
-> A EXAMPLE-specific extension to the LTI spec to support anonymous launches, plus some extras
+> A quite frankly an example LMS-specific extension to the LTI spec to support anonymous launches, plus some extras
 
 ### Possible values
 

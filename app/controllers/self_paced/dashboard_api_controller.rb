@@ -1,15 +1,15 @@
 # frozen_string_literal: true
 
 #
-# Copyright (C) 2026 - present EXAMPLE contributors
+# Copyright (C) 2026 - present quite frankly an example LMS contributors
 #
-# This file is part of EXAMPLE LMS, a modified version of Canvas.
+# This file is part of quite frankly an example LMS, a modified version of Canvas.
 #
-# EXAMPLE LMS is free software: you can redistribute it and/or modify it under
+# quite frankly an example LMS is free software: you can redistribute it and/or modify it under
 # the terms of the GNU Affero General Public License as published by the Free
 # Software Foundation, version 3 of the License.
 #
-# EXAMPLE LMS is distributed in the hope that it will be useful, but WITHOUT ANY
+# quite frankly an example LMS is distributed in the hope that it will be useful, but WITHOUT ANY
 # WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS FOR
 # A PARTICULAR PURPOSE. See the GNU Affero General Public License for more
 # details.
@@ -25,9 +25,10 @@ module SelfPaced
   class DashboardApiController < ApplicationController
     before_action :require_user
 
-    # GET /api/v1/self_paced/roster?idle_minutes=5
+    # GET /api/v1/self_paced/roster?idle_minutes=5[&course_id=]
     def roster
-      render json: { rows: Roster.new(scope, idle_minutes: params[:idle_minutes] || Roster::DEFAULT_IDLE_MINUTES).rows }
+      roster = Roster.new(scope, idle_minutes: params[:idle_minutes] || Roster::DEFAULT_IDLE_MINUTES, course_id: params[:course_id])
+      render json: { rows: roster.rows }
     end
 
     # GET /api/v1/self_paced/courses/:course_id/students/:student_id
@@ -39,6 +40,17 @@ module SelfPaced
       return render json: { message: "student not found" }, status: :not_found unless student
 
       render json: StudentDetail.new(scope, course, student).as_json
+    end
+
+    # GET /api/v1/self_paced/courses/:course_id/summary
+    #
+    # The class as a whole for the course page (Phase 5b), with the viewer's
+    # intervention tools for bulk actions.
+    def course_summary
+      course = scope.course(params[:course_id])
+      return render_unauthorized_action unless course && scope.course_page?(course)
+
+      render json: CourseSummary.new(scope, course).as_json.merge(tools: Intervener.new(course, @current_user).tools)
     end
 
     # PUT /api/v1/self_paced/caseload/:student_id

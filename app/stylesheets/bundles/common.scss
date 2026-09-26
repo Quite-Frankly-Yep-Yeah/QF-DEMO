@@ -16,7 +16,7 @@
  * with this program. If not, see <http://www.gnu.org/licenses/>.
  */
 
-// Compiler for EXAMPLE
+// Compiler for quite frankly an example LMS
 //=======================
 
 // Variables (including Bootstrap and jQuery UI), mixins, and functions
@@ -34,7 +34,7 @@
 @import 'base/ic_utilities';
 @import 'base/forced_colors';
 
-// EXAMPLE components and area-specific styles
+// quite frankly an example LMS components and area-specific styles
 @import 'components/buttons';
 @import 'components/ic-code';
 @import 'components/deprecated/legacy_buttons';
@@ -42,6 +42,9 @@
 @import 'components/deprecated/tooltip';
 @import 'components/breadcrumbs';
 @import 'components/admin_links';
+@import 'components/material_menus';
+@import 'components/material_admin';
+@import 'components/material_sidebar';
 @import 'components/broken-images';
 @import 'components/borders';
 @import 'components/centered-block';
@@ -100,3 +103,4 @@
 @import 'bundles/rce';
 @import 'pages/react_files/_FilePreview.scss';
 @import 'components/media_recorder';
+@import 'components/material_motion';

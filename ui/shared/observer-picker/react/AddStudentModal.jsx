@@ -114,7 +114,7 @@ const AddStudentModal = ({open, handleClose, currentUserId, onStudentPaired}) =>
           as="div"
           display="inline-block"
           dangerouslySetInnerHTML={{
-            __html: I18n.t('Visit *EXAMPLE Guides* to learn more.', {
+            __html: I18n.t('Visit *quite frankly an example LMS Guides* to learn more.', {
               wrappers: [canvasGuideLinkHtml],
             }),
           }}

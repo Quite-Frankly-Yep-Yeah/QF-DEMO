@@ -62,7 +62,7 @@
       <% end %>
     </a>
   <% else %>
-    <span class="mobile-header-title"><%= (yield :page_title).presence || @page_title || t('default_page_title', "Canvas LMS") %></span>
+    <span class="mobile-header-title"><%= (yield :page_title).presence || @page_title || t('default_page_title', "quite frankly an example LMS") %></span>
   <% end %>
 
   <div id="nutrition_facts_mobile_container"></div>
@@ -290,7 +290,7 @@
             <div class="menu-item-icon-container" aria-hidden="true">
               <%= render partial: "shared/svg/svg_icon_arrow_end", formats: [:svg] %>
             </div>
-            <div class="menu-item__text"><%= t('Canvas Career') %></div>
+            <div class="menu-item__text"><%= t('quite frankly an example LMS Career') %></div>
           <% end %>
         </li>
       <% end %>

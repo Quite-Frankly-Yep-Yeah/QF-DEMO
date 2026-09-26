@@ -1,0 +1,485 @@
+/*
+ * Copyright (C) 2026 - present Instructure, Inc.
+ *
+ * This file is part of Canvas.
+ *
+ * Canvas is free software: you can redistribute it and/or modify it under
+ * the terms of the GNU Affero General Public License as published by the Free
+ * Software Foundation, version 3 of the License.
+ *
+ * Canvas is distributed in the hope that it will be useful, but WITHOUT ANY
+ * WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS FOR
+ * A PARTICULAR PURPOSE. See the GNU Affero General Public License for more
+ * details.
+ *
+ * You should have received a copy of the GNU Affero General Public License along
+ * with this program. If not, see <http://www.gnu.org/licenses/>.
+ */
+
+// Material Design 1 style motion, applied globally.
+//
+// Most of this is about hiding latency: things ease in as they arrive instead
+// of popping, the top progress bar and dimmed page start the instant a link is
+// clicked, and spinners/skeletons keep moving so a slow response feels alive.
+// The behaviour half lives in ui/boot/initializers/materialMotion.ts.
+//
+// Everything is gated on prefers-reduced-motion, and the selenium-only
+// disable_transitions bundle still wins because it uses !important.
+
+$mm-standard: cubic-bezier(0.4, 0, 0.2, 1);
+$mm-decelerate: cubic-bezier(0, 0, 0.2, 1);
+$mm-accelerate: cubic-bezier(0.4, 0, 1, 1);
+$mm-overshoot: cubic-bezier(0.34, 1.56, 0.64, 1);
+
+// Material 2014 palette, 500 weights
+$mm-red: #f44336;
+$mm-pink: #e91e63;
+$mm-purple: #9c27b0;
+$mm-indigo: #3f51b5;
+$mm-blue: #2196f3;
+$mm-teal: #009688;
+$mm-green: #4caf50;
+$mm-amber: #ffc107;
+$mm-orange: #ff5722;
+
+// Material paper shadows
+$mm-z1: 0 1px 3px rgba(0, 0, 0, 0.12), 0 1px 2px rgba(0, 0, 0, 0.24);
+$mm-z2: 0 3px 6px rgba(0, 0, 0, 0.16), 0 3px 6px rgba(0, 0, 0, 0.23);
+$mm-z3: 0 10px 20px rgba(0, 0, 0, 0.19), 0 6px 6px rgba(0, 0, 0, 0.23);
+$mm-z4: 0 14px 28px rgba(0, 0, 0, 0.25), 0 10px 10px rgba(0, 0, 0, 0.22);
+
+@keyframes mm-rise {
+  from {
+    opacity: 0;
+    transform: translateY(16px);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes mm-fade {
+  from {
+    opacity: 0;
+  }
+
+  to {
+    opacity: 1;
+  }
+}
+
+@keyframes mm-pop {
+  0% {
+    opacity: 0;
+    transform: scale(0.85);
+  }
+
+  100% {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+
+@keyframes mm-grow-down {
+  from {
+    opacity: 0;
+    transform: scaleY(0.6) translateY(-8px);
+  }
+
+  to {
+    opacity: 1;
+    transform: scaleY(1) translateY(0);
+  }
+}
+
+@keyframes mm-drop-in {
+  0% {
+    opacity: 0;
+    transform: translateY(-24px);
+  }
+
+  70% {
+    opacity: 1;
+    transform: translateY(4px);
+  }
+
+  100% {
+    transform: translateY(0);
+  }
+}
+
+@keyframes mm-badge-bounce {
+  0% {
+    transform: scale(0);
+  }
+
+  60% {
+    transform: scale(1.35);
+  }
+
+  100% {
+    transform: scale(1);
+  }
+}
+
+@keyframes mm-shimmer {
+  from {
+    background-position: 200% 0;
+  }
+
+  to {
+    background-position: -200% 0;
+  }
+}
+
+// Colours the progress bar and spinners cycle through
+@keyframes mm-rainbow-bg {
+  0% {
+    background-color: $mm-blue;
+  }
+
+  20% {
+    background-color: $mm-pink;
+  }
+
+  40% {
+    background-color: $mm-amber;
+  }
+
+  60% {
+    background-color: $mm-green;
+  }
+
+  80% {
+    background-color: $mm-purple;
+  }
+
+  100% {
+    background-color: $mm-blue;
+  }
+}
+
+@keyframes mm-rainbow-stroke {
+  0% {
+    stroke: $mm-blue;
+  }
+
+  25% {
+    stroke: $mm-red;
+  }
+
+  50% {
+    stroke: $mm-amber;
+  }
+
+  75% {
+    stroke: $mm-green;
+  }
+
+  100% {
+    stroke: $mm-blue;
+  }
+}
+
+// The two halves of the Material 1 indeterminate linear progress bar
+@keyframes mm-indeterminate-long {
+  0% {
+    left: -35%;
+    right: 100%;
+  }
+
+  60% {
+    left: 100%;
+    right: -90%;
+  }
+
+  100% {
+    left: 100%;
+    right: -90%;
+  }
+}
+
+@keyframes mm-indeterminate-short {
+  0% {
+    left: -200%;
+    right: 100%;
+  }
+
+  60% {
+    left: 107%;
+    right: -8%;
+  }
+
+  100% {
+    left: 107%;
+    right: -8%;
+  }
+}
+
+@keyframes mm-ripple {
+  from {
+    opacity: 1;
+    transform: translate(-50%, -50%) scale(0);
+  }
+
+  to {
+    opacity: 0;
+    transform: translate(-50%, -50%) scale(1);
+  }
+}
+
+// Top progress bar, created by materialMotion.ts
+.mm-progress {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 4px;
+  z-index: 2147483000;
+  overflow: hidden;
+  pointer-events: none;
+  opacity: 0;
+  visibility: hidden;
+  background: rgba($mm-blue, 0.2);
+  transition: opacity 0.25s $mm-standard, visibility 0s linear 0.25s;
+
+  &::before,
+  &::after {
+    content: '';
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    background-color: $mm-blue;
+  }
+
+  &.mm-active {
+    opacity: 1;
+    visibility: visible;
+    transition-delay: 0s;
+  }
+}
+
+// Ripple, created by materialMotion.ts. The wrapper is clipped to the pressed
+// element's box; it lives on <body> so it never touches React-managed DOM.
+.mm-ripple-wrap {
+  position: fixed;
+  z-index: 2147483000;
+  overflow: hidden;
+  pointer-events: none;
+}
+
+.mm-ripple {
+  position: absolute;
+  left: var(--mm-x);
+  top: var(--mm-y);
+  width: var(--mm-d);
+  height: var(--mm-d);
+  border-radius: 50%;
+  background: var(--mm-color);
+  opacity: 0;
+  transform: translate(-50%, -50%) scale(0);
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  .mm-progress.mm-active {
+    &::before {
+      animation: mm-indeterminate-long 2.1s $mm-standard infinite,
+        mm-rainbow-bg 6s linear infinite;
+    }
+
+    &::after {
+      animation: mm-indeterminate-short 2.1s $mm-standard 1.15s infinite,
+        mm-rainbow-bg 6s linear -3s infinite;
+    }
+  }
+
+  body.mm-busy,
+  body.mm-busy a,
+  body.mm-busy button {
+    cursor: progress;
+  }
+
+  // Link clicked: dim the page straight away so the click feels acknowledged
+  // while the server thinks about it.
+  #content {
+    transition: opacity 0.3s $mm-standard, transform 0.3s $mm-standard;
+  }
+
+  body.mm-leaving #content {
+    opacity: 0.5;
+    transform: translateY(8px);
+    pointer-events: none;
+  }
+
+  .mm-ripple {
+    animation: mm-ripple 0.65s $mm-decelerate forwards;
+  }
+
+  // Page and content arrive
+  #content {
+    animation: mm-rise 0.45s $mm-decelerate backwards;
+  }
+
+  #left-side,
+  #right-side-wrapper {
+    animation: mm-fade 0.6s $mm-standard 0.1s backwards;
+  }
+
+  // Things that show up asynchronously ease in instead of popping
+  .ic-DashboardCard,
+  .ig-row,
+  .context_module,
+  .discussion-topic,
+  .announcement,
+  .ic-Dashboard-header__layout,
+  .ic-Table tbody tr,
+  table.ic-Table > tr,
+  .ic-item-row {
+    animation: mm-rise 0.4s $mm-decelerate backwards;
+  }
+
+  // Stagger the first dozen so lists cascade in
+  @for $i from 1 through 12 {
+    .ic-DashboardCard:nth-child(#{$i}),
+    .ig-row:nth-child(#{$i}),
+    .context_module:nth-child(#{$i}),
+    .discussion-topic:nth-child(#{$i}),
+    .ic-Table tbody tr:nth-child(#{$i}) {
+      animation-delay: #{$i * 45}ms;
+    }
+  }
+
+  // Dashboard cards are Material paper: rest at z1, lift on hover, press to z1
+  .ic-DashboardCard {
+    box-shadow: $mm-z1;
+    transition: box-shadow 0.28s $mm-standard, transform 0.28s $mm-standard;
+
+    &:hover {
+      box-shadow: $mm-z3;
+      transform: translateY(-3px);
+    }
+
+    &:active {
+      box-shadow: $mm-z1;
+      transform: translateY(0);
+    }
+  }
+
+  // Overlays, dialogs and menus
+  .ui-widget-overlay,
+  .ReactModal__Overlay {
+    animation: mm-fade 0.25s $mm-standard;
+  }
+
+  .ui-dialog,
+  .ReactModal__Content {
+    animation: mm-pop 0.3s $mm-decelerate;
+    box-shadow: $mm-z4;
+  }
+
+  .ui-menu,
+  .ui-autocomplete,
+  .al-options,
+  .ui-tooltip {
+    transform-origin: top center;
+    animation: mm-grow-down 0.2s $mm-decelerate;
+  }
+
+  // Flash messages drop in from the top with a small overshoot
+  #flash_message_holder li,
+  .ic-flash-success,
+  .ic-flash-info,
+  .ic-flash-error,
+  .ic-flash-warning {
+    animation: mm-drop-in 0.5s $mm-decelerate;
+  }
+
+  // Badges pop when they appear
+  .menu-item__badge,
+  .unread-count,
+  .badge {
+    animation: mm-badge-bounce 0.45s $mm-overshoot 0.2s backwards;
+  }
+
+  // Colour and elevation changes on anything interactive
+  a,
+  button,
+  .btn,
+  [role='button'],
+  [role='tab'],
+  [role='menuitem'],
+  .ui-tabs-anchor,
+  .ic-app-header__menu-list-link,
+  input,
+  select,
+  textarea {
+    transition: color 0.2s $mm-standard, background-color 0.2s $mm-standard,
+      border-color 0.2s $mm-standard, box-shadow 0.2s $mm-standard,
+      opacity 0.2s $mm-standard;
+  }
+
+  // Raised buttons: z1 at rest, z2 on hover, flat when pressed
+  .btn:not(.btn-link):not(.btn-mini):not([disabled]),
+  .Button:not(.Button--link):not([disabled]) {
+    box-shadow: $mm-z1;
+
+    &:hover {
+      box-shadow: $mm-z2;
+    }
+
+    &:active {
+      box-shadow: none;
+    }
+  }
+
+  // Tab underlines glide to the selected tab in a different colour each
+  .ui-tabs .ui-tabs-nav li a,
+  .ui-tabs-anchor {
+    border-bottom: 2px solid transparent;
+  }
+
+  .ui-tabs .ui-tabs-active a,
+  .ui-tabs-anchor[aria-selected='true'] {
+    border-bottom-color: $mm-pink;
+  }
+
+  // Global navigation icons wiggle
+  .ic-app-header__menu-list-link:hover svg,
+  .ic-app-header__menu-list-link:hover .menu-item-icon-container {
+    animation: mm-badge-bounce 0.35s $mm-overshoot;
+  }
+
+  // Avatars
+  .ic-avatar,
+  .avatar {
+    animation: mm-pop 0.4s $mm-overshoot backwards;
+  }
+
+  // Spinners cycle through the palette like the Material circular loader
+  .spinner .spin {
+    animation-name: morph, mm-rainbow-stroke;
+    animation-duration: 1.75s, 5s;
+    animation-iteration-count: infinite, infinite;
+    animation-timing-function: ease, linear;
+  }
+
+  // Skeletons: anything that says it is busy gets a moving shimmer
+  [aria-busy='true']:empty,
+  .loading-skeleton,
+  .ic-loading-placeholder {
+    min-height: 1.5em;
+    border-radius: 4px;
+    background: linear-gradient(
+        90deg,
+        rgba($mm-indigo, 0.06) 25%,
+        rgba($mm-pink, 0.14) 37%,
+        rgba($mm-amber, 0.1) 50%,
+        rgba($mm-teal, 0.14) 63%,
+        rgba($mm-indigo, 0.06) 75%
+      )
+      0 0 / 400% 100%;
+    animation: mm-shimmer 1.6s linear infinite;
+  }
+}

@@ -171,15 +171,15 @@ describe OutcomesServiceAlignmentsHelper do
       subject.get_active_os_alignments(@course)
     end
 
-    context "when outcome is deleted in EXAMPLE but not synched to Outcomes-Service" do
-      it "returns only active outcomes in EXAMPLE with alingments to new quizzes" do
+    context "when outcome is deleted in quite frankly an example LMS but not synched to Outcomes-Service" do
+      it "returns only active outcomes in quite frankly an example LMS with alingments to new quizzes" do
         @outcome2.destroy
         expect(subject.get_active_os_alignments(@course)).to eq minified_response_with_active_outcomes
       end
     end
 
-    context "when new quiz is deleted in EXAMPLE but not synched to Outcomes-Service" do
-      it "returns only outcomes with alignments to new quizzes that are active in EXAMPLE" do
+    context "when new quiz is deleted in quite frankly an example LMS but not synched to Outcomes-Service" do
+      it "returns only outcomes with alignments to new quizzes that are active in quite frankly an example LMS" do
         @new_quiz2.destroy
         expect(subject.get_active_os_alignments(@course)).to eq minified_response_with_active_quizzes
       end

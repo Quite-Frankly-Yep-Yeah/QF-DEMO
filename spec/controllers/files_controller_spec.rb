@@ -3003,7 +3003,7 @@ describe FilesController do
           )
         )
         expect(InstStatsd::Statsd).to receive(:event).with(
-          "File accessed from different EXAMPLE domain",
+          "File accessed from different quite frankly an example LMS domain",
           anything,
           hash_including(
             type: "cross_domain_file_access",
@@ -3024,7 +3024,7 @@ describe FilesController do
           )
         )
         expect(InstStatsd::Statsd).not_to receive(:event).with(
-          "File accessed from different EXAMPLE domain",
+          "File accessed from different quite frankly an example LMS domain",
           anything,
           anything
         )
@@ -3043,7 +3043,7 @@ describe FilesController do
           )
         )
         expect(InstStatsd::Statsd).not_to receive(:event).with(
-          "File accessed from different EXAMPLE domain",
+          "File accessed from different quite frankly an example LMS domain",
           anything,
           anything
         )
@@ -3060,9 +3060,9 @@ describe FilesController do
     end
 
     context "when log_cross_domain_file_access is disabled" do
-      it "does not emit a cross-domain event even with a foreign EXAMPLE referrer" do
+      it "does not emit a cross-domain event even with a foreign quite frankly an example LMS referrer" do
         expect(InstStatsd::Statsd).not_to receive(:event).with(
-          "File accessed from different EXAMPLE domain",
+          "File accessed from different quite frankly an example LMS domain",
           anything,
           anything
         )

@@ -411,7 +411,7 @@ class RceApiSource {
     } else if (uploadResults.location) {
       // inst-fs upload, follow-up by fetching file identified by location in
       // response. we can't just fetch the location as would be intended because
-      // it requires EXAMPLE authentication. we also don't have an RCE API
+      // it requires quite frankly an example LMS authentication. we also don't have an RCE API
       // endpoint to forward it through.
       const pathname = parseUrlPath(uploadResults.location)
       const matchData = pathname.match(/^\/api\/v1\/files\/((?:\d+~)?\d+)$/)

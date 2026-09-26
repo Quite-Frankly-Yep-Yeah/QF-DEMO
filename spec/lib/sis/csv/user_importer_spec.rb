@@ -643,7 +643,7 @@ describe SIS::CSV::UserImporter do
       "user_id,login_id,first_name,last_name,email,status",
       "user_2,user1,User,Uno,user@example.com,active"
     )
-    expect(importer.errors.map(&:last)).to eq ["An existing EXAMPLE user with the SIS ID user_1 has already claimed user_2's user_id requested login information, skipping"]
+    expect(importer.errors.map(&:last)).to eq ["An existing quite frankly an example LMS user with the SIS ID user_1 has already claimed user_2's user_id requested login information, skipping"]
     user = CommunicationChannel.by_path("user@example.com").first.user
     expect(user.pseudonyms.count).to eq 1
     expect(user.pseudonyms.by_unique_id("user1").first.sis_user_id).to eq "user_1"
@@ -673,7 +673,7 @@ describe SIS::CSV::UserImporter do
       "user_2,user1,User,Dos,user2@example.com,active",
       "user_1,user3,User,Uno,user1@example.com,active"
     )
-    expect(importer.errors.map(&:last)).to eq ["An existing EXAMPLE user with the SIS ID user_1 has already claimed user_2's user_id requested login information, skipping"]
+    expect(importer.errors.map(&:last)).to eq ["An existing quite frankly an example LMS user with the SIS ID user_1 has already claimed user_2's user_id requested login information, skipping"]
     expect(Pseudonym.where(account_id: @account, sis_user_id: "user_1").first.unique_id).to eq "user3"
     expect(Pseudonym.where(account_id: @account, sis_user_id: "user_2").first.unique_id).to eq "user2"
   end
@@ -710,7 +710,7 @@ describe SIS::CSV::UserImporter do
       "user_id,login_id,first_name,last_name,email,status,integration_id",
       "user_2,user2,User,Uno,user2@example.com,active,int_1"
     )
-    expect(importer.errors.map(&:last)).to eq ["An existing EXAMPLE user with the SIS ID user_1 has already claimed user_2's requested integration_id, skipping"]
+    expect(importer.errors.map(&:last)).to eq ["An existing quite frankly an example LMS user with the SIS ID user_1 has already claimed user_2's requested integration_id, skipping"]
   end
 
   it "processes user row when integration_id is not set" do
@@ -1127,7 +1127,7 @@ describe SIS::CSV::UserImporter do
       "user_1,user1,User,Uno,user1@example.com,active",
       "user_2,user1,User,Dos,user2@example.com,active"
     )
-    expect(importer.errors.pluck(1)).to eq ["An existing EXAMPLE user with the SIS ID user_1 has already claimed user_2's user_id requested login information, skipping"]
+    expect(importer.errors.pluck(1)).to eq ["An existing quite frankly an example LMS user with the SIS ID user_1 has already claimed user_2's user_id requested login information, skipping"]
     expect(Pseudonym.by_unique_id("user1").first).not_to be_nil
     expect(Pseudonym.by_unique_id("user2").first).to be_nil
   end
@@ -1816,7 +1816,7 @@ describe SIS::CSV::UserImporter do
       "user_1,user1,User,Uno,user1@example.com,active"
     )
     expect(importer.errors.length).to eq 1
-    expect(importer.errors.last.last).to eq "An existing EXAMPLE user with the EXAMPLE ID #{@non_sis_user.id} has already claimed user_1's user_id requested login information, skipping"
+    expect(importer.errors.last.last).to eq "An existing quite frankly an example LMS user with the quite frankly an example LMS ID #{@non_sis_user.id} has already claimed user_1's user_id requested login information, skipping"
   end
 
   it "sets authentication providers" do

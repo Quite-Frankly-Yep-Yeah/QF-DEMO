@@ -180,7 +180,7 @@ def init
   scope_writer = ApiScopeMappingWriter.new(options[:resources])
   scope_writer.generate_scope_mapper
 
-  options[:page_title] = "EXAMPLE LMS REST API Documentation"
+  options[:page_title] = "quite frankly an example LMS REST API Documentation"
 
   options[:json_objects_map], options[:json_objects] = DocumentationHelpers.build_json_objects_map(options[:resources])
 

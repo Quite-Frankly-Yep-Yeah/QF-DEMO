@@ -22,7 +22,7 @@ import {type GqlTemplateStringType, gql} from '../../gqlShim'
 
 const I18n = createI18nScope('lti_asset_processor')
 
-// For use in EXAMPLE
+// For use in quite frankly an example LMS
 export const LTI_ASSET_PROCESSORS_QUERY_NODES_FRAGMENT: GqlTemplateStringType = gql`
   fragment LtiAssetProcessorFragment on LtiAssetProcessor {
     _id
@@ -36,7 +36,7 @@ export const LTI_ASSET_PROCESSORS_QUERY_NODES_FRAGMENT: GqlTemplateStringType = 
   }
 `
 
-// Exported for use in EXAMPLE
+// Exported for use in quite frankly an example LMS
 export const LTI_ASSET_PROCESSORS_QUERY: GqlTemplateStringType = gql`
   query SpeedGrader_LtiAssetProcessorsQuery($assignmentId: ID!) {
     assignment(id: $assignmentId) {

@@ -1,6 +1,6 @@
 # Detect N+1 Queries
 
-EXAMPLE uses the [prosopite](https://github.com/charkost/prosopite) gem to detect N+1 query problems and prints information about them to `log/development.log`. It also prints this information to its own dedicated log file, `log/prosopite.log` when in development. Here's an example report:
+quite frankly an example LMS uses the [prosopite](https://github.com/charkost/prosopite) gem to detect N+1 query problems and prints information about them to `log/development.log`. It also prints this information to its own dedicated log file, `log/prosopite.log` when in development. Here's an example report:
 
 ```ruby
 N+1 queries detected:
@@ -80,7 +80,7 @@ also specify a custom name by passing `n_plus_one_name=<name>` which will make
 the filename `n_plus_one_detection-<name>-<iso8601 timestamp>`.
 
 Note that you must be logged in as a Site Admin user to enable this
-functionality. This is to prevent abuse of the feature by regular users. However, a Site Admin user can masquerade as any non-site-admin user and generate an N+1 report (the resulting report will be in the Site Admin user's EXAMPLE Files).
+functionality. This is to prevent abuse of the feature by regular users. However, a Site Admin user can masquerade as any non-site-admin user and generate an N+1 report (the resulting report will be in the Site Admin user's quite frankly an example LMS Files).
 
 ### Limitations
 

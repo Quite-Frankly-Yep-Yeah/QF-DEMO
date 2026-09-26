@@ -185,7 +185,7 @@ ContentMigration.prototype.addDaySubsitutions = function (json) {
 }
 
 // Convert date adjustment (shift / remove) radio buttons into the format
-// expected by the EXAMPLE API
+// expected by the quite frankly an example LMS API
 //
 // @api private
 

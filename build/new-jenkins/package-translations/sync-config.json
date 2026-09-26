@@ -1,6 +1,6 @@
 {
   "to": "s3",
-  "project": "EXAMPLE Packages",
+  "project": "quite frankly an example LMS Packages",
   "projectSlug": "canvas-packages",
   "resource": "packages",
   "resourceSlug": "{lang}.json",

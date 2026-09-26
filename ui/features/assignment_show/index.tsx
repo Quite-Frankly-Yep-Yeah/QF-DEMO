@@ -55,7 +55,7 @@ import sanitizeHtml from 'sanitize-html-with-tinymce'
 import {containsHtmlTags, formatMessage} from '@canvas/util/TextHelper'
 import type {Root} from 'react-dom/client'
 
-// @ts-expect-error - INST is a EXAMPLE global not in Window types
+// @ts-expect-error - INST is a quite frankly an example LMS global not in Window types
 if (!('INST' in window)) window.INST = {}
 
 const I18n = createI18nScope('assignment')

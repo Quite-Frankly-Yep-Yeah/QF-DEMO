@@ -243,7 +243,7 @@ export function loadDocPreview($container, options) {
         'The document preview is currently being processed. Please try again later.',
       )
     } else {
-      paragraph.textContent = formatMessage('This document cannot be displayed within EXAMPLE.')
+      paragraph.textContent = formatMessage('This document cannot be displayed within quite frankly an example LMS.')
     }
     $container.replaceChildren()
     $container.appendChild(paragraph)

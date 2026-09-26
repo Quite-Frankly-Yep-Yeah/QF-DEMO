@@ -19,7 +19,7 @@
 require_relative "../common"
 require_relative "page_objects/quizzes_index_page"
 
-# Note that this is old quizzes in EXAMPLE
+# Note that this is old quizzes in quite frankly an example LMS
 
 describe "quizzes" do
   include_context "in-process server selenium tests"

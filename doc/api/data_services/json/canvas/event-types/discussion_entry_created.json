@@ -4,11 +4,11 @@
   "trigger": "Triggered when a user replies to the discussion topic or thread.",
   "schema": {
     "created_at": "The time at which this entry was created.",
-    "discussion_entry_id": "The EXAMPLE id of the newly added entry.",
-    "discussion_topic_id": "The EXAMPLE id of the topic the entry was added to.",
-    "parent_discussion_entry_id": "If this was a reply, the EXAMPLE id of the parent entry.",
+    "discussion_entry_id": "The quite frankly an example LMS id of the newly added entry.",
+    "discussion_topic_id": "The quite frankly an example LMS id of the topic the entry was added to.",
+    "parent_discussion_entry_id": "If this was a reply, the quite frankly an example LMS id of the parent entry.",
     "text": "The text of the post. NOTE: This field will be truncated to only include the first 8192 characters.",
-    "user_id": "The EXAMPLE id of the user being that created the entry."
+    "user_id": "The quite frankly an example LMS id of the user being that created the entry."
   },
   "examples": [
     {

@@ -25,7 +25,7 @@ export const ZDynamicRegistrationToken = z.object({
 })
 
 /**
- * A EXAMPLE-specific token for dynamic registration
+ * A quite frankly an example LMS-specific token for dynamic registration
  * Requested after the user has entered the dynamic registration URL,
  * but before the user is redirected to the tool's registration UI.
  *

@@ -42,7 +42,7 @@ const AppNavBar = () => {
             }}
             renderBrand={
               <TopNavBar.Brand
-                screenReaderLabel={I18n.t('EXAMPLE LMS')}
+                screenReaderLabel={I18n.t('quite frankly an example LMS')}
                 renderIcon={
                   <Responsive
                     match="media"

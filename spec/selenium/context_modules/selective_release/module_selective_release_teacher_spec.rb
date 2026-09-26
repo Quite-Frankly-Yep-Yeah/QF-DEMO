@@ -637,7 +637,7 @@ describe "selective_release module set up" do
     it_behaves_like "selective_release add module tray", :course_homepage
   end
 
-  context "EXAMPLE for Elementary Modules Selective Release" do
+  context "quite frankly an example LMS for Elementary Modules Selective Release" do
     before :once do
       teacher_setup
       module_setup(@subject_course)
@@ -661,7 +661,7 @@ describe "selective_release module set up" do
     it_behaves_like "selective_release edit module lock until", :canvas_for_elementary
   end
 
-  context "EXAMPLE for Elementary Modules Selective Release Limited Set Up" do
+  context "quite frankly an example LMS for Elementary Modules Selective Release Limited Set Up" do
     before :once do
       teacher_setup
     end

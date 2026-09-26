@@ -215,7 +215,7 @@ module CanvasRails
               end
             end
 
-            raise "EXAMPLE requires PostgreSQL 14 or newer" unless postgresql_version >= 14_00_00 # rubocop:disable Style/NumericLiterals
+            raise "quite frankly an example LMS requires PostgreSQL 14 or newer" unless postgresql_version >= 14_00_00 # rubocop:disable Style/NumericLiterals
 
             # we're in a nested loop, and we want to break out of both loops on success
             return

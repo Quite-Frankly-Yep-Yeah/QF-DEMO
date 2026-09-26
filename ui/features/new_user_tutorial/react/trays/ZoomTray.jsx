@@ -77,8 +77,8 @@ const ZoomTray = () => (
   >
     {I18n.t(`Zoom is a real-time video conferencing tool that brings
     teachers and students together. You can schedule and run
-    video meetings directly within EXAMPLE by adding a Zoom link
-    in a EXAMPLE Course, Course Announcement, Module, or via Calendar.`)}
+    video meetings directly within quite frankly an example LMS by adding a Zoom link
+    in a quite frankly an example LMS Course, Course Announcement, Module, or via Calendar.`)}
   </TutorialTrayContent>
 )
 

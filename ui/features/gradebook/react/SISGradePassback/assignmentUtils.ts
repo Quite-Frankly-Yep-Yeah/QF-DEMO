@@ -334,7 +334,7 @@ const assignmentUtils = {
     }
   },
 
-  // Sends a post-grades request to EXAMPLE that is then forwarded to SIS App.
+  // Sends a post-grades request to quite frankly an example LMS that is then forwarded to SIS App.
   // Expects a list of assignments that will later be queried for grades via
   // SIS App's workers
   postGradesThroughCanvas(

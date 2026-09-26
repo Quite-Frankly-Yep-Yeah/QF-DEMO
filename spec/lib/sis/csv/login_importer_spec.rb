@@ -92,7 +92,7 @@ describe SIS::CSV::LoginImporter do
       "user_id,login_id,existing_user_id,existing_integration_id,email",
       "user_1,user1,user_1,oops,userb@example.com"
     )
-    expect(importer.errors.map(&:last).first).to include("An existing EXAMPLE user with the SIS ID user_1 or login of user1 already exists, skipping")
+    expect(importer.errors.map(&:last).first).to include("An existing quite frankly an example LMS user with the SIS ID user_1 or login of user1 already exists, skipping")
     expect(user.reload.pseudonyms.count).to be(1)
     expect(user.communication_channels.count).to be(1)
   end

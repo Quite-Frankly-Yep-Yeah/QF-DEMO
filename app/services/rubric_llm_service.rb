@@ -289,7 +289,7 @@ class RubricLLMService
     points_for_criterion
   end
 
-  # Transform one LLM criterion into EXAMPLE format.
+  # Transform one LLM criterion into quite frankly an example LMS format.
   #
   # - Renames fields (name → description, description → long_description)
   # - Assigns decreasing points across ratings, based on total_points and criterion_points
@@ -430,7 +430,7 @@ class RubricLLMService
   # Parse the <RUBRIC_DATA>...</RUBRIC_DATA> block, then:
   # - If single criterion: merge the updated texts back into the JSON
   # - If full rubric: replace criteria but enforce counts and point ladder
-  # - Rebuild EXAMPLE-shaped hashes and stabilize/generate IDs as allowed
+  # - Rebuild quite frankly an example LMS-shaped hashes and stabilize/generate IDs as allowed
   # - Reinsert learning outcome criteria at their original indices
   #
   # @return [Array<Hash>] normalized criteria ready for Rubric#data
@@ -517,7 +517,7 @@ class RubricLLMService
     raise JSON::ParserError, "The AI response was not in the expected format. Please try again."
   end
 
-  # Convert one regenerated criterion JSON into EXAMPLE format while:
+  # Convert one regenerated criterion JSON into quite frankly an example LMS format while:
   # - Preserving provided IDs
   # - Generating points ladder per original options
   # - Sorting ratings by points desc
@@ -696,7 +696,7 @@ class RubricLLMService
   # Rules enforced here:
   # - The resulting number of criteria must equal desired_criteria_count
   # - New criteria/ratings can use placeholder IDs (_new_c_X / _new_r_X)
-  #   which are later mapped to unique EXAMPLE IDs
+  #   which are later mapped to unique quite frankly an example LMS IDs
   # - Ratings are attached to the most recent criterion encountered
   #
   # Example lines:
@@ -920,7 +920,7 @@ class RubricLLMService
     rating
   end
 
-  # Resolve a raw ID from LLM output to a stable EXAMPLE ID:
+  # Resolve a raw ID from LLM output to a stable quite frankly an example LMS ID:
   # - Placeholder (_new_*) or unseen ID → generate a new unique ID
   # - Known existing ID → preserve it as-is
   # - Nil/blank → generate a new unique ID

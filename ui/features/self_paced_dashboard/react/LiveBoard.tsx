@@ -1,13 +1,13 @@
 /*
- * Copyright (C) 2026 - present EXAMPLE contributors
+ * Copyright (C) 2026 - present quite frankly an example LMS contributors
  *
- * This file is part of EXAMPLE LMS, a modified version of Canvas.
+ * This file is part of quite frankly an example LMS, a modified version of Canvas.
  *
- * EXAMPLE LMS is free software: you can redistribute it and/or modify it under
+ * quite frankly an example LMS is free software: you can redistribute it and/or modify it under
  * the terms of the GNU Affero General Public License as published by the Free
  * Software Foundation, version 3 of the License.
  *
- * EXAMPLE LMS is distributed in the hope that it will be useful, but WITHOUT ANY
+ * quite frankly an example LMS is distributed in the hope that it will be useful, but WITHOUT ANY
  * WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS FOR
  * A PARTICULAR PURPOSE. See the GNU Affero General Public License for more
  * details.
@@ -16,15 +16,20 @@
  * with this program. If not, see <http://www.gnu.org/licenses/>.
  */
 
-import React from 'react'
+import React, {useState} from 'react'
+import {Button} from '@instructure/ui-buttons'
 import {useScope as createI18nScope} from '@canvas/i18n'
-import {Heading} from '@instructure/ui-heading'
-import {Text} from '@instructure/ui-text'
-import {View} from '@instructure/ui-view'
-import {StatusShape, StudentAvatar, StuckBadge} from './bits'
-import {INK} from './colors'
+import {CourseChip, StatusShape, StudentAvatar, StuckBadge} from './bits'
+import {INK, tint} from './colors'
 import {formatDuration, formatLastActive, secondsSince} from './format'
+import {Card, ELEVATION, Pill, ROBOTO} from './material'
+import {groupByStudent} from './grouping'
 import type {RosterRow, RowKey, Status} from './types'
+
+type LiveRow = RosterRow & {class_count: number}
+
+// Away students shown before "Show all", so a big school doesn't bury the page.
+const AWAY_SHOWN = 40
 
 const I18n = createI18nScope('self_paced_dashboard')
 
@@ -37,9 +42,18 @@ type Props = {
 }
 
 // The room right now, like a seating chart: everyone working, then everyone
-// idle, with the students who aren't here listed quietly underneath.
+// idle, with the students who aren't here as chips underneath.
 export default function LiveBoard({rows, colors, now, idleMinutes, onOpenStudent}: Props) {
-  const withStatus = rows.filter(row => row.status)
+  const [allAway, setAllAway] = useState(false)
+  // One seat per student: the class they're in now, their most tries anywhere,
+  // and how many classes they take.
+  const withStatus: LiveRow[] = groupByStudent(rows)
+    .map(group => ({
+      ...group.primary,
+      attempts_on_current_item: group.summary.attempts_on_current_item,
+      class_count: group.rows.length,
+    }))
+    .filter(row => row.status)
   const group = (status: Status) =>
     withStatus
       .filter(row => row.status === status)
@@ -47,13 +61,13 @@ export default function LiveBoard({rows, colors, now, idleMinutes, onOpenStudent
 
   if (withStatus.length === 0) {
     return (
-      <View as="div" padding="large 0">
-        <Text color="secondary">
+      <Card>
+        <div style={{paddingTop: 16, color: INK.secondary}}>
           {I18n.t(
             "Live status isn't available for these courses. Ask an admin for the live monitor permission.",
           )}
-        </Text>
-      </View>
+        </div>
+      </Card>
     )
   }
 
@@ -62,7 +76,7 @@ export default function LiveBoard({rows, colors, now, idleMinutes, onOpenStudent
   const away = group('away')
 
   return (
-    <View as="div" padding="small 0">
+    <div>
       <Section
         status="working"
         title={I18n.t('Working now')}
@@ -81,15 +95,17 @@ export default function LiveBoard({rows, colors, now, idleMinutes, onOpenStudent
         now={now}
         onOpenStudent={onOpenStudent}
       />
-      <View as="section" margin="large 0 0">
-        <Heading level="h3" margin="0 0 small">
+      <Card
+        labelledBy="self-paced-live-away"
+        title={
           <span style={{display: 'inline-flex', alignItems: 'center', gap: 8}}>
             <StatusShape status="away" size={12} />
             {I18n.t('Away (%{count})', {count: away.length})}
           </span>
-        </Heading>
+        }
+      >
         {away.length === 0 ? (
-          <Text color="secondary">{I18n.t('Everyone is here.')}</Text>
+          <span style={{color: INK.secondary}}>{I18n.t('Everyone is here.')}</span>
         ) : (
           <ul
             style={{
@@ -98,39 +114,36 @@ export default function LiveBoard({rows, colors, now, idleMinutes, onOpenStudent
               padding: 0,
               display: 'flex',
               flexWrap: 'wrap',
-              gap: '4px 20px',
+              gap: 8,
             }}
           >
-            {away.map(row => (
+            {(allAway ? away : away.slice(0, AWAY_SHOWN)).map(row => (
               <li key={`${row.course.id}-${row.student.id}`}>
+                {/* a Material chip: the student's initials, name and when they were last here */}
                 <button
                   type="button"
+                  className="self-paced-chip"
                   onClick={() =>
                     onOpenStudent({courseId: row.course.id, studentId: row.student.id})
                   }
                   style={{
-                    background: 'none',
+                    display: 'inline-flex',
+                    alignItems: 'center',
+                    gap: 8,
+                    padding: '0 12px 0 0',
+                    height: 32,
+                    borderRadius: 16,
                     border: 0,
-                    padding: '4px 0',
+                    background: '#e0e0e0',
                     cursor: 'pointer',
-                    color: INK.secondary,
-                    font: 'inherit',
+                    fontFamily: ROBOTO,
+                    fontSize: '0.8125rem',
+                    color: INK.primary,
                   }}
                 >
-                  <span
-                    aria-hidden="true"
-                    style={{
-                      display: 'inline-block',
-                      width: 8,
-                      height: 8,
-                      borderRadius: 2,
-                      marginRight: 6,
-                      background: colors[row.course.id],
-                    }}
-                  />
-                  {row.student.name}
-                  <span style={{color: INK.muted}}>
-                    {' '}
+                  <StudentAvatar name={row.student.name} color={colors[row.course.id]} size={32} />
+                  {row.student.name}{' '}
+                  <span style={{color: INK.secondary}}>
                     ({formatLastActive(row.last_active_at, now)})
                   </span>
                 </button>
@@ -138,8 +151,20 @@ export default function LiveBoard({rows, colors, now, idleMinutes, onOpenStudent
             ))}
           </ul>
         )}
-      </View>
-    </View>
+        {away.length > AWAY_SHOWN && (
+          <div style={{marginTop: 12}}>
+            <Button
+              size="small"
+              color="primary"
+              withBackground={false}
+              onClick={() => setAllAway(!allAway)}
+            >
+              {allAway ? I18n.t('Show fewer') : I18n.t('Show all %{count}', {count: away.length})}
+            </Button>
+          </div>
+        )}
+      </Card>
+    </div>
   )
 }
 
@@ -155,21 +180,31 @@ function Section({
   status: Status
   title: string
   empty: string
-  rows: RosterRow[]
+  rows: LiveRow[]
   colors: Record<string, string>
   now: Date
   onOpenStudent: (key: RowKey) => void
 }) {
   return (
-    <View as="section" margin="medium 0 0">
-      <Heading level="h3" margin="0 0 small">
-        <span style={{display: 'inline-flex', alignItems: 'center', gap: 8}}>
-          <StatusShape status={status} size={12} />
-          {title} <span style={{color: INK.muted, fontWeight: 400}}>({rows.length})</span>
-        </span>
-      </Heading>
+    <section aria-labelledby={`self-paced-live-${status}`} style={{margin: '0 0 24px'}}>
+      <h2
+        id={`self-paced-live-${status}`}
+        style={{
+          display: 'flex',
+          alignItems: 'center',
+          gap: 8,
+          margin: '0 0 12px',
+          fontFamily: ROBOTO,
+          fontSize: '1rem',
+          fontWeight: 500,
+          color: INK.primary,
+        }}
+      >
+        <StatusShape status={status} size={12} />
+        {title} <Pill>{rows.length}</Pill>
+      </h2>
       {rows.length === 0 ? (
-        <Text color="secondary">{empty}</Text>
+        <span style={{color: INK.secondary}}>{empty}</span>
       ) : (
         <ul
           style={{
@@ -177,12 +212,12 @@ function Section({
             margin: 0,
             padding: 0,
             display: 'grid',
-            gridTemplateColumns: 'repeat(auto-fill, minmax(9.5rem, 1fr))',
-            gap: '20px 12px',
+            gridTemplateColumns: 'repeat(auto-fill, minmax(10.5rem, 1fr))',
+            gap: 16,
           }}
         >
           {rows.map(row => (
-            <li key={`${row.course.id}-${row.student.id}`}>
+            <li key={`${row.course.id}-${row.student.id}`} style={{display: 'flex'}}>
               <Seat
                 row={row}
                 color={colors[row.course.id]}
@@ -193,17 +228,18 @@ function Section({
           ))}
         </ul>
       )}
-    </View>
+    </section>
   )
 }
 
+// One student as a card, with a strip of their course's color along the top.
 function Seat({
   row,
   color,
   now,
   onOpenStudent,
 }: {
-  row: RosterRow
+  row: LiveRow
   color: string
   now: Date
   onOpenStudent: (key: RowKey) => void
@@ -220,18 +256,39 @@ function Seat({
         flexDirection: 'column',
         alignItems: 'center',
         gap: 6,
-        padding: '12px 8px',
-        background: 'none',
+        padding: '0 12px 16px',
+        background: '#FFFFFF',
         border: 0,
         borderRadius: 2,
+        boxShadow: ELEVATION[2],
+        overflow: 'hidden',
         cursor: 'pointer',
-        font: 'inherit',
+        fontFamily: ROBOTO,
         color: INK.primary,
         textAlign: 'center',
       }}
     >
-      <StudentAvatar name={row.student.name} color={color} size={64} status={row.status} />
-      <span style={{fontWeight: 500, lineHeight: 1.25}}>{row.student.name}</span>
+      <span
+        aria-hidden="true"
+        style={{
+          alignSelf: 'stretch',
+          height: 40,
+          margin: '0 -12px 8px',
+          background: `linear-gradient(${color}, ${color}) top / 100% 4px no-repeat, ${tint(color, 0.14)}`,
+        }}
+      />
+      <span
+        style={{marginTop: -40, borderRadius: '50%', background: '#fff', display: 'inline-flex'}}
+      >
+        <StudentAvatar name={row.student.name} color={color} size={64} status={row.status} />
+      </span>
+      <span style={{fontWeight: 500, lineHeight: 1.25, marginTop: 4}}>{row.student.name}</span>
+      <span style={{display: 'inline-flex', alignItems: 'center', gap: 6, fontSize: '0.8125rem'}}>
+        <CourseChip name={row.course.name} color={color} />
+        {row.class_count > 1 && (
+          <Pill>{I18n.t('+%{count} more', {count: row.class_count - 1})}</Pill>
+        )}
+      </span>
       <span
         style={{
           fontSize: '0.8125rem',

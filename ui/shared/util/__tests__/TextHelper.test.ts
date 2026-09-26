@@ -183,7 +183,7 @@ describe('stripHtmlTags', () => {
   })
 
   test('handles mixed text with some HTML entities', () => {
-    expect(TextHelper.stripHtmlTags('Hello &amp; welcome to &lt;EXAMPLE&gt;!')).toBe(
+    expect(TextHelper.stripHtmlTags('Hello &amp; welcome to &lt;quite frankly an example LMS&gt;!')).toBe(
       'Hello & welcome to <Canvas>!',
     )
   })

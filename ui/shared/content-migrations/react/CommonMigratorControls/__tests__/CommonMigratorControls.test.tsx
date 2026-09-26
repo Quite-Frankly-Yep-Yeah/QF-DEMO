@@ -426,7 +426,7 @@ describe('CommonMigratorControls', () => {
         expect(
           screen.getByText('To learn more, please contact your system administrator or visit'),
         ).toBeInTheDocument()
-        expect(screen.getByText('EXAMPLE Instructor Guide')).toBeInTheDocument()
+        expect(screen.getByText('quite frankly an example LMS Instructor Guide')).toBeInTheDocument()
       }
 
       it('renders convert new quizzes text when feature flag is enabled', async () => {
@@ -443,7 +443,7 @@ describe('CommonMigratorControls', () => {
           false,
           'Import existing quizzes as New Quizzes',
           'New Quizzes',
-          'New Quizzes is the new assessment engine for EXAMPLE.',
+          'New Quizzes is the new assessment engine for quite frankly an example LMS.',
         )
       })
     })

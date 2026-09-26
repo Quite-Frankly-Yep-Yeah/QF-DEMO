@@ -242,7 +242,7 @@ describe('StudentLtiAssetReportModal', () => {
         />,
       )
 
-      expect(screen.getByText('Text submitted to EXAMPLE')).toBeInTheDocument()
+      expect(screen.getByText('Text submitted to quite frankly an example LMS')).toBeInTheDocument()
       expect(screen.getByText(`Document Processors for ${assignmentName}`)).toBeInTheDocument()
     })
 
@@ -284,7 +284,7 @@ describe('StudentLtiAssetReportModal', () => {
         />,
       )
 
-      expect(screen.getByText('Text submitted to EXAMPLE')).toBeInTheDocument()
+      expect(screen.getByText('Text submitted to quite frankly an example LMS')).toBeInTheDocument()
       expect(screen.getByText(`Document Processors for ${assignmentName}`)).toBeInTheDocument()
     })
   })

@@ -2142,7 +2142,7 @@ class Submission < ApplicationRecord
         # 2) The originality report does not have a submission time. We link up
         #    via attachment id or lack of attachment id. That isn't particularly
         #    specific to the submission version. We don't have a good way of
-        #    matching them (though at least in the case of using the same EXAMPLE
+        #    matching them (though at least in the case of using the same quite frankly an example LMS
         #    attachment id, it should be the same document) In submission
         #    histories, we're just giving all of the originality reports we can't
         #    rule out, but we can at least rule out any report that was created

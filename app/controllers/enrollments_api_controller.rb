@@ -28,7 +28,7 @@
 #       "description": "",
 #       "properties": {
 #         "html_url": {
-#           "description": "The URL to the EXAMPLE web UI page for the user's grades, if this is a student enrollment.",
+#           "description": "The URL to the quite frankly an example LMS web UI page for the user's grades, if this is a student enrollment.",
 #           "example": "",
 #           "type": "string"
 #         },
@@ -216,12 +216,12 @@
 #             "type": "integer"
 #           },
 #           "html_url": {
-#             "description": "The URL to the EXAMPLE web UI page for this course enrollment.",
+#             "description": "The URL to the quite frankly an example LMS web UI page for this course enrollment.",
 #             "example":  "https://...",
 #             "type": "string"
 #           },
 #           "grades": {
-#             "description": "The URL to the EXAMPLE web UI page containing the grades associated with this enrollment.",
+#             "description": "The URL to the quite frankly an example LMS web UI page containing the grades associated with this enrollment.",
 #             "example": {
 #               "html_url": "https://...",
 #               "current_score": 35,

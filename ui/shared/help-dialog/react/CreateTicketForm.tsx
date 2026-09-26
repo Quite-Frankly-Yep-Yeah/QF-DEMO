@@ -244,7 +244,7 @@ const CreateTicketForm = forwardRef(function CreateTicketForm(
         <Text>
           {splitText[0]}
           <Link href={guidesLink} target="_blank">
-            {I18n.t('EXAMPLE Guides')}
+            {I18n.t('quite frankly an example LMS Guides')}
           </Link>
           {splitText[1]}
         </Text>

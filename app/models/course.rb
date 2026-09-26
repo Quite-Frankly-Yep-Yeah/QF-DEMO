@@ -361,6 +361,7 @@ class Course < ApplicationRecord
   after_save :clear_caches_if_necessary
   after_save :log_published_assignment_count
   after_save :remove_course_pacing_overrides_if_disabled
+  after_save :queue_accent_color_sync, if: :should_sync_accent_color?
   after_commit :update_cached_due_dates
 
   after_create :set_default_post_policy
@@ -896,6 +897,41 @@ class Course < ApplicationRecord
                elsif image_url
                  image_url
                end
+  end
+
+  # Automatically picks a dashboard-card accent colour from the course
+  # image the first time one is set, so nobody has to hand-pick one. A
+  # colour that's already there (auto-picked earlier, or set by hand in
+  # course settings) is never overwritten.
+  def should_sync_accent_color?
+    return false unless course_color.blank?
+    return false unless saved_change_to_settings?
+
+    old_settings, new_settings = saved_changes[:settings]
+    old_settings ||= {}
+    new_settings ||= {}
+    %i[image_id image_url].any? { |key| old_settings[key] != new_settings[key] }
+  end
+  private :should_sync_accent_color?
+
+  def queue_accent_color_sync
+    delay_if_production(singleton: "course_accent_color_#{global_id}").sync_accent_color
+  end
+  private :queue_accent_color_sync
+
+  def sync_accent_color
+    return unless course_color.blank?
+
+    hex = AccentColorExtractor.from_course(self)
+    return unless hex
+
+    reload
+    return unless course_color.blank?
+
+    self.course_color = hex
+    update_column(:settings, settings_frd)
+  rescue => e
+    Canvas::Errors.capture_exception(:course_accent_color, e, :warn)
   end
 
   def banner_image
@@ -3746,7 +3782,8 @@ class Course < ApplicationRecord
                           })
     end
 
-    if enable_course_paces && grants_any_right?(user, *RoleOverride::GRANULAR_MANAGE_COURSE_CONTENT_PERMISSIONS)
+    # Self-paced pacing replaces Course Pacing, so there's only one pacing system.
+    if enable_course_paces && !SelfPaced::Pacer.course?(self) && grants_any_right?(user, *RoleOverride::GRANULAR_MANAGE_COURSE_CONTENT_PERMISSIONS)
       default_tabs.insert(default_tabs.index { |t| t[:id] == TAB_MODULES } + 1, {
                             id: TAB_COURSE_PACES,
                             label: t("#tabs.course_paces", "Course Pacing"),
@@ -4139,6 +4176,8 @@ class Course < ApplicationRecord
   # self-paced course player (docs/fork-plan.md §2.1)
   add_setting :self_paced_mastery_threshold
   add_setting :self_paced_provisional_checks, boolean: true, default: false
+  # self-paced pacing (docs/fork-plan.md §2.3): the default finish date, YYYY-MM-DD
+  add_setting :self_paced_target_date
   add_setting :filter_speed_grader_by_student_group, boolean: true, default: false
   add_setting :default_student_gradebook_view, boolean: true, default: false
   add_setting :lock_all_announcements, boolean: true, default: false, inherited: true

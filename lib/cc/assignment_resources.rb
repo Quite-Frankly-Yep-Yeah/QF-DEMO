@@ -66,7 +66,7 @@ module CC
 
       # Write the assignment description as an .html file
       # That way at least the content of the assignment will appear
-      # for agents that support neither CC 1.3 nor EXAMPLE assignments
+      # for agents that support neither CC 1.3 nor quite frankly an example LMS assignments
       File.open(path, "w") do |file|
         file << @html_exporter.html_page(assignment.description || "", "Assignment: " + assignment.title)
       end
@@ -289,7 +289,7 @@ module CC
         node.external_tool_link_settings_json assignment.external_tool_tag.link_settings.to_json if assignment.external_tool_tag.link_settings
         node.external_tool_new_tab assignment.external_tool_tag.new_tab
 
-        # Exporting the lookup_id allows EXAMPLE to rebind
+        # Exporting the lookup_id allows quite frankly an example LMS to rebind
         # the custom params to the assignment on import.
         resource_link = assignment.primary_resource_link
         node.resource_link_lookup_uuid resource_link.lookup_uuid if resource_link.present?

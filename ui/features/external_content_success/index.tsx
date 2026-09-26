@@ -51,7 +51,7 @@ interface ExternalContentSuccessModule {
 
 const ExternalContentSuccess: ExternalContentSuccessModule = {
   dataReady(contentItems: Lti1p1ContentItem[], service_id: string | number) {
-    // @ts-expect-error - EXAMPLE ENV global not typed
+    // @ts-expect-error - quite frankly an example LMS ENV global not typed
     const {service}: {service: Service} = ENV
     const parentWindow = window.parent || window.opener
 
@@ -72,15 +72,15 @@ const ExternalContentSuccess: ExternalContentSuccessModule = {
       {
         subject: 'A2ExternalContentReady',
         content_items: data,
-        // @ts-expect-error - EXAMPLE ENV global not typed
+        // @ts-expect-error - quite frankly an example LMS ENV global not typed
         msg: ENV.message,
-        // @ts-expect-error - EXAMPLE ENV global not typed
+        // @ts-expect-error - quite frankly an example LMS ENV global not typed
         log: ENV.log,
-        // @ts-expect-error - EXAMPLE ENV global not typed
+        // @ts-expect-error - quite frankly an example LMS ENV global not typed
         errormsg: ENV.error_message,
-        // @ts-expect-error - EXAMPLE ENV global not typed
+        // @ts-expect-error - quite frankly an example LMS ENV global not typed
         errorlog: ENV.error_log,
-        // @ts-expect-error - EXAMPLE ENV global not typed
+        // @ts-expect-error - quite frankly an example LMS ENV global not typed
         ltiEndpoint: ENV.lti_endpoint,
       },
       ENV.DEEP_LINKING_POST_MESSAGE_ORIGIN,
@@ -127,22 +127,22 @@ const ExternalContentSuccess: ExternalContentSuccessModule = {
   },
 
   async start(): Promise<void> {
-    // @ts-expect-error - EXAMPLE ENV global not typed
+    // @ts-expect-error - quite frankly an example LMS ENV global not typed
     const {lti_response_messages, service_id, retrieved_data: data} = ENV
 
     await this.processLtiMessages(lti_response_messages, document.querySelector('.ic-app'))
 
-    // @ts-expect-error - EXAMPLE ENV global not typed
+    // @ts-expect-error - quite frankly an example LMS ENV global not typed
     if (ENV.oembed) {
       const url = replaceTags(
         replaceTags(
           $('#oembed_retrieve_url').attr('href') ?? '',
           'endpoint',
-          // @ts-expect-error - EXAMPLE ENV global not typed
+          // @ts-expect-error - quite frankly an example LMS ENV global not typed
           encodeURIComponent(ENV.oembed.endpoint),
         ),
         'url',
-        // @ts-expect-error - EXAMPLE ENV global not typed
+        // @ts-expect-error - quite frankly an example LMS ENV global not typed
         encodeURIComponent(ENV.oembed.url),
       )
       $.ajaxJSON(

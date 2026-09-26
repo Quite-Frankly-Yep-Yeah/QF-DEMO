@@ -28,7 +28,7 @@ include an `errors` key as part of the mutation response.  There doesn't
 yet seem to be any consensus around a common format for the shape of these
 errors.
 
-The primary source of validation errors in EXAMPLE are the rails validations
+The primary source of validation errors in quite frankly an example LMS are the rails validations
 defined in our models.  The simplest way to expose those would be to add an
 `errors` key that is a list of {attribute, message} pairs.  Some
 validations do not directly correspond to a GraphQL field (either because

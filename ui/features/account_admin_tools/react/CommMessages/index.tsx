@@ -57,7 +57,7 @@ export default function CommMessagesView({accountId}: CommMessagesViewProps): JS
       <View margin="sectionElements none" as="div">
         <Text variant="descriptionSection">
           {I18n.t(
-            'To view all notifications sent to a EXAMPLE user, select the user and then a date range.',
+            'To view all notifications sent to a quite frankly an example LMS user, select the user and then a date range.',
           )}
         </Text>
       </View>

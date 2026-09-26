@@ -26,7 +26,7 @@ const I18n = createI18nScope('user_name')
 
 export default function SuspendedIcon({login}) {
   const tipText = I18n.t(
-    'The login %{login} is currently suspended and will not be able to access EXAMPLE',
+    'The login %{login} is currently suspended and will not be able to access quite frankly an example LMS',
     {login},
   )
   return (

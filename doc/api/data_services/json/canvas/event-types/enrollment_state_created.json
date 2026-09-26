@@ -4,7 +4,7 @@
   "trigger": "Triggered when a new course enrollment is created with a new workflow_state.",
   "schema": {
     "access_is_current": "If this enrollment_state access is upto date.",
-    "enrollment_id": "The EXAMPLE id of the new enrollment.",
+    "enrollment_id": "The quite frankly an example LMS id of the new enrollment.",
     "restricted_access": "True if this enrollment_state is restricted.",
     "state": "The state of the enrollment.",
     "state_is_current": "If this enrollment_state is uptodate",

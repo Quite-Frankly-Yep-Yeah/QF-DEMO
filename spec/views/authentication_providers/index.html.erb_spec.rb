@@ -97,7 +97,7 @@ describe "authentication_providers/index" do
       render "authentication_providers/index"
       doc = Nokogiri::HTML5(response.body)
       canvas_form = doc.css("form#edit_canvas_#{provider.id}").first
-      expect(canvas_form).not_to be_nil, "Should find the EXAMPLE auth provider form"
+      expect(canvas_form).not_to be_nil, "Should find the quite frankly an example LMS auth provider form"
       mfa_spans = canvas_form.css("span").select { |span| span.text.include?("MFA Required") }
       expect(mfa_spans).to be_blank
     end
@@ -133,7 +133,7 @@ describe "authentication_providers/index" do
       render "authentication_providers/index"
       doc = Nokogiri::HTML5(response.body)
       canvas_form = doc.css("form#edit_canvas_#{provider.id}").first
-      expect(canvas_form).not_to be_nil, "Should find the EXAMPLE auth provider form"
+      expect(canvas_form).not_to be_nil, "Should find the quite frankly an example LMS auth provider form"
       mfa_spans = canvas_form.css("span").select { |span| span.text.include?("MFA Required") }
       expect(mfa_spans).not_to be_blank
     end

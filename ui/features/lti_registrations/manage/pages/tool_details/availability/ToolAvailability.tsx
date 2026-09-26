@@ -98,7 +98,7 @@ export const ToolAvailability = (props: ToolAvailabilityProps) => {
                 <Text
                   dangerouslySetInnerHTML={{
                     __html: I18n.t(
-                      "Control %{app_name}'s availability and exceptions in EXAMPLE, including setting exceptions for specific sub-accounts or courses. You can *view all of your sub-accounts* or **consult the documentation** for more information.",
+                      "Control %{app_name}'s availability and exceptions in quite frankly an example LMS, including setting exceptions for specific sub-accounts or courses. You can *view all of your sub-accounts* or **consult the documentation** for more information.",
                       {
                         app_name: registration.name,
                         wrappers: [

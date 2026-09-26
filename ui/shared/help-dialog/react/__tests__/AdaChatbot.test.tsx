@@ -75,7 +75,7 @@ describe('AdaChatbot', () => {
     expect(mockOnDialogClose).toHaveBeenCalledTimes(1)
   })
 
-  it('opens popup to the EXAMPLE-hosted popup path', () => {
+  it('opens popup to the quite frankly an example LMS-hosted popup path', () => {
     render(<AdaChatbot onDialogClose={mockOnDialogClose} />)
     const [url, target, features] = mockOpenWindow.mock.calls[0]
     expect(url).toBe('/ada_chat_popup')
@@ -220,7 +220,7 @@ describe('AdaChatbot', () => {
   })
 
   describe('launchAdaPopup', () => {
-    it('opens a popup to the EXAMPLE-hosted popup path', () => {
+    it('opens a popup to the quite frankly an example LMS-hosted popup path', () => {
       launchAdaPopup()
       expect(mockOpenWindow).toHaveBeenCalledTimes(1)
       expect(mockOpenWindow.mock.calls[0][0]).toBe('/ada_chat_popup')

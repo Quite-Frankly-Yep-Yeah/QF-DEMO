@@ -1735,6 +1735,12 @@ function quizData($question) {
         'incorrect_comments',
         'neutral_comments',
         'matching_answer_incorrect_matches',
+        'sylla_layout',
+        'sylla_confidence',
+        'sylla_unit',
+        'sylla_unit_choices',
+        'sylla_image',
+        'sylla_regions',
         'equation_combinations',
         'equation_formulas',
         'regrade_option',
@@ -1887,6 +1893,12 @@ function generateFormQuiz(quiz) {
     q.position = question.position
     q.text_after_answers = question.text_after_answers
     q.matching_answer_incorrect_matches = question.matching_answer_incorrect_matches
+    q.sylla_layout = question.sylla_layout
+    q.sylla_confidence = question.sylla_confidence
+    q.sylla_unit = question.sylla_unit
+    q.sylla_unit_choices = question.sylla_unit_choices
+    q.sylla_image = question.sylla_image
+    q.sylla_regions = question.sylla_regions
     q.formulas = question.formulas
     q.variables = question.variables
     q.answer_tolerance = question.answer_tolerance
@@ -2863,6 +2875,12 @@ ready(function () {
         'answer_selection_type',
         'blank_id',
         'matching_answer_incorrect_matches',
+        'sylla_layout',
+        'sylla_confidence',
+        'sylla_unit',
+        'sylla_unit_choices',
+        'sylla_image',
+        'sylla_regions',
         'regrade_option',
         'regrade_disabled',
       ],

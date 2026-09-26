@@ -1,13 +1,13 @@
 /*
- * Copyright (C) 2026 - present EXAMPLE contributors
+ * Copyright (C) 2026 - present quite frankly an example LMS contributors
  *
- * This file is part of EXAMPLE LMS, a modified version of Canvas.
+ * This file is part of quite frankly an example LMS, a modified version of Canvas.
  *
- * EXAMPLE LMS is free software: you can redistribute it and/or modify it under
+ * quite frankly an example LMS is free software: you can redistribute it and/or modify it under
  * the terms of the GNU Affero General Public License as published by the Free
  * Software Foundation, version 3 of the License.
  *
- * EXAMPLE LMS is distributed in the hope that it will be useful, but WITHOUT ANY
+ * quite frankly an example LMS is distributed in the hope that it will be useful, but WITHOUT ANY
  * WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS FOR
  * A PARTICULAR PURPOSE. See the GNU Affero General Public License for more
  * details.
@@ -46,9 +46,24 @@ describe('PlayerApp', () => {
     renderApp()
 
     expect(await screen.findByText('1 of 4 steps done (25%)')).toBeInTheDocument()
-    expect(screen.getByRole('link', {name: 'Continue: 1.1 Classwork'})).toHaveAttribute(
+    expect(screen.getByRole('link', {name: 'Continue'})).toHaveAttribute(
       'href',
       '/courses/4/modules/items/11',
+    )
+  })
+
+  it('says which steps were skipped because the student already knows the skill', async () => {
+    const skipped = {
+      ...MAP,
+      units: MAP.units.map(unit => ({
+        ...unit,
+        items: unit.items.map((item, index) => (index === 1 ? {...item, tested_out: true} : item)),
+      })),
+    }
+    renderApp(skipped)
+
+    expect(await screen.findByTestId('tested-out')).toHaveTextContent(
+      'Skipped: you already know this',
     )
   })
 
@@ -79,7 +94,7 @@ describe('PlayerApp', () => {
     renderApp({...MAP, requirements_completed: 4, percent_complete: 100})
 
     expect(
-      await screen.findByText("You've finished every step in this course. Well done!"),
+      await screen.findByText("You've finished every step in this course!"),
     ).toBeInTheDocument()
     expect(screen.queryByRole('link', {name: /Continue/})).not.toBeInTheDocument()
   })

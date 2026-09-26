@@ -101,7 +101,7 @@ body.ic-Login-Body { // apply the background to the body element so that you don
   padding: direction-sides($ic-sp*1.5 $ic-sp*1.5 $ic-sp $ic-sp*1.5);
   margin-top: $ic-sp;
 }
-// these have !important because EXAMPLE specificity on labels and
+// these have !important because quite frankly an example LMS specificity on labels and
 // links will override these if we don't
 .ic-Form-control--login .ic-Label {
   color: var(--ic-brand-Login-Content-label-text-color) !important;

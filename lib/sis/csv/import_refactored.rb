@@ -435,7 +435,7 @@ module SIS
                   false
                 end
               end
-              SisBatch.add_error(csv, I18n.t("Couldn't find EXAMPLE CSV import headers"), sis_batch: @batch, failure: true) if importer.nil?
+              SisBatch.add_error(csv, I18n.t("Couldn't find quite frankly an example LMS CSV import headers"), sis_batch: @batch, failure: true) if importer.nil?
               break
             end
           rescue ::CSV::MalformedCSVError

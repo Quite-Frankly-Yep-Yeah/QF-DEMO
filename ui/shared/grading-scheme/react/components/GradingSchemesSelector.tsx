@@ -361,14 +361,14 @@ export const GradingSchemesSelector = ({
         gradingSchemeSummary => gradingSchemeSummary.id === courseDefaultSchemeId,
       )
       if (courseDefaultSchemeId === '0') {
-        defaultSchemeLabel = t('EXAMPLE Grading Scheme (course default)')
+        defaultSchemeLabel = t('quite frankly an example LMS Grading Scheme (course default)')
       } else if (matchingSummaries.length > 0) {
         defaultSchemeLabel = `${matchingSummaries[0].title} ${t('(course default)')}`
       } else {
         defaultSchemeLabel = t('Course Default Grading Scheme')
       }
     } else {
-      defaultSchemeLabel = t('Default EXAMPLE Grading Scheme')
+      defaultSchemeLabel = t('Default quite frankly an example LMS Grading Scheme')
     }
     return (
       <>

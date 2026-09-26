@@ -37,7 +37,7 @@ module Lti
           }.freeze
         }.freeze,
         product_name: {
-          default_value: "EXAMPLE",
+          default_value: "quite frankly an example LMS",
           key: "product.name"
         }.freeze
       }.freeze

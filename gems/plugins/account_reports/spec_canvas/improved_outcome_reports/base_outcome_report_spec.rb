@@ -219,14 +219,14 @@ describe "BaseOutcomeReport" do
       # Execute the method
       report.send(:write_outcomes_report, headers, canvas_scope, config_options)
 
-      # All records should be present, record order should be Header, EXAMPLE, OS, EXAMPLE, ...
+      # All records should be present, record order should be Header, quite frankly an example LMS, OS, quite frankly an example LMS, ...
       expect(csv.length).to eq(5)
-      # EXAMPLE record #1
+      # quite frankly an example LMS record #1
       expect(csv[1][0]).to be_nil
       expect(csv[1][1]).to eq(1)
       # OS record
       expect(csv[2]).to include("OS John Doe")
-      # EXAMPLE record #2
+      # quite frankly an example LMS record #2
       expect(csv[3][0]).to be_nil
       expect(csv[3][1]).to eq(2)
     end

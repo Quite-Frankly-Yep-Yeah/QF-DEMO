@@ -24,7 +24,7 @@ const I18n = createI18nScope('lti_registrations')
 
 function Disclaimer() {
   const baseDisclaimer = I18n.t(
-    'Apps offered in the EXAMPLE Apps library are not reviewed or otherwise vetted by Instructure. We encourage you to review the AI, privacy, and security practices of each provider before connecting to your EXAMPLE LMS account. The information on this page is provided by the respective Partner and pertains to the latest app version available on the Apps page. These policies and procedures are not controlled by Instructure. Partners are solely responsible for the accuracy of the information provided.',
+    'Apps offered in the quite frankly an example LMS Apps library are not reviewed or otherwise vetted by Instructure. We encourage you to review the AI, privacy, and security practices of each provider before connecting to your quite frankly an example LMS account. The information on this page is provided by the respective Partner and pertains to the latest app version available on the Apps page. These policies and procedures are not controlled by Instructure. Partners are solely responsible for the accuracy of the information provided.',
   )
 
   const isEnglish = (I18n.currentLocale()?.split('-')[0] || 'en') === 'en'

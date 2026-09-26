@@ -5,7 +5,7 @@
   "schema": {
     "data[0].object.extensions[\"com.instructure.canvas\"]": {
       "is_admin": "Indicates whether a user has an administrator role",
-      "user_id": "The EXAMPLE id of the currently logged in user"
+      "user_id": "The quite frankly an example LMS id of the currently logged in user"
     },
     "data[0].object": {
       "type": "Entity"

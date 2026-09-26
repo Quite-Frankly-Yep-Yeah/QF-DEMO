@@ -24,7 +24,7 @@ module Types
   end
 
   class Placements < Types::PlacementType
-    description "A placement for an external tool in EXAMPLE"
+    description "A placement for an external tool in quite frankly an example LMS"
 
     field :assignment_selection, PlacementType, null: true, description: "Placement for assignment selection"
     field :course_assignments_menu, PlacementType, null: true, description: "Placement for course assignments menu"

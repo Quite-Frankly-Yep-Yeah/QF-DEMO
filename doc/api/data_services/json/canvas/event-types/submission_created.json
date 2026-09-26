@@ -3,7 +3,7 @@
   "definition": "The event is emitted anytime an end user or API request submits or re-submits an assignment. This applies to assignments and new quizzes, not classic quizzes. Use quiz_submitted for classic quiz submissions.",
   "trigger": "Triggered when an assignment or new quizzes submission gets updated and has not yet been submitted.",
   "schema": {
-    "assignment_id": "The EXAMPLE id of the assignment being submitted.",
+    "assignment_id": "The quite frankly an example LMS id of the assignment being submitted.",
     "attempt": "This is the submission attempt number.",
     "body": "The content of the submission, if it was submitted directly in a text field. NOTE: This field will be truncated to only include the first 8192 characters.",
     "grade": "The grade for the submission, translated into the assignment grading scheme (so a letter grade, for example)",
@@ -14,13 +14,13 @@
     "lti_user_id": "The Lti id of the user associated with the submission.",
     "missing": "Whether the submission is missing, which generally means past-due and not yet submitted.",
     "score": "The raw score",
-    "submission_id": "The EXAMPLE id of the new submission.",
+    "submission_id": "The quite frankly an example LMS id of the new submission.",
     "submission_type": "The types of submission (basic_lti_launch, discussion_topic, media_recording, online_quiz, online_text_entry, online_upload, online_url)",
     "submitted_at": "The timestamp when the assignment was submitted.",
     "workflow_state": "The state of the submission: normally 'submitted' or 'pending_review'.",
     "updated_at": "The time at which this assignment was last modified in any way",
     "url": "The URL of the submission (for 'online_url' submissions)",
-    "user_id": "The EXAMPLE id of the user associated with the submission."
+    "user_id": "The quite frankly an example LMS id of the user associated with the submission."
   },
   "examples": [
     {

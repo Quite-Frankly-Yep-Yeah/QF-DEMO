@@ -23,7 +23,7 @@ import './popup'
 /*
  * PLEASE READ BEFORE MODIFYING THIS FILE:
  * This provides the 'admin cog' menus amongst other things used throughout
- * EXAMPLE.  It has been extensively tested for accessibility.  Before making
+ * quite frankly an example LMS.  It has been extensively tested for accessibility.  Before making
  * any changes to this file, please check with someone about the accessibility
  * repercussions of what you intend to do.
  */

@@ -61,7 +61,7 @@ async function confirmSaveIfSiteAdmin(displayName) {
       featureOption: displayName,
     }),
     message: I18n.t(
-      'Changing Site Admin Feature Options impacts all customers. To proceed, please confirm the current EXAMPLE environment by typing it in the box below.',
+      'Changing Site Admin Feature Options impacts all customers. To proceed, please confirm the current quite frankly an example LMS environment by typing it in the box below.',
     ),
     label: I18n.t('Environment'),
     placeholder: ENV.RAILS_ENVIRONMENT,

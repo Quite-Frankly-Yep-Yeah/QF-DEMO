@@ -1,6 +1,6 @@
 {
   "name": "logged_out",
-  "definition": "The event is emitted anytime an end user logs out of EXAMPLE",
+  "definition": "The event is emitted anytime an end user logs out of quite frankly an example LMS",
   "trigger": "Triggered when a user has logged out.",
   "schema": {},
   "examples": [

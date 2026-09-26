@@ -1,10 +1,10 @@
-# GraphQL Connections in EXAMPLE
+# GraphQL Connections in quite frankly an example LMS
 
-This document explains how to work with GraphQL connections in EXAMPLE, including pagination and the totalCount pattern.
+This document explains how to work with GraphQL connections in quite frankly an example LMS, including pagination and the totalCount pattern.
 
 ## Basic Connections
 
-EXAMPLE follows the [Relay connection](http://graphql-ruby.org/relay/connections.html) spec for pagination. By convention, all paginated fields should have "Connection" as a suffix (e.g., "AssignmentsConnection").
+quite frankly an example LMS follows the [Relay connection](http://graphql-ruby.org/relay/connections.html) spec for pagination. By convention, all paginated fields should have "Connection" as a suffix (e.g., "AssignmentsConnection").
 
 ### Basic Usage Example
 
@@ -72,7 +72,7 @@ Some connection types support a `totalCount` field in `pageInfo` that provides t
    - Test performance impact with large datasets
    - Test with complex queries (joins, subqueries, etc.)
    - Test error scenarios
-   - Test with sharded data (EXAMPLE-specific)
+   - Test with sharded data (quite frankly an example LMS-specific)
 
 ### Performance Considerations
 
@@ -104,7 +104,7 @@ As of this implementation, totalCount is enabled on:
 
 ### Common Pitfalls
 
-1. **Sharding Issues**: EXAMPLE uses database sharding. Some queries may not work correctly across shards.
+1. **Sharding Issues**: quite frankly an example LMS uses database sharding. Some queries may not work correctly across shards.
 
 2. **Complex Query Performance**: COUNT queries can be expensive with complex WHERE clauses or JOINs.
 

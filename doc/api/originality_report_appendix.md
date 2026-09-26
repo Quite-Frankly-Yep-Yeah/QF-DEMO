@@ -1,4 +1,4 @@
-Originality Reports are visible in the following locations in the EXAMPLE UI:
+Originality Reports are visible in the following locations in the quite frankly an example LMS UI:
 
 * Gradebook
 * SpeedGrader

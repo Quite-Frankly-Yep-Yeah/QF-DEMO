@@ -123,7 +123,7 @@ export default function DyslexicFontToggle({isMobile}: DyslexicFontToggleProps) 
 
   // Toggles the use_dyslexic_font feature flag to the opposite state from where it
   // is currently at. Note that this only updates the back-end and the current page
-  // will remain on the old setting until a new EXAMPLE page load happens (or this
+  // will remain on the old setting until a new quite frankly an example LMS page load happens (or this
   // page is manually reloaded by the user), so the currently loaded CSS and thus
   // the HCM state of the browser screen will be out of sync with the persistence
   // layer until that happens.

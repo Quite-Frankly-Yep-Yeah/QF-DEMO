@@ -23,7 +23,7 @@
 # API that exposes LTI Resource Links for viewing and editing.
 # LTI Resource Links are artifacts created by the LTI 1.3 Deep Linking
 # process, where a user selects a content item that is returned to
-# EXAMPLE for future launches.
+# quite frankly an example LMS for future launches.
 #
 # Resource Links can be associated with Assignments, Module Items,
 # Collaborations, and Rich Content embeddings.
@@ -36,8 +36,8 @@
 #
 # Common patterns for using this API include:
 # * facilitating migration between two different versions of the same tool by updating the domain of the launch URL
-# * creating new links to embed in rich content in EXAMPLE
-# * responding to a course copy or other EXAMPLE content migration by updating the launch URL
+# * creating new links to embed in rich content in quite frankly an example LMS
+# * responding to a course copy or other quite frankly an example LMS content migration by updating the launch URL
 #
 # @model Lti::ResourceLink
 #     {
@@ -45,12 +45,12 @@
 #       "properties": {
 #         "id": {
 #           "type": "integer",
-#           "description": "The EXAMPLE identifier for the LTI Resource Link.",
+#           "description": "The quite frankly an example LMS identifier for the LTI Resource Link.",
 #           "example": 1
 #         },
 #         "context_id": {
 #           "type": "integer",
-#           "description": "The EXAMPLE identifier for the context that the LTI Resource Link is associated with.",
+#           "description": "The quite frankly an example LMS identifier for the context that the LTI Resource Link is associated with.",
 #           "example": 1
 #         },
 #         "context_type": {
@@ -66,12 +66,12 @@
 #         },
 #         "context_external_tool_id": {
 #           "type": "integer",
-#           "description": "The EXAMPLE identifier for the LTI 1.3 External Tool that the LTI Resource Link was originally installed from. Note that this tool may have been deleted or reinstalled and may not be the tool that would be launched for this url.",
+#           "description": "The quite frankly an example LMS identifier for the LTI 1.3 External Tool that the LTI Resource Link was originally installed from. Note that this tool may have been deleted or reinstalled and may not be the tool that would be launched for this url.",
 #           "example": 1
 #         },
 #         "resource_type": {
 #           "type": "string",
-#           "description": "The type of EXAMPLE content for the resource link. Included for convenience.",
+#           "description": "The type of quite frankly an example LMS content for the resource link. Included for convenience.",
 #           "example": "assignment",
 #           "enum":
 #           [
@@ -83,7 +83,7 @@
 #         },
 #         "canvas_launch_url": {
 #           "type": "string",
-#           "description": "The EXAMPLE URL that launches the LTI Resource Link. Suitable for use in EXAMPLE rich content",
+#           "description": "The quite frankly an example LMS URL that launches the LTI Resource Link. Suitable for use in quite frankly an example LMS rich content",
 #           "example": "https://example.instructure.com/courses/1/external_tools/retrieve?resource_link_lookup_uuid=ae43ba23-d238-49bc-ab55-ba7f79f77896"
 #         },
 #         "resource_link_uuid": {
@@ -141,7 +141,7 @@
 #           ]
 #         },
 #         "associated_content_id": {
-#           "description": "The EXAMPLE identifier of the associated content, e.g. ModuleItem related to this link. Present if associated_content_type is present",
+#           "description": "The quite frankly an example LMS identifier of the associated content, e.g. ModuleItem related to this link. Present if associated_content_type is present",
 #           "example": 1,
 #           "type": "integer"
 #         }
@@ -192,7 +192,7 @@ class Lti::ResourceLinksController < ApplicationController
 
   # @API Show an LTI Resource Link
   # Return details about the specified resource link. The ID can be in the standard
-  # EXAMPLE format ("1"), or in these special formats:
+  # quite frankly an example LMS format ("1"), or in these special formats:
   #
   # - resource_link_uuid:<uuid> - Find the resource link by its resource_link_uuid
   # - lookup_uuid:<uuid> - Find the resource link by its lookup_uuid
@@ -219,7 +219,7 @@ class Lti::ResourceLinksController < ApplicationController
   # <b>Caution!</b> Resource Links are usually created by the tool via LTI Deep Linking. The tool has no
   # knowledge of links created via this API, and may not be able to handle or launch them.
   #
-  # Links created using this API cannot be associated with a specific piece of EXAMPLE content,
+  # Links created using this API cannot be associated with a specific piece of quite frankly an example LMS content,
   # like an Assignment, Module Item, or Collaboration. Links created using this API are only suitable
   # for embedding in rich content using the `canvas_launch_url` provided in the API response.
   #
@@ -263,7 +263,7 @@ class Lti::ResourceLinksController < ApplicationController
   # <b>Caution!</b> Resource Links are usually created by the tool via LTI Deep Linking. The tool has no
   # knowledge of links created via this API, and may not be able to handle or launch them.
   #
-  # Links created using this API cannot be associated with a specific piece of EXAMPLE content,
+  # Links created using this API cannot be associated with a specific piece of quite frankly an example LMS content,
   # like an Assignment, Module Item, or Collaboration. Links created using this API are only suitable
   # for embedding in rich content using the `canvas_launch_url` provided in the API response.
   #
@@ -334,7 +334,7 @@ class Lti::ResourceLinksController < ApplicationController
   # @argument custom [Optional, Hash] Custom parameters to be sent to the tool when launching this link.
   #   <b>Caution!</b> Changing these from what the tool provided could result in errors if the tool doesn't see what it's expecting.
   # @argument include_deleted [Optional, Boolean] Update link even if it is deleted. Default is false.
-  # @argument context_external_tool_id [Optional, Integer] The EXAMPLE identifier for the LTI 1.3 External Tool that the LTI Resource Link was originally installed from.
+  # @argument context_external_tool_id [Optional, Integer] The quite frankly an example LMS identifier for the LTI 1.3 External Tool that the LTI Resource Link was originally installed from.
   #  <b>Caution!</b> The resource link url must match the tool's domain or url.
   #
   # @example_request
@@ -356,7 +356,7 @@ class Lti::ResourceLinksController < ApplicationController
 
   # @API Delete an LTI Resource Link
   # Delete the specified resource link. The ID can be in the standard
-  # EXAMPLE format ("1"), or in these special formats:
+  # quite frankly an example LMS format ("1"), or in these special formats:
   #
   # - resource_link_uuid:<uuid> - Find the resource link by its resource_link_uuid
   # - lookup_uuid:<uuid> - Find the resource link by its lookup_uuid

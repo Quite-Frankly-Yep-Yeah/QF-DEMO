@@ -16,16 +16,16 @@
  * with this program. If not, see <http://www.gnu.org/licenses/>.
  */
 
-/* Hosted EXAMPLE uses its own Inst-FS service as a file service to host and
+/* Hosted quite frankly an example LMS uses its own Inst-FS service as a file service to host and
  * serve user-uploaded files. This service however is served from an
- * Instructure domain name distinct from EXAMPLE; "fixing" this is not feasible
- * because of the preponderance of "vanity domains", where EXAMPLE is delivered
+ * Instructure domain name distinct from quite frankly an example LMS; "fixing" this is not feasible
+ * because of the preponderance of "vanity domains", where quite frankly an example LMS is delivered
  * on a school's domain. This leads to the domain being treated as a
- * third-party despite being an integral part of the EXAMPLE "ecosystem".
+ * third-party despite being an integral part of the quite frankly an example LMS "ecosystem".
  *
  * Aggressive third-party tracking prevention by Safari 13.1+ breaks Inst-FS'
- * ability to use cookies to authenticate users' access to EXAMPLE files. This
- * service worker allows the EXAMPLE front-end to assert Inst-FS authorization
+ * ability to use cookies to authenticate users' access to quite frankly an example LMS files. This
+ * service worker allows the quite frankly an example LMS front-end to assert Inst-FS authorization
  * via HTTP headers instead of relying on browser cookies.
  *
  * However, it's preferrable to authenticate via cookie when possible, since

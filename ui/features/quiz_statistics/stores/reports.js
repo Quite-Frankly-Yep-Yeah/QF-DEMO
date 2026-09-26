@@ -39,7 +39,7 @@ export default new Store(
   'quizReports',
   {
     /**
-     * Load quiz reports from the EXAMPLE API.
+     * Load quiz reports from the quite frankly an example LMS API.
      *
      * @async
      * @fires change
@@ -74,7 +74,7 @@ export default new Store(
      *
      * @param {Object} payload
      *        The payload to extract the reports from. This is what you received
-     *        by hitting the EXAMPLE reports index JSON-API endpoint.
+     *        by hitting the quite frankly an example LMS reports index JSON-API endpoint.
      *
      * @param {Object} [options={}]
      * @param {Boolean} [options.replace=true]

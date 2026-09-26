@@ -176,7 +176,7 @@ describe('processEditorContentItems', () => {
 
       expect(showFlashAlert).toHaveBeenCalledTimes(1)
       expect(showFlashAlert).toHaveBeenCalledWith({
-        message: 'Could not insert content: "file" items are not currently supported in EXAMPLE.',
+        message: 'Could not insert content: "file" items are not currently supported in quite frankly an example LMS.',
         type: 'warning',
         err: null,
       })
@@ -207,7 +207,7 @@ describe('processEditorContentItems', () => {
       expect(showFlashAlert).toHaveBeenCalledTimes(1)
       expect(showFlashAlert).toHaveBeenCalledWith({
         message:
-          'Could not insert content: "unsupported" items are not currently supported in EXAMPLE.',
+          'Could not insert content: "unsupported" items are not currently supported in quite frankly an example LMS.',
         type: 'warning',
         err: null,
       })

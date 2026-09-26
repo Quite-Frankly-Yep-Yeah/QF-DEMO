@@ -32,6 +32,7 @@ import FriendlyDatetime from '@canvas/datetime/react/components/FriendlyDatetime
 import CreateOrUpdateUserModal from './CreateOrUpdateUserModal'
 import {CreateDSRModal} from '@canvas/dsr'
 import UserLink from './UserLink'
+import ParentInviteMenu from '@canvas/self-paced/react/ParentInviteMenu'
 import TempEnrollUsersListRow from '@canvas/temporary-enrollment/react/TempEnrollUsersListRow'
 
 const I18n = createI18nScope('account_course_user_search')
@@ -133,6 +134,9 @@ export default function UsersListRow({
               afterSave={handleSubmitEditUserForm}
             />
           </>
+        )}
+        {ENV.SELF_PACED_PARENT_INVITES && (
+          <ParentInviteMenu studentId={user.id} studentName={user.name} />
         )}
         {permissions.can_create_dsr && (
           <CreateDSRModal accountId={accountId} user={user} afterSave={handleSubmitEditUserForm}>

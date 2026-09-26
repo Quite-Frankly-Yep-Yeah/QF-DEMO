@@ -738,7 +738,7 @@ module Api
   # regex for shard-aware ID
   ID = '(?:\d+~)?\d+'
 
-  # maps a EXAMPLE data type to an API-friendly type name
+  # maps a quite frankly an example LMS data type to an API-friendly type name
   API_DATA_TYPE = { "Attachment" => "File",
                     "WikiPage" => "Page",
                     "DiscussionTopic" => "Discussion",

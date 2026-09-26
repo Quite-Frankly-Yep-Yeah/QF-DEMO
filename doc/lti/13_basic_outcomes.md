@@ -2,10 +2,10 @@
 
 Also known as Grade Passback, this is the the IMS-blessed method of grading for 1.1 tools.
 
-A great overview can be found in the [EXAMPLE API Docs](https://canvas.instructure.com/doc/api/file.assignment_tools.html#outcomes_service),
+A great overview can be found in the [quite frankly an example LMS API Docs](https://canvas.instructure.com/doc/api/file.assignment_tools.html#outcomes_service),
 and in the [LTI 1.1 Spec](http://www.imsglobal.org/specs/ltiv1p1/implementation-guide#toc-6).
 
-This document is meant to provide an overview of the EXAMPLE-specific implementation of this service.
+This document is meant to provide an overview of the quite frankly an example LMS-specific implementation of this service.
 
 ## Initiating Launches
 
@@ -29,7 +29,7 @@ from the request and delegates all further response to `BasicLTI::BasicOutcomes`
 of the basic outcomes code.
 
 All errors that are returned from this process_request are transformed in the controller (#check_outcome)
-into a EXAMPLE ErrorReport, and logged to the database and to Sentry here. Information about the error and the
+into a quite frankly an example LMS ErrorReport, and logged to the database and to Sentry here. Information about the error and the
 corresponding XML response are included, and then the ID of the ErrorReport is inserted back into the
 XML before the HTTP response is sent, with a status of 422. To differentiate between the errors that
 may occur, an `ext_canvas_error_code` XML attribute is included in the response XML headers along
@@ -38,9 +38,9 @@ errors received by the type.
 
 The `BasicOutcomes` class's major responsibility is to decode the sourcedId using `BasicLTI::Sourcedid`
 (lib/basic_lti/sourcedid.rb), and then pick a child class to handle the XML response and manipulate
-actual EXAMPLE data objects.
+actual quite frankly an example LMS data objects.
 
-There are 3 child classes that inherit from each other to parse the request XML, perform EXAMPLE
+There are 3 child classes that inherit from each other to parse the request XML, perform quite frankly an example LMS
 database operations, and construct a response.
 
 1. `BasicLTI::BasicOutcomes::LtiResponse`: the base class, and the main workflow. Defines the base

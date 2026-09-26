@@ -913,7 +913,7 @@ module Canvas::LiveEvents
   def self.rubric_assessment_learning_outcome_result_associated_asset(result)
     # By default associated_asset is nil for RubricAssessment LOR.  For what I can tell, there is no reason for this being
     # nil and should be updated to reflect the RubricAssociation association object. This work is accounted for in OUT-6303.
-    # setting associated_asset to the EXAMPLE assignment for Rubric Assessments
+    # setting associated_asset to the quite frankly an example LMS assignment for Rubric Assessments
     if result.associated_asset.nil? && result.artifact_type == "RubricAssessment" && result.association_type == "RubricAssociation"
       rubric_association = RubricAssociation.find(result.association_id)
       result.associated_asset_id = rubric_association.association_id

@@ -445,7 +445,7 @@ class CollaborationsController < ApplicationController
 
   def require_collaborations_configured
     unless Collaboration.any_collaborations_configured?(@context) || @domain_root_account.feature_enabled?(:new_collaborations)
-      flash[:error] = t "errors.not_enabled", "Collaborations have not been enabled for this EXAMPLE site"
+      flash[:error] = t "errors.not_enabled", "Collaborations have not been enabled for this quite frankly an example LMS site"
       redirect_to named_context_url(@context, :context_url)
       false
     end

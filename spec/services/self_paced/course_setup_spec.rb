@@ -1,15 +1,15 @@
 # frozen_string_literal: true
 
 #
-# Copyright (C) 2026 - present EXAMPLE contributors
+# Copyright (C) 2026 - present quite frankly an example LMS contributors
 #
-# This file is part of EXAMPLE LMS, a modified version of Canvas.
+# This file is part of quite frankly an example LMS, a modified version of Canvas.
 #
-# EXAMPLE LMS is free software: you can redistribute it and/or modify it under
+# quite frankly an example LMS is free software: you can redistribute it and/or modify it under
 # the terms of the GNU Affero General Public License as published by the Free
 # Software Foundation, version 3 of the License.
 #
-# EXAMPLE LMS is distributed in the hope that it will be useful, but WITHOUT ANY
+# quite frankly an example LMS is distributed in the hope that it will be useful, but WITHOUT ANY
 # WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS FOR
 # A PARTICULAR PURPOSE. See the GNU Affero General Public License for more
 # details.
@@ -45,6 +45,40 @@ describe SelfPaced::CourseSetup do
 
     it "uses a 70% mastery threshold until the teacher picks one" do
       expect(setup.as_json[:mastery_threshold]).to be 70.0
+    end
+  end
+
+  describe "skills for test-out (Phase 9)" do
+    before do
+      @context = course
+      outcome_model(context: course, title: "Graph a line")
+    end
+
+    it "lists the course's skills for the settings to choose from" do
+      expect(setup.as_json[:skills]).to eql([{ id: @outcome.id.to_s, title: "Graph a line" }])
+    end
+
+    it "saves the skill a lesson teaches and hands it back" do
+      setup.apply!(items: [{ id: page_tag.id, role: "instruction", skill_id: @outcome.id }])
+
+      item = described_class.new(Course.find(course.id)).as_json[:modules].first[:items].find { |i| i[:title] == "Lesson" }
+      expect(item[:skill_id]).to eql(@outcome.id.to_s)
+    end
+
+    it "keeps the skill when a save doesn't mention it, and clears it when asked" do
+      setup.apply!(items: [{ id: page_tag.id, role: "instruction", skill_id: @outcome.id }])
+      setup.apply!(items: [{ id: page_tag.id, role: "instruction", estimated_minutes: 5 }])
+      expect(SelfPaced::ItemSetting.find_by(content_tag: page_tag).learning_outcome_id).to eq @outcome.id
+
+      setup.apply!(items: [{ id: page_tag.id, role: "instruction", skill_id: "" }])
+      expect(SelfPaced::ItemSetting.find_by(content_tag: page_tag).learning_outcome_id).to be_nil
+    end
+
+    it "drops the skill when the item becomes a check" do
+      setup.apply!(items: [{ id: page_tag.id, role: "instruction", skill_id: @outcome.id }])
+      setup.apply!(items: [{ id: page_tag.id, role: "check" }])
+
+      expect(SelfPaced::ItemSetting.find_by(content_tag: page_tag).learning_outcome_id).to be_nil
     end
   end
 

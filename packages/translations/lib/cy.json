@@ -453,7 +453,7 @@
         "message": "Perchennog yr Hawlfraint:"
     },
     "could_not_insert_content_itemtype_items_are_not_cu_638dfecd": {
-        "message": "Doedd dim modd mewnosod y cynnwys: Nid yw EXAMPLE yn gallu delio â \"{ itemType }\" eitem ar hyn o bryd."
+        "message": "Doedd dim modd mewnosod y cynnwys: Nid yw quite frankly an example LMS yn gallu delio â \"{ itemType }\" eitem ar hyn o bryd."
     },
     "count_40eced3b": {
         "message": "Nifer"
@@ -1878,7 +1878,7 @@
         "message": "Cynllyn y chwaraewr"
     },
     "please_allow_canvas_to_access_your_microphone_and__dc2c3079": {
-        "message": "Gadewch i EXAMPLE gael mynediad at eich microffon a gwe-gamera."
+        "message": "Gadewch i quite frankly an example LMS gael mynediad at eich microffon a gwe-gamera."
     },
     "please_choose_a_file_c2449cc": {
         "message": "Dewiswch ffeil"
@@ -2544,7 +2544,7 @@
         "message": "Saeth Trwchus i Fyny"
     },
     "this_document_cannot_be_displayed_within_canvas_7aba77be": {
-        "message": "Does dim modd dangos y ddogfen hon yn EXAMPLE."
+        "message": "Does dim modd dangos y ddogfen hon yn quite frankly an example LMS."
     },
     "this_equation_cannot_be_rendered_in_basic_view_9b6c07ae": {
         "message": "Does dim modd rendro’r hafaliad hwn yn y Wedd Syml."

@@ -51,7 +51,7 @@ Rubrics use a **separate API** (`POST /api/v1/courses/:id/rubrics`), not the ass
 | `peer_review_allocation_and_grading` | **0%** | In active development |
 | `assignment_edit_enhancements_teacher_view` | **0%** | New React UI - not in production |
 
-*Source: [EXAMPLE Feature Analytics](https://103443579803.observeinc.com/workspace/41863084/dashboard/Canvas-Feature-Analytics-Dashboard-42279288) (Jan 2026)*
+*Source: [quite frankly an example LMS Feature Analytics](https://103443579803.observeinc.com/workspace/41863084/dashboard/Canvas-Feature-Analytics-Dashboard-42279288) (Jan 2026)*
 
 ## Key Files
 

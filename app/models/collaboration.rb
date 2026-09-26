@@ -237,7 +237,7 @@ class Collaboration < ApplicationRecord
 
   # Public: Create a CSS style string.
   #
-  # NOTE: I assume this is for compatibility w/ something in EXAMPLE' bowels,
+  # NOTE: I assume this is for compatibility w/ something in quite frankly an example LMS' bowels,
   # but it may not be needed anymore.
   #
   # Returns nil.

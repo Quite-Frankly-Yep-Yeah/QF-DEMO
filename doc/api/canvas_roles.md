@@ -1,4 +1,4 @@
-EXAMPLE Roles
+quite frankly an example LMS Roles
 ============
 
 LTI generally recognizes that users make use of the integrated functionality offered by tools to platforms. These users
@@ -13,7 +13,7 @@ The IMS role vocabularies are derived from the [LIS specification](https://www.i
 
 ## LTI 1.1 using the LIS 1.1 Roles
 
-| EXAMPLE Role           | Role type        | IMS role                                      |
+| quite frankly an example LMS Role           | Role type        | IMS role                                      |
 |-----------------------|------------------|-----------------------------------------------|
 | user                  | System role      | urn:lti:sysrole:ims/lis/User                  |
 | siteadmin             | System role      | urn:lti:sysrole:ims/lis/SysAdmin              |
@@ -36,7 +36,7 @@ Source: [LTI 1.1 - Role vocabularies](http://www.imsglobal.org/specs/ltiv1p1/imp
 
 ## LTI 1.3 using the LIS 2.0 Roles
 
-| EXAMPLE Role           | Role type        | IMS role                                                                       |
+| quite frankly an example LMS Role           | Role type        | IMS role                                                                       |
 |-----------------------|------------------|--------------------------------------------------------------------------------|
 | user                  | System role      | http://purl.imsglobal.org/vocab/lis/v2/system/person#User                      |
 | siteadmin             | System role      | http://purl.imsglobal.org/vocab/lis/v2/system/person#SysAdmin                  |
@@ -57,7 +57,7 @@ Source: [LTI 1.3 - Role vocabularies](https://www.imsglobal.org/spec/lti/v1p3#ro
 
 ## LTI 1.3 using the LIS 2.0 LTI Advantage Roles
 
-| EXAMPLE Role           | Role type        | IMS role                                                                       |
+| quite frankly an example LMS Role           | Role type        | IMS role                                                                       |
 |-----------------------|------------------|--------------------------------------------------------------------------------|
 | user                  | System role      | http://purl.imsglobal.org/vocab/lis/v2/system/person#User                      |
 | siteadmin             | System role      | http://purl.imsglobal.org/vocab/lis/v2/system/person#SysAdmin                  |

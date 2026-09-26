@@ -228,13 +228,13 @@ describe Outcomes::LearningOutcomeGroupChildren do
               course.enable_feature!(:outcome_alignment_summary_with_new_quizzes)
             end
 
-            it "returns the total outcomes aligned in EXAMPLE and Outcomes-Service based on filter argument" do
+            it "returns the total outcomes aligned in quite frankly an example LMS and Outcomes-Service based on filter argument" do
               expect(subject.total_outcomes(cg0.id, { filter: "WITH_ALIGNMENTS" })).to eq 2
               expect(subject.total_outcomes(cg0.id, { filter: "NO_ALIGNMENTS" })).to eq 1
             end
 
-            context "when new quiz aligned to outcome is deleted in EXAMPLE but not in Outcomes-Service" do
-              it "returns the total outcomes aligned in EXAMPLE and Outcomes-Service and filters out alignments to deleted quizzes" do
+            context "when new quiz aligned to outcome is deleted in quite frankly an example LMS but not in Outcomes-Service" do
+              it "returns the total outcomes aligned in quite frankly an example LMS and Outcomes-Service and filters out alignments to deleted quizzes" do
                 @new_quiz.destroy!
                 expect(subject.total_outcomes(cg0.id, { filter: "WITH_ALIGNMENTS" })).to eq 1
                 expect(subject.total_outcomes(cg0.id, { filter: "NO_ALIGNMENTS" })).to eq 2
@@ -593,19 +593,19 @@ describe Outcomes::LearningOutcomeGroupChildren do
         cg1.add_outcome o4
       end
 
-      it "filters outcomes without alignments in EXAMPLE" do
+      it "filters outcomes without alignments in quite frankly an example LMS" do
         outcomes = subject.suboutcomes_by_group_id(cg1.id, { filter: "NO_ALIGNMENTS" })
                           .map { |o| o.learning_outcome_content.id }
         expect(outcomes).to eql([o4.id, o8.id])
       end
 
-      it "filters outcomes with alignments in EXAMPLE" do
+      it "filters outcomes with alignments in quite frankly an example LMS" do
         outcomes = subject.suboutcomes_by_group_id(cg1.id, { filter: "WITH_ALIGNMENTS" })
                           .map { |o| o.learning_outcome_content.id }
         expect(outcomes).to eql([o3.id])
       end
 
-      it "filters outcomes without alignments in EXAMPLE and with search" do
+      it "filters outcomes without alignments in quite frankly an example LMS and with search" do
         outcomes = subject.suboutcomes_by_group_id(cg1.id, { search_query: "4.1", filter: "NO_ALIGNMENTS" })
                           .map { |o| o.learning_outcome_content.id }
         expect(outcomes).to eql([o4.id])
@@ -635,20 +635,20 @@ describe Outcomes::LearningOutcomeGroupChildren do
             .and_return(OutcomeAlignmentsSpecHelper.mock_os_aligned_outcomes([o8], @new_quiz.id))
         end
 
-        it "filters outcomes without alignments in EXAMPLE or Outcomes-Service" do
+        it "filters outcomes without alignments in quite frankly an example LMS or Outcomes-Service" do
           outcomes = subject.suboutcomes_by_group_id(cg1.id, { filter: "NO_ALIGNMENTS" })
                             .map { |o| o.learning_outcome_content.id }
           expect(outcomes).to eql([o4.id, o5.id])
         end
 
-        it "filters outcomes with alignments in EXAMPLE or Outcomes-Service" do
+        it "filters outcomes with alignments in quite frankly an example LMS or Outcomes-Service" do
           outcomes = subject.suboutcomes_by_group_id(cg1.id, { filter: "WITH_ALIGNMENTS" })
                             .map { |o| o.learning_outcome_content.id }
           expect(outcomes).to eql([o3.id, o8.id])
         end
 
-        context "when new quiz aligned to outcome is deleted in EXAMPLE but not in Outcomes-Service" do
-          it "filters outcomes with alignments in EXAMPLE or Outcomes-Service and filters out alignments to deleted quizzes" do
+        context "when new quiz aligned to outcome is deleted in quite frankly an example LMS but not in Outcomes-Service" do
+          it "filters outcomes with alignments in quite frankly an example LMS or Outcomes-Service and filters out alignments to deleted quizzes" do
             @new_quiz.destroy!
             outcomes = subject.suboutcomes_by_group_id(cg1.id, { filter: "WITH_ALIGNMENTS" })
                               .map { |o| o.learning_outcome_content.id }
@@ -656,7 +656,7 @@ describe Outcomes::LearningOutcomeGroupChildren do
           end
         end
 
-        it "filters outcomes without alignments in EXAMPLE or Outcomes-Service and with search" do
+        it "filters outcomes without alignments in quite frankly an example LMS or Outcomes-Service and with search" do
           outcomes = subject.suboutcomes_by_group_id(cg1.id, { search_query: "4.1", filter: "NO_ALIGNMENTS" })
                             .map { |o| o.learning_outcome_content.id }
           expect(outcomes).to eql([o4.id])

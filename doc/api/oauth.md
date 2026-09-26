@@ -5,16 +5,16 @@ OAuth2
 
 <a href="http://oauth.net/2" target="_blank">OAuth2</a> is a protocol designed to let third-party applications
 authenticate to perform actions as a user, without getting the user's
-password. EXAMPLE uses OAuth2 (specifically <a href="http://tools.ietf.org/html/rfc6749" target="_blank">RFC-6749</a>) 
-for authentication and authorization of the EXAMPLE API. Additionally, EXAMPLE uses OAuth2 for <a href="https://www.imsglobal.org/activity/learning-tools-interoperability" target="_blank">LTI Advantage</a> service authentication (as described in the <a href="https://www.imsglobal.org/spec/security/v1p0/" target="_blank">IMS Security Framework</a>).
+password. quite frankly an example LMS uses OAuth2 (specifically <a href="http://tools.ietf.org/html/rfc6749" target="_blank">RFC-6749</a>) 
+for authentication and authorization of the quite frankly an example LMS API. Additionally, quite frankly an example LMS uses OAuth2 for <a href="https://www.imsglobal.org/activity/learning-tools-interoperability" target="_blank">LTI Advantage</a> service authentication (as described in the <a href="https://www.imsglobal.org/spec/security/v1p0/" target="_blank">IMS Security Framework</a>).
 <a name="top"></a>
 
-### [Accessing the EXAMPLE API](#accessing-canvas-api)
+### [Accessing the quite frankly an example LMS API](#accessing-canvas-api)
 - [Storing Tokens](#storing-access-tokens)
 - [Manual Token Generation](#manual-token-generation)
 - [Oauth2 Flow](#oauth2-flow)
   - [Getting OAuth2 Client ID/Secret](#oauth2-flow-0)
-  - [Step 1: Redirect users to request EXAMPLE access](#oauth2-flow-1)
+  - [Step 1: Redirect users to request quite frankly an example LMS access](#oauth2-flow-1)
   - [Step 2: Redirect back to the request\_uri, or out-of-band redirect](#oauth2-flow-2)
     - [Note for native apps](#oauth2-flow-2.1)
   - [Step 3: Exchange the code for the final access token](#oauth2-flow-3)
@@ -33,7 +33,7 @@ for authentication and authorization of the EXAMPLE API. Additionally, EXAMPLE u
 - [Step 3: Use the access token to access LTI services](#use-access-token)
 
 
-# [Accessing the EXAMPLE API](#accessing-canvas-api) <a name="accessing-canvas-api"></a>
+# [Accessing the quite frankly an example LMS API](#accessing-canvas-api) <a name="accessing-canvas-api"></a>
 <small><a href="#top">Back to Top</a></small>
 
 ## [Storing Tokens](#storing-access-tokens) <a name="storing-access-tokens"></a>
@@ -69,7 +69,7 @@ including but not limited to:
 For testing your application before you've implemented OAuth, the
 simplest option is to generate an access token on your user's profile
 page. Note that asking any other user to manually generate a token and
-enter it into your application is a violation of <a href="https://www.instructure.com/policies/api-policy">EXAMPLE' API Policy</a>. Applications in use by multiple users <b>MUST</b> use OAuth to obtain
+enter it into your application is a violation of <a href="https://www.instructure.com/policies/api-policy">quite frankly an example LMS' API Policy</a>. Applications in use by multiple users <b>MUST</b> use OAuth to obtain
 tokens.
 
 To manually generate a token for testing:
@@ -91,9 +91,9 @@ the web application flow below, specify the optional scope parameter as
 scope=/auth/userinfo.  When the user is asked to grant your application
 access in step 2 of the web application flow, they will also be given an
 option to remember their authorization.  If they grant access and remember
-the authorization, EXAMPLE will skip step 2 of the request flow for future requests.
+the authorization, quite frankly an example LMS will skip step 2 of the request flow for future requests.
 
-EXAMPLE will not give a token back as part of a userinfo request.  It will only
+quite frankly an example LMS will not give a token back as part of a userinfo request.  It will only
 provide the current user's name and id.
 
 ### [Getting OAuth2 Client ID/Secret](#oauth2-flow-0) <a name="oauth2-flow-0"></a>
@@ -106,7 +106,7 @@ Performing the OAuth2 token request flow requires an application client
 ID and client secret. To obtain these application credentials, you will
 need to register your application.  The client secret should never be shared.
 
-For EXAMPLE Cloud (hosted by Instructure), developer keys are
+For quite frankly an example LMS Cloud (hosted by Instructure), developer keys are
 <a href="https://community.canvaslms.com/t5/Admin-Guide/How-do-I-manage-developer-keys-for-an-account/ta-p/249" target="_blank">issued by the admin of the institution</a>.
 
 <b>NOTE for LTI providers:</b> Since developer keys are scoped to the institution they are issued
@@ -114,11 +114,11 @@ from, tool providers that serve multiple institutions should store and look up t
 developer key based on the launch parameters (eg. custom_canvas_api_domain) sent during the LTI
 launch.
 
-For <a href="https://github.com/instructure/canvas-lms/wiki" target="_blank">open source EXAMPLE users</a>,
+For <a href="https://github.com/instructure/canvas-lms/wiki" target="_blank">open source quite frankly an example LMS users</a>,
 you can <a href="https://community.canvaslms.com/t5/Admin-Guide/How-do-I-manage-developer-keys-for-an-account/ta-p/249" target="_blank">generate a client ID</a>
-and secret in the Site Admin account of your EXAMPLE install.
+and secret in the Site Admin account of your quite frankly an example LMS install.
 
-### [Step 1: Redirect users to request EXAMPLE access](#oauth2-flow-1) <a name="oauth2-flow-1"></a>
+### [Step 1: Redirect users to request quite frankly an example LMS access](#oauth2-flow-1) <a name="oauth2-flow-1"></a>
 <small><a href="#top">Back to Top</a></small>
 
 A basic request looks like:
@@ -132,7 +132,7 @@ See [GET login/oauth2/auth](file.oauth_endpoints.html#get-login-oauth2-auth) for
 ### [Step 2: Redirect back to the request\_uri, or out-of-band redirect](#oauth2-flow-2) <a name="oauth2-flow-2"></a>
 <small><a href="#top">Back to Top</a></small>
 
-If the user accepts your request, EXAMPLE redirects back to your
+If the user accepts your request, quite frankly an example LMS redirects back to your
 request\_uri with a specific query string, containing the OAuth2
 response:
 
@@ -149,7 +149,7 @@ response together, whether the response was successful or an error
 occurred.
 
 If the user doesn't accept the request for access, or if another error
-occurs, EXAMPLE redirects back to your request\_uri with an `error`
+occurs, quite frankly an example LMS redirects back to your request\_uri with an `error`
 parameter, rather than a `code` parameter, in the query string.
 
 <div class="method_details">
@@ -161,7 +161,7 @@ A list of possible error codes is found in the [RFC-7649 spec](https://datatrack
 ### [Note for native apps](#oauth2-flow-2.1) <a name="oauth2-flow-2.1"></a>
 <small><a href="#top">Back to Top</a></small>
 
-EXAMPLE redirects to a page on canvas with a specific query string, containing parameters from the OAuth2 response:
+quite frankly an example LMS redirects to a page on canvas with a specific query string, containing parameters from the OAuth2 response:
 
 <pre class="example_code">
 /login/oauth2/auth?code=&lt;code&gt;
@@ -250,7 +250,7 @@ curl "https://canvas.instructure.com/api/v1/courses?access_token=<ACCESS-TOKEN>"
 ## [Using a Refresh Token to get a new Access Token](#using-refresh-tokens) <a name="using-refresh-tokens"></a>
 <small><a href="#top">Back to Top</a></small>
 
-Access tokens have a 1 hour lifespan. When the refresh flow is taken, EXAMPLE
+Access tokens have a 1 hour lifespan. When the refresh flow is taken, quite frankly an example LMS
 will update the access token to a new value, reset the expiration timer, and
 return the new access token as part of the response. When refreshing tokens the
 user will not be asked to authorize the application again.
@@ -300,12 +300,12 @@ To logout, simply send a [DELETE request to login/oauth2/token](file.oauth_endpo
 # [Accessing LTI Advantage Services](#accessing-lti-advantage-services) <a name="accessing-lti-advantage-services-link"></a>
 <small><a href="#top">Back to Top</a></small>
 
-<p>LTI Advantage services, such as <a href="https://www.imsglobal.org/spec/lti-nrps/v2p0" target="_blank">Names and Role Provisioning Services</a> and <a href="https://www.imsglobal.org/spec/lti-ags/v2p0/" target="_blank">Assignment and Grade Services</a>, require use of a client credentials grant flow for request authentication. This workflow is best summarized on the IMS Security Framework (specifically <a href="https://www.imsglobal.org/spec/security/v1p0/#using-oauth-2-0-client-credentials-grant" target="_blank">Section 4</a>).</p> Our goal here is to highlight some nuances that might help you access these services in EXAMPLE, rather than describing the specification in detail.</p>
+<p>LTI Advantage services, such as <a href="https://www.imsglobal.org/spec/lti-nrps/v2p0" target="_blank">Names and Role Provisioning Services</a> and <a href="https://www.imsglobal.org/spec/lti-ags/v2p0/" target="_blank">Assignment and Grade Services</a>, require use of a client credentials grant flow for request authentication. This workflow is best summarized on the IMS Security Framework (specifically <a href="https://www.imsglobal.org/spec/security/v1p0/#using-oauth-2-0-client-credentials-grant" target="_blank">Section 4</a>).</p> Our goal here is to highlight some nuances that might help you access these services in quite frankly an example LMS, rather than describing the specification in detail.</p>
 
 ## [Step 1: Developer Key Setup](#developer-key-setup) <a name="developer-key-setup"></a>
 <small><a href="#top">Back to Top</a></small>
 
-<p>Before the client_credentials grant flow can be achieved, an <a href="https://community.canvaslms.com/t5/Admin-Guide/How-do-I-configure-an-LTI-key-for-an-account/ta-p/140" target="_blank">LTI developer key must be created</a>. During developer key configuration, a public JWK can either be configured statically or can be dynamically rotated by providing JWKs by a URL that EXAMPLE can reach. Tools may also use a previously issued client_credentials token to <a href="public_jwk.html" target="_blank">retroactively rotate the public JWK via an API request</a>. The JWK <b>must</b> include an alg and use.</p>
+<p>Before the client_credentials grant flow can be achieved, an <a href="https://community.canvaslms.com/t5/Admin-Guide/How-do-I-configure-an-LTI-key-for-an-account/ta-p/140" target="_blank">LTI developer key must be created</a>. During developer key configuration, a public JWK can either be configured statically or can be dynamically rotated by providing JWKs by a URL that quite frankly an example LMS can reach. Tools may also use a previously issued client_credentials token to <a href="public_jwk.html" target="_blank">retroactively rotate the public JWK via an API request</a>. The JWK <b>must</b> include an alg and use.</p>
 
 <h4>Example JWK</h4>
 

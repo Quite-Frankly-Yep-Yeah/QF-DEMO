@@ -98,7 +98,7 @@ describe('LDAPSettingsTest', () => {
     describe('and the test failed', () => {
       it('should show the correct statuses and error info for the failed row', async () => {
         const connectionErrorFromResponse = 'Failed to connect to LDAP server'
-        const connectionErrorDescription = "EXAMPLE can't connect to your LDAP server"
+        const connectionErrorDescription = "quite frankly an example LMS can't connect to your LDAP server"
         server.use(
           http.get(TEST_LDAP_CONNECTION_URL, () => {
             return HttpResponse.json([
@@ -136,7 +136,7 @@ describe('LDAPSettingsTest', () => {
     describe('and the test failed', () => {
       it('should show the correct statuses and error info for the failed row', async () => {
         const bindErrorFromResponse = 'Failed to bind to LDAP server'
-        const bindErrorDescription = "EXAMPLE can't bind (login) to your LDAP server"
+        const bindErrorDescription = "quite frankly an example LMS can't bind (login) to your LDAP server"
         server.use(
           http.get(TEST_LDAP_BIND_URL, () => {
             return HttpResponse.json([
@@ -170,7 +170,7 @@ describe('LDAPSettingsTest', () => {
     describe('and the test failed', () => {
       it('should show the correct statuses and error info for the failed row', async () => {
         const searchErrorFromResponse = 'Failed to search LDAP server'
-        const searchErrorDescription = "EXAMPLE can't search your LDAP instance"
+        const searchErrorDescription = "quite frankly an example LMS can't search your LDAP instance"
         server.use(
           http.get(TEST_LDAP_SEARCH_URL, () => {
             return HttpResponse.json([

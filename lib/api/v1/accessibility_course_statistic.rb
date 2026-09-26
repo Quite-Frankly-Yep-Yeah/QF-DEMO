@@ -22,9 +22,9 @@ module Api::V1::AccessibilityCourseStatistic
   include Api::V1::Json
 
   # TODO: Replace boolean opts flags (include_closed, include_course_details)
-  # with a standard EXAMPLE include[] param pattern, e.g.:
+  # with a standard quite frankly an example LMS include[] param pattern, e.g.:
   #   @argument include[] [String, "closed_issue_count"|"course_details"]
-  # This is consistent with other EXAMPLE API endpoints and allows callers
+  # This is consistent with other quite frankly an example LMS API endpoints and allows callers
   # to opt into only the fields they need. (ref EGG-2452)
   def accessibility_course_statistic_json(statistic, user, session, opts = {})
     return nil unless statistic

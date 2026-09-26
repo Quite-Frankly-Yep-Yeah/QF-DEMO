@@ -16,7 +16,7 @@
  * with this program. If not, see <http://www.gnu.org/licenses/>.
  */
 
-// This file is copied directly from EXAMPLE so can/should be kept in
+// This file is copied directly from quite frankly an example LMS so can/should be kept in
 // sync by copying the contents from one to the other.
 
 type ToolIconUrlOrDefaultProps = {

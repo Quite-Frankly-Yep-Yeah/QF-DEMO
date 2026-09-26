@@ -80,7 +80,7 @@ export default function NotificationSettings(props: NotificationSettingsProps): 
         ? {type: 'newError', text: I18n.t('Please enter a custom "From" name.')}
         : {
             type: 'hint',
-            text: I18n.t('This will replace all other branding sent in EXAMPLE notifications.'),
+            text: I18n.t('This will replace all other branding sent in quite frankly an example LMS notifications.'),
           }
       return [message]
     }
@@ -92,7 +92,7 @@ export default function NotificationSettings(props: NotificationSettingsProps): 
         </Heading>
         <Text>
           {I18n.t(
-            'This setting allows the Admin to brand or label all the "From" text on all notifications sent from EXAMPLE for this Account.',
+            'This setting allows the Admin to brand or label all the "From" text on all notifications sent from quite frankly an example LMS for this Account.',
           )}
         </Text>
         <Flex margin="large 0" alignItems="start">
@@ -104,7 +104,7 @@ export default function NotificationSettings(props: NotificationSettingsProps): 
               data-testid="from-select"
             >
               <SimpleSelect.Option id="custom-name-option-default" value="default">
-                {I18n.t('Default EXAMPLE Setting')}
+                {I18n.t('Default quite frankly an example LMS Setting')}
               </SimpleSelect.Option>
               <SimpleSelect.Option id="custom-name-option-custom" value="custom">
                 {I18n.t('Custom "From" Name')}
@@ -156,7 +156,7 @@ export default function NotificationSettings(props: NotificationSettingsProps): 
             </tr>
             <tr>
               <td>{I18n.t('Subject')}</td>
-              <td style={cellStyling}>{I18n.t('Recent EXAMPLE Notifications')}</td>
+              <td style={cellStyling}>{I18n.t('Recent quite frankly an example LMS Notifications')}</td>
             </tr>
             <tr>
               <td>{I18n.t('Date')}</td>
@@ -204,7 +204,7 @@ export default function NotificationSettings(props: NotificationSettingsProps): 
             {I18n.t(
               `Notice: Some notifications may contain confidential information. Selecting
               to receive notifications at an email other than your institution provided
-              address may result in sending sensitive EXAMPLE course and group information
+              address may result in sending sensitive quite frankly an example LMS course and group information
               outside of the institutional system.`,
             )}
           </Text>

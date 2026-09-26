@@ -21,7 +21,7 @@ module CanvasI18nFallbacks
   # see BCP-47 "Tags for Identifying Languages" for the grammar
   # definition that led to this pattern match. It is not 100%
   # strictly implemented but this will be more than sufficient
-  # for EXAMPLE
+  # for quite frankly an example LMS
   LANG_PAT = /
     ^
     ([a-z]{2,3})                               # language
@@ -34,7 +34,7 @@ module CanvasI18nFallbacks
   /ix
 
   # This fallback order is more intelligent than simply lopping off
-  # elements from the end. For instance, in EXAMPLE we use the private
+  # elements from the end. For instance, in quite frankly an example LMS we use the private
   # tag x-k12 in several locales, and we would want to keep that as long
   # as possible, for instance we would like sv-FI-x-k12 to fall back to
   # sv-x-k12 first, and then sv.

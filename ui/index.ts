@@ -86,7 +86,7 @@ up({
   requires: [C.I18n],
 }).catch((e: Error) => {
   console.error(
-    `EXAMPLE front-end did not successfully start! Did you add any new bundles to ui/featureBundles.ts? (${e.message})`,
+    `quite frankly an example LMS front-end did not successfully start! Did you add any new bundles to ui/featureBundles.ts? (${e.message})`,
   )
   captureException(e)
 })
@@ -154,7 +154,7 @@ async function setupMathML() {
 
   // LS-1662: there are math equations on the page that
   // we don't see, so remain invisible and aren't
-  // typeset my MathJax. Let's trick EXAMPLE into knowing
+  // typeset my MathJax. Let's trick quite frankly an example LMS into knowing
   // there's math on the page by putting some there.
   if (!/quizzes\/\d*\/edit/.test(window.location.pathname)) {
     if (document.querySelector('.math_equation_latex')) {

@@ -275,9 +275,9 @@ describe('FilesApp', () => {
     ]
 
     beforeEach(() => {
-      // @ts-expect-error - global.ENV is a EXAMPLE global not in TS types
+      // @ts-expect-error - global.ENV is a quite frankly an example LMS global not in TS types
       global.ENV = {
-        // @ts-expect-error - global.ENV is a EXAMPLE global not in TS types
+        // @ts-expect-error - global.ENV is a quite frankly an example LMS global not in TS types
         ...global.ENV,
         FEATURES: {
           files_a11y_folder_duplicates: true,
@@ -356,9 +356,9 @@ describe('FilesApp', () => {
     })
 
     it('does not call duplicates API when feature flag is disabled', async () => {
-      // @ts-expect-error - global.ENV is a EXAMPLE global not in TS types
+      // @ts-expect-error - global.ENV is a quite frankly an example LMS global not in TS types
       global.ENV = {
-        // @ts-expect-error - global.ENV is a EXAMPLE global not in TS types
+        // @ts-expect-error - global.ENV is a quite frankly an example LMS global not in TS types
         ...global.ENV,
         FEATURES: {
           files_a11y_folder_duplicates: false,

@@ -258,13 +258,13 @@ describe Attachments::Verification do
         end
       end
 
-      context "when the referrer is not a known EXAMPLE domain" do
+      context "when the referrer is not a known quite frankly an example LMS domain" do
         it "does not emit a stats event" do
           expect(InstStatsd::Statsd).not_to have_received(:event)
         end
       end
 
-      context "when the referrer is another EXAMPLE domain with the same account" do
+      context "when the referrer is another quite frankly an example LMS domain with the same account" do
         let(:referrer_is_canvas_domain) { true }
         let(:referrer_account) { instance_double(Account, id: 1) }
 
@@ -273,12 +273,12 @@ describe Attachments::Verification do
         end
       end
 
-      context "when the referrer is another EXAMPLE domain with a different account" do
+      context "when the referrer is another quite frankly an example LMS domain with a different account" do
         let(:referrer_is_canvas_domain) { true }
 
         it "emits a cross_domain_file_access event" do
           expect(InstStatsd::Statsd).to have_received(:event).with(
-            "File accessed from different EXAMPLE domain",
+            "File accessed from different quite frankly an example LMS domain",
             "Referrer: https://other.canvas.example/files/1, Request URL: https://this.canvas.example/files/2",
             type: "cross_domain_file_access",
             alert_type: :warning

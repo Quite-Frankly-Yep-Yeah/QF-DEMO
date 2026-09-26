@@ -53,7 +53,7 @@ class Quizzes::QuizParticipant
     super()
   end
 
-  # Is this a EXAMPLE user (enrolled student, teacher, TA, etc.) or an anonymous
+  # Is this a quite frankly an example LMS user (enrolled student, teacher, TA, etc.) or an anonymous
   # person?
   #
   # Note that this does not actually take the Quiz's public-participation status

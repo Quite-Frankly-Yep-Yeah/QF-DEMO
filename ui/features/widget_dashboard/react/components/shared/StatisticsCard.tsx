@@ -43,8 +43,9 @@ const StatisticsCard: React.FC<StatisticsCardProps> = ({
   return (
     <View
       as="div"
-      padding="small"
+      padding="small medium"
       borderRadius="medium"
+      shadow="resting"
       background="primary"
       textAlign="center"
       themeOverride={{
@@ -53,8 +54,8 @@ const StatisticsCard: React.FC<StatisticsCardProps> = ({
       data-testid={`statistics-card-${label}`}
     >
       <Text
-        size="x-large"
-        weight="bold"
+        size="xx-large"
+        weight="light"
         color="primary"
         themeOverride={textColor ? {primaryColor: textColor} : {}}
       >

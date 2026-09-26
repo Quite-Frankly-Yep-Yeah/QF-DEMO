@@ -1,0 +1,13 @@
+<% define_content :link do %>
+  <%= "#{HostUrl.protocol}://#{HostUrl.context_host(asset.course)}/self_paced/observer" %>
+<% end %>
+
+<% define_content :subject do %>
+  <%= t "An update about %{student} in %{course}", student: asset.student.name, course: asset.course.name %>
+<% end %>
+
+<%= t "%{student}: %{problem}.", student: asset.student.name, problem: asset.description %>
+
+<%= t "Open the page to see their progress, pace and recent grades." %>
+
+<%= content :link %>

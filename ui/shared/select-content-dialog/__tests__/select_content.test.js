@@ -53,7 +53,7 @@ describe('errorForUrlItem', () => {
   describe('when the item does not have a url', () => {
     it('returns an error describing the absence of a URL', () => {
       expect(SelectContent.errorForUrlItem({'@type': 'LtiLinkItem'})).toEqual(
-        'Error: The tool did not return a URL to EXAMPLE',
+        'Error: The tool did not return a URL to quite frankly an example LMS',
       )
     })
   })

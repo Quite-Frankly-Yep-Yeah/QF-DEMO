@@ -4,7 +4,7 @@
   "trigger": "Triggered when a wiki page is deleted.",
   "schema": {
     "title": "The title of the deleted wiki page. NOTE: This field will be truncated to only include the first 8192 characters.",
-    "wiki_page_id": "The EXAMPLE id of the deleted wiki page."
+    "wiki_page_id": "The quite frankly an example LMS id of the deleted wiki page."
   },
   "examples": [
     {

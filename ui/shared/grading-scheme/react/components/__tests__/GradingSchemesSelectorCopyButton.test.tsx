@@ -137,7 +137,7 @@ describe('GradingSchemesSelector copy button tests', () => {
     fireEvent.click(duplicateButton)
     await findByTestId('grading-scheme-edit-modal')
     expect(createData).toEqual({
-      title: 'Default EXAMPLE Grading Scheme Copy',
+      title: 'Default quite frankly an example LMS Grading Scheme Copy',
       points_based: false,
       scaling_factor: 1,
       data: DefaultGradingScheme.data,

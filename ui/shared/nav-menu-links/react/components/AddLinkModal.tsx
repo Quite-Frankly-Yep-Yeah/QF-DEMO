@@ -239,7 +239,7 @@ export const AddLinkModal = ({
               }}
               messages={makeMessages({
                 hint: I18n.t(
-                  'This can be an external link or a EXAMPLE URL. This link will open in a new tab.',
+                  'This can be an external link or a quite frankly an example LMS URL. This link will open in a new tab.',
                 ),
                 error: urlError,
                 errorEnabled: hasBlurred.url,

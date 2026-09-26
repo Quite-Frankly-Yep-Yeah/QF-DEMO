@@ -73,7 +73,7 @@ function getTrayLabel(contentType, contentSubtype, contextType) {
 
 /**
  * This component is used within various plugins to handle loading in content
- * from EXAMPLE.  It is essentially the main component.
+ * from quite frankly an example LMS.  It is essentially the main component.
  */
 export default function CanvasContentTray(props) {
   // should the tray be rendered open?

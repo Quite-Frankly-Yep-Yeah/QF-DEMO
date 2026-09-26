@@ -48,7 +48,7 @@ class PermissionsHelpController < ApplicationController
   # these actions access only static (but localized) information about permissions,
   # but require a logged-in user to mitigate possible abuse
   # @API Get help text for permissions
-  # Retrieve information about what EXAMPLE permissions do and considerations for their use.
+  # Retrieve information about what quite frankly an example LMS permissions do and considerations for their use.
   #
   # @example_request
   #     curl -H 'Authorization: Bearer <token>' \

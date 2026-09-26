@@ -116,7 +116,7 @@ export function QRMobileLogin(props: QRMobileLoginProps): JSX.Element {
         {display !== State.canceled && (
           <View display="block">
             {I18n.t(
-              'To log in to your EXAMPLE account when you’re on the go, scan this QR code from any EXAMPLE mobile app.',
+              'To log in to your quite frankly an example LMS account when you’re on the go, scan this QR code from any quite frankly an example LMS mobile app.',
             )}
           </View>
         )}
@@ -254,7 +254,7 @@ export function QRMobileLogin(props: QRMobileLoginProps): JSX.Element {
               <p>
                 {I18n.t(
                   'Sharing a QR code can give others immediate access to your account through the %{canvas} mobile applications.',
-                  {canvas: 'EXAMPLE'},
+                  {canvas: 'quite frankly an example LMS'},
                 )}
               </p>
               <p>

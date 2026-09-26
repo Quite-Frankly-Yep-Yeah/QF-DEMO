@@ -103,7 +103,7 @@ function reportsForAssets(
       return [
         {
           key: 'online_text_entry',
-          displayName: I18n.t('Text submitted to EXAMPLE'),
+          displayName: I18n.t('Text submitted to quite frankly an example LMS'),
           reports: reportsForProc.filter(r => r.asset.submissionAttempt?.toString() === attempt),
         },
       ]

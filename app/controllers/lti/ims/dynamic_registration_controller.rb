@@ -32,7 +32,7 @@ module Lti
 
       # This skip_before_action is required because :load_user will
       # attempt to find the bearer token, which is not stored with
-      # the other EXAMPLE tokens.
+      # the other quite frankly an example LMS tokens.
       skip_before_action :load_user, only: %i[create update show_configuration]
 
       include Api::V1::Lti::Registration
@@ -135,8 +135,8 @@ module Lti
       #   - logo_uri: URL to the tool's logo/icon
       #   - token_endpoint_auth_method: Authentication method (always "private_key_jwt")
       #   - scope: Space-separated string of OAuth2 scopes including LTI scopes and "openid"
-      #   - LTI tool configuration object with placements and EXAMPLE-specific extensions
-      #   - registration_client_uri: URL to view/manage the registration in EXAMPLE
+      #   - LTI tool configuration object with placements and quite frankly an example LMS-specific extensions
+      #   - registration_client_uri: URL to view/manage the registration in quite frankly an example LMS
       #   - deployment_id: The deployment ID for the root account deployment (if exists)
       #
       # @example_request

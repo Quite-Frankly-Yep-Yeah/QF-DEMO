@@ -74,7 +74,7 @@
           <span class="user_id" style="display: none;"><%= c.user_id %></span>
         </span>
         <% if c.bouncing? %>
-          <span class="bouncing-channel" data-tooltip="left" title="<%= t('bouncing_email', 'EXAMPLE was unable to send email to this address. Please ensure the address is correct to continue receiving email from EXAMPLE.') %>" aria-label="<%= t('bouncing_email', 'EXAMPLE was unable to send email to this address. Please ensure the address is correct to continue receiving email from EXAMPLE.') %>">
+          <span class="bouncing-channel" data-tooltip="left" title="<%= t('bouncing_email', 'quite frankly an example LMS was unable to send email to this address. Please ensure the address is correct to continue receiving email from quite frankly an example LMS.') %>" aria-label="<%= t('bouncing_email', 'quite frankly an example LMS was unable to send email to this address. Please ensure the address is correct to continue receiving email from quite frankly an example LMS.') %>">
             <i class="text text-warning icon-warning"></i>
           </span>
         <% end %>
@@ -130,7 +130,7 @@
         <td><%= c.path_type %></td>
         <td style="padding: 0; text-align: center;">
           <% if c.bouncing? %>
-            <span class="bouncing-channel" data-tooltip="left" title="<%= t('bouncing_channel', 'EXAMPLE was unable to send messages to you using this contact method. Please ensure the contact information is correct to continue receiving messages from EXAMPLE.') %>" aria-label="<%= t('bouncing_channel', 'EXAMPLE was unable to send messages to you using this contact method. Please ensure the contact information is correct to continue receiving messages from EXAMPLE.') %>">
+            <span class="bouncing-channel" data-tooltip="left" title="<%= t('bouncing_channel', 'quite frankly an example LMS was unable to send messages to you using this contact method. Please ensure the contact information is correct to continue receiving messages from quite frankly an example LMS.') %>" aria-label="<%= t('bouncing_channel', 'quite frankly an example LMS was unable to send messages to you using this contact method. Please ensure the contact information is correct to continue receiving messages from quite frankly an example LMS.') %>">
               <i class="text text-warning icon-warning"></i>
             </span>
             <% if c.bounce_count > 0 && (c.grants_right?(@current_user, :reset_bounce_count) || (@real_current_user && c.grants_right?(@real_current_user, :reset_bounce_count))) %>

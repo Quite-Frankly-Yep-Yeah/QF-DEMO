@@ -149,7 +149,7 @@ class AuthenticationProvider
       uri = URI.parse(end_session_endpoint)
       params = post_logout_redirect_params(controller, redirect_options:)
 
-      # anything explicitly set on the end_session_endpoint overrides what EXAMPLE adds
+      # anything explicitly set on the end_session_endpoint overrides what quite frankly an example LMS adds
       explicit_params = URI.decode_www_form(uri.query || "").to_h
       uri.query = URI.encode_www_form(explicit_params.reverse_merge(params.stringify_keys))
       uri.to_s

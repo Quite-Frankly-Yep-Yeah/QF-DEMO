@@ -15,7 +15,7 @@ with **migration_selection** in the XML (LTI 1.0, 1.1, and 1.2) or JSON
 (LTI 1.3) examples.
 
 ### Advantages
-- Tools can import large quantities and types of content into the EXAMPLE.
+- Tools can import large quantities and types of content into the quite frankly an example LMS.
 - Tools, particularly content publishers, can provide a custom UI that allows 
 course designers to currate content on the tool side before importing.
 
@@ -27,7 +27,7 @@ href="https://www.imsglobal.org/cc/CCv1p0thin/ims_thinCC_impl-v1p0.html"
 target="_blank">Thin Common Cartridge</a> by the tool.
 - Tools must create a UI allowing the designer to either select existing 
 cartridges or select content and generate common cartridge files on-the-fly.
-- Tools must provide a download URL that is reachable by EXAMPLE.
+- Tools must provide a download URL that is reachable by quite frankly an example LMS.
 
 
 ### Workflow
@@ -36,12 +36,12 @@ From the course settings page, the user can click on the **Import Course Content
 button on the right sidebar. In the **Content Type** dropdown, any tool with the
 **migration_selection** placement will appear. After selecting the tool, the 
 user can click the **Find Course** button. When clicked, 
-EXAMPLE initiates an LTI launch to the tool and indicates that a deep linking 
+quite frankly an example LMS initiates an LTI launch to the tool and indicates that a deep linking 
 selection request is happening. The tool can then present the user with a UI 
 (specifcally an iframe in a modal) to select and/or create common cartridge files
- and return a file download url to EXAMPLE. The user then has the option to select
+ and return a file download url to quite frankly an example LMS. The user then has the option to select
  all of the content or select just some. When the **Import** button is clicked,
- EXAMPLE downloads the file from the url, and initiates a course import process using
+ quite frankly an example LMS downloads the file from the url, and initiates a course import process using
  the file provided by the tool.
 
 ### Settings
@@ -78,19 +78,19 @@ All of these settings are contained for the **migration_selection** placement:
 
     Sets the message_type to be sent during the LTI launch. It is expected that 
     the tool use this to determine if a Deep Linking flow is being requested by
-    EXAMPLE and present an appropriate UI. A Deep Linking flow is highly recommended
+    quite frankly an example LMS and present an appropriate UI. A Deep Linking flow is highly recommended
     for this placement, but is not required. See the 
     <a href="file.content_item.html" target="_blank">Deep Linking 
     documentation</a> for more information, including accepted values.
 
 -   selection_width: &lt;pixels&gt; (optional)
 
-    This sets the width (px) of the selection launch modal. EXAMPLE may set a 
+    This sets the width (px) of the selection launch modal. quite frankly an example LMS may set a 
     maximum or minimum width that overrides this option.
 
 -   selection_height: &lt;pixels&gt; (optional)
 
-    This sets the height (px) of the selection launch modal. EXAMPLE may set a 
+    This sets the height (px) of the selection launch modal. quite frankly an example LMS may set a 
     maximum or minimum height that overrides this option.
 
 

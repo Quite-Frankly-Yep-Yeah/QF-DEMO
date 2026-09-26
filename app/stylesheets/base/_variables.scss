@@ -19,10 +19,10 @@
 /// TOC
 //============================================================================================
 //
-// - Canvas Brand Variants
+// - quite frankly an example LMS Brand Variants
 // - Custom Branding
-// - Canvas LMS Color Sheet
-// - Canvas Theme Color Variables
+// - quite frankly an example LMS Color Sheet
+// - quite frankly an example LMS Theme Color Variables
 //
 //============================================================================================
 
@@ -35,10 +35,10 @@
 
 
 //=======================
-// Canvas LMS Color Sheet
+// quite frankly an example LMS Color Sheet
 //=======================
-// Our color variables in Canvas are simple and easy to integrate
-// We use a two-tiered variable process with Canvas color variables.
+// Our color variables in quite frankly an example LMS are simple and easy to integrate
+// We use a two-tiered variable process with quite frankly an example LMS color variables.
 // When you need to use a color, please create a functional variable name
 // and use the color variable name of your choosing. See examples below.
 
@@ -258,7 +258,9 @@ $h3-font-size: 19px;
 // Layout Functional Variables
 //============================
 $ic-body-background-color: lighten($ic-color-neutral, 4);
-$ic-content-background-color: $ic-color-light;
+// Material grey 100: the surface color in place of white (never text).
+$ic-surface-color: #F5F5F5;
+$ic-content-background-color: $ic-surface-color;
 $ic-content-padding: 15px;
 $ic-header-background: #34444f;
 $ic-header-primary-width: 84px;
@@ -337,7 +339,7 @@ $linkColorHover: var(--ic-link-color-darkened-10); // deprecated - do not use
 // Course Nav Variables
 //=====================
 // These variables control the active and hover
-// states we have on the global left-hand sidenav in Canvas
+// states we have on the global left-hand sidenav in quite frankly an example LMS
 $ic-course-sidenav_list-item--bg-color: $ic-color-light;
 
 @if $use_high_contrast {
@@ -380,11 +382,11 @@ $ic-dim-helper-text: darken($ic-color-neutral, 45);
 //==============================
 // These variables we have reworked to use our canvas color variables for the
 // new UI, however they will need to be evaluated on a case-by-case basis of
-// their use in Canvas in order to properly phase them out
+// their use in quite frankly an example LMS in order to properly phase them out
 // Nothing changes in the legacy UI.
 
 $lightBackground: $ic-color-medium-light;
-$wellBackground: $ic-color-light;
+$wellBackground: $ic-surface-color;
 $altBG: $ic-bg-light-neutral;
 $borderColor: $ic-border-light;
 $activeBG: $ic-bg-light-primary;

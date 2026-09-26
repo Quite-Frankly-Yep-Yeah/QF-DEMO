@@ -24,8 +24,8 @@
 # a new client with `GraphService.new(tenant_name)`
 #
 # This class is a lower-level interface, akin to what a Microsoft API gem, which
-# has no knowledge of EXAMPLE models, would provide. So, some operations will be
-# used via GraphServiceHelpers, which does have knowledge of EXAMPLE models.
+# has no knowledge of quite frankly an example LMS models, would provide. So, some operations will be
+# used via GraphServiceHelpers, which does have knowledge of quite frankly an example LMS models.
 #
 module MicrosoftSync
   class GraphService

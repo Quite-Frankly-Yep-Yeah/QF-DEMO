@@ -226,7 +226,7 @@ describe Loaders::OutcomeAlignmentLoader do
       expect(count).to eq 1
     end
 
-    it "resolves outcome alignments to new quiz in both EXAMPLE (via rubric) and Outcomes-Service" do
+    it "resolves outcome alignments to new quiz in both quite frankly an example LMS (via rubric) and Outcomes-Service" do
       @rubric.associate_with(@new_quiz, @course, purpose: "grading")
       count = 0
       GraphQL::Batch.batch do

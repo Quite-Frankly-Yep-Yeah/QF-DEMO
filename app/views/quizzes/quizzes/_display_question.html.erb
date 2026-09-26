@@ -75,7 +75,7 @@
   <div style="display: block; height: 1px; overflow: hidden;">&nbsp;</div>
   <a name="question_<%= hash_get(question, :id, "blank") %>"></a>
   <% marked = assessing && @stored_params && @stored_params["question_#{hash_get(question, :id)}_marked"].present? %>
-  <div class="display_question question <%= question_type.question_type %> <%= "marked" if marked %> <%= "correct" if correct && display_correct_answers %> <%= "incorrect" if incorrect %> <%= "unanswered" if unanswered %> <%= "partial_credit" if partial_credit %>" id="question_<%= hash_get(question, :id, "new") %>">
+  <div <%= tag.attributes(data: sylla_question_data(question)) %> class="display_question question <%= question_type.question_type %> <%= "marked" if marked %> <%= "correct" if correct && display_correct_answers %> <%= "incorrect" if incorrect %> <%= "unanswered" if unanswered %> <%= "partial_credit" if partial_credit %>" id="question_<%= hash_get(question, :id, "new") %>">
     <%= render partial: "quizzes/quizzes/move_handle" %>
 
     <% if assessing && @quiz_presenter.can_go_back? %>
@@ -149,6 +149,10 @@
       <span class="regrade_option"><%= hash_get(question, :regrade_option) %></span>
       <span class="regrade_disabled"><%= hash_get(question, :regrade_option) == 'disabled' ? 1 : 0 %></span>
       <span class="question_type"><%= (question_type.try_rescue(:question_type)) %></span>
+      <%# the correct unit only goes to the editor, never to a student taking the quiz %>
+      <% (%i[sylla_layout sylla_confidence sylla_unit_choices sylla_image sylla_regions] + (editing ? [:sylla_unit] : [])).each do |field| %>
+        <span class="<%= field %>" style="display: none;"><%= hash_get(question, field) %></span>
+      <% end %>
       <span class="answer_selection_type"></span>
       <% if question_bank_id %>
         <a href="<%= context_url(@context, :context_question_bank_assessment_question_url, question_bank_id, hash_get(question, :id, "{{ id }}")) %>" class="update_question_url" tabindex="-1" aria-hidden="true">&nbsp;</a>
@@ -424,6 +428,15 @@
           <% end %>
         <% end %>
       </div>
+      <% if assessment_results && user_answer %>
+        <% sylla_note = sylla_confidence_note(user_answer, correct ? true : (incorrect ? false : nil)) %>
+        <% if hash_get(user_answer, :unit).present? %>
+          <div class="sylla_unit_result" style="margin-top: 8px; font-size: 0.875rem;"><%= t("Unit chosen: %{unit}", unit: hash_get(user_answer, :unit)) %></div>
+        <% end %>
+        <% if sylla_note %>
+          <div class="sylla_confidence_result" style="margin-top: 8px; font-size: 0.875rem;"><%= sylla_note %></div>
+        <% end %>
+      <% end %>
       <div class="after_answers">
         <% if question && hash_get(question, :question_type) == 'matching_question' && !assessing && ((@quiz && display_correct_answers) || (!user_answer && !assessment_results)) && !@quiz.try(:survey?) %>
           <% other_matches = (hash_get(question, :matches) || hash_get(question, :answers, [])).select{|a| !hash_get(question, :answers, []).map{|an| hash_get(an, :match_id) }.include?(hash_get(a, :match_id)) } %>

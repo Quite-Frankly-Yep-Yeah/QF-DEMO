@@ -1749,7 +1749,7 @@ describe "Accounts API", type: :request do
         end
       end
 
-      context "EXAMPLE for Elementary settings" do
+      context "quite frankly an example LMS for Elementary settings" do
         it "enable_as_k5_account is enabled for the given account" do
           expect(@a1.enable_as_k5_account?).to be false
           json = api_call(:put,
@@ -3212,7 +3212,7 @@ describe "Accounts API", type: :request do
       end
     end
 
-    describe "EXAMPLE for Elementary" do
+    describe "quite frankly an example LMS for Elementary" do
       it "gets enable_as_k5_account setting" do
         @a1.update settings: { enable_as_k5_account: { locked: true, value: true }, use_classic_font_in_k5: { locked: true, value: false } }
         json = api_call(:get, show_settings_path, show_settings_header, {}, { expected_status: 200 })

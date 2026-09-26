@@ -153,7 +153,7 @@ describe OutcomeImport do
                                               delay_for: 0,
                                               context: nil,
                                               path_type: "email",
-                                              from_name: "EXAMPLE"
+                                              from_name: "quite frankly an example LMS"
                                             }).and_return(message)
       expect(message).to receive(:deliver)
       import.run
@@ -190,7 +190,7 @@ describe OutcomeImport do
                                               delay_for: 0,
                                               context: nil,
                                               path_type: "email",
-                                              from_name: "EXAMPLE"
+                                              from_name: "quite frankly an example LMS"
                                             }).and_return(message)
       expect(message).to receive(:deliver)
       import.run
@@ -217,14 +217,14 @@ describe OutcomeImport do
           The following error occurred:
           Row 1: Very Bad Error
 
-          To view the proper import format, please review the EXAMPLE API Docs at http://localhost/doc/api/file.outcomes_csv.html
+          To view the proper import format, please review the quite frankly an example LMS API Docs at http://localhost/doc/api/file.outcomes_csv.html
 
           Thank you,
           Instructure".gsub(/^ +/, ""),
                                               delay_for: 0,
                                               context: nil,
                                               path_type: "email",
-                                              from_name: "EXAMPLE"
+                                              from_name: "quite frankly an example LMS"
                                             }).and_return(message)
       expect(message).to receive(:deliver)
       import.run

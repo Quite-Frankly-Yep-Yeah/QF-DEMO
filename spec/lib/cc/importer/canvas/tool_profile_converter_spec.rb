@@ -52,7 +52,7 @@ describe CC::Importer::Canvas::ToolProfileConverter do
                                                       "default_value" => "Instructure"
                                                     },
                                                     "description" => {
-                                                      "default_value" => "EXAMPLE Learning Management System"
+                                                      "default_value" => "quite frankly an example LMS Learning Management System"
                                                     }
                                                   }
                                                 },

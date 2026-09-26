@@ -57,7 +57,7 @@ export const CanvasInboxApp = () => {
             imageUrl={errorShipUrl}
             onReportError={reportError}
             translations={canvasErrorPageTranslations}
-            errorCategory="EXAMPLE Inbox Error Page"
+            errorCategory="quite frankly an example LMS Inbox Error Page"
           />
         }
       >

@@ -189,7 +189,7 @@ class SubmissionsController < SubmissionsBaseController
   # @argument submission[body] [String]
   #   Submit the assignment as an HTML document snippet. Note this HTML snippet
   #   will be sanitized using the same ruleset as a submission made from the
-  #   EXAMPLE web UI. The sanitized HTML will be returned in the response as the
+  #   quite frankly an example LMS web UI. The sanitized HTML will be returned in the response as the
   #   submission body. Requires a submission_type of "online_text_entry".
   #
   # @argument submission[url] [String]

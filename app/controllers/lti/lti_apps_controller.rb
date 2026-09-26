@@ -23,7 +23,7 @@ module Lti
   # @model Lti::LaunchDefinition
   #   {
   #     "id": "Lti::LaunchDefinition",
-  #     "description": "A bare-bones representation of an LTI tool used by EXAMPLE to launch the tool",
+  #     "description": "A bare-bones representation of an LTI tool used by quite frankly an example LMS to launch the tool",
   #     "properties": {
   #       "definition_type": {
   #         "description": "The type of the launch definition. Always 'ContextExternalTool'",
@@ -31,7 +31,7 @@ module Lti
   #         "type": "string"
   #       },
   #       "definition_id": {
-  #         "description": "The EXAMPLE ID of the tool",
+  #         "description": "The quite frankly an example LMS ID of the tool",
   #         "example": "123",
   #         "type": "string"
   #       },
@@ -110,7 +110,7 @@ module Lti
     # @API List LTI Launch Definitions
     #
     # List all tools available in this context for the given placements, in the form of Launch Definitions.
-    # Used primarily by the EXAMPLE frontend. API users should consider using the External Tools API instead.
+    # Used primarily by the quite frankly an example LMS frontend. API users should consider using the External Tools API instead.
     # This endpoint is cached for 10 minutes!
     #
     # @argument placements[Array] The placements to return launch definitions for. If not provided, an empty list will be returned.

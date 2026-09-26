@@ -153,7 +153,7 @@ const NotificationPreferences = props => {
           onDismiss={() => props.updatePreference({hasReadPrivacyNotice: true})}
         >
           {I18n.t(
-            'Notice: Some notifications may contain confidential information. Selecting to receive notifications at an email other than your institution provided address may result in sending sensitive EXAMPLE course and group information outside of the institutional system.',
+            'Notice: Some notifications may contain confidential information. Selecting to receive notifications at an email other than your institution provided address may result in sending sensitive quite frankly an example LMS course and group information outside of the institutional system.',
           )}
         </Alert>
       </Flex.Item>

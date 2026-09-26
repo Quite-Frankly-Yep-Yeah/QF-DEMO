@@ -18,9 +18,9 @@
 # with this program. If not, see <http://www.gnu.org/licenses/>.
 #
 
-# @API EXAMPLE Career Experiences
+# @API quite frankly an example LMS Career Experiences
 #
-# API for managing user career experience and role preferences in EXAMPLE.
+# API for managing user career experience and role preferences in quite frankly an example LMS.
 #
 # @model ExperienceSummary
 #     {
@@ -41,9 +41,9 @@
 #     }
 #
 class CareerExperienceController < ApplicationController
-  # @API Check if EXAMPLE Career is enabled
+  # @API Check if quite frankly an example LMS Career is enabled
   #
-  # Returns whether the root account has EXAMPLE Career (Horizon) enabled
+  # Returns whether the root account has quite frankly an example LMS Career (Horizon) enabled
   # in at least one subaccount.
   #
   # @example_request

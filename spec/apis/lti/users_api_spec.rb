@@ -108,7 +108,7 @@ module Lti
           expect(parsed_body).to eq expected_student
         end
 
-        it "returns a user by EXAMPLE id" do
+        it "returns a user by quite frankly an example LMS id" do
           get canvas_id_endpoint, params: { id: student.id }, headers: request_headers
           parsed_body = JSON.parse(response.body)
           expect(parsed_body).to eq expected_student
@@ -161,7 +161,7 @@ module Lti
           expect(parsed_body).to eq expected_student
         end
 
-        it "returns a user by EXAMPLE id" do
+        it "returns a user by quite frankly an example LMS id" do
           get canvas_id_endpoint, params: { id: student.id }, headers: request_headers
           parsed_body = JSON.parse(response.body)
           expect(parsed_body).to eq expected_student

@@ -1,6 +1,6 @@
 # AGENTS.md
 
-AI coding assistant guidance for EXAMPLE LMS.
+AI coding assistant guidance for quite frankly an example LMS.
 
 ## Quick Start
 
@@ -26,7 +26,7 @@ yarn build:watch                     # Frontend dev mode
 - `ui/` - React components & shared packages
 - `app/` - Rails MVC (controllers, models, views)
 - `packages/` - Shared NPM packages
-- `gems/plugins/` - EXAMPLE plugins (account_reports, analytics, etc.)
+- `gems/plugins/` - quite frankly an example LMS plugins (account_reports, analytics, etc.)
 - `lib/` - Ruby business logic
 
 ## Key Concepts
@@ -78,5 +78,5 @@ test plan:
 
 ## Final Notes
 
-Some users may run EXAMPLE differently, so consider these useful default suggestions for
-starting and interacting with EXAMPLE if no other methods have been specified.
+Some users may run quite frankly an example LMS differently, so consider these useful default suggestions for
+starting and interacting with quite frankly an example LMS if no other methods have been specified.

@@ -204,7 +204,7 @@ describe AuthenticationProvider::SAML do
       expect(aac.user_logout_redirect(controller, nil)).to eq "bananas"
     end
 
-    it "sends you to the login page if the IdP doesn't support SLO, but EXAMPLE auth is default" do
+    it "sends you to the login page if the IdP doesn't support SLO, but quite frankly an example LMS auth is default" do
       controller = double
       allow(controller).to receive(:session).and_return({})
       expect(controller).to receive(:login_url).and_return("bananas")

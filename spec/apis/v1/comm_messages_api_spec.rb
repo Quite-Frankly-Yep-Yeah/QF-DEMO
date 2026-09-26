@@ -40,7 +40,7 @@ describe CommMessagesApiController, type: :request do
                           })
           expect(json.size).to be 2
           expect(EmailAddressValidator.valid?(json.first["from"])).to be_truthy
-          expect(json.first["from_name"]).to eq "EXAMPLE"
+          expect(json.first["from_name"]).to eq "quite frankly an example LMS"
           expect(json.pluck("body").sort).to eql ["account message", "site admin message"]
         end
 

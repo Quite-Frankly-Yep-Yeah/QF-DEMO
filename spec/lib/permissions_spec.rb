@@ -87,7 +87,7 @@ describe Permissions, type: :module do
       expect(Permissions.retrieve).to be_frozen
     end
 
-    context "with EXAMPLE Career overrides" do
+    context "with quite frankly an example LMS Career overrides" do
       before do
         permissions = {
           read: {
@@ -108,7 +108,7 @@ describe Permissions, type: :module do
         allow(CanvasCareer::LabelOverrides).to receive(:permission_label_overrides).and_return(overrides)
       end
 
-      it "applies EXAMPLE Career overrides when context is provided" do
+      it "applies quite frankly an example LMS Career overrides when context is provided" do
         result = Permissions.retrieve(account)
 
         expect(result[:read][:label].call).to eq("View Content")
@@ -130,7 +130,7 @@ describe Permissions, type: :module do
         expect(result[:write][:label].call).to eq("Write")
       end
 
-      it "handles EXAMPLE Career override failures gracefully" do
+      it "handles quite frankly an example LMS Career override failures gracefully" do
         allow(CanvasCareer::LabelOverrides).to receive(:permission_label_overrides).and_raise("Test error")
         allow(Rails.logger).to receive(:warn)
 
@@ -170,7 +170,7 @@ describe Permissions, type: :module do
       expect(result[:test_group][:label].call).to eq("Test Group")
     end
 
-    context "with EXAMPLE Career group overrides" do
+    context "with quite frankly an example LMS Career group overrides" do
       before do
         permissions = {
           test_permission: {
@@ -197,7 +197,7 @@ describe Permissions, type: :module do
       end
     end
 
-    it "handles EXAMPLE Career group override failures gracefully" do
+    it "handles quite frankly an example LMS Career group override failures gracefully" do
       allow(CanvasCareer::LabelOverrides).to receive(:permission_label_overrides).and_raise("Test error")
       allow(Rails.logger).to receive(:warn)
 

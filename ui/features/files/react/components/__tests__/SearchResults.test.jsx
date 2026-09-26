@@ -39,7 +39,7 @@ const server = setupServer(
   http.get('*/api/v1/groups/:groupId/files', () => {
     return HttpResponse.json([])
   }),
-  // Generic EXAMPLE API catch-all
+  // Generic quite frankly an example LMS API catch-all
   http.get('*/api/v1/*', () => {
     return HttpResponse.json({})
   }),

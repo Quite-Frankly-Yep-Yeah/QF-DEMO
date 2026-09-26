@@ -21,7 +21,7 @@ module CanvasOperations
   # DataFixup
   #
   # Operation class designed to perform data fixups in a performant way
-  # across large datasets in a EXAMPLE environment.
+  # across large datasets in a quite frankly an example LMS environment.
   #
   # DataFixup operations are intended to be run via `run_later` in a migration and can
   # process records either individually or in batches, depending on the
@@ -35,7 +35,7 @@ module CanvasOperations
   #     `process_record` method.
   #  - `:batch`: Records are processed in batches via the `process_batch` method.
   #
-  # Either mode will still iterate over the EXAMPLE data in a performant way.
+  # Either mode will still iterate over the quite frankly an example LMS data in a performant way.
   #
   # Subclasses must implement either `process_record` (for individual record mode)
   # or `process_batch` (for batch mode) to define the specific fixup logic.

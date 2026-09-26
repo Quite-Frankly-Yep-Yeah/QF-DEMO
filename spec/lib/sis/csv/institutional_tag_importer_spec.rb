@@ -186,7 +186,7 @@ describe SIS::CSV::InstitutionalTagImporter do
         "TAG002,CAT001,Tag Two,Second tag,active"
       )
       expect(importer.errors.map(&:last)).to contain_exactly(
-        "Couldn't find EXAMPLE CSV import headers"
+        "Couldn't find quite frankly an example LMS CSV import headers"
       )
       expect(InstitutionalTag.where(sis_source_id: %w[TAG001 TAG002])).to be_empty
     end

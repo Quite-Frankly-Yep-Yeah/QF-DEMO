@@ -88,7 +88,7 @@ describe "Tutorials" do
       element = f(".NewUserTutorialTray")
       expect(element).to include_text("Pages")
       expect(element).to include_text("Create interactive course content")
-      expect(element).to include_text("Pages let you create interactive content directly in EXAMPLE")
+      expect(element).to include_text("Pages let you create interactive content directly in quite frankly an example LMS")
       expect(element).to include_text("You can also allow students to contribute to specific pages")
     end
 

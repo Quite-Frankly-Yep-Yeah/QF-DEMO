@@ -39,7 +39,7 @@ export function Component(): JSX.Element | null {
         isTrainedWithUserData={false}
         dataSharedWithModel={I18n.t('Course')}
         dataSharedWithModelDescription={I18n.t(
-          'Course content is indexed by the model and then stored in the EXAMPLE database.',
+          'Course content is indexed by the model and then stored in the quite frankly an example LMS database.',
         )}
         dataRetention={I18n.t('Data is not stored or reused by the model,')}
         dataLogging={I18n.t('Does Not Log Data')}

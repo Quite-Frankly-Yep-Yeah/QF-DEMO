@@ -28,7 +28,7 @@ class CustomDataController < ApplicationController
   # Store arbitrary user data as JSON.
   #
   # Arbitrary JSON data can be stored for a User.
-  # A typical scenario would be an external site/service that registers users in EXAMPLE
+  # A typical scenario would be an external site/service that registers users in quite frankly an example LMS
   # and wants to capture additional info about them.  The part of the URL that follows
   # +/custom_data/+ defines the scope of the request, and it reflects the structure of
   # the JSON data to be stored or retrieved.
@@ -173,7 +173,7 @@ class CustomDataController < ApplicationController
   #
   # @argument ns [Required, String]
   #   The namespace under which to store the data.  This should be something other
-  #   EXAMPLE API apps aren't likely to use, such as a reverse DNS for your organization.
+  #   quite frankly an example LMS API apps aren't likely to use, such as a reverse DNS for your organization.
   #
   # @argument data [Required, JSON]
   #   The data you want to store for the user, at the specified scope.  If the data is
@@ -244,7 +244,7 @@ class CustomDataController < ApplicationController
   #
   # @argument ns [Required, String]
   #   The namespace from which to retrieve the data.  This should be something other
-  #   EXAMPLE API apps aren't likely to use, such as a reverse DNS for your organization.
+  #   quite frankly an example LMS API apps aren't likely to use, such as a reverse DNS for your organization.
   #
   # @example_request
   #   curl 'https://<canvas>/api/v1/users/<user_id>/custom_data/food_app/favorites/dessert' \
@@ -374,7 +374,7 @@ class CustomDataController < ApplicationController
   #
   # @argument ns [Required, String]
   #   The namespace from which to delete the data.  This should be something other
-  #   EXAMPLE API apps aren't likely to use, such as a reverse DNS for your organization.
+  #   quite frankly an example LMS API apps aren't likely to use, such as a reverse DNS for your organization.
   #
   # @example_request
   #   curl 'https://<canvas>/api/v1/users/<user_id>/custom_data/fruit/kiwi' \

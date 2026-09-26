@@ -100,7 +100,7 @@ module Factories
 
   # Mocks calls to the OS endpoints:
   #
-  #   - retrieving data from the EXAMPLE' LearningOutcomeResult table
+  #   - retrieving data from the quite frankly an example LMS' LearningOutcomeResult table
   #   - transforming this data into a collection of AuthoritativeResult hash objects
   def authoritative_results_from_db
     LearningOutcomeResult.all.map do |lor|

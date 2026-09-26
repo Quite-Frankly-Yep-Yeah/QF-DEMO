@@ -4,13 +4,13 @@ immersive_reader_wiki_pages:
   state: hidden
   display_name: Microsoft Immersive Reader
   description: Enables the Microsoft Immersive Reader button in supported areas
-    of EXAMPLE. The button may still be enabled in a course regardless of this
+    of quite frankly an example LMS. The button may still be enabled in a course regardless of this
     setting if the account administrator has turned it on for all users.
   applies_to: RootAccount
 user_immersive_reader_wiki_pages:
   state: allowed
   display_name: Microsoft Immersive Reader
   description: Enables the Microsoft Immersive Reader button in supported areas
-    of EXAMPLE. The button may still be enabled in a course regardless of this
+    of quite frankly an example LMS. The button may still be enabled in a course regardless of this
     setting if the account administrator has turned it on for all users.
   applies_to: User

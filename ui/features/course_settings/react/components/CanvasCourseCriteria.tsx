@@ -40,13 +40,13 @@ const CanvasCourseCriteria: React.FC = () => {
           module.render(mountRef.current)
           setLoading(false)
         } else {
-          const renderError = new Error('EXAMPLE Criteria module does not have a render function')
+          const renderError = new Error('quite frankly an example LMS Criteria module does not have a render function')
           console.error(renderError)
           setError(renderError)
           setLoading(false)
         }
       } catch (loadError) {
-        console.error('Failed to load EXAMPLE Criteria remote module:', loadError)
+        console.error('Failed to load quite frankly an example LMS Criteria remote module:', loadError)
         setError(loadError as Error)
         setLoading(false)
       }
@@ -62,10 +62,10 @@ const CanvasCourseCriteria: React.FC = () => {
         onReportError={reportError}
         translations={canvasErrorPageTranslations}
         errorMessage={I18n.t(
-          'We were unable to load EXAMPLE Criteria. Please try refreshing the page.',
+          'We were unable to load quite frankly an example LMS Criteria. Please try refreshing the page.',
         )}
-        errorSubject={I18n.t('EXAMPLE Criteria loading error')}
-        errorCategory={I18n.t('EXAMPLE Criteria Error Page')}
+        errorSubject={I18n.t('quite frankly an example LMS Criteria loading error')}
+        errorCategory={I18n.t('quite frankly an example LMS Criteria Error Page')}
       />
     )
   }
@@ -74,7 +74,7 @@ const CanvasCourseCriteria: React.FC = () => {
     <>
       {loading && (
         <div style={{display: 'flex', justifyContent: 'center', padding: '2rem'}}>
-          <Spinner size="large" renderTitle={I18n.t('Loading EXAMPLE Criteria')} />
+          <Spinner size="large" renderTitle={I18n.t('Loading quite frankly an example LMS Criteria')} />
         </div>
       )}
       <div ref={mountRef} style={{display: loading ? 'none' : 'block'}} />

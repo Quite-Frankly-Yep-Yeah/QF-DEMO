@@ -381,14 +381,14 @@ describe Schemas::Lti::IMS::OidcRegistration do
           expect_no_errors(message: { roles: :delete })
         end
 
-        it "requires EXAMPLE extension course_navigation.default_enabled (if present) to be a boolean" do
+        it "requires quite frankly an example LMS extension course_navigation.default_enabled (if present) to be a boolean" do
           key = Lti::IMS::Registration::COURSE_NAV_DEFAULT_ENABLED_EXTENSION
           expect(errors(message: { key => "invalid" })).to match(/course_navigation.*default_enabled/)
           expect(errors(message: { key => nil })).to match(/course_navigation.*default_enabled/)
           expect_no_errors(message: { key => true })
         end
 
-        it "requires EXAMPLE extension placement_visibility (if present & non null) to be one of Lti::IMS::Registration::PLACEMENT_VISIBILITY_OPTIONS" do
+        it "requires quite frankly an example LMS extension placement_visibility (if present & non null) to be one of Lti::IMS::Registration::PLACEMENT_VISIBILITY_OPTIONS" do
           key = Lti::IMS::Registration::PLACEMENT_VISIBILITY_EXTENSION
           expect(errors(message: { key => "invalid" })).to include("visibility")
           expect_no_errors(message: { key => nil })
@@ -397,7 +397,7 @@ describe Schemas::Lti::IMS::OidcRegistration do
           expect_no_errors(message: { key => "public" })
         end
 
-        it "requires EXAMPLE extension display_type (if present & non null) to be a from an enum" do
+        it "requires quite frankly an example LMS extension display_type (if present & non null) to be a from an enum" do
           key = Lti::IMS::Registration::DISPLAY_TYPE_EXTENSION
           expect(errors(message: { key => 123 })).to include("display_type")
           expect(errors(message: { key => "something-invalid" })).to include("display_type")
@@ -406,7 +406,7 @@ describe Schemas::Lti::IMS::OidcRegistration do
           expect_no_errors(message: { key => "default" })
         end
 
-        it "requires EXAMPLE extension launch_width (if present & non null) to be an integer or string" do
+        it "requires quite frankly an example LMS extension launch_width (if present & non null) to be an integer or string" do
           key = Lti::IMS::Registration::LAUNCH_WIDTH_EXTENSION
           expect(errors(message: { key => true })).to include("launch_width")
           expect_no_errors(message: { key => nil })
@@ -414,7 +414,7 @@ describe Schemas::Lti::IMS::OidcRegistration do
           expect_no_errors(message: { key => "100%" })
         end
 
-        it "requires EXAMPLE extension launch_height (if present & non null) to be an integer or string" do
+        it "requires quite frankly an example LMS extension launch_height (if present & non null) to be an integer or string" do
           key = Lti::IMS::Registration::LAUNCH_HEIGHT_EXTENSION
           expect(errors(message: { key => true })).to include("launch_height")
           expect_no_errors(message: { key => nil })
@@ -422,7 +422,7 @@ describe Schemas::Lti::IMS::OidcRegistration do
           expect_no_errors(message: { key => "100%" })
         end
 
-        it "requires EXAMPLE extension tool_id (if present & non-null) to be a string" do
+        it "requires quite frankly an example LMS extension tool_id (if present & non-null) to be a string" do
           key = Lti::IMS::Registration::TOOL_ID_EXTENSION
           expect(errors(ltc: { key => 123 })).to include("tool_id")
           expect_no_errors(ltc: { key => nil })
@@ -431,7 +431,7 @@ describe Schemas::Lti::IMS::OidcRegistration do
         end
       end
 
-      it "requires EXAMPLE extension privacy_level (if present & non-null) to be one of the supported levels" do
+      it "requires quite frankly an example LMS extension privacy_level (if present & non-null) to be one of the supported levels" do
         key = Lti::IMS::Registration::PRIVACY_LEVEL_EXTENSION
         expect(errors(ltc: { key => "invalid" })).to include("privacy_level")
         expect_no_errors(ltc: { key => nil })

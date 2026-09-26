@@ -131,7 +131,7 @@ class NotificationPreferencesController < ApplicationController
   end
 
   def notification_preferences_param
-    # support both JSON API style (notification preferences is an array) and EXAMPLE API style (it's a hash)
+    # support both JSON API style (notification preferences is an array) and quite frankly an example LMS API style (it's a hash)
     notif_pref = params[:notification_preferences]
     notif_pref.is_a?(Array) ? notif_pref.first : notif_pref
   end

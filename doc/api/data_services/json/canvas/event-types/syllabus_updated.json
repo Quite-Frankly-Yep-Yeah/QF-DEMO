@@ -3,7 +3,7 @@
   "definition": "The event is emitted anytime a syllabus is changed in a course by an end user or API request. Only changes to the fields included in the body of the event payload will emit the `updated` event.",
   "trigger": "Triggered when a course syllabus gets updated.",
   "schema": {
-    "course_id": "The EXAMPLE id of the updated course.",
+    "course_id": "The quite frankly an example LMS id of the updated course.",
     "old_syllabus_body": "The old syllabus content. NOTE: This field will be truncated to only include the first 8192 characters. NOTE: This field will be truncated to only include the first 8192 characters.",
     "syllabus_body": "The new syllabus content. NOTE: This field will be truncated to only include the first 8192 characters."
   },

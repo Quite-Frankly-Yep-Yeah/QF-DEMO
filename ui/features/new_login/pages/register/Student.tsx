@@ -84,7 +84,7 @@ const Student = () => {
   const joinCodeHint: FormMessage[] = [
     {
       type: 'hint',
-      text: 'Your instructor will provide you with a join code to link you directly to the course. This code will be sent to you separately from the EXAMPLE email that invites you to join the course.',
+      text: 'Your instructor will provide you with a join code to link you directly to the course. This code will be sent to you separately from the quite frankly an example LMS email that invites you to join the course.',
     },
   ]
 

@@ -74,7 +74,7 @@ export type CanvasDateInputProps = {
   /**
    * Specifies the time zone that the `DateInput` picker is operating in. Defaults to either `ENV.TIMEZONE` if present,
    * or the browser's timezone otherwise. It also depends on moment.js's default locale being set (always the case in
-   * EXAMPLE).
+   * quite frankly an example LMS).
    */
   timezone?: string
   /**

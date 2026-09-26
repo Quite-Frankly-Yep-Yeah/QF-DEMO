@@ -25,22 +25,22 @@ const config: QuizConfig = {
   ajax: undefined,
 
   /**
-   * EXAMPLE API endpoint for querying the current quiz.
+   * quite frankly an example LMS API endpoint for querying the current quiz.
    */
   quizUrl: undefined,
 
   /**
-   * EXAMPLE API endpoint for querying the current quiz submission.
+   * quite frankly an example LMS API endpoint for querying the current quiz submission.
    */
   submissionUrl: undefined,
 
   /**
-   * EXAMPLE API endpoint for querying the current quiz submission's events.
+   * quite frankly an example LMS API endpoint for querying the current quiz submission's events.
    */
   eventsUrl: undefined,
 
   /**
-   * EXAMPLE API endpoint for querying questions in the current quiz.
+   * quite frankly an example LMS API endpoint for querying questions in the current quiz.
    */
   questionsUrl: undefined,
 

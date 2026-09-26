@@ -67,7 +67,7 @@ export const LtiPlacementDescriptionTranslations: Record<LtiPlacement, string> =
     'From the discussions page the tool can be launched from the dropdown at the top of the page. It is visible to students',
   ),
   editor_button: I18n.t(
-    'The tool can be launched from the Rich Content Editor in any area of EXAMPLE. It is visible to students.',
+    'The tool can be launched from the Rich Content Editor in any area of quite frankly an example LMS. It is visible to students.',
   ),
   file_menu: I18n.t('The tool can be launched from the dropdown next to a file'),
   file_index_menu: I18n.t('The tool can be launched from the menu at the top of the Files page'),
@@ -117,7 +117,7 @@ export const LtiPlacementDescriptionTranslations: Record<LtiPlacement, string> =
     'From the settings > Apps > Manage Apps page on the level the tool is installed at this provides a "Configure" button from the gear next to the tool',
   ),
   top_navigation: I18n.t(
-    'When the feature flag is enabled and a tool using this placement is enabled, most pages in EXAMPLE will have a tool icon available at the top of the page where the tool can be launched. This is visible to students',
+    'When the feature flag is enabled and a tool using this placement is enabled, most pages in quite frankly an example LMS will have a tool icon available at the top of the page where the tool can be launched. This is visible to students',
   ),
   user_navigation: I18n.t(
     'The tool can be launched from the panel that opens when the user clicks account in the main navigation bar. This is visible to students.',

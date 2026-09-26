@@ -1,0 +1,669 @@
+/*
+ * Copyright (C) 2026 - present quite frankly an example LMS contributors
+ *
+ * This file is part of quite frankly an example LMS, a modified version of Canvas.
+ *
+ * quite frankly an example LMS is free software: you can redistribute it and/or modify it under
+ * the terms of the GNU Affero General Public License as published by the Free
+ * Software Foundation, version 3 of the License.
+ *
+ * quite frankly an example LMS is distributed in the hope that it will be useful, but WITHOUT ANY
+ * WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS FOR
+ * A PARTICULAR PURPOSE. See the GNU Affero General Public License for more
+ * details.
+ *
+ * You should have received a copy of the GNU Affero General Public License along
+ * with this program. If not, see <http://www.gnu.org/licenses/>.
+ */
+
+// The read-then-answer quiz page for self-paced courses (flag
+// self_paced_quiz_reader). Material Design 1 to match the course map and
+// dashboards: Roboto, 2px corners, the spec's elevations. The markup is the
+// classic quiz's, so autosave and submit keep working; the stepper in
+// ui/features/self_paced_quiz_reader adds the stage cards and hides all but
+// the current question.
+//
+// Everything is scoped to body.self-paced-quiz. The one-question-at-a-time
+// mode doesn't get that class.
+
+$sp-roboto: Roboto, "Helvetica Neue", Helvetica, Arial, sans-serif;
+$sp-elev-1: 0 1px 3px rgba(0, 0, 0, 0.2), 0 1px 1px rgba(0, 0, 0, 0.14), 0 2px 1px -1px rgba(0, 0, 0, 0.12);
+$sp-elev-2: 0 1px 5px rgba(0, 0, 0, 0.2), 0 2px 2px rgba(0, 0, 0, 0.14), 0 3px 1px -2px rgba(0, 0, 0, 0.12);
+$sp-elev-8: 0 5px 5px -3px rgba(0, 0, 0, 0.2), 0 8px 10px 1px rgba(0, 0, 0, 0.14), 0 3px 14px 2px rgba(0, 0, 0, 0.12);
+$sp-elev-up: 0 -2px 4px -1px rgba(0, 0, 0, 0.2), 0 -4px 5px rgba(0, 0, 0, 0.14), 0 -1px 10px rgba(0, 0, 0, 0.12);
+$sp-elev-4: 0 2px 4px -1px rgba(0, 0, 0, 0.2), 0 4px 5px rgba(0, 0, 0, 0.14), 0 1px 10px rgba(0, 0, 0, 0.12);
+$sp-column: 1200px;
+$sp-ink: #0b0b0b;
+$sp-ink-2: #52514e;
+$sp-ink-3: #6b6a65;
+$sp-hairline: rgba(0, 0, 0, 0.12);
+$sp-surface: #f5f5f5;
+$sp-tint: unquote("rgba(var(--sp-accent-rgb), 0.08)");
+$sp-tint-strong: unquote("rgba(var(--sp-accent-rgb), 0.16)");
+
+body.self-paced-quiz {
+  // set from the course color by the stepper; these are the fallbacks
+  --sp-accent: #2a78d6;
+  --sp-accent-strong: #1f5fae;
+  --sp-accent-rgb: 42, 120, 214;
+
+  #content {
+    font-family: $sp-roboto;
+    color: $sp-ink;
+    background: $sp-surface;
+  }
+
+  // ---- header card: title, started time, instructions ----------------------
+
+  .quiz-header {
+    background: #fff;
+    border-radius: 2px;
+    border-inline-start: 4px solid var(--sp-accent);
+    box-shadow: $sp-elev-1;
+    margin: 0 0 16px;
+    padding: 16px 24px 20px;
+    color: $sp-ink-2;
+    font-size: 0.875rem;
+
+    h1 {
+      margin: 0 0 4px;
+      font-size: 1.5rem;
+      font-weight: 400;
+      line-height: 1.3;
+      color: $sp-ink;
+    }
+    h2 {
+      margin: 16px 0 4px;
+      font-size: 0.75rem;
+      font-weight: 500;
+      letter-spacing: 1px;
+      text-transform: uppercase;
+      color: $sp-ink-3;
+    }
+    #quiz-instructions {
+      font-size: 1rem;
+      line-height: 1.6;
+      color: $sp-ink;
+      max-width: 68ch;
+    }
+    .alert {
+      border-radius: 2px;
+      margin: 8px 0;
+    }
+  }
+
+  // ---- questions ------------------------------------------------------------
+
+  #questions.assessing {
+    background: transparent;
+    padding: 0;
+    min-height: 0;
+  }
+
+  // Until the stepper has run, every question shows (no JS, no hidden quiz).
+  #questions.sp-reader-ready .question_holder:not(.sp-active) {
+    display: none;
+  }
+
+  // keep the sticky app bar off the top of a question we scroll to
+  #questions .question_holder {
+    scroll-margin-top: 120px;
+  }
+
+  #questions.assessing .question_holder .question {
+    margin: 0;
+    border: 0;
+    background: none;
+    position: relative;
+  }
+
+  // ---- full screen: the reader covers the page, with an app bar on top ---------
+
+  // The global nav stays; the reader sits below it (or beside it, for a side
+  // rail), measured by the stepper. The rest of the page chrome goes.
+  .ic-app-nav-toggle-and-crumbs,
+  .instui-topnav-container,
+  #top-nav-tools-mount-point,
+  #left-side,
+  #right-side-wrapper,
+  #self-paced-player-bar {
+    display: none !important;
+  }
+
+  #content {
+    position: fixed;
+    top: var(--sp-nav-top, 0px);
+    bottom: 0;
+    inset-inline: var(--sp-nav-start, 0px) 0;
+    z-index: 90; // under the global nav (100) and dialogs
+    overflow-y: auto;
+    margin: 0;
+    padding: 0;
+    max-width: none;
+    background: $sp-surface;
+  }
+
+  .loaded {
+    padding: 16px 0 0;
+    > .quiz-header,
+    #questions {
+      box-sizing: border-box;
+      max-width: $sp-column;
+      margin-inline: auto;
+      padding-inline: 24px;
+    }
+    > .quiz-header {
+      width: calc(100% - 48px);
+      padding: 16px 24px 20px;
+      margin-bottom: 16px;
+    }
+  }
+
+  .sp-appbar {
+    position: sticky;
+    top: 0;
+    z-index: 6;
+    color: #fff;
+    background: var(--sp-accent-strong);
+    box-shadow: $sp-elev-4;
+    font-family: $sp-roboto;
+
+    a,
+    button {
+      color: inherit;
+    }
+
+    &__row {
+      display: flex;
+      align-items: center;
+      gap: 16px;
+      min-height: 56px;
+      padding: 4px 16px;
+    }
+    &__exit {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      flex: none;
+      width: 40px;
+      height: 40px;
+      border-radius: 50%;
+      color: #fff;
+      &:hover {
+        background: rgba(255, 255, 255, 0.16);
+      }
+      &:focus-visible {
+        outline: 2px solid #fff;
+        outline-offset: 0;
+      }
+      &::before {
+        content: "\2715";
+        font-size: 1.25rem;
+        line-height: 1;
+      }
+    }
+    &__title {
+      flex: 1;
+      min-width: 0;
+      display: flex;
+      flex-direction: column;
+      h1 {
+        margin: 0;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        white-space: nowrap;
+        font-size: 1.25rem;
+        font-weight: 500;
+        line-height: 1.3;
+        color: #fff;
+      }
+    }
+    .sp-progress__step {
+      font-size: 0.875rem;
+      font-weight: 500;
+      color: #fff;
+    }
+    .sp-progress__answered {
+      font-size: 0.75rem;
+      color: rgba(255, 255, 255, 0.85);
+    }
+    .sp-progress__text {
+      text-align: end;
+      line-height: 1.3;
+    }
+
+    // the classic clock, moved here from the sidebar
+    #quiz-time-elapsed {
+      flex: none;
+      display: flex;
+      flex-direction: column;
+      align-items: flex-end;
+      padding: 0 0 0 16px;
+      border-inline-start: 1px solid rgba(255, 255, 255, 0.3);
+      color: #fff;
+      line-height: 1.3;
+      > div:first-child {
+        display: flex;
+        align-items: center;
+        gap: 8px;
+        font-size: 0.6875rem;
+        letter-spacing: 0.5px;
+        text-transform: uppercase;
+        color: rgba(255, 255, 255, 0.85);
+        > span[style] {
+          padding: 0 !important;
+        }
+      }
+      .hide_time_link {
+        padding: 0 !important;
+        border: 0;
+        background: none;
+        box-shadow: none;
+        text-shadow: none;
+        font-size: 0.6875rem !important;
+        letter-spacing: 0.5px;
+        text-transform: uppercase;
+        text-decoration: underline;
+        color: #fff;
+      }
+      .time_running {
+        font-size: 1.125rem;
+        font-weight: 500;
+        color: #fff;
+        font-variant-numeric: tabular-nums;
+      }
+      > .clear,
+      > div[style*="font-size: 0.8em"] {
+        display: none;
+      }
+    }
+
+    // teachers previewing get a way back to the editor
+    #preview_mode_link {
+      flex: none;
+      margin: 0;
+      padding: 6px 12px;
+      border: 1px solid rgba(255, 255, 255, 0.5);
+      border-radius: 2px;
+      background: none;
+      box-shadow: none;
+      text-shadow: none;
+      color: #fff;
+      font-size: 0.8125rem;
+    }
+
+  }
+
+  .sp-progress__track {
+    height: 4px;
+    background: rgba(255, 255, 255, 0.3);
+  }
+  .sp-progress__fill {
+    height: 100%;
+    width: 0;
+    background: #fff;
+    transition: width 200ms ease;
+  }
+
+  .display_question {
+    .header {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      margin: 0 0 8px;
+      padding: 0 56px 0 4px;
+      background: none;
+      border: 0;
+
+      .question_name {
+        flex: 1;
+        font-size: 0.75rem;
+        font-weight: 500;
+        letter-spacing: 1px;
+        text-transform: uppercase;
+        color: $sp-ink-3;
+      }
+      .question_points_holder {
+        font-size: 0.8125rem;
+        color: $sp-ink-3;
+        white-space: nowrap;
+      }
+    }
+
+    // flag for review: a bookmark in the header's corner
+    .flag_question {
+      position: absolute;
+      inset-inline-end: 0;
+      top: -8px;
+      width: 40px;
+      height: 40px;
+      margin: 0;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      border-radius: 50%;
+      color: $sp-ink-3;
+      background: none;
+      transform: none;
+      // a text star rather than an icon font, so it shows without any assets
+      &::before {
+        content: "\2606";
+        font-size: 1.5rem;
+        line-height: 1;
+      }
+      &:hover {
+        background: rgba(0, 0, 0, 0.08);
+        color: $sp-ink;
+      }
+      &:focus-visible {
+        outline: 2px solid var(--sp-accent-strong);
+        outline-offset: 0;
+      }
+    }
+    &.marked .flag_question {
+      color: var(--sp-accent-strong);
+      &::before {
+        content: "\2605";
+      }
+    }
+
+    // read on the left, answer on the right; stacked on narrow screens
+    .text {
+      display: grid;
+      grid-template-columns: minmax(0, 1.15fr) minmax(0, 1fr);
+      gap: 16px;
+      align-items: start;
+      padding: 0;
+      border: 0;
+      background: none;
+
+      > * {
+        grid-column: 1 / -1;
+      }
+      > .sp-read,
+      > .sp-answer {
+        grid-column: auto;
+      }
+      // a text-only "question" is all reading
+      > .sp-read--solo {
+        grid-column: 1 / -1;
+      }
+    }
+  }
+
+  .sp-read,
+  .sp-answer {
+    background: #fff;
+    border-radius: 2px;
+    box-shadow: $sp-elev-1;
+    padding: 16px 24px 24px;
+    min-width: 0;
+  }
+
+  .sp-read {
+    border-inline-start: 4px solid var(--sp-accent);
+  }
+
+  .sp-stage {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    margin: 0 0 12px;
+    font-size: 0.75rem;
+    font-weight: 500;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+    color: var(--sp-accent-strong);
+  }
+
+  // the reading itself: larger, looser, a comfortable line length
+  .sp-read .question_text {
+    font-size: 1.125rem;
+    line-height: 1.7;
+    color: $sp-ink;
+    max-width: 68ch;
+
+    p {
+      margin: 0 0 1em;
+    }
+    img,
+    video,
+    iframe {
+      max-width: 100%;
+      height: auto;
+    }
+  }
+
+  // ---- answers ---------------------------------------------------------------
+
+  .sp-answer {
+    .answers {
+      margin: 0;
+    }
+    fieldset {
+      border: 0;
+      margin: 0;
+      padding: 0;
+      min-width: 0;
+    }
+    .answer {
+      padding: 0;
+      margin: 0;
+    }
+
+    .answer_row {
+      display: flex;
+      align-items: flex-start;
+      gap: 16px;
+      margin: 0 0 8px;
+      padding: 14px 16px;
+      min-height: 56px;
+      box-sizing: border-box;
+      background: #fff;
+      border: 1px solid $sp-hairline;
+      border-radius: 2px;
+      cursor: pointer;
+      font-size: 1rem;
+      line-height: 1.5;
+      transition: background-color 120ms ease, border-color 120ms ease;
+
+      &:hover {
+        background: rgba(0, 0, 0, 0.04);
+      }
+      &:has(input:checked) {
+        background: $sp-tint;
+        border-color: var(--sp-accent);
+        box-shadow: inset 4px 0 0 var(--sp-accent);
+      }
+      &:has(input:focus-visible) {
+        outline: 2px solid var(--sp-accent-strong);
+        outline-offset: 2px;
+      }
+
+      .answer_input {
+        flex: none;
+        padding-top: 1px;
+      }
+      input[type="radio"],
+      input[type="checkbox"] {
+        width: 20px;
+        height: 20px;
+        margin: 0;
+        accent-color: var(--sp-accent-strong);
+      }
+      .answer_label {
+        flex: 1;
+        min-width: 0;
+        margin: 0;
+      }
+    }
+
+    input[type="text"],
+    input[type="number"],
+    textarea,
+    select {
+      max-width: 100%;
+      font-size: 1rem;
+      border-radius: 2px;
+      border: 1px solid rgba(0, 0, 0, 0.38);
+      padding: 10px 12px;
+      box-sizing: border-box;
+      &:focus {
+        border-color: var(--sp-accent-strong);
+        outline: 2px solid var(--sp-accent-strong);
+        outline-offset: 0;
+      }
+    }
+    input[type="text"],
+    input[type="number"],
+    select {
+      min-height: 44px;
+    }
+  }
+
+  // ---- "read first" gate for long questions ----------------------------------
+
+  .sp-gate {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 12px;
+    padding: 8px 0 0;
+    color: $sp-ink-2;
+    font-size: 0.9375rem;
+    line-height: 1.5;
+    p {
+      margin: 0;
+    }
+  }
+
+  // ---- buttons ---------------------------------------------------------------
+
+  .sp-btn,
+  .form-actions .btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    min-height: 36px;
+    padding: 0 16px;
+    border: 0;
+    border-radius: 2px;
+    font-family: $sp-roboto;
+    font-size: 0.875rem;
+    font-weight: 500;
+    letter-spacing: 0.5px;
+    line-height: 1;
+    text-transform: uppercase;
+    cursor: pointer;
+    background: none;
+    color: var(--sp-accent-strong);
+    box-shadow: none;
+    text-shadow: none;
+    transition: background-color 120ms ease, box-shadow 120ms ease;
+
+    &:hover {
+      background: rgba(var(--sp-accent-rgb), 0.12);
+    }
+    &:focus-visible {
+      outline: 2px solid var(--sp-accent-strong);
+      outline-offset: 2px;
+    }
+    &[disabled],
+    &[aria-disabled="true"] {
+      color: rgba(0, 0, 0, 0.38);
+      background: none;
+      box-shadow: none;
+      cursor: default;
+      pointer-events: none;
+    }
+    &.sp-btn--raised,
+    &.btn-primary {
+      background: var(--sp-accent-strong);
+      color: #fff;
+      box-shadow: $sp-elev-2;
+      &:hover {
+        background: var(--sp-accent-strong);
+        box-shadow: $sp-elev-8;
+        filter: brightness(1.08);
+      }
+      &[disabled] {
+        background: rgba(0, 0, 0, 0.12);
+        color: rgba(0, 0, 0, 0.38);
+        box-shadow: none;
+      }
+    }
+  }
+  .sp-btn[hidden] {
+    display: none;
+  }
+
+  // ---- bottom bar: saved state, back, next, submit -----------------------------
+
+  .form-actions {
+    position: sticky;
+    bottom: 0;
+    z-index: 5;
+    display: flex;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 8px;
+    margin: 24px 0 0;
+    padding: 12px max(24px, calc((100% - #{$sp-column}) / 2 + 24px));
+    border: 0;
+    background: #fff;
+    box-shadow: $sp-elev-up;
+
+    #last_saved_indicator {
+      flex: 1;
+      min-width: 8rem;
+      padding: 0;
+      font-size: 0.8125rem;
+      color: $sp-ink-3;
+    }
+    .sp-nav {
+      display: contents;
+    }
+  }
+}
+
+// ---- narrow screens: stack the cards, tighten the padding ------------------------
+
+@media (max-width: 960px) {
+  body.self-paced-quiz {
+    .display_question .text {
+      grid-template-columns: minmax(0, 1fr);
+    }
+    .quiz-header,
+    .sp-read,
+    .sp-answer {
+      padding-inline: 16px;
+    }
+    .loaded > .quiz-header {
+      width: calc(100% - 32px);
+    }
+    .loaded #questions {
+      padding-inline: 16px;
+    }
+    .sp-appbar .sp-progress__text {
+      display: none;
+    }
+    .form-actions {
+      padding-inline: 16px;
+    }
+    .sp-read .question_text {
+      font-size: 1.0625rem;
+    }
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  body.self-paced-quiz {
+    .sp-progress__fill,
+    .answer_row,
+    .sp-btn,
+    .form-actions .btn {
+      transition: none;
+    }
+  }
+}

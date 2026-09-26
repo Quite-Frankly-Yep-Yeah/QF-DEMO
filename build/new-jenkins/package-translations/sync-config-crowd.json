@@ -2,9 +2,9 @@
   "to": "transifex",
   "organization": "Instructure",
   "organizationSlug": "instructure",
-  "project": "EXAMPLE (Crowdsource)",
+  "project": "quite frankly an example LMS (Crowdsource)",
   "projectSlug": "canvas-crowdsource",
-  "resource": "EXAMPLE Packages",
+  "resource": "quite frankly an example LMS Packages",
   "resourceSlug": "canvas-packages",
   "fileName": "../packages/translations/lib/{lang}.json",
   "sourceLanguage": "en"

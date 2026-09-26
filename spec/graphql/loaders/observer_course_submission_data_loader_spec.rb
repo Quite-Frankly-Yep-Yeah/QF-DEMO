@@ -48,7 +48,7 @@ RSpec.describe Loaders::ObserverCourseSubmissionDataLoader do
     @submission1_student1 = @assignment1.submit_homework(@student1, submission_type: "online_text_entry", body: "student1 assignment1")
     @submission2_student1 = @assignment2.submit_homework(@student1, submission_type: "online_text_entry", body: "student1 assignment2")
     @submission1_student2 = @assignment1.submit_homework(@student2, submission_type: "online_text_entry", body: "student2 assignment1")
-    # NOTE: EXAMPLE creates submissions for all assignments, so we expect 2 students × 2 assignments = 4 total submissions
+    # NOTE: quite frankly an example LMS creates submissions for all assignments, so we expect 2 students × 2 assignments = 4 total submissions
   end
 
   def with_batch_loader(user, request: nil)
@@ -61,7 +61,7 @@ RSpec.describe Loaders::ObserverCourseSubmissionDataLoader do
     submissions = with_batch_loader(@observer) { |loader| loader.load(@course) }
 
     # With no cookie selection, should default to first observed student
-    # EXAMPLE creates submissions for all assignments, so we get 1 student × 2 assignments = 2 submissions
+    # quite frankly an example LMS creates submissions for all assignments, so we get 1 student × 2 assignments = 2 submissions
     expect(submissions.length).to eq(2)
     student_ids = submissions.map(&:user_id).uniq
     expect(student_ids).to eq([@student1.id])

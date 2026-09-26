@@ -36,7 +36,7 @@ describe "discussion_mention" do
   describe ".email" do
     let(:path_type) { :email }
     let(:long_comment_instruction_html) do
-      "Comment by replying to this message, or join the conversation using the link below. When allowed, if you need to include an attachment, please log in to EXAMPLE and reply to the discussion."
+      "Comment by replying to this message, or join the conversation using the link below. When allowed, if you need to include an attachment, please log in to quite frankly an example LMS and reply to the discussion."
     end
     let(:long_comment_instruction_plain) do
       "Comment by replying to this message, or join the conversation using this link:"

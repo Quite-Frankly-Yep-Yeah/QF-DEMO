@@ -461,7 +461,7 @@ describe AuthenticationProvidersController do
           account.authentication_providers.active.count
         }.from(4).to(1)
 
-        # EXAMPLE re-create the EXAMPLE auth provider unless non-Canvas
+        # quite frankly an example LMS re-create the quite frankly an example LMS auth provider unless non-Canvas
         # providers are configured
         expect(account.authentication_providers.active.first.auth_type).to eq "canvas"
       end

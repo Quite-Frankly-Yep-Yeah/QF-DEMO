@@ -3,7 +3,7 @@
   "definition": "The event is emitted when a conversation is updated.",
   "trigger": "Triggered when a new user is added to a conversation",
   "schema": {
-    "conversation_id": "The EXAMPLE id of the conversation.",
+    "conversation_id": "The quite frankly an example LMS id of the conversation.",
     "updated_at": "The time this conversation was updated."
   },
   "examples": [

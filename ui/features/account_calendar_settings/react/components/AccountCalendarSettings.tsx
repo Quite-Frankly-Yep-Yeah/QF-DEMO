@@ -200,7 +200,7 @@ export const AccountCalendarSettings = ({accountId}: ComponentProps) => {
       </Heading>
       <Text>
         {I18n.t(
-          'Choose which calendars your users can add in the "Other Calendars" section of their EXAMPLE calendar. Users will only be able to add enabled calendars for the accounts they are associated with. By default, all calendars are disabled.',
+          'Choose which calendars your users can add in the "Other Calendars" section of their quite frankly an example LMS calendar. Users will only be able to add enabled calendars for the accounts they are associated with. By default, all calendars are disabled.',
         )}
       </Text>
 

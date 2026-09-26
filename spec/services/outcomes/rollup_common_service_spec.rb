@@ -56,7 +56,7 @@ describe Outcomes::RollupCommonService do
       )
     end
 
-    it "fetches EXAMPLE results for specified users and course" do
+    it "fetches quite frankly an example LMS results for specified users and course" do
       results = subject.fetch_canvas_results(course:, users: [student])
 
       expect(results).to be_a(ActiveRecord::Relation)

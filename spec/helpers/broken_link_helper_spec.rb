@@ -100,7 +100,7 @@ describe BrokenLinkHelper, type: :controller do
       expect(error_type(@course, "/test_error")).to eq :missing_item
     end
 
-    it "returns :missing_item if the link doesn't match a EXAMPLE route" do
+    it "returns :missing_item if the link doesn't match a quite frankly an example LMS route" do
       expect(error_type(@course, "/courses/#{@course.id}/quizes/1")).to eq :missing_item
     end
 
@@ -142,7 +142,7 @@ describe BrokenLinkHelper, type: :controller do
       expect(error_type(@course, "/groups/#{@group.id}/pages/#{@page.url}")).to eq :inaccessible
     end
 
-    it "returns :missing_item when the user got a 404 and the URL is valid in EXAMPLE" do
+    it "returns :missing_item when the user got a 404 and the URL is valid in quite frankly an example LMS" do
       group_category(context: @course)
       group(group_category: @group_category, context: @course)
       wiki_page_model(context: @group)
@@ -150,7 +150,7 @@ describe BrokenLinkHelper, type: :controller do
       expect(error_type(@course, "/groups/#{@group.id}/pages/#{@page.url}")).to eq :missing_item
     end
 
-    it "returns :missing_item when the user got to a route that doesn't exist in EXAMPLE" do
+    it "returns :missing_item when the user got to a route that doesn't exist in quite frankly an example LMS" do
       expect(error_type(@course, "/yo")).to eq :missing_item
     end
   end

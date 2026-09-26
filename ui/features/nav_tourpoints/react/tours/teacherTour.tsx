@@ -140,7 +140,7 @@ export default [
           </Link>
         </Text>
         <iframe
-          title={I18n.t('EXAMPLE Notifications Tutorial Video')}
+          title={I18n.t('quite frankly an example LMS Notifications Tutorial Video')}
           src="https://embed.app.guidde.com/playbooks/gXwHu7sZCQN5kgKQkRTXWR"
           width="100%"
           height="277px"
@@ -170,11 +170,11 @@ export default [
             target="_blank"
             rel="noopener noreferrer"
           >
-            {I18n.t('Set up your EXAMPLE course in 30 minutes or less.')}
+            {I18n.t('Set up your quite frankly an example LMS course in 30 minutes or less.')}
           </Link>
         </Text>
         <iframe
-          title={I18n.t('EXAMPLE Course Tutorial Video')}
+          title={I18n.t('quite frankly an example LMS Course Tutorial Video')}
           src="https://embed.app.guidde.com/playbooks/p7Lm8jQBu8Qty9zuuwLWH2"
           width="100%"
           height="277px"

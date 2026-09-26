@@ -17,7 +17,7 @@
         "Archived grading schemes in use can still be used, but cannot be added to new courses or assignments.": "รูปแบบการให้เกรดที่จัดเก็บแยกไว้ที่ใช้งานยังสามารถใช้งานได้ต่อไป แต่จะไม่สามารถเพิ่มไปยังบทเรียนหรือภารกิจใหม่",
         "Are you sure you want to delete this grading scheme?": "แน่ใจว่าต้อกงารลบรูปแบบการให้เกรดนี้หรือไม่",
         "Cancel": "ยกเลิก",
-        "EXAMPLE Default": "ค่าเริ่มต้นของ EXAMPLE",
+        "quite frankly an example LMS Default": "ค่าเริ่มต้นของ quite frankly an example LMS",
         "Close": "ปิด",
         "Confirm": "ยืนยัน",
         "Confirm Default Grading Scheme Change": "ยืนยันการแก้ไขรูปแบบการให้เกรดเริ่มต้น",
@@ -45,7 +45,7 @@
         "There was an error while archiving the grading scheme": "มีข้อผิดพลาดขณะจัดเก็ฐแยกรูปแบบการให้เกรด",
         "There was an error while creating the grading scheme": "มีข้อผิดพลาดขณะจัดทำรูปแบบการให้เกรด",
         "There was an error while loading grading schemes": "มีข้อผิดพลาดขณะโหลดรูปแบบการให้เกรด",
-        "There was an error while loading the default canvas grading scheme": "มีข้อผิดพลาดขณะโหลดรูปแบบการให้เกรดเริ่มต้นของ EXAMPLE",
+        "There was an error while loading the default canvas grading scheme": "มีข้อผิดพลาดขณะโหลดรูปแบบการให้เกรดเริ่มต้นของ quite frankly an example LMS",
         "There was an error while loading the default grading scheme": "มีข้อผิดพลาดขณะโหลดรูปแบบการให้เกรดเริ่มต้น",
         "There was an error while removing the grading scheme": "มีข้อผิดพลาดขณะลบรูปแบบการให้เกรด",
         "There was an error while unarchiving the grading scheme": "มีข้อผิดพลาดขณะเลิกจัดเก็บแยกรูปแบบการให้เกรด",
@@ -80,7 +80,7 @@
         "Save": "บันทึก"
     },
     "GradingSchemes": {
-        "A table that contains the default canvas grading scheme data.  Each row contains a name, a maximum percentage, and a minimum percentage.": "ตารางที่มีข้อมูลรูปแบบการให้เกรดเริ่มต้นของ EXAMPLE  แต่ละแถวจะมีชื่อ เปอร์เซ็นต์สูงสุดและเปอร์เซ็นต์ต่ำสุด",
+        "A table that contains the default canvas grading scheme data.  Each row contains a name, a maximum percentage, and a minimum percentage.": "ตารางที่มีข้อมูลรูปแบบการให้เกรดเริ่มต้นของ quite frankly an example LMS  แต่ละแถวจะมีชื่อ เปอร์เซ็นต์สูงสุดและเปอร์เซ็นต์ต่ำสุด",
         "A table that contains the grading scheme data.  Each row contains a name, a maximum percentage, and a minimum percentage.": "ตารางที่มีข้อมูลรูปแบบการให้เกรด  แต่ละแถวจะมีชื่อ เปอร์เซ็นต์สูงสุดและเปอร์เซ็นต์ต่ำสุด",
         "Cannot have duplicate or empty row names. Fix the names and try clicking 'Save' again.": "ไม่สามารถมีชื่อแถวที่ซ้ำกันหรือชื่อเปล่าได้ แก้ไขชื่อและลองคลิก “บันทึก” (Save) อีกครั้ง",
         "Cannot have overlapping or empty ranges. Fix the ranges and try clicking 'Save' again.": "ไม่สามารถมีช่วงที่ซ้อนทับกันหรือช่วงเปล่า แก้ไขช่วงแล้วคลิก “บันทึก” (Save) อีกครั้ง",
@@ -157,10 +157,10 @@
     "assignments.grading_type_selector": {
         "(course default)": "(ค่าเริ่มต้นบทเรียน)",
         "Account Level": "ระดับบัญชีผู้ใช้",
-        "EXAMPLE Grading Scheme (course default)": "รูปแบบการให้เกรดของ EXAMPLE (ค่าเริ่มต้นของบทเรียน)",
+        "quite frankly an example LMS Grading Scheme (course default)": "รูปแบบการให้เกรดของ quite frankly an example LMS (ค่าเริ่มต้นของบทเรียน)",
         "Close": "ปิด",
         "Course Level": "ระดับบทเรียน",
-        "Default EXAMPLE Grading Scheme": "รูปแบบการให้เกรดเริ่มต้นของ EXAMPLE",
+        "Default quite frankly an example LMS Grading Scheme": "รูปแบบการให้เกรดเริ่มต้นของ quite frankly an example LMS",
         "Grading scheme was successfully removed.": "ลบรูปแบบการให้เกรดเสร็จสิ้น",
         "Grading scheme was successfully updated.": "อัพเดตรูปแบบการให้เกรดเสร็จสิ้น",
         "Manage All Grading Schemes": "จัดการรูปแบบการให้เกรดทั้งหมด",
@@ -181,7 +181,7 @@
         "Course Catalog": "แคตาล็อกบทเรียน"
     },
     "confetti": {
-        "Great work! From the EXAMPLE developers": "ทำได้ดีมาก! จากผู้พัฒนาของ EXAMPLE"
+        "Great work! From the quite frankly an example LMS developers": "ทำได้ดีมาก! จากผู้พัฒนาของ quite frankly an example LMS"
     },
     "content_copy_redesign": {
         "Cancel": "ยกเลิก",

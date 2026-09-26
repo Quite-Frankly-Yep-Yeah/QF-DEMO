@@ -60,7 +60,7 @@
   bottom: 40px;
 
   // To accomodate different kinds of modals, styles for
-  // the regular EXAMPLE modal have been scoped under the
+  // the regular quite frankly an example LMS modal have been scoped under the
   // .ReactModal__Content--canvas class. So if you want a
   // normal modal, remember to add className='ReactModal__Content--canvas'
   // when you initialize the modal in your JSX.
@@ -77,7 +77,7 @@
     @include breakpoint(mini-tablet) { padding: $ic-sp; }
     @include breakpoint(tablet) { padding: 0; }
 
-    form { margin: 0; } // override EXAMPLE default margin on forms
+    form { margin: 0; } // override quite frankly an example LMS default margin on forms
 
     .ReactModal__Layout {
       max-height: 100%;

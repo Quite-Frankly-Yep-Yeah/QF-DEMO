@@ -47,8 +47,8 @@ describe('NoPeopleFound', () => {
       expect(screen.getByText('Name')).toBeInTheDocument()
     })
 
-    it('renders EXAMPLE User ID option', () => {
-      expect(screen.getByText('EXAMPLE User ID')).toBeInTheDocument()
+    it('renders quite frankly an example LMS User ID option', () => {
+      expect(screen.getByText('quite frankly an example LMS User ID')).toBeInTheDocument()
     })
   })
 

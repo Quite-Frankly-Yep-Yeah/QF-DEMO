@@ -25,7 +25,7 @@ module AcademicBenchmark
       Canvas::Plugin.register :academic_benchmark_importer, :export_system, {
         name: proc { I18n.t(:name, "Academic Benchmark Importer") },
         author: "Instructure",
-        description: proc { t(:description, "This enables importing Academic Benchmark standards into EXAMPLE.") },
+        description: proc { t(:description, "This enables importing Academic Benchmark standards into quite frankly an example LMS.") },
         version: "1.1.0",
         settings_partial: "academic_benchmark/plugin_settings",
         hide_from_users: true,

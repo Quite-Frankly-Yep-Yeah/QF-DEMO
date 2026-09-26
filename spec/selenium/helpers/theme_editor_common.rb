@@ -34,7 +34,7 @@ module ThemeEditorCommon
   end
 
   def select_template(template)
-    # "EXAMPLE Default" "K12 Theme"
+    # "quite frankly an example LMS Default" "K12 Theme"
     select_list = Selenium::WebDriver::Support::Select.new(f("#sharedThemes"))
     select_list.select_by(:text, template)
   end

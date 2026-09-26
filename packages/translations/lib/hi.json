@@ -453,7 +453,7 @@
         "message": "कॉपीराइट धारक:"
     },
     "could_not_insert_content_itemtype_items_are_not_cu_638dfecd": {
-        "message": "सामग्री नहीं डाली जा सकी: \"{ itemType }\" आइटमें वर्तमान में EXAMPLE में समर्थित नहीं हैं।"
+        "message": "सामग्री नहीं डाली जा सकी: \"{ itemType }\" आइटमें वर्तमान में quite frankly an example LMS में समर्थित नहीं हैं।"
     },
     "count_40eced3b": {
         "message": "गिनती करें"
@@ -1878,7 +1878,7 @@
         "message": "प्लेयर लेआउट"
     },
     "please_allow_canvas_to_access_your_microphone_and__dc2c3079": {
-        "message": "कृपया EXAMPLE को अपने माइक्रोफ़ोन और वेबकैम के लिए एक्सेस की अनुमति दें।"
+        "message": "कृपया quite frankly an example LMS को अपने माइक्रोफ़ोन और वेबकैम के लिए एक्सेस की अनुमति दें।"
     },
     "please_choose_a_file_c2449cc": {
         "message": "कृपया कोई फ़ाइल चुनें"
@@ -2544,7 +2544,7 @@
         "message": "मोटा उर्ध्वगामी तीर"
     },
     "this_document_cannot_be_displayed_within_canvas_7aba77be": {
-        "message": "यह दस्तावेज़ EXAMPLE के भीतर प्रदर्शित नहीं किया जा सकता।"
+        "message": "यह दस्तावेज़ quite frankly an example LMS के भीतर प्रदर्शित नहीं किया जा सकता।"
     },
     "this_equation_cannot_be_rendered_in_basic_view_9b6c07ae": {
         "message": "इस समीकरण को मूल दृश्य में प्रस्तुत नहीं किया जा सकता।"

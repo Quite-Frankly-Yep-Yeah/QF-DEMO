@@ -186,7 +186,7 @@ describe StudyAssist::Service do
 
     before { stub_cedar(quiz_payload) }
 
-    it "returns parsed quiz items mapping Journey shape to EXAMPLE shape" do
+    it "returns parsed quiz items mapping Journey shape to quite frankly an example LMS shape" do
       result = call_service(prompt: "Quiz me")
       expect(result[:quizItems].first).to include(
         question: "Q1",

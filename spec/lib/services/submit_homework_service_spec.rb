@@ -48,7 +48,7 @@ module Services
                       reply_to_name: nil,
                       html_body: nil,
                       body: "Your file, #{attachment.display_name}, failed to upload to your " \
-                            "EXAMPLE assignment, #{assignment.name}. Please re-submit to " \
+                            "quite frankly an example LMS assignment, #{assignment.name}. Please re-submit to " \
                             "the assignment or contact your instructor if you are no " \
                             "longer able to do so.")
     end

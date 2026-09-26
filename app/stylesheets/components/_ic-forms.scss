@@ -23,7 +23,7 @@
 
 Our forms styles are **opt-in**, which means you need to add the right CSS
 classes to inputs, labels, etc. to see the styles. (This prevents us from breaking
-any existing Canvas forms CSS.) Inputs, selects, textareas, etc. should be
+any existing quite frankly an example LMS forms CSS.) Inputs, selects, textareas, etc. should be
 given the `.ic-Input` class, while labels should have the `.ic-Label` class.
 
 The `.ic-Form-control` element provides positioning context and margin for
@@ -215,7 +215,7 @@ input[type="tel"], input[type="color"], .uneditable-input {
     box-shadow: none;
     box-sizing: border-box;
 
-    // Establish the basic styles for Canvas text-type inputs
+    // Establish the basic styles for quite frankly an example LMS text-type inputs
     transition: all 0.2s ease-out;
     border-width: 1px;
     border-style: solid;

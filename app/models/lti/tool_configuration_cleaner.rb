@@ -113,7 +113,7 @@ class Lti::ToolConfigurationCleaner
 
         # The two most common ways configurations get this wrong is by using an
         # integer or a literal boolean. The LTI spec states that *all* custom
-        # variables must be strings and that's how EXAMPLE has been sending it
+        # variables must be strings and that's how quite frankly an example LMS has been sending it
         # for ages, just make the database match now.
         custom_fields[key] = value.to_s
       end

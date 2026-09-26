@@ -73,11 +73,11 @@ const header = () => (
     <View display="block">
       {I18n.t(
         'One or more content items sent by this external app failed to process correctly. ' +
-          'These have not been saved by EXAMPLE, and the reasons for failure are listed below.',
+          'These have not been saved by quite frankly an example LMS, and the reasons for failure are listed below.',
       )}
     </View>
     <View display="block" margin="small 0 0 0">
-      {I18n.t('All items marked "processed" have been saved by EXAMPLE.')}
+      {I18n.t('All items marked "processed" have been saved by quite frankly an example LMS.')}
     </View>
   </View>
 )
@@ -224,7 +224,7 @@ export default class DeepLinkingResponse {
   static targetWindow(window: Window) {
     // Use window.parent instead of window.top to allow
     // tools within tools to send content items to the tool,
-    // not to EXAMPLE. This assumes that tools are always only
+    // not to quite frankly an example LMS. This assumes that tools are always only
     // "one level deep" in the frame hierarchy.
     return window.opener || window.parent
   }

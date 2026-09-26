@@ -19,7 +19,7 @@
 #
 
 #
-# Helpers for EXAMPLE models, kept separate from the models because they are
+# Helpers for quite frankly an example LMS models, kept separate from the models because they are
 # used only for Microsoft Sync purposes and may rely on MicrosoftSync things.
 #
 module MicrosoftSync

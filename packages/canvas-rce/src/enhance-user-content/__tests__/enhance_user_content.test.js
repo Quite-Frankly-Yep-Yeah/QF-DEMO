@@ -148,7 +148,7 @@ describe('enhanceUserContent()', () => {
     })
 
     describe('does enhance', () => {
-      describe('EXAMPLE file links', () => {
+      describe('quite frankly an example LMS file links', () => {
         it('with query params', () => {
           const showFilePreviewSpy = jest
             .spyOn(instructureHelper, 'showFilePreview')

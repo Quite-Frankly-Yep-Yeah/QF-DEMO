@@ -18,7 +18,7 @@
 # with this program. If not, see <http://www.gnu.org/licenses/>.
 
 describe "request throttling" do
-  describe "usage of the middleware in the EXAMPLE middleware stack" do
+  describe "usage of the middleware in the quite frankly an example LMS middleware stack" do
     it "comes below the middleware which populates the canvas domain root account" do
       acct = nil
       expect_any_instance_of(RequestThrottle).to receive(:client_identifiers) do |_subject, req|

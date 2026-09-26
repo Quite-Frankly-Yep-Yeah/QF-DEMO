@@ -735,6 +735,7 @@ CanvasRails::Application.routes.draw do
     get "settings#{full_path_glob}", action: :settings
     get :reports_tab
     get :settings
+    get :hub, controller: :admin_hub, action: :show, as: :admin_hub
     get :admin_tools
     get :rate_limiting, controller: :rate_limiting_settings, action: :index, as: :rate_limiting
     resources :rate_limiting_settings, only: %i[index show create update destroy]
@@ -1101,6 +1102,10 @@ CanvasRails::Application.routes.draw do
   end
 
   get "self_paced/dashboard" => "self_paced/dashboard#show", :as => :self_paced_dashboard
+  get "self_paced/courses/:course_id" => "self_paced/dashboard#course", :as => :self_paced_course
+  get "self_paced/observer" => "self_paced/observer#show", :as => :self_paced_observer_page
+  get "parents/join/:code" => "self_paced/parent_signup#show", :as => :parent_join
+  post "parents/join/:code" => "self_paced/parent_signup#create"
 
   resources :plugins, only: %i[index show update]
 
@@ -2901,11 +2906,60 @@ CanvasRails::Application.routes.draw do
       put "courses/:course_id/self_paced/setup", action: :update
     end
 
+    scope(controller: "self_paced/pacing") do
+      get "courses/:course_id/self_paced/pacing", action: :show, as: "course_self_paced_pacing"
+      put "courses/:course_id/self_paced/pacing/:student_id", action: :update, as: "course_self_paced_student_pacing"
+      get "courses/:course_id/self_paced/calendar", action: :calendar, as: "course_self_paced_calendar"
+      put "courses/:course_id/self_paced/calendar", action: :update_calendar
+    end
+
     scope(controller: "self_paced/dashboard_api") do
       get "self_paced/roster", action: :roster, as: "self_paced_roster"
       get "self_paced/courses/:course_id/students/:student_id", action: :student, as: "self_paced_student"
+      get "self_paced/courses/:course_id/summary", action: :course_summary, as: "self_paced_course_summary"
       put "self_paced/caseload/:student_id", action: :pin, as: "self_paced_caseload"
       delete "self_paced/caseload/:student_id", action: :unpin
+    end
+
+    scope(controller: "self_paced/student_home") do
+      get "self_paced/home", action: :show, as: "self_paced_home"
+    end
+
+    scope(controller: "self_paced/alerts") do
+      get "self_paced/alerts", action: :index, as: "self_paced_alerts"
+      put "self_paced/alerts/:id/dismiss", action: :dismiss, as: "self_paced_alert_dismiss"
+      get "courses/:course_id/self_paced/alert_rules", action: :rules, as: "course_self_paced_alert_rules"
+      put "courses/:course_id/self_paced/alert_rules", action: :update_rules
+    end
+
+    scope(controller: "self_paced/reports") do
+      get "self_paced/reports/:kind", action: :show, as: "self_paced_report"
+    end
+
+    scope(controller: "self_paced/attendance") do
+      get "self_paced/attendance_policies", action: :policies, as: "self_paced_attendance_policies"
+      post "self_paced/attendance_policies", action: :create_policy
+      get "courses/:course_id/self_paced/attendance_adjustments", action: :adjustments, as: "course_self_paced_attendance_adjustments"
+      post "courses/:course_id/self_paced/attendance_adjustments", action: :create_adjustment
+    end
+
+    scope(controller: "self_paced/skills") do
+      get "courses/:course_id/self_paced/skills", action: :show, as: "course_self_paced_skills"
+      post "courses/:course_id/self_paced/skills", action: :create
+    end
+
+    scope(controller: "self_paced/observer") do
+      get "self_paced/observer", action: :data, as: "self_paced_observer"
+    end
+
+    scope(controller: "self_paced/parent_invites") do
+      post "self_paced/students/:student_id/parent_invite", action: :create, as: "self_paced_parent_invite"
+    end
+
+    scope(controller: "self_paced/interventions") do
+      get "self_paced/courses/:course_id/students/:student_id/interventions", action: :index, as: "self_paced_student_interventions"
+      post "self_paced/courses/:course_id/students/:student_id/interventions", action: :create
+      post "self_paced/interventions/bulk", action: :bulk, as: "self_paced_bulk_interventions"
     end
 
     scope(controller: :planner_notes) do

@@ -128,13 +128,13 @@ describe Group do
         expect(@group.grading_standard_or_default).to be standard
       end
 
-      it "returns the EXAMPLE default grading scheme if the course is not using a grading scheme" do
+      it "returns the quite frankly an example LMS default grading scheme if the course is not using a grading scheme" do
         expect(@group.grading_standard_or_default.data).to eq GradingStandard.default_grading_standard
       end
     end
 
     context "Group belonging to an Account" do
-      it "returns the EXAMPLE default grading scheme" do
+      it "returns the quite frankly an example LMS default grading scheme" do
         group = group_model(context: Account.default)
         expect(group.grading_standard_or_default.data).to eq GradingStandard.default_grading_standard
       end

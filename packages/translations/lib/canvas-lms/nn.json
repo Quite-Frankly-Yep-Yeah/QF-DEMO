@@ -16,7 +16,7 @@
         "Archived": "Arkivert",
         "Are you sure you want to delete this grading scheme?": "Er du sikker på at du vil slette karaktersetjingsskjemaet?",
         "Cancel": "Avbryt",
-        "EXAMPLE Default": "EXAMPLE standard",
+        "quite frankly an example LMS Default": "quite frankly an example LMS standard",
         "Close": "Lukk",
         "Confirm": "Stadfest",
         "Delete Grading Scheme": "Slett oppsett for karaktersetjing",
@@ -63,7 +63,7 @@
         "Save": "Lagre"
     },
     "GradingSchemes": {
-        "A table that contains the default canvas grading scheme data.  Each row contains a name, a maximum percentage, and a minimum percentage.": "Ein tabell som inneheld standarddata for vurderingsskjema for EXAMPLE. Kvar rad inneheld eit namn, ein maksimal prosentandel og ein minimal prosentandel.",
+        "A table that contains the default canvas grading scheme data.  Each row contains a name, a maximum percentage, and a minimum percentage.": "Ein tabell som inneheld standarddata for vurderingsskjema for quite frankly an example LMS. Kvar rad inneheld eit namn, ein maksimal prosentandel og ein minimal prosentandel.",
         "A table that contains the grading scheme data.  Each row contains a name, a maximum percentage, and a minimum percentage.": "Ein tabell som inneheld data frå vurderingsskjemaet. Kvar rad inneheld eit namn, ein maksimal prosentdel og ein minimal prosentdel.",
         "Cannot have duplicate or empty row names. Fix the names and try clicking 'Save' again.": "Kan ikkje ha navnekopiar eller tomme kolonnenavn. Endre på navna og prøv å trykk lagre på nytt",
         "Delete grading scheme": "Slett vurderingsskjema",
@@ -127,10 +127,10 @@
     "assignments.grading_type_selector": {
         "(course default)": "(emnestandard)",
         "Account Level": "Kontonivå",
-        "EXAMPLE Grading Scheme (course default)": "EXAMPLE vurderingsskjema (emnestandard)",
+        "quite frankly an example LMS Grading Scheme (course default)": "quite frankly an example LMS vurderingsskjema (emnestandard)",
         "Close": "Lukk",
         "Course Level": "Emnenivå",
-        "Default EXAMPLE Grading Scheme": "Standard vurderingsskjema for EXAMPLE",
+        "Default quite frankly an example LMS Grading Scheme": "Standard vurderingsskjema for quite frankly an example LMS",
         "Manage All Grading Schemes": "Administrer alle vurderingsskjema",
         "New Grading Scheme": "Ny karaktersetjingsskala",
         "Select a grading scheme": "Vel vurderingsskjema",
@@ -147,7 +147,7 @@
         "Course Catalog": "Emnekatalog"
     },
     "confetti": {
-        "Great work! From the EXAMPLE developers": "Godt jobba! Frå Canvasutviklarane"
+        "Great work! From the quite frankly an example LMS developers": "Godt jobba! Frå Canvasutviklarane"
     },
     "content_copy_redesign": {
         "Cancel": "Avbryt",

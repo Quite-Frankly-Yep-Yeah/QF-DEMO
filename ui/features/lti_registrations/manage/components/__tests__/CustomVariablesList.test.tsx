@@ -346,7 +346,7 @@ describe('CustomVariablesList', () => {
   })
 
   describe('filtering behavior', () => {
-    it('only shows EXAMPLE substitution variables, not custom variables', () => {
+    it('only shows quite frankly an example LMS substitution variables, not custom variables', () => {
       const config = mockConfig({
         custom_fields: {
           canvas_var: '$Canvas.user.id',

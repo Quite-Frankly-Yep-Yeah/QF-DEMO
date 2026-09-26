@@ -31,6 +31,7 @@ import {WIDGET_TYPES} from '../constants'
 import {Flex} from '@instructure/ui-flex'
 import {DragDropContext, Droppable, Draggable, type DropResult} from 'react-beautiful-dnd'
 import AddWidgetModal from './AddWidgetModal/AddWidgetModal'
+import {accentFor, ink} from '../materialTheme'
 
 const I18n = createI18nScope('widget_dashboard')
 
@@ -66,6 +67,11 @@ const WidgetGrid: React.FC<WidgetGridProps> = ({config, isEditMode = false}) => 
     [config.widgets, isObserver],
   )
   const widgetsByColumn = useMemo(() => widgetsAsColumns(visibleWidgets), [visibleWidgets])
+  // each widget gets a color, in reading order (left column, then right)
+  const accentIndex = useMemo(
+    () => new Map(widgetsByColumn.flat().map((widget, index) => [widget.id, index])),
+    [widgetsByColumn],
+  )
   const [addModalOpen, setAddModalOpen] = useState(false)
   const [addPosition, setAddPosition] = useState<{col: number; row: number} | null>(null)
   const lastDraggedWidgetIdRef = useRef<string | null>(null)
@@ -162,12 +168,23 @@ const WidgetGrid: React.FC<WidgetGridProps> = ({config, isEditMode = false}) => 
       />
     )
 
-    if (!isEditMode) return widgetElement
+    const accent = accentFor(accentIndex.get(widget.id) ?? 0)
+    const accentStyle = {
+      '--sp-accent': accent,
+      '--sp-accent-ink': ink(accent),
+    } as React.CSSProperties
+
+    if (!isEditMode)
+      return (
+        <div data-sp-accent="" style={accentStyle}>
+          {widgetElement}
+        </div>
+      )
 
     // Overlay blocks all widget interactions (links, filters, pagination, etc.)
     // during customization mode. The drag handle sits above the overlay via z-index.
     return (
-      <div style={{position: 'relative'}}>
+      <div data-sp-accent="" style={{position: 'relative', ...accentStyle}}>
         {widgetElement}
         <div aria-hidden="true" style={{position: 'absolute', inset: 0, zIndex: 1}} />
       </div>

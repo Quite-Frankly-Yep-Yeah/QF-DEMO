@@ -54,7 +54,7 @@ module Lti
 
     # @API Get a single user (lti)
     #
-    # Get a single EXAMPLE user by EXAMPLE id or LTI id. Tool providers may only access
+    # Get a single quite frankly an example LMS user by quite frankly an example LMS id or LTI id. Tool providers may only access
     # users that have been assigned an assignment associated with their tool.
     #
     # @returns User
@@ -64,7 +64,7 @@ module Lti
 
     # @API Get all users in a group (lti)
     #
-    # Get all EXAMPLE users in a group. Tool providers may only access
+    # Get all quite frankly an example LMS users in a group. Tool providers may only access
     # groups that belong to the context the tool is installed in.
     #
     # @returns [User]

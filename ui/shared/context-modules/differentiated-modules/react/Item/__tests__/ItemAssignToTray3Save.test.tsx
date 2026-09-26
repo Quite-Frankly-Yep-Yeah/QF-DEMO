@@ -256,9 +256,9 @@ describe('ItemAssignToTray - Save Operations', () => {
 
   describe('required due dates', () => {
     beforeEach(() => {
-      // @ts-expect-error - global.ENV is a EXAMPLE global not in TS types
+      // @ts-expect-error - global.ENV is a quite frankly an example LMS global not in TS types
       global.ENV = {
-        // @ts-expect-error - global.ENV is a EXAMPLE global not in TS types
+        // @ts-expect-error - global.ENV is a quite frankly an example LMS global not in TS types
         ...global.ENV,
         DUE_DATE_REQUIRED_FOR_ACCOUNT: true,
       }

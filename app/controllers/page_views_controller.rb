@@ -23,7 +23,7 @@
 # @model PageView
 #     {
 #       "id": "PageView",
-#       "description": "The record of a user page view access in EXAMPLE",
+#       "description": "The record of a user page view access in quite frankly an example LMS",
 #       "required": ["id"],
 #       "properties": {
 #         "id": {
@@ -34,7 +34,7 @@
 #         },
 #         "app_name": {
 #           "description": "If the request is from an API request, the app that generated the access token",
-#           "example": "EXAMPLE for iOS",
+#           "example": "quite frankly an example LMS for iOS",
 #           "type": "string"
 #         },
 #         "url": {
@@ -135,7 +135,7 @@
 # @model PageViewLinks
 #   {
 #     "id": "PageViewLinks",
-#     "description": "The links of a page view access in EXAMPLE",
+#     "description": "The links of a page view access in quite frankly an example LMS",
 #     "properties": {
 #        "user": {
 #          "description": "The ID of the user for this page view",
@@ -290,7 +290,7 @@ class PageViewsController < ApplicationController
   #   to be complete or wholly accurate. This data is meant to be used for
   #   rollups and analysis in the aggregate, not in isolation for auditing,
   #   or other high-stakes analysis involving examining single users or
-  #   small samples. Page Views data is generated from the EXAMPLE logs files,
+  #   small samples. Page Views data is generated from the quite frankly an example LMS logs files,
   #   not a transactional database, there are many places along the way
   #   data can be lost and/or duplicated (though uncommon). Additionally,
   #   given the size of this data, our processes ensure that errors can be
@@ -552,7 +552,7 @@ class PageViewsController < ApplicationController
   #   to be complete or wholly accurate. This data is meant to be used for
   #   rollups and analysis in the aggregate, not in isolation for auditing,
   #   or other high-stakes analysis involving examining single users or
-  #   small samples. Page Views data is generated from the EXAMPLE logs files,
+  #   small samples. Page Views data is generated from the quite frankly an example LMS logs files,
   #   not a transactional database, there are many places along the way
   #   data can be lost and/or duplicated (though uncommon). Additionally,
   #   given the size of this data, our processes ensure that errors can be
@@ -566,9 +566,9 @@ class PageViewsController < ApplicationController
   # @returns AsyncApiErrorResponse
   #
   # Note: PageView payloads use two types of identifiers: globalId and localId. Global identifier is equal to (shardId*10000000000000)+localId.
-  # Please note our global identifiers might change if your EXAMPLE instance goes through shard migration process, in this case your current
+  # Please note our global identifiers might change if your quite frankly an example LMS instance goes through shard migration process, in this case your current
   # shardId in the global identifier will change to a new shardId. Local identifiers do not change after shard migration and stay unique in the
-  # context of the EXAMPLE account. The following fields in the PageView payload are global identifiers: `links_user`, `links_context`, `links_asset`,
+  # context of the quite frankly an example LMS account. The following fields in the PageView payload are global identifiers: `links_user`, `links_context`, `links_asset`,
   # `links_real_user`, `links_account`, `developer_key_id`, `asset_user_access_id`.
   #
   # @example_request
@@ -812,7 +812,7 @@ class PageViewsController < ApplicationController
   #   to be complete or wholly accurate. This data is meant to be used for
   #   rollups and analysis in the aggregate, not in isolation for auditing,
   #   or other high-stakes analysis involving examining single users or
-  #   small samples. Page Views data is generated from the EXAMPLE logs files,
+  #   small samples. Page Views data is generated from the quite frankly an example LMS logs files,
   #   not a transactional database, there are many places along the way
   #   data can be lost and/or duplicated (though uncommon). Additionally,
   #   given the size of this data, our processes ensure that errors can be

@@ -127,7 +127,7 @@ describe ContentMigration do
         expect(dest_page.delete("\n")).to eq(expected_resulting_body.delete("\n"))
       end
 
-      it "doesn't fail with audio/video tags linked to EXAMPLE files" do
+      it "doesn't fail with audio/video tags linked to quite frankly an example LMS files" do
         folder = Folder.root_folders(@copy_from).first
         att1 = Attachment.create!(context: @copy_from, uploaded_data: StringIO.new("file"), filename: "audio.mp3", media_entry_id: "0_deadbeef", folder:)
         att2 = Attachment.create!(context: @copy_from, uploaded_data: StringIO.new("file"), filename: "video.mp4", media_entry_id: "0_livecat", folder:)

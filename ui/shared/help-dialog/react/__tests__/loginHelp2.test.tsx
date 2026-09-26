@@ -53,7 +53,7 @@ describe('renderLoginHelp()', () => {
     // Modal should be open initially when renderLoginHelp is called
     await waitFor(
       () => {
-        expect(screen.getByText('Login Help for EXAMPLE LMS')).toBeInTheDocument()
+        expect(screen.getByText('Login Help for quite frankly an example LMS')).toBeInTheDocument()
       },
       {timeout: 2000},
     )

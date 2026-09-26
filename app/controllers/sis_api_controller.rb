@@ -197,7 +197,7 @@
 #       "description": "Attributes of a course object.  See Courses API for more details",
 #       "properties": {
 #         "id": {
-#           "description": "The unique EXAMPLE identifier for the origin course",
+#           "description": "The unique quite frankly an example LMS identifier for the origin course",
 #           "example": 7,
 #           "type": "integer"
 #         },
@@ -253,7 +253,7 @@
 #       "description": "Attributes of assignment overrides that apply to users.  See Assignments API for more details",
 #       "properties": {
 #         "id": {
-#           "description": "The unique EXAMPLE identifier for the assignment override",
+#           "description": "The unique quite frankly an example LMS identifier for the assignment override",
 #           "example": 218,
 #           "type": "integer"
 #         },
@@ -291,7 +291,7 @@
 #       "description": "Attributes of student.  See Users API for more details",
 #       "properties": {
 #         "user_id": {
-#           "description": "The unique EXAMPLE identifier for the user",
+#           "description": "The unique quite frankly an example LMS identifier for the user",
 #           "example": 511,
 #           "type": "integer"
 #         },

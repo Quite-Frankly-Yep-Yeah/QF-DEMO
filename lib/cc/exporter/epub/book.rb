@@ -63,7 +63,7 @@ module CC::Exporter::Epub
           title.file_as = "#{title} ePub"
           title.display_seq = 1
         end
-        b.add_creator("EXAMPLE") do |creator|
+        b.add_creator("quite frankly an example LMS") do |creator|
           creator.display_seq = 1
         end
       end

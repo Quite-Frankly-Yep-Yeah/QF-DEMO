@@ -20,6 +20,6 @@
 require "builder"
 require "zip"
 
-# EXAMPLE Common Cartridge
+# quite frankly an example LMS Common Cartridge
 module CC
 end

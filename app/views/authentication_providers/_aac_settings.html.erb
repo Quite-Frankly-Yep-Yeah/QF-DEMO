@@ -60,7 +60,7 @@
               <%= f.radio_button :mfa_option, aac.account.mfa_settings != :required || !!aac.settings["mfa_required"] ? 'required' : 'default',
                                  id: "mfa_option_required_#{presenter.id_suffix(aac)}",
                                  checked: !!aac.settings["mfa_required"] || (!aac.skip_internal_mfa? && aac.account.mfa_settings == :required) %>
-              <%= f.label :mfa_option, t('EXAMPLE enforces MFA *When logging in through this Provider, EXAMPLE will challenge the user with MFA, or require it to be configured.*',
+              <%= f.label :mfa_option, t('quite frankly an example LMS enforces MFA *When logging in through this Provider, quite frankly an example LMS will challenge the user with MFA, or require it to be configured.*',
                                          wrappers: ['<br/><span class="ic-Form-help-text">\1</span>']), for: "mfa_option_required_#{presenter.id_suffix(aac)}", class: 'ic-Label' %>
 
             </div>
@@ -75,14 +75,14 @@
             <% if aac.auth_type != 'canvas' %>
               <div class="ic-Radio">
                 <%= f.radio_button :mfa_option, 'bypass', id: "mfa_option_bypass_#{presenter.id_suffix(aac)}", checked: aac.skip_internal_mfa? %>
-                <%= f.label :mfa_option, t('Provider enforces MFA *When logging in through this Provider, EXAMPLE will explicitly skip MFA enforcement. This should only be used if the Provider has already guaranteed MFA before SSO into EXAMPLE.*',
+                <%= f.label :mfa_option, t('Provider enforces MFA *When logging in through this Provider, quite frankly an example LMS will explicitly skip MFA enforcement. This should only be used if the Provider has already guaranteed MFA before SSO into quite frankly an example LMS.*',
                                           wrappers: ['<br/><span class="ic-Form-help-text">\1</span>']), for: "mfa_option_bypass_#{presenter.id_suffix(aac)}", class: 'ic-Label' %>
               </div>
             <%end%>
             <% if aac.account.mfa_settings != :required %>
               <div class="ic-Radio">
                 <%= f.radio_button :mfa_option, 'optional', id: "mfa_option_optional_#{presenter.id_suffix(aac)}", checked: !aac.mfa_required? && !aac.skip_internal_mfa? %>
-                <%= f.label :mfa_option, t('User can opt in to MFA *EXAMPLE will only challenge the user with MFA if they have configured it previously.*',
+                <%= f.label :mfa_option, t('User can opt in to MFA *quite frankly an example LMS will only challenge the user with MFA if they have configured it previously.*',
                                            wrappers: ['<br/><span class="ic-Form-help-text">\1</span>']), for: "mfa_option_optional_#{presenter.id_suffix(aac)}", class: 'ic-Label' %>
               </div>
             <%end%>

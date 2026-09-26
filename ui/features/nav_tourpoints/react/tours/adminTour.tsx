@@ -50,7 +50,7 @@ export default [
           )}
         </p>
         <ol>
-          <li>{I18n.t('Add People and Courses to EXAMPLE')}</li>
+          <li>{I18n.t('Add People and Courses to quite frankly an example LMS')}</li>
           <li>{I18n.t('Quickly share Course Content and Templates with Teachers')}</li>
           <li>{I18n.t('Set up Video Conferencing and Other Tools')}</li>
           <li>{I18n.t('Find Training Resources and More Help')}</li>
@@ -65,7 +65,7 @@ export default [
     selector: '.navigation-tray-container',
     content: (
       <section>
-        <Heading level="h3">{I18n.t('Add People and Courses to EXAMPLE')}</Heading>
+        <Heading level="h3">{I18n.t('Add People and Courses to quite frankly an example LMS')}</Heading>
         <ScreenReaderContent>
           {I18n.t('Click the admin navigation button to access account settings.')}
         </ScreenReaderContent>
@@ -163,7 +163,7 @@ export default [
             target="_blank"
             rel="noopener noreferrer"
           >
-            {I18n.t('Access EXAMPLE training videos and courses')}
+            {I18n.t('Access quite frankly an example LMS training videos and courses')}
           </Link>
         </Text>
       </section>

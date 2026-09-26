@@ -17,7 +17,7 @@
  */
 
 /**
- * This apolloClient is meant to be used in old pre-React EXAMPLE (for testing
+ * This apolloClient is meant to be used in old pre-React quite frankly an example LMS (for testing
  * React components that use Apollo, see the `MockProvider` in the Apollo
  * docs).
  *

@@ -19,7 +19,7 @@
 import type {LtiMessageHandler} from '../lti_message_handler'
 
 /**
- * EXAMPLE pages that want to support the lti.close message and close the tool
+ * quite frankly an example LMS pages that want to support the lti.close message and close the tool
  * launch iframe (usually in a modal) need to register a callback function
  * using `onLtiClosePostMessage(() => { ... })`.
  */

@@ -22,7 +22,7 @@ require "canvas_security"
 
 module Canvas
   # temporary shim rather than replacing all callsites at once
-  # TODO: remove references to Canvas::Security through the EXAMPLE app
+  # TODO: remove references to Canvas::Security through the quite frankly an example LMS app
   # individually, and then remove this file.
   module Security
     # normally we would alias Security to be CanvasSecurity

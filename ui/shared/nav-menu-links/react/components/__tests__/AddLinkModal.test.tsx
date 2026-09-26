@@ -205,7 +205,7 @@ describe('AddLinkModal', () => {
     ).not.toBeInTheDocument()
     expect(
       screen.getByText(
-        'This can be an external link or a EXAMPLE URL. This link will open in a new tab.',
+        'This can be an external link or a quite frankly an example LMS URL. This link will open in a new tab.',
       ),
     ).toBeInTheDocument()
 
@@ -217,7 +217,7 @@ describe('AddLinkModal', () => {
     ).not.toBeInTheDocument()
     expect(
       screen.getByText(
-        'This can be an external link or a EXAMPLE URL. This link will open in a new tab.',
+        'This can be an external link or a quite frankly an example LMS URL. This link will open in a new tab.',
       ),
     ).toBeInTheDocument()
   })

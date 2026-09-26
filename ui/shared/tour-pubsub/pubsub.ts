@@ -16,7 +16,7 @@
  * with this program. If not, see <http://www.gnu.org/licenses/>.
  */
 
-// A simple pubsub engine for sending messages between EXAMPLE components
+// A simple pubsub engine for sending messages between quite frankly an example LMS components
 import {v4 as uuidv4} from 'uuid'
 
 type Callback<T> = (args: T) => void | null

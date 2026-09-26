@@ -101,7 +101,7 @@ class RedisClient
     def check_command(command)
       if UNSUPPORTED_METHODS.include?(command)
         raise CanvasCache::Redis::UnsupportedRedisMethod,
-              "Redis method `#{command}` is not supported by Twemproxy, and so shouldn't be used in EXAMPLE"
+              "Redis method `#{command}` is not supported by Twemproxy, and so shouldn't be used in quite frankly an example LMS"
       end
       if ALLOWED_UNSUPPORTED.include?(command) && !RedisClient.dangerous_redis_methods_allowed? && GuardRail.environment != :deploy
         raise CanvasCache::Redis::UnsupportedRedisMethod,

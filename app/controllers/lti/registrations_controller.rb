@@ -34,10 +34,10 @@
 # @model Lti::Registration
 #     {
 #       "id": "Lti::Registration",
-#       "description": "A registration of an LTI tool in EXAMPLE",
+#       "description": "A registration of an LTI tool in quite frankly an example LMS",
 #       "properties": {
 #         "id": {
-#           "description": "the EXAMPLE ID of the Lti::Registration object",
+#           "description": "the quite frankly an example LMS ID of the Lti::Registration object",
 #           "example": 2,
 #           "type": "integer"
 #         },
@@ -62,7 +62,7 @@
 #           "type": "string"
 #         },
 #         "account_id": {
-#           "description": "The EXAMPLE id of the account that owns this registration",
+#           "description": "The quite frankly an example LMS id of the account that owns this registration",
 #           "example": 1,
 #           "type": "integer"
 #         },
@@ -82,7 +82,7 @@
 #           "type": "boolean"
 #         },
 #         "template_registration_id": {
-#           "description": "The EXAMPLE ID of the template registration, if this registration is inherited from a template",
+#           "description": "The quite frankly an example LMS ID of the template registration, if this registration is inherited from a template",
 #           "example": 1,
 #           "type": "integer"
 #         },
@@ -129,7 +129,7 @@
 #           "$ref": "User"
 #         },
 #         "root_account_id": {
-#           "description": "The EXAMPLE id of the root account",
+#           "description": "The quite frankly an example LMS id of the root account",
 #           "example": 1,
 #           "type": "integer"
 #         },
@@ -139,7 +139,7 @@
 #           "$ref": "Lti::RegistrationAccountBinding"
 #         },
 #         "configuration": {
-#           "description": "The EXAMPLE-style tool configuration for this registration",
+#           "description": "The quite frankly an example LMS-style tool configuration for this registration",
 #           "example": { "type": "Lti::ToolConfiguration" },
 #           "$ref": "Lti::ToolConfiguration"
 #         }
@@ -152,22 +152,22 @@
 #       "description": "A binding between an LTI registration and an account, defining the registration's availability in that account",
 #       "properties": {
 #         "id": {
-#           "description": "the EXAMPLE ID of the Lti::RegistrationAccountBinding object",
+#           "description": "the quite frankly an example LMS ID of the Lti::RegistrationAccountBinding object",
 #           "example": 10,
 #           "type": "integer"
 #         },
 #         "account_id": {
-#           "description": "The EXAMPLE id of the account",
+#           "description": "The quite frankly an example LMS id of the account",
 #           "example": 1,
 #           "type": "integer"
 #         },
 #         "root_account_id": {
-#           "description": "The EXAMPLE id of the root account",
+#           "description": "The quite frankly an example LMS id of the root account",
 #           "example": 1,
 #           "type": "integer"
 #         },
 #         "registration_id": {
-#           "description": "The EXAMPLE id of the Lti::Registration",
+#           "description": "The quite frankly an example LMS id of the Lti::Registration",
 #           "example": 2,
 #           "type": "integer"
 #         },
@@ -246,7 +246,7 @@
 #           "type": "object"
 #         },
 #         "public_jwk_url": {
-#           "description": "1.3 specific. The tool-hosted URL containing its public JWK keyset. EXAMPLE may cache JWKs up to 5 minutes.",
+#           "description": "1.3 specific. The tool-hosted URL containing its public JWK keyset. quite frankly an example LMS may cache JWKs up to 5 minutes.",
 #           "example": "https://mytool.com/1_3/jwks",
 #           "type": "string"
 #         },
@@ -279,7 +279,7 @@
 #                 "type": "string"
 #               },
 #               "privacy_level": {
-#                 "description": "EXAMPLE-defined privacy level for the tool",
+#                 "description": "quite frankly an example LMS-defined privacy level for the tool",
 #                 "example": "public",
 #                 "type": "string",
 #                 "enum": ["public", "anonymous", "name_only", "email_only"]
@@ -295,7 +295,7 @@
 #                     "type": "object"
 #                   },
 #                   "labels": {
-#                     "description": "EXAMPLE-specific i18n for placement text. See the Navigation Placement docs.",
+#                     "description": "quite frankly an example LMS-specific i18n for placement text. See the Navigation Placement docs.",
 #                     "example": { "en": "Hello World", "es": "Hola Mundo" },
 #                     "type": "object"
 #                   },
@@ -335,7 +335,7 @@
 #                     "type": "string"
 #                   },
 #                   "required_permissions": {
-#                     "description": "Comma-separated list of EXAMPLE permission short names required for a user to launch from this placement.",
+#                     "description": "Comma-separated list of quite frankly an example LMS permission short names required for a user to launch from this placement.",
 #                     "example": "manage_course_content_edit,manage_course_content_read",
 #                     "type": "string"
 #                   },
@@ -345,7 +345,7 @@
 #                     "type": "string"
 #                   },
 #                   "display_type": {
-#                     "description": "The EXAMPLE layout to use when launching the tool. See the Navigation Placement docs.",
+#                     "description": "The quite frankly an example LMS layout to use when launching the tool. See the Navigation Placement docs.",
 #                     "example": "full_width_in_context",
 #                     "type": "string",
 #                     "enum": [
@@ -420,7 +420,7 @@
 # @model Lti::ToolConfiguration
 #     {
 #       "id": "Lti::ToolConfiguration",
-#       "description": "A Registration's EXAMPLE-specific tool configuration.",
+#       "description": "A Registration's quite frankly an example LMS-specific tool configuration.",
 #       "properties": {
 #         "title": {
 #           "description": "The display name of the tool",
@@ -453,7 +453,7 @@
 #           "type": "string"
 #         },
 #         "privacy_level": {
-#           "description": "EXAMPLE-defined privacy level for the tool",
+#           "description": "quite frankly an example LMS-defined privacy level for the tool",
 #           "example": "public",
 #           "type": "string",
 #           "enum":
@@ -480,7 +480,7 @@
 #           "type": "object"
 #         },
 #         "public_jwk_url": {
-#           "description": "1.3 specific. The tool-hosted URL containing its public JWK keyset. EXAMPLE may cache JWKs up to 5 minutes.",
+#           "description": "1.3 specific. The tool-hosted URL containing its public JWK keyset. quite frankly an example LMS may cache JWKs up to 5 minutes.",
 #           "example": "https://mytool.com/1_3/jwks",
 #           "type": "string"
 #         },
@@ -491,7 +491,7 @@
 #           "items": { "type": "string" }
 #         },
 #         "redirect_uris": {
-#           "description": "1.3 specific. List of possible launch URLs for after the EXAMPLE authorize redirect step",
+#           "description": "1.3 specific. List of possible launch URLs for after the quite frankly an example LMS authorize redirect step",
 #           "example": ["https://mytool.com/launch", "https://mytool.com/1_3/launch"],
 #           "type": "array",
 #           "items": { "type": "string" }
@@ -531,7 +531,7 @@
 #           "type": "string"
 #         },
 #         "labels": {
-#           "description": "EXAMPLE-specific i18n for placement text. See the Navigation Placement docs.",
+#           "description": "quite frankly an example LMS-specific i18n for placement text. See the Navigation Placement docs.",
 #           "example": { "en": "Hello World", "es": "Hola Mundo" },
 #           "type": "object"
 #         },
@@ -571,7 +571,7 @@
 #           "type": "string"
 #         },
 #         "required_permissions": {
-#           "description": "Comma-separated list of EXAMPLE permission short names required for a user to launch from this placement.",
+#           "description": "Comma-separated list of quite frankly an example LMS permission short names required for a user to launch from this placement.",
 #           "example": "manage_course_content_edit,manage_course_content_read",
 #           "type": "string"
 #         },
@@ -581,7 +581,7 @@
 #           "type": "string"
 #         },
 #         "display_type": {
-#           "description": "The EXAMPLE layout to use when launching the tool. See the Navigation Placement docs.",
+#           "description": "The quite frankly an example LMS layout to use when launching the tool. See the Navigation Placement docs.",
 #           "example": "full_width_in_context",
 #           "type": "string",
 #           "enum": [
@@ -715,7 +715,7 @@
 #           "type": "string"
 #         },
 #         "labels": {
-#           "description": "EXAMPLE-specific i18n for placement text. See the Navigation Placement docs.",
+#           "description": "quite frankly an example LMS-specific i18n for placement text. See the Navigation Placement docs.",
 #           "example": { "en": "Hello World", "es": "Hola Mundo" },
 #           "type": "object"
 #         },
@@ -755,7 +755,7 @@
 #           "type": "string"
 #         },
 #         "required_permissions": {
-#           "description": "Comma-separated list of EXAMPLE permission short names required for a user to launch from this placement.",
+#           "description": "Comma-separated list of quite frankly an example LMS permission short names required for a user to launch from this placement.",
 #           "example": "manage_course_content_edit,manage_course_content_read",
 #           "type": "string"
 #         },
@@ -765,7 +765,7 @@
 #           "type": "string"
 #         },
 #         "display_type": {
-#           "description": "The EXAMPLE layout to use when launching the tool. See the Navigation Placement docs.",
+#           "description": "The quite frankly an example LMS layout to use when launching the tool. See the Navigation Placement docs.",
 #           "example": "full_width_in_context",
 #           "type": "string",
 #           "enum": [
@@ -833,7 +833,7 @@
 # @model Lti::Overlay
 #     {
 #       "id": "Lti::Overlay",
-#       "description": "Changes made by a EXAMPLE admin to a tool's configuration.",
+#       "description": "Changes made by a quite frankly an example LMS admin to a tool's configuration.",
 #       "properties": {
 #         "title": {
 #           "description": "The display name of the tool",
@@ -861,7 +861,7 @@
 #           "type": "string"
 #         },
 #         "privacy_level": {
-#           "description": "EXAMPLE-defined privacy level for the tool",
+#           "description": "quite frankly an example LMS-defined privacy level for the tool",
 #           "example": "public",
 #           "type": "string",
 #           "enum":
@@ -904,7 +904,7 @@
 #       "description": "A single version of a tool's configuration overlay",
 #       "properties": {
 #         "root_account_id": {
-#           "description": "The EXAMPLE id of the root account",
+#           "description": "The quite frankly an example LMS id of the root account",
 #           "example": 1,
 #           "type": "integer"
 #         },
@@ -954,7 +954,7 @@
 # @model Lti::PlacementOverlay
 #     {
 #       "id": "Lti::PlacementOverlay",
-#       "description": "Changes made by a EXAMPLE admin to a tool's configuration for a specific placement.",
+#       "description": "Changes made by a quite frankly an example LMS admin to a tool's configuration for a specific placement.",
 #       "properties": {
 #         "text": {
 #           "description": "The text of the link to the tool (if applicable).",
@@ -1045,10 +1045,10 @@
 # @model SearchableAccount
 #     {
 #       "id": "SearchableAccount",
-#       "description": "A minimal representation of an Account for EXAMPLE Apps search purposes",
+#       "description": "A minimal representation of an Account for quite frankly an example LMS Apps search purposes",
 #       "properties": {
 #         "id": {
-#           "description": "The EXAMPLE DB ID",
+#           "description": "The quite frankly an example LMS DB ID",
 #           "example": "1",
 #           "type": "string"
 #         },
@@ -1076,10 +1076,10 @@
 # @model SearchableCourse
 #     {
 #       "id": "SearchableCourse",
-#       "description": "A minimal representation of a Course for EXAMPLE Apps search purposes",
+#       "description": "A minimal representation of a Course for quite frankly an example LMS Apps search purposes",
 #       "properties": {
 #         "id": {
-#           "description": "The EXAMPLE DB ID",
+#           "description": "The quite frankly an example LMS DB ID",
 #           "example": "1",
 #           "type": "string"
 #         },
@@ -1183,8 +1183,8 @@ class Lti::RegistrationsController < ApplicationController
   #   Array of additional data to include. Always includes [account_binding].
   #
   #   "account_binding":: the registration's binding to the given account
-  #   "configuration":: the registration's EXAMPLE-style tool configuration, without any overlays applied.
-  #   "overlaid_configuration":: the registration's EXAMPLE-style tool configuration, with all overlays applied.
+  #   "configuration":: the registration's quite frankly an example LMS-style tool configuration, without any overlays applied.
+  #   "overlaid_configuration":: the registration's quite frankly an example LMS-style tool configuration, with all overlays applied.
   #   "overlay":: the registration's admin-defined configuration overlay
   #
   # @returns ListLtiRegistrationsResponse
@@ -1324,8 +1324,8 @@ class Lti::RegistrationsController < ApplicationController
   #   Array of additional data to include. Always includes [account_binding configuration].
   #
   #   "account_binding":: the registration's binding to the given account
-  #   "configuration":: the registration's EXAMPLE-style tool configuration, without any overlays applied.
-  #   "overlaid_configuration":: the registration's EXAMPLE-style tool configuration, with all overlays applied.
+  #   "configuration":: the registration's quite frankly an example LMS-style tool configuration, without any overlays applied.
+  #   "overlaid_configuration":: the registration's quite frankly an example LMS-style tool configuration, with all overlays applied.
   #   "overlaid_legacy_configuration":: the registration's legacy-style configuration, with all overlays applied.
   #   "overlay":: the registration's admin-defined configuration overlay
   #   "overlay_versions":: the registration's overlay's edit history
@@ -1843,7 +1843,7 @@ class Lti::RegistrationsController < ApplicationController
   end
 
   # @API Search for Accounts and Courses
-  # This is a utility endpoint used by the EXAMPLE Apps UI and may not serve general use cases.
+  # This is a utility endpoint used by the quite frankly an example LMS Apps UI and may not serve general use cases.
   #
   # Search for accounts and courses that match the search term on name, SIS id, or course code.
   # Returns all matching accounts and courses, including those nested in sub-accounts.

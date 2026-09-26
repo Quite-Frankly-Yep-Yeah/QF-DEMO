@@ -121,7 +121,7 @@ class AiConversationsController < ApplicationController
       )
     end
 
-    # Return only the EXAMPLE conversation ID, messages, and progress
+    # Return only the quite frankly an example LMS conversation ID, messages, and progress
     render json: { id: conversation_record&.id, messages: result[:messages], progress: result[:progress] }, status: :created
   rescue LlmConversation::Errors::ConversationError => e
     render json: { error: e.message }, status: :service_unavailable
@@ -146,7 +146,7 @@ class AiConversationsController < ApplicationController
       requesting_user: @current_user
     )
 
-    # Return only the EXAMPLE conversation ID, messages, and progress
+    # Return only the quite frankly an example LMS conversation ID, messages, and progress
     render json: { id: @conversation.id, messages: result[:messages], progress: result[:progress] }
   rescue LlmConversation::Errors::ConversationError => e
     render json: { error: e.message }, status: :service_unavailable

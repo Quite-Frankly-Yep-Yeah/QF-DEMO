@@ -99,7 +99,7 @@ describe('ForgotPasswordLink', () => {
     expect(button.closest('a')).toHaveAttribute('href', forgotPasswordUrl)
   })
 
-  it('renders a link to EXAMPLE forgot password route when forgotPasswordUrl is not provided', () => {
+  it('renders a link to quite frankly an example LMS forgot password route when forgotPasswordUrl is not provided', () => {
     renderComponent()
     const button = screen.getByText('Forgot password?')
     expect(button.closest('a')).toHaveAttribute('href', '/login/canvas/forgot-password')

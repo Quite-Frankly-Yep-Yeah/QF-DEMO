@@ -358,6 +358,8 @@ class CoursesController < ApplicationController
   include NewQuizzesFeaturesHelper
   include ObserverModuleInfo
   include ObserverEnrollmentsHelper
+  include SelfPaced::CourseCatalogPage
+  include SelfPaced::StaffCourseHome
   include DefaultDueTimeHelper
 
   skip_before_action :require_user, only: %i[api_settings
@@ -513,7 +515,7 @@ class CoursesController < ApplicationController
   #   - "course_image": Optional information to include with each Course. Returns course
   #     image url if a course image has been set.
   #   - "banner_image": Optional information to include with each Course. Returns course
-  #     banner image url if the course is a EXAMPLE for Elementary subject and a banner
+  #     banner image url if the course is a quite frankly an example LMS for Elementary subject and a banner
   #     image has been set.
   #   - "concluded": Optional information to include with each Course. Indicates whether
   #     the course has been concluded, taking course and term dates into account.
@@ -531,6 +533,8 @@ class CoursesController < ApplicationController
     GuardRail.activate(:secondary) do
       respond_to do |format|
         format.html do
+          return render_self_paced_course_catalog if self_paced_course_catalog?
+
           css_bundle :context_list, :course_list
           js_bundle :course_list
 
@@ -745,7 +749,7 @@ class CoursesController < ApplicationController
   #   - "course_image": Optional information to include with each Course. Returns course
   #     image url if a course image has been set.
   #   - "banner_image": Optional information to include with each Course. Returns course
-  #     banner image url if the course is a EXAMPLE for Elementary subject and a banner
+  #     banner image url if the course is a quite frankly an example LMS for Elementary subject and a banner
   #     image has been set.
   #   - "concluded": Optional information to include with each Course. Indicates whether
   #     the course has been concluded, taking course and term dates into account.
@@ -1849,7 +1853,7 @@ class CoursesController < ApplicationController
   #
   # @argument show_announcements_on_home_page [Boolean]
   #   Show the most recent announcements on the Course home page (if a Wiki, defaults to five announcements, configurable via home_page_announcement_limit).
-  #   EXAMPLE for Elementary subjects ignore this setting.
+  #   quite frankly an example LMS for Elementary subjects ignore this setting.
   #
   # @argument home_page_announcement_limit [Integer]
   #   Limit the number of announcements on the home page if enabled via show_announcements_on_home_page
@@ -1858,7 +1862,7 @@ class CoursesController < ApplicationController
   #   Show the course summary (list of assignments and calendar events) on the syllabus page. Default is true.
   #
   # @argument default_due_time [String]
-  #   Set the default due time for assignments. This is the time that will be pre-selected in the EXAMPLE user interface
+  #   Set the default due time for assignments. This is the time that will be pre-selected in the quite frankly an example LMS user interface
   #   when setting a due date for an assignment. It does not change when any existing assignment is due. It should be
   #   given in 24-hour HH:MM:SS format. The default is "23:59:59". Use "inherit" to inherit the account setting.
   #
@@ -2332,7 +2336,7 @@ class CoursesController < ApplicationController
   #     for the course.
   #   - "observed_users": Include observed users in the enrollments
   #   - "course_image": Include course image url if a course image has been set
-  #   - "banner_image": Include course banner image url if the course is a EXAMPLE for
+  #   - "banner_image": Include course banner image url if the course is a quite frankly an example LMS for
   #     Elementary subject and a banner image has been set
   #   - "concluded": Optional information to include with Course. Indicates whether
   #     the course has been concluded, taking course and term dates into account.
@@ -2383,6 +2387,7 @@ class CoursesController < ApplicationController
       # can't run in before_action because it needs @context
       return if load_canvas_career
       return if self_paced_player_redirect
+      return render_self_paced_staff_home if self_paced_staff_home?
 
       assign_localizer
       if request.xhr?
@@ -3275,25 +3280,25 @@ class CoursesController < ApplicationController
   #
   # @argument course[homeroom_course] [Boolean]
   #   Sets the course as a homeroom course. The setting takes effect only when the course is associated
-  #   with a EXAMPLE for Elementary-enabled account.
+  #   with a quite frankly an example LMS for Elementary-enabled account.
   #
   # @argument course[sync_enrollments_from_homeroom] [String]
   #   Syncs enrollments from the homeroom that is set in homeroom_course_id. The setting only takes effect when the
-  #   course is associated with a EXAMPLE for Elementary-enabled account and sync_enrollments_from_homeroom is enabled.
+  #   course is associated with a quite frankly an example LMS for Elementary-enabled account and sync_enrollments_from_homeroom is enabled.
   #
   # @argument course[homeroom_course_id] [String]
   #   Sets the Homeroom Course id to be used with sync_enrollments_from_homeroom. The setting only takes effect when the
-  #   course is associated with a EXAMPLE for Elementary-enabled account and sync_enrollments_from_homeroom is enabled.
+  #   course is associated with a quite frankly an example LMS for Elementary-enabled account and sync_enrollments_from_homeroom is enabled.
   #
   # @argument course[template] [Boolean]
   #   Enable or disable the course as a template that can be selected by an account
   #
   # @argument course[course_color] [String]
   #   Sets a color in hex code format to be associated with the course. The setting takes effect only when the course
-  #   is associated with a EXAMPLE for Elementary-enabled account.
+  #   is associated with a quite frankly an example LMS for Elementary-enabled account.
   #
   # @argument course[friendly_name] [String]
-  #   Set a friendly name for the course. If this is provided and the course is associated with a EXAMPLE for
+  #   Set a friendly name for the course. If this is provided and the course is associated with a quite frankly an example LMS for
   #   Elementary account, it will be shown instead of the course name. This setting takes priority over
   #   course nicknames defined by individual users.
   #
@@ -3616,7 +3621,7 @@ class CoursesController < ApplicationController
       end
 
       if params[:course][:horizon_course].present? && !@course.account.feature_enabled?(:horizon_course_setting)
-        horizon_message = t("EXAMPLE Career cannot be set without the feature flag enabled")
+        horizon_message = t("quite frankly an example LMS Career cannot be set without the feature flag enabled")
         @course.errors.add(:horizon_course, horizon_message)
       end
 

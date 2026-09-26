@@ -92,7 +92,7 @@ ready(() => {
       mount(mountPoint, setupEnvContext(), window.REMOTES.canvas_career_config)
     })
     .catch((error: Error) => {
-      console.error('Failed to load EXAMPLE Career', error)
+      console.error('Failed to load quite frankly an example LMS Career', error)
       captureException(error)
 
       rerender(
@@ -102,8 +102,8 @@ ready(() => {
           onReportError={reportError}
           translations={canvasErrorPageTranslations}
           errorMessage={error.message}
-          errorSubject={I18n.t('EXAMPLE Career loading error')}
-          errorCategory={I18n.t('EXAMPLE Career Error Page')}
+          errorSubject={I18n.t('quite frankly an example LMS Career loading error')}
+          errorCategory={I18n.t('quite frankly an example LMS Career Error Page')}
         />,
       )
     })

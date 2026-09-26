@@ -19,7 +19,7 @@
 
 module Importers
   # This class encapsulates the logic to retrieve metadata (for various types of assets)
-  # given a migration id. This particular implementation relies on db queries in EXAMPLE
+  # given a migration id. This particular implementation relies on db queries in quite frankly an example LMS
   # but future implementations may rely on a static asset_migration_map
   #
   # Each function returns exactly one id (if available), and nil if an id
@@ -69,7 +69,7 @@ module Importers
     def lookup_attachment_by_migration_id(migration_id)
       # CanvasLinkMigrator treats the presence of the UUID as needing to add
       # it to the URL as a verifier, which we don't want to do with links inside
-      # of EXAMPLE, so we're excluding it
+      # of quite frankly an example LMS, so we're excluding it
       att = @context.attachments.find_by(migration_id:)
       return nil unless att
 

@@ -7,7 +7,7 @@
     "name": "Name of user.",
     "short_name": "Short name of user.",
     "updated_at": "The time at which this user was last modified in any way.",
-    "user_id": "The EXAMPLE id of user.",
+    "user_id": "The quite frankly an example LMS id of user.",
     "user_login": "The login of the current user.",
     "user_sis_id": "The SIS id of the user.",
     "uuid": "Unique user id.",

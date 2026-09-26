@@ -184,20 +184,20 @@ hy:
   accepted_user_role_type_course_course_2ce91589: "Ընդունված. %{user}, %{role_type}, դասընթաց, %{course}"
   access_token_details_495d989: "Հասանելիության token-ի տվյալներ"
   access_token_is_valid_until_d2f048cf: "Մուտքի token-ը ուժի մեջ է մինչև"
-  access_tokens_can_be_used_to_allow_other_applicati_16c4a3ab: "Մուտքի token-ները կարող են թույլ տալ այլ հավելվածներին Ձեր անունից կատարել API այցեր: Դուք կարող եք նաև գեներացնել մուտքի token-ները և *օգտագործել EXAMPLE Open API-ն* Ձեր սեփական ինտեգրացիաների ստեղծման համար:"
+  access_tokens_can_be_used_to_allow_other_applicati_16c4a3ab: "Մուտքի token-ները կարող են թույլ տալ այլ հավելվածներին Ձեր անունից կատարել API այցեր: Դուք կարող եք նաև գեներացնել մուտքի token-ները և *օգտագործել quite frankly an example LMS Open API-ն* Ձեր սեփական ինտեգրացիաների ստեղծման համար:"
   accordion_section_1_7888782d: "Accordion բաժին 1"
   accordion_section_2_e1812997: "Accordion բաժին 2"
   accordion_section_3_96861901: "Accordion բաժին 3"
   account: 
-    ask_canvas_network: "Հարցնել EXAMPLE-ի ցանցի օգտատերերին "
+    ask_canvas_network: "Հարցնել quite frankly an example LMS-ի ցանցի օգտատերերին "
     default_account_name: "Հաշվի՝ լռելյայն ընդունված անվանումը "
     default_site_administrator_account_name: "Կայքի ադմինիստրատոր"
     default_term_name: "Լռելյայն ընդունված ժամանակահատված  "
     errors: 
       invalid_discovery_url: "Տեղեկությունների URL-հասցեն վավերական չէ"
     feedback_coach: "Հարցնել հանրությանը"
-    feedback_coach_sub: "Օգնություն ստանալ EXAMPLE-ի փորձագետից "
-    feedback_feature_request_sub: "Ունե՞ք գաղափարներ EXAMPLE համակարգը կատարելագործելու համար"
+    feedback_coach_sub: "Օգնություն ստանալ quite frankly an example LMS-ի փորձագետից "
+    feedback_feature_request_sub: "Ունե՞ք գաղափարներ quite frankly an example LMS համակարգը կատարելագործելու համար"
     manually_created_courses: "Մեխանիկական եղանակով ստեղծված դասընթացներ"
     root_account_cant_have_sis_id: "Հասանելիության առավելագույն իրավունքներով հաշիվների վրա հնարավոր չէ տեղադրել SIS  ID-ներ"
     sis_id_in_use: "%{sis_id} SIS ID-ն արդեն իսկ գործածվում է"
@@ -244,7 +244,7 @@ hy:
     index: 
       delete_auth_confirmation: "Դուք համոզվա՞ծ եք: Օգտատերերը չեն կարողանա մուտք գործել համակարգ, եթե ջնջեք այն:"
       delete_auth_link: "Հանել բոլոր իսկության ստուգումները"
-      ip_address_list_description: "Եթե Դուք օգտագործում եք իսկության հաստատման մի ծառայություն, որը պահանջում է, որ EXAMPLE-ի սերվերները անմիջականորեն կապվեն Ձեր սերվերների հետ, ինչպիսին օրինակ՝ LDAP-ն է, Դուք պետք է համոզվեք, որ Ձեր սերվերները կարող են ընդունել միացումներ այդ IP հասցեներից` "
+      ip_address_list_description: "Եթե Դուք օգտագործում եք իսկության հաստատման մի ծառայություն, որը պահանջում է, որ quite frankly an example LMS-ի սերվերները անմիջականորեն կապվեն Ձեր սերվերների հետ, ինչպիսին օրինակ՝ LDAP-ն է, Դուք պետք է համոզվեք, որ Ձեր սերվերները կարող են ընդունել միացումներ այդ IP հասցեներից` "
       no_auth_type_description: "Այս հաշիվը ներկայումս ինտեգրված չէ նույնականացման պրովայդերի հետ"
       page_title: "Իսկության հաստատման կարգաբերումներ"
       profile_page_link_example: "Օրինակ՝ Ձեր պրոֆիլի էջ [%{friendlyname}](%{url})"
@@ -253,8 +253,8 @@ hy:
       test_ldap_link: "Փորձել  LDAP  իսկության ստուգումը"
     ldap_fields: 
       auth_filter_description: "Օգտագործեք *%{placeholder}* որպես օգտատիրոջ կողմից նշված նրա անվան լրացման դաշտ: Օրինակ՝  *(sAMAccountName=%{placeholder})*"
-      identifer_format_description: "LDAP ատրիբուտն օգտագործվում է EXAMPLE համակարգ մուտք փնտրելու համար: Թողեք դատարկ, որպեսզի օգտագործեք օգտատիրոջ կողմից տրամադրված օգտատիրոջ անունը: "
-      ldap_timeout_failure_help2: "Եթե EXAMPLE չափազանց շատ անգամ ընդհատում է կապը LDAP սերվերի հետ, այն %{time} ժամանակով  կարգելափակի այդ LDAP սերվերի միջոցով համակարգ մուտք գործելու փորձերը: Ձեր LDAP սերվերը վերջին անգամ ընդհատել է կապը  %{timestamp}:"
+      identifer_format_description: "LDAP ատրիբուտն օգտագործվում է quite frankly an example LMS համակարգ մուտք փնտրելու համար: Թողեք դատարկ, որպեսզի օգտագործեք օգտատիրոջ կողմից տրամադրված օգտատիրոջ անունը: "
+      ldap_timeout_failure_help2: "Եթե quite frankly an example LMS չափազանց շատ անգամ ընդհատում է կապը LDAP սերվերի հետ, այն %{time} ժամանակով  կարգելափակի այդ LDAP սերվերի միջոցով համակարգ մուտք գործելու փորձերը: Ձեր LDAP սերվերը վերջին անգամ ընդհատել է կապը  %{timestamp}:"
     ldap_settings_test: 
       labels: 
         pass: Գաղտնաբառ
@@ -262,14 +262,14 @@ hy:
       ldap_test_login_button: "Համակարգ մուտքի ստուգում"
       test_ldap_bind_help_body: "LDAP սերվերը մերժել է կապվելու փորձը: Պետք է դիտարկել հետևայլը."
       test_ldap_bind_help_fixes_1: "Ստուգել ֆիլտրի տրված պարամետրերը (օր.՝ '(sAMAccountName={{login}})')."
-      test_ldap_bind_help_fixes_2: "Արդյո՞ք օգտատիրոջ անվան համար պահանջվում է լրացուցիչ տեղեկատվություն (օր.՝ 'cn=EXAMPLE,ou=people,dc=example,dc=com'):"
-      test_ldap_bind_help_header: "EXAMPLE-ը չի կարող կապվել (մուտք գործել) LDAP սերվերի հետ"
+      test_ldap_bind_help_fixes_2: "Արդյո՞ք օգտատիրոջ անվան համար պահանջվում է լրացուցիչ տեղեկատվություն (օր.՝ 'cn=quite frankly an example LMS,ou=people,dc=example,dc=com'):"
+      test_ldap_bind_help_header: "quite frankly an example LMS-ը չի կարող կապվել (մուտք գործել) LDAP սերվերի հետ"
       test_ldap_bind_label: "LDAP կապի ստուգում..."
       test_ldap_connection_help_body: "Միացումը մերժվել է կամ ժամանակը սպառվել է: Պետք է դիտարկել հետևյալը."
-      test_ldap_connection_help_fixes_1: "EXAMPLE-ը միանում է  %{ips}-ին"
+      test_ldap_connection_help_fixes_1: "quite frankly an example LMS-ը միանում է  %{ips}-ին"
       test_ldap_connection_help_fixes_2: "Սա միայն միացման ստուգում էր: SSL սերտիֆիկատները չեն հաստատվել: "
-      test_ldap_connection_help_fixes_3: "Ստուգեք միջցանցային էկրանի կարգաբերումները: Արդյո՞ք EXAMPLE-ի բոլոր IP-ներին թույլատրված է կապվել ձեր սերվերին:"
-      test_ldap_connection_help_header: "EXAMPLE-ը չի կարողանում կապվել LDAP սերվերին"
+      test_ldap_connection_help_fixes_3: "Ստուգեք միջցանցային էկրանի կարգաբերումները: Արդյո՞ք quite frankly an example LMS-ի բոլոր IP-ներին թույլատրված է կապվել ձեր սերվերին:"
+      test_ldap_connection_help_header: "quite frankly an example LMS-ը չի կարողանում կապվել LDAP սերվերին"
       test_ldap_connection_label: "Միացման ստուգում..."
       test_ldap_dialog_close: Փակել
       test_ldap_dialog_page_title: "Ստուգվում է LDAP-ի կոնֆիգուրացիան"
@@ -280,7 +280,7 @@ hy:
       test_ldap_search_help_fixes_1: "Ստուգել ֆիլտրի տրված պարամետրերը (օր.՝ '(sAMAccountName={{login}})')."
       test_ldap_search_help_fixes_2: "Ստուգել տրված որոնումների բազան (օր.՝'ou=people,dc=example,dc=com'): "
       test_ldap_search_help_fixes_3: "Համոզվել, որ LDAP-ում օգտատիրոջ օբյեկտը որոնումների տրված բազայի համար ունի համապատասխան իրավասություններ:"
-      test_ldap_search_help_header: "EXAMPLE-ը չի կարող որոնել LDAP օրինակը:"
+      test_ldap_search_help_header: "quite frankly an example LMS-ը չի կարող որոնել LDAP օրինակը:"
       test_ldap_search_label: "LDAP որոնումների փորձարկում..."
     linkedin_fields: 
       description: |-
@@ -303,7 +303,7 @@ hy:
       auth_request_to_idp: "IdP-ին ուղարկված իսկության հաստատման հարցում "
       auth_response_from_idp: "IdP-ից ստացված իսկության հաստատման պատասխան"
       labels: 
-        canvas_login_fail_message: "Հաղորդագրություն EXAMPLE մուտք գործելու ձախողման մասին "
+        canvas_login_fail_message: "Հաղորդագրություն quite frankly an example LMS մուտք գործելու ձախողման մասին "
         fingerprint_from_idp: "Մատնահետքերի IdP սերտիֆիկատ"
         idp_in_response_to: "IdP ի պատասխան"
         idp_login_destination: "IdP պատասխանը տեղեկությունների հասցեատիրոջը համակարգ մուտք գործելիս "
@@ -314,10 +314,10 @@ hy:
         idp_response_encoded: "IdP մուտքի պատասխանը կոդավորված է"
         idp_response_xml_decrypted: "IdP մուտքի պատասխանը ապակոդավորված է"
         idp_response_xml_encrypted: "IdP մուտքի պատասխանը կոդավորված է"
-        is_valid_login_response: "EXAMPLE-ը կարծում է, որ պատասխանը ընդունելի է"
+        is_valid_login_response: "quite frankly an example LMS-ը կարծում է, որ պատասխանը ընդունելի է"
         logged_in_user_id: "Օգտատիրոջ՝ մուտք գործելու նույնականացուցիչ "
         login_response_validation_error: "Իսկության հաստատման սխալ"
-        login_to_canvas_success: "Օգտատերը հաջողությամբ մուտք է գործել EXAMPLE"
+        login_to_canvas_success: "Օգտատերը հաջողությամբ մուտք է գործել quite frankly an example LMS"
         logout_request_id: "Ելքի համար պահանջվում է օգտատիրոջ id"
         logout_to_idp_url: "Ելքի պահանջի կոդավորված URL"
         logout_to_idp_xml: "IdP-ին ուղարկված ելքի պահանջ XML"
@@ -328,8 +328,8 @@ hy:
       logout_request_to_idp: "Ելքի հարցումը ուղարկվել է IdP-ին"
       logout_response_from_idp: "Ելքի պատասխանը IdP-ից"
     sso_settings_form: 
-      change_password_url_help: "Թողեք դատարկ՝ EXAMPLE-ի ըստ լռության ընդունված գործողությունների համար"
-      discovery_url_description: "Եթե սահմանված է discovery URL-հասցեն, EXAMPLE համակարգը բոլոր օգտատերերին կուղարկի URL այդ հասցեով, երբ նրանք կարիք ունենան իսկության ստուգման: Այդ էջը կօգնի օգտատերերին հասկանալ, ուր պետք է նրանք գնան համակարգ մուտք գործելու համար: Եթե ոչ մի discovery URL կարգաբերված չէ, առաջին կոնֆիգուրացիան պետք է օգտագործվի փորձելու համար ստուգել օգտատիրոջ իսկությունը: "
+      change_password_url_help: "Թողեք դատարկ՝ quite frankly an example LMS-ի ըստ լռության ընդունված գործողությունների համար"
+      discovery_url_description: "Եթե սահմանված է discovery URL-հասցեն, quite frankly an example LMS համակարգը բոլոր օգտատերերին կուղարկի URL այդ հասցեով, երբ նրանք կարիք ունենան իսկության ստուգման: Այդ էջը կօգնի օգտատերերին հասկանալ, ուր պետք է նրանք գնան համակարգ մուտք գործելու համար: Եթե ոչ մի discovery URL կարգաբերված չէ, առաջին կոնֆիգուրացիան պետք է օգտագործվի փորձելու համար ստուգել օգտատիրոջ իսկությունը: "
       login_handle_name_description: "Տարբերանիշն օգտագործվում է մուտքի յուրօրինակ նույնականացուցիչների համար: Օրինակ՝ Մուտք, Օգտատիրոջ անուն, Ունկնդրի նույնականացուցիչ և այլն"
       unknown_user_url_description: "Url-հասցե վերահասցեագրելու համար, երբ իսկությունը հաստատված օգտատերը չի գտնվել canvas համակարգում:"
   account_groups_2f301732: "Միևնույն հաշիվն ունեցող խմբեր"
@@ -554,7 +554,7 @@ hy:
         sent_at: Ուղարկել
         to: Ում
       comm_messages_content_pane: 
-        search_info2: "EXAMPLE համակարգի օգտատիրոջն ուղարկված բոլոր ծանուցումները դիտելու համար ընտրեք օգտատիրոջը և որոնման ամսաթվերի տիրույթը  "
+        search_info2: "quite frankly an example LMS համակարգի օգտատիրոջն ուղարկված բոլոր ծանուցումները դիտելու համար ընտրեք օգտատիրոջը և որոնման ամսաթվերի տիրույթը  "
         view_notifications: "Դիտել ծանուցումները"
       comm_messages_search_overview: 
         messages_viewed: "Ծանուցումն ուղարկվել է *%{user}*  *%{start_date}*-ից մինչև *%{end_date}*."
@@ -992,7 +992,7 @@ hy:
       account_reports: 
         sis_export: 
           description: 
-            text: "Այս հաշվետվությունը արտահանում է բոլոր անհրաժեշտ տեղեկությունները, որոնք վերաբերում են EXAMPLE-ի համապատասխան կատեգորիաների ինիցիալիզացիային:"
+            text: "Այս հաշվետվությունը արտահանում է բոլոր անհրաժեշտ տեղեկությունները, որոնք վերաբերում են quite frankly an example LMS-ի համապատասխան կատեգորիաների ինիցիալիզացիային:"
     provisioning_csv_parameters: 
       account_reports: 
         default: 
@@ -1055,8 +1055,8 @@ hy:
             field: "Բաժնի նույնականացուցիչը"
     settings: 
       about_google_docs: |-
-          Google Docs նախնական դիտումներ գործիքը թույլ է տալիս օգտատերերին դիտել EXAMPLE  համակարգի բոլոր փաստաթղթերը, այլ ոչ թե ներբեռնել դրանք եւ բացել համապատասխան ծրագիրը  (օրինակ՝ Word կամ Excel):
-          Google Docs նախնական դիտումներ գործիքը նաև ցույց է տալիս EXAMPLE համակարգի փաստաթղթերի դիտման գործիքի կողմից չճանաչված ձևաչափ ունեցող փաստաթղթերըԼ
+          Google Docs նախնական դիտումներ գործիքը թույլ է տալիս օգտատերերին դիտել quite frankly an example LMS  համակարգի բոլոր փաստաթղթերը, այլ ոչ թե ներբեռնել դրանք եւ բացել համապատասխան ծրագիրը  (օրինակ՝ Word կամ Excel):
+          Google Docs նախնական դիտումներ գործիքը նաև ցույց է տալիս quite frankly an example LMS համակարգի փաստաթղթերի դիտման գործիքի կողմից չճանաչված ձևաչափ ունեցող փաստաթղթերըԼ
           Այս ծառայությունն օգտագործելիս դուք պետք է հաստատեք, որ կարդացել և համաձայնվել եք [Google Docs դիտման ծառայության պայմաններին](%{terms_url}) հետ:
       about_google_docs_tooltip: "Google Docs նախնական դիտումների մասին"
       account_admins_title: "Հաշիվների  ադմինիաստատորներ"
@@ -1088,7 +1088,7 @@ hy:
         add_users: "Ավելացնել այդ օգտատերերին"
         continue: Շարունակել...
         modify_users: "Վերադառնալ և խմբագրել օգտատերերի ցուցակը"
-      confirm_global_announcement: "Այս հայտարարությունը տեսանելի է լինելու EXAMPLE-ի *բոլոր* օգտատերերին: Հաստատեք, որ իսկապես ցանկանում եք ստեղծել այն:"
+      confirm_global_announcement: "Այս հայտարարությունը տեսանելի է լինելու quite frankly an example LMS-ի *բոլոր* օգտատերերին: Հաստատեք, որ իսկապես ցանկանում եք ստեղծել այն:"
       confirm_turnitin_settings_link: "հաստատել Turnitin կարգաբերումները"
       course_roles: "Դասընթացի դերը՝"
       create_courses_description: "(Հաշվի գրառման ադմինիստրատորները միշտ կարող են ստեղծել դասընթացներ)"
@@ -1097,7 +1097,7 @@ hy:
       default_language_description: "Սա կփոխի բրաուզերի/OS բոլոր լեզվական կարգաբերումները: Նախընտրելի լեզուները կարելի է նախանշել դասընթացի/օգտատիրոջ մակարդակներում:   "
       delete: Ջնջել
       delete_announcement_tooltip: "Ջնջել այս հայտարարությունը"
-      email_notification_from_description: "Այս կարգաբերումները թույլ են տալիս ադմինիստրատորին այս հաշվին EXAMPLE-ից ուղարկված բոլոր ծանուցումներում \"ումից\" տեքստը բրենդավորել կամ պիտակավորել "
+      email_notification_from_description: "Այս կարգաբերումները թույլ են տալիս ադմինիստրատորին այս հաշվին quite frankly an example LMS-ից ուղարկված բոլոր ծանուցումներում \"ումից\" տեքստը բրենդավորել կամ պիտակավորել "
       email_notification_from_settings: "Էլեկտրոնային հասցեով ծանուցումների \"Ումից\" կարգաբերումները"
       enabled_web_serices_title: "Միացված վեբ-ծառայություններ "
       equall_endpoint_help: "Սա Ձեր equella ծառայության url հասցեն է: Հավանաբար, այն կունենա \"%{sample_url}\" տեսքը:  "
@@ -1123,7 +1123,7 @@ hy:
       help_link_available_to_all_users: Օգտատերեր
       if_you_would_like_to_link_to_your_own_campus_support_website_in_the_help_dialog_you_can_do_that_here: "Եթե դուք ցանկանում եք օգնության դիալոգի հղումով միանալ ձեր ուսանողական տարածքի օգնության կայքին, ապա դա կարող եք անել այստեղ:"
       interpolate_account_domain: "Մուտքագրեք \"{{ACCOUNT_DOMAIN}}\" օգտատիրոջ հաշիվը՝ հասանելիության առավելագույն իրավունքներով դոմենի փոխարինման համար"
-      interpolate_user_id: "Մուտքագրեք \"{{CANVAS_USER_ID}}\" փոխարինելու համար օգտատիրոջ եզակի EXAMPLE նույնականացուցչին"
+      interpolate_user_id: "Մուտքագրեք \"{{CANVAS_USER_ID}}\" փոխարինելու համար օգտատիրոջ եզակի quite frankly an example LMS նույնականացուցչին"
       ip_filter_filter_label: Ֆիլտր
       ip_filter_name_label: Անուն
       labels: 
@@ -1137,7 +1137,7 @@ hy:
         allow_sending_scores_in_emails: "Ունկնդիրները կարող են ընտրել ծանուցումները էլ.փոստով ստանալու տարբերակը"
         allow_sis_import: "SIS ներմուծումներ"
         author_email_in_notifications: "Ցույց տալ ուղարկողի էլ.փոստի հասցեն օգտատերերի փոխգործողությունների մասին ծանուցումների ուղարկման համար "
-        canvas_authentication: "EXAMPLE-ի իսկության հաստատում"
+        canvas_authentication: "quite frankly an example LMS-ի իսկության հաստատում"
         default_language: "Լռությամբ ընդունված լեզուն "
         default_time_zone: "Լռությամբ ընդունված ժամային գոտին"
         domain: Դոմեն
@@ -1170,7 +1170,7 @@ hy:
         open_registration: "Բացել գրանցումը"
         outgoing_email_default_name: Անուն․
         outgoing_email_default_name_option_custom: "\"Ումից\" օգտատիրոջ անուն"
-        outgoing_email_default_name_option_default: "EXAMPLE-ի լռությամբ ընդունած կարգավորումները "
+        outgoing_email_default_name_option_default: "quite frankly an example LMS-ի լռությամբ ընդունած կարգավորումները "
         prevent_course_renaming_by_teachers: "Թույլ մի՛ տվեք դասավանդողներին վերաանվանել իրենց դասընթացները"
         restrict_quiz_questions: "Սահմանափակել ունկնդիրների կողմից դասընթացի ավարտման ամսաթվից հետո թեստի հարցերի դիտումը "
         role_id: Ավելացնել
@@ -1214,14 +1214,14 @@ hy:
       no_enrollment_roles: "Չգրանցված օգտատերեր"
       no_language_preference: "Սահմանված չէ (լռությամբ ընդունված է՝ %{language})"
       notifications: 
-        custom_name_description: "Ընտրության դեպքում այն կփոխարինի EXAMPLE-ի ծանուցումներում ուղարկված բոլոր մյուս բրենդինգները"
+        custom_name_description: "Ընտրության դեպքում այն կփոխարինի quite frankly an example LMS-ի ծանուցումներում ուղարկված բոլոր մյուս բրենդինգները"
         email_date: Ամսաթիվ
         email_reply_to: "Հետադարձ հասցեն"
         email_to: Ում
         example: Օրինակ՝
         external_services: "Արտաքին ծառայություններին ուղարկված ծանուցումներ"
         external_services_label: "Ծանուցումների կարգաբերման էջի վրա ցույց տալ մեկ անգամ հայտնվող նախազգուշացումը"
-        external_services_warning: "Ծանոթություն. Որոշ ծանուցումներ կարող են պարունակել գաղտնի տեղեկատվություն: Ծանուցումներ ստանալու համար ձեր հաստատության կողմից սահմանված հասցեից տարբերվող այլ հասցե ընտրելը կարող է հանգեցնել նրան, որ EXAMPLE համակարգի դասընթացի և խմբի վերաբերյալ գաղտնի տեղեկությունները դուրս գան հաստատության համակարգից: "
+        external_services_warning: "Ծանոթություն. Որոշ ծանուցումներ կարող են պարունակել գաղտնի տեղեկատվություն: Ծանուցումներ ստանալու համար ձեր հաստատության կողմից սահմանված հասցեից տարբերվող այլ հասցե ընտրելը կարող է հանգեցնել նրան, որ quite frankly an example LMS համակարգի դասընթացի և խմբի վերաբերյալ գաղտնի տեղեկությունները դուրս գան հաստատության համակարգից: "
         external_services_warning_label: "Հայտնվող հաղորդագրության բովանդակությունը"
         from: Ումից
         sample_subject: "Գնահատականը փոխվել է, դիտել հարցումը, թեստը"
@@ -1270,7 +1270,7 @@ hy:
       tab_quotas: Քվոտաներ
       tab_reports: Հաշվետվություններ
       tab_settings: Կարգաբերումներ
-      transifex_message: "Միացեք  [EXAMPLE Translation Community](%{transifex_url})-ին"
+      transifex_message: "Միացեք  [quite frankly an example LMS Translation Community](%{transifex_url})-ին"
       turnitin_comments_help: "այս մեկնաբանությունները ցույց են տրվելու ունկնդիրներին Turnitin-ի միջոցով հանձնարարությունը ուղարկելիս  "
       turnitin_pledge_help: "ուսանողները պետք է սեղմեն դրոշակը, որով իրենք համաձայնում են կատարել այդ պարտավորությունները"
       turnitin_settings_title: "Turnitin կարգաբերումներ"
@@ -1787,7 +1787,7 @@ hy:
   allow_the_ability_to_send_notifications_through_ou_fdaace5a: "Թույլ տալ ուղարկել ծանուցումներ ըստ մեր ուղարկման հերթականության"
   allow_threaded_replies_43b2311e: "Թույլ տալ շղթայական պատասխաններ"
   allows_teachers_to_mark_grade_data_to_be_exported__a6bf77cf: "Թույլ տալ դասավանդողներին նշել այն գնահատականները, որոնք պետք է խմբով արտահանվեն դեպի SIS:"
-  allows_users_with_international_phone_numbers_to_r_f90f8522: "Թույլ տալ օգտատերերին ստանալ EXAMPLE համակարգից հաղորդագրություններ արտասահմանյան հեռախոսահամարին "
+  allows_users_with_international_phone_numbers_to_r_f90f8522: "Թույլ տալ օգտատերերին ստանալ quite frankly an example LMS համակարգից հաղորդագրություններ արտասահմանյան հեռախոսահամարին "
   alphabetically_60ab47e4: "Այբբենական կարգով"
   alt_text_c12d1c1c: "Այլընտրանքային տեքստ"
   always_3a59e701: Միշտ
@@ -1938,7 +1938,7 @@ hy:
       page_disabled_for_group: "Այս խմբի համար այդ էջն անջատված է:"
     warnings: 
       details: 
-        suspended: "Այս կազմակերպության EXAMPLE-ի հաշիվը կասեցված է: Միայն հաշվի ադմինիստրատորները կարող են մուտք գործել ցանկացած խնդիր շտկելու նպատակով: "
+        suspended: "Այս կազմակերպության quite frankly an example LMS-ի հաշիվը կասեցված է: Միայն հաշվի ադմինիստրատորները կարող են մուտք գործել ցանկացած խնդիր շտկելու նպատակով: "
       please_log_in: "Անվտանգության նկատառումներով խնդրում ենք մուտքագրել ձեր գաղտնաբառը շարունակելու համար:"
       titles: 
         suspended: "Կազմակերպությունը ժամանակավորապես անջատված է:"
@@ -1956,7 +1956,7 @@ hy:
       invalid_group_category: "Սխալ խմբային կատեգորիա"
       missing_group_category: "Խմբային հանդիպումները պետք է ունենան խմբային կատեգորիա:"
   apps_54d24a47: Ընդլայնումներ
-  apps_are_an_easy_way_to_add_new_features_to_canvas_2cbc2531: "Հավելվածները պարզ միջոց են նոր ֆունկցիաներ ավելացնելու EXAMPLE-ին: Դրանք կարող են ավելացվել առանձին դասընթացներին կամ հաշվի բոլոր դասընթացներին: Կարգաբերումից հետո դուք կարող եք կապվել դրանց դասընթացի մոդուլների միջոցով և ստեղծել հանձնարարություններ գիտելիքների գնահատման գործիքների համար:"
+  apps_are_an_easy_way_to_add_new_features_to_canvas_2cbc2531: "Հավելվածները պարզ միջոց են նոր ֆունկցիաներ ավելացնելու quite frankly an example LMS-ին: Դրանք կարող են ավելացվել առանձին դասընթացներին կամ հաշվի բոլոր դասընթացներին: Կարգաբերումից հետո դուք կարող եք կապվել դրանց դասընթացի մոդուլների միջոցով և ստեղծել հանձնարարություններ գիտելիքների գնահատման գործիքների համար:"
   appt_calendar_event_dialog: 
     invalid_participants: "Դուք պետք է թույլատրեք առնվազն մեկ օգտատիրոջ մասնակցությունը:"
     title: "Խմբագրել %{name}"
@@ -2359,7 +2359,7 @@ hy:
       gpa_scale_input_explainer: "Գնահատականները մուտքագրվում են  4.0 բալանոց համակարգով: Օրինակ, եթե հանձնարարությունը 100 բալ է ստացել, ապա 4.0 արդյունքը համարժեք է 100%, 3.0 արդյունքը՝ 87%  և այլն:"
       gpa_scale_letters_explainer: "Տառերով գնահատականները կարող են օգտագործվել ի լրումն  թվային գնահատականների:"
       gpa_scale_percentage_explainer: "Դուքկարող եք ուղղակիորեն մուտքագրել ոչ թե գնահատականները, այլ տոկոսները: Օրինակ, եթե հանձնարարության համար 50 միավոր է նախատեսվում, ապա 40 միավոր մուտքագրելը հնարավոր չի լինի, անհրաժեշտ է մուտքագրել 80%:   "
-      gpa_scale_recommendation: "Այն դեպքերում, երբ ձեր դպրոցը չի օգտագործում 4.0 բալանոց համակարգ (կամ 5.0/6.0), EXAMPLE-ը առաջարկում է գնահատել  տառային համակարգի միջոցով: "
+      gpa_scale_recommendation: "Այն դեպքերում, երբ ձեր դպրոցը չի օգտագործում 4.0 բալանոց համակարգ (կամ 5.0/6.0), quite frankly an example LMS-ը առաջարկում է գնահատել  տառային համակարգի միջոցով: "
       gpa_scale_scores_explainer: "Միակ ընդունելի գնահատականները նշված են գնահատման սխեմայում:"
       gpa_scale_title: "Ի՞նչ է GPA գնահատման համակարգը:"
       grading_type_options: 
@@ -2648,17 +2648,17 @@ hy:
           website: "Վեբ-կայքի url հասցեն"
       loading_tools: "Գործիքների բեռնում..."
       messages: 
-        google_docs_auth_required: "Անմիջապես Google Docs-ից հանձնարարություններ ուղարկելու համար դուք պետք է նախօրոք թույլատրեք  EXAMPLE համակարգին մուտք գործել Google Docs-ի Ձեր հաշիվ:"
-        google_drives_auth_required: "Անմիջապես Google Drive-ից հանձնարարություններ ուղարկելու համար դուք պետք է նախօրոք թույլատրեք  EXAMPLE համակարգին մուտք գործել Google Drive-ի Ձեր հաշիվ:"
+        google_docs_auth_required: "Անմիջապես Google Docs-ից հանձնարարություններ ուղարկելու համար դուք պետք է նախօրոք թույլատրեք  quite frankly an example LMS համակարգին մուտք գործել Google Docs-ի Ձեր հաշիվ:"
+        google_drives_auth_required: "Անմիջապես Google Drive-ից հանձնարարություններ ուղարկելու համար դուք պետք է նախօրոք թույլատրեք  quite frankly an example LMS համակարգին մուտք գործել Google Drive-ի Ձեր հաշիվ:"
         media_recording_ready: "Պատրաստ է ուղարկման համար: Ավարտելու համար սեղմեք \"Ուղարկել հանձնարարությունը\" կոճակը: "
-        media_recordings_disabled: "EXAMPLE համակարգի այս կայքի համար թույլատրված չեն մուլտիմեդիա գրանցումները և դուք չեք կարող ուղարկել այդ տեսակի հանձնարարությունները: Դիմեք Ձեր դասավանդողին այս հանձնարարության կարգաբերումները փոփոխելու, կամ համակարգի ադմինիստրատորին՝ մուլտիմեդիա գրանցումները միացնելու համար: "
+        media_recordings_disabled: "quite frankly an example LMS համակարգի այս կայքի համար թույլատրված չեն մուլտիմեդիա գրանցումները և դուք չեք կարող ուղարկել այդ տեսակի հանձնարարությունները: Դիմեք Ձեր դասավանդողին այս հանձնարարության կարգաբերումները փոփոխելու, կամ համակարգի ադմինիստրատորին՝ մուլտիմեդիա գրանցումները միացնելու համար: "
         submitting: "Ուղարկվում է..."
         uploading: "Այս հանձնարարության համար Google Doc-ի Ձեր փաստաթղթի պատճենի վերականգնում: Սա կարող է որոշակի ժամանակ պահանջել՝ կախված ֆայլի չափերից..."
       no_files: "Ֆայլեր չկան"
       no_submission: "Չկան ուղարկման համար ընտրված ֆայլեր"
       submission_url: Ուղարկում
       titles: 
-        media_recordings_disabled: "EXAMPLE այս կայքի համար մուլտիմեդիա գրանցումները թույլատրված չեն:"
+        media_recordings_disabled: "quite frankly an example LMS այս կայքի համար մուլտիմեդիա գրանցումները թույլատրված չեն:"
       upload_or_choose_file: "Ներբեռնել ֆայլը կամ ընտրել այն ֆայլը, որ արդեն ներբեռնել եք: "
     syllabus: 
       page_title: "%{course} համար ուսուցման ծրագիր "
@@ -2808,7 +2808,7 @@ hy:
       stop_debugging: "Դադարեցնել ճշգրտումը"
     index: 
       delete_auth_confirmation: "Դուք համոզվա՞ծ եք: Օգտատերերը չեն կարողանա մուտք գործել համակարգ, եթե ջնջեք այն:"
-      ip_address_list_description: "Եթե Դուք օգտագործում եք իսկության հաստատման մի ծառայություն, որը պահանջում է, որ EXAMPLE-ի սերվերները անմիջականորեն կապվեն Ձեր սերվերների հետ, ինչպիսին օրինակ՝ LDAP-ն է, Դուք պետք է համոզվեք, որ Ձեր սերվերները կարող են ընդունել միացումներ այդ IP հասցեներից` "
+      ip_address_list_description: "Եթե Դուք օգտագործում եք իսկության հաստատման մի ծառայություն, որը պահանջում է, որ quite frankly an example LMS-ի սերվերները անմիջականորեն կապվեն Ձեր սերվերների հետ, ինչպիսին օրինակ՝ LDAP-ն է, Դուք պետք է համոզվեք, որ Ձեր սերվերները կարող են ընդունել միացումներ այդ IP հասցեներից` "
       no_auth_type_description: "Այս հաշիվը ներկայումս ինտեգրված չէ նույնականացման պրովայդերի հետ"
       page_title: "Իսկության հաստատման կարգաբերումներ"
       profile_page_link_example: "Օրինակ՝ Ձեր պրոֆիլի էջ [%{friendlyname}](%{url})"
@@ -2817,8 +2817,8 @@ hy:
       test_ldap_link: "Փորձել  LDAP  իսկության ստուգումը"
     ldap_fields: 
       auth_filter_description: "Օգտագործեք *%{placeholder}* որպես օգտատիրոջ կողմից նշված նրա անվան լրացման դաշտ: Օրինակ՝  *(sAMAccountName=%{placeholder})*"
-      identifer_format_description: "LDAP ատրիբուտն օգտագործվում է EXAMPLE համակարգ մուտք փնտրելու համար: Թողեք դատարկ, որպեսզի օգտագործեք օգտատիրոջ կողմից տրամադրված օգտատիրոջ անունը: "
-      ldap_timeout_failure_help2: "Եթե EXAMPLE չափազանց շատ անգամ ընդհատում է կապը LDAP սերվերի հետ, այն %{time} ժամանակով  կարգելափակի այդ LDAP սերվերի միջոցով համակարգ մուտք գործելու փորձերը: Ձեր LDAP սերվերը վերջին անգամ ընդհատել է կապը  %{timestamp}:"
+      identifer_format_description: "LDAP ատրիբուտն օգտագործվում է quite frankly an example LMS համակարգ մուտք փնտրելու համար: Թողեք դատարկ, որպեսզի օգտագործեք օգտատիրոջ կողմից տրամադրված օգտատիրոջ անունը: "
+      ldap_timeout_failure_help2: "Եթե quite frankly an example LMS չափազանց շատ անգամ ընդհատում է կապը LDAP սերվերի հետ, այն %{time} ժամանակով  կարգելափակի այդ LDAP սերվերի միջոցով համակարգ մուտք գործելու փորձերը: Ձեր LDAP սերվերը վերջին անգամ ընդհատել է կապը  %{timestamp}:"
     ldap_settings_test: 
       labels: 
         pass: Գաղտնաբառ
@@ -2826,14 +2826,14 @@ hy:
       ldap_test_login_button: "Համակարգ մուտքի ստուգում"
       test_ldap_bind_help_body: "LDAP սերվերը մերժել է կապվելու փորձը: Պետք է դիտարկել հետևայլը."
       test_ldap_bind_help_fixes_1: "Ստուգել ֆիլտրի տրված պարամետրերը (օր.՝ '(sAMAccountName={{login}})')."
-      test_ldap_bind_help_fixes_2: "Արդյո՞ք օգտատիրոջ անվան համար պահանջվում է լրացուցիչ տեղեկատվություն (օր.՝ 'cn=EXAMPLE,ou=people,dc=example,dc=com'):"
-      test_ldap_bind_help_header: "EXAMPLE-ը չի կարող կապվել (մուտք գործել) LDAP սերվերի հետ"
+      test_ldap_bind_help_fixes_2: "Արդյո՞ք օգտատիրոջ անվան համար պահանջվում է լրացուցիչ տեղեկատվություն (օր.՝ 'cn=quite frankly an example LMS,ou=people,dc=example,dc=com'):"
+      test_ldap_bind_help_header: "quite frankly an example LMS-ը չի կարող կապվել (մուտք գործել) LDAP սերվերի հետ"
       test_ldap_bind_label: "LDAP կապի ստուգում..."
       test_ldap_connection_help_body: "Միացումը մերժվել է կամ ժամանակը սպառվել է: Պետք է դիտարկել հետևյալը."
-      test_ldap_connection_help_fixes_1: "EXAMPLE-ը միանում է  %{ips}-ին"
+      test_ldap_connection_help_fixes_1: "quite frankly an example LMS-ը միանում է  %{ips}-ին"
       test_ldap_connection_help_fixes_2: "Սա միայն միացման ստուգում էր: SSL սերտիֆիկատները չեն հաստատվել: "
-      test_ldap_connection_help_fixes_3: "Ստուգեք միջցանցային էկրանի կարգաբերումները: Արդյո՞ք EXAMPLE-ի բոլոր IP-ներին թույլատրված է կապվել ձեր սերվերին:"
-      test_ldap_connection_help_header: "EXAMPLE-ը չի կարողանում կապվել LDAP սերվերին"
+      test_ldap_connection_help_fixes_3: "Ստուգեք միջցանցային էկրանի կարգաբերումները: Արդյո՞ք quite frankly an example LMS-ի բոլոր IP-ներին թույլատրված է կապվել ձեր սերվերին:"
+      test_ldap_connection_help_header: "quite frankly an example LMS-ը չի կարողանում կապվել LDAP սերվերին"
       test_ldap_connection_label: "Միացման ստուգում..."
       test_ldap_dialog_close: Փակել
       test_ldap_dialog_page_title: "Ստուգվում է LDAP-ի կոնֆիգուրացիան"
@@ -2844,7 +2844,7 @@ hy:
       test_ldap_search_help_fixes_1: "Ստուգել ֆիլտրի տրված պարամետրերը (օր.՝ '(sAMAccountName={{login}})')."
       test_ldap_search_help_fixes_2: "Ստուգել տրված որոնումների բազան (օր.՝'ou=people,dc=example,dc=com'): "
       test_ldap_search_help_fixes_3: "Համոզվել, որ LDAP-ում օգտատիրոջ օբյեկտը որոնումների տրված բազայի համար ունի համապատասխան իրավասություններ:"
-      test_ldap_search_help_header: "EXAMPLE-ը չի կարող որոնել LDAP օրինակը:"
+      test_ldap_search_help_header: "quite frankly an example LMS-ը չի կարող որոնել LDAP օրինակը:"
       test_ldap_search_label: "LDAP որոնումների փորձարկում..."
     linkedin_fields: 
       description: |-
@@ -2856,8 +2856,8 @@ hy:
     no_changing_auth_types: "Չի կարող փոխել իրավասությունների կոնֆիգուրացիայի տեսակը, խնդրում ենք ջնջել և ստեղծել նոր կոնֆիգուրացիա:"
     password_required: "Պետք է տրամադրվի"
     sso_settings_form: 
-      change_password_url_help: "Թողեք դատարկ՝ EXAMPLE-ի ըստ լռության ընդունված գործողությունների համար"
-      discovery_url_description: "Եթե սահմանված է discovery URL-հասցեն, EXAMPLE համակարգը բոլոր օգտատերերին կուղարկի URL այդ հասցեով, երբ նրանք կարիք ունենան իսկության ստուգման: Այդ էջը կօգնի օգտատերերին հասկանալ, ուր պետք է նրանք գնան համակարգ մուտք գործելու համար: Եթե ոչ մի discovery URL կարգաբերված չէ, առաջին կոնֆիգուրացիան պետք է օգտագործվի փորձելու համար ստուգել օգտատիրոջ իսկությունը: "
+      change_password_url_help: "Թողեք դատարկ՝ quite frankly an example LMS-ի ըստ լռության ընդունված գործողությունների համար"
+      discovery_url_description: "Եթե սահմանված է discovery URL-հասցեն, quite frankly an example LMS համակարգը բոլոր օգտատերերին կուղարկի URL այդ հասցեով, երբ նրանք կարիք ունենան իսկության ստուգման: Այդ էջը կօգնի օգտատերերին հասկանալ, ուր պետք է նրանք գնան համակարգ մուտք գործելու համար: Եթե ոչ մի discovery URL կարգաբերված չէ, առաջին կոնֆիգուրացիան պետք է օգտագործվի փորձելու համար ստուգել օգտատիրոջ իսկությունը: "
       login_handle_name_description: "Տարբերանիշն օգտագործվում է մուտքի յուրօրինակ նույնականացուցիչների համար: Օրինակ՝ Մուտք, Օգտատիրոջ անուն, Ունկնդրի նույնականացուցիչ և այլն"
       unknown_user_url_description: "Url-հասցե վերահասցեագրելու համար, երբ իսկությունը հաստատված օգտատերը չի գտնվել canvas համակարգում:"
   authentication_settings_5c2078a3: "Իսկության հաստատման կարգաբերումներ"
@@ -2940,9 +2940,9 @@ hy:
     export_failed: "Սխալ է տեղի ունեցել Blackborad-ից դասընթացը bb_lcid%{id} հետ արտահանելիս "
     export_failed_no_id: "Սխալ է տեղի ունեցել դասընթացը ներմուծելիս"
     export_failed_not_found: "Գրատախտակում հնարավոր չէ գտնել bb_lcid%{id}-ով դասընթացը %{user_name} օգտատիրոջ անվամբ"
-    export_failed_with_id: "Սխալ է տեղի ունեցել դասընթացը bb_lcid%{id}-ի հետ EXAMPLE ներմուծելիս"
+    export_failed_with_id: "Սխալ է տեղի ունեցել դասընթացը bb_lcid%{id}-ի հետ quite frankly an example LMS ներմուծելիս"
     no_course_found: "Ոչ մի դասընթաց չի գտնվել %{id}-ի %{id_type}-ով "
-    no_course_id_given: "Ոչ մի EXAMPLE-ի դասընթաց չի հայտնաբերվել bb_lcid%{id} համար"
+    no_course_id_given: "Ոչ մի quite frankly an example LMS-ի դասընթաց չի հայտնաբերվել bb_lcid%{id} համար"
     no_credentials_found: "Տվյալ օգտատիրոջ անվամբ %{user_name} համար ոչ մի հաշվի գրառում չի գտնվել"
     no_credentials_given: "  %{course_identifier} դասընթացի համար ոչ մի օգտատիրոջ անուն չի տրվել "
     no_lcid_found: "Տողի համար չի նշվել bb_lcid"
@@ -2952,7 +2952,7 @@ hy:
       exporting: "Արտահանում Blackboard-ից"
       failed: Սխալ
       finished: "Ավարտվել է"
-      importing: "Ներմուծում EXAMPLE-ից"
+      importing: "Ներմուծում quite frankly an example LMS-ից"
       migration_cancelled_on: "Չեղյալ է համարվել %{date} ամսաթվին"
       migration_failed_on: "Չի հաջողվել %{date} ամսաթվին"
       migration_finished_on: "Ավարտվել է %{date} ամսաթվին"
@@ -2962,7 +2962,7 @@ hy:
       see_results: "Դիտել արդյունքները"
       show_warnings: "Ցույց տալ նախազգուշացումները"
       waiting_to_export: "Սպասում են Blackboard-ից արտահանմանը"
-      waiting_to_import: "Սպասում են EXAMPLE ներմուծմանը"
+      waiting_to_import: "Սպասում են quite frankly an example LMS ներմուծմանը"
     index: 
       available_courses: "Հասանելի դասընթացներ"
       bulk_description: "CSV-ում նախատեսված են հետևյալ վերնագրերը"
@@ -2970,8 +2970,8 @@ hy:
         add_credentials: "Ավելացնել նույնականացման տվյալները"
         migrate_courses: "Տեղափոխել դասընթացները"
       column_name: "Սյունակի անունը"
-      course_id_description: "EXAMPLE-ի դասընթացի նույնականացուցիչ, ուր պետք է կատարվի ներմուծումը"
-      credential_description: "Այս գործիքը կօգնի ձեզ միաժամանակ Blackboard Vista/CE համակարգից տեղափոխել մի քանի դասընթացներ:  Ձեր դասընթացները տեղափոխելու համար ավելացրեք ձեր Blackboard համակարգի նույնականացման տվյալները, հետո տրված CSV ձևին ավելացրեք EXAMPLE-ի դասընթացի նույնականացուցիչները:"
+      course_id_description: "quite frankly an example LMS-ի դասընթացի նույնականացուցիչ, ուր պետք է կատարվի ներմուծումը"
+      credential_description: "Այս գործիքը կօգնի ձեզ միաժամանակ Blackboard Vista/CE համակարգից տեղափոխել մի քանի դասընթացներ:  Ձեր դասընթացները տեղափոխելու համար ավելացրեք ձեր Blackboard համակարգի նույնականացման տվյալները, հետո տրված CSV ձևին ավելացրեք quite frankly an example LMS-ի դասընթացի նույնականացուցիչները:"
       csv_description: "Կարելի է ավելացնել այլ սյունակներ, սակայն դրանք կանտեսվեն: Ստորև տրվում է 3 դասընթացի համար պարզ CSV ֆայլի օրինակ \"greg\"  անվամբ օգտատիրոջ համար:"
       csv_template: "CSV ձև"
       current_migration_batch: "Ներկայումս տեղափոխվող փաթեթ"
@@ -2989,7 +2989,7 @@ hy:
       previous_migration_batches: "Նախորդ տեղափոխությունների փաթեթներ"
       school: Դպրոց
       school_not_supported: "Խնդրում ենք օգտվել Instructure-ի հետ ձեր ադմինիստրատորի կապից ձեր դպրոցի համար օժանդակություն ստանալու նպատակով: "
-      sis_id_description: "Ներմուծման համար EXAMPLE -ի դասընթացի SIS ID "
+      sis_id_description: "Ներմուծման համար quite frankly an example LMS -ի դասընթացի SIS ID "
       upload_migration_csv: "Ներբեռնել տեղափոխությունների  CSV ֆայլ"
       user_name: "Օգտատիրոջ անուն"
       user_name_description: "Օգտատիրոջ տրամադրած օգտատիրոջ անուն, որը կարող է դասընթաց մուտք գործել որպես  դասավանդող/դիզայներ: Սա պետք է համընկնի Blackboard  համակարգ մուտք գործելու համար վերը նշված օգտատերերի անուններից մեկին:  "
@@ -3394,7 +3394,7 @@ hy:
     ics_description_course: "%{course_name} դասընթացի համար օրացուցային միջոցառումներ "
     ics_description_group: "%{group_name} խմբի համար օրացուցային միջոցառումներ"
     ics_description_user: "%{user_name} օգտատիրոջ համար օրացուցային միջոցառումներ"
-    ics_title: "%{course_or_group_name} օրացույց (EXAMPLE)"
+    ics_title: "%{course_or_group_name} օրացույց (quite frankly an example LMS)"
     invalid_date_or_time: "%{attr}-ի համար սխալ ամսաթիվ կամ սխալ ժամ "
   calendar_frequency_picker: 
     daily: "Յուրաքանչյուր օր"
@@ -3475,34 +3475,34 @@ hy:
         login_expiration_minimum: "Սեսիայի տևողությունը պետք է լինի առնվազն 20 րոպե"
         need_integer: "Վերարտադրելու ցանկի քեշի համար մուտքագրեք ամբողջ թիվ "
         stream_name_required: "Պահանջվում է նշել kinesis հոսքի անվանումը"
-  canvas_3962b702: EXAMPLE
-  canvas_alert_change_assignment_name_course_name_2fc63d9c: "EXAMPLE համակարգի նախազգուշացում. փոփոխություն՝ %{assignment_name}, %{course_name}"
-  canvas_alert_invited_course_as_role_type_9ed79ce3: "EXAMPLE համակարգի նախազգուշացում - Հրավիրված եք %{course} դասընթացին որպես %{role_type}"
-  canvas_alert_invited_course_as_role_type_ea825937: "EXAMPLE համակարգի նախազգուշացում - Հրավիրված եք դասընթացին որպես %{role_type}"
-  canvas_alert_late_submission_user_name_assignment__ee1301ac: "EXAMPLE համակարգի նախազգուշացում. ուշացրած ուղարկում՝ %{user_name}, %{assignment_name}"
-  canvas_can_t_bind_login_to_your_ldap_server_2642aef1: "EXAMPLE-ը չի կարող կապվել (մուտք գործել) LDAP սերվերի հետ"
-  canvas_can_t_connect_to_your_ldap_server_ca901b43: "EXAMPLE-ը չի կարողանում կապվել LDAP սերվերին"
-  canvas_can_t_search_your_ldap_instance_7f5f53c3: "EXAMPLE-ը չի կարող որոնել LDAP օրինակը:"
+  canvas_3962b702: quite frankly an example LMS
+  canvas_alert_change_assignment_name_course_name_2fc63d9c: "quite frankly an example LMS համակարգի նախազգուշացում. փոփոխություն՝ %{assignment_name}, %{course_name}"
+  canvas_alert_invited_course_as_role_type_9ed79ce3: "quite frankly an example LMS համակարգի նախազգուշացում - Հրավիրված եք %{course} դասընթացին որպես %{role_type}"
+  canvas_alert_invited_course_as_role_type_ea825937: "quite frankly an example LMS համակարգի նախազգուշացում - Հրավիրված եք դասընթացին որպես %{role_type}"
+  canvas_alert_late_submission_user_name_assignment__ee1301ac: "quite frankly an example LMS համակարգի նախազգուշացում. ուշացրած ուղարկում՝ %{user_name}, %{assignment_name}"
+  canvas_can_t_bind_login_to_your_ldap_server_2642aef1: "quite frankly an example LMS-ը չի կարող կապվել (մուտք գործել) LDAP սերվերի հետ"
+  canvas_can_t_connect_to_your_ldap_server_ca901b43: "quite frankly an example LMS-ը չի կարողանում կապվել LDAP սերվերին"
+  canvas_can_t_search_your_ldap_instance_7f5f53c3: "quite frankly an example LMS-ը չի կարող որոնել LDAP օրինակը:"
   canvas_cartridge_description: "Սա թույլ է տալիս փոխակերպել canvas export-ը միջանկյալ json ֆորմատի՝ ներմուծման համար"
-  canvas_cartridge_display: "Ընդհանուր EXAMPLE Cartridge"
-  canvas_cartridge_file_description: "EXAMPLE-ի դասընթացի արտահանման փաթեթ"
-  canvas_cartridge_name: "EXAMPLE Cartridge ներմուծող"
-  canvas_cloud_information_fdd404f2: "EXAMPLE Cloud տեղեկություններ"
+  canvas_cartridge_display: "Ընդհանուր quite frankly an example LMS Cartridge"
+  canvas_cartridge_file_description: "quite frankly an example LMS-ի դասընթացի արտահանման փաթեթ"
+  canvas_cartridge_name: "quite frankly an example LMS Cartridge ներմուծող"
+  canvas_cloud_information_fdd404f2: "quite frankly an example LMS Cloud տեղեկություններ"
   canvas_course_id_db4de2b8: canvas_course_id
-  canvas_default_7f81a6b8: "EXAMPLE-ի ըստ լռության ընդունված կարգավորումներ"
-  canvas_did_not_recognize_your_identity_provider_cb0e50fc: "EXAMPLE չի ճանաչում ձեր նույնականացուցչի պրովայդերին"
-  canvas_doesn_t_have_an_account_for_user_user_5bcae0dd: "EXAMPLE համակարգը չունի %{user} օգտատիրոջ համար հաշիվ"
-  canvas_error_report_ff678539: "EXAMPLE սխալի մասին հաշվետվություն"
-  canvas_is_connecting_to_ips_9af7da93: "EXAMPLE-ը միանում է  %{ips}-ին"
-  canvas_lms_6ce68514: "EXAMPLE LMS"
-  canvas_login_failure_message_4c922f2f: "Հաղորդագրություն EXAMPLE մուտք գործելու ձախողման մասին "
-  canvas_login_instructure_271b8d00: "Մուտք գործել EXAMPLE համակարգ"
+  canvas_default_7f81a6b8: "quite frankly an example LMS-ի ըստ լռության ընդունված կարգավորումներ"
+  canvas_did_not_recognize_your_identity_provider_cb0e50fc: "quite frankly an example LMS չի ճանաչում ձեր նույնականացուցչի պրովայդերին"
+  canvas_doesn_t_have_an_account_for_user_user_5bcae0dd: "quite frankly an example LMS համակարգը չունի %{user} օգտատիրոջ համար հաշիվ"
+  canvas_error_report_ff678539: "quite frankly an example LMS սխալի մասին հաշվետվություն"
+  canvas_is_connecting_to_ips_9af7da93: "quite frankly an example LMS-ը միանում է  %{ips}-ին"
+  canvas_lms_6ce68514: "quite frankly an example LMS"
+  canvas_login_failure_message_4c922f2f: "Հաղորդագրություն quite frankly an example LMS մուտք գործելու ձախողման մասին "
+  canvas_login_instructure_271b8d00: "Մուտք գործել quite frankly an example LMS համակարգ"
   canvas_revision_unknown: "Անհայտ է"
-  canvas_thinks_response_is_valid_8cc4a67d: "EXAMPLE-ը կարծում է, որ պատասխանը ընդունելի է"
-  canvas_ticketing_email_connector_27e253ae: "EXAMPLE ձևերը գեներացնող էլ.փոստի կոնեկտոր "
-  canvas_ticketing_web_post_connector_11158897: "EXAMPLE ձևերը գեներացնող վեբ-հրապարակումների կոնեկտոր"
-  canvas_user_id_caf65ef5: "EXAMPLE օգտատիրոջ ID"
-  canvas_will_regrade_all_your_submissions_after_you_2d68694a: "EXAMPLE համակարգը կրկին կգնահատի Ձեր կողմից ուղարկված բոլոր աշխատանքները այն բանից հետո, երբ Դուք կպահպանեք թեստը: Դա կտևի մի քանի րոպե:"
+  canvas_thinks_response_is_valid_8cc4a67d: "quite frankly an example LMS-ը կարծում է, որ պատասխանը ընդունելի է"
+  canvas_ticketing_email_connector_27e253ae: "quite frankly an example LMS ձևերը գեներացնող էլ.փոստի կոնեկտոր "
+  canvas_ticketing_web_post_connector_11158897: "quite frankly an example LMS ձևերը գեներացնող վեբ-հրապարակումների կոնեկտոր"
+  canvas_user_id_caf65ef5: "quite frankly an example LMS օգտատիրոջ ID"
+  canvas_will_regrade_all_your_submissions_after_you_2d68694a: "quite frankly an example LMS համակարգը կրկին կգնահատի Ձեր կողմից ուղարկված բոլոր աշխատանքները այն բանից հետո, երբ Դուք կպահպանեք թեստը: Դա կտևի մի քանի րոպե:"
   careful_changes_to_group_membership_will_apply_to__19a9089c: "Ուշադրությո՛ւն։ Խմբի անդամակցության փոփոխությունները կկիրառվեն այն խմբերի նկատմամբ, որոնք արդեն ներկայացրել են իրենց հանձնարարությունները։ Արդյունքում խմբերի ներկայացրած հանձնարարությունները կարող են չհամընկնել։ Արդյո՞ք ցանկանում եք ստեղծել նոր խումբ ապագա հանձնարարությունների համար։"
   cas_url_4ba2843e: "CAS URL"
   catalog_already_enabled_56478a3c: "Կատալոգն արդեն ակտիվացված է"
@@ -3541,11 +3541,11 @@ hy:
       update_assignment_points: "Փոխե՞լ հանձնարարության կետերը ըստ ռուբրիկների:"
   change_to_b757d327: փոխել
   changes_will_still_apply_if_you_leave_this_page_935cedc6: "Փոփոխությունները կշարունակեն գործել, եթե դուք դուրս գաք այս էջից:"
-  check_your_firewall_settings_are_all_canvas_ip_add_cbd119c5: "Ստուգեք միջցանցային էկրանի կարգաբերումները: Արդյո՞ք EXAMPLE-ի բոլոր IP-ներին թույլատրված է կապվել ձեր սերվերին:"
+  check_your_firewall_settings_are_all_canvas_ip_add_cbd119c5: "Ստուգեք միջցանցային էկրանի կարգաբերումները: Արդյո՞ք quite frankly an example LMS-ի բոլոր IP-ներին թույլատրված է կապվել ձեր սերվերին:"
   child_s_username_dde3aa9: "Երեխա օգտատիրոջ անունը"
   choose_a_course_home_page_8059c7b: "Ընտրել դասընթացի հիմնական էջը"
   choose_a_csv_file_to_upload_9644480c: "Ընտրել CSV ֆայլը բեռնման համար"
-  choose_a_regrade_option_for_students_who_have_alre_2878244f: "Ընտրել վերագնահատման տարբերակը այն ունկնդիրների համար, ովքեր արդեն անցել են թեստը: EXAMPLE համակարգը կվերագնահատի Ձեր բոլոր ուղարկած աշխատանքները թեստը պահպանելուց հետո (դա կարող է ազդել ունկնդիրների միավորների վրա): "
+  choose_a_regrade_option_for_students_who_have_alre_2878244f: "Ընտրել վերագնահատման տարբերակը այն ունկնդիրների համար, ովքեր արդեն անցել են թեստը: quite frankly an example LMS համակարգը կվերագնահատի Ձեր բոլոր ուղարկած աշխատանքները թեստը պահպանելուց հետո (դա կարող է ազդել ունկնդիրների միավորների վրա): "
   choose_an_authentication_service_47dc8875: "Ընտրել իսկության ստուգման ծառայությունը"
   choose_one_2c4277df: "Ընտրել մեկը"
   choose_usage_rights_33683854: "Ընտրել օգտագործման իրավունքները..."
@@ -3570,7 +3570,7 @@ hy:
   client_id_cb2502af: "Հաճախորդի նույնականացուցիչ"
   clone_group_set_c2a40e15: "Կլոնավորել խմբերի շարքը"
   close_17f50799: փակել
-  close_and_return_to_canvas_80544344: "Փակել և վերադառնալ EXAMPLE համակարգ"
+  close_and_return_to_canvas_80544344: "Փակել և վերադառնալ quite frankly an example LMS համակարգ"
   close_d634289d: Փակել
   close_for_comments_37783f56: "Փակ է մեկնաբանությունների համար"
   close_for_comments_ce0e5d00: "Մեկնաբանությունների համար փակել"
@@ -3615,13 +3615,13 @@ hy:
       cannot_load_collaboration: "Հնարավոր չէ բեռնել համատեղ աշխատանքը"
       create_failed: "Համատեղ աշխատանքի ստեղծումը ձախողվեց"
       no_name: "Այս համատեղ աշխատանքի համար մուտքագրել անվանումը"
-      not_enabled: "EXAMPLE-ի այս կայքի համար համատեղ աշխատանքները չեն ակտիվացվել "
+      not_enabled: "quite frankly an example LMS-ի այս կայքի համար համատեղ աշխատանքները չեն ակտիվացվել "
       update_failed: "Համատեղ աշխատանքների թարմացումը ձախողվեց"
     forms: 
       buttons: 
         delete_from_canvas: |-
             Պարզապես ջնջել
-             EXAMPLE-ից
+             quite frankly an example LMS-ից
         delete_from_google_docs: |-
             Նաև ջնջել 
             Google Docs-ից
@@ -3641,7 +3641,7 @@ hy:
         description: Նկարագրություն
         document_name: "Փաստաթղթի անվանումը"
       messages: 
-        delete_google_doc_as_well: "Այս համատեղ աշխատանքը պահպանվել է որպես Google Docs: Ցանկանում եք այն ջնջել միայն EXAMPLE-ից,թե՞ նաև Google Docs-ից: "
+        delete_google_doc_as_well: "Այս համատեղ աշխատանքը պահպանվել է որպես Google Docs: Ցանկանում եք այն ջնջել միայն quite frankly an example LMS-ից,թե՞ նաև Google Docs-ից: "
       titles: 
         new: "Սկսել նոր համատեղ աշխատանք"
     google_drive: 
@@ -3661,7 +3661,7 @@ hy:
       google: 
         drive: 
           upgrade: 
-            description: "Այս համատեղ աշխատանք մուտք գործելու համար դուք պետք է EXAMPLE-ին հնարավորություն տաք մուտք գործել Google Drive-ի ձեր հաշիվ:"
+            description: "Այս համատեղ աշխատանք մուտք գործելու համար դուք պետք է quite frankly an example LMS-ին հնարավորություն տաք մուտք գործել Google Drive-ի ձեր հաշիվ:"
       how_to_start_a_new_collaboration: "Համատեղ աշխատանքների  որոշակի տեսակի մասին ավելի շատ տեղեկություններ ստանալու համար սեղմեք \"Սկսել նոր համատեղ աշխատանք\" և հետո ընտրեք տեսակը բացվող ցանկից: "
       links: 
         collaboration: "Համատեղ աշխատանք"
@@ -3705,7 +3705,7 @@ hy:
   common_cartridge_name: "Common Cartridge ներմուծող"
   communication_5255723c: Կապ
   communication_channel: 
-    body: "EXAMPLE -ի ձեր հաստատման կոդն է՝ %{verification_code} "
+    body: "quite frankly an example LMS -ի ձեր հաստատման կոդն է՝ %{verification_code} "
     default_twitter_handle: Twitter
     default_yo_name: "Ձեր անունը"
   communication_channels: 
@@ -3715,7 +3715,7 @@ hy:
         back: Վերադառնալ
         continue: Շարունակել
         create_account: "Ստեղծել իմ հաշիվը"
-        have_account: "Ես EXAMPLE-ի հաշիվ ունեմ"
+        have_account: "Ես quite frankly an example LMS-ի հաշիվ ունեմ"
         login_as: "Մուտք գործել որպես %{invited_user}"
         merge: Միավորել
         new_account: Ոչ
@@ -3730,7 +3730,7 @@ hy:
             %{email}-ի հետ կապված արդեն իսկ գոյություն ունի օգտատիրոջ հաշիվ:
             
             **Դուք ե՞ք %{name}**
-        account_needed: "Ձեզ հրավիրել են մասնակցելու **%{course}**: Այս հրավերը ընդունելու համար դուք պետք է ունենաք EXAMPLE հաշիվ: Սեղմեք ստորև հղումը EXAMPLE-ի հաշիվ ստեղծելու համար: "
+        account_needed: "Ձեզ հրավիրել են մասնակցելու **%{course}**: Այս հրավերը ընդունելու համար դուք պետք է ունենաք quite frankly an example LMS հաշիվ: Սեղմեք ստորև հղումը quite frankly an example LMS-ի հաշիվ ստեղծելու համար: "
         add_email: "Կցանկանայի՞ք ավելացնել այս էլ.փոստի հասցեն ձեր ընթացիկ հաշվին:"
         choose_login: "Ընտրեք որտեղ եք ուզում մուտք գործել"
         logged_in_other_user: "**%{email}** նոր հաշիվ է, սակայն այժմ դուք մուտք եք գործել որպես **%{user}**:"
@@ -3794,7 +3794,7 @@ hy:
           
           Դուք չեք կարողանա այն կրկին բացել:
       delete: "Դուք իսկապե՞ս ցանկանում եք ջնջել այս կոնֆերանսը:"
-    disabled_error: "EXAMPLE-ի այս կայքի համար վեբ-կոնֆերանսները միացված չեն:"
+    disabled_error: "quite frankly an example LMS-ի այս կայքի համար վեբ-կոնֆերանսները միացված չեն:"
     edit_conference_form: 
       advanced_settings: "Լրացուցիչ կարգաբերումների կառավարում..."
       conference_type: Տեսակ
@@ -3848,7 +3848,7 @@ hy:
       buttons: 
         close: "Ավարտել այժմ"
         join: "Միանալ այժմ"
-    type_disabled_error: "EXAMPLE-ի այս կայքի համար կոնֆերանսի այս տեսակը այլևս միացված չէ"
+    type_disabled_error: "quite frankly an example LMS-ի այս կայքի համար կոնֆերանսի այս տեսակը այլևս միացված չէ"
   config_url_e96ceaf3: "URL հասցեի կարգաբերում"
   configurate_tool_app_5a721f2c: "Կարգաբերե՞լ %{tool} հավելվածը"
   configuration_type_25a084a4: "Կարգաբերման տեսակ"
@@ -3920,7 +3920,7 @@ hy:
       buttons: 
         cancel: "Չեղյալ համարել"
         skip: "Բաց  թողնել այս քայլը"
-      description: "Դուք կարող եք ձեր դասընթացում ներբեռնել ֆայլերի zip-արխիվները և մենք կհանենք դրանք ձեր համար: Սա հեշտ եղանակ է մեկ այլ համակարգից ֆայլեր EXAMPLE տեղափոխելու համար: "
+      description: "Դուք կարող եք ձեր դասընթացում ներբեռնել ֆայլերի zip-արխիվները և մենք կհանենք դրանք ձեր համար: Սա հեշտ եղանակ է մեկ այլ համակարգից ֆայլեր quite frankly an example LMS տեղափոխելու համար: "
       page_title: "Ներմուծել ֆայլեր"
     messages: 
       import_complete: "Ներմուծումն ավարտված է: Վերադարձ դեպի դասընթացի էջ..."
@@ -4190,7 +4190,7 @@ hy:
         user_services: "Գրանցված վեբ-ծառայություններ"
       help: 
         list_services: "Դուք չեք ակտիվացրել գրանցված ծառայությունների ձեր ցուցակը: Այդ ցուցակի ակտիվացումը հնարավորություն կտա դասընթացի և խմբի անդամներին հարթակից դուրս հեշտորեն կապ հաստատել Ձեզ հետ:"
-        services: "Դուք չեք կապակցել օգտատիրոջ Ձեր պրոֆիլը որևէ արտաքին ծառայության հետ: Դուք կարող եք կապակցել ձեր EXAMPLE համակարգում գտնվող հաշիվը Թվիթերի նման ծառայությունների հետ: Սա հնարավորություն կտա դասընթացի և խմբի անդամներին հարթակից դուրս հեշտորեն կապ հաստատել Ձեզ հետ:"
+        services: "Դուք չեք կապակցել օգտատիրոջ Ձեր պրոֆիլը որևէ արտաքին ծառայության հետ: Դուք կարող եք կապակցել ձեր quite frankly an example LMS համակարգում գտնվող հաշիվը Թվիթերի նման ծառայությունների հետ: Սա հնարավորություն կտա դասընթացի և խմբի անդամներին հարթակից դուրս հեշտորեն կապ հաստատել Ձեզ հետ:"
       labels: 
         public_list_services: "Թույլ տալ դասընթացի/խմբի անդամներին տեսնել իմ պրոֆիլի հետ կապակցված ծառայությունները: "
         user_privileges: Իրավասություններ
@@ -4229,9 +4229,9 @@ hy:
         registered_services: "Գրանցված ծառայություններ"
         service_types: "Ծառայությունների տեսակներ"
       help: 
-        no_services: "Դուք չեք կապակցել ձեր պրոֆիլը որևէ արտաքին ծառայության հետ: Դուք կարող եք կապակցել ձեր EXAMPLE հաշիվը այնպիսի ծառայությունների հետ, ինչպիսին Twitter է:"
-        services_private: "Դուք չեք ակտիվացրել գրանցված ծառայությունների Ձեր ցուցակը: Այդ ցուցակը ակտիվացնելը թույլ կտա դասընթացի և խմբի անդամներին տեսնել, թե ինչ ծառայությունների հետ եք կապակցել Ձեր EXAMPLE համակարգի հաշիվը:"
-        user_services: "Մյուս անդամներն իրենց ընտրությամբ կարող են թույլ տալ ձեզ տեսնելու, թե ինչ արտաքին ծառայությունների հետ են կապակցել իրենց EXAMPLE համակարգի հաշիվը: Սա կհեշտացնի խմբային նախագծերի համակարգումը և համակարգից դուրս կապը: "
+        no_services: "Դուք չեք կապակցել ձեր պրոֆիլը որևէ արտաքին ծառայության հետ: Դուք կարող եք կապակցել ձեր quite frankly an example LMS հաշիվը այնպիսի ծառայությունների հետ, ինչպիսին Twitter է:"
+        services_private: "Դուք չեք ակտիվացրել գրանցված ծառայությունների Ձեր ցուցակը: Այդ ցուցակը ակտիվացնելը թույլ կտա դասընթացի և խմբի անդամներին տեսնել, թե ինչ ծառայությունների հետ եք կապակցել Ձեր quite frankly an example LMS համակարգի հաշիվը:"
+        user_services: "Մյուս անդամներն իրենց ընտրությամբ կարող են թույլ տալ ձեզ տեսնելու, թե ինչ արտաքին ծառայությունների հետ են կապակցել իրենց quite frankly an example LMS համակարգի հաշիվը: Սա կհեշտացնի խմբային նախագծերի համակարգումը և համակարգից դուրս կապը: "
       labels: 
         allow_view_services: "Թույլ տալ դասընթացի/խմբի անդամներին տեսնել իմ պրոֆիլի հետ կապակցված ծառայությունները: "
       links: 
@@ -4691,7 +4691,7 @@ hy:
   correct_answers_are_no_longer_available_c67dfc28: "Ճիշտ պատասխանները այլևս հասանելի չեն:"
   correct_answers_will_be_available_from_to_5762e8c6: "Ճիշտ պատասխանները հասանելի կլինեն %{from}-ից մինչև %{to} ժամանակահատվածը:"
   correct_answers_will_be_available_on_date_48137: "Ճիշտ պատասխանները հասանելի կլինեն %{date} օրը:"
-  couldn_t_find_canvas_csv_import_headers_487f1b6c: "Հնարավոր չէ գտնել EXAMPLE CSV ներմուծման վերնագրերը"
+  couldn_t_find_canvas_csv_import_headers_487f1b6c: "Հնարավոր չէ գտնել quite frankly an example LMS CSV ներմուծման վերնագրերը"
   couldn_t_generate_diff_message_a0528b20: "Հնարավոր չէր գեներացնել տարբեր %{message}"
   count_assignments_with_errors_e8f3c18c: 
     one: "1 հանձնարարության մեջ առկա են սխալներ"
@@ -4811,10 +4811,10 @@ hy:
   course_conferences_3d914c96: "Դասընթացի կոնֆերանսներ"
   course_content_a92eca20: "Դասընթացի բովանդակություն"
   course_copy_argument_error: "Դասընթացի պատճենի համար պահանջվում է սկզբնաղբյուր դասընթացը"
-  course_copy_description: "EXAMPLE դասընթացների պատճենման համար տեղափոխման միացվող մոդուլ"
+  course_copy_description: "quite frankly an example LMS դասընթացների պատճենման համար տեղափոխման միացվող մոդուլ"
   course_copy_display: "Դասընթացի պատճեն"
-  course_copy_file_description: "Պատճենել EXAMPLE դասընթացը"
-  course_copy_name: "Պատճենել EXAMPLE դասընթացը"
+  course_copy_file_description: "Պատճենել quite frankly an example LMS դասընթացը"
+  course_copy_name: "Պատճենել quite frankly an example LMS դասընթացը"
   course_copy_no_course_error: "Սկզբնաղբյուր դասընթացը չի գտնվել"
   course_copy_not_allowed_error: "Ձեզ թույլատրված չէ պատճենել սկզբնաղբյուր դասընթացը"
   course_details_25cdf103: "Դասընթացի մասին տեղեկություններ"
@@ -4826,7 +4826,7 @@ hy:
       assignment_groups: "Հանձնարարությունների խումբը չհաջողվեց արտահանել"
       assignment_is_locked: "\"%{title}\" հանձնարարությունը հնարավոր չէ պատճենել, քանի որ այն արգելափակված է:"
       assignments: "Որոշ հանձնարարություններ չհաջողվեց արտահանել"
-      canvas_meta: "EXAMPLE մետա-տվյալները չհաջողվեց արտահանել "
+      canvas_meta: "quite frankly an example LMS մետա-տվյալները չհաջողվեց արտահանել "
       course_export: "Դասընթացի արտահանման սխալ"
       course_settings: "Չհաջողվեց արտահանել դասընթացի կարգաբերումները "
       events: "Չհաջողվեց արտահանել օրացուցային միջոցառումները "
@@ -5239,7 +5239,7 @@ hy:
         name: Անվանումը
         next: Հաջորդը
         section: Բաժին
-        user_might_not_exist: "Եթե դուք ճիշտ ֆորմատ եք օգտագործել, դիմեք EXAMPLE -ի ձեր ադմինիստրատորին համոզվելու, որ օգտատերն ունի EXAMPLE հաշիվ:"
+        user_might_not_exist: "Եթե դուք ճիշտ ֆորմատ եք օգտագործել, դիմեք quite frankly an example LMS -ի ձեր ադմինիստրատորին համոզվելու, որ օգտատերն ունի quite frankly an example LMS հաշիվ:"
         user_role: Դեր՝
         validating: "Հաստատում է..."
         will_not_be_added: "Այս օգտատերերը սխալներ են ունեցել և չեն ավելացվելու: Համոզվեք, որ նրանք ճիշտ ձևով են ֆորմատավորվելու:  "
@@ -5284,7 +5284,7 @@ hy:
         pending_acceptance_explanation: "Այս օգտատերը դեռևս չի ընդունել դասընթացի հրավերը"
         pending_acceptance_of_invitation: "Սպասվում է"
       roster_users: 
-        canvas_user_id: "EXAMPLE օգտատիրոջ ID"
+        canvas_user_id: "quite frankly an example LMS օգտատիրոջ ID"
         last_activity: "Վերջին գործողությունը"
         login_name: Մուտքանուն
         login_name_or_sis_id: "Մուտքի անուն/ SIS նույնականացուցիչ "
@@ -5419,7 +5419,7 @@ hy:
         edit_navigation: "Խմբագրել դասընթացում նավարկումը"
       tooltips: 
         cannot_unpublish_course: "Դուք չեք կարող այս դասընթացի հրապարակումը չեղյալ համարել, եթե ունկնդիրների ուղարկված աշխատանքները գնահատվել են"
-      transifex_message: "Միացեք  [EXAMPLE թարգմանչական հանրությանը]՝ (%{transifex_url})-ին"
+      transifex_message: "Միացեք  [quite frankly an example LMS թարգմանչական հանրությանը]՝ (%{transifex_url})-ին"
       turnitin: "Այս մեկնաբանությունները տեսանելի են լինելու ունկնդիրներին Turnitin-ի միջոցով աշխատանք ուղարկելիս  "
       view_grading_scheme: "դիտել գնահատման սխեման"
       wiki_editing_roles: "ըստ լռության ընդունված, կարելի է ստեղծել, վերանվանել և խմբագրել դասընթացի վիկի-էջերը"
@@ -5902,7 +5902,7 @@ hy:
   deep_orange_4c7eea99: "Մուգ նարնջագույն"
   deep_purple_bb3e2907: "Մուգ մանուշակագույն"
   default_account_quotas_e34112fd: "Հաշվի՝ լռությամբ ընդունված քվոտաներ"
-  default_canvas_setting_fa6e6f81: "EXAMPLE-ի լռությամբ ընդունած կարգավորումները "
+  default_canvas_setting_fa6e6f81: "quite frankly an example LMS-ի լռությամբ ընդունած կարգավորումները "
   default_conference_title: "%{course_name} կոնֆերանս"
   default_grade_cannot_be_set_to_ex_723caa59: "Լռությամբ ընդունվող գնահատականը չի կարող սահմանվել %{ex}"
   default_question_bank_c7bcc5e7: "Լռելյայն ընդունված հարցերի շտեմարան"
@@ -5931,7 +5931,7 @@ hy:
   deleting_6421031e: "ջնջում է..."
   deleting_e2bd8cc9: "Ջնջվում է..."
   delicious_7f9ac66f: Delicious
-  demo_sites_require_recaptcha_settings_to_be_config_8bf9c7e3: "Դեմո կայքերը պահանջում են սահմանել Recaptcha կարգաբերումները: EXAMPLE-ի կարգաբերումների հարցերով դիմեք ձեր կայքի ադմինիստրատորին:  "
+  demo_sites_require_recaptcha_settings_to_be_config_8bf9c7e3: "Դեմո կայքերը պահանջում են սահմանել Recaptcha կարգաբերումները: quite frankly an example LMS-ի կարգաբերումների հարցերով դիմեք ձեր կայքի ադմինիստրատորին:  "
   demos: 
     _register: 
       add_site: "Ավելացնել կայք"
@@ -5997,7 +5997,7 @@ hy:
       provost: Պրոռեկտոր
       school_administrator: "Դպրոցի ադմինիստրատոր"
       school_technology_coordinator: "Դպրոցական կրթության մեթոդների համակարգող"
-      sign_up_to_canvas: "Գրանցվեք EXAMPLE-ը փորձելու համար"
+      sign_up_to_canvas: "Գրանցվեք quite frankly an example LMS-ը փորձելու համար"
       south_america_central_america_and_caribbean: "Հարավային Ամերիկա, Կենտրոնական Ամերիկա և Կարիբյան ավազան "
       student: Ունկնդիր
       subscribe: "Ես ցանկանում եմ Instrucure-ից ստանալ նորություններ, խորհուրդներ և տեղեկություններ"
@@ -6056,7 +6056,7 @@ hy:
   different_course_b875770e: "այլ դասընթաց"
   differentiated_assignments_description: "Տարբերակված առաջադրանքները հանդիսանում են *բետա* ֆունկցիա, որը հնարավորություն է տալիս ընտրել, թե հանձնարարությունը որ բաժին(ներ)ին է առնչվում: Այն բաժին(ներ)ին, որոնց գծով հանձնարարություն չի տրված, չեն ներառվելու դասընթացի բովանդակության մեջ և ուսանողների վերջնական գնահատականը կհաշվարկվի առանց այդ միավորների:"
   diigo_993c4646: Diigo
-  diigo_is_a_social_bookmarking_tool_tailored_specif_1bff1643: "Diigo-ն էջանշանների հետ աշխատելու գործիք է, որ նախատեսված է ուսումնասիրությունների և կրթության համար: EXAMPLE-ի մուլտիմեդիա բովանդակության խմբագիրը ձեզ հնարավորություն կտա որոնելու ձեր Diigo պիտակները՝ հեշտորեն կապվելու EXAMPLE-ի և ձեզ համար օգտակար այլ ռեսուրսների հետ:"
+  diigo_is_a_social_bookmarking_tool_tailored_specif_1bff1643: "Diigo-ն էջանշանների հետ աշխատելու գործիք է, որ նախատեսված է ուսումնասիրությունների և կրթության համար: quite frankly an example LMS-ի մուլտիմեդիա բովանդակության խմբագիրը ձեզ հնարավորություն կտա որոնելու ձեր Diigo պիտակները՝ հեշտորեն կապվելու quite frankly an example LMS-ի և ձեզ համար օգտակար այլ ռեսուրսների հետ:"
   disableWhileLoading: 
     loading: "Բեռնում է..."
   disable_a5c05db3: Անջատել
@@ -6410,7 +6410,7 @@ hy:
   divide_into_equal_slots_of_num_minutes_minutes_go_52caee81: "Բաժանել %{num_minutes}  րոպեների հավասար միջակայքերի: *Սկսել*"
   do_not_consider_84d7b395: "Հաշվի չառնել"
   does_not_meet_expectations_b0736d20: "Չի համապատասխանում սպասումներին"
-  does_the_username_require_more_scoping_information_40d51df: "Արդյո՞ք օգտատիրոջ անվան համար պահանջվում է լրացուցիչ տեղեկատվություն (օր.՝ 'cn=EXAMPLE,ou=people,dc=example,dc=com'):"
+  does_the_username_require_more_scoping_information_40d51df: "Արդյո՞ք օգտատիրոջ անվան համար պահանջվում է լրացուցիչ տեղեկատվություն (օր.՝ 'cn=quite frankly an example LMS,ou=people,dc=example,dc=com'):"
   domain_3b54c511: Դոմեն
   domain_69fe564b: Դոմեն
   domain_is_required_1d4c8b25: "Անհրաժեշտ է նշել դոմենը"
@@ -6588,7 +6588,7 @@ hy:
   either_you_re_a_new_user_or_the_terms_of_use_have__14f0d0d0: "Դուք նոր օգտատեր եք կամ  *օգտագործման պայմանները* փոխվել են Ձեր կողմից դրանք վերջին անգամ ընդունելուց հետո: Նախքան շարունակելը խնդրում ենք համաձայնել *օգտագործման պայմաններին* և **գաղտնիության քաղաքականությանը**:"
   element_option_missing_error_an_element_to_attach__be433478: "՝տարր՝ բացակայող պարամետրի սխալ. TreeBrowserView-ին կցվող տարրը պետք է սահմանվի այն ժամանակ, երբ  BBTreeBrowserViews-ի համար սահմանվում է ռենդերի  'իսկական' պարամետրը: "
   email: 
-    default_from_name: "EXAMPLE"
+    default_from_name: "quite frankly an example LMS"
   email_22a7d52d: "Էլ. հասցե"
   email_address_6e0443a5: "Էլեկտրոնային փոստի հասցե"
   email_already_in_use_330248e: "Էլեկտրոնային փոստի հասցեն արդեն օգտագործվում է "
@@ -6866,7 +6866,7 @@ hy:
       write_only_comments: "Այս էջի մեկնաբանությունները անձնական են: Կարող եք մեկնաբանություններ անել, բայց միայն portfolio-ի սեփականատերը կկարողանա տեսնել դրանք:"
     show_me: "ցույց տալ"
     static_page: 
-      created_with_canvas: "Ստեղծվել է EXAMPLE-ի օգնությամբ"
+      created_with_canvas: "Ստեղծվել է quite frankly an example LMS-ի օգնությամբ"
       headers: 
         page_comments: "Էջի մեկնաբանություններ"
       links: 
@@ -7155,8 +7155,8 @@ hy:
       add_new_tool: "Ավելացնել նոր հավելված"
       all: Բոլորը
       app_headder: "Արտաքին հավելվածներ"
-      external_tools_note: "Հավելվածները EXAMPLE համակարգին նոր ֆունկցիաներ ավելացնելու  պարզ միջոցներ են: Դրանք կարող են ավելացվել առանձին դասընթացներին կամ հաշվի բոլոր դասընթացներին: Կոնֆիգուրացիայից հետո Դուք կարող եք կապակցել դրանք դասընթացի մոդուլներին և ստեղծել հանձնարարություններ գիտելիքների գնահատման գործիքների համար:"
-      external_tools_references: "*Տեսեք մի քանի LTI գործիքներ*, որոնք գերազանց աշխատում են EXAMPLE հետ: Դուք կարող եք նաև ծանոթանալ *LTI գործիքների մասին EXAMPLE հանրության թեմաներին*** "
+      external_tools_note: "Հավելվածները quite frankly an example LMS համակարգին նոր ֆունկցիաներ ավելացնելու  պարզ միջոցներ են: Դրանք կարող են ավելացվել առանձին դասընթացներին կամ հաշվի բոլոր դասընթացներին: Կոնֆիգուրացիայից հետո Դուք կարող եք կապակցել դրանք դասընթացի մոդուլներին և ստեղծել հանձնարարություններ գիտելիքների գնահատման գործիքների համար:"
+      external_tools_references: "*Տեսեք մի քանի LTI գործիքներ*, որոնք գերազանց աշխատում են quite frankly an example LMS հետ: Դուք կարող եք նաև ծանոթանալ *LTI գործիքների մասին quite frankly an example LMS հանրության թեմաներին*** "
       installed: "Տեղադրված է"
       not_installed: "Տեղադրված չէ"
       search_filter: "Զտել ըստ անվանումների"
@@ -7211,7 +7211,7 @@ hy:
     differentiated_assignments: "Տարբերակված հանձնարարություններ"
     differentiated_assignments_account_disable_warning: |-
         Այս ֆունկցիայի անջատումը կազդի գոյություն ունեցող դասընթացների վրա: Այս ֆունկցիան անջատելու համար 
-        դիմեք ձեր EXAMPLE Success Manager-ին:
+        դիմեք ձեր quite frankly an example LMS Success Manager-ին:
     differentiated_assignments_course_disable_warning: "Տարբերակված հանձնարարությունների անջատումը բոլոր հրապարակված հանձնարարությունները տեսանելի կդարձնի բոլոր ունկնդիրների համար:"
     differentiated_assignments_description: "Տարբերակված հանձնարարությունները հնարավորություն են տալիս ընտրել այն բաժինը(ները) կամ ունկնդրին(ունկնդիրներին), որոնց նկատմամբ կիրառելի է տվյալ հանձնարարությունը: Չընտրված բաժիններում հանձնարարությունը տեսանելի չի լինելու դասընթացի բովանդակության մեջ, եւ ունկնդիրների վերջնական գնահատականը հաշվարկվելու է առանց այդ հանձնարարության միավորների:"
     ember_modules: "Ember մոդուլներ"
@@ -8492,9 +8492,9 @@ hy:
     message_will_be_sent_to_all_the_teachers_tas_in_the_course: "Հաղորդագրությունը ուղարկվելու է դասընթացի բոլոր դասավանդողներին/ասիստենտներին:"
     please_select_one: "Ընտրեք, խնդրեմ, մեկը..."
     report_problem: "Հաղորդել խնդրի մասին"
-    report_problem_sub: "Եթե EXAMPLE վատ է աշխատում, հաղորդեք մեզ այդ մասին"
-    search_the_canvas_guides: "Որոնել EXAMPLE ցուցումները"
-    see_if_your_issue_is_addressed_in_the_canvas_guides: "Ստուգեք, արդյոք ձեր հարցի պատասխանը տրված չէ *EXAMPLE-ի ցուցումներում*: "
+    report_problem_sub: "Եթե quite frankly an example LMS վատ է աշխատում, հաղորդեք մեզ այդ մասին"
+    search_the_canvas_guides: "Որոնել quite frankly an example LMS ցուցումները"
+    see_if_your_issue_is_addressed_in_the_canvas_guides: "Ստուգեք, արդյոք ձեր հարցի պատասխանը տրված չէ *quite frankly an example LMS-ի ցուցումներում*: "
     send_message: "Ուղարկել հաղորդագրություն"
     sending: "Ուղարկվում է..."
     somethings_broken_but_i_can_work_around_it_for_now: "Ինչ-որ բան փչացել է, բայց ես կարող եմ առայժմ առանց օգնության աշխատել"
@@ -8574,7 +8574,7 @@ hy:
   homework_submission_172e8354: "Տնային հանձնարարության ուղարկում"
   host_8be927e0: Հանգույց
   hover_over_me_496521b9: "Բերեք կուրսորը ինձ վրա"
-  html5_first_videos_description: "Ըստ լռության ընդունված, սկզբից EXAMPLE-ը կփորձի օգտագործել Flash-player-ը տեսահոլովակները վերարտադրելու համար: Միացրեք սա՝ HTML5-ը առաջինը փորձելու համար , հետո անցեք Flash-player-ին: "
+  html5_first_videos_description: "Ըստ լռության ընդունված, սկզբից quite frankly an example LMS-ը կփորձի օգտագործել Flash-player-ը տեսահոլովակները վերարտադրելու համար: Միացրեք սա՝ HTML5-ը առաջինը փորձելու համար , հետո անցեք Flash-player-ին: "
   html_editor_fb2ab713: "HTML խմբագիր"
   i_agree_to_the_terms_of_use_and_privacy_policy_f41760cc: "Ես համաձայն եմ *օգտագործման պայմաններին* և  **գաղտնիության քաղաքականությանը**:"
   i_cb2f5130: i
@@ -8604,11 +8604,11 @@ hy:
   if_enabled_query_parameters_will_not_be_copied_to__4c6ed625: "Ակտիվացման դեպքում հարցման պարամետրերը LTI գործարկման ժամանակ չեն պատճենվի POST-ում:"
   if_enabled_users_will_be_able_to_configure_lti_2_t_6293eebd: "Ակտիվացման դեպքում օգտագործողները կկարողանան կարգաբերել LTI 2 գործիքները:"
   if_you_change_an_assignment_s_points_possible_you__25a0edad: "Եթե փոխեք հանձնարարության համար տրվող հնարավոր միավորները, դուք պետք է կրկին անգամ գնահատեք հանձնարարությունը:"
-  if_you_configure_settings_that_cause_you_to_not_be_13d4cbbf: "Եթե դուք փոխեք կարգաբերումները, որի հետևանքով չեք կարողանա մուտք գործել համակարգ, կարող եք %{url}-ում անմիջապես մուտքագրել EXAMPLE սովորական մուտքի անունը:"
+  if_you_configure_settings_that_cause_you_to_not_be_13d4cbbf: "Եթե դուք փոխեք կարգաբերումները, որի հետևանքով չեք կարողանա մուտք գործել համակարգ, կարող եք %{url}-ում անմիջապես մուտքագրել quite frankly an example LMS սովորական մուտքի անունը:"
   if_you_do_not_select_usage_rights_now_this_file_wi_40c42125: "Եթե այժմ չնշեք օգտագործման իրավունքները, այս ֆայլը բեռնելուց հետո կհանվի հրապարակումից:   "
   if_you_enable_this_feature_be_sure_that_your_sales_566967e6: "Եթե ակտիվացնեք այս ֆունկցիան, համոզվեք, որ Ձեր salesforce-ի Ձեր հաշիվը ներառում է օգտատիրոջ դաշտերը, որոնք լրացվել են  աղյուսակի ձախ սյունակում բերված անուններով:"
   if_you_leave_the_zip_file_download_currently_being_c47c1dfb: "Եթե դուրս գաք այս էջից zip-ֆայլի ներբեռնումը չեղյալ կհամարվի:"
-  if_you_ve_been_using_another_course_management_sys_67edfab1: "Եթե դուք օգտագործում եք դասընթացի կառավարման մեկ այլ համակարգ, ապա ձեր մոտ կլինեն նյութեր, որոնք կցանկանաք տեղափոխել EXAMPLE: Մենք կարող ենք օգնել ձեզ հեշտորեն տեղափոխելու ձեր նյութերը EXAMPLE:"
+  if_you_ve_been_using_another_course_management_sys_67edfab1: "Եթե դուք օգտագործում եք դասընթացի կառավարման մեկ այլ համակարգ, ապա ձեր մոտ կլինեն նյութեր, որոնք կցանկանաք տեղափոխել quite frankly an example LMS: Մենք կարող ենք օգնել ձեզ հեշտորեն տեղափոխելու ձեր նյութերը quite frankly an example LMS:"
   if_you_would_like_to_keep_your_unsubmitted_comment_b7e349ce: "Եթե դուք ցանկանում եք պահել ձեր կողմից չուղարկված մեկնաբանությունները, խնդրում ենք պահպանել այն նախքան այս էջը լքելը:"
   ignore_91750df8: Անտեսել
   ignore_assignment_738b3c99: "Անտեսել հանձնարարությունը"
@@ -8675,7 +8675,7 @@ hy:
   include_unpublished_courses_7a0e7aab: "Ներառել չհրատարակված դասընթացները"
   incompleteregistration: 
     get_started: Սկսենք
-    welcome_to_canvas: "Ձեզ ողջունում է EXAMPLE-ը"
+    welcome_to_canvas: "Ձեզ ողջունում է quite frankly an example LMS-ը"
   incorrect_username_and_or_password_2de73abb: "Սխալ օգտատիրոջ անուն և/կամ գաղտնաբառ"
   increase_indent_6af90f7c: "Մեծացնել ներսի տողագլուխը"
   incremental_update_successfully_generated_against__db3f3f06: "Նախկինում SIS ներմուծման հիման վրա հաջողությամբ իրականացվել է լրացուցիչ թարմացում: "
@@ -8700,13 +8700,13 @@ hy:
   installed_7b284a91: "Տեղադրված է"
   installed_by_admin_97c3a721: "Տեղադրված է ադմինիստրատորի կողմից"
   instructions: 
-    authorize_google_docs: "Նախքան փաստաթղթերի վրա համատեղ աշխատելը դուք պետք է թույլ տաք EXAMPLE-ին մուտք գործել Google Docs-ի ձեր հաշիվ:"
-    authorize_google_drive: "Նախքան փաստաթղթերի վրա համատեղ աշխատելը դուք պետք է թույլ տաք EXAMPLE-ին մուտք գործել Google Drive-ի ձեր հաշիվ:"
+    authorize_google_docs: "Նախքան փաստաթղթերի վրա համատեղ աշխատելը դուք պետք է թույլ տաք quite frankly an example LMS-ին մուտք գործել Google Docs-ի ձեր հաշիվ:"
+    authorize_google_drive: "Նախքան փաստաթղթերի վրա համատեղ աշխատելը դուք պետք է թույլ տաք quite frankly an example LMS-ին մուտք գործել Google Drive-ի ձեր հաշիվ:"
   instructions_2f88ee72: Հրահանգներ
   instructors_4b491a07: դասավանդողներ
   instructure: 
     alerts: 
-      file_previews_disabled: "Ֆայլերի նախնական դիտումները EXAMPLE-ի այս կայքի համար անջատվել են"
+      file_previews_disabled: "Ֆայլերի նախնական դիտումները quite frankly an example LMS-ի այս կայքի համար անջատվել են"
     browsers: 
       unrecognized: "Չճանաչված բրաուզեր"
     buttons: 
@@ -8723,7 +8723,7 @@ hy:
         minute: րոպե
     draft: Սևագիր
     errors: 
-      cannot_view_document_in_canvas: "Այս փաստաթուղթը չի կարող ցուցադրվել EXAMPLE-ի ներսում:"
+      cannot_view_document_in_canvas: "Այս փաստաթուղթը չի կարող ցուցադրվել quite frankly an example LMS-ի ներսում:"
       document_preview_processing: "Փաստաթղթի նախնական դիտումը այժմ մշակման փուլում է: Փորձեք կրկին ավելի ուշ:"
       field_is_required: "Անհրաժեշտ է լրացնել այս դաշտը"
       invalid_datetime: "Ամսաթվի/ժամանակի սխալ"
@@ -8764,12 +8764,12 @@ hy:
       enter_search_terms: "մուտքագրել որոնման պայմանները"
   instructure_inline_media_comment: 
     alerts: 
-      kaltura_disabled: "Kaltura-ն անջատված է EXAMPLE-ի այս կայքի համար"
+      kaltura_disabled: "Kaltura-ն անջատված է quite frankly an example LMS-ի այս կայքի համար"
     links: 
       minimize_embedded_kaltura_content: "Փոքրացնել ներսի բովանդակությունը"
   instructure_js: 
     alerts: 
-      file_previews_disabled: "Ֆայլերի նախնական դիտումները EXAMPLE-ի այս կայքի համար անջատվել են"
+      file_previews_disabled: "Ֆայլերի նախնական դիտումները quite frankly an example LMS-ի այս կայքի համար անջատվել են"
     buttons: 
       next_module: "Հաջորդ մոդուլը"
       previous_module: "Նախորդ մոդուլը"
@@ -8902,7 +8902,7 @@ hy:
       previous: Նախորդը
   jquery_doc_previews: 
     errors: 
-      cannot_view_document_in_canvas: "Այս փաստաթուղթը չի կարող ցուցադրվել EXAMPLE-ի ներսում:"
+      cannot_view_document_in_canvas: "Այս փաստաթուղթը չի կարող ցուցադրվել quite frankly an example LMS-ի ներսում:"
       document_preview_processing: "Փաստաթղթի նախնական դիտումը այժմ մշակման փուլում է: Փորձեք կրկին ավելի ուշ:"
   jquery_media_comments: 
     loading: "Տվյալների բեռնում..."
@@ -8959,13 +8959,13 @@ hy:
         reset_explanation: "Թեստավորվող ունկնդրի վերակարգաբերումը մաքրում է այս ունկնդրի ամբողջ պատմությունը, թույլ տալով ձեզ դիտել դասընթացը որպես բոլորովին նոր ունկնդիր:"
         warning_title: "Ներկայումս դուք մուտք եք գործել համակարգ որպես ունկնդիր"
     head: 
-      default_page_title: "EXAMPLE LMS"
+      default_page_title: "quite frankly an example LMS"
     menu: 
       view_all_accounts: "Դիտել բոլոր հաշիվները"
       view_all_groups: "Դիտել բոլոր խմբերը"
       view_all_or_customize: "Դիտել բոլորը կամ կարգաբերել"
     mobile_auth: 
-      log_in_to_canvas: "Մուտք գործել EXAMPLE համակարգ"
+      log_in_to_canvas: "Մուտք գործել quite frankly an example LMS համակարգ"
   lbs_report_header_course_code: "Դասընթացի կոդ"
   lbs_report_header_final_score: "Վերջնական արդյունքը"
   lbs_report_header_student_name: "Ունկնդրի անունը"
@@ -8990,7 +8990,7 @@ hy:
   lib: 
     angel: 
       failed_import_link: "Ներմուծման սխալ հղում"
-      failed_import_link_body: "Այս հղումը կապված է Angel ֆունկցիայի հետ, որին հնարավոր չէր միանալ EXAMPLE-ի միջոցով կամ որը բաց էր թողնվել արտահանման ժամանակ: "
+      failed_import_link_body: "Այս հղումը կապված է Angel ֆունկցիայի հետ, որին հնարավոր չէր միանալ quite frankly an example LMS-ի միջոցով կամ որը բաց էր թողնվել արտահանման ժամանակ: "
     api: 
       attachments: 
         only_one_folder: "Հնարավոր չէ սահմանել թղթապանակի ուղին և նույնականացուցիչը"
@@ -9042,13 +9042,13 @@ hy:
     incoming_message_processor: 
       failure_message: 
         body: |-
-            "%{subject}" վերնագիրը կրող հաղոդագրությունը հնարավոր չէ ուղարկել: Հաղորդագրությունն ուղարկվել է անհայտ էլեկտրոնային փոստի հասցեին: Եթե դուք EXAMPLE համակարգի միջոցով փորձում եք կապ հաստատել որևէ մեկի հետ, դուք պետք է մուտք գործեք ձեր հաշիվ և ուղարկեք հաղորդագրություն Մուտքերի փոստարկղ գործիքի միջոցով: Շնորհակալություն,
-            EXAMPLE համակագի օգնության հարցերով ծառայություն
+            "%{subject}" վերնագիրը կրող հաղոդագրությունը հնարավոր չէ ուղարկել: Հաղորդագրությունն ուղարկվել է անհայտ էլեկտրոնային փոստի հասցեին: Եթե դուք quite frankly an example LMS համակարգի միջոցով փորձում եք կապ հաստատել որևէ մեկի հետ, դուք պետք է մուտք գործեք ձեր հաշիվ և ուղարկեք հաղորդագրություն Մուտքերի փոստարկղ գործիքի միջոցով: Շնորհակալություն,
+            quite frankly an example LMS համակագի օգնության հարցերով ծառայություն
         subject: "Հաղորդագրությանը պատասխանել չհաջողվեց՝ %{subject}  "
       locked_topic: 
         body: |-
-            "%{subject}" վերնագիրը կրող հաղոդագրությունը հնարավոր չէ ուղարկել, քանի որ քննարկման թեման արգելափակված է: Հաղորդագրությունն ուղարկվել է անհայտ էլեկտրոնային փոստի հասցեին: Եթե դուք EXAMPLE համակարգի միջոցով փորձում եք կապ հաստատել որևէ մեկի հետ, դուք պետք է մուտք գործեք ձեր հաշիվ և ուղարկեք հաղորդագրությունը Մուտքերի փոստարկղ գործիքի միջոցով: Շնորհակալություն,
-            EXAMPLE համակարգի օգնության հարցերով ծառայություն
+            "%{subject}" վերնագիրը կրող հաղոդագրությունը հնարավոր չէ ուղարկել, քանի որ քննարկման թեման արգելափակված է: Հաղորդագրությունն ուղարկվել է անհայտ էլեկտրոնային փոստի հասցեին: Եթե դուք quite frankly an example LMS համակարգի միջոցով փորձում եք կապ հաստատել որևէ մեկի հետ, դուք պետք է մուտք գործեք ձեր հաշիվ և ուղարկեք հաղորդագրությունը Մուտքերի փոստարկղ գործիքի միջոցով: Շնորհակալություն,
+            quite frankly an example LMS համակարգի օգնության հարցերով ծառայություն
         subject: "Հաղորդագրությանը պատասխանել չհաջողվեց՝ %{subject}  "
     progress_runner: 
       completed_message: 
@@ -9167,15 +9167,15 @@ hy:
         browse_courses: "Բացել դասընթացները"
         buttons: 
           request_password: "Հարցման գաղտնաբառը"
-        coenrollment_banner: "*EXAMPLE-ի օգտագործողի ծնո՞ղ* **Հաշվի համար սեղմեք այստեղ** "
+        coenrollment_banner: "*quite frankly an example LMS-ի օգտագործողի ծնո՞ղ* **Հաշվի համար սեղմեք այստեղ** "
         dont_know_password: "Չգիտե՞ք ձեր գաղտնաբառը:"
         labels: 
           password: Գաղտնաբառ
           remember_me: "Մնացեք համակարգում"
         log_in: "Մուտք գործել"
         login_handle: "Մուտքագրեք ձեր %{login_handle_name} և մենք կուղարկենք ձեզ հղում ձեր գաղտնաբառը փոխելու համար:"
-        page_title: "Մուտք գործել EXAMPLE համակարգ"
-        register_for_canvas: "*Անհրաժեշտ է EXAMPLE-ի հաշի՞վ*: **Սեղմեք այստեղ, այն անվճար է **:"
+        page_title: "Մուտք գործել quite frankly an example LMS համակարգ"
+        register_for_canvas: "*Անհրաժեշտ է quite frankly an example LMS-ի հաշի՞վ*: **Սեղմեք այստեղ, այն անվճար է **:"
       new_login_content: 
         ? "User Research"
         : "Օգտատիրոջ հետազոտություն"
@@ -9192,7 +9192,7 @@ hy:
     logout_confirm: 
       cancel: "Չեղյալ համարել"
       details: 
-        log_out: "Դուք իսկապե՞ս ցանկանում եք դուրս գալ EXAMPLE համակարգից:"
+        log_out: "Դուք իսկապե՞ս ցանկանում եք դուրս գալ quite frankly an example LMS համակարգից:"
       log_out: Ելք
       page_title: Ելք
     otp: 
@@ -9204,7 +9204,7 @@ hy:
           verify: "Ստուգել "
         details: 
           mfa_enrollment: |-
-              Իսկության հաստատման բազմագործոնային եղանակը ամրապնդում է անվտանգությունը,պահանջելով, որ դուք ի լրումն ձեր գաղտնաբառի ինչ-որ ֆիզիկական իր ունենաք, որպեսզի կարողանաք մուտք գործել EXAMPLE: Սա կարող է լինել մի սարք, որը գեներացնում է ստուգման կոդեր կամ հեռախոս, որը կարող է ստանալ տեքստային հաղորդագրություններ: [iPhone](%{iphone_url}) կամ
+              Իսկության հաստատման բազմագործոնային եղանակը ամրապնդում է անվտանգությունը,պահանջելով, որ դուք ի լրումն ձեր գաղտնաբառի ինչ-որ ֆիզիկական իր ունենաք, որպեսզի կարողանաք մուտք գործել quite frankly an example LMS: Սա կարող է լինել մի սարք, որը գեներացնում է ստուգման կոդեր կամ հեռախոս, որը կարող է ստանալ տեքստային հաղորդագրություններ: [iPhone](%{iphone_url}) կամ
               [Android](%{android_url})-ի համար Google-ի  Իսկության հաստատման հավելվածը կարող է կարգաբերվել գաղտնի բանալին՝ **%{secret_key}** մուտքագրելու միջոցով:
           mfa_required: "Դուք պետք է սահմանեք իսկության բազմագործոնային ստուգում: "
           otp_on_device: "Մուտքագրեք ձեր token-ում ցույց տրված հաստատման կոդը"
@@ -9338,7 +9338,7 @@ hy:
       record_upload_media_comment: "Մուլտիմեդիա մեկնաբանության գրանցում/բեռնում"
   media_comments: 
     alerts: 
-      kaltura_disabled: "Kaltura-ն անջատված է EXAMPLE-ի այս կայքի համար"
+      kaltura_disabled: "Kaltura-ն անջատված է quite frankly an example LMS-ի այս կայքի համար"
     buttons: 
       submit: "Ուղարկել մուլտիմեդիա ֆայլ"
     cancel: "Չեղյալ համարել"
@@ -9422,7 +9422,7 @@ hy:
     my_courses: "Իմ դասընթացները"
   merge_user_accounts_a49e8fb1: "Միավորել օգտատիրոջ հաշիվները"
   message: 
-    default_subject: "EXAMPLE -ի ծանուցում"
+    default_subject: "quite frankly an example LMS -ի ծանուցում"
   message_896d2ed0: "%{message}"
   message_body_1f782712: Հաղորդագրություն
   message_groups_who_1ba736f: "Հաղորդագրությունների խմբեր, ովքեր..."
@@ -9466,33 +9466,33 @@ hy:
           click_to_finish_registration: "Սեղմեք այստեղ գրանցման գործընթացն ավարտելու համար:"
           email: Էլ.փոստ
           name: Անվանումը
-          subject: "EXAMPLE-ի հաշվի ադմինիստրատորի հրավերը"
-          url_info_label: "Դուք պետք է գրանցվեք EXAMPLE-ում, որպեսզի կարողանաք մասնակցել որպես հաշվի ադմինիստրատոր: "
+          subject: "quite frankly an example LMS-ի հաշվի ադմինիստրատորի հրավերը"
+          url_info_label: "Դուք պետք է գրանցվեք quite frankly an example LMS-ում, որպեսզի կարողանաք մասնակցել որպես հաշվի ադմինիստրատոր: "
           username: "Օգտատիրոջ անուն"
         name_info: "Անուն՝ %{name}"
-        subject: "EXAMPLE-ի հաշվի ադմինիստրատորի հրավերը"
-        url_info: "Դուք պետք է գրանցվեք EXAMPLE-ում, որպեսզի կարողանաք մասնակցել որպես հաշվի ադմինիստրատոր: Դուք կարող եք ավարտել գրանցման գործընթացը այստեղ՝ %{url}:"
+        subject: "quite frankly an example LMS-ի հաշվի ադմինիստրատորի հրավերը"
+        url_info: "Դուք պետք է գրանցվեք quite frankly an example LMS-ում, որպեսզի կարողանաք մասնակցել որպես հաշվի ադմինիստրատոր: Դուք կարող եք ավարտել գրանցման գործընթացը այստեղ՝ %{url}:"
         username_info: "Օգտատիրոջ անուն՝ %{username}"
     added_to_conversation: 
       email: 
-        body: "%{user_name} ավելացրել է ձեզ EXAMPLE-ի խոսակցությանը: Խոսակցությունը դիտելու համար սեղմեք ներքևի հղումը՝  "
+        body: "%{user_name} ավելացրել է ձեզ quite frankly an example LMS-ի խոսակցությանը: Խոսակցությունը դիտելու համար սեղմեք ներքևի հղումը՝  "
         html: 
-          body: "%{user_name}-ը ավելացրել է Ձեզ EXAMPLE համակարգի խոսակցությանը: "
+          body: "%{user_name}-ը ավելացրել է Ձեզ quite frankly an example LMS համակարգի խոսակցությանը: "
           link_text: "Դիտել խոսակցությունը"
-          subject: "%{user_name}-ը ավելացրել է Ձեզ EXAMPLE համակարգի խոսակցությանը: "
+          subject: "%{user_name}-ը ավելացրել է Ձեզ quite frankly an example LMS համակարգի խոսակցությանը: "
           unknown_user: "Անհայտ օգտատեր"
-        subject: "%{user_name}-ը ավելացրել է Ձեզ EXAMPLE համակարգի խոսակցությանը: "
+        subject: "%{user_name}-ը ավելացրել է Ձեզ quite frankly an example LMS համակարգի խոսակցությանը: "
         unknown_user: "Անհայտ օգտատեր"
       sms: 
-        body: "%{user_name}-ը ավելացրել է Ձեզ EXAMPLE համակարգի խոսակցությանը: "
+        body: "%{user_name}-ը ավելացրել է Ձեզ quite frankly an example LMS համակարգի խոսակցությանը: "
         more_info: "Լրացուցիչ տեղեկությունները հասանելի են %{url}-ում"
         unknown_user: "Անհայտ օգտատեր"
       summary: 
-        body: "%{user_name}-ը ավելացրել է Ձեզ EXAMPLE համակարգի խոսակցությանը: "
-        subject: "%{user_name}-ը ավելացրել է Ձեզ EXAMPLE համակարգի խոսակցությանը: "
+        body: "%{user_name}-ը ավելացրել է Ձեզ quite frankly an example LMS համակարգի խոսակցությանը: "
+        subject: "%{user_name}-ը ավելացրել է Ձեզ quite frankly an example LMS համակարգի խոսակցությանը: "
         unknown_user: "Անհայտ օգտատեր"
       twitter: 
-        tweet: "EXAMPLE համակարգի ծանուցում. ավելացվել է խոսակցությանը %{user_name}-ի կողմից:"
+        tweet: "quite frankly an example LMS համակարգի ծանուցում. ավելացվել է խոսակցությանը %{user_name}-ի կողմից:"
         unknown_user: "Անհայտ օգտատեր"
     alert: 
       email: 
@@ -9559,7 +9559,7 @@ hy:
         details: "Լրացուցիչ տեղեկությունները հասանելի են %{url}-ում"
         subject: "Դուք ստեղծել եք այս հայտատարությունը՝ %{title}, %{course}"
       twitter: 
-        body: "EXAMPLE-ի նախազգուշացում. դուք ստեղծել եք այս հայտարարությունը՝ %{title}, %{course}"
+        body: "quite frankly an example LMS-ի նախազգուշացում. դուք ստեղծել եք այս հայտարարությունը՝ %{title}, %{course}"
     announcement_reply: 
       email: 
         body: "%{user} նոր մեկնաբանություն է տեղադրել հայտարարության առթիվ՝ %{discussion_topic} for %{course}:"
@@ -9576,7 +9576,7 @@ hy:
       summary: 
         subject: "Նոր մեկնաբանություն հայտարարության՝ %{discussion_topic}: %{course} առթիվ"
       twitter: 
-        body: "EXAMPLE-ի նախազգուշացում՝ հայտարարության մեկնաբանություն՝ %{discussion_topic}, %{course}."
+        body: "quite frankly an example LMS-ի նախազգուշացում՝ հայտարարության մեկնաբանություն՝ %{discussion_topic}, %{course}."
     appointment_canceled_by_user: 
       email: 
         html: 
@@ -9608,7 +9608,7 @@ hy:
         message: "%{user} չեղյալ է համարել  \"%{appointment_name}\"-ի համար իր նախնական գրանցումը:"
         more_info: "Լրացուցիչ տեղեկությունները հասանելի են %{url}-ում"
       twitter: 
-        message: "EXAMPLE համակարգի նախազգուշացում. %{user}ը չեղյալ է համարել  \"%{appointment_name}\"-ի համար իր նախնական գրանցումը:"
+        message: "quite frankly an example LMS համակարգի նախազգուշացում. %{user}ը չեղյալ է համարել  \"%{appointment_name}\"-ի համար իր նախնական գրանցումը:"
     appointment_deleted_for_user: 
       email: 
         html: 
@@ -9639,7 +9639,7 @@ hy:
         message: "%{appointment_name}-ի համար ձեր ժամանակային միջակայքը չեղյալ էր համարվել:"
         more_info: "Լրացուցիչ տեղեկությունները հասանելի են %{url}-ում"
       twitter: 
-        message: "EXAMPLE համակարգի նախազգուշացում. \"%{appointment_name}-ի համար ձեր ժամանակային միջակայքը չեղյալ էր համարվել\":"
+        message: "quite frankly an example LMS համակարգի նախազգուշացում. \"%{appointment_name}-ի համար ձեր ժամանակային միջակայքը չեղյալ էր համարվել\":"
     appointment_group_deleted: 
       email: 
         html: 
@@ -9663,7 +9663,7 @@ hy:
         message: "\"%{appointment_name} -ի համար բոլոր հանդիպումները չեղյալ են համարված\":"
         more_info: "Լրացուցիչ տեղեկությունները հասանելի են %{url}-ում"
       twitter: 
-        message: "EXAMPLE համակարգի նախազգուշացում. \"%{appointment_name}-ի համար բոլոր հանդիպումները չեղյալ են համարված\":"
+        message: "quite frankly an example LMS համակարգի նախազգուշացում. \"%{appointment_name}-ի համար բոլոր հանդիպումները չեղյալ են համարված\":"
     appointment_group_published: 
       email: 
         group_signup: "(%{group_category}) խումբ"
@@ -9695,7 +9695,7 @@ hy:
         message: "\"%{appointment_name}\"-ի համար ժամանակային միջակայքերը հասանելի են գրանցման համար (%{dates}):"
         subject: "\"%{appointment_name}\" հանդիպումը հասանելի է գրանցման համար (%{course})"
       twitter: 
-        message: "EXAMPLE-ի նախազգուշացում.  \"%{appointment_name}\"-ի համար գրանցումները բաց են:"
+        message: "quite frankly an example LMS-ի նախազգուշացում.  \"%{appointment_name}\"-ի համար գրանցումները բաց են:"
     appointment_group_updated: 
       email: 
         group_signup: "(%{group_category}) խումբ"
@@ -9726,7 +9726,7 @@ hy:
         message: "\"%{appointment_name}\"-ի համար ավելացվել են ժամանակային միջակայքեր և այժմ առկա են գրանցման համար  (%{dates}):"
         subject: "\"%{appointment_name}\" հանդիպումը թարմացվել է (%{course})"
       twitter: 
-        message: "EXAMPLE-ի նախազգուշացում. \"%{appointment_name}\"-ի համար առկա են նոր ժամանակային միջակայքեր:"
+        message: "quite frankly an example LMS-ի նախազգուշացում. \"%{appointment_name}\"-ի համար առկա են նոր ժամանակային միջակայքեր:"
     appointment_reserved_by_user: 
       email: 
         html: 
@@ -9755,7 +9755,7 @@ hy:
         message: "%{user} -ը գրանցվել է \"%{appointment_name}\"-ի համար:"
         more_info: "Լրացուցիչ տեղեկությունները հասանելի են %{url}-ում"
       twitter: 
-        message: "EXAMPLE ծանուցում. %{user} գրանցվել է \"%{appointment_name}\" համար:"
+        message: "quite frankly an example LMS ծանուցում. %{user} գրանցվել է \"%{appointment_name}\" համար:"
     appointment_reserved_for_user: 
       email: 
         html: 
@@ -9787,7 +9787,7 @@ hy:
         message: "%{user} գրանցել է ձեզ \"%{appointment_name}\" համար (%{date_and_time}): "
         subject: "Դուք գրանցվել եք \"%{appointment_name}\" (%{course})-ի համար:"
       twitter: 
-        message: "EXAMPLE-ի նախազգուշացում. դուք գրանցվել եք \"%{appointment_name}\"-ի համար:"
+        message: "quite frankly an example LMS-ի նախազգուշացում. դուք գրանցվել եք \"%{appointment_name}\"-ի համար:"
     assignment_changed: 
       email: 
         body: |-
@@ -9807,7 +9807,7 @@ hy:
       summary: 
         subject: "%{course} -ի %{title} հանձնարարությունը փոփոխության է ենթարկվել "
       twitter: 
-        assignment_change: "EXAMPLE համակարգի նախազգուշացում. փոփոխություն՝ %{assignment_name}, %{course_name}"
+        assignment_change: "quite frankly an example LMS համակարգի նախազգուշացում. փոփոխություն՝ %{assignment_name}, %{course_name}"
     assignment_created: 
       email: 
         assignment_created: "Հանձնարարությունը ստեղծվել է՝ %{assignment_name}, %{course_name}"
@@ -9836,7 +9836,7 @@ hy:
         multiple_due_dates: "Մինչև՝ մի քանի ամսաթվեր"
         no_due_date: "Մինչև՝ կատարման ժամկետ չկա"
       twitter: 
-        assignment_change: "EXAMPLE-ի նախազգուշացում. փոփոխություն՝ %{assignment_name}, %{course_name}"
+        assignment_change: "quite frankly an example LMS-ի նախազգուշացում. փոփոխություն՝ %{assignment_name}, %{course_name}"
         due_at: "կատարման ամսաթիվ՝ %{assignment_due_date_time}"
         multiple_due_dates: "Մինչև՝ մի քանի ամսաթվեր"
         no_due_date: "Մինչև՝ կատարման ժամկետ չկա"
@@ -9861,7 +9861,7 @@ hy:
         due_at: "կատարման ամսաթիվ՝ %{assignment_due_date_time}"
         no_due_date: "Կատարման ժամկետ չկա"
       twitter: 
-        assignment_change: "EXAMPLE համակարգի նախազգուշացում.%{assignment_name}, %{course_name} կատարման ամսաթիվը փոխվել է:"
+        assignment_change: "quite frankly an example LMS համակարգի նախազգուշացում.%{assignment_name}, %{course_name} կատարման ամսաթիվը փոխվել է:"
         due_at: "վերջնաժամկետ՝ %{assignment_due_date_time}"
         no_due_date: "վերջնաժամկետ՝ վերջնաժամկետ չկա"
     assignment_due_date_override_changed: 
@@ -9885,7 +9885,7 @@ hy:
         due_at: "կատարման ամսաթիվ՝ %{assignment_due_date_time}"
         no_due_date: "Մինչև՝ կատարման ժամկետ չկա"
       twitter: 
-        assignment_change: "EXAMPLE համակարգի նախազգուշացում. %{course_name} (%{override})-ի   %{assignment_name} կատարման ժամկետի փոփոխություն "
+        assignment_change: "quite frankly an example LMS համակարգի նախազգուշացում. %{course_name} (%{override})-ի   %{assignment_name} կատարման ժամկետի փոփոխություն "
         due_at: "վերջնաժամկետ՝ %{assignment_due_date_time}"
         no_due_date: "վերջնաժամկետ՝ վերջնաժամկետ չկա"
     assignment_graded: 
@@ -9905,7 +9905,7 @@ hy:
         assignment_graded: "Հանձնարարությունը գնահատված է՝ %{assignment_name}, %{course_name}"
         the_assignment_is_graded: "%{assignment_name} հանձնարարությունը գնահատվել է:"
       twitter: 
-        assignment_graded: "EXAMPLE համակարգի նախազգուշացում. գնահատվել է՝%{assignment_name}, %{course_name}"
+        assignment_graded: "quite frankly an example LMS համակարգի նախազգուշացում. գնահատվել է՝%{assignment_name}, %{course_name}"
     assignment_locked: "Այս հանձնարարությունը ներկայումս արգելափակված է:"
     assignment_locked_at: "Այս հանձնարարությունը արգելափակվել է %{at}:"
     assignment_locked_module: "Այս հանձնարարությունը *%{module}* մոդուլի մի մասն է և դեռևս չի արգելազերծվել: "
@@ -9928,7 +9928,7 @@ hy:
         turned_in_at: "ակտիվացվել է՝%{submission_date}"
         user_resubmitted: "Կրկին ուղարկում՝ %{user_name}, %{assignment_name}"
       twitter: 
-        user_resubmitted: "EXAMPLE համակարգի ծանուցում - Կրկին ուղարկում՝  %{user_name}, %{assignment_name}"
+        user_resubmitted: "quite frankly an example LMS համակարգի ծանուցում - Կրկին ուղարկում՝  %{user_name}, %{assignment_name}"
     assignment_submitted: 
       email: 
         html: 
@@ -9946,7 +9946,7 @@ hy:
         turned_in_at: "ակտիվացվել է՝%{submission_date}"
         user_submitted: "Ուղարկում՝ %{user_name}, %{assignment_name}"
       twitter: 
-        user_submitted: "EXAMPLE համակարգի նախազգուշացում. ուղարկում՝ %{user_name}, %{assignment_name}"
+        user_submitted: "quite frankly an example LMS համակարգի նախազգուշացում. ուղարկում՝ %{user_name}, %{assignment_name}"
     assignment_submitted_late: 
       email: 
         html: 
@@ -9964,7 +9964,7 @@ hy:
         turned_in_at: "ակտիվացվել է՝%{submission_date}"
         user_submitted: "Ուշացված հանձնարարություն՝ %{user_name}, %{assignment_name}"
       twitter: 
-        user_submitted: "EXAMPLE համակարգի նախազգուշացում. ուշացրած ուղարկում՝ %{user_name}, %{assignment_name}"
+        user_submitted: "quite frankly an example LMS համակարգի նախազգուշացում. ուշացրած ուղարկում՝ %{user_name}, %{assignment_name}"
     assignment_unmuted: 
       email: 
         body: |-
@@ -10022,7 +10022,7 @@ hy:
             և ձեզ հրավիրել են ձեր %{email} էլեկտրոնային  հասցեով:
         subject: "Համատեղ աշխատանքի հրավեր՝ %{course_or_group}"
       twitter: 
-        body: "EXAMPLE-ի ծանուցում. համատեղ աշխատանքի հրավեր՝ %{document}, %{course_or_group}"
+        body: "quite frankly an example LMS-ի ծանուցում. համատեղ աշխատանքի հրավեր՝ %{document}, %{course_or_group}"
     confirm_email_communication_channel: 
       email: 
         body: "%{email} էլեկտրոնային փոստի հասցեն գրանցվում է %{website}-ում %{user}-ի համար:"
@@ -10030,8 +10030,8 @@ hy:
         html: 
           body: "%{email} էլեկտրոնային փոստի հասցեն գրանցվում է %{website}-ում %{user}-ի համար:"
           details: "Սեղմեք այստեղ գրանցումը հաստատելու համար"
-          subject: "Հաստատեք էլեկտրոնային փոստի հասցեն՝  EXAMPLE"
-        subject: "Հաստատեք էլեկտրոնային փոստի հասցեն՝  EXAMPLE"
+          subject: "Հաստատեք էլեկտրոնային փոստի հասցեն՝  quite frankly an example LMS"
+        subject: "Հաստատեք էլեկտրոնային փոստի հասցեն՝  quite frankly an example LMS"
     confirm_registration: 
       email: 
         body: "Շնորհակալություն %{product_name}-ում գրանցվելու համար: Այս էլեկտրոնային հաղորդագրությունը հաստատում է, որ %{user} գրանցվում է %{website}-ում նոր հաշվի ներքո:"
@@ -10044,7 +10044,7 @@ hy:
     confirm_sms_communication_channel: 
       sms: 
         body: |-
-            Հաստատել EXAMPLE գրանցումը, հետևյալ կոդի միջոցով՝ 
+            Հաստատել quite frankly an example LMS գրանցումը, հետևյալ կոդի միջոցով՝ 
             
             %{confirmation_code}  
             
@@ -10080,24 +10080,24 @@ hy:
           attached_files: "Կցված ֆայլեր՝"
           audio_comment: "Այս հաղորդագրությունը պարունակում է մուլտիմեդիա մեկնաբանություններ: Լսելու կամ պատասխանելու համար սեղմեք ներքևի հղումը՝"
           download: բեռնել
-          reply_to_conversation_message: "Դուք կարող եք պատասխանել EXAMPLE-ում այս հաղորդագրությանը, ուղղակի պատասխանելով այս էլեկտրոնային հասցեին:"
-          subject: "%{user_name}, դուք հենց նոր հաղորդագրություն եք ուղարկել EXAMPLE համակարգում:"
+          reply_to_conversation_message: "Դուք կարող եք պատասխանել quite frankly an example LMS-ում այս հաղորդագրությանը, ուղղակի պատասխանելով այս էլեկտրոնային հասցեին:"
+          subject: "%{user_name}, դուք հենց նոր հաղորդագրություն եք ուղարկել quite frankly an example LMS համակարգում:"
           unknown_user: "Անհայտ օգտատեր"
           view_message: "Դիտել այս հաղորդագրությունը խոսակցություններում:"
-        reply_to_conversation_message: "Դուք կարող եք պատասխանել EXAMPLE-ում այս հաղորդագրությանը, ուղղակի պատասխանելով այս էլեկտրոնային հասցեին:"
-        subject: "%{user_name}, դուք հենց նոր հաղորդագրություն եք ուղարկել EXAMPLE համակարգում:"
+        reply_to_conversation_message: "Դուք կարող եք պատասխանել quite frankly an example LMS-ում այս հաղորդագրությանը, ուղղակի պատասխանելով այս էլեկտրոնային հասցեին:"
+        subject: "%{user_name}, դուք հենց նոր հաղորդագրություն եք ուղարկել quite frankly an example LMS համակարգում:"
         unknown_user: "Անհայտ օգտատեր"
         view_message: "Դիտել այս հաղորդագրությունը խոսակցություններում:"
       sms: 
-        body: "%{user_name}, դուք հենց նոր հաղորդագրություն եք ուղարկել EXAMPLE համակարգում՝"
+        body: "%{user_name}, դուք հենց նոր հաղորդագրություն եք ուղարկել quite frankly an example LMS համակարգում՝"
         more_info: "Լրացուցիչ տեղեկությունները հասանելի են %{url}-ում"
         unknown_user: "Անհայտ օգտատեր"
       summary: 
-        body: "%{user_name}, դուք հենց նոր հաղորդագրություն եք ուղարկել EXAMPLE համակարգում՝"
-        subject: "%{user_name}, դուք հենց նոր հաղորդագրություն եք ուղարկել EXAMPLE համակարգում:"
+        body: "%{user_name}, դուք հենց նոր հաղորդագրություն եք ուղարկել quite frankly an example LMS համակարգում՝"
+        subject: "%{user_name}, դուք հենց նոր հաղորդագրություն եք ուղարկել quite frankly an example LMS համակարգում:"
         unknown_user: "Անհայտ օգտատեր"
       twitter: 
-        tweet: "EXAMPLE-ի ծանուցում. հաղորդագրություն %{user_name}-ից:"
+        tweet: "quite frankly an example LMS-ի ծանուցում. հաղորդագրություն %{user_name}-ից:"
     conversation_message: 
       email: 
         attached_files: "Կցված ֆայլեր՝"
@@ -10106,70 +10106,70 @@ hy:
           attached_files: "Կցված ֆայլեր՝"
           audio_comment: "Այս հաղորդագրությունը պարունակում է մուլտիմեդիա մեկնաբանություններ: Լսելու կամ պատասխանելու համար սեղմեք ներքևի հղումը՝"
           download: բեռնել
-          reply_to_conversation_message: "Դուք կարող եք պատասխանել EXAMPLE-ում այս հաղորդագրությանը, ուղղակի պատասխանելով այս էլեկտրոնային հասցեին:"
-          subject: "%{user_name} հենց նոր ձեզ հաղորդագրություն է ուղարկել EXAMPLE-ում:"
+          reply_to_conversation_message: "Դուք կարող եք պատասխանել quite frankly an example LMS-ում այս հաղորդագրությանը, ուղղակի պատասխանելով այս էլեկտրոնային հասցեին:"
+          subject: "%{user_name} հենց նոր ձեզ հաղորդագրություն է ուղարկել quite frankly an example LMS-ում:"
           unknown_user: "Անհայտ օգտատեր"
           view_message: "Դիտել այս հաղորդագրությունը խոսակցություններում:"
-        reply_to_conversation_message: "Դուք կարող եք պատասխանել EXAMPLE-ում այս հաղորդագրությանը, ուղղակի պատասխանելով այս էլեկտրոնային հասցեին:"
-        subject: "%{user_name} հենց նոր ձեզ հաղորդագրություն է ուղարկել EXAMPLE համակարգում:"
+        reply_to_conversation_message: "Դուք կարող եք պատասխանել quite frankly an example LMS-ում այս հաղորդագրությանը, ուղղակի պատասխանելով այս էլեկտրոնային հասցեին:"
+        subject: "%{user_name} հենց նոր ձեզ հաղորդագրություն է ուղարկել quite frankly an example LMS համակարգում:"
         unknown_user: "Անհայտ օգտատեր"
         view_message: "Դիտել այս հաղորդագրությունը խոսակցություններում:"
       sms: 
-        body: "%{user_name} հենց նոր ձեզ հաղորդագրություն է ուղարկել EXAMPLE համակարգում՝"
+        body: "%{user_name} հենց նոր ձեզ հաղորդագրություն է ուղարկել quite frankly an example LMS համակարգում՝"
         more_info: "Լրացուցիչ տեղեկությունները հասանելի են %{url}-ում"
         unknown_user: "Անհայտ օգտատեր"
       summary: 
-        body: "%{user_name} հենց նոր ձեզ հաղորդագրություն է ուղարկել EXAMPLE համակարգում՝"
-        subject: "%{user_name} հենց նոր ձեզ հաղորդագրություն է ուղարկել EXAMPLE համակարգում:"
+        body: "%{user_name} հենց նոր ձեզ հաղորդագրություն է ուղարկել quite frankly an example LMS համակարգում՝"
+        subject: "%{user_name} հենց նոր ձեզ հաղորդագրություն է ուղարկել quite frankly an example LMS համակարգում:"
         unknown_user: "Անհայտ օգտատեր"
       twitter: 
-        tweet: "EXAMPLE-ի ծանուցում. հաղորդագրություն %{user_name}-ից:"
+        tweet: "quite frankly an example LMS-ի ծանուցում. հաղորդագրություն %{user_name}-ից:"
     course_already_started: 
       email: 
         body: |-
             Ողջույն, %{user}
-            Ձեր %{course} դասընթացը EXAMPLE-ի ցանցում սկսվել է մի քանի օր առաջ և մենք նկատել ենք, որ Դուք դեռևս համակարգ մուտք չեք գործել: Մենք պարզապես ցանկանում էինք Ձեզ վերջին անգամ հիշեցնել, եթե մոռացել եք այդ մասին:
+            Ձեր %{course} դասընթացը quite frankly an example LMS-ի ցանցում սկսվել է մի քանի օր առաջ և մենք նկատել ենք, որ Դուք դեռևս համակարգ մուտք չեք գործել: Մենք պարզապես ցանկանում էինք Ձեզ վերջին անգամ հիշեցնել, եթե մոռացել եք այդ մասին:
             Համակարգ մուտք գործելու համար տեղափոխվեք %{site} և մուտագրեք օգտատիրոջ Ձեր անունը և գաղտնաբառը: Եթե դեռևս գաղտնաբառ չունեք, կարող եք ստեղծել այն այստեղ՝ %{password_url}:
             Եթե Դուք պարզապես չեք կարող սովորել տվյալ դասընթացում,  ուսումնասիրեք դասընթացների մեր կատալոգը %{site}-ում, որպեսզի Ձեզ ոգևորող մեկ այլ բան գտնեք այնտեղ: Այժմ դասընթացները մշտապես ավելանում են:
             
             Հուսով ենք շուտով տեսնել ձեզ,
             
-            EXAMPLE-ի ցանց
+            quite frankly an example LMS-ի ցանց
         course_already_started: "Դասընթացը արդեն սկսվել է"
     course_required_materials: 
       email: 
         body: |-
-            Ողջույն, %{user},  լավ նորություն ունենք, %{course} դասընթացը, որին դուք գրանցվել էիք EXAMPLE-ի ցանցում, շուտով կսկսվի:
+            Ողջույն, %{user},  լավ նորություն ունենք, %{course} դասընթացը, որին դուք գրանցվել էիք quite frankly an example LMS-ի ցանցում, շուտով կսկսվի:
             
-            Որպեսզի ձեր դասընթացից առավելագույնը ստանաք, դուք պետք է փնտրեք հրահանգչի կողմից թվարկված հատուկ ուղենիշերը կամ դասընթացի նյութերը: Դուք դրանք կարող եք որոնել EXAMPLE-ի ցանցի դասընթացի տեղեկությունների էջում կամ պարզապես սեղմելով ներքևի հղումը:
+            Որպեսզի ձեր դասընթացից առավելագույնը ստանաք, դուք պետք է փնտրեք հրահանգչի կողմից թվարկված հատուկ ուղենիշերը կամ դասընթացի նյութերը: Դուք դրանք կարող եք որոնել quite frankly an example LMS-ի ցանցի դասընթացի տեղեկությունների էջում կամ պարզապես սեղմելով ներքևի հղումը:
             
             %{url}
             
             
             Շարունակեք սովորել,
-            EXAMPLE-ի ցանց
+            quite frankly an example LMS-ի ցանց
         course_required_materials: "%{course}-ի նյութեր և ցուցումներ"
     course_started: 
       email: 
         body: |-
             Ողջույն, %{user},
-            Սա ընկերական հիշեցում է այն մասին, որ %{course}-ը՝ EXAMPLE-ի ցանցի ձեր դասընթացը սկսվում է այսօր: Դուք կարող եք մուտք գործել %{site} և սկսել:
-            Մի մոռացեք ստեղծել EXAMPLE ցանցի ձեր պրոֆիլը, որպեսզի մյուսներն իմանան, թե ով եք դուք: Դուք կարող եք թարմացնել ձեր պրոֆիլը %{profile_url}-ում:
+            Սա ընկերական հիշեցում է այն մասին, որ %{course}-ը՝ quite frankly an example LMS-ի ցանցի ձեր դասընթացը սկսվում է այսօր: Դուք կարող եք մուտք գործել %{site} և սկսել:
+            Մի մոռացեք ստեղծել quite frankly an example LMS ցանցի ձեր պրոֆիլը, որպեսզի մյուսներն իմանան, թե ով եք դուք: Դուք կարող եք թարմացնել ձեր պրոֆիլը %{profile_url}-ում:
             
             Շարունակեք սովորել,
             
-            EXAMPLE ցանց
+            quite frankly an example LMS ցանց
         course_starts_today: "Ձեր դասընթացն սկսվում է այսօր:"
     course_starts_in_week: 
       email: 
         body: |-
             %{user},
-            Հաջորդ շաբաթ սկսվում է %{course} դասընթացը, որին դուք գրանցվել եք EXAMPLE հեռավար ուսուցման ցանցում:
+            Հաջորդ շաբաթ սկսվում է %{course} դասընթացը, որին դուք գրանցվել եք quite frankly an example LMS հեռավար ուսուցման ցանցում:
             
-            Դասընթացին պատրաստվելու համար Դուք պետք է ստեղծեք Ձեր պրոֆիլը EXAMPLE ցանցում: Անհրաժեշտ է մուտք գործել համակարգ և Canvas.net-ում ստեղծել այն: Ձեր պրոֆիլը Ձեր մասին տեղեկություններ կհաղորդի դասընթացի մյուս մասնակիցներին: Այստեղ դուք կարող եք նաև նշել ծանուցումներ ստանալու Ձեր նախընտրելի տարբերակները: Դուք կարող եք դիտել դասընթացի համար պահանջվող նյութերը և ցուցումները այստեղ՝ %{url}
+            Դասընթացին պատրաստվելու համար Դուք պետք է ստեղծեք Ձեր պրոֆիլը quite frankly an example LMS ցանցում: Անհրաժեշտ է մուտք գործել համակարգ և Canvas.net-ում ստեղծել այն: Ձեր պրոֆիլը Ձեր մասին տեղեկություններ կհաղորդի դասընթացի մյուս մասնակիցներին: Այստեղ դուք կարող եք նաև նշել ծանուցումներ ստանալու Ձեր նախընտրելի տարբերակները: Դուք կարող եք դիտել դասընթացի համար պահանջվող նյութերը և ցուցումները այստեղ՝ %{url}
             
             Շարունակեք սովորել,
-            EXAMPLE հեռավար ուսուցման համակարգ
+            quite frankly an example LMS հեռավար ուսուցման համակարգ
         course_starts_next_week: "Ձեր դասընթացը սկսվում է հաջորդ շաբաթ"
     dialog: 
       title: "Ուղարկել պատասխան հաղորդագրություն"
@@ -10179,7 +10179,7 @@ hy:
           link: "Սեղմեք այստեղ՝ խոսակցությանը միանալու համար"
     email: 
       footer: |-
-          Դուք ստացել եք այս էլեկտրոնային հաղորդագրությունը, քանի որ դուք մասնակցում եք EXAMPLE-ի միջոցով անցկացվող մեկ կամ մի քանի դասընթացների: Էլեկտրոնային ծանուցումները փոխելու կամ անջատելու համար այցելեք՝
+          Դուք ստացել եք այս էլեկտրոնային հաղորդագրությունը, քանի որ դուք մասնակցում եք quite frankly an example LMS-ի միջոցով անցկացվող մեկ կամ մի քանի դասընթացների: Էլեկտրոնային ծանուցումները փոխելու կամ անջատելու համար այցելեք՝
           %{url}
     enrollment_accepted: 
       email: 
@@ -10213,7 +10213,7 @@ hy:
         body_teacher: "%{user} հենց նոր ընդունել է %{course} դասընթացին որպես դասավանդող մասնակցելու հրավերը:"
         subject: "%{user} ընդունել է դասընթացին մասնակցելու հրավերը"
       twitter: 
-        body: "EXAMPLE-ի ծանուցում. ընդունվել է՝ %{user}, %{enrollment_type},  %{course} դասընթաց"
+        body: "quite frankly an example LMS-ի ծանուցում. ընդունվել է՝ %{user}, %{enrollment_type},  %{course} դասընթաց"
     enrollment_invitation: 
       email: 
         body_designer: "Դուք հրավիրված եք մասնակցելու %{course} դասընթացին որպես դիզայներ:"
@@ -10260,7 +10260,7 @@ hy:
         body_teacher: "Դուք հրավիրված եք մասնակցելու %{course} դասընթացին որպես դասավանդող:"
         subject: "Դասընթացին մասնակցելու  հրավեր"
       twitter: 
-        body: "EXAMPLE ծանուցում. հրավիրված է դասընթացին որպես %{enrollment_type}"
+        body: "quite frankly an example LMS ծանուցում. հրավիրված է դասընթացին որպես %{enrollment_type}"
     enrollment_notification: 
       email: 
         body_designer: "Դուք ներգրավված եք %{course} դասընթացում որպես դիզայներ:"
@@ -10308,7 +10308,7 @@ hy:
         body_teacher: "Դուք ներգրավված եք %{course} դասընթացում որպես դասավանդող:"
         subject: "Դասընթացում գրանցում"
       twitter: 
-        body: "EXAMPLE  նախազգուշացում - գրանցված դասընթացում որպես %{role_type}"
+        body: "quite frankly an example LMS  նախազգուշացում - գրանցված դասընթացում որպես %{role_type}"
     enrollment_registration: 
       email: 
         body_designer: "Դուք հրավիրված եք մասնակցելու %{website}-ի պարապմունքին, որը կոչվում է %{course} և դուք հրավիրված եք մասնակցելու որպես դիզայներ:"
@@ -10316,14 +10316,14 @@ hy:
         body_student: "Դուք հրավիրված եք մասնակցելու %{website}-ի պարապմունքին, որը կոչվում է %{course} և դուք հրավիրված եք մասնակցելու որպես ունկնդիր:"
         body_ta: "Դուք հրավիրված եք մասնակցելու %{website}-ի պարապմունքին, որը կոչվում է %{course} և դուք հրավիրված եք մասնակցելու որպես ասիստենտ:"
         body_teacher: "Դուք հրավիրված եք մասնակցելու %{website}-ի պարապմունքին, որը կոչվում է %{course} և դուք հրավիրված եք մասնակցելու որպես դասավանդող:"
-        details: "Դուք պետք է նախօրոք գրանցվեք EXAMPLE-ում, որպեսզի կարողանաք մասնակցել դասընթացին: Սկսելու համար այցելեք դասընթացի էջը այստեղ՝ "
+        details: "Դուք պետք է նախօրոք գրանցվեք quite frankly an example LMS-ում, որպեսզի կարողանաք մասնակցել դասընթացին: Սկսելու համար այցելեք դասընթացի էջը այստեղ՝ "
         html: 
           body_designer: "Դասընթացը կոչվում է %{course} և դուք հրավիրվել եք մասնակցելու որպես դիզայներ: "
           body_observer: "Դասընթացը կոչվում է %{course} և դուք հրավիրվել եք մասնակցելու որպես դիտորդ: "
           body_student: "Դասընթացը կոչվում է %{course} և դուք հրավիրվել եք մասնակցելու որպես ունկնդիր: "
           body_ta: "Դասընթացը կոչվում է %{course} և դուք հրավիրվել եք մասնակցելու որպես ասիստենտ: "
           body_teacher: "Դասընթացը կոչվում է %{course} և դուք հրավիրվել եք մասնակցելու որպես դասավանդող: "
-          details: "Դուք պետք է նախօրոք գրանցվեք EXAMPLE-ում, որպեսզի կարողանաք մասնակցել դասընթացին:"
+          details: "Դուք պետք է նախօրոք գրանցվեք quite frankly an example LMS-ում, որպեսզի կարողանաք մասնակցել դասընթացին:"
           email: Էլ.փոստ
           name: Անվանումը
           none: Չկա
@@ -10356,7 +10356,7 @@ hy:
         body_teacher: "Դուք հրավիրված եք մասնակցելու %{website}-ի պարապմունքին, որը կոչվում է %{course} և դուք հրավիրված եք մասնակցելու որպես դասավանդող:"
         subject: "Դասընթացին մասնակցելու  հրավեր"
       twitter: 
-        body: "EXAMPLE ծանուցում. հրավիրված է դասընթացին որպես %{enrollment_type}"
+        body: "quite frankly an example LMS ծանուցում. հրավիրված է դասընթացին որպես %{enrollment_type}"
     event_date_changed: 
       email: 
         email_body: "%{course_name} դասընթացի %{event_title} միջոցառման ժամը փոխվել է, այն այժմ՝"
@@ -10402,8 +10402,8 @@ hy:
           login_at_account: "%{login_email} %{account_name}-ի համար"
           login_managed_by_account: "համակարգ մուտք գործելու տվյալները կառավարվում են %{account_name} -ի կողմից"
           password_from_account: "Համակարգ այս մուտքի գաղտնաբառը պետք է տրված լինի ձեզ համակարգի ադմինիստրատորի կողմից %{account_name}-ում, և Instructure-ին հասանելի չէ ձեր գաղտնաբառը: Եթե այդ գաղտնաբառը չի աշխատում, խնդրում ենք դիմել համակարգի ադմինիստրատորին ձեր գաղտնաբառը փոխելու կամ ստուգելու համար:"
-          requested_password_reset: "EXAMPLE համակարգ մուտք գործելու համար Դուք խնդրել եք հաստատել ձեր գաղտնաբառը:"
-          subject: "Մոռացել եք գաղտնաբառը՝ EXAMPLE"
+          requested_password_reset: "quite frankly an example LMS համակարգ մուտք գործելու համար Դուք խնդրել եք հաստատել ձեր գաղտնաբառը:"
+          subject: "Մոռացել եք գաղտնաբառը՝ quite frankly an example LMS"
         labels: 
           associated_with_accounts: "Այս հասցեն կապակցված է հետևյալ հաշիվների հետ"
           change_password_at: "փոխել համակարգ մուտք գործելու գաղտնաբառը"
@@ -10411,8 +10411,8 @@ hy:
         login_at_account: "%{login_email} %{account_name}-ի համար"
         login_managed_by_account: "համակարգ մուտք գործելու տվյալները կառավարվում են %{account_name} -ի կողմից"
         password_from_account: "Համակարգ այս մուտքի գաղտնաբառը պետք է տրված լինի ձեզ համակարգի ադմինիստրատորի կողմից %{account_name}-ում, և Instructure-ին հասանելի չէ ձեր գաղտնաբառը: Եթե այդ գաղտնաբառը չի աշխատում, խնդրում ենք դիմել համակարգի ադմինիստրատորին ձեր գաղտնաբառը փոխելու կամ ստուգելու համար:"
-        requested_password_reset: "EXAMPLE համակարգ մուտք գործելու համար Դուք խնդրել եք հաստատել ձեր գաղտնաբառը:"
-        subject: "Մոռացել եք գաղտնաբառը՝ EXAMPLE"
+        requested_password_reset: "quite frankly an example LMS համակարգ մուտք գործելու համար Դուք խնդրել եք հաստատել ձեր գաղտնաբառը:"
+        subject: "Մոռացել եք գաղտնաբառը՝ quite frankly an example LMS"
     grade_weight_changed: 
       email: 
         grade_changed: "%{course_name} դասընթացի գնահատման քաղաքականությունը փոխվել է:"
@@ -10438,7 +10438,7 @@ hy:
           grades_based_on_percent: "Գնահատականը հիմնված է հանձնարարություննների յուրաքանչյուր խմբի համար սահմանված ընդհանուր միավորների վրա:"
           subject: "Գնահատմանտեսակարար կշիռը փոխվել է"
       twitter: 
-        grade_changed: "EXAMPLE ծանուցում. %{course_name}-ի գնահատման քաղաքականությունը փոխվել է"
+        grade_changed: "quite frankly an example LMS ծանուցում. %{course_name}-ի գնահատման քաղաքականությունը փոխվել է"
     group_assignment_submitted_late: 
       email: 
         body: "%{group_name}-ը այս պահին գտնվում  է %{course_name} դասընթացի %{assignment_name} հանձնարարության հետ կապված աշխատանքի ուշ ուղարկման էջում:"
@@ -10456,7 +10456,7 @@ hy:
         body: "%{group_name} խումբը գտնվում է %{course_name} դասընթացի %{assignment_name}-ի ուշ ուղարկման էջում:"
         subject: "Ուշացրած հանձնարարություն՝ %{group_name}, %{assignment_name}"
       twitter: 
-        subject: "EXAMPLE համակարգի նախազգուշացում. խմբի կողմից աշխատանքի ուշացրած ուղարկում՝  %{group_name}, %{assignment_name} "
+        subject: "quite frankly an example LMS համակարգի նախազգուշացում. խմբի կողմից աշխատանքի ուշացրած ուղարկում՝  %{group_name}, %{assignment_name} "
     group_membership_accepted: 
       email: 
         account_group: "%{account_name} հաշվով %{group_name} խմբին  միանալու ձեր խնդրանքը ընդունվել է: "
@@ -10480,8 +10480,8 @@ hy:
         course_group: "%{course_name} դասընթացի %{group_name} խմբին  միանալու ձեր խնդրանքը ընդունվել է: "
         subject: "Խմբում անդամակցությունը ընդունվել է՝ %{group_name}"
       twitter: 
-        account_group: "EXAMPLE ծանուցում. խմբում անդամակցությունը ընդունված է՝ %{group_name}, %{account_name} հաշվի համար"
-        course_group: "EXAMPLE ծանուցում. խմբում անդամակցությունը ընդունված է՝  %{course_name} դասընթացի %{group_name}"
+        account_group: "quite frankly an example LMS ծանուցում. խմբում անդամակցությունը ընդունված է՝ %{group_name}, %{account_name} հաշվի համար"
+        course_group: "quite frankly an example LMS ծանուցում. խմբում անդամակցությունը ընդունված է՝  %{course_name} դասընթացի %{group_name}"
     group_membership_rejected: 
       email: 
         account_group: "%{account_name} հաշվի համար %{group_name} խմբին  միանալու ձեր խնդրանքը մերժվել է: "
@@ -10505,8 +10505,8 @@ hy:
         course_group: "%{course_name} դասընթացի %{group_name} խմբին  միանալու ձեր խնդրանքը մերժվել է: "
         subject: "%{group_name} խմբի անդամակցությունը մերժվել է"
       twitter: 
-        account_group: "EXAMPLE ծանուցում. %{group_name} խմբի անդամակցությունը %{account_name} հաշվին մերժվել է: "
-        course_group: "EXAMPLE ծանուցում. %{group_name} խմբի անդամակցությունը %{course_name} դասընթացին մերժվել է: "
+        account_group: "quite frankly an example LMS ծանուցում. %{group_name} խմբի անդամակցությունը %{account_name} հաշվին մերժվել է: "
+        course_group: "quite frankly an example LMS ծանուցում. %{group_name} խմբի անդամակցությունը %{course_name} դասընթացին մերժվել է: "
     html_message: 
       html_not_exist: "Այս հաղորդագրության HTML տարբերակը չի ստեղծվել և չի էլ ուղարկվել"
     index: 
@@ -10518,12 +10518,12 @@ hy:
           click_to_preferences: "Թարմացնել ծանուցման ձեր կարգաբերումները"
     merge_email_communication_channel: 
       email: 
-        body: "Ձեզ համար հաշիվ է բացվել %{host} -ում, բայց դուք արդեն իսկ ունեք EXAMPLE հաշիվ: Եթե ցանկանում եք դրանք միավորել, խնդրում ենք այցելել հետևյալ url-հասցեն`"
+        body: "Ձեզ համար հաշիվ է բացվել %{host} -ում, բայց դուք արդեն իսկ ունեք quite frankly an example LMS հաշիվ: Եթե ցանկանում եք դրանք միավորել, խնդրում ենք այցելել հետևյալ url-հասցեն`"
         html: 
-          account_created: "Ձեզ համար հաշիվ է բացվել %{host} -ում, բայց դուք արդեն իսկ ունեք EXAMPLE հաշիվ: "
+          account_created: "Ձեզ համար հաշիվ է բացվել %{host} -ում, բայց դուք արդեն իսկ ունեք quite frankly an example LMS հաշիվ: "
           merge2: "Եթե ցանկանում եք դրանք միավորել,*սեղմեք այստեղ*"
-          subject: "EXAMPLE նոր հաշիվ"
-        subject: "EXAMPLE նոր հաշիվ"
+          subject: "quite frankly an example LMS նոր հաշիվ"
+        subject: "quite frankly an example LMS նոր հաշիվ"
     message: 
       actions: 
         reply: Պատասխանել
@@ -10558,7 +10558,7 @@ hy:
         body: "Նոր ադմինիստրատորը, %{user} ավելացվել է %{account} հաշվի համար:"
         subject: "Հաշվի նոր օգտատեր"
       twitter: 
-        body: "EXAMPLE ծանուցում. նոր ադմինիստրատոր՝ %{user}, %{account}"
+        body: "quite frankly an example LMS ծանուցում. նոր ադմինիստրատոր՝ %{user}, %{account}"
     new_announcement: 
       email: 
         html: 
@@ -10570,7 +10570,7 @@ hy:
         details: "Լրացուցիչ տեղեկությունները հասանելի են %{url}-ում"
         subject: "Նոր հայտարարություն՝ %{title}, %{course}"
       twitter: 
-        body: "EXAMPLE ծանուցում. հայտարարություն՝ %{title}, %{course}"
+        body: "quite frankly an example LMS ծանուցում. հայտարարություն՝ %{title}, %{course}"
     new_context_group_membership: 
       email: 
         body_account: "Ձեզ ավելացրել են %{account} հաշվի նոր խմբին: Խմբի անվանումն է՝ %{group_name}:"
@@ -10593,8 +10593,8 @@ hy:
         body_course: "Ձեզ ավելացրել են %{course} դասընթացի նոր խմբին: Խմբի անվանումն է՝ %{group_name}:"
         subject: "%{course_or_account}-ի նոր խմբին անդամակցություն"
       twitter: 
-        body_account: "EXAMPLE ծանուցում. նոր խումբ՝ %{account} հաշվի %{group}"
-        body_course: "EXAMPLE ծանուցում. նոր խումբ՝ %{course} դասընթացի %{group}"
+        body_account: "quite frankly an example LMS ծանուցում. նոր խումբ՝ %{account} հաշվի %{group}"
+        body_course: "quite frankly an example LMS ծանուցում. նոր խումբ՝ %{course} դասընթացի %{group}"
     new_context_group_membership_invitation: 
       email: 
         body_account: "Դուք հրավիրվել եք միանալու %{account} հաշվի %{group} խմբին:"
@@ -10617,8 +10617,8 @@ hy:
         body_course: "Դուք հրավիրվել եք միանալու %{course} դասընթացի %{group} խմբին:"
         subject: "%{course_or_account}-ի նոր խմբին անդամակցություն"
       twitter: 
-        body_account: "EXAMPLE ծանուցում. հրավեր՝ %{account} հաշվի %{group} "
-        body_course: "EXAMPLE ծանուցում. հրավեր՝ %{course} դասընթացի %{group} "
+        body_account: "quite frankly an example LMS ծանուցում. հրավեր՝ %{account} հաշվի %{group} "
+        body_course: "quite frankly an example LMS ծանուցում. հրավեր՝ %{course} դասընթացի %{group} "
     new_course: 
       email: 
         body: "%{course} դասընթացն ավելացվել է %{account} հաշվին"
@@ -10644,7 +10644,7 @@ hy:
           teachers: Դասավանդողներ
         subject: "Նոր դասընթաց"
       twitter: 
-        body: "EXAMPLE ծանուցում. նոր դասընթաց՝ %{course}, %{account}"
+        body: "quite frankly an example LMS ծանուցում. նոր դասընթաց՝ %{course}, %{account}"
     new_discussion_entry: 
       email: 
         body: "%{user}-ը զետեղել է նոր մեկնաբանություն %{course} -ի %{discussion_topic} թեմային."
@@ -10661,7 +10661,7 @@ hy:
       summary: 
         subject: "Նոր մեկնաբանություն %{discussion_topic}: %{course}-ի համար"
       twitter: 
-        body: "EXAMPLE ծանուցում. մեկնաբանություն %{discussion_topic}: %{course}"
+        body: "quite frankly an example LMS ծանուցում. մեկնաբանություն %{discussion_topic}: %{course}"
     new_discussion_mention: 
       email: 
         html: 
@@ -10685,7 +10685,7 @@ hy:
       summary: 
         subject: "Նոր քննարկում. %{discussion_topic}: %{course}"
       twitter: 
-        subject: "EXAMPLE ծանուցում. թեմա՝ %{discussion_topic}: %{course}"
+        subject: "quite frankly an example LMS ծանուցում. թեմա՝ %{discussion_topic}: %{course}"
     new_event_created: 
       email: 
         body: "%{course_name}-ի համար նոր միջոցառում է պլանավորված, որի մասին դուք պետք է իմանաք՝ "
@@ -10712,7 +10712,7 @@ hy:
       twitter: 
         from_to_time: "%{start_date_time}-ից մինչև %{end_date_time} է"
         no_time_set: "Ժամը սահմանված չէ"
-        subject: "EXAMPLE ծանուցում. միջոցառում՝ %{event_title}, %{course_name}"
+        subject: "quite frankly an example LMS ծանուցում. միջոցառում՝ %{event_title}, %{course_name}"
     new_file_added: 
       email: 
         body: "Նոր ֆայլ է ավելացվել դասընթացին, %{name}՝"
@@ -10729,7 +10729,7 @@ hy:
       summary: 
         subject: "Նոր ֆայլը ավելացվել է՝ %{title}, %{name}"
       twitter: 
-        body: "EXAMPLE ծանուցում. %{name} -ով նոր ֆայլ՝ %{title} (%{size}) "
+        body: "quite frankly an example LMS ծանուցում. %{name} -ով նոր ֆայլ՝ %{title} (%{size}) "
     new_files_added: 
       email: 
         body: "%{count} նոր ֆայլեր են ավելացվել դասընթացին, %{name}`"
@@ -10747,7 +10747,7 @@ hy:
         link: "Դրանք կարող եք դիտել այստեղ"
         subject: "%{count} նոր ֆայլեր են ավելացվել դասընթացին, %{name}`"
       twitter: 
-        body: "EXAMPLE ծանուցում. %{count} նոր ֆայլեր %{name}-ի համար"
+        body: "quite frankly an example LMS ծանուցում. %{count} նոր ֆայլեր %{name}-ի համար"
     new_student_organized_group: 
       email: 
         body_account: "\"%{group_name}\" անվանմամբ ուսանողական նոր խումբ է ստեղծվել %{account} հաշվի համար: Առաջին անդամը %{user} է: "
@@ -10770,8 +10770,8 @@ hy:
         body_course: "\"%{group_name}\" անվանմամբ ուսանողական նոր խումբ է ստեղծվել %{course} դասընթացի համար: Առաջին անդամը %{user} է: "
         subject: "Նոր ուսանողական խումբ %{course_or_account}-ի համար"
       twitter: 
-        body_account: "EXAMPLE ծանուցում. նոր խումբ՝ %{group_name} հետևյալ հաշվի համար՝ %{account}"
-        body_course: "EXAMPLE ծանուցում. նոր խումբ՝ %{group_name} հետևյալ դասընթացի համար՝ %{course}"
+        body_account: "quite frankly an example LMS ծանուցում. նոր խումբ՝ %{group_name} հետևյալ հաշվի համար՝ %{account}"
+        body_course: "quite frankly an example LMS ծանուցում. նոր խումբ՝ %{group_name} հետևյալ դասընթացի համար՝ %{course}"
     new_user: 
       email: 
         body: "%{user} նոր օգտատերը հենց նոր գրանցվել է %{account} հաշվի համար"
@@ -10788,7 +10788,7 @@ hy:
         body: "%{user} նոր օգտատերը հենց նոր գրանցվել է %{account} հաշվի համար"
         subject: "Նոր օգտատեր"
       twitter: 
-        body: "EXAMPLE ծանուցում. նոր օգտատեր՝ %{user}, %{account}"
+        body: "quite frankly an example LMS ծանուցում. նոր օգտատեր՝ %{user}, %{account}"
     page_locked: "Էջը ներկա պահին արգելափակված է:"
     page_locked_at: "Այս էջը արգելափակված է %{at}:"
     page_locked_module: "Այս էջը ուսումնական ծրագրի *%{module}* մի մասն է և արգելափակումը դեռևս չի հանվել: "
@@ -10809,38 +10809,38 @@ hy:
         body: "Դուք պետք է կարծիք ներկայացնեք %{reviewee} ունկնդրի աշխատանքի վերաբերյալ: Կարծիք ներկայացնելու համար հետեւեք ստորեւ ներկայացված հղմանը: "
     pseudonym_registration: 
       email: 
-        body: "Դուք %{account}-ում գրացվել եք EXAMPLE հաշվի համար: Նախքան համակարգ մուտք գործելը և EXAMPLE-ից օգտվելը դուք պետք է ավարտեք կարգաբերումների գործընթացը: "
+        body: "Դուք %{account}-ում գրացվել եք quite frankly an example LMS հաշվի համար: Նախքան համակարգ մուտք գործելը և quite frankly an example LMS-ից օգտվելը դուք պետք է ավարտեք կարգաբերումների գործընթացը: "
         html: 
-          body: "Դուք %{account}-ում գրացվել եք EXAMPLE հաշվի համար: Նախքան համակարգ մուտք գործելը և EXAMPLE-ից օգտվելը դուք պետք է ավարտեք կարգաբերումների գործընթացը: "
+          body: "Դուք %{account}-ում գրացվել եք quite frankly an example LMS հաշվի համար: Նախքան համակարգ մուտք գործելը և quite frankly an example LMS-ից օգտվելը դուք պետք է ավարտեք կարգաբերումների գործընթացը: "
           link: "Սեղմեք այստեղ գրանցման գործընթացն ավարտելու համար:"
-          subject: "Ավարտել գրանցումը՝ EXAMPLE"
+          subject: "Ավարտել գրանցումը՝ quite frankly an example LMS"
         link_message: "Գրանցման գործընթացը ավարտելու համար խնդրում ենք այցելել հետևյալ url-հասցեն՝"
-        subject: "Ավարտել գրանցումը՝ EXAMPLE"
+        subject: "Ավարտել գրանցումը՝ quite frankly an example LMS"
       sms: 
         link: "Սեղմեք հետեւյալ հղումը գրանցման գործընթացն ավարտելու համար. %{link} "
       summary: 
         link_message: "Գրանցման գործընթացն ավարտելու համար, սեղմեք այս հղումը. "
-        subject: "Գրանցումն ավարտված է. EXAMPLE համակարգ"
+        subject: "Գրանցումն ավարտված է. quite frankly an example LMS համակարգ"
       twitter: 
-        body: "EXAMPLE համակարգի նախազգուշացում. Ձեզ համար EXAMPLE համակարգում գրանցվել է %{account} հաշիվը"
+        body: "quite frankly an example LMS համակարգի նախազգուշացում. Ձեզ համար quite frankly an example LMS համակարգում գրանցվել է %{account} հաշիվը"
     pseudonym_registration_done: 
       email: 
-        body: "Ձեզ համար EXAMPLE համակարգում գրանցվել է %{account} հաշիվը"
+        body: "Ձեզ համար quite frankly an example LMS համակարգում գրանցվել է %{account} հաշիվը"
         html: 
-          body: "Ձեզ համար EXAMPLE համակարգում գրանցվել է %{account} հաշիվը"
+          body: "Ձեզ համար quite frankly an example LMS համակարգում գրանցվել է %{account} հաշիվը"
           link: "Սեղմեք այստեղ ձեր հաշվին անցնելու համար"
-          subject: "EXAMPLE համակարգում գրանցումն ավարտված է "
+          subject: "quite frankly an example LMS համակարգում գրանցումն ավարտված է "
         link_message: "Այցելեք այս url-ը Ձեր հաշիվ մուտք գործելու համար."
-        subject: "EXAMPLE համակարգում գրանցումն ավարտված է "
+        subject: "quite frankly an example LMS համակարգում գրանցումն ավարտված է "
       sms: 
-        body: "Ձեզ համար EXAMPLE համակարգում գրանցվել է %{account} հաշիվը"
+        body: "Ձեզ համար quite frankly an example LMS համակարգում գրանցվել է %{account} հաշիվը"
         link: "Այցելեք այս url-ը Ձեր հաշիվ մուտք գործելու համար. %{link} "
       summary: 
-        body: "Ձեզ համար EXAMPLE համակարգում գրանցվել է %{account} հաշիվը"
+        body: "Ձեզ համար quite frankly an example LMS համակարգում գրանցվել է %{account} հաշիվը"
         link_message: "Այցելեք այս url-ը Ձեր հաշիվ մուտք գործելու համար."
-        subject: "EXAMPLE համակարգում գրանցումն ավարտված է "
+        subject: "quite frankly an example LMS համակարգում գրանցումն ավարտված է "
       twitter: 
-        body: "EXAMPLE համակարգի նախազգուշացում. Ձեզ համար EXAMPLE համակարգում գրանցվել է %{account} հաշիվը"
+        body: "quite frankly an example LMS համակարգի նախազգուշացում. Ձեզ համար quite frankly an example LMS համակարգում գրանցվել է %{account} հաշիվը"
     quiz_locked: "Այս թեստը ներկայումս արգելափակված է:"
     quiz_locked_at: "Այս թեստը արգելափակված է %{at}:"
     quiz_locked_module: "Այս թեստը *%{module}* մոդուլի մի մասն է և այն դեռեւս չի արգելազերծվել: "
@@ -10862,7 +10862,7 @@ hy:
         body: "Ձեր %{title} թեստի վերագնահատումն ավարտված է:"
         subject: "Թեստը վերագնահատված է՝ %{quiz}, %{context}"
       twitter: 
-        body: "EXAMPLE համակարգի նախազգուշացում. Թեստը վերագնահատված է՝ %{quiz}"
+        body: "quite frankly an example LMS համակարգի նախազգուշացում. Թեստը վերագնահատված է՝ %{quiz}"
     quiz_unpublished_module: "Այս թեստը չհրապարակված մոդուլի մի մասն է և դեռևս հասանելի չէ:"
     report_generated: 
       email: 
@@ -10892,7 +10892,7 @@ hy:
         body: "Դուք ստացել եք հիշեցում %{rubric}, %{context} գնահատման վերաբերյալ"
         subject: "Գնահատման մասին հիշեցում՝ %{rubric}, %{context}"
       twitter: 
-        tweet: "EXAMPLE ծանուցում. %{rubric}, %{context} գնահատման մասին հիշեցում"
+        tweet: "quite frankly an example LMS ծանուցում. %{rubric}, %{context} գնահատման մասին հիշեցում"
     rubric_association_created: 
       email: 
         body: "Գիտելիքների նոր ստուգում է ստեղծվել %{context}-ի համար`"
@@ -10909,7 +10909,7 @@ hy:
         body: "Նոր գնահատում է ստեղծվել %{context}-ի համար`"
         subject: "Նոր գնահատում՝ %{title}, %{context}"
       twitter: 
-        tweet: "EXAMPLE ծանուցում. նոր գնահատում՝ %{title}, %{context}:"
+        tweet: "quite frankly an example LMS ծանուցում. նոր գնահատում՝ %{title}, %{context}:"
     send_form: 
       labels: 
         message_body: Հաղորդագրություն
@@ -10934,7 +10934,7 @@ hy:
         someone: "Ինչ-որ մեկը"
         subject: "Ուղարկված աշխատանքների մեկնաբանություն՝ %{user}, %{assignment}, %{context}"
       twitter: 
-        tweet: "EXAMPLE համակարգի նախազգուշացում. մեկնաբանություն՝ %{author} for %{assignment}, %{user}, %{context}"
+        tweet: "quite frankly an example LMS համակարգի նախազգուշացում. մեկնաբանություն՝ %{author} for %{assignment}, %{user}, %{context}"
     submission_comment_for_teacher: 
       email: 
         body: "%{author}-ը նոր մեկնաբանություն է կատարել %{user}-ի կողմից ուղարկված %{assignment}-ի վերաբերյալ:"
@@ -10955,7 +10955,7 @@ hy:
         someone: "Ինչ-որ մեկը"
         subject: "Ուղարկված աշխատանքի վերաբերյալ մեկնաբանություն՝ %{user}, %{assignment}, %{context}"
       twitter: 
-        tweet: "EXAMPLE համակարգի նախազգուշացում. մեկնաբանություն՝ %{author} for %{assignment}, %{user}, %{context}"
+        tweet: "quite frankly an example LMS համակարգի նախազգուշացում. մեկնաբանություն՝ %{author} for %{assignment}, %{user}, %{context}"
     submission_grade_changed: 
       email: 
         body: "Ձեր %{assignment_title} հանձնարարության գնահատականը փոխվել է:"
@@ -10997,7 +10997,7 @@ hy:
         not_applicable: Չկա
         score: "գնահատականը՝ %{total} -ից %{score} "
         score_pending: "(ենթակա է ստուգման)"
-        tweet: "EXAMPLE ծանուցում. գնահատականի փոփոխություն՝ %{date}"
+        tweet: "quite frankly an example LMS ծանուցում. գնահատականի փոփոխություն՝ %{date}"
     submission_graded: 
       email: 
         body: "Ձեր %{assignment} հանձնարարությունը գնահատվել է:"
@@ -11039,7 +11039,7 @@ hy:
         not_applicable: Չկա
         score: "գնահատականը՝ %{total} -ից %{score} "
         score_pending_review: "(ենթակա է ստուգման)"
-        tweet: "EXAMPLE համակարգի նախազգուշացում. գնահատվել է՝ %{assignment}, %{context}"
+        tweet: "quite frankly an example LMS համակարգի նախազգուշացում. գնահատվել է՝ %{assignment}, %{context}"
     submission_needs_grading: 
       email: 
         body: "%{user_name} ավարտել է %{quiz_title} թեստը, այն պետք է ձեռքով գնահատվի:"
@@ -11063,7 +11063,7 @@ hy:
         subject: "Թեստը ուղարկված է՝  %{quiz}, %{context}"
         submitted_date: "ուղարկված է՝ %{date}"
       twitter: 
-        body: "EXAMPLE համակարգի նախազգուշացում. թեստը ուղարկվել է՝ %{quiz}, %{user_name}"
+        body: "quite frankly an example LMS համակարգի նախազգուշացում. թեստը ուղարկվել է՝ %{quiz}, %{user_name}"
     submission_posted: 
       email: 
         body: "Ձեր դասավանդողը հրապարակել է գնահատականների փոփոխությունները և նոր մեկնաբանությունները %{title} համար: Այդ փոփոխություններն այժմ հասանելի են:"
@@ -11095,20 +11095,20 @@ hy:
         score_pending_review: "գնահատականը ենթակա է ստուգման դասավանդողի կողմից"
     summaries: 
       email: 
-        daily_body: "Դուք գրանցվել եք EXAMPLE-ի ձեր հաշվից որոշ ծանուցումների մասին ամենօրյա հաշվետվություններ ստանալու համար: Հետևյալը %{date} օրվա հաշվետվությունն է՝"
+        daily_body: "Դուք գրանցվել եք quite frankly an example LMS-ի ձեր հաշվից որոշ ծանուցումների մասին ամենօրյա հաշվետվություններ ստանալու համար: Հետևյալը %{date} օրվա հաշվետվությունն է՝"
         html: 
           click_to_preferences: "Սեղմեք այստեղ ծանուցումների ձեր նախապատվությունները խմբագրելու համար"
-          daily_body: "Դուք գրանցվել եք EXAMPLE-ի ձեր հաշվից որոշ ծանուցումների մասին ամենօրյա հաշվետվություններ ստանալու համար: Հետևյալը %{date} օրվա հաշվետվությունն է՝"
-          subject: "EXAMPLE-ի վերջին ծանուցումները"
+          daily_body: "Դուք գրանցվել եք quite frankly an example LMS-ի ձեր հաշվից որոշ ծանուցումների մասին ամենօրյա հաշվետվություններ ստանալու համար: Հետևյալը %{date} օրվա հաշվետվությունն է՝"
+          subject: "quite frankly an example LMS-ի վերջին ծանուցումները"
           view: "Սեղմել դիտելու համար"
-          weekly_body: "Դուք գրանցվել եք EXAMPLE-ի ձեր հաշվից որոշ ծանուցումների մասին շաբաթական հաշվետվություններ ստանալու համար: Հետևյալը %{date} օրն ավարտվող շաբաթվա հաշվետվությունն է՝"
+          weekly_body: "Դուք գրանցվել եք quite frankly an example LMS-ի ձեր հաշվից որոշ ծանուցումների մասին շաբաթական հաշվետվություններ ստանալու համար: Հետևյալը %{date} օրն ավարտվող շաբաթվա հաշվետվությունն է՝"
         notifications_link: "Դուք կարող եք փոխել ծանուցման ձեր կարգաբերումները, այցելելով հետևյալ էջը՝"
-        subject: "EXAMPLE-ի վերջին ծանուցումները"
-        weekly_body: "Դուք գրանցվել եք EXAMPLE-ի ձեր հաշվից որոշ ծանուցումների մասին շաբաթական հաշվետվություններ ստանալու համար: Հետևյալը %{date} օրն ավարտվող շաբաթվա հաշվետվությունն է՝"
+        subject: "quite frankly an example LMS-ի վերջին ծանուցումները"
+        weekly_body: "Դուք գրանցվել եք quite frankly an example LMS-ի ձեր հաշվից որոշ ծանուցումների մասին շաբաթական հաշվետվություններ ստանալու համար: Հետևյալը %{date} օրն ավարտվող շաբաթվա հաշվետվությունն է՝"
       sms: 
         notifications_sms: "%{notifications_count} նոր ծանուցումներ %{url}-ում"
       twitter: 
-        tweet: "EXAMPLE ծանուցում. %{notification_count} նոր ծանուցումներ"
+        tweet: "quite frankly an example LMS ծանուցում. %{notification_count} նոր ծանուցումներ"
     topic_locked: "Այս թեման ներկա պահին արգելափակված է:"
     topic_locked_at: "Այս թեման արգելափակված է %{at}:"
     topic_locked_module: "Այս թեման *%{module}* մոդուլի մի մասն է և արգելափակումը դեռևս չի հանվել: "
@@ -11130,7 +11130,7 @@ hy:
       summary: 
         subject: "Թարմացված վիկի էջ՝ %{title}, %{user}"
       twitter: 
-        tweet: "EXAMPLE ծանուցում. էջը թարմացված է՝%{title}, %{user}:"
+        tweet: "quite frankly an example LMS ծանուցում. էջը թարմացված է՝%{title}, %{user}:"
     visit_modules_page: "*Այս բովանդակությունը արգելազերծելու համար տեղեկատվություն ստանալու նպատակով այցելեք դասընթացի մոդուլների էջը*:"
     web_conference_invitation: 
       email: 
@@ -11147,7 +11147,7 @@ hy:
         body: "Դուք հրավիրված եք մասնակցելու վեբ-կոնֆերանսին, %{name}-ի %{title}:"
         subject: "Վեբ-կոնֆերանսի հրավեր՝ %{name}"
       twitter: 
-        tweet: "EXAMPLE ծանուցում. մասնակցության հրավեր՝  %{title}, %{name}"
+        tweet: "quite frankly an example LMS ծանուցում. մասնակցության հրավեր՝  %{title}, %{name}"
     web_conference_recording_ready: 
       email: 
         body: "%{name} -ի համար %{title} ձեր գրառումը պատրաստ է: "
@@ -11163,7 +11163,7 @@ hy:
         body: "%{name} -ի համար %{title} ձեր գրառումը պատրաստ է: "
         subject: "Վեբ-կոնֆերանսի գրառումը պատրաստ է՝ %{name}:"
       twitter: 
-        tweet: "EXAMPLE ծանուցում. գրառումը պատրաստ է՝ %{title}, %{name}"
+        tweet: "quite frankly an example LMS ծանուցում. գրառումը պատրաստ է՝ %{title}, %{name}"
   messages_64e7435f: Հաղորդագրություններ
   migration: 
     announcement_type: Հայտարարություն
@@ -11556,11 +11556,11 @@ hy:
   note_some_items_fall_outside_the_start_and_or_end__feab0642: "Ծանուցում. որոշ տարրեր դասընթացի սկզբի և/կամ ավարտի ամսաթվերից դուրս են:"
   note_students_have_submitted_work_for_these_assign_7bc34e28: "ԾԱՆՈԹՈՒԹՅՈՒՆ. Ունկնդիրներն այս հանձնարարությունների հետ կապված ուղարկել են աշխատանքներ, որոնք չեն գնահատվել: Եթե այժմ տեղադրեք գնահատականները, դուք պետք է վերատեղադրեք նրանց գնահատականները նրանց ուղարկած վերջին աշխատանքները գնահատելուց հետո:  "
   note_sub_account_themes_are_not_active_during_this_a5dd9da: "Ծանոթություն. Ենթահաշվային թեմաները ակտիվ չեն այս կարծիքը ներկայացնելիս"
-  note_this_login_s_account_uses_delegated_authentic_89227914: "Ծանուցում. Այս անվան ներքո հաշիվը օգտագործում է պատվիրակված իսկության ստուգում, սակայն թույլ է տալիս EXAMPLE-ի իսկության ստուգում պահուստային գաղտնաբառի միջոցով:  Այս ձևում գաղտնաբառի դաշտերը նախատեսված են  EXAMPLE պահուստային գաղտնաբառի թարմացման, այլ *ոչ* թե պատվիրակված իսկության ստուգման համար:"
+  note_this_login_s_account_uses_delegated_authentic_89227914: "Ծանուցում. Այս անվան ներքո հաշիվը օգտագործում է պատվիրակված իսկության ստուգում, սակայն թույլ է տալիս quite frankly an example LMS-ի իսկության ստուգում պահուստային գաղտնաբառի միջոցով:  Այս ձևում գաղտնաբառի դաշտերը նախատեսված են  quite frankly an example LMS պահուստային գաղտնաբառի թարմացման, այլ *ոչ* թե պատվիրակված իսկության ստուգման համար:"
   notes_c42e0fd5: Նշումներ
   notes_for_name_2eefac11: "Նշումներ %{name}ի համար"
   nothing_for_now_e3e3ce2a: "Առայժմ ոչինչ"
-  notice_some_notifications_may_contain_confidential_5985f52a: "Ծանոթություն. Որոշ ծանուցումներ կարող են պարունակել գաղտնի տեղեկատվություն: Ծանուցումներ ստանալու համար ձեր հաստատության կողմից սահմանված հասցեից տարբերվող այլ հասցե ընտրելը կարող է հանգեցնել նրան, որ EXAMPLE համակարգի դասընթացի և խմբի վերաբերյալ գաղտնի տեղեկությունները դուրս գան հաստատության համակարգից: "
+  notice_some_notifications_may_contain_confidential_5985f52a: "Ծանոթություն. Որոշ ծանուցումներ կարող են պարունակել գաղտնի տեղեկատվություն: Ծանուցումներ ստանալու համար ձեր հաստատության կողմից սահմանված հասցեից տարբերվող այլ հասցե ընտրելը կարող է հանգեցնել նրան, որ quite frankly an example LMS համակարգի դասընթացի և խմբի վերաբերյալ գաղտնի տեղեկությունները դուրս գան հաստատության համակարգից: "
   notification: 
     account_notification_display: "Ընդհանուր հայտարարություններ"
     added_to_conversation_description: "Դուք ավելացվել եք խոսակցությանը"
@@ -12029,7 +12029,7 @@ hy:
       instructions: 
         main: 
           manage: 
-            description: "*Արդյունքները ստեղծվել են դասընթացի յուրացման ընթացքին հետևելու նպատակով: Սկսելու համար ծանոթացեք էջի վերևի մասում գտնվող մենյուին: Սեղմեք \"Նոր\" կոճակը նոր արդյունք ստեղծելու համար կամ էլ՝ \"Նոր խումբ\" կոճակը նոր խումբ ստեղծելու համար, որտեղ կարող եք կդասավորել Ձեր արդյունքները: \"Գտնել\" կոճակը թույլ կտա Ձեզ օգտագործել Ձեր կազմակերպության կողմից ստեղծված արդյունքները: Արդյունքներ ստեղծելիս և օգտագործելիս, Դուք կարող եք ձախ կողմում գտնվող վահանակի միջոցով կառավարել Ձեր արդյունքները: Դուք կարող եք քաշել և տեղադրել արդյունքները տարբեր մակարդակներում որոշակի կառուցվածք ստեղծելու համար:* *Ավելին, EXAMPLE համակարգը Ձեզ հնարավորություն է տալիս Ձեր գնահատման ռուբրիկին արդյունքներ  ավելացնել այնպես, որ դուք կարողանաք գնահատել յուրացումը հանձնարարության կատարումը գնահատելիս: Արդյունքները զետեղելուց հետո, սեղմեք \"Կառավարել բաժինները\" կոճակը, որպեսզի սկսեք օգտագործել արդյունքները գնահատման նպատակով:*"
+            description: "*Արդյունքները ստեղծվել են դասընթացի յուրացման ընթացքին հետևելու նպատակով: Սկսելու համար ծանոթացեք էջի վերևի մասում գտնվող մենյուին: Սեղմեք \"Նոր\" կոճակը նոր արդյունք ստեղծելու համար կամ էլ՝ \"Նոր խումբ\" կոճակը նոր խումբ ստեղծելու համար, որտեղ կարող եք կդասավորել Ձեր արդյունքները: \"Գտնել\" կոճակը թույլ կտա Ձեզ օգտագործել Ձեր կազմակերպության կողմից ստեղծված արդյունքները: Արդյունքներ ստեղծելիս և օգտագործելիս, Դուք կարող եք ձախ կողմում գտնվող վահանակի միջոցով կառավարել Ձեր արդյունքները: Դուք կարող եք քաշել և տեղադրել արդյունքները տարբեր մակարդակներում որոշակի կառուցվածք ստեղծելու համար:* *Ավելին, quite frankly an example LMS համակարգը Ձեզ հնարավորություն է տալիս Ձեր գնահատման ռուբրիկին արդյունքներ  ավելացնել այնպես, որ դուք կարողանաք գնահատել յուրացումը հանձնարարության կատարումը գնահատելիս: Արդյունքները զետեղելուց հետո, սեղմեք \"Կառավարել բաժինները\" կոճակը, որպեսզի սկսեք օգտագործել արդյունքները գնահատման նպատակով:*"
             title: "Գնահատականների տեղադրում"
     mastery_error: "Պետք է 0-ին հավասար կամ մեծ լինի"
     missing_outcome: "Հնարավոր չէ գտնել ուսուցման արդյունքը"
@@ -12305,7 +12305,7 @@ hy:
       description: "Ընտրել հաշվի գծով հաշվետվությունները"
       name: "Հաշվի գծով հաշվետվություններ"
     app_center: 
-      description: " App Center EXAMPLE-ում արտաքին գործիքներին հետևելու/տեղադրելու համար"
+      description: " App Center quite frankly an example LMS-ում արտաքին գործիքներին հետևելու/տեղադրելու համար"
       name: "App Center"
     app_center_settings: 
       labels: 
@@ -12321,7 +12321,7 @@ hy:
       no_copying_frozen: "Թույլ մի տվեք պատճենել \"արգելափակված\" հանձնարարությունները:"
     banner_grade_exchange_settings: 
       labels: 
-        canvas_source_identifier: "EXAMPLE-ի ձեր օրինակի անվանումը"
+        canvas_source_identifier: "quite frankly an example LMS-ի ձեր օրինակի անվանումը"
         sis_source_identifier: "Banner-ի ձեր օրինակի անվանումը"
     big_blue_button: 
       description: "Վեբ-կոնֆերանսների BigBlueButton աջակցություն"
@@ -12351,8 +12351,8 @@ hy:
         api_key: "API բանալի"
         base_url: "Բազային URL-հասցե"
     canvas_webhooks: 
-      description: "Webhook-եր միացվող մոդուլ EXAMPLE-ի համար"
-      name: "EXAMPLE Webhooks"
+      description: "Webhook-եր միացվող մոդուլ quite frankly an example LMS-ի համար"
+      name: "quite frankly an example LMS Webhooks"
     crocodoc: 
       description: "Միացնել Crocodoc-ը որպես փաստաթղթերի նախնական դիտման տարբերակ"
       name: Crocodoc
@@ -12484,7 +12484,7 @@ hy:
         default_email_domain: "Լռությամբ ընդունվող էլեկտրոնային փոստի դոմեն"
         email_preference: "Նախընտրելի էլեկտրոնային հասցե"
         lms_delivery_name: "LMS առաքման անվանում"
-        map_sections_to_courses: "EXAMPLE դասընթացներում ստեղծել IMS բաժիններ"
+        map_sections_to_courses: "quite frankly an example LMS դասընթացներում ստեղծել IMS բաժիններ"
         section_end_days_adjustment: "Բաժնի ավարտման օրերի ճշգրտում"
         section_name_selection: "Բաժնի անվանման ընտրություն"
         section_start_days_adjustment: "Բաժնի մեկնարկման օրերի ճշգրտում"
@@ -12494,8 +12494,8 @@ hy:
       author: Հեղինակ
       description: Նկարագրություն
       name: Անվանումը
-      no_plugins: "Տեղադրված չեն EXAMPLE  միացվող մոդուլներ"
-      page_title: "EXAMPLE  միացվող մոդուլներ"
+      no_plugins: "Տեղադրված չեն quite frankly an example LMS  միացվող մոդուլներ"
+      page_title: "quite frankly an example LMS  միացվող մոդուլներ"
       tag: Պիտակ
       version: Տարբերակ
       website: Վեբ-կայք
@@ -12514,7 +12514,7 @@ hy:
           Դուք պետք է գրանցվեք [Kaltura.com](%{kaltura_url})
           կամ ռեզիդենտային սերվերում տեղադրված Kaltura տարբերակում:
           
-          **Նշում.** հենց որ դուք Kaltura կարգաբերեք EXAMPLE-ում,
+          **Նշում.** հենց որ դուք Kaltura կարգաբերեք quite frankly an example LMS-ում,
           պետք է անցնեք Kaltura կառավարման կոնսոլ և "Կարգաբերումներ ->
           Ինտեգրման կարգաբերումներ", միացնեք սերվերի ծանուցումները URL ծանուցումների հետ՝
           
@@ -12523,7 +12523,7 @@ hy:
           Այնուհետև դրոշակներ դնեք "Ավելացնել գրառում", և "Ջնջել գրառում" վրա՝ "Ուղարկված է սերվերի միջոցով" սյունակում:
       headers: 
         account_settings: "Հաշիվների գրառումների կարգաբերումներ"
-        canvas_settings: "EXAMPLE կարգաբերումներ"
+        canvas_settings: "quite frankly an example LMS կարգաբերումներ"
         domain_settings: "Դոմենի կարգաբերումներ"
         misc_settings: "Տարբեր կարգաբերումներ"
         ui_conf_ids: "UI կարգաբերման նույնականացուցիչներ"
@@ -12588,7 +12588,7 @@ hy:
     notices: 
       settings_updated: "Միացվող մոդուլի կարգաբերումները հաջողությամբ թարմացվել են:"
     panda_pub_settings: 
-      description: "PandaPub-ը հրապարակման/բաժանորդագրման ծառայություն է, որը կարգաբերումից հետո հնարավորություն է տալիս EXAMPLE-ի որոշ մասերին ստանալ ծանուցումներ միջոցառումների մասին բրաուզերի ներսում, այլ ոչ թե  հարցումներ անել փոփոխություններ կատարելու համար:"
+      description: "PandaPub-ը հրապարակման/բաժանորդագրման ծառայություն է, որը կարգաբերումից հետո հնարավորություն է տալիս quite frankly an example LMS-ի որոշ մասերին ստանալ ծանուցումներ միջոցառումների մասին բրաուզերի ներսում, այլ ոչ թե  հարցումներ անել փոփոխություններ կատարելու համար:"
       labels: 
         application_id: "Հավելվածի նույնականացուցիչ"
         base_url: "Բազային URL-հասցե"
@@ -12643,7 +12643,7 @@ hy:
         consumer_key: "Օգտատիրոջ բանալի"
         consumer_secret: "Սպառողի գաղտնի բանալի"
     webct_scraper_settings: 
-      description: "Եթե կազմակերպությունը չի օգտագործում WebCT-ի \"Ուսուցման մոդուլները\" (ներառյալ դպրոցները, որոնք ընդունել են WebCT՝ նախքան 4.0 տարբերակը, երբ մոդուլները հասանելի դարձան), դասընթացի տեղափոխությունները կարող են բարելավվել,  \"Ուսուցման մոդուլների\" փոխարեն որպես EXAMPLE-ի մոդուլներ ներմուծելով \"Դասընթացի բովանդակությունը\": Այս էջը հնարավորություն է տալիս կարգաբերել WebCT-ի տեղափոխության գործիքի լռությամբ ընդունվող ռեժիմը  համաձայն բովանդակության մոդուլների: Անհրաժեշտ է հիշել, որ այն դեպքում, երբ դասընթացների առանձին տեղափոխությունները պահպանում են ընտրելու հնարավորությունը, զանգվածային տեղափոխության գործիքը միշտ օգտագործում է այստեղ կարգաբերված մեծությունը և չի կարող փոխվել առանձին տեղափոխության դեպքում:"
+      description: "Եթե կազմակերպությունը չի օգտագործում WebCT-ի \"Ուսուցման մոդուլները\" (ներառյալ դպրոցները, որոնք ընդունել են WebCT՝ նախքան 4.0 տարբերակը, երբ մոդուլները հասանելի դարձան), դասընթացի տեղափոխությունները կարող են բարելավվել,  \"Ուսուցման մոդուլների\" փոխարեն որպես quite frankly an example LMS-ի մոդուլներ ներմուծելով \"Դասընթացի բովանդակությունը\": Այս էջը հնարավորություն է տալիս կարգաբերել WebCT-ի տեղափոխության գործիքի լռությամբ ընդունվող ռեժիմը  համաձայն բովանդակության մոդուլների: Անհրաժեշտ է հիշել, որ այն դեպքում, երբ դասընթացների առանձին տեղափոխությունները պահպանում են ընտրելու հնարավորությունը, զանգվածային տեղափոխության գործիքը միշտ օգտագործում է այստեղ կարգաբերված մեծությունը և չի կարող փոխվել առանձին տեղափոխության դեպքում:"
       labels: 
         allow_outline_selection: "Ցուցադրել տեղափոխության ֆունկցիա-վիզարդում Դասընթացի բովանդակությունը որպես Մոդուլներ օգտագործելու պարամետրը:"
         folders_as_outline: "Օգտագործե լ WebCT \"Դասընթացի բովանդակությունը\" որպես լռությամբ ընդունվող մոդուլներ"
@@ -12740,7 +12740,7 @@ hy:
   process_as_ui_changes_8e34ed2a: "Մշակվում են  որպես UI փոփոխություններ "
   process_data_2f5f962f: "Մշակել տվյալները"
   processing_8c569014: "Մշակվում է..."
-  product_name: EXAMPLE
+  product_name: quite frankly an example LMS
   profile: 
     access_token: 
       default_app_name: "Հավելվածներ չկան"
@@ -12791,7 +12791,7 @@ hy:
       registration_failed: "Գրանցումը չհաջողվեց: Ստուգեք մուտքանունը և գաղտնաբառը և փորձեք կրկին:"
     failed_resending: "Հարցման սխալ: Փորձեք կրկին:"
     labels: 
-      enable_login_for_email: "Ես ցանկանում եմ մուտք գործել EXAMPLE համակարգ, օգտագործելով էլեկտրոնային փոստի այս հասցեն:"
+      enable_login_for_email: "Ես ցանկանում եմ մուտք գործել quite frankly an example LMS համակարգ, օգտագործելով էլեկտրոնային փոստի այս հասցեն:"
     links: 
       resend_confirmation: "Կրկին ուղարկել հաստատումը"
       resend_confirmation_failed: "Հարցման սխալ: Փորձեք կրկին:"
@@ -12806,8 +12806,8 @@ hy:
     page_title: "Դիտարկվող ունկնդիրներ"
     please_select_an_option: "Ընտրել օպցիան"
     profile: 
-      access_token_description: "Հասանելիության թոքենները կարող են օգտագործվել ձեր անունից API կանչեր այլ հավելվածներով թույլ տալու համար: Դուք նաև կարող եք գեներացնել մուտքի թոքեններ և *օգտագործել EXAMPLE Open API* ձեր սեփական ինտեգրումների գծով աշխատելու համար: "
-      approved_integrations: "Սրանք այլ անձանց կողմից ստեղծված հավելվածներն են, որոնց համար  մուտքը EXAMPLE համակարգ Դուք դարձրել եք հասանելի."
+      access_token_description: "Հասանելիության թոքենները կարող են օգտագործվել ձեր անունից API կանչեր այլ հավելվածներով թույլ տալու համար: Դուք նաև կարող եք գեներացնել մուտքի թոքեններ և *օգտագործել quite frankly an example LMS Open API* ձեր սեփական ինտեգրումների գծով աշխատելու համար: "
+      approved_integrations: "Սրանք այլ անձանց կողմից ստեղծված հավելվածներն են, որոնց համար  մուտքը quite frankly an example LMS համակարգ Դուք դարձրել եք հասանելի."
       buttons: 
         add_picture_file: "Ավելացնել ֆայլ"
         authorize_google_docs: "Թույլատրել Google Docs հասանելիությունը"
@@ -12823,8 +12823,8 @@ hy:
         select_image: "Ընտրել պատկերը"
         update_settings: "Թարմացնել կարգաբերումները"
       confirm_email_instructions: "Նախքան դուք կկարողանաք խմբագրել ձեր պրոֆիլը, դուք պետք է հաստատեք ձեր էլեկտրոնային փոստի հասցեն ({email}), սեղմելով այն հղումը, որը տրված է ձեզ ուղարկված մեր նամակում: Եթե դուք այն չեք տեսնում, *սեղմեք կրկին ուղարկել էլեկտրոնային նամակը* և ստուգեք ձեր սփամի թղթապանակը: "
-      delicious_description: "Delicious-ը մի գործիք է, որը հնարավորություն է տալիս ձեզ պահել և մյուսների հետ համատեղ օգտագործել ձեր էջանշանը: EXAMPLE-ի մուլտիմեդիա բովանդակության խմբագիրը ձեզ հնարավորություն կտա որոնելու ձեր Diigo պիտակները՝ հեշտորեն կապվելու EXAMPLE-ի և ձեզ համար օգտակար այլ ռեսուրսների հետ: "
-      diigo_description: "Diigo-ն էջանշանների հետ աշխատելու գործիք է, որ նախատեսված է ուսումնասիրությունների և կրթության համար: EXAMPLE-ի մուլտիմեդիա բովանդակության խմբագիրը ձեզ հնարավորություն կտա որոնելու ձեր Diigo պիտակները՝ հեշտորեն կապվելու EXAMPLE-ի և ձեզ համար օգտակար այլ ռեսուրսների հետ:"
+      delicious_description: "Delicious-ը մի գործիք է, որը հնարավորություն է տալիս ձեզ պահել և մյուսների հետ համատեղ օգտագործել ձեր էջանշանը: quite frankly an example LMS-ի մուլտիմեդիա բովանդակության խմբագիրը ձեզ հնարավորություն կտա որոնելու ձեր Diigo պիտակները՝ հեշտորեն կապվելու quite frankly an example LMS-ի և ձեզ համար օգտակար այլ ռեսուրսների հետ: "
+      diigo_description: "Diigo-ն էջանշանների հետ աշխատելու գործիք է, որ նախատեսված է ուսումնասիրությունների և կրթության համար: quite frankly an example LMS-ի մուլտիմեդիա բովանդակության խմբագիրը ձեզ հնարավորություն կտա որոնելու ձեր Diigo պիտակները՝ հեշտորեն կապվելու quite frankly an example LMS-ի և ձեզ համար օգտակար այլ ռեսուրսների հետ:"
       error_loading_token_details: "Token-ի տվյալների բեռնման սխալ"
       feature_options: "Ֆունկցիաների պարամետրերը"
       full_token_warning: |-
@@ -12832,7 +12832,7 @@ hy:
           ստանալ ամբողջական token-ը, դուք ստիպված կլինեք կրկին գեներացնել այն նոր
           արժեք ստանալու համար:
       generate_access_token_description: |-
-          Հասանելիության token-ները հնարավորություն են տալիս երրորդ կողմի հավելվածներին Ձեր անունից մուտք գործել EXAMPLE համակարգի
+          Հասանելիության token-ները հնարավորություն են տալիս երրորդ կողմի հավելվածներին Ձեր անունից մուտք գործել quite frankly an example LMS համակարգի
           ռեսուրսներ: Այս token-ները սովորաբար ստեղծվում են ավտոմատ կերպով
           հավելվածների համար՝ ըստ  անհրաժեշտության, բայց եթե [Դուք մշակում եք նոր կամ սահմանափակ
           նախագիծ](%{documentation_url}), դուք կարող եք պարզապես գեներացնել token-ն այստեղ:
@@ -12919,7 +12919,7 @@ hy:
         view_your_profile: "դիտել ձեր պրոֆիլը"
         yo: Yo
       loading_token_details: "Token-ի տվյալների բեռնում..."
-      no_approved_integrations: "Երրորդ կողմի հավելվածները կարող են ձեր անունից EXAMPLE մուտք գործելու համար թույլտվություն պահանջել: Երբ դուք հաստատեք թույլատրված հավելվածները, նրանք ցույց կտրվեն այստեղ:  "
+      no_approved_integrations: "Երրորդ կողմի հավելվածները կարող են ձեր անունից quite frankly an example LMS մուտք գործելու համար թույլտվություն պահանջել: Երբ դուք հաստատեք թույլատրված հավելվածները, նրանք ցույց կտրվեն այստեղ:  "
       no_language_preference: "Լռությամբ ընդունվող համակարգի կարգավորումները (%{language})"
       no_registered_services: "Գրանցված ծառայություններ չկան"
       none: "Ոչինչ չկա"
@@ -12951,7 +12951,7 @@ hy:
           Այդ ծանուցումները կուղարկվեն Ձեզ որպես ուղղակի հաղորդագրություններ
           Ձեր հաշվից և Ձեր հանրային հոսքում չեն երևա:
       unknown_service: "Անհայտ է"
-      web_services: "EXAMPLE համակարգից օգտվելը Ձեզ համար կարող է ավելի հեշտ լինել, եթե այն կապվի Ձեր կողմից արդեն իսկ օգտագործվող համացանցային գործիքների հետ: Մանրամասն տեղեկատվության համար սեղմեք \"Այլ ծառայություններ\" բաժնի ծառայություններից որևէ մեկը: "
+      web_services: "quite frankly an example LMS համակարգից օգտվելը Ձեզ համար կարող է ավելի հեշտ լինել, եթե այն կապվի Ձեր կողմից արդեն իսկ օգտագործվող համացանցային գործիքների հետ: Մանրամասն տեղեկատվության համար սեղմեք \"Այլ ծառայություններ\" բաժնի ծառայություններից որևէ մեկը: "
       yo_description: |-
           Yo մեկ հպումով հաղորդակցության գործիք է՝ առանց որևէ նշան հավաքելու անհրաժեշտության:
           Եթե ունեք Yo հաշիվ,  կարող եք այն գրանցել այստեղ: Հետո, եթե թույլ տաք դասընթացի/խմբի անդամներին տեսնելու ձեր գրանցած ծառայությունները, նրանք կարող են
@@ -12985,8 +12985,8 @@ hy:
     twitter_select: 
       twitter: Twitter
     ways_to_contact: 
-      bouncing_channel: "EXAMPLE-ը չկարողացավ այս կոնտակտի միջոցով ուղարկել ձեզ հաղորդագրություններ: Համոզվեք, որ կոնտակտային տեղեկությունը ճիշտ է, որպեսզի EXAMPLE-ից շարունակեք ստանալ հաղորդագրություններ:  "
-      bouncing_email: "EXAMPLE-ը չկարողացավ այս հասցեով ուղարկել ձեզ էլեկտրոնային նամակներ: Համոզվեք, որ հասցեն ճիշտ է, որպեսզի EXAMPLE-ից շարունակեք ստանալ էլեկտրոնային նամակներ:  "
+      bouncing_channel: "quite frankly an example LMS-ը չկարողացավ այս կոնտակտի միջոցով ուղարկել ձեզ հաղորդագրություններ: Համոզվեք, որ կոնտակտային տեղեկությունը ճիշտ է, որպեսզի quite frankly an example LMS-ից շարունակեք ստանալ հաղորդագրություններ:  "
+      bouncing_email: "quite frankly an example LMS-ը չկարողացավ այս հասցեով ուղարկել ձեզ էլեկտրոնային նամակներ: Համոզվեք, որ հասցեն ճիշտ է, որպեսզի quite frankly an example LMS-ից շարունակեք ստանալ էլեկտրոնային նամակներ:  "
       buttons: 
         confirm: Հաստատել
         ok_thanks: "Ok, շնորհակալություն"
@@ -13009,7 +13009,7 @@ hy:
         cell_number: "Բջջային հեռախոսի համարը"
         country: Երկիր
         email_address: "Էլեկտրոնային փոստի հասցե"
-        enable_login_for_email: "Ես ցանկանում եմ մուտք գործել EXAMPLE համակարգ, օգտագործելով էլեկտրոնային փոստի այս հասցեն:"
+        enable_login_for_email: "Ես ցանկանում եմ մուտք գործել quite frankly an example LMS համակարգ, օգտագործելով էլեկտրոնային փոստի այս հասցեն:"
         sms_email: "SMS և էլեկտրոնային փոստ"
       links: 
         email: Էլ.փոստ
@@ -13053,7 +13053,7 @@ hy:
     notifications: 
       privacy_notice: 
         ok: OK
-        privacy_notice: "Ծանոթություն. Որոշ ծանուցումներ կարող են պարունակել գաղտնի տեղեկատվություն: Ծանուցումների ստացման համար ձեր հաստատության կողմից սահմանված հասցեից տարբեր այլ հասցե ընտրելը կարող է հանգեցնել նրան, որ EXAMPLE-ի դասընթացի և խմբային գաղտնի  տեղեկությունները դուրս գան հաստատության սահմաններից: "
+        privacy_notice: "Ծանոթություն. Որոշ ծանուցումներ կարող են պարունակել գաղտնի տեղեկատվություն: Ծանուցումների ստացման համար ձեր հաստատության կողմից սահմանված հասցեից տարբեր այլ հասցե ընտրելը կարող է հանգեցնել նրան, որ quite frankly an example LMS-ի դասընթացի և խմբային գաղտնի  տեղեկությունները դուրս գան հաստատության սահմաններից: "
         privacy_notice_title: "Գաղտնիության նշում"
     take_picture_view: 
       retry: "Փորձել կրկին"
@@ -13098,7 +13098,7 @@ hy:
     login: 
       invalid_login: "Սխալ մուտքային անուն"
       invalid_password: "Սխալ գաղտնաբառ"
-      invalid_user_email: "Սա էլեկտրոնային փոստի հասցե չէ: Ստուգեք, թե արդյո՞ք Դուք օգտագործում եք EXAMPLE համակարգի Ձեր հաշվի հետ կապակցված ձեր էլեկտրոնային փոստի հասցեն: "
+      invalid_user_email: "Սա էլեկտրոնային փոստի հասցե չէ: Ստուգեք, թե արդյո՞ք Դուք օգտագործում եք quite frankly an example LMS համակարգի Ձեր հաշվի հետ կապակցված ձեր էլեկտրոնային փոստի հասցեն: "
       parent_signup: "Ծնողի գրանցում"
       password_confirmation_sent: "Գաղտնաբառի հաստատումը ուղարկվել է %{email_address}-ին: Ստուգեք ձեր սփամի թղթապանակը:"
     notices: 
@@ -13270,7 +13270,7 @@ hy:
       give_everyone_full_credit: "Բոլորին տալ լիարժեք կրեդիտ այս հարցի համար"
       no_scores_reduced: "Միավորներ տալ թե ուղղված և թե անցյալ ճիշտ պատասխանների համար (*ոչ մի միավոր չի հանվելու*)"
       regrade_disabled: "Այս հարցի համար կրկնակի գնահատում չի թույլատրվում, քանի որ կամ պատասխանն է հանվել կամ հարցի տեսակը փոխվել է ունկնդրի կողմից ուղարկելուց հետո:"
-      regrade_options: "Ընտրել վերագնահատման տարբերակը այն ունկնդիրների համար, ովքեր արդեն անցել են թեստը: EXAMPLE համակարգը կվերագնահատի Ձեր բոլոր ուղարկած աշխատանքները թեստը պահպանելուց հետո (դա կարող է ազդել ունկնդիրների միավորների վրա): "
+      regrade_options: "Ընտրել վերագնահատման տարբերակը այն ունկնդիրների համար, ովքեր արդեն անցել են թեստը: quite frankly an example LMS համակարգը կվերագնահատի Ձեր բոլոր ուղարկած աշխատանքները թեստը պահպանելուց հետո (դա կարող է ազդել ունկնդիրների միավորների վրա): "
       some_scores_reduced: "Միավորներ տալ միայն ճիշտ պատասխանների համար (*որոշ ունկնդիրների միավորներ կարող են նվազեցվել*)"
       update_question_without_regrading: "Թարմացնել հարցը առանց կրկնակի գնահատման"
   quiz_e0dcce8f: Թեստ
@@ -13284,7 +13284,7 @@ hy:
         action_log: "Գործողությունների մատյան"
       notices: 
         no_events_available: "Թեստի կատարման սեսիայի ընթացքում ոչ մի միջոցառում չի գրանցվել մատյանում:"
-      page_blurred: "EXAMPLE համակարգի թեստի կատարման էջի դիտումը դադարեցվել է..."
+      page_blurred: "quite frankly an example LMS համակարգի թեստի կատարման էջի դիտումը դադարեցվել է..."
       page_focused: "Վերսկսվել է:"
       question_answered: 
         one: "Պատասխանել են հետևյալ հարցին՝"
@@ -13569,7 +13569,7 @@ hy:
     ldb_login_popup: 
       email: "Էլ. հասցե"
       log_in: Մուտք
-      logged_out_of_canvas: "*Դուք դուրս եք եկել EXAMPLE համակարգից:* Շարունակելու համար մուտք գործեք համակարգ:"
+      logged_out_of_canvas: "*Դուք դուրս եք եկել quite frankly an example LMS համակարգից:* Շարունակելու համար մուտք գործեք համակարգ:"
       password: Գաղտնաբառ
       titles: 
         log_in: "Մուտք գործեք համակարգ"
@@ -14349,7 +14349,7 @@ hy:
         labels: 
           started: "Սկսվել է"
           times_up: "Ժամանակը սպառվել է: Արդյունքների կուղարկվի"
-        logged_out_of_canvas: "*Դուք դուրս եք եկել EXAMPLE-ից:* Շարունակելու համար մուտք գործեք համակարգ"
+        logged_out_of_canvas: "*Դուք դուրս եք եկել quite frankly an example LMS-ից:* Շարունակելու համար մուտք գործեք համակարգ"
         login_required: "Պահանջվում է մուտք գործել"
         not_saved: "Չի պահպանվել"
         quiz_instructions: "Ցուցումներ թեստի վերաբերյալ"
@@ -14662,7 +14662,7 @@ hy:
     updated_at_short: "Ձևափոխված է "
     view: Դիտել
   recaptcha_not_configured_3a6ef9ee: "Recaptcha կարգաբերված չէ"
-  recent_canvas_notifications_81395de6: "EXAMPLE-ի վերջին ծանուցումները"
+  recent_canvas_notifications_81395de6: "quite frankly an example LMS-ի վերջին ծանուցումները"
   recent_student: 
     last_logged_in: "համակարգ վերջին մուտքը %{last_login}"
   recentint_remainderint_decaying_average_79bc09fb: "%{recentInt}/%{remainderInt} նվազող միջինը"
@@ -14742,7 +14742,7 @@ hy:
       labels: 
         email: "Էլ. հասցե"
         name: Անվանումը
-    welcome_to_canvas: "Ձեզ ողջունում է EXAMPLE-ը"
+    welcome_to_canvas: "Ձեզ ողջունում է quite frankly an example LMS-ը"
   registration_url_60e0eaaa: "Գրանցման URL-հասցե"
   regrading_is_not_allowed_on_this_question_because__2ac314cb: "Այս հարցի համար կրկնակի գնահատում չի թույլատրվում, քանի որ կամ պատասխանն է հանվել կամ հարցի տեսակը փոխվել է ունկնդրի կողմից ուղարկելուց հետո:"
   regular_style_checkbox_ee3d71c1: "Սովորական-ոճի կոճակ"
@@ -14784,7 +14784,7 @@ hy:
   replaces_the_current_folder_tree_with_a_new_access_6f9d15c2: "Ընթացիկ թղթապանակի ծառը փոխարինում է հասանելի և ավելի շատ հնարավորություններով նոր թղթապանակի ծառով:  "
   reply_389d6fb9: Պատասխանել
   reply_all_80298bee: "Պատասխանել բոլորին"
-  reply_from_name: "%{name} EXAMPLE ծանուցումների միջոցով "
+  reply_from_name: "%{name} quite frankly an example LMS ծանուցումների միջոցով "
   reply_to_9fa43ebe: "Հետադարձ հասցեն"
   reply_to_comment_72d96728: "Պատասխանել մեկնաբանության մեջ"
   reply_to_main_discussion_29823888: "Պատասխանել հիմնական քննարկմանը"
@@ -14853,7 +14853,7 @@ hy:
       manage_announcements: "Կառավարել ընդհանուր հայտարարությունները"
       manage_assignments: "Կառավարել (ավելացնել/խմբագրել/ջնջել) հանձնարարությունները և թեստերը"
       manage_calendar: "Դասընթացի օրացույցին ավելացնել, խմբագրել և ջնջել միջոցառումներ"
-      manage_canvasnet_courses: "Կառավարել EXAMPLE-ի ցանցի դասընթացները"
+      manage_canvasnet_courses: "Կառավարել quite frankly an example LMS-ի ցանցի դասընթացները"
       manage_catalog: "Կատալոգի կառավարում"
       manage_content: "Կառավարել դասընթացի մնացած բովանդակությունը "
       manage_courses: "Կառավարել (ավելացնել/խմբագրել/ջնջել) դասընթացները"
@@ -15305,7 +15305,7 @@ hy:
         current_enrollments: "Ընթացիկ գրանցումներ"
         decrosslist_section: "Այս բաժինը ջնջել խաչաձև ցուցակից"
   sections_are_an_additional_way_to_organize_users_t_57551e0: "Բաժինները օգտատերերի հետ աշխատանքը կազմակերպելու լրացուցիչ միջոց են: Դրանք կարող են Ձեզ թույլ տալ միևնույն դասընթացի շրջանակում մի քանի դաս վարել, այնպես որ դուք կարողանաք դասընթացի բովանդակությունը տեղադրել մի տեղում: Ներքևում Դուք կարող եք օգտատիրոջը տեղափոխել մեկ այլ բաժին կամ ավելացնել/հանել բաժնի գրանցումները: Օգտատերերը պետք է մշտապես ընդգրկված լինեն առնվազն մեկ բաժնում:  "
-  see_some_lti_tools_that_work_great_with_canvas_16ef75a0: "*Որոշ LTI գործիքներ* որոնք գերազանց են աշխատում EXAMPLE -ի հետ:"
+  see_some_lti_tools_that_work_great_with_canvas_16ef75a0: "*Որոշ LTI գործիքներ* որոնք գերազանց են աշխատում quite frankly an example LMS -ի հետ:"
   see_this_assignment_in_speedgrader_14b8abaf: "Տես այս հանձնարարությունը «Արագ գնահատման համակարգ»-ում"
   select_a_course_40bc3229: "Ընտրել դասընթացը"
   select_a_grading_period_5ea50f1: "Ընտրել գնահատման ժամանակահատված..."
@@ -15403,7 +15403,7 @@ hy:
   self_registration_156392d6: Ինքնագրանցում
   self_sign_up_c8d23585: Ինքնագրանցում
   send_a_reply_message_81d0600e: "Ուղարկել պատասխան հաղորդագրություն"
-  send_custom_fields_uncheck_unless_using_canvas_zen_67e83666: "Ուղարկել Օգտագործողի դաշտերը  (հանել դրոշակը, եթե չեք օգտագործում  EXAMPLE zendesk)"
+  send_custom_fields_uncheck_unless_using_canvas_zen_67e83666: "Ուղարկել Օգտագործողի դաշտերը  (հանել դրոշակը, եթե չեք օգտագործում  quite frankly an example LMS zendesk)"
   send_e3bd0ed0: Ուղարկել
   sent_at_23cccc07: Ուղարկել
   sent_f4ee89ec: "Ուղարկվել է"
@@ -15757,7 +15757,7 @@ hy:
       sample_course_code: "Դասընթաց -101"
       start_a_new_course: "Սկսել նոր դասընթաց"
     new_nav_header: 
-      default_page_title: "EXAMPLE LMS"
+      default_page_title: "quite frankly an example LMS"
       links: 
         dashboard: "Տեղեկատվական Վահանակ"
         skip_to_content: "Անցնել բովանդակությանը"
@@ -15790,9 +15790,9 @@ hy:
       links_title: Վերնագիր
       links_url: "URL հասցե"
       manage_settings: "Գրանցված ծառայությունների կառավարում"
-      message_me: "ծանուցեք ինձ EXAMPLE-ում"
+      message_me: "ծանուցեք ինձ quite frankly an example LMS-ում"
       message_title: Հաղորդագրություն
-      message_user_canvas: "Ծանուցեք %{user} EXAMPLE-ում:"
+      message_user_canvas: "Ծանուցեք %{user} quite frankly an example LMS-ում:"
       name: Անվանումը
       no_links: "%{name}ը որևէ հղում չի ավելացրել "
       nothing_in_common: "Դուք ոչ մի ընդհանուր բան չունեք"
@@ -15811,9 +15811,9 @@ hy:
       links_title: Վերնագիր
       links_url: URL
       manage_settings: "Գրանցված ծառայությունների կառավարում"
-      message_me: "ծանուցեք ինձ EXAMPLE-ում"
+      message_me: "ծանուցեք ինձ quite frankly an example LMS-ում"
       message_title: Հաղորդագրություն
-      message_user_canvas: "Ծանուցեք %{user} EXAMPLE-ում:"
+      message_user_canvas: "Ծանուցեք %{user} quite frankly an example LMS-ում:"
       name: Անվանումը
       nothing_in_common: "Դուք ոչ մի ընդհանուր բան չունեք"
       save_profile: "Պահպանել պրոֆիլը"
@@ -16160,7 +16160,7 @@ hy:
   shared_secret_892c88f2: "Ընդհանուր գաղտնի բանալի"
   shift_dates_746698a5: "Տեղափոխել ամսաթվերը"
   should_be_10_digit_number_d30ef02d: "պետք է 10-նիշ թիվ լինի"
-  should_be_self_evident_the_canvas_id_of_the_report_44378262: "պետք է ակնառու լինի, հաշվետու օգտատիրոջ EXAMPLE ID"
+  should_be_self_evident_the_canvas_id_of_the_report_44378262: "պետք է ակնառու լինի, հաշվետու օգտատիրոջ quite frankly an example LMS ID"
   show_and_hide_courses_menu_9e09d1d0: "Ցույց տալ և թաքցնել դասընթացների մենյուն"
   show_by_date_e3967761: "Ցույց տալ ըստ ամսաթվերի"
   show_by_type_c5d61732: "Ցույց տալ ըստ տեսակների"
@@ -16240,14 +16240,14 @@ hy:
       date: Ամսաթիվ
       value: Մեծություն
     domain_not_found: 
-      body_description: "Ստուգեք ձեր EXAMPLE URL-հասցեն և փորձեք կրկին: Եթե չգիտեք  ձեր EXAMPLE URL-հասցեն, խնդրում ենք դիմել ձեր կազմակերպությանը կամ դասընթացի դասավանդողին:"
-      body_reference: "Եթե դուք հետաքրքրված եք ստանալ EXAMPLE անվճար հաշիվ, որը կապված չէ կազմակերպության հետ, կարող եք գրանցվել՝ "
+      body_description: "Ստուգեք ձեր quite frankly an example LMS URL-հասցեն և փորձեք կրկին: Եթե չգիտեք  ձեր quite frankly an example LMS URL-հասցեն, խնդրում ենք դիմել ձեր կազմակերպությանը կամ դասընթացի դասավանդողին:"
+      body_reference: "Եթե դուք հետաքրքրված եք ստանալ quite frankly an example LMS անվճար հաշիվ, որը կապված չէ կազմակերպության հետ, կարող եք գրանցվել՝ "
       links: 
         canvas_instructure: canvas.instructure.com
-      page_title: "EXAMPLE համակարգում Ձեր հաշվի մուտքի էջը չի գտնվել: "
+      page_title: "quite frankly an example LMS համակարգում Ձեր հաշվի մուտքի էջը չի գտնվել: "
       you_typed: "Դուք մուտքագրել եք"
     institution_suspended: 
-      body: "Ձեր դպրոցի EXAMPLE հաշիվը ժամանակավորապես անջատված է: Խնդրում ենք դիմել ձեր EXAMPLE ադմինիստրատորին:"
+      body: "Ձեր դպրոցի quite frankly an example LMS հաշիվը ժամանակավորապես անջատված է: Խնդրում ենք դիմել ձեր quite frankly an example LMS ադմինիստրատորին:"
       links: 
         logout: Ելք
         stop_masquerading: "[Դադարեցնել masquerading-ը]"
@@ -16282,7 +16282,7 @@ hy:
     android_banner_author: "Instructure Inc."
     android_banner_in_google_play: "Google Play-ում"
     android_banner_price: ԱՆՎՃԱՐ
-    android_banner_title: "EXAMPLE  Instructure-ով"
+    android_banner_title: "quite frankly an example LMS  Instructure-ով"
     android_banner_view_button: ԴԻՏԵԼ
   sms_f0ddceeb: sms
   some_conferences_on_this_page_are_hidden_because_o_789684fd: "Այս էջում որոշ կոնֆերանսներ անտեսանելի են, քանի որ դրանց կարգավիճակը վերականգնվում է տեղի ունեցած սխալների պատճառով:"
@@ -16785,7 +16785,7 @@ hy:
   teacher_activity_report_abf49a06: "Դասավանդողի գործողությունների մասին հաշվետվություն"
   teachers_52e2423f: Դասավանդողներ
   teal_f729a294: Փիրուզագույն
-  tell_us_how_and_when_you_would_like_to_be_notified_de3ed2bc: "EXAMPLE համակարգի ո՞ր միջոցառումների մասին եւ ի՞նչ եղանակով եք ցանկանում ստանալ ծանուցում"
+  tell_us_how_and_when_you_would_like_to_be_notified_de3ed2bc: "quite frankly an example LMS համակարգի ո՞ր միջոցառումների մասին եւ ի՞նչ եղանակով եք ցանկանում ստանալ ծանուցում"
   terms: 
     errors: 
       not_unique: "\"%{sis_source_id}\" SIS ID-ն արդեն գործածվում է"
@@ -16904,7 +16904,7 @@ hy:
   the_app_was_updated_successfully_3d71cd1b: "Հավելվածը հաջողությամբ թարմացվել է"
   the_connection_either_timed_out_or_was_refused_thi_570177f7: "Միացումը մերժվել է կամ ժամանակը սպառվել է: Պետք է դիտարկել հետևյալը."
   the_error_stack_trace_if_there_is_one_b7e008a1: "Սթեք թրեյսինգի սխալ, եթե այդպիսին առկա է"
-  the_files_tab_is_the_place_to_share_lecture_slides_95a93bce: "\"Ֆայլեր\" ներդիրը անհրաժեշտ է կիսվելու դասախոսությունների սլայդներով, փաստաթղթերի օրինակներով, ուսումնական ձեռնարկներով՝ այն ամենով, ինչը ձեր ունկնդիրները կցանկանան ներբեռնել: EXAMPLE-ից ձեր ֆայլերը բեռնելու և կազմակերպելու գործընթացը հեշտ է: Մենք ցույց կտանք, ինչպես դա անել:"
+  the_files_tab_is_the_place_to_share_lecture_slides_95a93bce: "\"Ֆայլեր\" ներդիրը անհրաժեշտ է կիսվելու դասախոսությունների սլայդներով, փաստաթղթերի օրինակներով, ուսումնական ձեռնարկներով՝ այն ամենով, ինչը ձեր ունկնդիրները կցանկանան ներբեռնել: quite frankly an example LMS-ից ձեր ֆայլերը բեռնելու և կազմակերպելու գործընթացը հեշտ է: Մենք ցույց կտանք, ինչպես դա անել:"
   the_following_fields_are_invalid_fields_b3565800: "Հետևյալ դաշտերը անընդունելի են՝ %{fields}"
   the_full_hostname_for_the_account_instance_somethi_e325da1f: "Հաշվի  լրիվ hostname անունը (օրինակ՝ something.instructure.com)"
   the_grade_for_this_assignment_will_not_sync_to_the_8f4571aa: "Այս հանձնարարության գնահատականը չի սինխրոնիզացվելու ունկնդրի մասին տեղեկատվական համակարգում: Սեղմեք այստեղ այդ կարգաբերումը փոխակերպելու համար:"
@@ -16917,14 +16917,14 @@ hy:
   the_material_is_in_the_public_domain_279c39a3: "Նյութը գտնվում է հանրությանը հասանելի դոմենում"
   the_material_is_licensed_under_creative_commons_3242cb5e: "Նյութը արտոնագրված է  Creative Commons կողմից"
   the_material_is_subject_to_fair_use_exception_41bc6a4b: "Նյութը վերաբերում է բարեխիղճ օգտագործման բացառությունների կատեգորիային:"
-  the_message_titled_subject_could_not_be_delivered__8c6cbbe3: "\"%{subject}\" վերնագիրը կրող հաղորդագրությունը հնարավոր չէ ուղարկել: Հաղորդագրությունն ուղարկվել է  EXAMPLE համակարգում գտնվող Ձեր հաշվի հետ չկապակցված հասցեից: Եթե փորձում եք EXAMPLE համակարգի միջոցով կապ հաստատել որևէ մեկի հետ, ապա պետք է մուտք գործեք ձեր հաշիվ և ուղարկեք նրանց հաղորդագրություն Մուտքերի փոստարկղ գործիքի միջոցով:\n\n\
+  the_message_titled_subject_could_not_be_delivered__8c6cbbe3: "\"%{subject}\" վերնագիրը կրող հաղորդագրությունը հնարավոր չէ ուղարկել: Հաղորդագրությունն ուղարկվել է  quite frankly an example LMS համակարգում գտնվող Ձեր հաշվի հետ չկապակցված հասցեից: Եթե փորձում եք quite frankly an example LMS համակարգի միջոցով կապ հաստատել որևէ մեկի հետ, ապա պետք է մուտք գործեք ձեր հաշիվ և ուղարկեք նրանց հաղորդագրություն Մուտքերի փոստարկղ գործիքի միջոցով:\n\n\
       Շնորհակալություն\n\
-      EXAMPLE համակարգի օգնության հարցերով ծառայություն: "
+      quite frankly an example LMS համակարգի օգնության հարցերով ծառայություն: "
   the_message_titled_subject_could_not_be_delivered__f063857e: |-
-      "%{subject}" վերնագիրը կրող հաղորդագրությունը չի կարող ուղարկվել, քանի որ քննարկման թեման ջնջվել է: Եթե Դուք ցանկանում եք EXAMPLE համակարգի միջոցով կապ հաստատել որևէ մեկի հետ, ապա պետք է մուտք գործեք Ձեր հաշիվ ուղարկեք նրանց հաղորդագրություն Մուտքերի փոստարկղ գործիքի միջոցով:
+      "%{subject}" վերնագիրը կրող հաղորդագրությունը չի կարող ուղարկվել, քանի որ քննարկման թեման ջնջվել է: Եթե Դուք ցանկանում եք quite frankly an example LMS համակարգի միջոցով կապ հաստատել որևէ մեկի հետ, ապա պետք է մուտք գործեք Ձեր հաշիվ ուղարկեք նրանց հաղորդագրություն Մուտքերի փոստարկղ գործիքի միջոցով:
       
       Շնորհակալություն,
-      EXAMPLE համակարգի օգնության հարցերով ծառայություն
+      quite frankly an example LMS համակարգի օգնության հարցերով ծառայություն
   the_module_item_is_locked_27fe420b: "Մոդուլի տարրը արգելափակված է:"
   the_most_recent_scores_for_user_current_user_name__ea82f0b6: " %{current_user_name} օգտատիրոջ ամենավերջին միավորները և %{outcome_name} արդյունքները:"
   the_profile_picture_has_been_reported_d609d6dd: "Բողոք է ուղարկվել պրոֆիլի պատկերի համար "
@@ -16971,7 +16971,7 @@ hy:
   this_course_cannot_be_added_to_the_courses_menu_at_a3fbb11e: "Այս դասընթացը ներկա պահին հնարավոր չէ ավելացնել դասընթացների մենյուին:"
   this_course_does_not_allow_score_uploads_4b35fe07: "Այս դասընթացը թույլ չի տալիս գնահատականների բեռնում:"
   this_course_hasn_t_started_yet_you_will_not_be_abl_c828c423: "Այս դասընթացը դեռ չի սկսվել: Դուք չեք կարող մասնակցել դրան մինչեւ %{date}:"
-  this_course_is_claimed_and_ready_but_you_ll_need_t_25b95a0a: "Այս դասընթացը պահանջված է և պատրաստ, բայց դուք պետք է ավարտեք գրանցման գործընթացը նախքան կկարողանաք հրապարակել այն: Դուք պետք է  EXAMPLE-ից էլեկտրոնային հաղորդագրություն ստանաք, որում տրված է գործընթացն ավարտելու համար հղումը: Մի մոռացեք ստուգել ձեր սփամ արկղը: "
+  this_course_is_claimed_and_ready_but_you_ll_need_t_25b95a0a: "Այս դասընթացը պահանջված է և պատրաստ, բայց դուք պետք է ավարտեք գրանցման գործընթացը նախքան կկարողանաք հրապարակել այն: Դուք պետք է  quite frankly an example LMS-ից էլեկտրոնային հաղորդագրություն ստանաք, որում տրված է գործընթացն ավարտելու համար հղումը: Մի մոռացեք ստուգել ձեր սփամ արկղը: "
   this_course_is_visible_only_to_teachers_until_it_i_ce972f0: "Մինչև հրապարակվելը այս դասընթացը տեսանելի է միայն դասավանդողների համար: "
   this_email_address_is_unconfirmed_f0fc8c6e: "Այս Էլ. փոստի հասցեն հաստատված չէ"
   this_enables_an_updated_navigation_new_dashboard_a_8bd4cae: "Սա հնարավորություն է տալիս նորացված նավարկման, նոր տեղեկատվական վահանակի օգտագործման, տալիս է ավելի պարզ, ժամանակակից տեսք և զգացողություն:"
@@ -16985,7 +16985,7 @@ hy:
   this_grade_differs_from_the_student_s_view_of_the__56742bd0: "Այս գնահատականը տարբերվում է ունկնդրի համար տեսանելի գնահատականից, քանի որ որոշ հանձնարարությունների  \"համր\" ֆունկցիան միացված է:"
   this_grade_is_currently_dropped_for_this_student_7bc78b78: " Այս գնահատականը այս ունկնդրի համար ներկայումս հանվել է:"
   this_image_appears_as_a_background_watermark_to_yo_1c6b4497: "Այս պատկերը հանդիսանում է Ձեր էջ ֆոնային պատկերը: Ընդունելի ձևաչափեր՝ png, svg, gif, jpeg"
-  this_is_a_comma_separated_list_of_url_s_to_trust_t_a6611f4: "Սա URL-հասցեների ստորակետներով բաժանված վստահելի  ցուցակ է: Այս ցուցակում ընդգրկված որևէ URL-ին վստահելը կնշանակի, որ այնտեղից EXAMPLE մուտք գործելիս բաց է թողնվելու CSRF token-ը:"
+  this_is_a_comma_separated_list_of_url_s_to_trust_t_a6611f4: "Սա URL-հասցեների ստորակետներով բաժանված վստահելի  ցուցակ է: Այս ցուցակում ընդգրկված որևէ URL-ին վստահելը կնշանակի, որ այնտեղից quite frankly an example LMS մուտք գործելիս բաց է թողնվելու CSRF token-ը:"
   this_is_a_full_batch_update_99d726e0: "Սա փաթեթի ամբողջական թարմացումն է:"
   this_is_a_group_discussion_2f9acdae: "Սա խմբային քննարկում է "
   this_is_a_media_comment_click_here_to_view_c297bf62: "Սա մուլտիմեդիա մեկնաբանություն է, *սեղմեք այստեղ դիտելու համար*:"
@@ -17002,7 +17002,7 @@ hy:
   this_question_group_is_set_to_pick_more_questions__2e3552c4: "Այս հարցերի խմբում ընդգրկված հարցերի քնակաը գերազանցում է հասանելի հարցերի քանակը:"
   this_quiz_has_been_excused_d89d2b74: "Այս թեստը ներվել է:"
   this_quiz_is_unpublished_only_teachers_can_see_the_51d281b1: "*Այս թեստը հրապարակված չէ:* Մինչև դրա հրապարակումը միայն դասավանդողները կարող են այն տեսնել: "
-  this_sample_page_includes_common_ui_elements_in_ca_331f4ac4: "Այս էջի նմուշը ներառում է ընդհանուր UI տարրեր EXAMPLE-ում, որը կօգնի Ձեզ  կառուցել Ձեր անհատական բրենդինգը։ Երբ Դուք կսկսեք կատարել փոփոխություններ գույնի արժեքների և պատկերների ձախ կողմում գտնվող կողային վահանակում, Դուք կտեսնեք \"փոփոխությունների նախնական դիտում\" կոճակը։ Սեղմեք այն՝ այս էջը թարմացնելու և կատարված փոփոխությունները դիտելու համար։"
+  this_sample_page_includes_common_ui_elements_in_ca_331f4ac4: "Այս էջի նմուշը ներառում է ընդհանուր UI տարրեր quite frankly an example LMS-ում, որը կօգնի Ձեզ  կառուցել Ձեր անհատական բրենդինգը։ Երբ Դուք կսկսեք կատարել փոփոխություններ գույնի արժեքների և պատկերների ձախ կողմում գտնվող կողային վահանակում, Դուք կտեսնեք \"փոփոխությունների նախնական դիտում\" կոճակը։ Սեղմեք այն՝ այս էջը թարմացնելու և կատարված փոփոխությունները դիտելու համար։"
   this_student_f8239fed: "Այս ունկնդիրը"
   this_student_s_responses_are_hidden_because_this_a_252e8335: "Ունկնդրի պատասխանները թաքցված են, քանի որ այս հանձնարարությունն անանուն է: "
   this_student_wrote_f1a3f22d: "Այս ունկնդիրը գրել է՝"
@@ -17010,7 +17010,7 @@ hy:
   this_user_has_not_yet_accepted_the_invitation_to_t_7aef5391: "Այս օգտատերը դեռևս չի ընդունել դասընթացի հրավերը"
   this_user_is_currently_not_able_to_access_the_cour_39cabed1: "Այս օգտատերն այս պահին չի կարող տեսնել դասընթացը"
   this_was_only_a_connection_test_ssl_certificates_w_79ec9c54: "Սա միայն միացման ստուգում էր: SSL սերտիֆիկատները չեն հաստատվել: "
-  this_will_allow_you_to_authenticate_canvas_for_pos_fdfca40: "Սա ձեզ թույլ կտա մտնել EXAMPLE՝ SIS-ում գնահատականները տեղադրելու համար"
+  this_will_allow_you_to_authenticate_canvas_for_pos_fdfca40: "Սա ձեզ թույլ կտա մտնել quite frankly an example LMS՝ SIS-ում գնահատականները տեղադրելու համար"
   this_will_apply_these_changes_to_your_entire_accou_22b86cde: "Այս փոփոխությունները կտարածվեն, ձեր ամբողջ հաշվին: Ցանկանում եք շարունակել՞"
   ticketing_system_52205bff: "Սխալներին հետևելու համակարգ"
   ticketing_system_configurations_c4fecd96: "Սխալներին հետևելու համակարգի կարգաբերումներ"
@@ -17190,7 +17190,7 @@ hy:
       alt_help_text: "Նկարագրել պատկերը՝ հասանելիության բարելավման համար"
       alt_text: "Այլընտրանքային տեքստ"
       attributes: Հատկանիշեր
-      canvas: EXAMPLE
+      canvas: quite frankly an example LMS
       dimension_help_text: "Կողմերի հարաբերակցությունը պահպանվելու է"
       dimensions: Չափերը
       flickr: Flickr
@@ -17236,7 +17236,7 @@ hy:
   to_minscore_43e5452e: "%{minScore}% համար"
   to_pin_a_discussion_to_the_top_of_the_page_drag_a__bfe476c3: "Քննարկումը էջի վերևում տեղադրելու համար քննարկումը քաշեք այստեղ կամ քննարկումների կարգաբերումների մենյուից ընտրեք \"Ամրացնել\" կետը: "
   to_restrict_to_users_from_specific_google_apps_dom_3a57f0fd: "Օգտատերերի համար կոնկրետ Google Apps դոմեյնը սահմանափակելու համար, մուտքագրեք դոմենը այստեղ"
-  to_view_all_notifications_sent_to_a_canvas_user_se_6172daa: "EXAMPLE համակարգի օգտատիրոջն ուղարկված բոլոր ծանուցումները դիտելու համար ընտրեք օգտատիրոջը և որոնման ամսաթվերի տիրույթը  "
+  to_view_all_notifications_sent_to_a_canvas_user_se_6172daa: "quite frankly an example LMS համակարգի օգտատիրոջն ուղարկված բոլոր ծանուցումները դիտելու համար ընտրեք օգտատիրոջը և որոնման ամսաթվերի տիրույթը  "
   to_view_assignments_make_sure_the_agenda_view_is_a_5695abfd: "Հանձնարարությունները դիտելու համար համոզվեք, որ *Օրակարգ* բաժինը ակտիվ է:"
   today_b7202098: այսօր
   toggle_dashcard_view_or_recent_activity_stream_1de257: "Փոխանջատել դիտման վահանակը վերջին ակտիվ հոսքի վրա"
@@ -17397,7 +17397,7 @@ hy:
   usage_rights_will_be_set_for_all_of_the_files_cont_b192336a: "Օգտագործման իրավունքները սահմանվելու են այն բոլոր ֆայլերի համար, որոնք պարունակվում են՝ "
   use_default_890939b7: "Օգտագործել ըստ լռության ընդունված"
   use_new_folder_tree_in_files_eb5a451b: "Ֆայլերում օգտագործել նոր թղթապանակի ծառը "
-  use_the_new_quiz_lti_tool_in_place_of_regular_canv_d7cb0c7f: "Օգտագործել նոր թեստերի LTI գործիքը EXAMPLE սովորական թեստերի փոխարեն:"
+  use_the_new_quiz_lti_tool_in_place_of_regular_canv_d7cb0c7f: "Օգտագործել նոր թեստերի LTI գործիքը quite frankly an example LMS սովորական թեստերի փոխարեն:"
   use_this_configuration_for_parent_observer_registr_e49f8f66: "Օգտագործել այս կոնֆիգուրացիան ծնողի/դիտորդի գրանցման համար"
   use_this_rubric_for_assignment_grading_a02fd079: "Օգտագործել այս ռուբրիկը հանձնարարությունը գնահատելու համար"
   use_this_same_grade_for_the_resubmission_eaa6bf55: "Օգտագործել գնահատման նույն սխեման հանձնարարության կրկնակի ուղարկման համար"
@@ -17419,7 +17419,7 @@ hy:
   user_avatars_e4fc4ed3: "Օգտատերերի ավատարներ"
   user_c95de254: Օգտատեր
   user_date_range_search: 
-    cant_be_blank: "EXAMPLE օգտագործողի նույնականացուցիչը չի կարող դատակ լինել"
+    cant_be_blank: "quite frankly an example LMS օգտագործողի նույնականացուցիչը չի կարող դատակ լինել"
     cant_come_before_from: "'Կատարման ամսաթիվը' չի կարող 'Մեկնարկման ամսաթվից' շուտ լինել"
     results_found: "%{length} արդյունքներ են գտնվել"
   user_details_2613c079: "Օգտատիրոջ տվյալներ"
@@ -17493,11 +17493,11 @@ hy:
   user_name_dc9baa66: "Օգտատիրոջ անուն"
   user_name_fe5887fb: "օգտատիրոջ անուն"
   user_name_has_just_turned_in_a_late_submission_for_874a9a31: "%{user_name}-ը այս պահին գտնվում է %{course_name} դասընթացի %{assignment_name} հանձնարարության հետ կապված աշխատանքի ուշացած ուղարկման էջում"
-  user_name_just_added_you_to_a_conversation_in_canv_7b278b51: "%{user_name}-ը այս պահին Ձեզ ավելացրել է EXAMPLE համակարգում խոսակցությանը: Խոսակցությունը տեսնելու համար սեղմեք այս հղումը. %{link}"
-  user_name_just_sent_you_a_message_in_canvas_a2cb3bf4: "%{user_name} հենց նոր ձեզ հաղորդագրություն է ուղարկել EXAMPLE համակարգում:"
+  user_name_just_added_you_to_a_conversation_in_canv_7b278b51: "%{user_name}-ը այս պահին Ձեզ ավելացրել է quite frankly an example LMS համակարգում խոսակցությանը: Խոսակցությունը տեսնելու համար սեղմեք այս հղումը. %{link}"
+  user_name_just_sent_you_a_message_in_canvas_a2cb3bf4: "%{user_name} հենց նոր ձեզ հաղորդագրություն է ուղարկել quite frankly an example LMS համակարգում:"
   user_name_just_turned_in_their_assignment_late_ass_a54b128a: "%{user_name}-ը այս պահին գտնվում է իր (ուշացրած)  %{assignment_name} հանձնարարության էջում"
   user_name_successfully_added_79af8365: "%{user_name} օգտատերը հաջողությամբ ավելացվել է"
-  user_name_you_just_sent_a_message_in_canvas_b1fd4598: "%{user_name}, դուք հենց նոր հաղորդագրություն եք ուղարկել EXAMPLE համակարգում:"
+  user_name_you_just_sent_a_message_in_canvas_b1fd4598: "%{user_name}, դուք հենց նոր հաղորդագրություն եք ուղարկել quite frankly an example LMS համակարգում:"
   user_name_you_ll_need_to_log_in_before_you_can_vie_164c8e30: "%{user_name}, դուք պետք է *մուտք գործեք համակարգ*, նախքան դուք կարողանաք դիտել այս էջը:  "
   user_navigation_a097be0f: "Օգտատիրոջ նավարկում"
   user_not_authorized_to_manage_sis_data_account_sis_47bd4eec: "օգտատերը չունի [sis_account_id] հաշվի SIS տվյալների կառավարման թույլտվություն"
@@ -17601,7 +17601,7 @@ hy:
     cc_prefs: 
       buttons: 
         configure: "Կարգաբերել կապի նախապատվությունները"
-      comm_preferences_instructions: "Այժմ, երբ դուք գրանցված եք EXAMPLE-ում, կարելի է սահմանել, թե ինչ ծանուցումներ եք ստանալու դասընթացի ընթացքում: EXAMPLE բավականաչափ ճկուն է թույլ տալու ձեզ ընտրել, թե ինչպես և  որ միջոցառումների մասին դուք կցանկանայիք ծանուցվել: Միջոցառումների մասին դուք կարող եք ծանուցվել էլեկտրոնային փոստով կամ անմիջապես բջջային հեռախոսին ուղարկված հաղորդագրությամբ, ամեն օր կամ ամեն շաբաթ: "
+      comm_preferences_instructions: "Այժմ, երբ դուք գրանցված եք quite frankly an example LMS-ում, կարելի է սահմանել, թե ինչ ծանուցումներ եք ստանալու դասընթացի ընթացքում: quite frankly an example LMS բավականաչափ ճկուն է թույլ տալու ձեզ ընտրել, թե ինչպես և  որ միջոցառումների մասին դուք կցանկանայիք ծանուցվել: Միջոցառումների մասին դուք կարող եք ծանուցվել էլեկտրոնային փոստով կամ անմիջապես բջջային հեռախոսին ուղարկված հաղորդագրությամբ, ամեն օր կամ ամեն շաբաթ: "
       titles: 
         configure_com_prefs: "Կարգաբերել կապի նախապատվությունները"
     confirms: 
@@ -17759,7 +17759,7 @@ hy:
         name_and_email: "Անունը և էլեկտրոնային փոստի հասցեն"
       update_instructions: "Դուք կարող եք թարմացնել օգտատիրոջ վերաբերյալ որոշ տեղեկություններ, բայց նա կարող է դրանք նորից հին տեղեկություններով փոխարինել:"
     new: 
-      create_a_canvas_account: "Ստեղծել EXAMPLE հաշիվ"
+      create_a_canvas_account: "Ստեղծել quite frankly an example LMS հաշիվ"
       privacy_policy: "Գաղտնիության պահպանման քաղաքականություն"
       terms_of_use: "Օգտագործման պայմանները"
     no_self_registration: "Այս հաշվի համար ինքնագրանցումը չի միացվել:"
@@ -17769,11 +17769,11 @@ hy:
       almost_there: "Դուք համարյա ավարտել եք..."
       done_resending: "Պատրաստ է: Հաղորդագրությունը կարող է պահանջել մի քանի րոպե:"
       failed_resending: "Հարցման սխալ: Փորձեք կրկին:"
-      invite_to_read: "Մենք ձեզ հրավիրում ենք դիտելու EXAMPLE մասին ամփոփ ակնարկը: Դուք կարող եք նաև *կարդալ այն մասին, թե ինչպես է EXAMPLE օգնում* 27 երկրի ունկնդիրներին ավելի մերձենալու դասախոսական լսարանների, հրահանգիչների և դասընկերների հետ:"
+      invite_to_read: "Մենք ձեզ հրավիրում ենք դիտելու quite frankly an example LMS մասին ամփոփ ակնարկը: Դուք կարող եք նաև *կարդալ այն մասին, թե ինչպես է quite frankly an example LMS օգնում* 27 երկրի ունկնդիրներին ավելի մերձենալու դասախոսական լսարանների, հրահանգիչների և դասընկերների հետ:"
       links: 
         download_pdf: "ներբեռնել PDF"
       need_flash: "Այս տեսաֆիլմը դիտելու համար պահանջվում է Flash player 8+ և JavaScript"
-      overview_video: "EXAMPLE-ի ամփոփ տեսաֆիլմ"
+      overview_video: "quite frankly an example LMS-ի ամփոփ տեսաֆիլմ"
       registration_complete: "Գրանցումն ավարտված է"
       resending: "Կրկին ուղարկվում է..."
       sent_email_paragraph: "Մենք նամակ ենք ուղարկել %{email_address}-ին: *Էլեկտրոնային փաստի հաղորդագրության մեջ սեղմեք հղումը գրանցումն ավարտելու համար*: Եթե դա չեք տեսնում, **սեղմեք հաղորդագրությունը կրկին ուղարկելու համար**, և մի մոռացեք ստուգել ձեր սփամ նամակները:"
@@ -17841,7 +17841,7 @@ hy:
           այդ դասընթացները հասանելի լինեն, դուք կտեսնեք դրանց մասին տեղեկությունները այստեղ
           և նավարկման վերին տողում: Միևնույն ժամանակ կարող եք գրանցվել
           լրացուցիչ դասընթացների կամ ստեղծել ձեր պրոֆիլը:
-      welcome_to_happiness: "Ձեզ ողջունում է EXAMPLE-ը"
+      welcome_to_happiness: "Ձեզ ողջունում է quite frankly an example LMS-ը"
   users_must_post_before_seeing_replies_d1761968: "Օգտատերերի մասնակցությունը պարտադիր է պատասխանները տեսնելու համար"
   users_with_no_enrollments_5dddce33: "Օգտատերեր առանց գրանցման "
   utc_e44049af: UTC
@@ -17903,11 +17903,11 @@ hy:
   warning_icon_f64936d7: "նախազգուշացման պատկերը"
   warnings: 
     test_install: 
-      periodic_message: "EXAMPLE այս տեղադրումը միայն թեստավորման համար է և պարբերաբար սկզբնական վիճակին է բերվելու:"
-      title: "EXAMPLE փորձնական տեղադրում"
+      periodic_message: "quite frankly an example LMS այս տեղադրումը միայն թեստավորման համար է և պարբերաբար սկզբնական վիճակին է բերվելու:"
+      title: "quite frankly an example LMS փորձնական տեղադրում"
       weekly_message: 
-        one: "EXAMPLE այս տեղադրումը փորձնական ստուգման համար է և ամեն շաբաթ բերվելու է սկզբնական վիճակին:"
-        other: "EXAMPLE այս տեղադրումը միայն թեստավորման համար է և {count} շաբաթը մեկ անգամ բերվելու է սկզբնական վիճակին: "
+        one: "quite frankly an example LMS այս տեղադրումը փորձնական ստուգման համար է և ամեն շաբաթ բերվելու է սկզբնական վիճակին:"
+        other: "quite frankly an example LMS այս տեղադրումը միայն թեստավորման համար է և {count} շաբաթը մեկ անգամ բերվելու է սկզբնական վիճակին: "
   watermark_c93fae0d: Նշագիծ
   watermark_opacity_ce3d3097: "Նշագծի անթափանցություն"
   watermarks_other_images_e970fc6a: "Նշագծեր և այլ պատկերներ"
@@ -17938,7 +17938,7 @@ hy:
   week_1f945ddd: Շաբաթ
   week_s_cb1492ee: Շաբաթ(ներ)
   weight_final_grade_based_on_assignment_groups_3124161: "Սահմանել վերջնական գնահատականը, հիմնվելով հանձնարարությունների խմբերի վրա:"
-  welcome_to_the_canvas_theme_editor_73091d1: "Ձեզ ողջունում է EXAMPLE-"
+  welcome_to_the_canvas_theme_editor_73091d1: "Ձեզ ողջունում է quite frankly an example LMS-"
   welcome_to_your_courses_to_customize_the_list_of_c_22de652e: "Բարի գալուստ ձեր դասընթացներին: Դասընթացների ցուցակը կարգաբերելու համար սեղմեք \"Բոլոր դասընթացները\" հղումը և աստղանիշով նշեք դասընթացները ցուցադրելու համար:"
   well_below_mastery_37664bdc: "Բավական ցածր է անցողիկ միավորներից "
   what_should_the_csv_file_look_like_985a59ac: "Ի՞նչ տեսք պետք է ունենա CSV ֆայլը:"
@@ -18148,7 +18148,7 @@ hy:
   you_can_log_in_directly_with_this_provider_by_goin_467d7f66: "Դուք կարող եք մուտք գործել համակարգ անմիջապես այս պրովայդերի օգնությամբ, տեղափոխվելով դեպի  %{url}"
   you_can_now_set_regrade_options_for_students_who_h_c1ceb1c4: "Դուք այժմ կարող եք սահմանել կրկնակի գնահատման պարամետրերը այն ունկնդիրների համար, ովքեր արդեն կատարել են թեստը:"
   you_can_reply_to_this_comment_by_responding_to_thi_3d130e8c: "Դուք կարող եք պատասխանել այս մեկնաբանությանը՝ պատասխանելով տվյալ հաղորդագրությանը կամ դիտելով ուղարկված աշխատանքի մանրամասները հետեւյալ հղման միջոցով. %{link}"
-  you_can_reply_to_this_message_in_canvas_by_replyin_fa33638d: "Դուք կարող եք պատասխանել այս հաղորդագրությանը EXAMPLE համակարգում՝ ուղղակիորեն պատասխանելով այս էլեկտրոնային նամակին կամ սեղմելով այս հղումը. %{link}"
+  you_can_reply_to_this_message_in_canvas_by_replyin_fa33638d: "Դուք կարող եք պատասխանել այս հաղորդագրությանը quite frankly an example LMS համակարգում՝ ուղղակիորեն պատասխանելով այս էլեկտրոնային նամակին կամ սեղմելով այս հղումը. %{link}"
   you_can_review_the_submission_details_by_clicking__58a7753: "Դուք կարող եք դիտել մանրամասները, սեղմելով ներքևի հղումը."
   you_can_review_the_submission_details_by_clicking__9abc5515: "Այս հղման միջոցով դուք կարող եք դիտել ուղարկված աշխատանքի մանրամասները. %{link}"
   you_can_search_by_25d8e2b2: "Դուք կարող եք որոնել ըստ՝"
@@ -18187,8 +18187,8 @@ hy:
   you_must_set_it_to_a_number_greater_than_or_equal__eb1d9275: "Դուք պետք է սահմանեք մի թիվ, որը մեծ կամ հավասար է %{min}"
   you_must_specify_a_usage_right_5eb57f87: "Դուք պետք է սահմանեք օգտագործման իրավունքը:"
   you_need_to_preview_your_changes_before_applying_t_468d56e4: "Դուք պետք է ընտրեք \"Փոփոխությունների Նախնական դիտումը\" յուրաքանչյուր փոփոխություններ կատարելուց առաջ"
-  you_re_editing_your_canvas_theme_apply_or_cancel_c_1633384e: "Դուք խմբագրում եք ձեր EXAMPLE-ի Թեման: Կիրառեք կամ չեղարկեք փոփոխությունները \"Թեմայի խմբագրի\" մեջ:"
-  you_re_editing_your_canvas_theme_the_changes_have__c0ae1bd1: "Դուք խմբագրում ձեր EXAMPLE-ի Թեմա: Փոփոխությունները դեռեւս չեն կիրառվել:"
+  you_re_editing_your_canvas_theme_apply_or_cancel_c_1633384e: "Դուք խմբագրում եք ձեր quite frankly an example LMS-ի Թեման: Կիրառեք կամ չեղարկեք փոփոխությունները \"Թեմայի խմբագրի\" մեջ:"
+  you_re_editing_your_canvas_theme_the_changes_have__c0ae1bd1: "Դուք խմբագրում ձեր quite frankly an example LMS-ի Թեմա: Փոփոխությունները դեռեւս չեն կիրառվել:"
   you_scored_a_score_a5dd5561: "Դուք ստացել եք %{score} միավոր"
   you_scored_d3e00111: "Դուք գնահատվել եք"
   you_ve_been_enrolled_in_the_course_course_course_r_2b2f00f9: "Դուք գրանցվել եք %{course} դասընթացին որպես %{role_type}"
@@ -18230,7 +18230,7 @@ hy:
   your_assignment_list_can_now_be_found_on_the_calen_9785b5ac: "Ձեր Հանձնարարությունների ցուցակը այժմ հնարավոր է գտնել \"Օրացույց\" էջում:"
   your_assignments_list_has_improved_3eded80e: "Ձեր *Հանձնարարությունների* ցուցակը բարելավվել է: "
   your_assignments_will_show_here_listed_by_due_date_18dc880f: "Ձեր հանձնարարությունները ցուցադրվելու են ըստ կատարման ժամկետների:"
-  your_browser_does_not_meet_the_minimum_requirement_2fa7c11f: "Ձեր բրաուզերը չի բավարարում  EXAMPLE նվազագույն պահանջներին: Խնդրում ենք այցելել *EXAMPLE հանրություն* ձեռնարկը օժանդակվող բրաուզերների ամբողջական ցուցակը ստանալու համար: "
+  your_browser_does_not_meet_the_minimum_requirement_2fa7c11f: "Ձեր բրաուզերը չի բավարարում  quite frankly an example LMS նվազագույն պահանջներին: Խնդրում ենք այցելել *quite frankly an example LMS հանրություն* ձեռնարկը օժանդակվող բրաուզերների ամբողջական ցուցակը ստանալու համար: "
   your_content_has_been_exported_bbb57764: "Ձեր բովանակությունը արտահանված է:"
   your_custom_theme_has_been_successfully_applied_eaa0fc82: "Ձեր կողմից ընտրված թեման հաջողությամբ կիրառվել է"
   your_email_b5364bee: "Ձեր էլեկտրոնային փոստի հասցեն"

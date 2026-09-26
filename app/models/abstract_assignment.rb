@@ -4588,14 +4588,14 @@ class AbstractAssignment < ApplicationRecord
     self.settings["new_quizzes"] = (settings["new_quizzes"] || {}).merge({ "anonymous_participants" => ActiveModel::Type::Boolean.new.cast(enabled) || false })
   end
 
-  # Returns true if the migration EXAMPLE Plagiarism Platform (LTI2 / CPF) configuration to LTI1.3 Asset Processor has been started
+  # Returns true if the migration quite frankly an example LMS Plagiarism Platform (LTI2 / CPF) configuration to LTI1.3 Asset Processor has been started
   def cpf_migration_started?
     return false if assignment_configuration_tool_lookups.empty?
 
     assignment_configuration_tool_lookups.first&.migration_started? || false
   end
 
-  # Returns true if the EXAMPLE Plagiarism Platform (LTI2 / CPF) configuration has been migrated to LTI1.3 Asset Processor
+  # Returns true if the quite frankly an example LMS Plagiarism Platform (LTI2 / CPF) configuration has been migrated to LTI1.3 Asset Processor
   def cpf_migrated?
     return false if assignment_configuration_tool_lookups.empty?
 

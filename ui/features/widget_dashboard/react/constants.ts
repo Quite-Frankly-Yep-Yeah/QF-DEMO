@@ -42,6 +42,9 @@ export const WIDGET_TYPES = {
   EDUCATOR_ANNOUNCEMENT_CREATION: 'educator_announcement_creation',
   EDUCATOR_TODO_LIST: 'educator_todo_list',
   EDUCATOR_CONTENT_QUALITY: 'educator_content_quality',
+  EDUCATOR_STUDENTS_NEED_YOU: 'educator_students_need_you',
+  EDUCATOR_CLASS_PROGRESS: 'educator_class_progress',
+  EDUCATOR_ALERTS: 'educator_alerts',
 } as const
 
 export type WidgetType = (typeof WIDGET_TYPES)[keyof typeof WIDGET_TYPES]

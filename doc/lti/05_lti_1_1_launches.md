@@ -3,7 +3,7 @@ See [the LTI launches document](./03_lti_launches.md) document for an overview o
 
 For notes on LTI 1.1 Implementation, see [LTI 1.1 Implementation](./09_lti_1_1_implementation).
 ## Overview
-An LTI 1.1 launch is a single form post from the tool consumer to the tool provider. The tool responds to the form post with HTML. This HTML is the tool's UI and is rendered in a EXAMPLE iframe or a new tab (depending on the context).
+An LTI 1.1 launch is a single form post from the tool consumer to the tool provider. The tool responds to the form post with HTML. This HTML is the tool's UI and is rendered in a quite frankly an example LMS iframe or a new tab (depending on the context).
 
 ## Parameters
 Parameters sent in the LTI launch help the tool provider identify the current user, context, and other relevant details.

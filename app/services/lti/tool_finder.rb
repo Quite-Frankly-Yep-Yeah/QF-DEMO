@@ -27,7 +27,7 @@ module Lti
   #
   # Finding a single tool is usually done either by ID or URL. This class has a
   # variety of methods that fall into these two categories to fit most needs.
-  # It's not always possible to directly match a tool by its EXAMPLE ID, like when a
+  # It's not always possible to directly match a tool by its quite frankly an example LMS ID, like when a
   # tool is uninstalled and reinstalled from the same 1.3 registration, or when content
   # items that link to a tool only store a URL. This is the reason that URL matching
   # is needed, and why it ends up being so complex.

@@ -16,18 +16,14 @@
  * with this program. If not, see <http://www.gnu.org/licenses/>.
  */
 
-import axios from '@canvas/axios'
 import {useScope as createI18nScope} from '@canvas/i18n'
-import React, {type MouseEventHandler, useCallback, useEffect, useRef, useState} from 'react'
+import React, {type MouseEventHandler, useCallback, useEffect, useState} from 'react'
 
-import {showFlashError} from '@instructure/platform-alerts'
 import {assignLocation} from '@canvas/util/globalUtils'
 import type {ConnectDragSource, ConnectDropTarget} from 'react-dnd'
 import instFSOptimizedImageUrl from '../util/instFSOptimizedImageUrl'
-import {showConfirmUnfavorite} from './ConfirmUnfavoriteCourseModal'
 import CourseActivitySummaryStore from './CourseActivitySummaryStore'
 import DashboardCardAction from './DashboardCardAction'
-import DashboardCardMenu from './DashboardCardMenu'
 import PublishButton from './PublishButton'
 
 const I18n = createI18nScope('dashcards')
@@ -82,16 +78,10 @@ export type DashboardCardProps = {
   href: string
   links: any[] // TODO: improve type
   image?: string
-  handleColorChange?: (color: string) => void
   hideColorOverlays?: boolean
   isDragging?: boolean
-  isFavorited?: boolean
   connectDragSource?: ConnectDragSource
   connectDropTarget?: ConnectDropTarget
-  moveCard?: (assetString: string, atIndex: number, callback: () => void) => void
-  onConfirmUnfavorite: (id: string) => void
-  totalCards?: number
-  position?: number | (() => number)
   enrollmentType?: string
   observee?: string
   published?: boolean
@@ -114,16 +104,10 @@ export const DashboardCard = ({
   href,
   links = [],
   image,
-  handleColorChange = () => {},
   hideColorOverlays,
   isDragging,
-  isFavorited,
   connectDragSource = (c: any) => c,
   connectDropTarget = (c: any) => c,
-  moveCard = () => {},
-  onConfirmUnfavorite,
-  totalCards = 0,
-  position = 0,
   enrollmentType,
   observee,
   published,
@@ -134,19 +118,8 @@ export const DashboardCard = ({
   onPublishedCourse = () => {},
   headingLevel = 'h3',
 }: DashboardCardProps) => {
-  const handleNicknameChange = (nickname: string) => setNicknameInfo(getNicknameInfo(nickname))
-
-  const getNicknameInfo = (nickname: string) => ({
-    nickname,
-    originalName,
-    courseId: id,
-    onNicknameChange: handleNicknameChange,
-  })
-
-  const [nicknameInfo, setNicknameInfo] = useState(getNicknameInfo(shortName))
   // @ts-expect-error
   const [course, setCourse] = useState(CourseActivitySummaryStore.getStateForCourse(id))
-  const settingsToggle = useRef<HTMLButtonElement | null>()
 
   const handleStoreChange = useCallback(
     // @ts-expect-error
@@ -163,27 +136,9 @@ export const DashboardCard = ({
   //    ACTIONS
   // ===============
 
-  const getCardPosition = () => (typeof position === 'function' ? position() : position)
-
   const headerClick: MouseEventHandler = e => {
     e.preventDefault()
     assignLocation(href)
-  }
-
-  const handleMove = (asset: string, atIndex: number) => {
-    if (moveCard) {
-      moveCard(asset, atIndex, () => settingsToggle.current?.focus())
-    }
-  }
-
-  const handleUnfavorite = () => {
-    const modalProps = {
-      courseId: id,
-      courseName: originalName,
-      onConfirm: removeCourseFromFavorites,
-    }
-    // @ts-expect-error
-    showConfirmUnfavorite(modalProps)
   }
 
   // ===============
@@ -209,32 +164,6 @@ export const DashboardCard = ({
     return streamItem ? streamItem.unread_count : 0
   }
 
-  const calculateMenuOptions = () => {
-    const cardPosition = getCardPosition()
-    const isFirstCard = cardPosition === 0
-    const isLastCard = cardPosition === totalCards - 1
-    return {
-      canMoveLeft: !isFirstCard,
-      canMoveRight: !isLastCard,
-      canMoveToBeginning: !isFirstCard,
-      canMoveToEnd: !isLastCard,
-    }
-  }
-
-  const removeCourseFromFavorites = () => {
-    const url = `/api/v1/users/self/favorites/courses/${id}`
-    axios
-      .delete(url)
-      .then(response => {
-        if (response.status === 200) {
-          onConfirmUnfavorite(id)
-        }
-      })
-      .catch(() =>
-        showFlashError(I18n.t('We were unable to remove this course from your favorites.')),
-      )
-  }
-
   const updatePublishedCourse = () => {
     if (onPublishedCourse) onPublishedCourse(id)
   }
@@ -247,7 +176,7 @@ export const DashboardCard = ({
     links.map(link => {
       if (link.hidden) return null
 
-      const screenReaderLabel = `${link.label} - ${nicknameInfo.nickname}`
+      const screenReaderLabel = `${link.label} - ${shortName}`
       return (
         <DashboardCardAction
           // @ts-expect-error InstUI component prop type mismatch
@@ -261,50 +190,6 @@ export const DashboardCard = ({
       )
     })
 
-  const renderHeaderButton = () => {
-    const reorderingProps = {
-      handleMove,
-      currentPosition: getCardPosition(),
-      lastPosition: totalCards - 1,
-      menuOptions: calculateMenuOptions(),
-    }
-
-    return (
-      <div>
-        <div
-          className="ic-DashboardCard__header-button-bg"
-          style={{backgroundColor, opacity: hideColorOverlays ? 1 : 0}}
-        />
-        <DashboardCardMenu
-          afterUpdateColor={(c: string) => handleColorChange(`#${c}`)}
-          currentColor={backgroundColor}
-          nicknameInfo={nicknameInfo}
-          assetString={assetString}
-          onUnfavorite={handleUnfavorite}
-          // @ts-expect-error InstUI component prop type mismatch
-          isFavorited={isFavorited}
-          {...reorderingProps}
-          trigger={
-            <button
-              type="button"
-              className="Button Button--icon-action-rev ic-DashboardCard__header-button"
-              ref={c => {
-                settingsToggle.current = c
-              }}
-            >
-              <i className="icon-more" aria-hidden="true" />
-              <span className="screenreader-only">
-                {I18n.t('Choose a color or course nickname or move course card for %{course}', {
-                  course: nicknameInfo.nickname,
-                })}
-              </span>
-            </button>
-          }
-        />
-      </div>
-    )
-  }
-
   const CardHeading = headingLevel as keyof JSX.IntrinsicElements
 
   const dashboardCard = (
@@ -317,9 +202,9 @@ export const DashboardCard = ({
       <div className="ic-DashboardCard__header">
         <span className="screenreader-only">
           {image
-            ? I18n.t('Course image for %{course}', {course: nicknameInfo.nickname})
+            ? I18n.t('Course image for %{course}', {course: shortName})
             : I18n.t('Course card color region for %{course}', {
-                course: nicknameInfo.nickname,
+                course: shortName,
               })}
         </span>
         <DashboardCardHeaderHero
@@ -335,7 +220,7 @@ export const DashboardCard = ({
               title={originalName}
               data-testid="dashboard-card-title"
             >
-              <span style={{color: backgroundColor}}>{nicknameInfo.nickname}</span>
+              <span style={{color: backgroundColor}}>{shortName}</span>
             </CardHeading>
             <div className="ic-DashboardCard__header-subtitle ellipsis" title={courseCode}>
               {courseCode}
@@ -354,7 +239,7 @@ export const DashboardCard = ({
           // eslint-disable-next-line @typescript-eslint/ban-ts-comment
           // @ts-ignore InstUI component type issue
           <PublishButton
-            courseNickname={nicknameInfo.nickname}
+            courseNickname={shortName}
             // eslint-disable-next-line @typescript-eslint/ban-ts-comment
             // @ts-ignore InstUI component prop type mismatch
             defaultView={defaultView}
@@ -366,11 +251,10 @@ export const DashboardCard = ({
             onSuccess={updatePublishedCourse}
           />
         )}
-        {renderHeaderButton()}
       </div>
       <nav
         className="ic-DashboardCard__action-container"
-        aria-label={I18n.t('Actions for %{course}', {course: nicknameInfo.nickname})}
+        aria-label={I18n.t('Actions for %{course}', {course: shortName})}
       >
         {linksForCard()}
       </nav>

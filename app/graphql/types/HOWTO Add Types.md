@@ -1,6 +1,6 @@
 # Adding Types in GraphQL
 
-All data in GraphQL is modeled using types. EXAMPLE models will generally
+All data in GraphQL is modeled using types. quite frankly an example LMS models will generally
 correspond to a GraphQL type.
 
 Many types in GraphQL will not have an underlying ActiveRecord object.  For
@@ -10,8 +10,8 @@ as possible when building out the GraphQL Schema.
 
 ## Naming
 
-When the name of a thing differs between the EXAMPLE back-end (ActiveRecord
-model) and what EXAMPLE calls something in the UI/documentation, **prefer the
+When the name of a thing differs between the quite frankly an example LMS back-end (ActiveRecord
+model) and what quite frankly an example LMS calls something in the UI/documentation, **prefer the
 UI/documented name**. (e.g. prefer "module" over "context module", "grade" over
 "score", "page" over "wiki page", etc.)
 
@@ -69,7 +69,7 @@ form when possible.
 ### LegacyNode
 
 `Query.node` lets a user load any object that implements `Node` given a
-relay-style id.  Because EXAMPLE API consumers will often only have  a "regular" id,
+relay-style id.  Because quite frankly an example LMS API consumers will often only have  a "regular" id,
 field, we also expose `Query.legacyNode` which allows a user to load any object
 that implements `Node` given a type/_id pair.
 

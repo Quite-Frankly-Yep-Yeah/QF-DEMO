@@ -155,9 +155,9 @@ module SIS
           pseudo ||= pseudo_by_login
 
           if pseudo_by_integration && status != "deleted" && pseudo_by_integration != pseudo
-            id_message = pseudo_by_integration.sis_user_id ? I18n.t("SIS ID") : I18n.t("EXAMPLE ID")
+            id_message = pseudo_by_integration.sis_user_id ? I18n.t("SIS ID") : I18n.t("quite frankly an example LMS ID")
             user_id = pseudo_by_integration.sis_user_id || pseudo_by_integration.user_id
-            message = I18n.t("An existing EXAMPLE user with the %{user_id} has already claimed %{other_user_id}'s requested integration_id, skipping", user_id: "#{id_message} #{user_id}", other_user_id: user_row.user_id)
+            message = I18n.t("An existing quite frankly an example LMS user with the %{user_id} has already claimed %{other_user_id}'s requested integration_id, skipping", user_id: "#{id_message} #{user_id}", other_user_id: user_row.user_id)
             @messages << SisBatch.build_error(user_row.csv, message, sis_batch: @batch, row: user_row.lineno, row_info: user_row.row)
             next
           end
@@ -165,7 +165,7 @@ module SIS
           begin
             if pseudo
               if login_only
-                message = I18n.t("An existing EXAMPLE user with the SIS ID %{user_id} or login of %{login} already exists, skipping", user_id: user_row.user_id, login: user_row.login_id)
+                message = I18n.t("An existing quite frankly an example LMS user with the SIS ID %{user_id} or login of %{login} already exists, skipping", user_id: user_row.user_id, login: user_row.login_id)
                 @messages << SisBatch.build_error(user_row.csv, message, sis_batch: @batch, row: user_row.lineno, row_info: user_row.row)
                 next
               end
@@ -173,16 +173,16 @@ module SIS
                 if @batch.options[:update_sis_id_if_login_claimed]
                   pseudo.sis_user_id = user_row.user_id
                 else
-                  message = I18n.t("An existing EXAMPLE user with the SIS ID %{user_id} has already claimed %{other_user_id}'s user_id requested login information, skipping", user_id: pseudo.sis_user_id, other_user_id: user_row.user_id)
+                  message = I18n.t("An existing quite frankly an example LMS user with the SIS ID %{user_id} has already claimed %{other_user_id}'s user_id requested login information, skipping", user_id: pseudo.sis_user_id, other_user_id: user_row.user_id)
                   @messages << SisBatch.build_error(user_row.csv, message, sis_batch: @batch, row: user_row.lineno, row_info: user_row.row)
                   next
                 end
               end
               if pseudo_by_login && ((pseudo != pseudo_by_login && status != "deleted") ||
                 !Pseudonym.where("LOWER(?)=LOWER(?)", pseudo.unique_id, user_row.login_id).exists?)
-                id_message = pseudo_by_login.sis_user_id ? "SIS ID" : "EXAMPLE ID"
+                id_message = pseudo_by_login.sis_user_id ? "SIS ID" : "quite frankly an example LMS ID"
                 user_id = pseudo_by_login.sis_user_id || pseudo_by_login.user_id
-                message = I18n.t("An existing EXAMPLE user with the %{user_id} has already claimed %{other_user_id}'s user_id requested login information, skipping", user_id: "#{id_message} #{user_id}", other_user_id: user_row.user_id)
+                message = I18n.t("An existing quite frankly an example LMS user with the %{user_id} has already claimed %{other_user_id}'s user_id requested login information, skipping", user_id: "#{id_message} #{user_id}", other_user_id: user_row.user_id)
                 @messages << SisBatch.build_error(user_row.csv, message, sis_batch: @batch, row: user_row.lineno, row_info: user_row.row)
                 next
               end

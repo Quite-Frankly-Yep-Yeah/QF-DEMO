@@ -107,7 +107,7 @@ module NewLoginHelper
     "true" if params[:previewing_from_themeeditor].to_s.downcase == "true"
   end
 
-  # “Authentication Settings” EXAMPLE provider self-registration (none, all, observer)
+  # “Authentication Settings” quite frankly an example LMS provider self-registration (none, all, observer)
   def self_registration_type
     return nil unless @domain_root_account.self_registration?
 

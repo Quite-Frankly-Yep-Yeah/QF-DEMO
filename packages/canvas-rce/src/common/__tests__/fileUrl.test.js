@@ -165,14 +165,14 @@ describe('Common file url utils', () => {
         expect(result.href).toEqual(fileInfo.href)
       })
 
-      it('does not add file verifiers to EXAMPLE file URLs if the origin is not EXAMPLE and the feature flag is off', () => {
+      it('does not add file verifiers to quite frankly an example LMS file URLs if the origin is not quite frankly an example LMS and the feature flag is off', () => {
         RCEGlobals.getFeatures = jest.fn().mockReturnValue({file_verifiers_for_quiz_links: false})
         fileInfo.href = 'http://instructure.com/files/17/download?download_frd=1'
         const result = fixupFileUrl('course', 2, fileInfo, 'http://instructure.com')
         expect(result.href).toEqual('http://instructure.com/courses/2/files/17?wrap=1')
       })
 
-      it('adds file verifiers to all EXAMPLE file URLs if the origin is not EXAMPLE and the feature flag is on', () => {
+      it('adds file verifiers to all quite frankly an example LMS file URLs if the origin is not quite frankly an example LMS and the feature flag is on', () => {
         fileInfo.href = 'http://instructure.com/files/17/download?download_frd=1'
         const result = fixupFileUrl('course', 2, fileInfo, 'http://instructure.com')
         expect(result.href).toEqual(

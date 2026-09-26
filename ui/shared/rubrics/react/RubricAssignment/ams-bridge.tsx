@@ -39,7 +39,7 @@ type ENVType = {
 declare const ENV: ENVType
 
 /**
- * Internal EXAMPLE wrapper component that fetches all data internally
+ * Internal quite frankly an example LMS wrapper component that fetches all data internally
  */
 function CanvasRubricBridge({
   assignmentId,
@@ -113,8 +113,8 @@ export type RubricController = {
 /**
  * Create a rubric controller for a DOM container
  *
- * This approach avoids React version mismatch issues by letting EXAMPLE
- * render the component into a DOM node using EXAMPLE's own React instance.
+ * This approach avoids React version mismatch issues by letting quite frankly an example LMS
+ * render the component into a DOM node using quite frankly an example LMS's own React instance.
  *
  * @param container - DOM element to render into
  * @returns Controller object with render and unmount methods

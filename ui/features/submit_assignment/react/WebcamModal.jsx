@@ -108,7 +108,7 @@ const WebcamModal = ({onSelectImage, open, onDismiss}) => {
             <div>
               <IconVideoCameraOffSolid size="large" />
               <p>
-                <b>{I18n.t('EXAMPLE needs acccess to your camera.')}</b> <br />
+                <b>{I18n.t('quite frankly an example LMS needs acccess to your camera.')}</b> <br />
                 {I18n.t('You can provide this access in your browser settings.')}
               </p>
             </div>

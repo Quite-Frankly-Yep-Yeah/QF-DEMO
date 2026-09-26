@@ -161,7 +161,7 @@ module DocRedirect
           {
             "old_url" => "#{OLD_BASE_URL}/index.html",
             "new_url" => NEW_BASE_URL,
-            "title" => "EXAMPLE LMS API Documentation"
+            "title" => "quite frankly an example LMS API Documentation"
           },
           {
             "old_url" => "#{OLD_BASE_URL}/all_resources.html",

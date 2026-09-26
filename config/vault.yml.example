@@ -35,7 +35,7 @@
 # if you don't want to run vault, you can make use
 # of a "vault_contents.yml" file in this directory and
 # specify "file" as both your addr and token_path.
-# this will make EXAMPLE Vault read from the file
+# this will make quite frankly an example LMS Vault read from the file
 # contents rather than trying to talk to a vault agent.
 development:
   addr: file

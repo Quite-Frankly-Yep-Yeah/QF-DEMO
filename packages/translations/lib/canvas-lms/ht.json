@@ -17,7 +17,7 @@
         "Archived grading schemes in use can still be used, but cannot be added to new courses or assignments.": "Yo ka toujou itilize sistèm notasyon nan achiv la, men yo paka ajoute l nan nouvo kou ni nan nouvo travay.",
         "Are you sure you want to delete this grading scheme?": "Ou kwè vrèman ou vle efase sistèm klasman sa a?",
         "Cancel": "Anile",
-        "EXAMPLE Default": "Defo EXAMPLE",
+        "quite frankly an example LMS Default": "Defo quite frankly an example LMS",
         "Close": "Fèmen",
         "Confirm": "Konfime",
         "Confirm Default Grading Scheme Change": "Konfime Modifikasyon Modèl Notasyon pa Defo",
@@ -157,10 +157,10 @@
     "assignments.grading_type_selector": {
         "(course default)": "(kou pa defo)",
         "Account Level": "Nivo Kont",
-        "EXAMPLE Grading Scheme (course default)": "Sistèm Evalyasyon EXAMPLE (kou pa defo)",
+        "quite frankly an example LMS Grading Scheme (course default)": "Sistèm Evalyasyon quite frankly an example LMS (kou pa defo)",
         "Close": "Fèmen",
         "Course Level": "Nivo Kou",
-        "Default EXAMPLE Grading Scheme": "Sistèm Evalyasyon pa Defo EXAMPLE",
+        "Default quite frankly an example LMS Grading Scheme": "Sistèm Evalyasyon pa Defo quite frankly an example LMS",
         "Grading scheme was successfully removed.": "Sistèm notasyon an te elimine avèk siksè.",
         "Grading scheme was successfully updated.": "Sistèm notasyon an aktyalize avèk siksè.",
         "Manage All Grading Schemes": "Jere Tout Sistèm notasyon yo",
@@ -181,7 +181,7 @@
         "Course Catalog": "Katalòg Kou"
     },
     "confetti": {
-        "Great work! From the EXAMPLE developers": "Bel travay! De devlopè EXAMPLE yo"
+        "Great work! From the quite frankly an example LMS developers": "Bel travay! De devlopè quite frankly an example LMS yo"
     },
     "content_copy_redesign": {
         "Cancel": "Anile",

@@ -3,9 +3,9 @@
   "definition": "The event is emitted anytime a group category is updated by an end user or API request. Only changes to the fields included in the body of the event payload will emit the `updated` event.",
   "trigger": "Triggered when a group category is modified.",
   "schema": {
-    "context_id": "The EXAMPLE id of the group's context.",
+    "context_id": "The quite frankly an example LMS id of the group's context.",
     "context_type": "The type of the group's context.",
-    "group_category_id": "The EXAMPLE id of the newly created group category.",
+    "group_category_id": "The quite frankly an example LMS id of the newly created group category.",
     "group_category_name": "The name of the newly created group category.",
     "group_limit": "The cap of the number of users in each group."
   },

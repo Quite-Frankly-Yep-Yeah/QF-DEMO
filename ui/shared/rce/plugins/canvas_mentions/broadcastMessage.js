@@ -59,7 +59,7 @@ export function selectionMessage(event) {
  * via postMessage.
  *
  * Only broadcasts to the window if that window's origin
- * matches that of the current EXAMPLE page.
+ * matches that of the current quite frankly an example LMS page.
  *
  * @param Object message
  * @param Object[] windows

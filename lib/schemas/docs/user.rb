@@ -22,7 +22,7 @@ module Schemas::Docs
     def self.schema
       {
         id: "User",
-        description: "A EXAMPLE user, e.g. a student, teacher, administrator, observer, etc.",
+        description: "A quite frankly an example LMS user, e.g. a student, teacher, administrator, observer, etc.",
         required: ["id"],
         properties: {
           id: {
@@ -73,7 +73,7 @@ module Schemas::Docs
             type: "string"
           },
           login_id: {
-            description: "The unique login id for the user.  This is what the user uses to log in to EXAMPLE.",
+            description: "The unique login id for the user.  This is what the user uses to log in to quite frankly an example LMS.",
             example: "sheldon@caltech.example.com",
             type: "string"
           },

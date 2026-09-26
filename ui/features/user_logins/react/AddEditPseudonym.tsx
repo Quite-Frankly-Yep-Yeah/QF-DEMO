@@ -341,7 +341,7 @@ const AddEditPseudonym = ({
               color="secondary"
               dangerouslySetInnerHTML={{
                 __html: I18n.t(
-                  "Note: This login's account uses delegated authentication, but allows fallback EXAMPLE password authentication. The password fields in this form update the fallback EXAMPLE password, <b>not</b> the delegated authentication.",
+                  "Note: This login's account uses delegated authentication, but allows fallback quite frankly an example LMS password authentication. The password fields in this form update the fallback quite frankly an example LMS password, <b>not</b> the delegated authentication.",
                 ),
               }}
             />

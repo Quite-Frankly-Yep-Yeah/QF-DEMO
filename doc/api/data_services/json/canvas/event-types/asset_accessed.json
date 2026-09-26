@@ -1,9 +1,9 @@
 {
   "name": "asset_accessed",
-  "definition": "`asset_accessed` events are triggered for viewing various objects in EXAMPLE. Viewing a quiz, a wiki page, the list of quizzes, etc, all generate `asset_access` events. The item being accessed is identified by `asset_type`, `asset_id`, and `asset_subtype`. If `asset_subtype` is set, then it refers to a list of items in the asset. For example, if `asset_type` is `course`, and `asset_subtype` is `quizzes`, then this is referring to viewing the list of quizzes in the course.\n\nIf `asset_subtype` is not set, then the access is on the asset described by `asset_type` and `asset_id`.",
+  "definition": "`asset_accessed` events are triggered for viewing various objects in quite frankly an example LMS. Viewing a quiz, a wiki page, the list of quizzes, etc, all generate `asset_access` events. The item being accessed is identified by `asset_type`, `asset_id`, and `asset_subtype`. If `asset_subtype` is set, then it refers to a list of items in the asset. For example, if `asset_type` is `course`, and `asset_subtype` is `quizzes`, then this is referring to viewing the list of quizzes in the course.\n\nIf `asset_subtype` is not set, then the access is on the asset described by `asset_type` and `asset_id`.",
   "trigger": "Triggered when a variety of assets are viewed.",
   "schema": {
-    "asset_id": "The EXAMPLE id of the asset.",
+    "asset_id": "The quite frankly an example LMS id of the asset.",
     "asset_name": "The title of a course, page, module, assignment, LTI, attachment etc.",
     "asset_subtype": "The sub type of asset being accessed.",
     "asset_type": "The type of asset being accessed.",
@@ -315,7 +315,7 @@
           "event_time": "2019-11-04T14:46:31.249Z"
         },
         "body": {
-          "asset_name": "EXAMPLE County School District",
+          "asset_name": "quite frankly an example LMS County School District",
           "asset_type": "account",
           "asset_id": "21070000000000001",
           "asset_subtype": "outcomes",

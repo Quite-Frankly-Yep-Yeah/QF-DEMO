@@ -383,7 +383,7 @@ class AppointmentGroupsController < ApplicationController
     end
 
     if contexts.any?(&:horizon_course?)
-      return render json: { error: t("cannot create an appointment group for a EXAMPLE Career course") },
+      return render json: { error: t("cannot create an appointment group for a quite frankly an example LMS Career course") },
                     status: :bad_request
     end
 

@@ -453,7 +453,7 @@
         "message": "Titular del copyright:"
     },
     "could_not_insert_content_itemtype_items_are_not_cu_638dfecd": {
-        "message": "No s''ha pogut inserir el contingut: Actualment, no s’admeten els elements \"{ itemType }\" al EXAMPLE."
+        "message": "No s''ha pogut inserir el contingut: Actualment, no s’admeten els elements \"{ itemType }\" al quite frankly an example LMS."
     },
     "count_40eced3b": {
         "message": "Recompte"
@@ -1878,7 +1878,7 @@
         "message": "Disseny del reproductor"
     },
     "please_allow_canvas_to_access_your_microphone_and__dc2c3079": {
-        "message": "Permeteu que el EXAMPLE accedeixi al micròfon i a la càmera web."
+        "message": "Permeteu que el quite frankly an example LMS accedeixi al micròfon i a la càmera web."
     },
     "please_choose_a_file_c2449cc": {
         "message": "Trieu un fitxer"
@@ -2544,7 +2544,7 @@
         "message": "Fletxa ascendent gruixuda"
     },
     "this_document_cannot_be_displayed_within_canvas_7aba77be": {
-        "message": "Aquest document no es pot visualitzar al EXAMPLE"
+        "message": "Aquest document no es pot visualitzar al quite frankly an example LMS"
     },
     "this_equation_cannot_be_rendered_in_basic_view_9b6c07ae": {
         "message": "Aquesta equació no es pot renderitzar a la Vista bàsica."

@@ -1,6 +1,6 @@
 # Trace Database Queries
 
-EXAMPLE includes the "active_record_query_trace" gem when running in development or test mode. This gem
+quite frankly an example LMS includes the "active_record_query_trace" gem when running in development or test mode. This gem
 prints a stack trace of every ActiveRecord query the Rails application makes.
 
 The query trace logging is off by default, but can be enabled and configured by setting

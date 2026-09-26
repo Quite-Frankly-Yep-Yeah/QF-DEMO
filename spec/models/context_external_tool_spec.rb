@@ -848,7 +848,7 @@ describe ContextExternalTool do
       allow(ApplicationController).to receive_messages(test_cluster?: true, test_cluster_name: "beta")
     end
 
-    context "in standard EXAMPLE" do
+    context "in standard quite frankly an example LMS" do
       before do
         allow(ApplicationController).to receive(:test_cluster?).and_return(false)
       end

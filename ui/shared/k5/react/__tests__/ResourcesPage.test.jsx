@@ -256,22 +256,22 @@ describe('ResourcesPage customLinks', () => {
 
   it('renders an Other Resources section when customLinks are provided', () => {
     const customLinks = [
-      {id: 'nav_menu_link_1', label: 'EXAMPLE Support', url: 'https://support.instructure.com'},
+      {id: 'nav_menu_link_1', label: 'quite frankly an example LMS Support', url: 'https://support.instructure.com'},
       {id: 'nav_menu_link_2', label: 'School Website', url: 'https://example.com'},
     ]
     const {getByText} = render(<ResourcesPage {...getProps({customLinks})} />)
     expect(getByText('Other Resources')).toBeInTheDocument()
-    expect(getByText('EXAMPLE Support')).toBeInTheDocument()
+    expect(getByText('quite frankly an example LMS Support')).toBeInTheDocument()
     expect(getByText('School Website')).toBeInTheDocument()
   })
 
   it('renders custom links with correct href attributes', () => {
     const customLinks = [
-      {id: 'nav_menu_link_1', label: 'EXAMPLE Support', url: 'https://support.instructure.com'},
+      {id: 'nav_menu_link_1', label: 'quite frankly an example LMS Support', url: 'https://support.instructure.com'},
       {id: 'nav_menu_link_2', label: 'School Website', url: 'https://example.com'},
     ]
     const {getByText} = render(<ResourcesPage {...getProps({customLinks})} />)
-    expect(getByText('EXAMPLE Support').closest('a')).toHaveAttribute(
+    expect(getByText('quite frankly an example LMS Support').closest('a')).toHaveAttribute(
       'href',
       'https://support.instructure.com',
     )

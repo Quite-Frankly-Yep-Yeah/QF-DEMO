@@ -23,11 +23,11 @@ react_discussions_post:
   display_name: Discussions/Announcements Redesign
   description:
     wrapper: <a href="https://community.canvaslms.com/t5/Discussions-Announcements/gh-p/discussions">\1</a>
-    discussion_redesign_description: This feature enhances the EXAMPLE experience
+    discussion_redesign_description: This feature enhances the quite frankly an example LMS experience
       within Discussions and Announcements. When this flag is enabled, early access
       to ongoing improvements will be displayed automatically with every release.
       For full details, please see the *Discussions/Announcements Redesign user group*
-      in the EXAMPLE Community
+      in the quite frankly an example LMS Community
   applies_to: Course
 
 discussions_reporting:

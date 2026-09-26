@@ -1382,7 +1382,7 @@ describe Api do
 
     context "when accessed from native mobile app" do
       before do
-        controller.native_app_user_agent = "iosTeacher/1.0" # Simulate EXAMPLE iOS Teacher app
+        controller.native_app_user_agent = "iosTeacher/1.0" # Simulate quite frankly an example LMS iOS Teacher app
       end
 
       it "injects YouTube banner when YouTube embeds are present" do

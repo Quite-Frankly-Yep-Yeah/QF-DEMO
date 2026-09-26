@@ -17,7 +17,7 @@
         "Archived grading schemes in use can still be used, but cannot be added to new courses or assignments.": "Archived grading schemes in use can still be used, but cannot be added to new courses or assignments.",
         "Are you sure you want to delete this grading scheme?": "Are you sure you want to delete this grading scheme?",
         "Cancel": "Cancel",
-        "EXAMPLE Default": "EXAMPLE Default",
+        "quite frankly an example LMS Default": "quite frankly an example LMS Default",
         "Close": "Close",
         "Confirm": "Confirm",
         "Confirm Default Grading Scheme Change": "Confirm Default Grading Scheme Change",
@@ -157,10 +157,10 @@
     "assignments.grading_type_selector": {
         "(course default)": "(course default)",
         "Account Level": "Account Level",
-        "EXAMPLE Grading Scheme (course default)": "EXAMPLE Grading Scheme (course default)",
+        "quite frankly an example LMS Grading Scheme (course default)": "quite frankly an example LMS Grading Scheme (course default)",
         "Close": "Close",
         "Course Level": "Course Level",
-        "Default EXAMPLE Grading Scheme": "Default EXAMPLE Grading Scheme",
+        "Default quite frankly an example LMS Grading Scheme": "Default quite frankly an example LMS Grading Scheme",
         "Grading scheme was successfully removed.": "Grading scheme was successfully removed.",
         "Grading scheme was successfully updated.": "Grading scheme was successfully updated.",
         "Manage All Grading Schemes": "Manage All Grading Schemes",
@@ -181,7 +181,7 @@
         "Course Catalog": "Course Catalog"
     },
     "confetti": {
-        "Great work! From the EXAMPLE developers": "Great work! From the EXAMPLE developers"
+        "Great work! From the quite frankly an example LMS developers": "Great work! From the quite frankly an example LMS developers"
     },
     "content_copy_redesign": {
         "Cancel": "Cancel",

@@ -116,13 +116,13 @@ class OutcomeImportsApiController < ApplicationController
 
   # @API Import Outcomes
   #
-  # Import outcomes into EXAMPLE.
+  # Import outcomes into quite frankly an example LMS.
   #
   # For more information on the format that's expected here, please see the
   # "Outcomes CSV" section in the API docs.
   #
   # @argument import_type [String]
-  #   Choose the data format for reading outcome data. With a standard EXAMPLE
+  #   Choose the data format for reading outcome data. With a standard quite frankly an example LMS
   #   install, this option can only be 'instructure_csv', and if unprovided,
   #   will be assumed to be so. Can be part of the query string.
   #

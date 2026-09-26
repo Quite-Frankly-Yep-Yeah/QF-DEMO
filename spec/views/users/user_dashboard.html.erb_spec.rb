@@ -71,6 +71,6 @@ describe "users/user_dashboard" do
                                                        subject: "My Global Announcement",
                                                        account: Account.site_admin)])
     render "users/user_dashboard"
-    expect(rendered).to match(/This is an announcement from <b>EXAMPLE Administration/)
+    expect(rendered).to match(/This is an announcement from <b>quite frankly an example LMS Administration/)
   end
 end

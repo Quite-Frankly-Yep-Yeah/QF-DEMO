@@ -173,7 +173,7 @@ describe Course do
         expect(@course.grading_standard_or_default).to be standard
       end
 
-      it "returns the EXAMPLE default grading scheme if the course is not using a grading scheme" do
+      it "returns the quite frankly an example LMS default grading scheme if the course is not using a grading scheme" do
         expect(@course.grading_standard_or_default.data).to eq GradingStandard.default_grading_standard
       end
     end
@@ -10754,6 +10754,82 @@ describe Course do
           expect(shard1_course.active_enrollment_allows(cross_shard_user, :manage_course_content_edit)).to be true
           expect(shard2_course.active_enrollment_allows(cross_shard_user, :manage_course_content_edit)).to be true
         end
+      end
+    end
+  end
+
+  describe "accent colour" do
+    describe "#should_sync_accent_color?" do
+      it "queues a job when an image is set on a course with no course_color" do
+        course = course_model
+        expect(course).to receive(:delay_if_production).and_return(course)
+        expect(course).to receive(:sync_accent_color)
+
+        course.update!(image_url: "http://example.com/course.png")
+      end
+
+      it "does not queue a job when course_color is already set" do
+        course = course_model
+        course.update!(settings: course.settings.merge(course_color: "#123456"))
+
+        expect(course).not_to receive(:delay_if_production)
+
+        course.update!(image_url: "http://example.com/course.png")
+      end
+
+      it "does not queue a job when an unrelated attribute changes" do
+        course = course_model
+
+        expect(course).not_to receive(:delay_if_production)
+
+        course.update!(name: "New Name")
+      end
+
+      it "does not queue a job when only the banner image changes" do
+        course = course_model
+
+        expect(course).not_to receive(:delay_if_production)
+
+        course.update!(banner_image_url: "http://example.com/banner.png")
+      end
+    end
+
+    describe "#sync_accent_color" do
+      it "sets course_color from the extractor and saves it" do
+        course = course_model
+
+        expect(AccentColorExtractor).to receive(:from_course).with(course).and_return("#654321")
+        course.sync_accent_color
+
+        expect(course.reload.course_color).to eq "#654321"
+      end
+
+      it "does nothing when course_color is already set" do
+        course = course_model
+        course.update!(settings: course.settings.merge(course_color: "#123456"))
+
+        expect(AccentColorExtractor).not_to receive(:from_course)
+        course.sync_accent_color
+
+        expect(course.reload.course_color).to eq "#123456"
+      end
+
+      it "leaves course_color blank when extraction fails" do
+        course = course_model
+
+        expect(AccentColorExtractor).to receive(:from_course).with(course).and_return(nil)
+        course.sync_accent_color
+
+        expect(course.reload.course_color).to be_nil
+      end
+
+      it "captures and swallows unexpected errors instead of raising" do
+        course = course_model
+
+        expect(AccentColorExtractor).to receive(:from_course).and_raise("boom")
+        expect(Canvas::Errors).to receive(:capture_exception).with(:course_accent_color, instance_of(RuntimeError), :warn)
+
+        expect { course.sync_accent_color }.not_to raise_error
       end
     end
   end

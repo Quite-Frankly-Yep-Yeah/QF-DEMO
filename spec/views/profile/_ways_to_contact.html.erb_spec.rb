@@ -179,6 +179,6 @@ describe "profile/_ways_to_contact" do
     assign(:domain_root_account, Account.create!)
 
     render partial: "profile/ways_to_contact"
-    expect(response.body).not_to match(/I want to log in to EXAMPLE using this email address/)
+    expect(response.body).not_to match(/I want to log in to quite frankly an example LMS using this email address/)
   end
 end

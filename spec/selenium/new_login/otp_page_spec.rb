@@ -111,6 +111,6 @@ describe "new login OTP page" do
     f('[data-testid="login-button"]').click
     expect(f("h1").text).to include("Multi-Factor Authentication")
     f('[data-testid="cancel-button"]').click
-    expect(f("h1").text).to include("Welcome to EXAMPLE")
+    expect(f("h1").text).to include("Welcome to quite frankly an example LMS")
   end
 end

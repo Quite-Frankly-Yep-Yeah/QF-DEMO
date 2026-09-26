@@ -45,7 +45,7 @@
                            'aria-describedby' => 'change_password_url_description' %>
           <div class="ic-Form-help-text" id="change_password_url_description">
             <%= t(:change_password_url_help,
-                  "Leave blank for default EXAMPLE behavior") %>
+                  "Leave blank for default quite frankly an example LMS behavior") %>
           </div>
         </div>
 
@@ -59,8 +59,8 @@
           <div class="ic-Form-help-text" id="auth_discovery_url_description">
             <%= t(<<~TEXT)
               Enter an external URL where users can choose how to log in.
-              This page should direct users to a specific EXAMPLE authentication provider (e.g., /login/saml/3).
-              If left blank, EXAMPLE defaults to your first listed authentication method.
+              This page should direct users to a specific quite frankly an example LMS authentication provider (e.g., /login/saml/3).
+              If left blank, quite frankly an example LMS defaults to your first listed authentication method.
             TEXT
             %>
             <% if @account.discovery_page_allowed? %>
@@ -78,7 +78,7 @@
             <div id="discovery-page-root"></div>
             <div class="ic-Form-help-text">
               <%= t(<<~TEXT)
-                Configure a native EXAMPLE discovery page.
+                Configure a native quite frankly an example LMS discovery page.
                 When enabled, this page displays instead of the Discovery URL or the first listed authentication method.
                 You can configure this page before enabling it, and turning it on will not delete the Discovery URL saved above.
                 This page automatically inherits your Login page branding from the Theme Editor.
@@ -100,7 +100,7 @@
             <div class="ic-Form-help-text" id="unknown_user_url_description">
               <%= t(:unknown_user_url_description,
                     "The url to redirect to when an authenticated user is not "\
-                    "found in EXAMPLE.") %>
+                    "found in quite frankly an example LMS.") %>
             </div>
           </div>
         <% end %>

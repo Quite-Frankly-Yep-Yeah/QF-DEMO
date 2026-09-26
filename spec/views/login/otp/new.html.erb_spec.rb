@@ -50,7 +50,7 @@ describe "login/otp/new" do
       render
       expect(rendered).not_to be_nil
       doc = Nokogiri::HTML5(rendered)
-      expect(doc.text).to include("Multi-Factor Authentication (MFA) enhances security by requiring a physical device and your EXAMPLE login password.")
+      expect(doc.text).to include("Multi-Factor Authentication (MFA) enhances security by requiring a physical device and your quite frankly an example LMS login password.")
     end
   end
 

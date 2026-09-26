@@ -58,7 +58,7 @@ const I18n = createI18nScope('submissions')
 // Legacy global from rubric_assessment jQuery plugin
 declare const rubricAssessment: any
 
-// @ts-expect-error - EXAMPLE ENV global not fully typed
+// @ts-expect-error - quite frankly an example LMS ENV global not fully typed
 const rubricAssessments = ENV.rubricAssessments
 
 $('#content').addClass('padless')
@@ -73,10 +73,10 @@ function submissionLoaded(data) {
   for (const jdx in data) {
     const submission = data[jdx].submission
     const comments = submission.visible_submission_comments || submission.submission_comments
-    // @ts-expect-error - EXAMPLE ENV.SUBMISSION global not typed in GlobalEnv
+    // @ts-expect-error - quite frankly an example LMS ENV.SUBMISSION global not typed in GlobalEnv
     const anonymizableId = ENV.SUBMISSION.user_id ? 'user_id' : 'anonymous_id'
     // Be sure not to compare numeric and stringified user IDs
-    // @ts-expect-error - EXAMPLE ENV.SUBMISSION global not typed in GlobalEnv
+    // @ts-expect-error - quite frankly an example LMS ENV.SUBMISSION global not typed in GlobalEnv
     if (submission[anonymizableId].toString() !== ENV.SUBMISSION[anonymizableId]) {
       continue
     }

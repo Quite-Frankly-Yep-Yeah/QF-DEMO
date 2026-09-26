@@ -17,7 +17,7 @@
         "Archived grading schemes in use can still be used, but cannot be added to new courses or assignments.": "Los esquemas de calificaciones archivados en uso aún pueden usarse, pero no se pueden agregar a nuevos cursos o tareas.",
         "Are you sure you want to delete this grading scheme?": "¿Está seguro de que desea eliminar este esquema de calificaciones?",
         "Cancel": "Cancelar",
-        "EXAMPLE Default": "Predeterminado de EXAMPLE",
+        "quite frankly an example LMS Default": "Predeterminado de quite frankly an example LMS",
         "Close": "Cerrar",
         "Confirm": "Confirmar",
         "Confirm Default Grading Scheme Change": "Confirmar el cambio en el esquema de calificaciones predeterminado",
@@ -45,7 +45,7 @@
         "There was an error while archiving the grading scheme": "Ocurrió un error al archivar el esquema de calificaciones",
         "There was an error while creating the grading scheme": "Ocurrió un error al crear el esquema de calificaciones",
         "There was an error while loading grading schemes": "Ocurrió un error al cargar los esquemas de calificaciones",
-        "There was an error while loading the default canvas grading scheme": "Ocurrió un error al cargar el esquema de calificaciones predeterminado de EXAMPLE",
+        "There was an error while loading the default canvas grading scheme": "Ocurrió un error al cargar el esquema de calificaciones predeterminado de quite frankly an example LMS",
         "There was an error while loading the default grading scheme": "Ocurrió un error al cargar el esquema de calificaciones predeterminado",
         "There was an error while removing the grading scheme": "Ocurrió un error al eliminar el esquema de calificaciones",
         "There was an error while unarchiving the grading scheme": "Ocurrió un error al desarchivar el esquema de calificaciones",
@@ -80,7 +80,7 @@
         "Save": "Guardar"
     },
     "GradingSchemes": {
-        "A table that contains the default canvas grading scheme data.  Each row contains a name, a maximum percentage, and a minimum percentage.": "Una tabla que contiene información sobre el esquema de calificaciones predeterminado de EXAMPLE.  Cada fila incluye un nombre, un porcentaje máximo y un porcentaje mínimo.",
+        "A table that contains the default canvas grading scheme data.  Each row contains a name, a maximum percentage, and a minimum percentage.": "Una tabla que contiene información sobre el esquema de calificaciones predeterminado de quite frankly an example LMS.  Cada fila incluye un nombre, un porcentaje máximo y un porcentaje mínimo.",
         "A table that contains the grading scheme data.  Each row contains a name, a maximum percentage, and a minimum percentage.": "Una tabla que contiene información sobre el esquema de calificaciones.  Cada fila incluye un nombre, un porcentaje máximo y un porcentaje mínimo.",
         "Cannot have duplicate or empty row names. Fix the names and try clicking 'Save' again.": "No se pueden tener nombres de fila duplicados o vacíos. Corrija los nombres e intente hacer clic en 'Guardar' nuevamente.",
         "Cannot have overlapping or empty ranges. Fix the ranges and try clicking 'Save' again.": "No se pueden tener rangos superpuestos o vacíos. Corrija los rangos e intente hacer clic en 'Guardar' nuevamente.",
@@ -157,10 +157,10 @@
     "assignments.grading_type_selector": {
         "(course default)": "(curso predeterminado)",
         "Account Level": "Nivel de la cuenta",
-        "EXAMPLE Grading Scheme (course default)": "Esquema de calificaciones de EXAMPLE (curso predeterminado)",
+        "quite frankly an example LMS Grading Scheme (course default)": "Esquema de calificaciones de quite frankly an example LMS (curso predeterminado)",
         "Close": "Cerrar",
         "Course Level": "Nivel de curso",
-        "Default EXAMPLE Grading Scheme": "Esquema de calificaciones predeterminado de EXAMPLE",
+        "Default quite frankly an example LMS Grading Scheme": "Esquema de calificaciones predeterminado de quite frankly an example LMS",
         "Grading scheme was successfully removed.": "El esquema de calificaciones se eliminó con éxito.",
         "Grading scheme was successfully updated.": "El esquema de calificaciones se actualizó correctamente.",
         "Manage All Grading Schemes": "Administrar todos los esquemas de calificaciones",
@@ -181,7 +181,7 @@
         "Course Catalog": "Catálogo del curso"
     },
     "confetti": {
-        "Great work! From the EXAMPLE developers": "¡Buen trabajo! De los desarrolladores de EXAMPLE"
+        "Great work! From the quite frankly an example LMS developers": "¡Buen trabajo! De los desarrolladores de quite frankly an example LMS"
     },
     "content_copy_redesign": {
         "Cancel": "Cancelar",

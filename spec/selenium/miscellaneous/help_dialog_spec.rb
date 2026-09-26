@@ -211,7 +211,7 @@ describe "help dialog" do
       wait_for(method: nil, timeout: 1) { f("#___reactour").displayed? }
       # Welcome tour is already opened
       expect(f("#___reactour")).to include_text(
-        "Here's some quick tips to get you started in EXAMPLE!"
+        "Here's some quick tips to get you started in quite frankly an example LMS!"
       )
 
       # Close the currently-open tutorial overlay

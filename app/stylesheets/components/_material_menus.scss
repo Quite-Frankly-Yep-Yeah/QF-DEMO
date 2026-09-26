@@ -1,0 +1,114 @@
+/*
+ * Copyright (C) 2015 - present Instructure, Inc.
+ *
+ * This file is part of Canvas.
+ *
+ * Canvas is free software: you can redistribute it and/or modify it under
+ * the terms of the GNU Affero General Public License as published by the Free
+ * Software Foundation, version 3 of the License.
+ *
+ * Canvas is distributed in the hope that it will be useful, but WITHOUT ANY
+ * WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS FOR
+ * A PARTICULAR PURPOSE. See the GNU Affero General Public License for more
+ * details.
+ *
+ * You should have received a copy of the GNU Affero General Public License along
+ * with this program. If not, see <http://www.gnu.org/licenses/>.
+ */
+
+// Dropdown menus (the gear and kebab menus on assignments, modules and pages,
+// and jQuery UI menus and autocomplete lists) as Material 1 menus: a white
+// surface, a soft shadow, roomy rows and a quiet hover. Nothing flashy.
+@if not $use_high_contrast {
+  .al-options,
+  .ui-menu.ui-widget-content,
+  .ui-autocomplete {
+    background: #ffffff;
+    border: 0;
+    border-radius: 2px;
+    box-shadow: $md-elevation-4;
+    padding: 8px 0;
+    font-size: 0.9375rem;
+    font-weight: 400;
+
+    // the little arrow the old menus point with
+    .ui-menu-carat {
+      display: none;
+    }
+
+    .ui-menu-item {
+      margin: 0;
+      padding: 0;
+      list-style: none;
+
+      a,
+      .ui-menu-item-wrapper {
+        display: flex;
+        align-items: center;
+        gap: $ic-sp;
+        min-width: 200px;
+        min-height: 40px;
+        box-sizing: border-box;
+        padding: 8px $ic-sp * 2;
+        border: 0;
+        border-radius: 0;
+        margin: 0 !important;
+        color: #212121;
+        text-decoration: none;
+        white-space: nowrap;
+        transition: background-color 0.1s;
+
+        // icons sit in a fixed column, in the quiet secondary color
+        i[class*="icon-"] {
+          flex: none;
+          width: 20px;
+          color: #616161;
+          &:before { margin: 0; font-size: 20px; }
+        }
+
+        &:hover,
+        &.ui-state-focus,
+        &.ui-state-active,
+        &.ui-state-hover {
+          background: rgba(0, 0, 0, 0.06);
+          color: #212121;
+          border: 0;
+          text-shadow: none;
+        }
+
+        &:focus-visible {
+          outline: 2px solid var(--ic-brand-primary);
+          outline-offset: -2px;
+        }
+
+        &.disabled,
+        &.disabled.ui-state-focus {
+          background: none;
+          border: 0;
+          color: #9e9e9e;
+          cursor: not-allowed;
+          i[class*="icon-"] { color: #bdbdbd; }
+        }
+      }
+
+      // helper text and dividers between groups
+      &.ui-menu-item--helper-text {
+        margin: 0;
+        padding: 4px $ic-sp * 2;
+        color: #757575;
+        font-size: 0.8125rem;
+      }
+    }
+
+    .ui-menu-divider,
+    li.ui-state-disabled + li:not(.ui-state-disabled) {
+      margin: 8px 0;
+    }
+
+    .ui-menu-divider {
+      height: 1px;
+      border: 0;
+      background: rgba(0, 0, 0, 0.12);
+    }
+  }
+}

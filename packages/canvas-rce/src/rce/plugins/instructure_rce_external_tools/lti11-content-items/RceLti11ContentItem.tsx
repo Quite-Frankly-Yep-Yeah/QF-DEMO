@@ -239,7 +239,7 @@ const LTI_MIME_TYPES = [
 ]
 
 /**
- * Declare the global tinyMCE information used to pass editor context around in EXAMPLE.
+ * Declare the global tinyMCE information used to pass editor context around in quite frankly an example LMS.
  *
  * Eventually, this should be moved into packages/canvas-rce.
  */
@@ -258,7 +258,7 @@ declare global {
 /**
  * Interface for content items that come from external tool resource selection.
  *
- * Note that this interface may not be exhaustive, but provides types for the portion of ContentItem used by EXAMPLE.
+ * Note that this interface may not be exhaustive, but provides types for the portion of ContentItem used by quite frankly an example LMS.
  * Additionally, there are some extra properties present here used by canvas
  *
  * See https://www.imsglobal.org/spec/lti-dl/v2p0#content-item-types

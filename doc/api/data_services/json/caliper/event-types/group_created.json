@@ -4,8 +4,8 @@
   "trigger": "Triggered when a new group is created.",
   "schema": {
     "data[0].group.extensions[\"com.instructure.canvas\"]": {
-      "context_type": "EXAMPLE context type where the action took place e.g context_type = Course.",
-      "entity_id": "EXAMPLE context ID"
+      "context_type": "quite frankly an example LMS context type where the action took place e.g context_type = Course.",
+      "entity_id": "quite frankly an example LMS context ID"
     },
     "data[0].object": {
       "type": "Group"

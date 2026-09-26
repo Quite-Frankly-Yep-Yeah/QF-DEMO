@@ -34,10 +34,10 @@ module Lti
   # originality reports as LTI launches.
   #
   # The value of `tool_setting[resource_type_code]` should be a
-  # resource_handler's "resource_type" code. EXAMPLE will lookup the resource
+  # resource_handler's "resource_type" code. quite frankly an example LMS will lookup the resource
   # handler specified and do a launch to the message with the type
   # "basic-lti-launch-request" using its "path". If the optional
-  # `tool_setting[resource_url]` parameter is provided, EXAMPLE
+  # `tool_setting[resource_url]` parameter is provided, quite frankly an example LMS
   # will use this URL instead of the message's `path` but will
   # still send all the parameters specified by the message. When using the
   # `tool_setting[resource_url]` the `tool_setting[resource_type_code]` must also be
@@ -82,7 +82,7 @@ module Lti
   #           "type": "number"
   #         },
   #         "originality_report_file_id": {
-  #           "description": "The ID of the file within EXAMPLE containing the originality report document (if provided)",
+  #           "description": "The ID of the file within quite frankly an example LMS containing the originality report document (if provided)",
   #           "example": "23",
   #           "type": "integer"
   #         },
@@ -155,17 +155,17 @@ module Lti
     #   file may be found.
     #
     # @argument originality_report[originality_report_file_id] [Integer]
-    #    The ID of the file within EXAMPLE that contains the originality
+    #    The ID of the file within quite frankly an example LMS that contains the originality
     #    report for the submitted file provided in the request URL.
     #
     # @argument originality_report[tool_setting][resource_type_code] [String]
-    #   The resource type code of the resource handler EXAMPLE should use for the
-    #   LTI launch for viewing originality reports. If set EXAMPLE will launch
+    #   The resource type code of the resource handler quite frankly an example LMS should use for the
+    #   LTI launch for viewing originality reports. If set quite frankly an example LMS will launch
     #   to the message with type 'basic-lti-launch-request' in the specified
     #   resource handler rather than using the originality_report_url.
     #
     # @argument originality_report[tool_setting][resource_url] [String]
-    #   The URL EXAMPLE should launch to when showing an LTI originality report.
+    #   The URL quite frankly an example LMS should launch to when showing an LTI originality report.
     #   Note that this value is inferred from the specified resource handler's
     #   message "path" value (See `resource_type_code`) unless
     #   it is specified. If this parameter is used a `resource_type_code`
@@ -217,17 +217,17 @@ module Lti
     #   file may be found.
     #
     # @argument originality_report[originality_report_file_id] [Integer]
-    #    The ID of the file within EXAMPLE that contains the originality
+    #    The ID of the file within quite frankly an example LMS that contains the originality
     #    report for the submitted file provided in the request URL.
     #
     # @argument originality_report[tool_setting][resource_type_code] [String]
-    #   The resource type code of the resource handler EXAMPLE should use for the
-    #   LTI launch for viewing originality reports. If set EXAMPLE will launch
+    #   The resource type code of the resource handler quite frankly an example LMS should use for the
+    #   LTI launch for viewing originality reports. If set quite frankly an example LMS will launch
     #   to the message with type 'basic-lti-launch-request' in the specified
     #   resource handler rather than using the originality_report_url.
     #
     # @argument originality_report[tool_setting][resource_url] [String]
-    #   The URL EXAMPLE should launch to when showing an LTI originality report.
+    #   The URL quite frankly an example LMS should launch to when showing an LTI originality report.
     #   Note that this value is inferred from the specified resource handler's
     #   message "path" value (See `resource_type_code`) unless
     #   it is specified. If this parameter is used a `resource_type_code`

@@ -68,7 +68,7 @@ body.native-new-quizzes {
     flex-direction: column;
     overflow: auto;
     // this is a hack to Constraint InstUI modals/trays to this element
-    // instead of the full viewport, so they don't cover EXAMPLE nav.
+    // instead of the full viewport, so they don't cover quite frankly an example LMS nav.
     @include desktop-only {
       transform: translateZ(0);
     }
@@ -79,9 +79,9 @@ body.native-new-quizzes {
     flex: 1;
   }
 
-  // When embedded=true is in the URL, EXAMPLE adds body.embedded which applies
+  // When embedded=true is in the URL, quite frankly an example LMS adds body.embedded which applies
   // header styles to all h2/.h2 elements.
-  //  In native launch, quizzes-ui renders directly in the EXAMPLE DOM
+  //  In native launch, quizzes-ui renders directly in the quite frankly an example LMS DOM
   // (not in an iframe like LTI), so these styles bleed into quiz headings.
   // Reset them within the quiz container.
   &.embedded #new-quizzes-root {

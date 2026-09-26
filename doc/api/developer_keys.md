@@ -1,19 +1,19 @@
 Developer Keys
 ==============
 
-Developer keys are OAuth2 client ID and secret pairs stored in EXAMPLE that allow third-party applications to request access to EXAMPLE API endpoints via the [OAuth2 flow](file.oauth.html). Access is granted after a user authorizes an app and EXAMPLE creates an API access token that’s returned in the final request of the OAuth2 flow.
+Developer keys are OAuth2 client ID and secret pairs stored in quite frankly an example LMS that allow third-party applications to request access to quite frankly an example LMS API endpoints via the [OAuth2 flow](file.oauth.html). Access is granted after a user authorizes an app and quite frankly an example LMS creates an API access token that’s returned in the final request of the OAuth2 flow.
 
-Developer keys created in a root account, by root account administrators or Instructure employees, are only functional for the account they are created in and its sub-accounts. Developer keys created globally, by an Instructure employee, are functional in any EXAMPLE account where they are enabled.
+Developer keys created in a root account, by root account administrators or Instructure employees, are only functional for the account they are created in and its sub-accounts. Developer keys created globally, by an Instructure employee, are functional in any quite frankly an example LMS account where they are enabled.
 
-By scoping the tokens, EXAMPLE allows root account administrators to manage the specific API endpoints that tokens issued from a developer key have access to.
+By scoping the tokens, quite frankly an example LMS allows root account administrators to manage the specific API endpoints that tokens issued from a developer key have access to.
 
 ## Developer Key Scopes
-Developer key scopes allow root account administrators to restrict the tokens issued from developer keys to a subset of EXAMPLE API endpoints in their account.
+Developer key scopes allow root account administrators to restrict the tokens issued from developer keys to a subset of quite frankly an example LMS API endpoints in their account.
 
-Developer keys may be scoped or unscoped. Unscoped keys will have access to all EXAMPLE resources available to the authorizing user. The following applies to scoped developer keys only:
+Developer keys may be scoped or unscoped. Unscoped keys will have access to all quite frankly an example LMS resources available to the authorizing user. The following applies to scoped developer keys only:
 
-### What are developer key scopes in EXAMPLE?
-Each EXAMPLE API endpoint has an associated scope. EXAMPLE developer key scopes can only be enabled/disabled by a root account administrator or an Instructure employee.
+### What are developer key scopes in quite frankly an example LMS?
+Each quite frankly an example LMS API endpoint has an associated scope. quite frankly an example LMS developer key scopes can only be enabled/disabled by a root account administrator or an Instructure employee.
 
 Scopes take the following form:
 ```
@@ -26,9 +26,9 @@ url:GET|/api/v1/courses/:course_id/rubrics
 ### How do developer key scopes function?
 When requesting an access token, third-party applications should specify a `scope` parameter (see the [oauth endpoints documentation](file.oauth_endpoints.html#get-login-oauth2-auth)). The requested scopes must be a subset of the scopes set for the developer key.
 
-When a client makes any API request, EXAMPLE will verify the requested endpoint's scope has been granted by the account administrator to the developer key of the request's access token.
+When a client makes any API request, quite frankly an example LMS will verify the requested endpoint's scope has been granted by the account administrator to the developer key of the request's access token.
 
-If the requested endpoint's scope has not been granted EXAMPLE will respond with `401 Unauthorized`.
+If the requested endpoint's scope has not been granted quite frankly an example LMS will respond with `401 Unauthorized`.
 
 ### Who can grant or revoke scopes for a developer key?
 For developer keys created in a specific root account, administrators for that account may grant or revoke scopes. When requesting a developer key, application owners should communicate with administrators which scopes their integrations require.
@@ -45,25 +45,25 @@ Scopes may also be found beneath their corresponding endpoints in the "resources
 Developer key management features allow root account administrators to turn global developer keys "on" and "off" for only their account.
 
 ### What management features are available?
-Root account administrators may enable or disable global developer keys for their specific account. This means that vendors who wish to have integrations that work in any EXAMPLE account may request a global developer key from Instructure allowing account administrators enable the key for their account.
+Root account administrators may enable or disable global developer keys for their specific account. This means that vendors who wish to have integrations that work in any quite frankly an example LMS account may request a global developer key from Instructure allowing account administrators enable the key for their account.
 
 ### How do management features function?
-When a client uses the [OAuth2 Auth endpoint](file.oauth_endpoints.html#get-login-oauth2-auth) as part of the flow to retrieve an access token canvas will check the developer key associated with the `client_id`. If the developer key is not enabled in the requested account, EXAMPLE will respond with `unauthorized_client`.
+When a client uses the [OAuth2 Auth endpoint](file.oauth_endpoints.html#get-login-oauth2-auth) as part of the flow to retrieve an access token canvas will check the developer key associated with the `client_id`. If the developer key is not enabled in the requested account, quite frankly an example LMS will respond with `unauthorized_client`.
 
-When a client makes any API request, EXAMPLE will check the developer key associated with the access token used in the request. If the developer key is not enabled for the requested account, EXAMPLE will respond with `401 Unauthorized`.
+When a client makes any API request, quite frankly an example LMS will check the developer key associated with the access token used in the request. If the developer key is not enabled for the requested account, quite frankly an example LMS will respond with `401 Unauthorized`.
 
 ## Other Considerations
 ### Maximum number of scopes
-When clients request an access token they may specify what scopes the token needs (see the [oauth endpoints documentation](file.oauth_endpoints.html#get-login-oauth2-auth)). Because the client sends the scopes they require in a GET request, the maximum number of scopes one access token can specify is limited by the maximum HTTP header size EXAMPLE allows (8000 chars).
+When clients request an access token they may specify what scopes the token needs (see the [oauth endpoints documentation](file.oauth_endpoints.html#get-login-oauth2-auth)). Because the client sends the scopes they require in a GET request, the maximum number of scopes one access token can specify is limited by the maximum HTTP header size quite frankly an example LMS allows (8000 chars).
 
 On average, an access token may use up to 110 scopes. This number will vary depending on the actual length of the scopes used and any other headers sent in the [login oauth2 request](file.oauth_endpoints.html#get-login-oauth2-auth) along with the scopes.
 
 If the number of scopes required by the client exceeds this limitation, a second access token with the remaining scopes should be requested.
 
-### EXAMPLE API Includes
-Several EXAMPLE APIs allow specifying an `include` parameter. This parameter allows nesting resources in JSON responses. For example, a request to the [assignment index endpoint](assignments.html#method.assignments_api.index) could be made to include the submission objects for each assignment.
+### quite frankly an example LMS API Includes
+Several quite frankly an example LMS APIs allow specifying an `include` parameter. This parameter allows nesting resources in JSON responses. For example, a request to the [assignment index endpoint](assignments.html#method.assignments_api.index) could be made to include the submission objects for each assignment.
 
-Responses to requests made with a scoped access token only support this functionality when the 'Allow Include Parameters' option is also enabled.  When this option is disabled, a request is made with a scoped token EXAMPLE will ignore `include` and `includes` parameters.
+Responses to requests made with a scoped access token only support this functionality when the 'Allow Include Parameters' option is also enabled.  When this option is disabled, a request is made with a scoped token quite frankly an example LMS will ignore `include` and `includes` parameters.
 
 ### Developer Key Scope Changes
 During the lifetime of a developer key, scopes may be added or removed by account administrators. Below is a description of possible changes and how each will affect access tokens:
@@ -77,7 +77,7 @@ Access tokens issued prior to the removal of the scope(s) will *not* continue to
 #### An unscoped developer key becomes scoped
 Access tokens issued prior to the change will *not* continue to function. Clients should request a new access token with scopes. The requested scopes must be a subset of the scopes on the developer key.
 
-If the client attempts to request a new access token without specifying scopes EXAMPLE will respond with an error.
+If the client attempts to request a new access token without specifying scopes quite frankly an example LMS will respond with an error.
 
 For details on unscoped vs scoped developer key see `Developer Key Scopes` above.
 #### A scoped developer key becomes unscoped

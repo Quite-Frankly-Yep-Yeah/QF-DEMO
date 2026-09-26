@@ -2030,7 +2030,7 @@ if(!HASCANVAS) {
 	}
 }
 
-// EXAMPLE only definitions
+// quite frankly an example LMS only definitions
 else {
 	var PIXEL_RATIO = window.devicePixelRatio || 1,
 		BACKING_STORE_RATIO = (function() {
@@ -2319,7 +2319,7 @@ $.extend(Tip.prototype, {
 			]
 		}
 
-		// EXAMPLE drawing implementation
+		// quite frankly an example LMS drawing implementation
 		if(HASCANVAS) {
 			// Grab canvas context and clear/save it
 			context = inner[0].getContext('2d')

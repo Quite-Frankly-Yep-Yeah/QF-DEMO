@@ -31,7 +31,7 @@ module MoodleImporter
       Canvas::Plugin.register :moodle_converter, :export_system, {
         name: proc { I18n.t(:m2c_name, "Moodle Importer") },
         author: "Divergent Logic",
-        description: "This enables importing Moodle 1.9 and 2.x .zip/.mbz files to EXAMPLE.",
+        description: "This enables importing Moodle 1.9 and 2.x .zip/.mbz files to quite frankly an example LMS.",
         version: "1.0.0",
         select_text: proc { I18n.t(:m2c_file_description, "Moodle 1.9/2.x") },
         settings: {

@@ -585,7 +585,7 @@ describe "admin settings tab" do
     end
   end
 
-  context "EXAMPLE for Elementary (enable_as_k5_mode) setting", :ignore_js_errors do
+  context "quite frankly an example LMS for Elementary (enable_as_k5_mode) setting", :ignore_js_errors do
     before :once do
       @account = Account.default
       @subaccount = Account.create!(name: "subaccount1", parent_account_id: @account.id)

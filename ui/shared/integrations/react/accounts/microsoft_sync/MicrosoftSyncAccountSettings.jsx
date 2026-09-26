@@ -125,7 +125,7 @@ export default function MicrosoftSyncAccountSettings() {
                 <span>{I18n.t('Login Attribute')}</span>
                 <Tooltip
                   renderTip={I18n.t(
-                    'The attribute to use when associating a EXAMPLE User with a Microsoft User',
+                    'The attribute to use when associating a quite frankly an example LMS User with a Microsoft User',
                   )}
                   placement="top"
                   on={['hover', 'focus']}
@@ -186,7 +186,7 @@ export default function MicrosoftSyncAccountSettings() {
                 <span>{I18n.t('Active Directory Lookup Attribute')}</span>
                 <Tooltip
                   renderTip={I18n.t(
-                    'The Active Directory attribute that will be used to match a EXAMPLE user to a Microsoft user',
+                    'The Active Directory attribute that will be used to match a quite frankly an example LMS user to a Microsoft user',
                   )}
                   on={['hover', 'focus']}
                 >
@@ -239,7 +239,7 @@ export default function MicrosoftSyncAccountSettings() {
         <View display="block" margin="small 0 0 0">
           <Text>
             {I18n.t(
-              "Modifying existing settings will affect courses once an enrollment changes. Consider manually triggering a sync on the Course Settings page. Note that incorrect settings may result in EXAMPLE users not mapping to Microsoft users, which may cause users to be removed from a course's existing Microsoft group.",
+              "Modifying existing settings will affect courses once an enrollment changes. Consider manually triggering a sync on the Course Settings page. Note that incorrect settings may result in quite frankly an example LMS users not mapping to Microsoft users, which may cause users to be removed from a course's existing Microsoft group.",
             )}
           </Text>
         </View>

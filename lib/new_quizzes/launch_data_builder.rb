@@ -118,7 +118,7 @@ module NewQuizzes
       # Pass placement to include placement-specific custom fields (e.g., item_banks: course)
       unexpanded_fields = @tool.set_custom_fields(@placement)
 
-      # Add EXAMPLE-specific custom parameters that need variable expansion
+      # Add quite frankly an example LMS-specific custom parameters that need variable expansion
       # Match LTI 1.1 behavior based on context type
       case @context
       when Course

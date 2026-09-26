@@ -3,11 +3,11 @@
   "definition": "The event is emitted anytime an outcome context link is changed by an end user or API request.",
   "trigger": "Triggered when an outcome link is changed inside of a context.",
   "schema": {
-    "context_id": "The EXAMPLE ID of the context the learning outcome is used in.",
+    "context_id": "The quite frankly an example LMS ID of the context the learning outcome is used in.",
     "context_type": "The type of context the learning outcome is used in, usually Course.",
-    "learning_outcome_group_id": "The local EXAMPLE id of the related learning outcome group.",
-    "learning_outcome_id": "The local EXAMPLE id of the related learning outcome.",
-    "learning_outcome_link_id": "The local EXAMPLE id of the learning outcome link that was updated.",
+    "learning_outcome_group_id": "The local quite frankly an example LMS id of the related learning outcome group.",
+    "learning_outcome_id": "The local quite frankly an example LMS id of the related learning outcome.",
+    "learning_outcome_link_id": "The local quite frankly an example LMS id of the learning outcome link that was updated.",
     "updated_at": "The time that the learning outcome link was last modified.",
     "workflow_state": "The workflow status of the learning outcome link (e.g. active, deleted)"
   },

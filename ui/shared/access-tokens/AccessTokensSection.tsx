@@ -92,7 +92,7 @@ export const AccessTokensSection = ({userId}: AccessTokensTableProps) => {
     <div>
       <View as="div" margin="0 0 small 0">
         <Text size="medium">
-          {I18n.t('These are the access tokens this user has generated to access EXAMPLE:')}
+          {I18n.t('These are the access tokens this user has generated to access quite frankly an example LMS:')}
         </Text>
       </View>
       <Table caption={I18n.t('User Generated Access Tokens')} margin="small 0" layout="fixed">

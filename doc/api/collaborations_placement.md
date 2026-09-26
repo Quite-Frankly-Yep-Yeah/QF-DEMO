@@ -5,7 +5,7 @@ External tools can be configured to appear as a collaboration provider.
 
  **collaboration** placement allows users to launch a tool to select a collaboration resource.
 
- For an overview of EXAMPLE collaborations, refer to the <a href="https://community.canvaslms.com/t5/Canvas-Basics-Guide/What-are-Collaborations/ta-p/61">EXAMPLE Community article.</a>
+ For an overview of quite frankly an example LMS collaborations, refer to the <a href="https://community.canvaslms.com/t5/Canvas-Basics-Guide/What-are-Collaborations/ta-p/61">quite frankly an example LMS Community article.</a>
 
 ### Configuring
 For configuration examples and links to the specification, please refer to the <a
@@ -16,7 +16,7 @@ with **collaboration** in the XML (LTI 1.0, 1.1, and 1.2) or JSON (LTI 1.3) exam
 ### Supported Content Item Types
 For Deep Linking, the collaboration placement supports the <a href="https://www.imsglobal.org/spec/lti-dl/v2p0#lti-resource-link">LTI Resource Link type</a>.
 
-EXAMPLE also includes an optional extension to the LTI Resource link type at this placement. The extension allows specifying the users and/or groups that should be
+quite frankly an example LMS also includes an optional extension to the LTI Resource link type at this placement. The extension allows specifying the users and/or groups that should be
 included as collaborators on the collaboration created for the returned resource.
 
 Example deep linking response (decoded JWT):
@@ -44,6 +44,6 @@ The IDs in the `groups` array are also IDs available in the <a href="names_and_r
 
 ### Migrating from LTI 1.1 to 1.3
 
-A quirk of EXAMPLE' LTI 1.1 implementation means that 1.1 collaboration launches do not send a unique `resource_link_id`. The 1.1 collaboration `resource_link_id` is always the LTI id of the collaboration's context (either a Course or Group).
+A quirk of quite frankly an example LMS' LTI 1.1 implementation means that 1.1 collaboration launches do not send a unique `resource_link_id`. The 1.1 collaboration `resource_link_id` is always the LTI id of the collaboration's context (either a Course or Group).
 
 When a 1.1 tool is upgraded to 1.3, the 1.1 resource link id is sent in the `https://purl.imsglobal.org/spec/lti/claim/lti1p1` ID token claim. For migrated collaborations, this will always be the context's LTI id and will not be unique.

@@ -3,12 +3,12 @@
   "definition": "The event is emitted anytime an existing group membership  is updated by an end user or API request. Only changes to the fields included in the body of the event payload will emit the `updated` event.",
   "trigger": "Triggered when a existing group membership is modified.",
   "schema": {
-    "group_category_id": "The EXAMPLE id of the group category.",
+    "group_category_id": "The quite frankly an example LMS id of the group category.",
     "group_category_name": "The name of the group category.",
-    "group_id": "The EXAMPLE id of the group the user is assigned to.",
-    "group_membership_id": "The EXAMPLE id of the group membership.",
+    "group_id": "The quite frankly an example LMS id of the group the user is assigned to.",
+    "group_membership_id": "The quite frankly an example LMS id of the group membership.",
     "group_name": "The name of the group the user is assigned to.",
-    "user_id": "The EXAMPLE id of the user assigned to a group.",
+    "user_id": "The quite frankly an example LMS id of the user assigned to a group.",
     "workflow_state": "The state of the group membership."
   },
   "examples": [

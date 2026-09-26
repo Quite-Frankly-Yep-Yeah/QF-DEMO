@@ -156,7 +156,7 @@ const defaultCourses = [
   },
   {
     courseId: '5',
-    courseName: 'Mastering EXAMPLE',
+    courseName: 'Mastering quite frankly an example LMS',
     isHomeroom: false,
     currentGradingPeriodId: '4',
     enrollmentType: 'observer',
@@ -192,7 +192,7 @@ const defaultCourses = [
   },
   {
     courseId: '6',
-    courseName: 'EXAMPLE from zero to hero',
+    courseName: 'quite frankly an example LMS from zero to hero',
     isHomeroom: false,
     currentGradingPeriodId: '4',
     enrollmentType: 'observer',
@@ -438,9 +438,9 @@ describe('GradesPage', () => {
         />,
       )
       await waitFor(() => {
-        expect(getByText('Mastering EXAMPLE')).toBeInTheDocument()
+        expect(getByText('Mastering quite frankly an example LMS')).toBeInTheDocument()
         expect(getByText('A+')).toBeInTheDocument()
-        expect(getByText('EXAMPLE from zero to hero')).toBeInTheDocument()
+        expect(getByText('quite frankly an example LMS from zero to hero')).toBeInTheDocument()
         expect(getByText('B+')).toBeInTheDocument()
         expect(queryByText('Testing 4 Dummies')).not.toBeInTheDocument()
         expect(queryByText('ECON 500')).not.toBeInTheDocument()
@@ -461,9 +461,9 @@ describe('GradesPage', () => {
         expect(getByText('Testing 4 Dummies')).toBeInTheDocument()
         expect(getByText('ECON 500')).toBeInTheDocument()
         expect(getByText('Mastering Grading Periods')).toBeInTheDocument()
-        expect(queryByText('Mastering EXAMPLE')).not.toBeInTheDocument()
+        expect(queryByText('Mastering quite frankly an example LMS')).not.toBeInTheDocument()
         expect(queryByText('A+')).not.toBeInTheDocument()
-        expect(queryByText('EXAMPLE from zero to hero')).not.toBeInTheDocument()
+        expect(queryByText('quite frankly an example LMS from zero to hero')).not.toBeInTheDocument()
         expect(queryByText('B+')).not.toBeInTheDocument()
       })
     })
@@ -474,8 +474,8 @@ describe('GradesPage', () => {
         expect(getByText('Testing 4 Dummies')).toBeInTheDocument()
         expect(getByText('ECON 500')).toBeInTheDocument()
         expect(getByText('Mastering Grading Periods')).toBeInTheDocument()
-        expect(getByText('Mastering EXAMPLE')).toBeInTheDocument()
-        expect(getByText('EXAMPLE from zero to hero')).toBeInTheDocument()
+        expect(getByText('Mastering quite frankly an example LMS')).toBeInTheDocument()
+        expect(getByText('quite frankly an example LMS from zero to hero')).toBeInTheDocument()
       })
     })
   })

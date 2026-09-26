@@ -18,8 +18,8 @@
 # with this program. If not, see <http://www.gnu.org/licenses/>.
 
 # @API JWTs
-# Short term tokens useful for talking to other services in the EXAMPLE Ecosystem.
-# Note: JWTs have no value or use directly against the EXAMPLE API, and expire
+# Short term tokens useful for talking to other services in the quite frankly an example LMS Ecosystem.
+# Note: JWTs have no value or use directly against the quite frankly an example LMS API, and expire
 # after one hour
 #
 # @model JWT
@@ -43,7 +43,7 @@ class JwtsController < ApplicationController
 
   # @API Create JWT
   #
-  # Create a unique JWT for use with other EXAMPLE services
+  # Create a unique JWT for use with other quite frankly an example LMS services
   #
   # Generates a different JWT each time it's called. Each JWT expires
   # after a short window (1 hour)
@@ -63,7 +63,7 @@ class JwtsController < ApplicationController
   #
   # @argument canvas_audience [Optional, Boolean]
   #   Defaults to true. If false, the JWT will be signed, but not encrypted, for use in downstream services. The
-  #   default encrypted behaviour can be used to talk to EXAMPLE itself.
+  #   default encrypted behaviour can be used to talk to quite frankly an example LMS itself.
   #
   # @example_request
   #   curl 'https://<canvas>/api/v1/jwts' \

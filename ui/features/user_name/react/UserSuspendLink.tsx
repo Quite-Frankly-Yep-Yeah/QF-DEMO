@@ -150,7 +150,7 @@ export default function UserSuspendLink() {
       actionFunc = handleAction.bind(null, REACTIVATE)
       actionName = 'Reactivate'
       actionText = I18n.t(
-        'Reactivation will allow all logins for %{name} to log in to EXAMPLE and regain access to previously authorized API integrations.',
+        'Reactivation will allow all logins for %{name} to log in to quite frankly an example LMS and regain access to previously authorized API integrations.',
         {name},
       )
       infoText = I18n.t(

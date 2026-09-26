@@ -48,7 +48,7 @@ describe('QRMobileLogin', () => {
     it('renders component with no confirm dialog when not requested', () => {
       const {getByText, queryByText} = render(<QRMobileLogin />)
       expect(getByText(/QR for Mobile Login/)).toBeVisible()
-      expect(getByText(/To log in to your EXAMPLE account/)).toBeVisible()
+      expect(getByText(/To log in to your quite frankly an example LMS account/)).toBeVisible()
       expect(queryByText(/confirm qr code display/i)).toBeNull()
     })
 

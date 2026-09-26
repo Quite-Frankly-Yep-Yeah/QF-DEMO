@@ -40,7 +40,7 @@ export default {
   },
 
   UNSAFE_componentWillMount() {
-    // Get the existing EXAMPLE breadcrumbs, store them, and remove them
+    // Get the existing quite frankly an example LMS breadcrumbs, store them, and remove them
     this.fixOldCrumbs()
   },
 

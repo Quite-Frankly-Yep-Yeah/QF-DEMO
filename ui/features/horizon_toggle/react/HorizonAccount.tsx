@@ -53,14 +53,14 @@ export const HorizonAccount = ({hasCourses, accountId, locked}: HorizonAccountPr
 
       reloadWindow()
     } catch (e) {
-      showFlashError(I18n.t('Failed to switch to EXAMPLE Career. Please try again.'))
+      showFlashError(I18n.t('Failed to switch to quite frankly an example LMS Career. Please try again.'))
     }
   }
   return (
     <View as="div">
       <Text as="p">
         {I18n.t(
-          'EXAMPLE Career is a new LMS experience for learning providers and learners at all career stages. It offers a simplified user interface along with powerful new features, including CRM and HRIS integration, program management, AI-driven actionable insights, and more!',
+          'quite frankly an example LMS Career is a new LMS experience for learning providers and learners at all career stages. It offers a simplified user interface along with powerful new features, including CRM and HRIS integration, program management, AI-driven actionable insights, and more!',
         )}
       </Text>
       <View background="secondary" as="div">
@@ -69,12 +69,12 @@ export const HorizonAccount = ({hasCourses, accountId, locked}: HorizonAccountPr
           <Flex direction="column" gap="large">
             <Text as="p">
               {I18n.t(
-                'EXAMPLE Career offers a streamlined experience designed for individual learning. Discussions, Collaborations, and Outcomes are not included. To ensure seamless learning experience, all content must be within a module to be published. Assignments have been refined to support select submission types, providing a more tailored experience. Group assignments are not supported.',
+                'quite frankly an example LMS Career offers a streamlined experience designed for individual learning. Discussions, Collaborations, and Outcomes are not included. To ensure seamless learning experience, all content must be within a module to be published. Assignments have been refined to support select submission types, providing a more tailored experience. Group assignments are not supported.',
               )}
             </Text>
             <Checkbox
               label={I18n.t(
-                'I acknowledge that switching to EXAMPLE Career will introduce changes to courses and content creation.',
+                'I acknowledge that switching to quite frankly an example LMS Career will introduce changes to courses and content creation.',
               )}
               checked={termsAccepted}
               onChange={() => setTermsAccepted(!termsAccepted)}
@@ -89,7 +89,7 @@ export const HorizonAccount = ({hasCourses, accountId, locked}: HorizonAccountPr
             disabled={!termsAccepted || hasCourses || locked}
             onClick={onSubmit}
           >
-            {I18n.t('Switch to EXAMPLE Career')}
+            {I18n.t('Switch to quite frankly an example LMS Career')}
           </Button>
         </Flex>
       </View>

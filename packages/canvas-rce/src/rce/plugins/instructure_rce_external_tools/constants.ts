@@ -17,7 +17,7 @@
  */
 
 /**
- * Name of the parameter used to indicate to EXAMPLE that it is being loaded in an iframe inside of an
+ * Name of the parameter used to indicate to quite frankly an example LMS that it is being loaded in an iframe inside of an
  * LTI tool. It should be set to the global id of the containing tool.
  */
 export const parentFrameContextParam = 'parent_frame_context'

@@ -247,7 +247,7 @@ describe('TempEnrollAssign', () => {
       const roleSelect = (await findByPlaceholderText('Select a Role')) as HTMLInputElement
       expect(roleSelect.value).toBe('')
       expect((await findByTestId('temp-enroll-summary')).textContent).toMatch(
-        /^EXAMPLE will enroll Melvin as a ROLE/,
+        /^quite frankly an example LMS will enroll Melvin as a ROLE/,
       )
     })
 

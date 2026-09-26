@@ -1,4 +1,4 @@
-# EXAMPLE Feature Flags Reference
+# quite frankly an example LMS Feature Flags Reference
 
 ## Feature Flag Structure
 ```yaml

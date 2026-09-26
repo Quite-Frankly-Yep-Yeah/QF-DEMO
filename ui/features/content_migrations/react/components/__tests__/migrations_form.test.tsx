@@ -76,7 +76,7 @@ const renderComponent = (overrideProps?: any) =>
 
 const submitAMigration = async () => {
   await userEvent.click(await screen.findByTitle('Select one'))
-  await userEvent.click(screen.getByText('Copy a EXAMPLE Course'))
+  await userEvent.click(screen.getByText('Copy a quite frankly an example LMS Course'))
 
   await userEvent.type(screen.getByPlaceholderText('Search...'), 'MyCourse')
   await userEvent.click(await screen.findByRole('option', {name: 'MyCourse'}))
@@ -111,11 +111,11 @@ describe('ContentMigrationForm', () => {
       http.get('/api/v1/courses/0/content_migrations/migrators', () => {
         return HttpResponse.json([
           {
-            name: 'Copy a EXAMPLE Course',
+            name: 'Copy a quite frankly an example LMS Course',
             type: 'course_copy_importer',
           },
           {
-            name: 'EXAMPLE Course Export Package',
+            name: 'quite frankly an example LMS Course Export Package',
             type: 'canvas_cartridge_importer',
           },
           {
@@ -156,15 +156,15 @@ describe('ContentMigrationForm', () => {
     render(<ContentMigrationsForm setMigrations={vi.fn()} />)
     const selectOne = await screen.findByTitle('Select one')
     await userEvent.click(selectOne)
-    expect(screen.getByText('Copy a EXAMPLE Course')).toBeInTheDocument()
-    expect(screen.getByText('EXAMPLE Course Export Package')).toBeInTheDocument()
+    expect(screen.getByText('Copy a quite frankly an example LMS Course')).toBeInTheDocument()
+    expect(screen.getByText('quite frankly an example LMS Course Export Package')).toBeInTheDocument()
   })
 
   it('performs POST when submitting', async () => {
     renderComponent()
 
     await userEvent.click(await screen.findByTitle('Select one'))
-    await userEvent.click(screen.getByText('Copy a EXAMPLE Course'))
+    await userEvent.click(screen.getByText('Copy a quite frankly an example LMS Course'))
 
     await userEvent.type(screen.getByPlaceholderText('Search...'), 'MyCourse')
     await userEvent.click(await screen.findByRole('option', {name: 'MyCourse'}))
@@ -211,7 +211,7 @@ describe('ContentMigrationForm', () => {
     renderComponent()
 
     await userEvent.click(await screen.findByTitle('Select one'))
-    await userEvent.click(screen.getByText('EXAMPLE Course Export Package'))
+    await userEvent.click(screen.getByText('quite frankly an example LMS Course Export Package'))
 
     const file = new File(['blah, blah, blah'], 'my_file.zip', {type: 'application/zip'})
     Object.defineProperty(file, 'size', {value: 1024})
@@ -261,7 +261,7 @@ describe('ContentMigrationForm', () => {
     renderComponent()
 
     await userEvent.click(await screen.findByTitle('Select one'))
-    await userEvent.click(screen.getByText('Copy a EXAMPLE Course'))
+    await userEvent.click(screen.getByText('Copy a quite frankly an example LMS Course'))
 
     await userEvent.type(screen.getByPlaceholderText('Search...'), 'MyCourse')
     await userEvent.click(await screen.findByRole('option', {name: 'MyCourse'}))
@@ -299,7 +299,7 @@ describe('ContentMigrationForm', () => {
     it('does not show select one after selecting migrator', async () => {
       await renderAndOpenDropdown()
 
-      await selectMigrator('Copy a EXAMPLE Course')
+      await selectMigrator('Copy a quite frankly an example LMS Course')
       await openSelectMigratorDropdown()
 
       expect(screen.queryByText('Select one')).not.toBeInTheDocument()
@@ -308,7 +308,7 @@ describe('ContentMigrationForm', () => {
     it('shows select one after clicking clear', async () => {
       await renderAndOpenDropdown()
 
-      await selectMigrator('Copy a EXAMPLE Course')
+      await selectMigrator('Copy a quite frankly an example LMS Course')
       await userEvent.click(await screen.findByTestId('clear-migration-button'))
       await openSelectMigratorDropdown()
 

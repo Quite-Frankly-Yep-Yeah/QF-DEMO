@@ -263,7 +263,7 @@ describe PageView::Pv4Client do
 
     it_behaves_like "pv4 client"
 
-    it "uses the EXAMPLE instance domain for JWT generation" do
+    it "uses the quite frankly an example LMS instance domain for JWT generation" do
       canvas_domain = "canvas.example.com"
       allow(HostUrl).to receive(:default_host).and_return(canvas_domain)
       stub_http_request("page_views" => [pv4_object])

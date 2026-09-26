@@ -53,7 +53,7 @@
 #           "type": "integer"
 #         },
 #         "course_id": {
-#           "description": "The unique EXAMPLE identifier for the course in which the section belongs",
+#           "description": "The unique quite frankly an example LMS identifier for the course in which the section belongs",
 #           "example": 7,
 #           "type": "integer"
 #         },

@@ -103,7 +103,7 @@ module SectionTabHelper
     def to_a
       return [] unless context.respond_to?(:tabs_available)
 
-      Rails.cache.fetch(cache_key, expires_in: 1.hour) do
+      tabs = Rails.cache.fetch(cache_key, expires_in: 1.hour) do
         if context.respond_to?(:feature_enabled?)
           new_collaborations_enabled = context.feature_enabled?(:new_collaborations)
         end
@@ -132,6 +132,8 @@ module SectionTabHelper
           end
         end
       end
+      # applied after the cache, so turning the Course Player on or off shows at once
+      SelfPaced::CourseTabs.apply(tabs, context)
     end
 
     private

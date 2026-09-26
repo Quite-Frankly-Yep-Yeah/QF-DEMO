@@ -1,6 +1,6 @@
 # Self-paced mastery platform: discovery and build plan
 
-Status: **revision 3, being built. Phases 0, 1 and 2 are done, each on its own `self-paced/phase-N` branch (see §5).**
+Status: **revision 3, being built. Phases 0 to 5b are done, each on its own `self-paced/phase-N` branch (see §5).**
 Date: 2026-09-22
 
 Revision 3 records your answers to the §7 questions. It updates gating (§2.1), due dates (§2.3), the mentor role (§2.6),
@@ -563,28 +563,87 @@ Every phase ends with passing RSpec (`bin/rspec spec/.../self_paced/...`) and JS
 - Plan generation and recalculation.
 - Dynamic due dates written onto graded items (§2.3), with late penalties off by default.
 - Student widgets, dashboard pacing columns, and the planned-vs-actual chart.
+- **Done 2026-09-24.** What was built:
+  - **Calendar:** `SchoolCalendar` (`app/services`) owns blackout days for both pacing systems: course and account `BlackoutDate`s plus blackout calendar events. Course Pacing's calculator now reads them from it, so account-level blackout dates count for Course Pacing too. `InstructionalCalendar` holds a school's minutes per weekday and per date; the nearest one up the account chain applies (default Monday to Friday, 360 minutes).
+  - **Engine:** `SelfPaced::Pacer` with `PlanBuilder` (spreads minutes over days in proportion to each day's minutes) and `Estimator` (teacher estimate, else reading time for pages, 3 minutes a quiz question, flat defaults). Plans live in `pacing_plans`: a fixed baseline for "days ahead or behind", and a current plan re-spread from today at most once a day. The state refresher (debounced and nightly) makes and re-spreads plans; setup, calendar and blackout changes re-spread a whole course right away.
+  - **Target dates:** the course's "Finish date" (setup screen), then the enrollment's, section's, course's or term's end, then 36 weeks from the start. Staff with `self_paced_adjust_pacing` (now part of the Mentor role) can give one student their own date from the tray.
+  - **Due dates:** `SelfPaced::DueDateWriter` writes ADHOC overrides titled "Self-paced plan", following the §2.3 rules. **Change from the plan:** it only dates the next 10 school days (plus items it already dated). Writing every item took about 45 seconds per student in Algebra 1, and a daily re-spread moves nearly every future date, so a whole-course write would take hours a night at 300 students. Later items get their date as they come into the window.
+  - **UI:** a pacing card on the course map (pace, today's goal, this week, chart), a Pace column and a Pace section with the chart and target date in the dashboard tray, and a Pacing panel on the setup screen (finish date, minutes per weekday for admins, days off). Course Pacing's tab is hidden in paced courses. Shared pieces are in `ui/shared/self-paced` (`pacing.ts`, `react/PaceBadge`, `react/PaceChart`).
+  - **Not yet:** re-planning when Mastery Paths releases content (Phase 9) or when an enrollment's start date changes (the nightly re-spread picks up content changes, but the baseline keeps its start). Half days can be stored per date through the API; the setup screen only edits weekdays for now.
 
 **Phase 5: Interventions.** Flag: `self_paced_interventions`.
 - Every §2.5 tool, bulk actions, notes, messaging and the audit log.
+- **Done 2026-09-24.** What was built:
+  - **One path for every tool:** `SelfPaced::Intervener` checks the flag, that the student is in the course, that the item belongs to it and the tool's permissions, does the work and writes the `interventions` row in one transaction. Rows record the actor, the real user when masquerading, the item, the reason, a payload and the bulk job (`progress_id`). They are read-only once saved.
+  - **Tools:** unlock (plus the quiz's own `manually_unlocked`), mark complete, exempt (excuses graded items; needs `manage_grades`), undo for all three, extra tries and reset last try on quizzes and limited-attempt assignments (`self_paced_manage_attempts` + `manage_grades`), finish date, notes and messages. A reset keeps the old try and logs its number and score.
+  - **Finish date:** the Phase 4 pacing endpoint now goes through the same service, so date changes are logged too. It works without the interventions flag, as before.
+  - **Review before retake:** a reset or extra tries given after a failed try waive the "reopen the lesson" rule for that try (§2.2). Staff have already decided the student may try again.
+  - **Messages:** a private Conversations message from the course. The Mentor role now includes `send_messages`, which answers the "Messaging" question in §2.6: account-role mentors can message students through the normal Conversations path.
+  - **Notes** (`student_notes`) belong to the student. Staff who can read notes in one of the student's classes see every note in the root account, with the class it was written from. Only the author can delete a note (soft delete, logged).
+  - **Bulk:** `POST /api/v1/self_paced/interventions/bulk` runs the service for up to 500 (course, student) pairs in a `Progress` job. One failure doesn't stop the rest; failures are listed in the results. Item actions take one item id (students in one class) or `current`, each student's current item.
+  - **API:** `GET/POST /api/v1/self_paced/courses/:course_id/students/:student_id/interventions` returns or runs the tools, with the log (latest 50) and notes. The drill-down's items gain `overrides`, `graded` and `attempts_limited` when the flag is on.
+  - **UI:** in the student panel, a menu on each item (only the actions the viewer may use, with undo where an override exists), badges for overrides, a Message button in the header, a Notes card and a "Help given" history. Every action asks for confirmation and an optional reason. In the roster, checkboxes and a bulk bar: message, add note, and "extra try where stuck" (only classes where the student has 3+ tries on their current item). Messages and notes go once per student.
+  - **Retention:** purging a student deletes the log and notes about them; rows they wrote as staff stay. Merges move both.
+  - **Not yet:** a course-wide log view (comes with the Phase 7 "intervention log" report) and bulk item actions on one chosen item (comes with the Phase 5b course page, where all selected students share a course).
 
-**Phase 6: Alerts.** Flag: `self_paced_alerts`.
-- Rule types: behind pace, stuck on an item, max attempts reached, inactive, grade below threshold.
-- A periodic evaluator, open and resolved alert states.
-- New notification types, so each user controls email in their notification preferences.
+**Phase 5b: Course mentor page and Course Editor role** (added 2026-09-24; runs right after Phase 5). Flag: `self_paced_course_view`.
+- **A page for each course**, at `/self_paced/courses/:course_id`, built for a mentor working with one class rather than the whole school:
+  - **Course header** in the course's colour: name, students, the class's average progress, and how many are behind, stuck or inactive.
+  - **Students** in that class only, with the same search and quick filters as the Students page. The per-class columns (working on, progress, pace, grade, tries) are shown directly, since there is no grouping across classes.
+  - **Where the class is:** a heat map of units, showing how many students are on each unit and where they pile up or get stuck. Items where many students need several tries are listed so the mentor knows which lessons or checks need help.
+  - **Course pace:** planned against actual progress for the whole class.
+  - **Quick actions:** the Phase 5 tools (unlock, extra attempt, exempt, mark complete, note, message) work from this page, including on several selected students at once.
+- **Links both ways:** the student panel on the Students page gets an "Open [course name]" link to this page, and each student on this page links back to their panel. The course chips in the roster link here too.
+- **Course Editor role**, an account-level role like Mentor (§2.6), created with `SelfPaced::CourseEditorRole.ensure!(root_account)`:
+  - everything a Mentor has (dashboard, live monitor, notes, unlock, pacing, read-only grades), plus the ability to **edit the course**: modules, pages, quizzes and assignments, the Course Player setup and the Pacing panel.
+  - **Still not** granted: grading (`manage_grades`), enrolling or removing students, course deletion or account settings. Editors change content, not students' grades or enrolments.
+  - Editors reach the editing screens from the course page: an "Edit course" button linking to the Course Player setup and to Canvas's own modules and pages.
+  - The role sees every self-paced course in the schools it's granted on, like Mentor. A spec checks that an editor can edit modules but can't grade or change enrolments.
+- **Answered 2026-09-24:** (1) editors get full editing, quiz questions and answer keys included; (2) editors see every self-paced course in the schools they're granted on, like mentors.
+- **Done 2026-09-24.** What was built:
+  - **Page:** `/self_paced/courses/:course_id` (`SelfPaced::DashboardController#course`), the same React bundle as the Students page with a `CourseApp` root. Only for courses in the viewer's `DashboardScope` with `self_paced_course_view` on.
+  - **Header** in the course colour (the same colour as on the Students page: both number courses from the viewer's full course list), with students, average progress, and behind, stuck and inactive counts. Links to "All students" (filtered to the course) and, for editors, an "Edit course" menu: Course Player setup, Modules, Pages, Quizzes, Assignments, Files.
+  - **Where the class is:** a tile per unit, shaded by how many students are on it, with the stuck count and how many finished it. Choosing a tile narrows the student table to that unit.
+  - **Students:** the roster API takes `course_id`; search, quick filters, caseload, Live view, checkboxes and the tray all work as on the Students page. The bulk bar adds **Item action**: unlock, mark complete, exempt, extra tries or reset on one chosen item for every selected student (only the tools the viewer has).
+  - **Items that take many tries** and **Class pace** (the average of the students' baselines and progress, drawn with the same chart as one student's pace) come from `GET /api/v1/self_paced/courses/:course_id/summary` (`SelfPaced::CourseSummary`).
+  - **Links both ways:** course chips in the Students roster link to the course page; the student panel has "Open [course]"; on the course page it has "All their classes", which opens the Students page with that student's panel (`?student_id=`).
+  - **Course Editor role:** `SelfPaced::CourseEditorRole.ensure!(root_account)` = the Mentor permissions plus content editing (`manage_course_content_*`, `manage_assignments_*`, `manage_wiki_*`, `manage_files_*`, `manage_rubrics`, `read_question_banks`). A spec checks that an editor can edit modules and quizzes but can't grade, enrol, add sections, delete the course or change account settings.
 
-**Phase 7: Reports and attendance.** Flag: `self_paced_reports`.
-- A report family for admins, and CSV exports scoped to the teacher's own courses.
-- Reports: progress, time on task, pacing, intervention log, and engaged days.
-- Attendance policies (§2.10).
+**Phase 6: Alerts (done 2026-09-24).** Flag: `self_paced_alerts`.
+- **Rules:** `self_paced_alert_rules`, one per kind, for the school (no course) or for one course, which replaces the school's. Kinds: behind pace, stuck on an item, out of tries, inactive, low grade. With no rules, built-in defaults apply: behind 3 days, stuck 3 tries, out of tries, inactive 3 days, and low grade off (60%).
+- **Evaluator:** `SelfPaced::AlertEvaluator`, run every 30 minutes for each tracked course. It reads the read model, opens an alert when a condition becomes true, resolves it when it stops, and tells the assigned mentor (or the course's teachers) once. Alerts staff dismiss stay quiet until the trouble has cleared once. A student who has never been active counts from when they were first tracked.
+- **Notification:** one type, "Self Paced Alert" (category Grading), so each person controls email in their preferences.
+- **API:** `GET /api/v1/self_paced/alerts`, `PUT .../alerts/:id/dismiss`, `GET|PUT /api/v1/courses/:id/self_paced/alert_rules` (changing rules needs `manage_grades`).
+- **UI:** an "Alerts" card on the course page, with an "Alert rules" editor, and an "Alerts" widget for the educator home dashboard.
 
-**Phase 8: Observer view.** Flag: `self_paced_observer_view`.
-- Read-only page: progress, pacing, recent posted grades, time on task.
-- Observer alert types for "behind pace" and "inactive".
+**Phase 7: Reports and attendance (done 2026-09-24).** Flag: `self_paced_reports`.
+- **Reports** (`SelfPaced::Reports`, one class behind every export): progress, time on task, pacing, intervention log, engaged days. Time on task, the log and engaged days take a date range (default the last 30 days).
+- **Teachers and mentors:** `GET /api/v1/self_paced/reports/:kind?course_id=&from=&to=` sends a CSV of the courses in their DashboardScope. Grades follow the viewer's rights (unposted, posted or blank). The course page has a "Download report" menu.
+- **Admins:** five Account Reports ("Self-Paced Progress", "Time on Task", "Pacing", "Intervention Log", "Engaged Days") in `AccountReports::SelfPacedReports`, over every tracked course in the school.
+- **Attendance (§2.10):** `attendance_policies` (versioned by `effective_on`: minimum active minutes, whether a submission counts) and `attendance_adjustments` (a logged correction with a reason, optional documented minutes; the newest for a day wins). `SelfPaced::Attendance` judges each day by the policy in force that day. There is a built-in default of 30 minutes with submissions counting when the school has no policy.
+- **API only for now:** `GET|POST /api/v1/self_paced/attendance_policies` (admins write), `GET|POST /api/v1/courses/:id/self_paced/attendance_adjustments` (`manage_grades` writes). No screen yet.
 
-**Phase 9: Test-out.** Flag: `self_paced_test_out`.
-- A wizard that builds Mastery Paths rules: pretest → below threshold releases the lessons, at or above releases nothing.
-- Pacing recalculates when content is released.
-- Later: per-objective test-out using outcome alignments.
+**Staff course home (2026-09-25).** `/courses/:id` for teachers, TAs and admins of a Course Player course is now `ui/features/self_paced_course_home` (`SelfPaced::StaffCourseHome` in `CoursesController#show`, data from `SelfPaced::StaffHome`), with no sidebar. It shows the class at a glance (students, average progress, behind, stuck, inactive), a "Get the class ready" checklist that goes away when done, the units with item counts and unpublished warnings, and "Make something" and "Run the course" tiles, each limited to what the viewer may do. `?classic=1` opens the standard page. Students still go to the course map.
+
+**Question layouts (2026-09-25).** Matching questions get a "How students answer" setting, `question_data.sylla_layout`: `ordering` (the right side holds the positions 1, 2, 3...; students order the items with arrow buttons) or `categorize` (the right side holds category names; students pick an item, then its category). It is one field on the classic matching question, so grading, statistics, the API and QTI export stay the standard matching ones. The take page (`ui/features/sylla_question_layouts`) draws the control over the standard selects, which stay in the form (hidden) and are kept in sync. An ordering question whose right side isn't exactly 1..N, or a categorize question with fewer than two categories, keeps the plain selects. Three more options followed. **Confidence**: any question can ask "How sure are you?" (question_data.sylla_confidence); the answer is posted as question_<id>_confidence and kept with the graded answer, and results show it with a nudge when the student was sure and wrong. **Units**: a numeric question can have a correct unit and unit choices (sylla_unit, sylla_unit_choices); it is right only with the right number and unit, and the correct unit is never sent to students. **Hotspot**: a multiple choice question can have an image and a region per choice (sylla_image, sylla_regions, one "Choice | left | top | width | height" line each, in percent); clicking a region picks the choice with the same text, and the choices list stays as a fallback. The editor previews the image and adds a region line when you drag on it.
+
+**Skills page (2026-09-25).** `/courses/:id/outcomes` for staff of a Course Player course is `ui/features/self_paced_skills` (`SelfPaced::StaffSkills` in `OutcomesController#index`, data from `SelfPaced::Skills`, API `GET|POST /api/v1/courses/:id/self_paced/skills`), and the "Outcomes" tab is renamed "Skills". Each outcome is a skill. A student's level comes from their latest result: mastered (met the mastery score), almost there (at least 75% of it), still building, or not started. The page shows the class summary, each skill with a bar and counts, the students on it (weakest first, each linking to their panel), the items aligned to it, and an "Add a skill" form (standard four-level scale, mastery at 3). Skills where fewer than half of those assessed have mastered it are flagged and listed first. `?classic=1` opens the standard outcomes page, which is still where you align items and edit ratings.
+
+**Phase 8: Observer view (done 2026-09-25).** Flag: `self_paced_observer_view`.
+- **Page:** `/self_paced/observer` (and the home page for people who only observe; `/?classic=1` opens the usual dashboard). `SelfPaced::ObserverView` finds each (student, course) the observer is linked to by an observer enrollment, in a Course Player course with the flag on, where the student is still enrolled. Read only, and only ever the current user's own students.
+- **Shows:** each class's progress and pace (days behind or ahead, planned finish, last active), time on task this week against last week, posted grades from the last 30 days, and open behind-pace and inactive alerts under "Worth a conversation". A parent with several students switches between them.
+- **Alerts:** when the Phase 6 evaluator opens a behind-pace or inactive alert it also sends "Self Paced Observer Alert" to the student's observers, a separate notification type so parents choose email for it on their own. Stuck, out-of-tries and grade alerts stay with staff.
+- **API:** `GET /api/v1/self_paced/observer`.
+
+**Parent invites (2026-09-25).** A three-dot menu on each student in the Students page roster and on each row of the account People list (needs `self_paced_observer_view`) opens "Invite a parent (QR code)". `POST /api/v1/self_paced/students/:id/parent_invite` (`SelfPaced::ParentInvitesController`) makes Canvas's own observer pairing code (one use, expires in 7 days) and returns a link on the address the staff member is using, plus that link as an inline SVG QR code (`rqrcode`, drawn server side). The dialog shows the code, the link, and Copy link, Print and New code buttons. The link is `/parents/join/:code` (`SelfPaced::ParentSignupController`, `ui/features/self_paced_parent_signup`): a signed-out parent makes an account (name, email, password) and is signed in and linked as an observer; a signed-in parent gets "Add [student] to your account". It works whether or not the school has open self-registration on, says only the student's first name, and refuses a used or expired code. Who can make a code: staff who can see the student on the dashboard, and admins with `manage_students`.
+
+**Phase 9: Test-out by skill (done 2026-09-25).** Flag: `self_paced_test_out` (course). Built on the Skills page instead of Mastery Paths, because Mastery Paths only reads one item's total score and can't see per-skill results.
+- **Setup:** on the Units page a lesson or practice item gets a "Skill" picker (the course's own skills). It is `module_item_settings.learning_outcome_id`; checks and pretests can't have one, and turning an item into a check clears it.
+- **Pretest:** any graded item whose results are per skill, like a rubric with a criterion for each skill or a quiz drawn from skill-aligned banks. Nothing new is built for it.
+- **Trigger:** when a mastery result is saved (`SelfPaced::ModelHooks.outcome_result_committed`), a background job (`SelfPaced::TestOut.apply`) exempts the lessons that teach that skill for that student, as `exempt` item overrides with no `created_by`, the skill on the row (`module_item_student_overrides.learning_outcome_id`) and the reason "Tested out: mastered <skill>". They count as done and drop out of pacing. Saving the item settings also sweeps students who had mastered a skill before a lesson was tied to it.
+- **One-way:** mastering a skill at any time keeps its lessons skipped, so a lower retake never gives them back. Staff can still undo an exemption from the student's panel. Graded items are never exempted this way, because that would excuse a grade.
+- **Where it shows:** the student's course map says "Skipped: you already know this"; the Skills page says which lessons a skill skips and how many students have tested out.
+
 
 **Phase 10 (optional): Cleanup.** Remove the hosted-only features hidden in Phase 0 (§8).
 

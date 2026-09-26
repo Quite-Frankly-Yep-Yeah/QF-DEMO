@@ -9,7 +9,7 @@
     "context_type": "The type of context the learning_outcome is used in.",
     "description": "Description of the outcome.",
     "display_name": "Optional friendly name for reporting.",
-    "learning_outcome_id": "The local EXAMPLE ID of the learning outcome.",
+    "learning_outcome_id": "The local quite frankly an example LMS ID of the learning outcome.",
     "short_description": "Also the title of the outcome.",
     "title": "The title of the learning outcome or learning outcome group.",
     "updated_at": "The time at which this outcome was last modified in any way.",

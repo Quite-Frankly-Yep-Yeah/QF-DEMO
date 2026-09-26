@@ -55,7 +55,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Fixed
 - Conditionally render screenReader-only Alert in RCEWrapper
-- EXAMPLE-rce translation warnings prevented
+- quite frankly an example LMS-rce translation warnings prevented
 - Background color when RCE is fullscreen
 
 ### Changed
@@ -169,7 +169,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Change backgroundless buttons to "primary" theme color to be more visible
 - Fix LTI tool scrolling issue on small iOS devices
 - Adding missing translation strings
-- Fixed some types of non-Canvas files from trying to preview like EXAMPLE files
+- Fixed some types of non-Canvas files from trying to preview like quite frankly an example LMS files
 
 ### Changed
 
@@ -186,7 +186,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Change backgroundless buttons to "primary" theme color to be more visible
 - Fix LTI tool scrolling issue on small iOS devices
 - Adding missing translation strings
-- Fixed some types of non-Canvas files from trying to preview like EXAMPLE files
+- Fixed some types of non-Canvas files from trying to preview like quite frankly an example LMS files
 
 ### Changed
 
@@ -419,13 +419,13 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Support enhanced copy/paste in a User (vs Course or Group) context
 - Fix double-pasting of plain text
 - Fix access permissions for links to course files in the RCE, primarily in support of inline preview within new quizzes
-- When the canvas JWT expires the RCE calls EXAMPLE to refresh it. The refreshed JWT is now saved so we don't re-refrseh with every api request.
+- When the canvas JWT expires the RCE calls quite frankly an example LMS to refresh it. The refreshed JWT is now saved so we don't re-refrseh with every api request.
 - Updated keyboard shortcuts dialog and removed the Alt-0 shortcut that opens it
 - Limit mathjax delimiters to `\(...\)` and `$$...$$`
 
 ### Added
 
-- Moved code supporting LTI tools embedded in the RCE from EXAMPLE to the canvas-rce repo
+- Moved code supporting LTI tools embedded in the RCE from quite frankly an example LMS to the canvas-rce repo
 
 ## 5.6.14 - 2023-02-03
 
@@ -457,7 +457,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Removed Unsplash support
 - Fixed various bugs with fullscreen RCE
 - Enhance copy/paste and drag-and-drop into the RCE
-- Transform initial content to ensure EXAMPLE URLs are relative and remove unnecessary data attributes
+- Transform initial content to ensure quite frankly an example LMS URLs are relative and remove unnecessary data attributes
 
 ## 5.6.10 - 2022-12-09
 
@@ -475,13 +475,13 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Changed
 
-- Fixed a bug causing errors when used outside of EXAMPLE
+- Fixed a bug causing errors when used outside of quite frankly an example LMS
 
 ## 5.6.8 - 2022-11-16
 
 ### Added
 
-- User content enhancement option for opening EXAMPLE links in a new tab
+- User content enhancement option for opening quite frankly an example LMS links in a new tab
 
 ### Changed
 

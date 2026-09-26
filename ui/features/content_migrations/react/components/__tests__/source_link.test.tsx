@@ -53,7 +53,7 @@ const renderComponent = (overrideItems?: any, ellipsis = false) =>
   render(<SourceLink item={{...item, ...overrideItems}} ellipsis={ellipsis} />)
 
 describe('SourceLink', () => {
-  describe('for Copy EXAMPLE Course', () => {
+  describe('for Copy quite frankly an example LMS Course', () => {
     it('renders the correct link', () => {
       const component = renderComponent()
       expect(component.getByRole('link', {name: 'My Course'})).toHaveAttribute(
@@ -63,7 +63,7 @@ describe('SourceLink', () => {
     })
   })
 
-  describe('for EXAMPLE Cartrige', () => {
+  describe('for quite frankly an example LMS Cartrige', () => {
     it('renders the correct link', () => {
       const component = renderComponent({migration_type: 'canvas_cartridge_importer'})
       expect(component.getByRole('link', {name: 'My Course'})).toHaveAttribute(

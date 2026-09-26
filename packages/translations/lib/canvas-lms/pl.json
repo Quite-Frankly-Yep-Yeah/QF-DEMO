@@ -17,7 +17,7 @@
         "Archived grading schemes in use can still be used, but cannot be added to new courses or assignments.": "Zarchiwizowane schematy oceniania w użyciu nadal mogą być użyte, ale nie można ich dodać do nowych kursów ani zadań.",
         "Are you sure you want to delete this grading scheme?": "Czy na pewno chcesz usunąć ten schemat oceniania?",
         "Cancel": "Anuluj",
-        "EXAMPLE Default": "Domyślne ustawienia EXAMPLE",
+        "quite frankly an example LMS Default": "Domyślne ustawienia quite frankly an example LMS",
         "Close": "Zamknij",
         "Confirm": "Potwierdź",
         "Confirm Default Grading Scheme Change": "Potwierdź zmianę domyślnego schematu oceniania",
@@ -45,8 +45,8 @@
         "There was an error while archiving the grading scheme": "Wystąpił błąd podczas archiwizowania schematu oceniania.",
         "There was an error while creating the grading scheme": "Wystąpił błąd podczas tworzenia schematu oceniania.",
         "There was an error while loading grading schemes": "Wystąpił błąd podczas wczytywania schematu oceniania.",
-        "There was an error while loading the default canvas grading scheme": "Wystąpił błąd podczas wczytywania schematu oceniania EXAMPLE.",
-        "There was an error while loading the default grading scheme": "Wystąpił błąd podczas wczytywania domyślnego schematu oceniania EXAMPLE.",
+        "There was an error while loading the default canvas grading scheme": "Wystąpił błąd podczas wczytywania schematu oceniania quite frankly an example LMS.",
+        "There was an error while loading the default grading scheme": "Wystąpił błąd podczas wczytywania domyślnego schematu oceniania quite frankly an example LMS.",
         "There was an error while removing the grading scheme": "Wystąpił błąd podczas usuwania schematu oceniania.",
         "There was an error while unarchiving the grading scheme": "Wystąpił błąd podczas anulowania archiwizacji schematu oceniania.",
         "There was an error while updating the default grading scheme": "Wystąpił błąd podczas aktualizowania domyślnego schematu oceniania.",
@@ -80,7 +80,7 @@
         "Save": "Zapisz"
     },
     "GradingSchemes": {
-        "A table that contains the default canvas grading scheme data.  Each row contains a name, a maximum percentage, and a minimum percentage.": "Tabela zawierająca dane domyślnego schematu oceniania EXAMPLE.  Każdy wiersz zawiera nazwę, maksymalny odsetek i minimalny odsetek.",
+        "A table that contains the default canvas grading scheme data.  Each row contains a name, a maximum percentage, and a minimum percentage.": "Tabela zawierająca dane domyślnego schematu oceniania quite frankly an example LMS.  Każdy wiersz zawiera nazwę, maksymalny odsetek i minimalny odsetek.",
         "A table that contains the grading scheme data.  Each row contains a name, a maximum percentage, and a minimum percentage.": "Tabela zawierająca dane schematu oceniania.  Każdy wiersz zawiera nazwę, maksymalny odsetek i minimalny odsetek.",
         "Cannot have duplicate or empty row names. Fix the names and try clicking 'Save' again.": "Niedozwolone są duplikaty i puste nazwy wierszy. Popraw nazwy i spróbuj kliknąć Zapisz ponownie.",
         "Cannot have overlapping or empty ranges. Fix the ranges and try clicking 'Save' again.": "Zakresy nie mogą się pokrywać ani być puste. Popraw zakresy i spróbuj kliknąć Zapisz ponownie.",
@@ -157,10 +157,10 @@
     "assignments.grading_type_selector": {
         "(course default)": "(domyślne dla kursu)",
         "Account Level": "Poziom konta",
-        "EXAMPLE Grading Scheme (course default)": "Schemat oceniania EXAMPLE (domyślne dla kursu)",
+        "quite frankly an example LMS Grading Scheme (course default)": "Schemat oceniania quite frankly an example LMS (domyślne dla kursu)",
         "Close": "Zamknij",
         "Course Level": "Poziom kursu",
-        "Default EXAMPLE Grading Scheme": "Domyślny schemat oceniania EXAMPLE",
+        "Default quite frankly an example LMS Grading Scheme": "Domyślny schemat oceniania quite frankly an example LMS",
         "Grading scheme was successfully removed.": "Schemat oceniania został pomyślnie usunięty.",
         "Grading scheme was successfully updated.": "Schemat oceniania został pomyślnie zaktualizowany.",
         "Manage All Grading Schemes": "Zarządzaj schematami oceniania",
@@ -181,7 +181,7 @@
         "Course Catalog": "Katalog kursu"
     },
     "confetti": {
-        "Great work! From the EXAMPLE developers": "Świetna robota! Od twórców EXAMPLE"
+        "Great work! From the quite frankly an example LMS developers": "Świetna robota! Od twórców quite frankly an example LMS"
     },
     "content_copy_redesign": {
         "Cancel": "Anuluj",

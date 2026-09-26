@@ -717,7 +717,7 @@ const LastScanResultView: React.FC<{
                 width="60%"
                 id="CanvasResource"
               >
-                <Text>{I18n.t('EXAMPLE Resource')}</Text>
+                <Text>{I18n.t('quite frankly an example LMS Resource')}</Text>
               </Table.ColHeader>
               <Table.ColHeader
                 themeOverride={{padding: '0.90rem 0.75rem'}}
@@ -820,7 +820,7 @@ const HeaderView: React.FC<{
         </Heading>
         <Text>
           {I18n.t(
-            'This tool helps you identify YouTube videos in your course that may display ads. Each row shows a EXAMPLE Page, Module, or Discussion where one or more YouTube videos were found. After migration, videos will be added to the course collection and remain as links, so no extra storage will be used. You can rescan the course anytime with the ‘Scan’ button.',
+            'This tool helps you identify YouTube videos in your course that may display ads. Each row shows a quite frankly an example LMS Page, Module, or Discussion where one or more YouTube videos were found. After migration, videos will be added to the course collection and remain as links, so no extra storage will be used. You can rescan the course anytime with the ‘Scan’ button.',
           )}
         </Text>
       </Flex.Item>

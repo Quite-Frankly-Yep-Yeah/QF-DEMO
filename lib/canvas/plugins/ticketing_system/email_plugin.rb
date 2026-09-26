@@ -31,7 +31,7 @@ module Canvas::Plugins::TicketingSystem
 
     def settings
       {
-        name: -> { I18n.t "EXAMPLE Ticketing Email Connector" },
+        name: -> { I18n.t "quite frankly an example LMS Ticketing Email Connector" },
         description: -> { I18n.t "pick a destination, we'll send you errors" },
         author: "Instructure",
         author_website: "http://www.instructure.com",
@@ -44,7 +44,7 @@ module Canvas::Plugins::TicketingSystem
       Message.create!(
         to: conf[:email_address],
         from: error_report.email,
-        subject: I18n.t("EXAMPLE Error Report"),
+        subject: I18n.t("quite frankly an example LMS Error Report"),
         body: JSON.pretty_generate(error_report.to_document, space_before: ""),
         root_account_id: error_report.account_id,
         delay_for: 0,

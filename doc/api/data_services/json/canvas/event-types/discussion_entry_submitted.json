@@ -3,14 +3,14 @@
   "definition": "The event is emitted anytime a user or system replies to a graded discussion topic.",
   "trigger": "Triggered when a user replies to a graded discussion topic or discussion thread.",
   "schema": {
-    "assignment_id": "The EXAMPLE id of the assignment if the discussion topic is graded.",
+    "assignment_id": "The quite frankly an example LMS id of the assignment if the discussion topic is graded.",
     "created_at": "The time at which this entry was created.",
-    "discussion_entry_id": "The EXAMPLE id of the newly added entry.",
-    "discussion_topic_id": "The EXAMPLE id of the topic the entry was added to.",
-    "parent_discussion_entry_id": "If this was a reply, the EXAMPLE id of the parent entry.",
-    "submission_id": "The EXAMPLE id of the submission if the discussion topic is graded.",
+    "discussion_entry_id": "The quite frankly an example LMS id of the newly added entry.",
+    "discussion_topic_id": "The quite frankly an example LMS id of the topic the entry was added to.",
+    "parent_discussion_entry_id": "If this was a reply, the quite frankly an example LMS id of the parent entry.",
+    "submission_id": "The quite frankly an example LMS id of the submission if the discussion topic is graded.",
     "text": "The text of the post. NOTE: This field will be truncated to only include the first 8192 characters.",
-    "user_id": "The EXAMPLE id of the user being that created the entry."
+    "user_id": "The quite frankly an example LMS id of the user being that created the entry."
   },
   "examples": [
     {

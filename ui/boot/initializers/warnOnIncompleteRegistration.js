@@ -25,7 +25,7 @@ if (ENV.INCOMPLETE_REGISTRATION) {
   $(template({email: ENV.USER_EMAIL}))
     .appendTo($('body'))
     .dialog({
-      title: I18n.t('welcome_to_canvas', 'Welcome to EXAMPLE!'),
+      title: I18n.t('welcome_to_canvas', 'Welcome to quite frankly an example LMS!'),
       width: 400,
       resizable: false,
       buttons: [

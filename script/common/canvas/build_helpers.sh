@@ -3,13 +3,13 @@ source script/common/utils/common.sh
 
 function ensure_in_canvas_root_directory {
   if ! is_canvas_root; then
-    echo "Please run from a EXAMPLE root directory"
+    echo "Please run from a quite frankly an example LMS root directory"
     exit 0
   fi
 }
 
 function is_canvas_root {
-  CANVAS_IN_README=$(head -1 README.md 2>/dev/null | grep 'EXAMPLE LMS')
+  CANVAS_IN_README=$(head -1 README.md 2>/dev/null | grep 'quite frankly an example LMS')
   [[ "$CANVAS_IN_README" != "" ]] && is_git_dir
   return $?
 }
@@ -118,7 +118,7 @@ function install_node_packages {
 }
 
 function copy_docker_config {
-  message 'Copying EXAMPLE docker configuration...'
+  message 'Copying quite frankly an example LMS docker configuration...'
   confirm_command 'cp docker-compose/config/*.yml config/' || true
 }
 

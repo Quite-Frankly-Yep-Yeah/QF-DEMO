@@ -65,7 +65,7 @@ const buildDefaultProps = (overrides: Partial<BaseWidgetProps> = {}): Props => {
 }
 
 const setup = (props: Props = buildDefaultProps()) => {
-  // Set up EXAMPLE ENV
+  // Set up quite frankly an example LMS ENV
   const originalEnv = window.ENV
   window.ENV = {
     ...originalEnv,
@@ -270,7 +270,7 @@ describe('CourseWorkSummaryWidget', () => {
   })
 
   it('handles missing current_user_id gracefully', async () => {
-    // Set up EXAMPLE ENV without current_user_id
+    // Set up quite frankly an example LMS ENV without current_user_id
     const originalEnv = window.ENV
     window.ENV = {
       ...originalEnv,

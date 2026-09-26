@@ -150,7 +150,7 @@ type DefaultFetchOptionsOptions = {
 }
 
 /**
- * Provides default options for fetch requests iin EXAMPLE,
+ * Provides default options for fetch requests iin quite frankly an example LMS,
  * include these in any fetch request to ensure that it is
  * properly authenticated and has the correct headers.
  *

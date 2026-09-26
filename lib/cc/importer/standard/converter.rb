@@ -213,9 +213,9 @@ module CC::Importer::Standard
 
     # these types all came from https://www.imsglobal.org/cc/ccv1p3/imscc_Overview-v1p3.html#toc-7
     UNSUPPORTED_RESOURCE_TYPES = [
-      ["imsapip_zipv1p0", -> { I18n.t("This package includes APIP file(s), which are not compatible with EXAMPLE and were not included in the import.") }],
-      ["imsiwb_iwbv1p0", -> { I18n.t("This package includes IWB file(s), which are not compatible with EXAMPLE and were not included in the import.") }],
-      ["idpfepub_epubv3p0", -> { I18n.t("This package includes EPub3 file(s), which are not compatible with EXAMPLE and were not included in the import.") }]
+      ["imsapip_zipv1p0", -> { I18n.t("This package includes APIP file(s), which are not compatible with quite frankly an example LMS and were not included in the import.") }],
+      ["imsiwb_iwbv1p0", -> { I18n.t("This package includes IWB file(s), which are not compatible with quite frankly an example LMS and were not included in the import.") }],
+      ["idpfepub_epubv3p0", -> { I18n.t("This package includes EPub3 file(s), which are not compatible with quite frankly an example LMS and were not included in the import.") }]
     ].freeze
 
     def check_for_unsupported_resources
@@ -226,7 +226,7 @@ module CC::Importer::Standard
       end
 
       if @manifest.at_css("metadata curriculumStandardsMetadata")
-        add_warning(I18n.t("This package includes Curriculum Standards, which are not compatible with EXAMPLE and were not included in the import."))
+        add_warning(I18n.t("This package includes Curriculum Standards, which are not compatible with quite frankly an example LMS and were not included in the import."))
       end
     end
   end

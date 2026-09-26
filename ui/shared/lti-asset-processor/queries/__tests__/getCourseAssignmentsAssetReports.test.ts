@@ -133,7 +133,7 @@ describe('GetCourseAssignmentsAssetReportsResult', () => {
     // This part was tricky to get right; if it turns out to be tedious to
     // maintain, we can think about either using the codgen types directly in
     // the code (at the time of writing only tests use codegen types in
-    // EXAMPLE), or have a looser test, such as making sure the zod strict
+    // quite frankly an example LMS), or have a looser test, such as making sure the zod strict
     // parsing of Codegen type returns the same value
     const codegenQuery: DeepRequired<
       DeepNonNullable<GetCourseAssignmentsAssetReportsQueryLegacyNodeTypeSelected>

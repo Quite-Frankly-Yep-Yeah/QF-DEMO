@@ -2,23 +2,23 @@
 
 <!-- Introduction & motivation -->
 
-In order to enable an Administrator to install an application in EXAMPLE, a tool can support the
+In order to enable an Administrator to install an application in quite frankly an example LMS, a tool can support the
 automated registration process, built on the Dynamic Registration specification mentioned
 [here](https://www.imsglobal.org/activity/learning-tools-interoperability-lti%C2%AE). This
 replaces the [manual configuration](file.lti_dev_key_config.html) process
-previously used to install applications to EXAMPLE.
+previously used to install applications to quite frankly an example LMS.
 
 <!-- Overview -->
 
 ## Overview
 
-The automated registration process allows tools to install themselves into EXAMPLE automatically
-without requiring an Administrator to manually enter configuration values. Tools provide a EXAMPLE
-administrator with a pre-determined URL, which the user enters into EXAMPLE. EXAMPLE will direct the
-user to that URL, where the tool can request EXAMPLE' OpenID configuration and provide the user with
+The automated registration process allows tools to install themselves into quite frankly an example LMS automatically
+without requiring an Administrator to manually enter configuration values. Tools provide a quite frankly an example LMS
+administrator with a pre-determined URL, which the user enters into quite frankly an example LMS. quite frankly an example LMS will direct the
+user to that URL, where the tool can request quite frankly an example LMS' OpenID configuration and provide the user with
 an installation UI, where they can choose tool-specific settings. The tool then installs itself using
 a registration token to access the registration REST JSON service. After installing, the user is
-returned to EXAMPLE to confirm the installation and enable the tool.
+returned to quite frankly an example LMS to confirm the installation and enable the tool.
 
 <!-- Technical Diagram -->
 
@@ -29,20 +29,20 @@ returned to EXAMPLE to confirm the installation and enable the tool.
 ## Initiation Request
 
 The first part of the registration process is the registration initiation request. When an administrator
-enters the tool's dynamic registration URL, EXAMPLE redirects the user with a GET request by embedding an
+enters the tool's dynamic registration URL, quite frankly an example LMS redirects the user with a GET request by embedding an
 iframe pointed to that URL with two parameters added, `openid_configuration`, and `registration_token`.
-The `openid_configuration` parameter contains the URL that the tool can use to retrieve EXAMPLE' OpenID
+The `openid_configuration` parameter contains the URL that the tool can use to retrieve quite frankly an example LMS' OpenID
 Configuration, and the `registration_token` parameter is the token used to access that URL.
 
 At the registration initiation url, the tool should show a UI that guides the user through setting up a registration. This
 can include deployment-specific options for the tool. The tool can also guard this UI with a login, access
 code, or some other form of authentication, since the dynamic registration URL is meant to be shared publicly.
 
-<!-- EXAMPLE OpenID Configuration -->
+<!-- quite frankly an example LMS OpenID Configuration -->
 
-## EXAMPLE OpenID Configuration
+## quite frankly an example LMS OpenID Configuration
 
-During registration, the tool can request EXAMPLE' OpenID configuration by sending a `GET` request to the url
+During registration, the tool can request quite frankly an example LMS' OpenID configuration by sending a `GET` request to the url
 included in the `openid_configuration` redirect url. The tool also needs to include the `registration_token`
 in the `GET` request, as the bearer token in the `Authorization` http header:
 
@@ -52,7 +52,7 @@ curl -v https://canvas.instructure.com/api/lti/security/openid-configuration \
   -H "Authorization: Bearer {registration_token}"
 ```
 
-EXAMPLE' Open ID configuration contains details about itself that the tool can use to make decisions. It contains
+quite frankly an example LMS' Open ID configuration contains details about itself that the tool can use to make decisions. It contains
 claims supported, message types, placements, variables, and information about the account the administrator is
 installing the tool into.
 
@@ -127,7 +127,7 @@ A example response looks like:
 
 ## Registration Creation
 
-EXAMPLE includes a URL in the OpenID configuration under the `registration_endpoint` key which can be used
+quite frankly an example LMS includes a URL in the OpenID configuration under the `registration_endpoint` key which can be used
 by the tool to create a registration. The tool must send a `POST` request to this endpoint with the tool's
 [LTI Registration](#lti-registration-schema) in the body and the `registration_token` as the bearer token
 in the `Authorization` http header.
@@ -148,7 +148,7 @@ curl \
 | ------------------------------------------------------------------- | -------------------------------------------------------- | -------- | ------------------------------------------------------------------------------------ |
 | application_type                                                    | "web"                                                    | yes      |                                                                                      |
 | grant_types                                                         | ["client_credentials", "implicit"]                       | yes      |                                                                                      |
-| initiate_login_uri                                                  | string                                                   | yes      | The url that EXAMPLE should use to initiate an LTI launch request                     |
+| initiate_login_uri                                                  | string                                                   | yes      | The url that quite frankly an example LMS should use to initiate an LTI launch request                     |
 | redirect_uris                                                       | string                                                   | yes      | Any urls that the tool can launch to.                                                |
 | response_types                                                      | "id_token"                                               | yes      |                                                                                      |
 | client_name                                                         | string                                                   | yes      | The name of the tool as it will appear to Administrators maintaining the integration |
@@ -186,7 +186,7 @@ curl \
 | ht<span>tps://</span>canvas.instructure.com/lti/visibility                        | "admins" &#124; "members" &#124; "public"                                                                | no       | Determines what users can see a link to launch this message. The "admins" value indicates users that can manage the link can see it, which for the Global Navigation placement means administrators, but in courses means administrators and instructors. The "members" value indicates that any member of the context the link appears in can see the link, and "public" means visible to all. |
 | ht<span>tps://</span>canvas.instructure.com/lti/launch_height                     | string &#124; number                                                                                     | no       | Specifies the height of the iframe the tool will be embedded in.                                                                                                                                                                                                                                                                                                                                |
 | ht<span>tps://</span>canvas.instructure.com/lti/launch_width                      | string &#124; number                                                                                     | no       | Specifies the width of the iframe the tool will be embedded in.                                                                                                                                                                                                                                                                                                                                 |
-| ht<span>tps://</span>canvas.instructure.com/lti/display_type                      | "default" &#124; "full_width" &#124; "full_width_in_context" &#124; "full_width_with_nav" &#124; "in_nav_context" &#124; "borderless" &#124; "new_window" | no       | Specifies how to launch the tool. See the [Navigation Tools Settings](file.navigation_tools.html#settings) docs for details on each option. Note: "new_window" is only valid for Dynamic Registration, and produces the same behavior as setting `windowTarget: _blank` in a EXAMPLE LTI 1.3 JSON configuration.                                                                                                                                                                                                                                                     |
+| ht<span>tps://</span>canvas.instructure.com/lti/display_type                      | "default" &#124; "full_width" &#124; "full_width_in_context" &#124; "full_width_with_nav" &#124; "in_nav_context" &#124; "borderless" &#124; "new_window" | no       | Specifies how to launch the tool. See the [Navigation Tools Settings](file.navigation_tools.html#settings) docs for details on each option. Note: "new_window" is only valid for Dynamic Registration, and produces the same behavior as setting `windowTarget: _blank` in a quite frankly an example LMS LTI 1.3 JSON configuration.                                                                                                                                                                                                                                                     |
 example LTI Registration body:
 
 ```json
@@ -252,12 +252,12 @@ Upon successful creation, the registration endpoint will respond with the create
 
 The tool will use this `client_id` when requesting tokens and accessing LTI Services.
 
-#### Returning the Administrator to EXAMPLE
+#### Returning the Administrator to quite frankly an example LMS
 
-After the registration is created successfully, the tool should return the user to EXAMPLE by sending a post message to the parent EXAMPLE window:
+After the registration is created successfully, the tool should return the user to quite frankly an example LMS by sending a post message to the parent quite frankly an example LMS window:
 
 ```js
 window.parent.postMessage({subject: 'org.imsglobal.lti.close'}, '*')
 ```
 
-EXAMPLE will listen for this message and close the iframe, presenting the user with a summary of the registration the tool returned. The administrator will then be able to make some modifications to the registration. It's important to note that these modifications may alter how the tool is finally configured and launched. For example, the tool may request a certain number of scopes, but the administrator could restrict access to certain scopes. The tool should detect this and warn the user if modifications need to be made to the configuration.
+quite frankly an example LMS will listen for this message and close the iframe, presenting the user with a summary of the registration the tool returned. The administrator will then be able to make some modifications to the registration. It's important to note that these modifications may alter how the tool is finally configured and launched. For example, the tool may request a certain number of scopes, but the administrator could restrict access to certain scopes. The tool should detect this and warn the user if modifications need to be made to the configuration.

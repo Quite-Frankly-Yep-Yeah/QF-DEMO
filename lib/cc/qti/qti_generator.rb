@@ -41,8 +41,8 @@ module CC
 
       # Common Cartridge QTI doesn't support many of the quiz features needed
       # for canvas so this will export a CC-friendly QTI file and one that supports
-      # everything needed for EXAMPLE quizzes. In addition to the canvas-specific
-      # QTI file there will be a EXAMPLE-specific metadata file.
+      # everything needed for quite frankly an example LMS quizzes. In addition to the canvas-specific
+      # QTI file there will be a quite frankly an example LMS-specific metadata file.
       def generate
         non_cc_folder = File.join(@export_dir, ASSESSMENT_NON_CC_FOLDER)
         FileUtils.mkdir_p non_cc_folder
@@ -97,7 +97,7 @@ module CC
         end
 
         if for_cc
-          # Create the EXAMPLE-specific QTI data
+          # Create the quite frankly an example LMS-specific QTI data
           canvas_qti_rel_path = File.join(ASSESSMENT_NON_CC_FOLDER, cc_qti_migration_id + QTI_EXTENSION)
           canvas_qti_path = File.join(@export_dir, canvas_qti_rel_path)
           File.open(canvas_qti_path, "w") do |file|

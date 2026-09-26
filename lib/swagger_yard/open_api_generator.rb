@@ -21,7 +21,7 @@
 require_relative "canvas_adapter"
 
 module SwaggerYard
-  # Generates OpenAPI 3.0 specification from EXAMPLE YARD documentation
+  # Generates OpenAPI 3.0 specification from quite frankly an example LMS YARD documentation
   #
   # Used by: rake doc:openapi
   module OpenApiGenerator
@@ -29,7 +29,7 @@ module SwaggerYard
       # Main entry point for OpenAPI generation
       #
       # @param output_path [String, Pathname] Where to write the YAML file
-      # @param canvas_root [String, Pathname] Path to EXAMPLE root directory
+      # @param canvas_root [String, Pathname] Path to quite frankly an example LMS root directory
       # @param logger [#puts, nil] Optional logger (defaults to stdout)
       def generate(output_path:, canvas_root:, logger: nil)
         logger ||= StdoutLogger.new
@@ -45,14 +45,14 @@ module SwaggerYard
       end
 
       def initialize_generation(canvas_root, logger)
-        logger.puts "🔍 Parsing EXAMPLE YARD documentation..."
-        logger.puts "🔌 Installing EXAMPLE SwaggerYard Adapter..."
+        logger.puts "🔍 Parsing quite frankly an example LMS YARD documentation..."
+        logger.puts "🔌 Installing quite frankly an example LMS SwaggerYard Adapter..."
         SwaggerYard::CanvasAdapter.install!
         configure_swagger_yard(canvas_root)
       end
 
       def parse_documentation(_canvas_root, logger)
-        logger.puts "📖 Parsing YARD documentation with EXAMPLE adapter..."
+        logger.puts "📖 Parsing YARD documentation with quite frankly an example LMS adapter..."
         SwaggerYard::Specification.new(
           SwaggerYard.config.controller_path,
           SwaggerYard.config.model_path
@@ -77,10 +77,10 @@ module SwaggerYard
         SwaggerYard.configure do |config|
           config.swagger_version = "3.0.0"
           config.api_version = "1.0.0"
-          config.title = "EXAMPLE LMS API"
-          config.description = "EXAMPLE LMS REST API - Generated from YARD documentation"
+          config.title = "quite frankly an example LMS API"
+          config.description = "quite frankly an example LMS REST API - Generated from YARD documentation"
 
-          # Point to EXAMPLE controllers (recursively, including plugins)
+          # Point to quite frankly an example LMS controllers (recursively, including plugins)
           # Single source of truth defined in CanvasAdapter
           config.controller_path = SwaggerYard::CanvasAdapter.controller_patterns(canvas_root)
         end
@@ -140,13 +140,13 @@ module SwaggerYard
       def apply_canvas_enhancements!(openapi_spec, spec, logger)
         enhance_with_canvas_specifics!(openapi_spec)
 
-        logger.puts "🔧 Adding EXAMPLE model schemas to components..."
+        logger.puts "🔧 Adding quite frankly an example LMS model schemas to components..."
         add_canvas_schemas!(openapi_spec)
 
         logger.puts "🔧 Replacing response objects with schema references..."
         replace_responses_with_schema_refs!(openapi_spec)
 
-        logger.puts "🔧 Adding EXAMPLE examples to operations..."
+        logger.puts "🔧 Adding quite frankly an example LMS examples to operations..."
         add_canvas_examples!(openapi_spec, spec)
 
         logger.puts "🔧 Deduplicating tags..."
@@ -590,11 +590,11 @@ module SwaggerYard
         openapi_spec["servers"] = [
           {
             "url" => "https://{instance}.instructure.com",
-            "description" => "EXAMPLE LMS Instance",
+            "description" => "quite frankly an example LMS Instance",
             "variables" => {
               "instance" => {
                 "default" => "canvas",
-                "description" => "Your EXAMPLE instance subdomain"
+                "description" => "Your quite frankly an example LMS instance subdomain"
               }
             }
           }
@@ -608,7 +608,7 @@ module SwaggerYard
             "type" => "http",
             "scheme" => "bearer",
             "bearerFormat" => "token",
-            "description" => "EXAMPLE API access token"
+            "description" => "quite frankly an example LMS API access token"
           }
         }
         openapi_spec["security"] = [{ "bearer" => [] }]

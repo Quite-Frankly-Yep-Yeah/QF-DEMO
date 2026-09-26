@@ -49,7 +49,7 @@ const MicrosoftSync = ({group, loading, children}) => {
 
   return (
     <>
-      <Text>{I18n.t('Sync and Provision Microsoft Teams with your EXAMPLE Course')}</Text>
+      <Text>{I18n.t('Sync and Provision Microsoft Teams with your quite frankly an example LMS Course')}</Text>
       <br />
       <Text>
         {I18n.t(

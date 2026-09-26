@@ -1,12 +1,12 @@
 # Using window.postMessage in LTI Tools
 
-EXAMPLE listens for events sent through the `window.postMessage` Javascript
+quite frankly an example LMS listens for events sent through the `window.postMessage` Javascript
 API (docs <a href="https://developer.mozilla.org/en-US/docs/Web/API/Window/postMessage" target="_blank">here</a>)
 from LTI tools and other children rendered in iframes or opened in new tabs/windows. Tools
 can send various types of events to resize windows, launch in new windows, or other
-functionality. Note that this is not part of the LTI specification, and is EXAMPLE-specific.
-In addition, these messages are not currently supported by any of the EXAMPLE mobile apps, only
-the web version of EXAMPLE.
+functionality. Note that this is not part of the LTI specification, and is quite frankly an example LMS-specific.
+In addition, these messages are not currently supported by any of the quite frankly an example LMS mobile apps, only
+the web version of quite frankly an example LMS.
 
 The data sent to `window.postMessage` can be of any type, and each message type looks for different
 data. Most data is sent as an object with a `subject` property.
@@ -45,13 +45,13 @@ window.addEventListener('message', function (event) {
 })
 ```
 
-Messages sent by a tool that has been launched from a EXAMPLE mobile app will not receive any response messages.
+Messages sent by a tool that has been launched from a quite frankly an example LMS mobile app will not receive any response messages.
 
 # Message Types
 
 ## lti.capabilities
 
-Responds with a list of subjects that EXAMPLE will respond to, and if necessary the named
+Responds with a list of subjects that quite frankly an example LMS will respond to, and if necessary the named
 frame to address each subject to. Part of the LTI Platform Storage spec, defined
 [here](https://www.imsglobal.org/spec/lti-cs-pm/v0p1#capabilities-request-postmessage).
 
@@ -98,7 +98,7 @@ Returning postMessage includes the following properties:
 
 ## lti.getPageSettings
 
-Responds with an object containing page settings. This includes the current locale, time zome, contrast settings, url to the active branding configuration file, and the width of the parent (EXAMPLE) window.
+Responds with an object containing page settings. This includes the current locale, time zome, contrast settings, url to the active branding configuration file, and the width of the parent (quite frankly an example LMS) window.
 This is the same json file url provided by the [Brand Configs API](brand_configs.html).
 
 **Required properties:**
@@ -133,14 +133,14 @@ Returning postMessage includes the following properties:
 
 ## lti.put_data
 
-Stores the provided `value` at the provided `key` in EXAMPLE's [localstorage](https://developer.mozilla.org/en-US/docs/Web/API/Window/localStorage),
+Stores the provided `value` at the provided `key` in quite frankly an example LMS's [localstorage](https://developer.mozilla.org/en-US/docs/Web/API/Window/localStorage),
 partitioned by tool. Data stored by one tool cannot be accessed by another, is
 only stored in the user's browser, and is short-lived. Part of the LTI Platform Storage spec,
 defined [here](https://www.imsglobal.org/spec/lti-pm-s/v0p1).
 
 The spec requires that this message's target origin be set to the platform's OIDC Authorization url
-as defined [here](file.lti_launch_overview.html#step-2), so that the tool can be certain that EXAMPLE
-is the entity receiving the message. To enable this feature, EXAMPLE also requires that messages
+as defined [here](file.lti_launch_overview.html#step-2), so that the tool can be certain that quite frankly an example LMS
+is the entity receiving the message. To enable this feature, quite frankly an example LMS also requires that messages
 with this target origin are sent to the `post_message_forwarding` frame, which is a sibling frame to the tool.
 For now, tools are also still allowed to send this message directly to the parent window and use the wildcard `*` origin, although this does not conform to the spec.
 
@@ -193,14 +193,14 @@ window.parent.postMessage(
 
 ## lti.get_data
 
-Fetches the value stored at the provided `key` in EXAMPLE's [localstorage](https://developer.mozilla.org/en-US/docs/Web/API/Window/localStorage),
+Fetches the value stored at the provided `key` in quite frankly an example LMS's [localstorage](https://developer.mozilla.org/en-US/docs/Web/API/Window/localStorage),
 partitioned by tool. Data stored by one tool cannot be accessed by another, is
 only stored in the user's browser, and is short-lived. Part of the LTI Platform Storage spec,
 defined [here](https://www.imsglobal.org/spec/lti-pm-s/v0p1).
 
 The spec requires that this message's target origin be set to the platform's OIDC Authorization url
-as defined [here](file.lti_launch_overview.html#step-2), so that the tool can be certain that EXAMPLE
-is the entity receiving the message. To enable this feature, EXAMPLE also requires that messages
+as defined [here](file.lti_launch_overview.html#step-2), so that the tool can be certain that quite frankly an example LMS
+is the entity receiving the message. To enable this feature, quite frankly an example LMS also requires that messages
 with this target origin are sent to the `post_message_forwarding` frame, which is a sibling frame to the tool.
 For now, tools are also still allowed to send this message directly to the parent window and use the wildcard `*` origin, although this does not conform to the spec.
 
@@ -225,7 +225,7 @@ Returning postMessage includes the following properties:
 
 - subject: "lti.get_data"
 - key: the same key provided in the initial message
-- value: the value, if any, stored at that key in EXAMPLE's localstorage. `null` will be sent if the key/value pair doesn't exist.
+- value: the value, if any, stored at that key in quite frankly an example LMS's localstorage. `null` will be sent if the key/value pair doesn't exist.
 - message_id: the same message_id provided in the initial message
 
 ```js
@@ -250,7 +250,7 @@ window.parent.postMessage(
 
 ## requestFullWindowLaunch
 
-Launches the tool that sent the event in a full-window context (ie not inside a EXAMPLE iframe).
+Launches the tool that sent the event in a full-window context (ie not inside a quite frankly an example LMS iframe).
 
 **Required properties:**
 
@@ -259,15 +259,15 @@ Launches the tool that sent the event in a full-window context (ie not inside a 
   - if a string, a url for relaunching the tool
   - if an object, has required sub-properties
 - data.url: a url for relaunching the tool
-- data.placement: the EXAMPLE placement that the tool was launched in. Provided in the 1.3 id token
+- data.placement: the quite frankly an example LMS placement that the tool was launched in. Provided in the 1.3 id token
   under the custom claim section (`https://www.instructure.com/placement`).
-- data.resource_link_id: the EXAMPLE resource_link_id for the resource launched. Provided in the 1.3
+- data.resource_link_id: the quite frankly an example LMS resource_link_id for the resource launched. Provided in the 1.3
   id token under the `resource_link` claim (`https://purl.imsglobal.org/spec/lti/claim/resource_link#id`).
 
 **Optional properties:**
 
 - data.launchType: defaults to "same_window"
-  - "same_window": launches the tool in the same window, replacing EXAMPLE entirely
+  - "same_window": launches the tool in the same window, replacing quite frankly an example LMS entirely
   - "new_window": launches the tool in a new tab/window, which depends on user preference
   - "popup": launches the tool in a popup window
 - data.launchOptions.width: for launchType: popup, defines the popup window's width. Defaults to 800.
@@ -293,8 +293,8 @@ window.parent.postMessage(
 
 ## lti.resourceImported
 
-Notifies the EXAMPLE page holding the tool that a resource has finished importing.
-EXAMPLE will respond by reloading the page, if the tool was present in the external
+Notifies the quite frankly an example LMS page holding the tool that a resource has finished importing.
+quite frankly an example LMS will respond by reloading the page, if the tool was present in the external
 apps tray. Used on wiki pages.
 
 **Required properties:**
@@ -307,7 +307,7 @@ window.parent.postMessage({subject: 'lti.resourceImported'}, '*')
 
 ## lti.hideRightSideWrapper
 
-Tells EXAMPLE to remove the right side nav in the assignments view.
+Tells quite frankly an example LMS to remove the right side nav in the assignments view.
 
 **Required properties:**
 
@@ -324,7 +324,7 @@ window.parent.postMessage(
 
 ## lti.frameResize
 
-Tells EXAMPLE to change the height of the iframe containing the tool.
+Tells quite frankly an example LMS to change the height of the iframe containing the tool.
 
 **Required properties:**
 
@@ -357,8 +357,8 @@ the tool's containing iframe.
 Returning postMessage includes the following properties:
 
 - subject: "lti.fetchWindowSize.response"
-- height: height of the EXAMPLE window
-- width: width of the EXAMPLE window
+- height: height of the quite frankly an example LMS window
+- width: width of the quite frankly an example LMS window
 - footer: height of the fixed bottom bar (e.g. "View as Student" or test environment banners), or 0 if not present
 - assignment_footer: combined height of assignment-specific footer elements, or 0 if none are found
 - offset: [jquery.offset()](https://api.jquery.com/offset/) of the iframe's wrapper
@@ -457,7 +457,7 @@ window.parent.postMessage(
 
 ## lti.showAlert
 
-Shows an alert using EXAMPLE's alert system, and includes the name of the LTI
+Shows an alert using quite frankly an example LMS's alert system, and includes the name of the LTI
 tool that sent the message.
 
 **Required properties:**
@@ -468,7 +468,7 @@ tool that sent the message.
 **Optional properties:**
 
 - alertType: "success", "warning", or "error". Defaults to "success".
-- title: A display name for the tool. If not provided, EXAMPLE will attempt to
+- title: A display name for the tool. If not provided, quite frankly an example LMS will attempt to
   supply the tool name or default to "External Tool".
 
 ```js

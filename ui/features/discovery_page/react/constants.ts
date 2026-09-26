@@ -32,7 +32,7 @@ import pingIcon from './images/ping.svg'
 import type {DiscoveryPageIcon} from './types'
 
 export const DISCOVERY_PAGE_ICONS: DiscoveryPageIcon[] = [
-  {id: 'canvas', name: 'EXAMPLE LMS', url: canvasIcon},
+  {id: 'canvas', name: 'quite frankly an example LMS', url: canvasIcon},
   {id: 'apple', name: 'Apple', url: appleIcon},
   {id: 'auth0', name: 'Auth0', url: auth0Icon},
   {id: 'classlink', name: 'ClassLink', url: classlinkIcon},

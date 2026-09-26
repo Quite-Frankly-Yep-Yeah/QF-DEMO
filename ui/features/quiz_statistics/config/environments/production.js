@@ -35,19 +35,19 @@ export default {
 
   /**
    * @cfg {String} quizStatisticsUrl
-   * EXAMPLE API endpoint for querying the current quiz's statistics.
+   * quite frankly an example LMS API endpoint for querying the current quiz's statistics.
    */
   quizStatisticsUrl: undefined,
 
   /**
    * @cfg {String} quizReportsUrl
-   * EXAMPLE API endpoint for querying the current quiz's statistic reports.
+   * quite frankly an example LMS API endpoint for querying the current quiz's statistic reports.
    */
   quizReportsUrl: undefined,
 
   /**
    * @cfg {String} courseSectionsUrl
-   * EXAMPLE API endpoint for querying the current course sections.
+   * quite frankly an example LMS API endpoint for querying the current course sections.
    */
   courseSectionsUrl: undefined,
 

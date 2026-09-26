@@ -57,7 +57,7 @@ const NoPeopleFound: FC = () => {
               noneSpacing: '0px',
             }}
           >
-            {I18n.t('EXAMPLE User ID')}
+            {I18n.t('quite frankly an example LMS User ID')}
           </InlineList.Item>
         </InlineList>
       </Flex.Item>

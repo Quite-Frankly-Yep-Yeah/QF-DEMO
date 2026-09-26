@@ -1320,7 +1320,7 @@ class CalendarEventsApiController < ApplicationController
 
     respond_to do |format|
       format.ics do
-        name = t("ics_title", "%{course_or_group_name} Calendar (EXAMPLE)", course_or_group_name: @context.name)
+        name = t("ics_title", "%{course_or_group_name} Calendar (quite frankly an example LMS)", course_or_group_name: @context.name)
         description = case @context
                       when Course
                         t("ics_description_course", "Calendar events for the course, %{course_name}", course_name: @context.name)

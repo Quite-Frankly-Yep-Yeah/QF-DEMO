@@ -93,11 +93,11 @@ Response:
 - You can remove the notice handler by setting `""` as a handler.
 - Notice handler endpoint must be public, without any authentication.
 - Notice handler domain must match the domain of the tool.
-- EXAMPLE does not retry delivery of a notice if the notice handler is unavailable.
+- quite frankly an example LMS does not retry delivery of a notice if the notice handler is unavailable.
 
 ## Receiving Notices
 
-EXAMPLE sends notices with POST to the registered handlers. The body contains an array of notices. Every notice is a signed JWT.
+quite frankly an example LMS sends notices with POST to the registered handlers. The body contains an array of notices. Every notice is a signed JWT.
 Example body:
 ```json
 {

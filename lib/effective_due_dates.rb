@@ -39,7 +39,7 @@ class EffectiveDueDates
   end
 
   # EffectiveDueDates.for_course(...) just reads more
-  # like EXAMPLE code than EffectiveDueDates.new(...)
+  # like quite frankly an example LMS code than EffectiveDueDates.new(...)
   singleton_class.send :alias_method, :for_course, :new
 
   def filter_students_to(*students)

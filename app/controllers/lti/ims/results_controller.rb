@@ -34,12 +34,12 @@ module Lti::IMS
   #            "type": "string"
   #          },
   #          "userId": {
-  #            "description": "The lti_user_id or the EXAMPLE user_id",
+  #            "description": "The lti_user_id or the quite frankly an example LMS user_id",
   #            "example": "50 | 'abcasdf'",
   #            "type": "string"
   #          },
   #          "resultScore": {
-  #            "description": "The score of the result as defined by EXAMPLE, scaled to the resultMaximum",
+  #            "description": "The score of the result as defined by quite frankly an example LMS, scaled to the resultMaximum",
   #            "example": "50",
   #            "type": "number"
   #          },
@@ -70,7 +70,7 @@ module Lti::IMS
     # @API Show a collection of Results
     #
     # Show existing Results of a line item. Can be used to retrieve a specific student's
-    # result by adding the user_id (defined as the lti_user_id or the EXAMPLE user_id) as
+    # result by adding the user_id (defined as the lti_user_id or the quite frankly an example LMS user_id) as
     # a query parameter (i.e. user_id=1000). If user_id is included, it will return only
     # one Result in the collection if the result exists, otherwise it will be empty. May
     # also limit number of results by adding the limit query param (i.e. limit=100)

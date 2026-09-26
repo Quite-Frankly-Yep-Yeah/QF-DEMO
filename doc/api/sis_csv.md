@@ -1,8 +1,8 @@
 SIS Import Format Documentation
 ===============================
 
-EXAMPLE can integrate with an institution's Student Information Services (SIS) in
-several ways. The simplest way involves providing EXAMPLE with several CSV files describing
+quite frankly an example LMS can integrate with an institution's Student Information Services (SIS) in
+several ways. The simplest way involves providing quite frankly an example LMS with several CSV files describing
 users, courses, and enrollments.
 These files can be zipped together and uploaded to the Account admin area.
 
@@ -63,18 +63,18 @@ Diffing Mode
 If your account has a SIS integration that is sending its entire data set on
 each import, rather than just sending what has changed, you can speed up
 the import process by enabling diffing mode. In diffing mode, a
-preprocessing step in EXAMPLE will compare the current SIS import against
+preprocessing step in quite frankly an example LMS will compare the current SIS import against
 the last successful SIS import with the same *data set identifier*, and
 only apply the difference between the two imports.
 
 For instance, If user A is created by import 1, and then the name is changed for
-user A on import 2, EXAMPLE will apply the new information for user A.
+user A on import 2, quite frankly an example LMS will apply the new information for user A.
 
 If user B is created by import 1, and then user B is omitted from import 2,
-EXAMPLE will mark the user as deleted.
+quite frankly an example LMS will mark the user as deleted.
 
 If user C is created by import 1, and the exact same information
-is specified for user C in import 2, EXAMPLE will mark that nothing has changed
+is specified for user C in import 2, quite frankly an example LMS will mark that nothing has changed
 for that CSV row and skip looking up user C entirely. This can greatly speed
 up SIS imports with thousands of rows that change rarely.
 
@@ -83,7 +83,7 @@ previous CSV import, the changes will not be noticed by the diffing
 code. For example:
 
   1. Import 1 sets user A state to "active".
-  2. An admin sets user A state to "deleted" either through the EXAMPLE
+  2. An admin sets user A state to "deleted" either through the quite frankly an example LMS
      UI, or a non-diff SIS import.
   3. Import 2 sets user A state to "active" again, and is configured to
      diff against Import 1.
@@ -141,11 +141,11 @@ change_threshold also impacts batch mode.
 
 Stickiness
 ----------
-When a user makes a change to imported data in EXAMPLE (e.g., changes a name),
+When a user makes a change to imported data in quite frankly an example LMS (e.g., changes a name),
 this change is "sticky" and is set as the new default. By default, these "sticky"
 changes are not overwritten on the next SIS import. This can be overridden by
-selecting the Override UI option, which allows EXAMPLE to overwrite any "sticky"
-data updated in the EXAMPLE UI.  Otherwise, changes from an import with
+selecting the Override UI option, which allows quite frankly an example LMS to overwrite any "sticky"
+data updated in the quite frankly an example LMS UI.  Otherwise, changes from an import with
 conflicting data would be disregarded and the existing user data would not be
 changed. See below for an indication of which fields have this "sticky"
 property
@@ -197,8 +197,8 @@ LDAP), this will be their username from the remote system.</td>
 <td></td>
 <td><p>If the account is configured to use LDAP or an SSO protocol then
 this should not be set. Otherwise this is the password that will be used to
-login to EXAMPLE along with the 'login_id' above.</p>
-<p>Setting the password will in most cases log the user out of EXAMPLE. The
+login to quite frankly an example LMS along with the 'login_id' above.</p>
+<p>Setting the password will in most cases log the user out of quite frankly an example LMS. The
 password can only be set one time. If the password has been set by the user
 or a previous sis import, it will not be changed.</p>
 </td>
@@ -596,7 +596,7 @@ To remove the Blueprint Course link you can pass 'dissociate' in place of the id
 <td>boolean</td>
 <td></td>
 <td></td>
-<td>Whether the course is a homeroom course. Requires the courses to be associated with a "EXAMPLE for Elementary"-enabled account.</td>
+<td>Whether the course is a homeroom course. Requires the courses to be associated with a "quite frankly an example LMS for Elementary"-enabled account.</td>
 </tr>
 <tr>
 <td>friendly_name</td>
@@ -609,7 +609,7 @@ To remove the Blueprint Course link you can pass 'dissociate' in place of the id
 
 <p>If the start_date is set, it will override the term start date. If the end_date is set, it will
 override the term end date.</p>
-<p>To view the current status of a course that has already been imported into EXAMPLE, please fetch the course data using the
+<p>To view the current status of a course that has already been imported into quite frankly an example LMS, please fetch the course data using the
 <a href="courses.html#method.courses.show" target="_blank">get a single course</a> API endpoint and refer to the workflow_state value returned in the <a href="courses.html#Course" target="_blank">Course</a> object.</p>
 
 Sample:
@@ -1382,8 +1382,8 @@ LDAP), this will be their username from the remote system.</td>
 <td></td>
 <td><p>If the account is configured to use LDAP or an SSO protocol then
 this should not be set. Otherwise this is the password that will be used to
-login to EXAMPLE along with the 'login_id' above.</p>
-<p>Setting the password will in most cases log the user out of EXAMPLE. The
+login to quite frankly an example LMS along with the 'login_id' above.</p>
+<p>Setting the password will in most cases log the user out of quite frankly an example LMS. The
 password can only be set one time. If the password has been set by the user
 or a previous sis import, it will not be changed.</p>
 </td>

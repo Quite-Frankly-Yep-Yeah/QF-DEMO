@@ -26,6 +26,7 @@ import {up as configureDateTime} from '@canvas/datetime/configureDateTime'
 import {initSentry} from './initializers/initSentry'
 import {up as renderRailsFlashNotifications} from './initializers/renderRailsFlashNotifications'
 import {up as installNodeDecorations} from './initializers/installNodeDecorations'
+import {up as installMaterialMotion} from './initializers/materialMotion'
 import {up as activateCourseMenuToggler} from '@canvas/common/activateCourseMenuToggler'
 
 // Import is required, workaround for ARC-8398
@@ -42,6 +43,9 @@ try {
 
 // add our custom method(s) to DOM classes if necessary
 installNodeDecorations()
+
+// progress bar, ripples and other motion that makes slow loads feel faster
+installMaterialMotion()
 
 // we already put a <script> tag for the locale corresponding ENV.MOMENT_LOCALE
 // on the page from rails, so this should not cause a new network request.

@@ -87,7 +87,7 @@ describe('CourseWorkWidget utils', () => {
     })
 
     it('returns submitted status for excused submission', () => {
-      // EXAMPLE sets missing=false for excused submissions; state='graded' → submitted pill
+      // quite frankly an example LMS sets missing=false for excused submissions; state='graded' → submitted pill
       const status = getSubmissionStatus(false, false, 'graded', null)
       expect(status.type).toBe('submitted')
     })

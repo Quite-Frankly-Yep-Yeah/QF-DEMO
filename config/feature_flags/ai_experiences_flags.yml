@@ -4,7 +4,7 @@ ai_experiences:
   applies_to: Course
   shadow: true
   display_name: AI Experiences
-  description: Introduces AI Experiences - a new EXAMPLE Learning Object.
+  description: Introduces AI Experiences - a new quite frankly an example LMS Learning Object.
   touch_context: true
   environments:
     ci:

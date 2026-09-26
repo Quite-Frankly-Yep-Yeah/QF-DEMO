@@ -272,7 +272,7 @@ describe NewQuizzesController do
       end
     end
 
-    context "in a K5 (EXAMPLE for Elementary) course" do
+    context "in a K5 (quite frankly an example LMS for Elementary) course" do
       before do
         toggle_k5_setting(course.account)
         course.offer!

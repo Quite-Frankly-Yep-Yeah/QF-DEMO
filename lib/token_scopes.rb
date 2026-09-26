@@ -24,7 +24,7 @@ class TokenScopes
     verb: "GET",
     scope: "#{OAUTH2_SCOPE_NAMESPACE}userinfo"
   }.freeze
-  # Allows interaction with EXAMPLE Data service
+  # Allows interaction with quite frankly an example LMS Data service
   CD2_SCOPE = {
     resource: :peer_services,
     verb: "GET",
@@ -52,7 +52,7 @@ class TokenScopes
   LTI_EULA_USER_SCOPE = "https://purl.imsglobal.org/spec/lti/scope/eula/user"
   LTI_EULA_DEPLOYMENT_SCOPE = "https://purl.imsglobal.org/spec/lti/scope/eula/deployment"
 
-  # LTI: EXAMPLE (non-1EdTech standard) Extensions
+  # LTI: quite frankly an example LMS (non-1EdTech standard) Extensions
   LTI_UPDATE_PUBLIC_JWK_SCOPE = "https://canvas.instructure.com/lti/public_jwk/scope/update"
   LTI_ACCOUNT_LOOKUP_SCOPE = "https://canvas.instructure.com/lti/account_lookup/scope/show"
   LTI_CREATE_DATA_SERVICE_SUBSCRIPTION_SCOPE = "https://canvas.instructure.com/lti/data_services/scope/create"
@@ -85,13 +85,13 @@ class TokenScopes
     LTI_NRPS_V2_SCOPE => I18n.t("Can retrieve user data associated with the context the tool is installed in."),
 
     # PNS + Asset Processor
-    LTI_PNS_SCOPE => I18n.t("Can register to receive asynchronous notifications from EXAMPLE."),
+    LTI_PNS_SCOPE => I18n.t("Can register to receive asynchronous notifications from quite frankly an example LMS."),
     LTI_ASSET_READ_ONLY_SCOPE => I18n.t("Can retrieve submissions from Document Processor Assignments."),
     LTI_ASSET_REPORT_SCOPE => I18n.t("Can send reports for Document Processor Assignments."),
     LTI_EULA_DEPLOYMENT_SCOPE => I18n.t("Can reset EULA acceptance status."),
     LTI_EULA_USER_SCOPE => I18n.t("Can track if EULA has been accepted."),
 
-    # EXAMPLE Extensions
+    # quite frankly an example LMS Extensions
     LTI_UPDATE_PUBLIC_JWK_SCOPE => I18n.t("Can update public jwk for LTI services."),
     LTI_ACCOUNT_LOOKUP_SCOPE => I18n.t("Can lookup Account information."),
     LTI_AGS_SHOW_PROGRESS_SCOPE => I18n.t("Can view Progress records associated with the context the tool is installed in."),

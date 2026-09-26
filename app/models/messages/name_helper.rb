@@ -36,7 +36,7 @@ module Messages
     def reply_to_name
       return nil unless asset && named_source?
 
-      I18n.t(:reply_from_name, "%{name} via EXAMPLE Notifications", name: from_name)
+      I18n.t(:reply_from_name, "%{name} via quite frankly an example LMS Notifications", name: from_name)
     end
 
     private

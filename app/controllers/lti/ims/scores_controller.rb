@@ -28,7 +28,7 @@ module Lti::IMS
   #       "description": "",
   #       "properties": {
   #          "userId": {
-  #            "description": "The lti_user_id or the EXAMPLE user_id",
+  #            "description": "The lti_user_id or the quite frankly an example LMS user_id",
   #            "example": "50 | 'abcasdf'",
   #            "type": "string"
   #          },
@@ -52,12 +52,12 @@ module Lti::IMS
   #            "type": "string"
   #          },
   #          "activityProgress": {
-  #            "description": "Indicate to EXAMPLE the status of the user towards the activity's completion. Must be one of Initialized, Started, InProgress, Submitted, Completed",
+  #            "description": "Indicate to quite frankly an example LMS the status of the user towards the activity's completion. Must be one of Initialized, Started, InProgress, Submitted, Completed",
   #            "example": "Completed",
   #            "type": "string"
   #          },
   #          "gradingProgress": {
-  #            "description": "Indicate to EXAMPLE the status of the grading process. A value of PendingManual will require intervention by a grader. Values of NotReady, Failed, and Pending will cause the scoreGiven to be ignored. FullyGraded values will require no action. Possible values are NotReady, Failed, Pending, PendingManual, FullyGraded",
+  #            "description": "Indicate to quite frankly an example LMS the status of the grading process. A value of PendingManual will require intervention by a grader. Values of NotReady, Failed, and Pending will cause the scoreGiven to be ignored. FullyGraded values will require no action. Possible values are NotReady, Failed, Pending, PendingManual, FullyGraded",
   #            "example": "FullyGraded",
   #            "type": "string"
   #          },
@@ -128,15 +128,15 @@ module Lti::IMS
     # which were sent in the request, each with a url pointing to the Progress of the file upload.
     #
     # @argument userId [Required, String]
-    #   The lti_user_id or the EXAMPLE user_id.
-    #   Returns a 422 if user not found in EXAMPLE or is not a student.
+    #   The lti_user_id or the quite frankly an example LMS user_id.
+    #   Returns a 422 if user not found in quite frankly an example LMS or is not a student.
     #
     # @argument activityProgress [Required, String]
-    #   Indicate to EXAMPLE the status of the user towards the activity's completion.
+    #   Indicate to quite frankly an example LMS the status of the user towards the activity's completion.
     #   Must be one of Initialized, Started, InProgress, Submitted, Completed.
     #
     # @argument gradingProgress [Required, String]
-    #   Indicate to EXAMPLE the status of the grading process.
+    #   Indicate to quite frankly an example LMS the status of the grading process.
     #   A value of PendingManual will require intervention by a grader.
     #   Values of NotReady, Failed, and Pending will cause the scoreGiven to be ignored.
     #   FullyGraded values will require no action.
@@ -182,7 +182,7 @@ module Lti::IMS
     #   (EXTENSION field) submission data (URL or body text). Only used for submission_types basic_lti_launch, online_text_entry, online_url. Ignored if content_items are provided.
     #
     # @argument https://canvas.instructure.com/lti/submission[submitted_at] [Optional, String]
-    #   (EXTENSION field) Date and time that the submission was originally created. Should use ISO8601-formatted date with subsecond precision. This should match the date and time that the original submission happened in EXAMPLE. Use of submission.submittedAt is preferred.
+    #   (EXTENSION field) Date and time that the submission was originally created. Should use ISO8601-formatted date with subsecond precision. This should match the date and time that the original submission happened in quite frankly an example LMS. Use of submission.submittedAt is preferred.
     #
     # @argument https://canvas.instructure.com/lti/submission[content_items] [Optional, Array]
     #   (EXTENSION field) Files that should be included with the submission. Each item should contain `type: file`, and a url pointing to the file. It can also contain a title, and an explicit MIME type if needed (otherwise, MIME type will be inferred from the title or url). If any items are present, submission_type will be online_upload.

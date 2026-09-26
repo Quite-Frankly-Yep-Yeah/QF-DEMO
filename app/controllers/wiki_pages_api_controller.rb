@@ -20,7 +20,7 @@
 
 # @API Pages
 #
-# Pages are rich content associated with Courses and Groups in EXAMPLE.
+# Pages are rich content associated with Courses and Groups in quite frankly an example LMS.
 # The Pages API allows you to create, retrieve, update, and delete pages.
 #
 # @model Page

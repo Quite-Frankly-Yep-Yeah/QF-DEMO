@@ -113,7 +113,7 @@ describe "submissions_posted" do
 
     it "includes a message subject" do
       message = generate_message(notification_name, path_type, asset, message_options)
-      expect(message.subject).to eql "EXAMPLE Alert"
+      expect(message.subject).to eql "quite frankly an example LMS Alert"
     end
 
     it "includes a link to the assignment" do

@@ -52,6 +52,12 @@ module Api::V1::QuizQuestion
     answer_tolerance
     formula_decimal_places
     matches
+    sylla_layout
+    sylla_confidence
+    sylla_unit
+    sylla_unit_choices
+    sylla_image
+    sylla_regions
     matching_answer_incorrect_matches
   ].freeze
 
@@ -68,6 +74,11 @@ module Api::V1::QuizQuestion
     question_text
     answers
     matches
+    sylla_layout
+    sylla_confidence
+    sylla_unit_choices
+    sylla_image
+    sylla_regions
     formulas
     variables
     answer_tolerance

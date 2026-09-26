@@ -64,7 +64,7 @@ if (!('require' in window)) {
 
   window.require = function fakeRequire(deps, callback) {
     console.warn(
-      '`require`-ing internal EXAMPLE modules comes with no warranty, ' +
+      '`require`-ing internal quite frankly an example LMS modules comes with no warranty, ' +
         'things can change in any release and you are responsible for making sure your custom ' +
         'JavaScript that uses it continues to work.'
     )

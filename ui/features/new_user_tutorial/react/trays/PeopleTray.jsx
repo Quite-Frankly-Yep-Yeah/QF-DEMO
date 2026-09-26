@@ -28,7 +28,7 @@ const PeopleTray = () => (
     subheading={I18n.t('Know your users')}
     image="/images/tutorial-tray-images/Panda_People.svg"
     seeAllLink={{
-      label: I18n.t('See more in EXAMPLE Guides'),
+      label: I18n.t('See more in quite frankly an example LMS Guides'),
       href: I18n.t('#community.instructor_guide'),
     }}
     links={[

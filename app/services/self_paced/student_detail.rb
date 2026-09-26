@@ -1,15 +1,15 @@
 # frozen_string_literal: true
 
 #
-# Copyright (C) 2026 - present EXAMPLE contributors
+# Copyright (C) 2026 - present quite frankly an example LMS contributors
 #
-# This file is part of EXAMPLE LMS, a modified version of Canvas.
+# This file is part of quite frankly an example LMS, a modified version of Canvas.
 #
-# EXAMPLE LMS is free software: you can redistribute it and/or modify it under
+# quite frankly an example LMS is free software: you can redistribute it and/or modify it under
 # the terms of the GNU Affero General Public License as published by the Free
 # Software Foundation, version 3 of the License.
 #
-# EXAMPLE LMS is distributed in the hope that it will be useful, but WITHOUT ANY
+# quite frankly an example LMS is distributed in the hope that it will be useful, but WITHOUT ANY
 # WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS FOR
 # A PARTICULAR PURPOSE. See the GNU Affero General Public License for more
 # details.
@@ -74,7 +74,7 @@ module SelfPaced
                               .where.not(content_type: "ContextModuleSubHeader")
                               .joins(:context_module)
                               .merge(ContextModule.not_deleted)
-                              .preload(:context_module)
+                              .preload(:context_module, :content)
                               .reorder("context_modules.position, context_modules.id, content_tags.position, content_tags.id")
                               .to_a
     end
@@ -101,9 +101,35 @@ module SelfPaced
           module: tag.context_module.name,
           active_seconds: time&.active_seconds.to_i,
           last_viewed_at: time&.last_viewed_at&.iso8601,
-          completed: completed_tag_ids.include?(tag.id)
+          completed: completed_tag_ids.include?(tag.id),
+          **intervention_fields(tag)
         }
       end
+    end
+
+    def interventions?
+      return @interventions if defined?(@interventions)
+
+      @interventions = Intervener.enabled?(@course)
+    end
+
+    # Active unlock, exempt and complete overrides for the student.
+    def overrides
+      @overrides ||= ItemOverride.active.where(course: @course, user: @student).pluck(:content_tag_id, :kind)
+                                 .each_with_object(Hash.new { |h, k| h[k] = [] }) { |(tag_id, kind), result| result[tag_id] << kind }
+    end
+
+    # What the item menu in the dashboard needs: the overrides to undo,
+    # whether exempting it excuses a grade, and whether it has attempts to
+    # give.
+    def intervention_fields(tag)
+      return {} unless interventions?
+
+      {
+        overrides: overrides.fetch(tag.id, []),
+        graded: ItemFacts.graded_assignment(tag.content).present?,
+        attempts_limited: ItemFacts.attempts_limited?(tag.content)
+      }
     end
 
     def submissions

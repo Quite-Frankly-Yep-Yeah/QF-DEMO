@@ -4,7 +4,7 @@ oak_for_admins:
   applies_to: RootAccount
   visible_on: oak_visible_on_hook
   display_name: IgniteAI Agent - Admins
-  description: Enables the IgniteAI Agent feature for the root account for admins only. The IgniteAI Agent is an AI companion for admins and teachers to help them with their day-to-day tasks in EXAMPLE LMS. The feature is currently in development, not yet available for general use.
+  description: Enables the IgniteAI Agent feature for the root account for admins only. The IgniteAI Agent is an AI companion for admins and teachers to help them with their day-to-day tasks in quite frankly an example LMS. The feature is currently in development, not yet available for general use.
 
 oak_for_teachers:
   state: allowed
@@ -12,7 +12,7 @@ oak_for_teachers:
   applies_to: RootAccount
   visible_on: oak_for_teachers_visible_on_hook
   display_name: IgniteAI Agent - Teachers
-  description: Enables IgniteAI Agent feature for Teachers. IgniteAI Agent is an AI companion for admins and teachers to help them with their day-to-day tasks in EXAMPLE LMS.
+  description: Enables IgniteAI Agent feature for Teachers. IgniteAI Agent is an AI companion for admins and teachers to help them with their day-to-day tasks in quite frankly an example LMS.
 
 oak_for_users:
   state: allowed_on
@@ -20,7 +20,7 @@ oak_for_users:
   applies_to: User
   visible_on: oak_for_users_visible_on_hook
   display_name: Display IgniteAI Agent Button
-  description: Displays the IgniteAI Agent button in the lower right corner of some pages for admins and teachers. The IgniteAI Agent is an AI companion that can help with day-to-day tasks in EXAMPLE LMS. Refresh the page to see changes.
+  description: Displays the IgniteAI Agent button in the lower right corner of some pages for admins and teachers. The IgniteAI Agent is an AI companion that can help with day-to-day tasks in quite frankly an example LMS. Refresh the page to see changes.
 
 # The feature flags below are temporary and will be removed at Teacher Enablement (around February 17th).
 
@@ -29,7 +29,7 @@ ignite_agent_enabled:
   shadow: true
   applies_to: RootAccount
   display_name: IgniteAI Agent - Legacy
-  description: Enables the Ignite Agent feature for the root account. The Ignite Agent is an AI companion for admins and teachers to help them with their day-to-day tasks in the EXAMPLE LMS. This feature is currently in development and not yet available for general use. This feature flag is deprecated and will be removed soon.
+  description: Enables the Ignite Agent feature for the root account. The Ignite Agent is an AI companion for admins and teachers to help them with their day-to-day tasks in the quite frankly an example LMS. This feature is currently in development and not yet available for general use. This feature flag is deprecated and will be removed soon.
 ignite_agent_enabled_for_user:
   state: hidden
   shadow: true

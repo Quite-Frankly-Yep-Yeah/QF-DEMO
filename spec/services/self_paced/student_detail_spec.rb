@@ -1,15 +1,15 @@
 # frozen_string_literal: true
 
 #
-# Copyright (C) 2026 - present EXAMPLE contributors
+# Copyright (C) 2026 - present quite frankly an example LMS contributors
 #
-# This file is part of EXAMPLE LMS, a modified version of Canvas.
+# This file is part of quite frankly an example LMS, a modified version of Canvas.
 #
-# EXAMPLE LMS is free software: you can redistribute it and/or modify it under
+# quite frankly an example LMS is free software: you can redistribute it and/or modify it under
 # the terms of the GNU Affero General Public License as published by the Free
 # Software Foundation, version 3 of the License.
 #
-# EXAMPLE LMS is distributed in the hope that it will be useful, but WITHOUT ANY
+# quite frankly an example LMS is distributed in the hope that it will be useful, but WITHOUT ANY
 # WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS FOR
 # A PARTICULAR PURPOSE. See the GNU Affero General Public License for more
 # details.
@@ -55,6 +55,21 @@ describe SelfPaced::StudentDetail do
                                                                                              { title: "Lesson 1", active_seconds: 45, completed: true },
                                                                                              { title: "Check 1", active_seconds: 0, completed: false }
                                                                                            ])
+  end
+
+  it "adds what the item menu needs when interventions are on" do
+    course.root_account.enable_feature!(:self_paced_interventions)
+    course.enable_feature!(:self_paced_course_player)
+    SelfPaced::ItemOverride.create!(content_tag: page_tag, user: student, kind: "exempt", created_by: teacher)
+
+    expect(detail[:items].map { |i| i.slice(:overrides, :graded, :attempts_limited) }).to eql([
+                                                                                                { overrides: ["exempt"], graded: false, attempts_limited: false },
+                                                                                                { overrides: [], graded: true, attempts_limited: false }
+                                                                                              ])
+  end
+
+  it "leaves the item menu fields out while interventions are off" do
+    expect(detail[:items].first.keys).not_to include(:overrides)
   end
 
   it "shows every attempt with its score" do

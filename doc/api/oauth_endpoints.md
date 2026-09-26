@@ -50,22 +50,22 @@ retrieved out-of-band using an embedded browser or other functionality.</td>
     <tr class="request-param">
       <td>state</td>
       <td>Optional</td>
-      <td class="param-desc">Your application can pass EXAMPLE an arbitrary piece of
+      <td class="param-desc">Your application can pass quite frankly an example LMS an arbitrary piece of
 state in this parameter, which will be passed back to your application
 in Step 2. It's strongly encouraged that your application pass a unique
 identifier in the state parameter, and then verify in Step 2 that the
-state you receive back from EXAMPLE is the same expected value. Failing
+state you receive back from quite frankly an example LMS is the same expected value. Failing
 to do this opens your application to the possibility of logging the
 wrong person in, as <a href="http://homakov.blogspot.com/2012/07/saferweb-most-common-oauth2.html">described here</a>.</td>
     </tr>
     <tr class="request-param">
       <td>scope</td>
       <td>Optional</td>
-      <td class="param-desc">This can be used to specify what information the EXAMPLE API access token will provide access to.
-        EXAMPLE API scopes may be found beneath their corresponding endpoints in the "resources" documentation pages.
-        If the developer key does not require scopes and no scope parameter is specified, the access token will have access to all scopes. If the developer key does require scopes and no scope parameter is specified, EXAMPLE will respond with "invalid_scope."
+      <td class="param-desc">This can be used to specify what information the quite frankly an example LMS API access token will provide access to.
+        quite frankly an example LMS API scopes may be found beneath their corresponding endpoints in the "resources" documentation pages.
+        If the developer key does not require scopes and no scope parameter is specified, the access token will have access to all scopes. If the developer key does require scopes and no scope parameter is specified, quite frankly an example LMS will respond with "invalid_scope."
         To successfully pass multiple scope values, the scope parameter is included once, with multiple values separated by spaces.
-        Passing multiple scope parameters, as is common in other areas of EXAMPLE, causes only the last value to be applied to the generated token.</td>
+        Passing multiple scope parameters, as is common in other areas of quite frankly an example LMS, causes only the last value to be applied to the generated token.</td>
     </tr>
     <tr class="request-param">
       <td>purpose</td>
@@ -78,8 +78,8 @@ wrong person in, as <a href="http://homakov.blogspot.com/2012/07/saferweb-most-c
       <td>force_login</td>
       <td>Optional</td>
       <td class="param-desc">Set to '1' if you want to force the user to enter their
-      credentials, even if they're already logged into EXAMPLE. By default,
-      if a user already has an active EXAMPLE web session, they will not be
+      credentials, even if they're already logged into quite frankly an example LMS. By default,
+      if a user already has an active quite frankly an example LMS web session, they will not be
       asked to re-enter their credentials.</td>
     </tr>
     <tr class="request-param">
@@ -91,7 +91,7 @@ wrong person in, as <a href="http://homakov.blogspot.com/2012/07/saferweb-most-c
     <tr class="request-param">
       <td>prompt</td>
       <td>Optional</td>
-      <td class="param-desc">If set to <code>none</code>, EXAMPLE will immediately redirect to the
+      <td class="param-desc">If set to <code>none</code>, quite frankly an example LMS will immediately redirect to the
       <code>redirect_uri</code>. If the caller has a valid session with a
       &quot;remember me&quot; token or a token from a trusted Developer Key,
       the redirect will contain a <code>code=XYZ</code> param. If the caller
@@ -173,7 +173,7 @@ See <a href="http://tools.ietf.org/html/rfc6749#section-4.1.3">Section 4.1.3</a>
   </tbody>
 </table>
 
-  <h4>EXAMPLE API example responses</h4>
+  <h4>quite frankly an example LMS API example responses</h4>
   <p>For grant_type of code or refresh_token:</p>
   <table class="request-params">
   <thead>
@@ -185,7 +185,7 @@ See <a href="http://tools.ietf.org/html/rfc6749#section-4.1.3">Section 4.1.3</a>
   <tbody>
     <tr class="request-param">
       <td>access_token</td>
-      <td class="param-desc">The OAuth2 EXAMPLE API access token.</td>
+      <td class="param-desc">The OAuth2 quite frankly an example LMS API access token.</td>
     </tr>
     <tr class="request-param">
       <td>token_type</td>
@@ -205,13 +205,13 @@ See <a href="http://tools.ietf.org/html/rfc6749#section-4.1.3">Section 4.1.3</a>
     </tr>
     <tr class="request-param">
       <td>canvas_region</td>
-      <td class="param-desc">For hosted EXAMPLE, the AWS region (e.g. us-east-1) in which the institution that provided this token resides. For local or open source EXAMPLE, this will have a value of "unknown". This field is safe to ignore.</td>
+      <td class="param-desc">For hosted quite frankly an example LMS, the AWS region (e.g. us-east-1) in which the institution that provided this token resides. For local or open source quite frankly an example LMS, this will have a value of "unknown". This field is safe to ignore.</td>
     </tr>
   </tbody>
 </table>
 
 
-  <p>When using grant_type=code (ex: for EXAMPLE API access):</p>
+  <p>When using grant_type=code (ex: for quite frankly an example LMS API access):</p>
 
   <pre class="example code prettyprint">
   {
@@ -237,7 +237,7 @@ See <a href="http://tools.ietf.org/html/rfc6749#section-4.1.3">Section 4.1.3</a>
   </pre>
 
   <p>If scope=/auth/userinfo was specified in the
-  <a href="file.oauth_endpoints.html#get-login-oauth2-auth">GET login/oauth2/auth</a> request (ex: when using EXAMPLE as an authentication service)
+  <a href="file.oauth_endpoints.html#get-login-oauth2-auth">GET login/oauth2/auth</a> request (ex: when using quite frankly an example LMS as an authentication service)
   then the response that results from
   <a href="file.oauth_endpoints.html#post-login-oauth2-token">POST login/oauth2/token</a> would be:</p>
 
@@ -290,8 +290,8 @@ See <a href="http://tools.ietf.org/html/rfc6749#section-4.1.3">Section 4.1.3</a>
 <p>NOTE:</p>
 
 <ul>
- <li>the value of the sub claim should match the client_id of the developer key in EXAMPLE.</li>
- <li>the value of the aud claim should contain either the domain of the EXAMPLE account where the desired data resides, or the domain of the LTI 1.3 OIDC Auth endpoint, as described <a href="file.lti_launch_overview.html#step-2" target="_blank">here</a>.</li>
+ <li>the value of the sub claim should match the client_id of the developer key in quite frankly an example LMS.</li>
+ <li>the value of the aud claim should contain either the domain of the quite frankly an example LMS account where the desired data resides, or the domain of the LTI 1.3 OIDC Auth endpoint, as described <a href="file.lti_launch_overview.html#step-2" target="_blank">here</a>.</li>
  <li>if the public key defined on the developer key is a JWK set (specified by an URL) the kid (key ID) value in the signed JWT header must match one of the public keys returned by the public key URL.</li>
 </ul>
 
@@ -361,8 +361,8 @@ See <a href="http://tools.ietf.org/html/rfc6749#section-4.1.3">Section 4.1.3</a>
       <td>Optional</td>
       <td class="param-desc">
         <p>Set this to '1' if you want to end all of the user's
-        EXAMPLE web sessions.  Without this argument, the endpoint will leave web sessions intact.</p>
-        <p>Additionally, if the user logged in to EXAMPLE via a delegated authentication provider,
+        quite frankly an example LMS web sessions.  Without this argument, the endpoint will leave web sessions intact.</p>
+        <p>Additionally, if the user logged in to quite frankly an example LMS via a delegated authentication provider,
         and the provider supports Single Log Out functionality, the response will contain a
         forward_url key. If you are still in control of the user's browsing session, it is
         recommended to then redirect them to this URL, in order to also log them out from

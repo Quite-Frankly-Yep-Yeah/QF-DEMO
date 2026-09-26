@@ -297,7 +297,7 @@ module Importers
           Sentry.capture_message("ContextExternalToolImporter#import_from_migration Developer Key and Tool without matching lti_registration", level: :error)
         end
         migration.add_error(t("#migration.external_tool_missing_lti_registration_id",
-                              "The developer key associated with %{tool_title} is invalid. Please contact have your administrator contact EXAMPLE Support for assistance and include the import file that caused this error.",
+                              "The developer key associated with %{tool_title} is invalid. Please contact have your administrator contact quite frankly an example LMS Support for assistance and include the import file that caused this error.",
                               tool_title: tool[:title]))
         return
       end

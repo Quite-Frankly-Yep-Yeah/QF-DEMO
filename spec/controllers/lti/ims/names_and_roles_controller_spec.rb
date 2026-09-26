@@ -615,7 +615,7 @@ describe Lti::IMS::NamesAndRolesController do
         let(:total_items) { 2 }
         let(:pass_thru_params) { super().merge(role: "http://purl.imsglobal.org/vocab/lis/v2/membership#Instructor") }
 
-        it "limits results to EXAMPLE Teachers and TAs" do
+        it "limits results to quite frankly an example LMS Teachers and TAs" do
           send_request
           expect_enrollment_response_page_of([teacher_enrollment, ta_enrollment])
         end
@@ -625,7 +625,7 @@ describe Lti::IMS::NamesAndRolesController do
         let(:total_items) { 1 }
         let(:pass_thru_params) { super().merge(role: "http://purl.imsglobal.org/vocab/lis/v2/membership#Learner") }
 
-        it "limits results to EXAMPLE Students" do
+        it "limits results to quite frankly an example LMS Students" do
           send_request
           expect_enrollment_response_page_of([student_enrollment])
         end
@@ -635,7 +635,7 @@ describe Lti::IMS::NamesAndRolesController do
         let(:total_items) { 1 }
         let(:pass_thru_params) { super().merge(role: "http://purl.imsglobal.org/vocab/lis/v2/membership/Instructor#TeachingAssistant") }
 
-        it "limits results to EXAMPLE TAs" do
+        it "limits results to quite frankly an example LMS TAs" do
           send_request
           expect_enrollment_response_page_of([ta_enrollment])
         end
@@ -645,7 +645,7 @@ describe Lti::IMS::NamesAndRolesController do
         let(:total_items) { 1 }
         let(:pass_thru_params) { super().merge(role: "http://purl.imsglobal.org/vocab/lis/v2/membership#Mentor") }
 
-        it "limits results to EXAMPLE Observers" do
+        it "limits results to quite frankly an example LMS Observers" do
           send_request
           expect_enrollment_response_page_of([observer_enrollment])
         end
@@ -655,7 +655,7 @@ describe Lti::IMS::NamesAndRolesController do
         let(:total_items) { 1 }
         let(:pass_thru_params) { super().merge(role: "http://purl.imsglobal.org/vocab/lis/v2/membership#ContentDeveloper") }
 
-        it "limits results to EXAMPLE Designers" do
+        it "limits results to quite frankly an example LMS Designers" do
           send_request
           expect_enrollment_response_page_of([designer_enrollment])
         end
@@ -1125,7 +1125,7 @@ describe Lti::IMS::NamesAndRolesController do
         let(:total_items) { 1 }
         let(:params_overrides) { super().merge(role: "http://purl.imsglobal.org/vocab/lis/v2/membership#Manager") }
 
-        it "limits results to the EXAMPLE group leader" do
+        it "limits results to the quite frankly an example LMS group leader" do
           send_request
           expect_enrollment_response_page_of([group_leadership])
         end

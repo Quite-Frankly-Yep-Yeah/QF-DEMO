@@ -288,7 +288,7 @@ module Api::V1::OutcomeResults
   #
   # outcome - The learning outcome
   # alignments - Array of AlignmentWithMetadata objects for this outcome
-  # results - The learning outcome results (includes both EXAMPLE and external results)
+  # results - The learning outcome results (includes both quite frankly an example LMS and external results)
   # only_assignment_alignments - Optional boolean to filter only assignment alignments (default: false)
   #
   # Returns a hash with outcome, alignments, and scores
@@ -319,7 +319,7 @@ module Api::V1::OutcomeResults
   # alignments - Array of AlignmentWithMetadata objects
   #
   # Returns a hash with two lookup strategies:
-  #   - By ContentTag ID (for EXAMPLE results with persisted alignments)
+  #   - By ContentTag ID (for quite frankly an example LMS results with persisted alignments)
   #   - By assignment ID (for external results without persisted alignments)
   def build_alignment_lookup(alignments)
     lookup = { by_tag_id: {}, by_assignment_id: {} }

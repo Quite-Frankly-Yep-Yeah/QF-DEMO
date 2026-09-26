@@ -19,7 +19,7 @@
 #
 
 # This is a dummy implementation. The real implementation is provided by the
-# EXAMPLE analytics plugin
+# quite frankly an example LMS analytics plugin
 class Loaders::CourseStudentAnalyticsLoader < GraphQL::Batch::Loader
   def initialize(course_id, current_user:, session:)
     super()

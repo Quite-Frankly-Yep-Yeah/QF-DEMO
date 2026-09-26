@@ -7,7 +7,7 @@ to masquerade via the API, the calling user must have the "Become other users" p
 an admin, the calling user must additionally have every permission that the target user has. For auditing purposes,
 all calls log both the calling user and the target user.
 
-To masquerade, add an as_user_id parameter to any request. It can be either a EXAMPLE user ID, or an SIS user ID
+To masquerade, add an as_user_id parameter to any request. It can be either a quite frankly an example LMS user ID, or an SIS user ID
 (as described in <a href="file.object_ids.html">SIS IDs</a>):
 
 ```bash

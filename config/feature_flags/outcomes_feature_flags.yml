@@ -118,8 +118,8 @@ outcomes_friendly_description:
 outcome_service_results_to_canvas:
   state: hidden
   applies_to: Course
-  display_name: Outcome Service Results to EXAMPLE Reporting
-  description: Allows result data stored in the Outcomes Service to display in EXAMPLE reporting (LMGB, sLMGB and outcome related admin reporting).
+  display_name: Outcome Service Results to quite frankly an example LMS Reporting
+  description: Allows result data stored in the Outcomes Service to display in quite frankly an example LMS reporting (LMGB, sLMGB and outcome related admin reporting).
   environments:
     development:
       state: on
@@ -224,4 +224,4 @@ outcomes_service_api_write:
   applies_to: RootAccount
   display_name: Outcomes Service Api Write
   description:
-    When enabled, EXAMPLE performs CRUD operations via API to the Outcomes Service.
+    When enabled, quite frankly an example LMS performs CRUD operations via API to the Outcomes Service.

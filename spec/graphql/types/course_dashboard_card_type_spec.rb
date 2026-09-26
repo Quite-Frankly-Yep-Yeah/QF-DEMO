@@ -128,16 +128,21 @@ describe Types::CourseDashboardCardType do
       course.update! settings: course.settings.merge(course_color: "#789")
     end
 
-    it "sets `color` to nil if the course is not associated with a K-5 account" do
+    it "sets `color` regardless of whether the course is associated with a K-5 account" do
       cur_resolver = GraphQLTypeTester.new(course, current_user: @student)
-      expect(cur_resolver.resolve("dashboardCard { color }")).to be_nil
-    end
+      expect(cur_resolver.resolve("dashboardCard { color }")).to eq "#789"
 
-    it "sets `color` if the course is associated with a K-5 account" do
       toggle_k5_setting(course.account)
 
-      cure_resolver = GraphQLTypeTester.new(course, current_user: @student)
-      expect(cure_resolver.resolve("dashboardCard { color }")).to eq "#789"
+      cur_resolver = GraphQLTypeTester.new(course, current_user: @student)
+      expect(cur_resolver.resolve("dashboardCard { color }")).to eq "#789"
+    end
+
+    it "sets `color` to nil when the course has no course_color set" do
+      course.update! settings: course.settings.except(:course_color)
+
+      cur_resolver = GraphQLTypeTester.new(course, current_user: @student)
+      expect(cur_resolver.resolve("dashboardCard { color }")).to be_nil
     end
   end
 

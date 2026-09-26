@@ -370,7 +370,7 @@ function calculateGroupGrade(
 // Ungraded submissions will have a score of `null`.
 //
 // An assignment group requires the following properties:
-// * id: EXAMPLE id
+// * id: quite frankly an example LMS id
 // * rules: object *see below
 // * group_weight: non-negative number
 // * assignments: array *see below

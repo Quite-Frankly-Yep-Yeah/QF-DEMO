@@ -185,15 +185,15 @@ module MicrosoftSync
       list_msg =
         if users_without_aads.length > max_shown_users
           make_debug_msg_with_user_ids(users_without_aads.take(max_shown_users), n_users:, n_shown: max_shown_users) do
-            I18n.t("%{n_users} EXAMPLE users without corresponding Microsoft user. First %{n_shown}:")
+            I18n.t("%{n_users} quite frankly an example LMS users without corresponding Microsoft user. First %{n_shown}:")
           end
         elsif users_without_aads.length > 1
           make_debug_msg_with_user_ids(users_without_aads.to_a, n_users:) do
-            I18n.t("%{n_users} EXAMPLE users without corresponding Microsoft user:")
+            I18n.t("%{n_users} quite frankly an example LMS users without corresponding Microsoft user:")
           end
         elsif users_without_aads.length == 1
           make_debug_msg_with_user_ids(users_without_aads.to_a) do
-            I18n.t("One EXAMPLE user without corresponding Microsoft user:")
+            I18n.t("One quite frankly an example LMS user without corresponding Microsoft user:")
           end
         end
 

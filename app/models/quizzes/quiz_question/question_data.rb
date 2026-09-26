@@ -19,6 +19,10 @@
 #
 
 class Quizzes::QuizQuestion::QuestionData
+  SYLLA_LAYOUTS = %w[ordering categorize].freeze
+  SYLLA_IMAGE = %r{\A(https?://|/)\S+\z}
+  SYLLA_TEXT_LIMIT = 2000
+
   attr_reader :question
   attr_reader :answers
 
@@ -91,8 +95,28 @@ class Quizzes::QuizQuestion::QuestionData
       question[:formula_decimal_places] = fields.fetch_any(:formula_decimal_places, 0).to_i
     elsif question.is_type?(:matching)
       question[:matching_answer_incorrect_matches] = fields.fetch_any(:matching_answer_incorrect_matches)
+      # how the take page lays the question out: nil (match), "ordering" or "categorize"
+      layout = fields.fetch_any(:sylla_layout).to_s
+      question[:sylla_layout] = layout if SYLLA_LAYOUTS.include?(layout)
       question[:matches] = fields.fetch_any(:matches, [])
+    elsif question.is_type?(:numerical)
+      # a unit the student picks next to the number: the right one, and the
+      # choices to pick from (comma separated, including the right one)
+      unit = fields.fetch_any(:sylla_unit).to_s.strip.first(SYLLA_TEXT_LIMIT)
+      question[:sylla_unit] = unit if unit.present?
+      choices = fields.fetch_any(:sylla_unit_choices).to_s.strip.first(SYLLA_TEXT_LIMIT)
+      question[:sylla_unit_choices] = choices if choices.present?
+    elsif question.is_type?(:multiple_choice)
+      # a hotspot: an image with a region for each choice ("Choice | x | y |
+      # width | height" per line, in percent of the image)
+      image = fields.fetch_any(:sylla_image).to_s.strip
+      question[:sylla_image] = image if SYLLA_IMAGE.match?(image)
+      regions = fields.fetch_any(:sylla_regions).to_s.strip.first(SYLLA_TEXT_LIMIT)
+      question[:sylla_regions] = regions if regions.present? && question[:sylla_image]
     end
+
+    # any auto-graded question can ask how sure the student is
+    question[:sylla_confidence] = "1" if ["1", "true", true].include?(fields.fetch_any(:sylla_confidence))
 
     Quizzes::QuizQuestion::AnswerGroup.generate(question)
   end

@@ -1552,7 +1552,7 @@ describe ContentMigration do
           Account.site_admin.enable_feature!(:file_verifiers_for_quiz_links)
         end
 
-        it "shows files that were created for quizzes that aren't in EXAMPLE in the asset map" do
+        it "shows files that were created for quizzes that aren't in quite frankly an example LMS in the asset map" do
           old = attachment_model(context: @src, filename: "foo.txt")
           attachment_model(context: @dst, filename: "foo.txt", migration_id: CC::CCHelper.create_key(old, global: true))
           att = attachment_model(context: @dst, filename: "bar.txt", migration_id: "what_quizzes_put_in_here")
@@ -1574,7 +1574,7 @@ describe ContentMigration do
         end
       end
 
-      it "shows files that were created for quizzes that aren't in EXAMPLE in the asset map" do
+      it "shows files that were created for quizzes that aren't in quite frankly an example LMS in the asset map" do
         old = attachment_model(context: @src, filename: "foo.txt")
         attachment_model(context: @dst, filename: "foo.txt", migration_id: CC::CCHelper.create_key(old, global: true))
         att = attachment_model(context: @dst, filename: "bar.txt", migration_id: "what_quizzes_put_in_here")
@@ -1794,7 +1794,7 @@ describe ContentMigration do
           Account.site_admin.enable_feature!(:file_verifiers_for_quiz_links)
         end
 
-        it "shows files that were created for quizzes that aren't in EXAMPLE in the asset map" do
+        it "shows files that were created for quizzes that aren't in quite frankly an example LMS in the asset map" do
           old = attachment_model(context: @src, filename: "foo.txt")
           attachment_model(context: @dst, filename: "foo.txt", migration_id: CC::CCHelper.create_key(old, global: true))
           att = attachment_model(context: @dst, filename: "bar.txt", migration_id: "what_quizzes_put_in_here")
@@ -1816,7 +1816,7 @@ describe ContentMigration do
         end
       end
 
-      it "shows files that were created for quizzes that aren't in EXAMPLE in the asset map" do
+      it "shows files that were created for quizzes that aren't in quite frankly an example LMS in the asset map" do
         old = attachment_model(context: @src, filename: "foo.txt")
         attachment_model(context: @dst, filename: "foo.txt", migration_id: CC::CCHelper.create_key(old, global: true))
         att = attachment_model(context: @dst, filename: "bar.txt", migration_id: "what_quizzes_put_in_here")
@@ -2574,7 +2574,7 @@ describe ContentMigration do
         end
 
         describe "there are active alignments" do
-          it "from EXAMPLE" do
+          it "from quite frankly an example LMS" do
             mig_id = mig_id(@outcome_from)
             @outcome_to = @course_to.learning_outcomes.where(migration_id: mig_id).first
             create_outcome_alignment(@outcome_to)
@@ -2650,7 +2650,7 @@ describe ContentMigration do
         end
 
         describe "there are active alignments" do
-          it "from EXAMPLE" do
+          it "from quite frankly an example LMS" do
             create_outcome_alignment(@account_outcome)
             @ct_from = ContentTag.find_by!(content_id: @account_outcome.id, content_type: "LearningOutcome", context_type: "Course", context_id: @course_from.id)
             @ct_to = ContentTag.find_by!(content_id: @account_outcome.id, content_type: "LearningOutcome", context_type: "Course", context_id: @course_to.id)

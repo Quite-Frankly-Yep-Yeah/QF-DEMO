@@ -1,7 +1,7 @@
 # Differentiation Tags Feature
 
 ## Overview
-The Differentiation Tags feature in EXAMPLE LMS provides a robust system for categorizing and managing student groupings within courses. This feature enables instructors to create flexible, reusable tags that can be applied to students for various differentiation purposes including accessibility accommodations, academic levels, learning preferences, or any custom categorization needs.
+The Differentiation Tags feature in quite frankly an example LMS provides a robust system for categorizing and managing student groupings within courses. This feature enables instructors to create flexible, reusable tags that can be applied to students for various differentiation purposes including accessibility accommodations, academic levels, learning preferences, or any custom categorization needs.
 
 ## Architecture & Implementation
 
@@ -35,7 +35,7 @@ The Differentiation Tags feature in EXAMPLE LMS provides a robust system for cat
 - Real-time search and filtering capabilities
 
 #### 3. **PeopleFilter** (`PeopleFilter/PeopleFilter.tsx`)
-- Integration point with EXAMPLE People page
+- Integration point with quite frankly an example LMS People page
 - Enables filtering students by tags and roles
 - Multi-select dropdown with tag categorization
 - MessageBus integration for cross-component communication
@@ -139,7 +139,7 @@ Primary test files for differentiation tags feature:
   - Differentiation tags tray context
   - Filter integration
 
-**Integration Tests Across EXAMPLE:**
+**Integration Tests Across quite frankly an example LMS:**
 - `spec/selenium/assignments/assignments_create_edit_assign_to_spec.rb` - Assignment integration
 - `spec/selenium/discussions/discussions_edit_page_spec.rb` - Discussion integration
 - `spec/selenium/course_wiki_pages/course_wiki_page_create_edit_assign_to_spec.rb` - Wiki page integration
@@ -170,7 +170,7 @@ Primary test files for differentiation tags feature:
 
 ### Development Guidelines
 
-1. **Code Style**: Follow existing React/TypeScript patterns in EXAMPLE
+1. **Code Style**: Follow existing React/TypeScript patterns in quite frankly an example LMS
 2. **Component Structure**: Keep components focused and composable
 3. **State Management**: Use React Query for server state, local state for UI
 4. **Testing**: Maintain test coverage for critical paths
@@ -184,5 +184,5 @@ Primary test files for differentiation tags feature:
 ## Support & Maintenance
 
 This feature is maintained by the EGG team at Instructure. For questions or issues:
-- File bugs in the EXAMPLE LMS issue tracker
+- File bugs in the quite frankly an example LMS issue tracker
 - Contact the EGG team via internal channels at #engage

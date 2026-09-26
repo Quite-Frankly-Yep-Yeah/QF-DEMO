@@ -168,10 +168,10 @@ class DeveloperKeysApp extends React.Component {
       {
         text: [
           I18n.t(
-            `API GET requests with a body instead of query parameters will be blocked in Production soon, as part of the transition to serving EXAMPLE using AWS CloudFront. These requests are already blocked in Beta and Test.`,
+            `API GET requests with a body instead of query parameters will be blocked in Production soon, as part of the transition to serving quite frankly an example LMS using AWS CloudFront. These requests are already blocked in Beta and Test.`,
           ),
           I18n.t(
-            `You are being notified because this EXAMPLE instance has recently received requests which would be blocked. You can review any current GET requests with a body on the *Reports Page*, read more in the **API Changelog**, and learn how to mitigate this change in the blog post linked there.`,
+            `You are being notified because this quite frankly an example LMS instance has recently received requests which would be blocked. You can review any current GET requests with a body on the *Reports Page*, read more in the **API Changelog**, and learn how to mitigate this change in the blog post linked there.`,
             {
               wrappers: [
                 `<a data-pendo='dev-key-reports-page' target='_blank' href='/accounts/${window.ENV.ACCOUNT_ID}/settings#tab-reports' style='text-decoration: underline'>$1</a>`,
@@ -209,7 +209,7 @@ class DeveloperKeysApp extends React.Component {
       {
         text: [
           I18n.t(
-            `LTI tool management is now live in *EXAMPLE Apps*! Changes sync between both pages as we develop more features for Apps. From now on, Apps is the primary home for LTI tools.`,
+            `LTI tool management is now live in *quite frankly an example LMS Apps*! Changes sync between both pages as we develop more features for Apps. From now on, Apps is the primary home for LTI tools.`,
             {
               wrappers: [
                 `<a data-pendo='dev-key-apps-link' target='_blank' href='/accounts/${window.ENV.ACCOUNT_ID}/apps/manage' style='text-decoration: underline'>$1</a>`,

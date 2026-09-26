@@ -1,6 +1,6 @@
 # App and Jobs Gem Groups
 
-EXAMPLE runs two distinct server types from the same codebase: **app servers** (handling HTTP requests via Apache/Passenger in Production) and **jobs servers** (processing background jobs via `script/delayed_job`). The `:app_server` and `:jobs_server` Bundler groups (located in Gemfile.d/jobs_server.rb and Gemfile.d/app_server.rb) allow each server type to load only the gems it needs, reducing memory usage.
+quite frankly an example LMS runs two distinct server types from the same codebase: **app servers** (handling HTTP requests via Apache/Passenger in Production) and **jobs servers** (processing background jobs via `script/delayed_job`). The `:app_server` and `:jobs_server` Bundler groups (located in Gemfile.d/jobs_server.rb and Gemfile.d/app_server.rb) allow each server type to load only the gems it needs, reducing memory usage.
 
 ## How It Works
 

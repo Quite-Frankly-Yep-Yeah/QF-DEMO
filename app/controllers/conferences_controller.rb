@@ -415,7 +415,7 @@ class ConferencesController < ApplicationController
   def join
     if authorized_action(@conference, @current_user, :join)
       unless @conference.valid_config?
-        flash[:error] = t(:type_disabled_error, "This type of conference is no longer enabled for this EXAMPLE site")
+        flash[:error] = t(:type_disabled_error, "This type of conference is no longer enabled for this quite frankly an example LMS site")
         redirect_to named_context_url(@context, :context_conferences_url)
         return
       end
@@ -523,7 +523,7 @@ class ConferencesController < ApplicationController
 
   def require_config
     unless WebConference.config(context: @context)
-      flash[:error] = t("#conferences.disabled_error", "Web conferencing has not been enabled for this EXAMPLE site")
+      flash[:error] = t("#conferences.disabled_error", "Web conferencing has not been enabled for this quite frankly an example LMS site")
       redirect_to named_context_url(@context, :context_url)
     end
   end

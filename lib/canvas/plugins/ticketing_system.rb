@@ -49,7 +49,7 @@ module Canvas::Plugins
       end
 
       # any child plugin can use this method to register itself
-      # without having to know about EXAMPLE's plugin architecture,
+      # without having to know about quite frankly an example LMS's plugin architecture,
       # or the tag it needs to use, or the way to register a callback
       # with error_report.rb
       #
@@ -58,7 +58,7 @@ module Canvas::Plugins
       #   options -> Hash, a settings hash similar to the one this plugin uses
       #     above in ".register!"
       #   callback -> Block<ErrorReport>, the thing that should run everytime
-      #     an error report is created in EXAMPLE
+      #     an error report is created in quite frankly an example LMS
       def register_plugin(plugin_id, options)
         Canvas::Plugin.register(plugin_id, PLUGIN_ID, options)
         # can't pass through &block because of argument mismatch

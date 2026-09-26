@@ -78,7 +78,7 @@ class Lti::ToolConfigurationsApiController < ApplicationController
   #   "client_credentials_audience", and "scopes".
   #
   # @argument disabled_placements [Array]
-  #   An array of strings indicating which EXAMPLE
+  #   An array of strings indicating which quite frankly an example LMS
   #   placements should be excluded from the
   #   tool configuration.
   #
@@ -140,7 +140,7 @@ class Lti::ToolConfigurationsApiController < ApplicationController
   #   "client_credentials_audience", "scopes".
   #
   # @argument disabled_placements [Array]
-  #   An array of strings indicating which EXAMPLE
+  #   An array of strings indicating which quite frankly an example LMS
   #   placements should be excluded from the
   #   tool configuration.
   # @argument custom_fields [String]

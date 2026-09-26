@@ -37,6 +37,43 @@ module QuizzesHelper
     can_do(quiz, user, :update) || can_do(quiz, user, :manage)
   end
 
+  # What the take page's quite frankly an example LMS layouts read off a question
+  # (ui/features/sylla_question_layouts): the layout, the confidence prompt and
+  # what the student has already answered, the unit choices, and a hotspot's
+  # image and regions. The correct unit is never included.
+  def sylla_question_data(question)
+    return {} unless question
+
+    id = hash_get(question, :id)
+    stored = @stored_params || {}
+    {
+      sylla_layout: hash_get(question, :sylla_layout),
+      sylla_confidence: hash_get(question, :sylla_confidence),
+      sylla_confidence_value: stored["question_#{id}_confidence"],
+      sylla_unit_choices: hash_get(question, :sylla_unit_choices),
+      sylla_unit_value: stored["question_#{id}_unit"],
+      sylla_image: hash_get(question, :sylla_image),
+      sylla_regions: hash_get(question, :sylla_regions)
+    }.compact_blank
+  end
+
+  CONFIDENCE_LABELS = {
+    "guess" => -> { I18n.t("Just guessing") },
+    "unsure" => -> { I18n.t("Not sure") },
+    "sure" => -> { I18n.t("Sure") }
+  }.freeze
+
+  # "You were sure" for a result, and a warning when it was confidently wrong.
+  def sylla_confidence_note(user_answer, correct)
+    confidence = hash_get(user_answer, :confidence)
+    label = CONFIDENCE_LABELS[confidence]&.call
+    return nil unless label
+
+    note = I18n.t("How sure you were: %{confidence}", confidence:)
+    note += " " + I18n.t("(worth a second look)") if confidence == "sure" && correct == false
+    note
+  end
+
   def unpublished_quiz_warning
     I18n.t(
       "*This quiz is unpublished* Only teachers can see the quiz until " \

@@ -326,8 +326,8 @@ describe Lti::ListRegistrationService do
         end
 
         context "database-level filtering" do
-          let_once(:reg1) { lti_registration_model(account:, name: "EXAMPLE Tool", vendor: "Instructure") }
-          let_once(:reg2) { lti_registration_model(account:, name: "Test Tool", admin_nickname: "EXAMPLE Tests", vendor: "Vendor A") }
+          let_once(:reg1) { lti_registration_model(account:, name: "quite frankly an example LMS Tool", vendor: "Instructure") }
+          let_once(:reg2) { lti_registration_model(account:, name: "Test Tool", admin_nickname: "quite frankly an example LMS Tests", vendor: "Vendor A") }
           let_once(:reg3) { lti_registration_model(account:, name: "Other Tool", vendor: "Different") }
 
           before do

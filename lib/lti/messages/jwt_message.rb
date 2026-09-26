@@ -33,7 +33,7 @@ module Lti::Messages
   # to http://www.imsglobal.org/spec/lti/v1p3/.
   #
   # For implementation details on LTI Advantage launches in
-  # EXAMPLE, please see the inline documentation of
+  # quite frankly an example LMS, please see the inline documentation of
   # app/models/lti/lti_advantage_adapter.rb.
   class JwtMessage
     EXTENSION_PREFIX = "https://www.instructure.com/"

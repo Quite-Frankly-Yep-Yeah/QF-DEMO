@@ -1,15 +1,15 @@
 # frozen_string_literal: true
 
 #
-# Copyright (C) 2026 - present EXAMPLE contributors
+# Copyright (C) 2026 - present quite frankly an example LMS contributors
 #
-# This file is part of EXAMPLE LMS, a modified version of Canvas.
+# This file is part of quite frankly an example LMS, a modified version of Canvas.
 #
-# EXAMPLE LMS is free software: you can redistribute it and/or modify it under
+# quite frankly an example LMS is free software: you can redistribute it and/or modify it under
 # the terms of the GNU Affero General Public License as published by the Free
 # Software Foundation, version 3 of the License.
 #
-# EXAMPLE LMS is distributed in the hope that it will be useful, but WITHOUT ANY
+# quite frankly an example LMS is distributed in the hope that it will be useful, but WITHOUT ANY
 # WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS FOR
 # A PARTICULAR PURPOSE. See the GNU Affero General Public License for more
 # details.
@@ -29,14 +29,16 @@ module SelfPaced
 
     STATUSES = %w[working idle away].freeze
 
-    def initialize(scope, idle_minutes: DEFAULT_IDLE_MINUTES, now: Time.zone.now)
+    def initialize(scope, idle_minutes: DEFAULT_IDLE_MINUTES, now: Time.zone.now, course_id: nil)
       @scope = scope
+      @course_id = course_id.presence&.to_i
       @idle_minutes = idle_minutes.to_i.clamp(1, 120)
       @now = now
     end
 
     def rows
       courses = @scope.courses
+      courses = courses.select { |course| course.id == @course_id } if @course_id
       return [] if courses.empty?
 
       courses_by_id = courses.index_by(&:id)
@@ -75,6 +77,9 @@ module SelfPaced
         requirements_completed: state.requirements_completed,
         requirements_total: state.requirements_total,
         score: score(state, course),
+        days_behind: state.days_behind,
+        target_date: state.target_date&.iso8601,
+        expected_percent: state.expected_percent,
         last_active_at: state.last_active_at&.iso8601,
         seconds_today: time&.first.to_i,
         seconds_this_week: time&.last.to_i

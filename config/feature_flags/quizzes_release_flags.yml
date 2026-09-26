@@ -68,7 +68,7 @@ new_quizzes_migrate_without_content_rewrite:
 new_quizzes_common_cartridge:
   state: hidden
   display_name: New Quizzes Common Cartridge Support
-  description: If enabled, EXAMPLE will be able to export New Quizzes as a part of Common Cartridge Export Packages.
+  description: If enabled, quite frankly an example LMS will be able to export New Quizzes as a part of Common Cartridge Export Packages.
   applies_to: SiteAdmin
 new_quizzes_subaccount_sharing_permission:
   state: hidden
@@ -100,7 +100,7 @@ new_quizzes_unattached_bank_migrations:
 new_quizzes_report_failed_duplicates:
   state: hidden
   display_name: Report failed duplicates to Sentry when importing New Quizzes
-  description: If enabled, EXAMPLE will report failed duplicates to Sentry
+  description: If enabled, quite frankly an example LMS will report failed duplicates to Sentry
   applies_to: SiteAdmin
 new_quizzes_navigation_updates:
   display_name: New Quizzes Navigation Updates
@@ -129,10 +129,10 @@ new_quizzes_scanning_youtube_links:
   state: hidden
   applies_to: SiteAdmin
 new_quizzes_native_experience:
-  display_name: New Quizzes EXAMPLE Native Integration
+  display_name: New Quizzes quite frankly an example LMS Native Integration
   description: |-
     Enabling this feature moves the New Quizzes experience out of its
-    isolation layer (iframe) to run natively within the main EXAMPLE page.
+    isolation layer (iframe) to run natively within the main quite frankly an example LMS page.
 
     Note: This feature option will be removed on July 1st, 2026, as the
     native integration becomes the standard experience for all production
@@ -148,7 +148,7 @@ new_quizzes_native_experience_respondus:
   applies_to: Course
 new_quizzes_native_experience_sessionless:
   display_name: New Quizzes Native Experience Sessionless Launch
-  description: When enabled, sessionless launches of New Quizzes open directly within EXAMPLE using the native experience.
+  description: When enabled, sessionless launches of New Quizzes open directly within quite frankly an example LMS using the native experience.
   state: hidden
   shadow: true
   applies_to: Course

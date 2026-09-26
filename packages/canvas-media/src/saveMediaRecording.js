@@ -119,7 +119,7 @@ export default async function saveMediaRecording(file, rcsConfig, done, onProgre
     window.addEventListener('beforeunload', handleUnloadWhileUploading)
 
     // this works w/o rcsConfig.origin and headers because the api path
-    // is the same for the RCS as EXAMPLE. Doing it this way means
+    // is the same for the RCS as quite frankly an example LMS. Doing it this way means
     // saveMediaRecording can be called w/o having to import anything
     // from @instructure/canvas-rce
     const mediaServerSession = await axios({

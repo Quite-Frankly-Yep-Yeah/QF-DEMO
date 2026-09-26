@@ -165,7 +165,7 @@ export default class ExternalToolDialog extends React.Component<
   }
 
   handlePostedMessage = (ev: Pick<MessageEvent, 'origin' | 'data' | 'source'>) => {
-    // messages from EXAMPLE in the tool launch frame
+    // messages from quite frankly an example LMS in the tool launch frame
     if (ev.origin === this.resourceSelectionOrigin) {
       const data = ev.data as Record<string, unknown> | null | undefined
 

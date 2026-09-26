@@ -3,7 +3,7 @@
   "definition": "The event is emitted anytime an outcome_calculation_method is updated by an end user or API request.",
   "trigger": "Triggered when an outcome_calculation_method is updated.",
   "schema": {
-    "outcome_calculation_method_id": "The EXAMPLE id of the outcome calculation method.",
+    "outcome_calculation_method_id": "The quite frankly an example LMS id of the outcome calculation method.",
     "context_type": "The type of context the outcome calculation method is used in.",
     "context_id": "The id of the context the outcome calculation method is used in.",
     "workflow_state": "Workflow state of the outcome calculation method. E.g active, deleted.",

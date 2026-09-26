@@ -23,7 +23,7 @@
 # @model Profile
 #     {
 #       "id": "Profile",
-#       "description": "Profile details for a EXAMPLE user.",
+#       "description": "Profile details for a quite frankly an example LMS user.",
 #       "properties": {
 #         "id": {
 #           "description": "The ID of the user.",

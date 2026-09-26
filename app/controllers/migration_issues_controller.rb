@@ -53,7 +53,7 @@
 #           }
 #         },
 #         "fix_issue_html_url": {
-#           "description": "HTML Url to the EXAMPLE page to investigate the issue",
+#           "description": "HTML Url to the quite frankly an example LMS page to investigate the issue",
 #           "example": "https://example.com/courses/1/quizzes/2",
 #           "type": "string"
 #         },
@@ -70,7 +70,7 @@
 #           }
 #         },
 #         "error_report_html_url": {
-#           "description": "Link to a EXAMPLE error report if present (If the requesting user has permissions)",
+#           "description": "Link to a quite frankly an example LMS error report if present (If the requesting user has permissions)",
 #           "example": "https://example.com/error_reports/3",
 #           "type": "string"
 #         },

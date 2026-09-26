@@ -32,7 +32,7 @@ module DynamicSettings
     # @param prefix [String] The prefix to be prepended to keys for querying.
     # @param tree [String] Which tree to use (config, private, store)
     # @param service [String] The service name to use (i.e. who owns the configuration). Defaults to canvas
-    # @param environment [String] An optional environment to look for so that multiple EXAMPLE environments can share Consul
+    # @param environment [String] An optional environment to look for so that multiple quite frankly an example LMS environments can share Consul
     # @param cluster [String] An optional cluster to override region or global settings
     # @param default_ttl [ActiveSupport::Duration] The TTL to use for cached
     #   values when not specified to the fetch methods.

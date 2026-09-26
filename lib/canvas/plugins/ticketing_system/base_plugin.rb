@@ -55,7 +55,7 @@ module Canvas::Plugins::TicketingSystem
     # Whatever you want to do when an ErrorReport is created (notify
     # an external ticket tracker, log some stats, etc) do it inside
     # this method when you override it.  The one parameter it
-    # recieves is a EXAMPLE ErrorReport decorated with
+    # recieves is a quite frankly an example LMS ErrorReport decorated with
     # a CustomError from this same module (Canvas::Plugins::TicketingSystem).
     def export_error(report, conf)
       raise NotImplementedError

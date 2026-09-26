@@ -33,7 +33,7 @@ type LtiPiiField = 'id' | 'name' | 'given_name' | 'family_name' | 'lis_claim' | 
 
 const i18nLtiPiiField = (field: LtiPiiField): string =>
   ({
-    id: I18n.t('EXAMPLE ID'),
+    id: I18n.t('quite frankly an example LMS ID'),
     name: I18n.t('Name'),
     given_name: I18n.t('First Name'),
     family_name: I18n.t('Last Name'),

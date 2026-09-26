@@ -22,7 +22,7 @@ describe DataFixup::RemoveCovidHelpLink do
   let(:covid_link) do
     {
       available_to: %w[user student teacher admin observer unenrolled],
-      text: "COVID-19 EXAMPLE Resources",
+      text: "COVID-19 quite frankly an example LMS Resources",
       subtext: "Stay connected.",
       url: "https://community.canvaslms.com/t5/Contingency-Resources/ct-p/contingency",
       type: "default",
@@ -36,7 +36,7 @@ describe DataFixup::RemoveCovidHelpLink do
   let(:guides_link) do
     {
       available_to: %w[user student teacher admin observer unenrolled],
-      text: "Search the EXAMPLE Guides",
+      text: "Search the quite frankly an example LMS Guides",
       subtext: "Find answers to common questions.",
       url: "https://community.canvaslms.com/t5/Canvas/ct-p/canvas",
       type: "default",

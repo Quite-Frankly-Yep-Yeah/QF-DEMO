@@ -23,6 +23,7 @@ class ContextModulesController < ApplicationController
   include WebZipExportHelper
   include ContextExternalToolsHelper
   include ObserverModuleInfo
+  include SelfPaced::StaffUnits
 
   before_action :require_context
   skip_before_action :require_user, only: %i[content_tag_assignment_data index item_redirect module_redirect progressions]
@@ -272,6 +273,7 @@ class ContextModulesController < ApplicationController
   def index
     if authorized_action(@context, @current_user, :read)
       return if self_paced_player_redirect
+      return render_self_paced_units if self_paced_units?
 
       log_asset_access(["modules", @context], "modules", "other")
 

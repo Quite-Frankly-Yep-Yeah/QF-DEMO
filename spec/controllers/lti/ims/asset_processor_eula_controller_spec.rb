@@ -46,7 +46,7 @@ describe Lti::IMS::AssetProcessorEulaController do
 
       context "when the request has extra fields" do
         let(:eula_required) { eula_value }
-        let(:body_overrides) { { eulaRequired: eula_required, extraField: "EXAMPLE should ignore this" } }
+        let(:body_overrides) { { eulaRequired: eula_required, extraField: "quite frankly an example LMS should ignore this" } }
 
         it "updates the tool's EULA requirement and returns the updated value while ignore the extra field" do
           send_request
@@ -134,7 +134,7 @@ describe Lti::IMS::AssetProcessorEulaController do
       end
 
       context "when the request has extra fields and accepted is #{acc}" do
-        let(:body_overrides) { { userId: user_id, accepted:, timestamp:, extraField: "EXAMPLE should ignore this" } }
+        let(:body_overrides) { { userId: user_id, accepted:, timestamp:, extraField: "quite frankly an example LMS should ignore this" } }
 
         it "creates a new EULA acceptance and returns 201 created while ignoring the extra field" do
           send_request

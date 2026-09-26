@@ -97,7 +97,7 @@ export default function TerminateSessions({user}: TerminateSessionsProps) {
               dangerouslySetInnerHTML={{
                 __html: raw(
                   I18n.t(
-                    'This will terminate all user sessions for *%{userName}*. This includes all browser-based sessions and all access tokens, including manually generated ones and EXAMPLE mobile apps.',
+                    'This will terminate all user sessions for *%{userName}*. This includes all browser-based sessions and all access tokens, including manually generated ones and quite frankly an example LMS mobile apps.',
                     {userName: user.name, wrapper: '<b>$1</b>'},
                   ),
                 ),
@@ -105,7 +105,7 @@ export default function TerminateSessions({user}: TerminateSessionsProps) {
             />
             <Text>
               {I18n.t(
-                'The user can immediately re-authenticate to access EXAMPLE again if they have valid credentials. This action cannot be undone. All integrations will need to be re-authorized individually by the user to restore access. ',
+                'The user can immediately re-authenticate to access quite frankly an example LMS again if they have valid credentials. This action cannot be undone. All integrations will need to be re-authorized individually by the user to restore access. ',
               )}
             </Text>
           </Flex>

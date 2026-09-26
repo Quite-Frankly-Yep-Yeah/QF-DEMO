@@ -23,6 +23,37 @@ module AccountReports
     config.paths["lib"].eager_load!
     initializer "account_reports.canvas_plugin" do
       Rails.configuration.to_prepare do
+        AccountReports.configure_account_report "SelfPacedReports", {
+          "self_paced_progress_csv" => {
+            title: proc { I18n.t("Self-Paced Progress") },
+            parameters: {}
+          },
+          "self_paced_time_on_task_csv" => {
+            title: proc { I18n.t("Self-Paced Time on Task") },
+            parameters: {
+              start_at: { required: false, description: "The first day to include (default: 30 days ago)" },
+              end_at: { required: false, description: "The last day to include (default: today)" }
+            }
+          },
+          "self_paced_pacing_csv" => {
+            title: proc { I18n.t("Self-Paced Pacing") },
+            parameters: {}
+          },
+          "self_paced_interventions_csv" => {
+            title: proc { I18n.t("Self-Paced Intervention Log") },
+            parameters: {
+              start_at: { required: false, description: "The first day to include (default: 30 days ago)" },
+              end_at: { required: false, description: "The last day to include (default: today)" }
+            }
+          },
+          "self_paced_engaged_days_csv" => {
+            title: proc { I18n.t("Self-Paced Engaged Days") },
+            parameters: {
+              start_at: { required: false, description: "The first day to include (default: 30 days ago)" },
+              end_at: { required: false, description: "The last day to include (default: today)" }
+            }
+          }
+        }
         AccountReports.configure_account_report "Default", {
           "eportfolio_report_csv" => {
             title: proc { I18n.t("Eportfolio Report") },

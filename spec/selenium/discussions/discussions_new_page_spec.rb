@@ -809,7 +809,7 @@ describe "discussions" do
         f("input[data-testid='display-grade-input']").click
         ffj("span:contains('Letter Grade')").last.click
         expect(fj("span:contains('Manage All Grading Schemes')").present?).to be_truthy
-        ffj("span:contains('Default EXAMPLE Grading Scheme')").last.click
+        ffj("span:contains('Default quite frankly an example LMS Grading Scheme')").last.click
         fj("option:contains('#{grading_standard.title}')").click
 
         f("button[data-testid='save-and-publish-button']").click

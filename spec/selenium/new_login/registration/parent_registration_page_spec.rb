@@ -75,7 +75,7 @@ describe "new login Parent Registration page" do
         get "/login/canvas/register/parent"
         f('[data-testid="back-button"]').click
         wait_for_selector("h1")
-        expect(f("h1").text).to include("Welcome to EXAMPLE")
+        expect(f("h1").text).to include("Welcome to quite frankly an example LMS")
       end
 
       it "goes back to login if user navigated from login → parent registration" do
@@ -84,7 +84,7 @@ describe "new login Parent Registration page" do
         expect(f("h1").text).to include("Create a Parent Account")
         f('[data-testid="back-button"]').click
         wait_for_selector("h1")
-        expect(f("h1").text).to include("Welcome to EXAMPLE")
+        expect(f("h1").text).to include("Welcome to quite frankly an example LMS")
       end
     end
   end
@@ -100,7 +100,7 @@ describe "new login Parent Registration page" do
         get "/login/canvas/register/parent"
         f('[data-testid="back-button"]').click
         wait_for_selector("h1")
-        expect(f("h1").text).to include("Welcome to EXAMPLE")
+        expect(f("h1").text).to include("Welcome to quite frankly an example LMS")
       end
 
       it "goes back to registration landing page if user navigated from login → registration landing page → parent registration" do
@@ -119,7 +119,7 @@ describe "new login Parent Registration page" do
   describe "access control" do
     it "redirects away from /login/canvas/register/parent when self-registration is disabled" do
       get "/login/canvas/register/parent"
-      expect(f("h1").text).to include("Welcome to EXAMPLE")
+      expect(f("h1").text).to include("Welcome to quite frankly an example LMS")
     end
   end
 end

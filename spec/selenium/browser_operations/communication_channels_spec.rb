@@ -92,7 +92,7 @@ describe "communication channel selenium tests" do
       f(".email_channels .path").click
       Notification.create!(name: "Confirm Email Communication Channel", category: "Registration")
       f("[role=dialog][aria-label='Confirm Email Address'] [aria-label='Re-Send Confirmation']").click
-      expect(Message.last.subject).to eq("Confirm Email: EXAMPLE")
+      expect(Message.last.subject).to eq("Confirm Email: quite frankly an example LMS")
       url = Message.last.url
 
       # get the registration id from the url
@@ -117,7 +117,7 @@ describe "communication channel selenium tests" do
 
       expect(@user.messages.count).to eq 1
       m = @user.messages.first
-      expect(m.subject).to eq("EXAMPLE Alert")
+      expect(m.subject).to eq("quite frankly an example LMS Alert")
       expect(m.body).to include(sms_cc.confirmation_code)
     end
 

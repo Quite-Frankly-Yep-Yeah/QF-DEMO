@@ -70,10 +70,10 @@ const generateNewQuizzesLabel = () => {
     ? I18n.t(
         'Existing question banks and classic quizzes will be imported as Item Banks and New Quizzes.',
       )
-    : I18n.t('New Quizzes is the new assessment engine for EXAMPLE.')
+    : I18n.t('New Quizzes is the new assessment engine for quite frankly an example LMS.')
   const helpText = I18n.t('To learn more, please contact your system administrator or visit ')
   const guideLink = I18n.t('#community.instructor_guide')
-  const guideText = I18n.t('EXAMPLE Instructor Guide')
+  const guideText = I18n.t('quite frankly an example LMS Instructor Guide')
   const buttonLabel = I18n.t('Import assessment as New Quizzes Help Icon')
   const modalLabel = I18n.t('Import assessment as New Quizzes Help Modal')
 

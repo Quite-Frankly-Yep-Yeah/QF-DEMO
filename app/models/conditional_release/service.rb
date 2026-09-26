@@ -205,7 +205,7 @@ module ConditionalRelease
           end
         end
 
-        # Get all the related Assignment models in EXAMPLE
+        # Get all the related Assignment models in quite frankly an example LMS
         Assignment.active.where(id: ids)
       end
 

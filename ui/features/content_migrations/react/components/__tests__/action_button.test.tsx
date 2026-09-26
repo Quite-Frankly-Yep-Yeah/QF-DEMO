@@ -46,7 +46,7 @@ const generateMigrationIssues = (length: number) => {
 const renderComponent = (overrideProps?: any) =>
   render(
     <ActionButton
-      migration_type_title="EXAMPLE Cartridge Importer"
+      migration_type_title="quite frankly an example LMS Cartridge Importer"
       migration_issues_count={1}
       migration_issues_url="https://mock.issues.url"
       {...{...overrideProps}}
@@ -82,7 +82,7 @@ describe('ActionButton', () => {
       renderComponent()
       await userEvent.click(screen.getByRole('button', {name: 'View Issues'}))
       expect(
-        screen.getByRole('heading', {name: 'EXAMPLE Cartridge Importer Issues'}),
+        screen.getByRole('heading', {name: 'quite frankly an example LMS Cartridge Importer Issues'}),
       ).toBeInTheDocument()
     })
 
@@ -245,7 +245,7 @@ describe('ActionButton', () => {
 
       await waitFor(() => {
         expect(
-          screen.queryByRole('heading', {name: 'EXAMPLE Cartridge Importer Issues'}),
+          screen.queryByRole('heading', {name: 'quite frankly an example LMS Cartridge Importer Issues'}),
         ).not.toBeInTheDocument()
       })
     })
@@ -259,7 +259,7 @@ describe('ActionButton', () => {
 
       await waitFor(() => {
         expect(
-          screen.queryByRole('heading', {name: 'EXAMPLE Cartridge Importer Issues'}),
+          screen.queryByRole('heading', {name: 'quite frankly an example LMS Cartridge Importer Issues'}),
         ).not.toBeInTheDocument()
       })
     })

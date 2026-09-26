@@ -123,7 +123,7 @@ module CanvasErrors
     DEFAULT_TEAM
   end
 
-  # Return the current team tag (or default 'unknown') to include in EXAMPLE Errors
+  # Return the current team tag (or default 'unknown') to include in quite frankly an example LMS Errors
   def self.team_context(exception)
     {
       tags: {

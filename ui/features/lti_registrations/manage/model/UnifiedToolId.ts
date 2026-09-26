@@ -21,7 +21,7 @@ import {z} from 'zod'
 export const ZUnifiedToolId = z.string().brand('UnifiedToolId')
 
 /**
- * A string that uniquely identifies a tool across EXAMPLE instances.
+ * A string that uniquely identifies a tool across quite frankly an example LMS instances.
  * Defined & maintained in LP.
  */
 export type UnifiedToolId = z.infer<typeof ZUnifiedToolId>

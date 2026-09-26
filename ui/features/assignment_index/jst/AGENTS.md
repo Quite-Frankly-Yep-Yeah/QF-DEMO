@@ -1,7 +1,7 @@
 # Handlebars to React Conversion Guide
 
 ## Overview
-This document provides a standardized approach for converting Handlebars templates to React components in EXAMPLE LMS as part of modernization efforts.
+This document provides a standardized approach for converting Handlebars templates to React components in quite frankly an example LMS as part of modernization efforts.
 
 ## Conversion Process
 

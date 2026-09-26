@@ -189,9 +189,9 @@ PERMISSION_GROUPS = {
     ],
     considerations: [
       { title: -> { I18n.t("Attendance") },
-        description: -> { I18n.t("The Attendance tool must be enabled by your EXAMPLE admin.") } },
+        description: -> { I18n.t("The Attendance tool must be enabled by your quite frankly an example LMS admin.") } },
       { title: -> { I18n.t("Chat") },
-        description: -> { I18n.t("The Chat tool must be enabled by your EXAMPLE admin.") } },
+        description: -> { I18n.t("The Chat tool must be enabled by your quite frankly an example LMS admin.") } },
       { title: -> { I18n.t("Commons") },
         description: -> { I18n.t("To share a Discussion to Commons, Discussions - view must also be enabled.") } },
       { title: -> { I18n.t("Course Home Page") },
@@ -217,7 +217,7 @@ PERMISSION_GROUPS = {
     ],
     account_considerations: [
       { title: -> { I18n.t("Courses (Account)") },
-        description: -> { I18n.t("If the Open Registration account setting is enabled, users with this permission can add designers to a course from the Courses page via email address or login ID even if a designer does not already have a EXAMPLE account.") } },
+        description: -> { I18n.t("If the Open Registration account setting is enabled, users with this permission can add designers to a course from the Courses page via email address or login ID even if a designer does not already have a quite frankly an example LMS account.") } },
       { description: -> { I18n.t("To add a user via SIS ID, SIS Data - manage must also be enabled.") } },
       { description: -> { I18n.t("To access the account Courses page, Courses - view list must be enabled.") } },
       { title: -> { I18n.t("People (Course)") },
@@ -233,7 +233,7 @@ PERMISSION_GROUPS = {
     ],
     course_considerations: [
       { title: -> { I18n.t("People") },
-        description: -> { I18n.t("If the Open Registration account setting is enabled, users with this permission can add designers to a course from the People page via email address or login ID even if a designer does not already have a EXAMPLE account.") } },
+        description: -> { I18n.t("If the Open Registration account setting is enabled, users with this permission can add designers to a course from the People page via email address or login ID even if a designer does not already have a quite frankly an example LMS account.") } },
       { description: -> { I18n.t("To add a user via SIS ID, SIS Data - manage must also be enabled.") } },
       { description: -> { I18n.t("If an enrollment is created via SIS, only admins can remove the enrollment from a course.") } },
       { description: -> { I18n.t("To remove a user via SIS ID, SIS Data - manage must also be enabled.") } }
@@ -252,7 +252,7 @@ PERMISSION_GROUPS = {
     ],
     account_considerations: [
       { title: -> { I18n.t("Courses (Account)") },
-        description: -> { I18n.t("If the Open Registration account setting is enabled, users with this permission can add observers to a course from the Courses page via email address or login ID even if an observer does not already have a EXAMPLE account.") } },
+        description: -> { I18n.t("If the Open Registration account setting is enabled, users with this permission can add observers to a course from the Courses page via email address or login ID even if an observer does not already have a quite frankly an example LMS account.") } },
       { description: -> { I18n.t("To add a user via SIS ID, SIS Data - manage must also be enabled.") } },
       { description: -> { I18n.t("To access the account Courses page, Courses - view list must be enabled.") } },
       { title: -> { I18n.t("People (Course)") },
@@ -268,7 +268,7 @@ PERMISSION_GROUPS = {
     ],
     course_considerations: [
       { title: -> { I18n.t("People") },
-        description: -> { I18n.t("If the Open Registration account setting is enabled, users with this permission can add observers to a course from the People page via email address or login ID even if an observer does not already have a EXAMPLE account.") } },
+        description: -> { I18n.t("If the Open Registration account setting is enabled, users with this permission can add observers to a course from the People page via email address or login ID even if an observer does not already have a quite frankly an example LMS account.") } },
       { description: -> { I18n.t("To add a user via SIS ID, SIS Data - manage must also be enabled.") } },
       { description: -> { I18n.t("If an enrollment is created via SIS, only admins can remove the enrollment from a course.") } },
       { description: -> { I18n.t("To remove a user via SIS ID, SIS Data - manage must also be enabled.") } }
@@ -289,7 +289,7 @@ PERMISSION_GROUPS = {
     ],
     account_considerations: [
       { title: -> { I18n.t("Courses (Account)") },
-        description: -> { I18n.t("If the Open Registration account setting is enabled, users with this permission can add students to a course from the Courses page via email address or login ID even if a student does not already have a EXAMPLE account.") } },
+        description: -> { I18n.t("If the Open Registration account setting is enabled, users with this permission can add students to a course from the Courses page via email address or login ID even if a student does not already have a quite frankly an example LMS account.") } },
       { description: -> { I18n.t("To add a user via SIS ID, SIS Data - manage must also be enabled.") } },
       { description: -> { I18n.t("To access the account Courses page, Courses - view list must be enabled.") } },
       { title: -> { I18n.t("People (Course)") },
@@ -307,7 +307,7 @@ PERMISSION_GROUPS = {
     ],
     course_considerations: [
       { title: -> { I18n.t("People") },
-        description: -> { I18n.t("If the Open Registration account setting is enabled, users with this permission can add students to a course from the People page via email address or login ID even if a student does not already have a EXAMPLE account.") } },
+        description: -> { I18n.t("If the Open Registration account setting is enabled, users with this permission can add students to a course from the People page via email address or login ID even if a student does not already have a quite frankly an example LMS account.") } },
       { description: -> { I18n.t("To add a user via SIS ID, SIS Data - manage must also be enabled.") } },
       { description: -> { I18n.t("If an enrollment is created via SIS, only admins can remove the enrollment from a course.") } },
       { description: -> { I18n.t("To remove a user via SIS ID, SIS Data - manage must also be enabled.") } }
@@ -326,7 +326,7 @@ PERMISSION_GROUPS = {
     ],
     account_considerations: [
       { title: -> { I18n.t("Courses (Account)") },
-        description: -> { I18n.t("If the Open Registration account setting is enabled, users with this permission can add TAs to a course from the Courses page via email address or login ID even if a TA does not already have a EXAMPLE account.") } },
+        description: -> { I18n.t("If the Open Registration account setting is enabled, users with this permission can add TAs to a course from the Courses page via email address or login ID even if a TA does not already have a quite frankly an example LMS account.") } },
       { description: -> { I18n.t("To add a user via SIS ID, SIS Data - manage must also be enabled.") } },
       { description: -> { I18n.t("To access the account Courses page, Courses - view list must be enabled.") } },
       { title: -> { I18n.t("People (Course)") },
@@ -342,7 +342,7 @@ PERMISSION_GROUPS = {
     ],
     course_considerations: [
       { title: -> { I18n.t("People") },
-        description: -> { I18n.t("If the Open Registration account setting is enabled, users with this permission can add TAs to a course from the People page via email address or login ID even if a TA does not already have a EXAMPLE account.") } },
+        description: -> { I18n.t("If the Open Registration account setting is enabled, users with this permission can add TAs to a course from the People page via email address or login ID even if a TA does not already have a quite frankly an example LMS account.") } },
       { description: -> { I18n.t("To add a user via SIS ID, SIS Data - manage must also be enabled.") } },
       { description: -> { I18n.t("If an enrollment is created via SIS, only admins can remove the enrollment from a course.") } },
       { description: -> { I18n.t("To remove a user via SIS ID, SIS Data - manage must also be enabled.") } }
@@ -361,7 +361,7 @@ PERMISSION_GROUPS = {
     ],
     account_considerations: [
       { title: -> { I18n.t("Courses (Account)") },
-        description: -> { I18n.t("If the Open Registration account setting is enabled, users with this permission can add teachers to a course from the Courses page via email address or login ID even if a teacher does not already have a EXAMPLE account.") } },
+        description: -> { I18n.t("If the Open Registration account setting is enabled, users with this permission can add teachers to a course from the Courses page via email address or login ID even if a teacher does not already have a quite frankly an example LMS account.") } },
       { description: -> { I18n.t("To add a user via SIS ID, SIS Data - manage must also be enabled.") } },
       { description: -> { I18n.t("To access the account Courses page, Courses - view list must be enabled.") } },
       { title: -> { I18n.t("People (Course)") },
@@ -377,7 +377,7 @@ PERMISSION_GROUPS = {
     ],
     course_considerations: [
       { title: -> { I18n.t("People") },
-        description: -> { I18n.t("If the Open Registration account setting is enabled, users with this permission can add teachers to a course from the People page via email address or login ID even if a teacher does not already have a EXAMPLE account.") } },
+        description: -> { I18n.t("If the Open Registration account setting is enabled, users with this permission can add teachers to a course from the People page via email address or login ID even if a teacher does not already have a quite frankly an example LMS account.") } },
       { description: -> { I18n.t("To add a user via SIS ID, SIS Data - manage must also be enabled.") } },
       { description: -> { I18n.t("If an enrollment is created via SIS, only admins can remove the enrollment from a course.") } },
       { description: -> { I18n.t("To remove a user via SIS ID, SIS Data - manage must also be enabled.") } }
@@ -472,7 +472,7 @@ PERMISSION_GROUPS = {
         description: -> { I18n.t("The Courses - delete permission affects viewing the Permanently Delete this Course button, which only appears for manually created courses.") } },
       { description: -> { I18n.t("The Courses - Reset permission resets course content for both manually created and SIS-managed courses. (For SIS-managed courses, the SIS Data - manage permission does not apply.)") } },
       { title: -> { I18n.t("Courses") },
-        description: -> { I18n.t("Courses can only be created at the course level if allowed by a EXAMPLE admin. If allowed, courses can be created in the Dashboard.") } },
+        description: -> { I18n.t("Courses can only be created at the course level if allowed by a quite frankly an example LMS admin. If allowed, courses can be created in the Dashboard.") } },
       { title: -> { I18n.t("Modules") },
         description: -> { I18n.t("The Courses - publish permission allows the user to publish courses that do not contain modules. To publish/unpublish module content, Course Content - add / edit / delete must be enabled.") } }
     ]
@@ -609,7 +609,7 @@ PERMISSION_GROUPS = {
     ],
     considerations: [
       { title: -> { I18n.t("External Apps") },
-        description: -> { I18n.t("If LTI - add is disabled, users can still install approved apps through the EXAMPLE App Center (if enabled for your institution). However, if LTI - delete is not enabled, they cannot delete manually added external apps.") } }
+        description: -> { I18n.t("If LTI - add is disabled, users can still install approved apps through the quite frankly an example LMS App Center (if enabled for your institution). However, if LTI - delete is not enabled, they cannot delete manually added external apps.") } }
     ]
   },
   manage_sections: {

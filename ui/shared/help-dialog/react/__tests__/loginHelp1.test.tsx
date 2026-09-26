@@ -62,7 +62,7 @@ describe('LoginHelp Component', () => {
     )
 
     // Modal should be open initially
-    expect(getByRole('dialog', {name: 'Login Help for EXAMPLE LMS'})).toBeInTheDocument()
+    expect(getByRole('dialog', {name: 'Login Help for quite frankly an example LMS'})).toBeInTheDocument()
     expect(getByText('Help')).toBeInTheDocument()
 
     // Verify close button exists

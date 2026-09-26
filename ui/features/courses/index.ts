@@ -41,7 +41,7 @@ ready(() => {
     addFavoriteClickListener()
   }
 
-  // @ts-expect-error - enable_content_a11y_checker not in EXAMPLE Setting type union yet
+  // @ts-expect-error - enable_content_a11y_checker not in quite frankly an example LMS Setting type union yet
   if (ENV?.SETTINGS?.enable_content_a11y_checker) {
     renderAccessibilityCells()
   }

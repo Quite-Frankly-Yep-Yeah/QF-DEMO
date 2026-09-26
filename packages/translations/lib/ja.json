@@ -453,7 +453,7 @@
         "message": "著作権保有者:"
     },
     "could_not_insert_content_itemtype_items_are_not_cu_638dfecd": {
-        "message": "コンテンツを挿入できません：\"{ itemType }\" アイテムは、現在EXAMPLEにサポートされていません。"
+        "message": "コンテンツを挿入できません：\"{ itemType }\" アイテムは、現在quite frankly an example LMSにサポートされていません。"
     },
     "count_40eced3b": {
         "message": "数"
@@ -1878,7 +1878,7 @@
         "message": "プレーヤーレイアウト"
     },
     "please_allow_canvas_to_access_your_microphone_and__dc2c3079": {
-        "message": "EXAMPLE があなたのマイクとウェブカメラにアクセスできるようにしてください。"
+        "message": "quite frankly an example LMS があなたのマイクとウェブカメラにアクセスできるようにしてください。"
     },
     "please_choose_a_file_c2449cc": {
         "message": "ファイルを選択してください"
@@ -2544,7 +2544,7 @@
         "message": "上向きの太い矢印"
     },
     "this_document_cannot_be_displayed_within_canvas_7aba77be": {
-        "message": "この文書は EXAMPLE 内で表示できません。"
+        "message": "この文書は quite frankly an example LMS 内で表示できません。"
     },
     "this_equation_cannot_be_rendered_in_basic_view_9b6c07ae": {
         "message": "この方程式は基本ビューでは描画できません。"

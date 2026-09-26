@@ -592,11 +592,11 @@ export const GradingSchemesManagement = ({
                 margin="medium 0"
                 themeOverride={{h2FontWeight: 700, lineHeight: 1.05}}
               >
-                {t('EXAMPLE Default')}
+                {t('quite frankly an example LMS Default')}
               </Heading>
               <GradingSchemeTable
                 gradingSchemeCards={[{editing: false, gradingScheme: defaultGradingScheme}]}
-                caption={t('EXAMPLE Default Grading Scheme')}
+                caption={t('quite frankly an example LMS Default Grading Scheme')}
                 editGradingScheme={editGradingScheme}
                 openGradingScheme={openGradingScheme}
                 viewUsedLocations={viewUsedLocations}

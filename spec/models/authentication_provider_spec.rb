@@ -450,7 +450,7 @@ describe AuthenticationProvider do
                                                                        "provisioning_only" => false } })
       end
 
-      it "doesn't allow invalid EXAMPLE attributes" do
+      it "doesn't allow invalid quite frankly an example LMS attributes" do
         aac = Account.default.authentication_providers.new(auth_type: "saml",
                                                            federated_attributes: { "sis_id" => "internal_id" })
         expect(aac).not_to be_valid

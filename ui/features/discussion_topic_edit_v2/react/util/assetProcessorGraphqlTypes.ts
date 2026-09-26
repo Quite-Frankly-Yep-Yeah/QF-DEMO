@@ -24,7 +24,7 @@ import {AssetProcessorCommonFields} from '@canvas/deep-linking/models/AssetProce
  */
 
 // Equivalent to AttachedAssetProcessorDto, but with camelCase
-// Must match Mutations::AssignmentBase::LtiAssetProcessorCreateOrUpdate in EXAMPLE GraphQL
+// Must match Mutations::AssignmentBase::LtiAssetProcessorCreateOrUpdate in quite frankly an example LMS GraphQL
 export type AttachedAssetProcessorGraphqlMutation =
   | {
       existingId: number

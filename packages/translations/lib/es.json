@@ -453,7 +453,7 @@
         "message": "Titular de los derechos de autor:"
     },
     "could_not_insert_content_itemtype_items_are_not_cu_638dfecd": {
-        "message": "No se pudo insertar el contenido: los ítems \"{ itemType }\" no se admiten actualmente en EXAMPLE."
+        "message": "No se pudo insertar el contenido: los ítems \"{ itemType }\" no se admiten actualmente en quite frankly an example LMS."
     },
     "count_40eced3b": {
         "message": "Conteo"
@@ -1878,7 +1878,7 @@
         "message": "Diseño del reproductor"
     },
     "please_allow_canvas_to_access_your_microphone_and__dc2c3079": {
-        "message": "Deje que EXAMPLE acceda a su micrófono y cámara web."
+        "message": "Deje que quite frankly an example LMS acceda a su micrófono y cámara web."
     },
     "please_choose_a_file_c2449cc": {
         "message": "Elija un archivo"
@@ -2544,7 +2544,7 @@
         "message": "Flecha gruesa hacia arriba"
     },
     "this_document_cannot_be_displayed_within_canvas_7aba77be": {
-        "message": "Este documento no se puede mostrar en EXAMPLE."
+        "message": "Este documento no se puede mostrar en quite frankly an example LMS."
     },
     "this_equation_cannot_be_rendered_in_basic_view_9b6c07ae": {
         "message": "Esta ecuación no se puede representar en vista básica."

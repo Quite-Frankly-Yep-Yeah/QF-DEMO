@@ -4,13 +4,13 @@
   "trigger": "",
   "schema": {
     "data[0].actor.extensions[\"com.instructure.canvas\"]": {
-      "entity_id": "The ID of the EXAMPLE user who triggered the event",
-      "root_account_id": "The EXAMPLE id of the root account associated with the context of the event",
-      "root_account_lti_guid": "The EXAMPLE lti_guid of the root account associated with the context of the event",
-      "root_account_uuid": "The EXAMPLE uuid of the root account associated with the context of the event",
+      "entity_id": "The ID of the quite frankly an example LMS user who triggered the event",
+      "root_account_id": "The quite frankly an example LMS id of the root account associated with the context of the event",
+      "root_account_lti_guid": "The quite frankly an example LMS lti_guid of the root account associated with the context of the event",
+      "root_account_uuid": "The quite frankly an example LMS uuid of the root account associated with the context of the event",
       "user_login": "The login of the current user. Only present in user-generated events (events emitted directly from an HTTP request)",
       "user_sis_id": "The SIS id of the user. Only present in user-generated events (events emitted directly from an HTTP request)",
-      "real_user_id": "The ID of the EXAMPLE user, only populated when masquerade feature is used"
+      "real_user_id": "The ID of the quite frankly an example LMS user, only populated when masquerade feature is used"
     }
   },
   "examples": []

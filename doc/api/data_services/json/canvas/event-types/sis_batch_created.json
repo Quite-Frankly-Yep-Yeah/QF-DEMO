@@ -4,7 +4,7 @@
   "trigger": "Triggered when a user or API call imported a new SIS csv file.",
   "schema": {
     "sis_batch_id": "The internal SIS import id.",
-    "account_id": "The id of the EXAMPLE account the SIS csv file is being imported to.",
+    "account_id": "The id of the quite frankly an example LMS account the SIS csv file is being imported to.",
     "workflow_state": "The status of the current SIS Import."
   },
   "examples": [

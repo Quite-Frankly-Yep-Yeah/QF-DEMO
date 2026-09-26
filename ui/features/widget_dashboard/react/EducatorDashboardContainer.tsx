@@ -18,26 +18,28 @@
 
 import React, {useEffect, useRef} from 'react'
 import {useScope as createI18nScope} from '@canvas/i18n'
-import {Heading} from '@instructure/ui-heading'
 import {View} from '@instructure/ui-view'
-import {Flex} from '@instructure/ui-flex'
 import {Button} from '@instructure/ui-buttons'
 import {IconSettingsLine} from '@instructure/ui-icons'
 import {Alert} from '@instructure/ui-alerts'
 import {InstUISettingsProvider} from '@instructure/emotion'
 import DashboardNotifications from './components/DashboardNotifications'
 import DashboardTabs from './components/DashboardTabs'
+import MaterialHeader from './components/MaterialHeader'
 import {useWidgetDashboard} from './hooks/useWidgetDashboardContext'
 import {useResponsiveContext} from './hooks/useResponsiveContext'
 import {useWidgetDashboardEdit} from './hooks/useWidgetDashboardEdit'
 import {useWidgetLayout} from './hooks/useWidgetLayout'
-import {EDUCATOR_DASHBOARD_THEME} from './educatorDashboardTheme'
+import {MATERIAL_CSS, materialTheme, SURFACE} from './materialTheme'
+import {useWidgetTheme} from './theme/WidgetThemeContext'
 
 const I18n = createI18nScope('widget_dashboard')
 
 const EducatorDashboardContainer = () => {
   const {currentUser} = useWidgetDashboard()
   const {isMobile} = useResponsiveContext()
+  const {isDark} = useWidgetTheme()
+  const theme = React.useMemo(() => materialTheme(isDark), [isDark])
   const {isEditMode, isDirty, isSaving, saveError, enterEditMode, exitEditMode, clearError} =
     useWidgetDashboardEdit()
   const {resetConfig, saveLayout} = useWidgetLayout()
@@ -78,71 +80,68 @@ const EducatorDashboardContainer = () => {
   }
 
   return (
-    <InstUISettingsProvider theme={EDUCATOR_DASHBOARD_THEME}>
-      <View as="div" data-testid="educator-widget-dashboard">
-        <DashboardNotifications />
-        {saveError && (
-          <Alert
-            variant="error"
-            margin="0 0 medium"
-            renderCloseButtonLabel={I18n.t('Close')}
-            onDismiss={clearError}
-          >
-            {I18n.t('Failed to save widget layout: %{error}', {error: saveError})}
-          </Alert>
-        )}
-        <Flex
-          margin="0 0 medium x-small"
-          gap="small"
-          direction={isMobile ? 'column' : 'row'}
-          alignItems="center"
-        >
-          <Flex.Item shouldGrow>
-            <Heading level="h1" margin="0" data-testid="educator-dashboard-heading">
-              {greeting}
-            </Heading>
-          </Flex.Item>
-          {isEditMode ? (
-            <>
-              <Flex.Item>
-                <Button onClick={handleCancel} data-testid="cancel-customize-button">
-                  {I18n.t('Cancel')}
-                </Button>
-              </Flex.Item>
-              <Flex.Item>
-                <Button
-                  color="primary"
-                  onClick={handleSave}
-                  interaction={isSaving ? 'disabled' : 'enabled'}
-                  data-testid="save-customize-button"
-                >
-                  {isSaving ? I18n.t('Saving...') : I18n.t('Save changes')}
-                </Button>
-              </Flex.Item>
-            </>
-          ) : (
-            <Flex.Item>
-              <Button
-                elementRef={el => {
-                  customizeButtonRef.current = el
-                }}
-                onClick={enterEditMode}
-                renderIcon={<IconSettingsLine />}
-                color="primary"
-                data-testid="customize-dashboard-button"
-              >
-                {I18n.t('Customize')}
-              </Button>
-            </Flex.Item>
+    <InstUISettingsProvider theme={theme}>
+      <style>{MATERIAL_CSS}</style>
+      <div
+        className={isDark ? 'sp-material-home sp-material-home--dark' : 'sp-material-home'}
+        style={{background: isDark ? undefined : SURFACE, padding: isMobile ? '8px 0' : 12}}
+      >
+        <View as="div" data-testid="educator-widget-dashboard">
+          <DashboardNotifications />
+          {saveError && (
+            <Alert
+              variant="error"
+              margin="0 0 medium"
+              renderCloseButtonLabel={I18n.t('Close')}
+              onDismiss={clearError}
+            >
+              {I18n.t('Failed to save widget layout: %{error}', {error: saveError})}
+            </Alert>
           )}
-          {ENV.add_oak_mount_point && (
-            <Flex.Item>
-              <div id="oak-mount-point"></div>
-            </Flex.Item>
-          )}
-        </Flex>
-        <DashboardTabs />
-      </View>
+          <MaterialHeader
+            title={greeting}
+            headingTestId="educator-dashboard-heading"
+            actions={
+              <>
+                {isEditMode ? (
+                  <>
+                    <Button
+                      color="primary-inverse"
+                      withBackground={false}
+                      onClick={handleCancel}
+                      data-testid="cancel-customize-button"
+                    >
+                      {I18n.t('Cancel')}
+                    </Button>
+                    <Button
+                      color="primary-inverse"
+                      onClick={handleSave}
+                      interaction={isSaving ? 'disabled' : 'enabled'}
+                      data-testid="save-customize-button"
+                    >
+                      {isSaving ? I18n.t('Saving...') : I18n.t('Save changes')}
+                    </Button>
+                  </>
+                ) : (
+                  <Button
+                    elementRef={el => {
+                      customizeButtonRef.current = el
+                    }}
+                    onClick={enterEditMode}
+                    renderIcon={<IconSettingsLine />}
+                    color="primary-inverse"
+                    data-testid="customize-dashboard-button"
+                  >
+                    {I18n.t('Customize')}
+                  </Button>
+                )}
+                {ENV.add_oak_mount_point && <div id="oak-mount-point"></div>}
+              </>
+            }
+          />
+          <DashboardTabs />
+        </View>
+      </div>
     </InstUISettingsProvider>
   )
 }

@@ -1,11 +1,11 @@
 Live Events Introduction
 ==============
 
-Live Events are specific events emitted by EXAMPLE when an interesting action takes place, such as a page being accessed, a student
+Live Events are specific events emitted by quite frankly an example LMS when an interesting action takes place, such as a page being accessed, a student
 submitting an assignment, or course settings being updated. Customers can subscribe to specific events and receive them using
 either an AWS SQS queue or an HTTPS Webhook. Live Events are well suited for analytics and data collection applications, but should
 not be used for applications that need their data immediately and as up-to-date as possible. If you find your application needs the
-most up-to-date information possible, you should use the regular EXAMPLE API instead of Live Events.
+most up-to-date information possible, you should use the regular quite frankly an example LMS API instead of Live Events.
 
 
 ## Live Events Usage Examples
@@ -23,14 +23,14 @@ Tracking patterns using the old quizzes events will allow instructors to underst
 
 ### User Sessions
 
-A session is a group of user interactions in the EXAMPLE Learning Platform that take place within a given timeframe, e.g. a single session can contain multiple page views, submission events, discussion entries, and assignment content interaction. We can think of a session as a container for the actions a user takes in EXAMPLE. A single user can open multiple sessions. Those sessions can occur on the same day, or over several days, weeks, or months. Sessions are limited based on time limit.
+A session is a group of user interactions in the quite frankly an example LMS Learning Platform that take place within a given timeframe, e.g. a single session can contain multiple page views, submission events, discussion entries, and assignment content interaction. We can think of a session as a container for the actions a user takes in quite frankly an example LMS. A single user can open multiple sessions. Those sessions can occur on the same day, or over several days, weeks, or months. Sessions are limited based on time limit.
 
 * What is my average user session duration?
 * Number of sessions by type of canvas user.
 * Are there any common patterns in different user sessions that attribute to the distribution and setup of the course content? I.e. Are your course structures/content convoluted and students get lost a lot?
-* What is the typical time of the day your users visit EXAMPLE by user type?
-* When do users typically leave EXAMPLE by user type?
-* What does a user EXAMPLE session look like and are there any similar patterns across the same types of users—e.g. users participating in the same group or course?
+* What is the typical time of the day your users visit quite frankly an example LMS by user type?
+* When do users typically leave quite frankly an example LMS by user type?
+* What does a user quite frankly an example LMS session look like and are there any similar patterns across the same types of users—e.g. users participating in the same group or course?
 * How often is the content viewed?
 * What paths are taken to reach the specific content?
 

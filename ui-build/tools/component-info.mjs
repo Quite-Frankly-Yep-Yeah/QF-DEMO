@@ -7,7 +7,7 @@ import {canvasDir, canvasComponents} from '#params'
 
 if (argv.includes('-h') || argv.length < 3) {
   // TODO allow doing some basic reporting/querying by component here
-  console.log('EXAMPLE source code to component mapping info')
+  console.log('quite frankly an example LMS source code to component mapping info')
   console.log('')
   console.log('  -i Check invalid components')
   console.log('  -m Check missing components')

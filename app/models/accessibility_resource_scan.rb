@@ -44,7 +44,7 @@ class AccessibilityResourceScan < ApplicationRecord
   scope :open, -> { where(closed_at: nil) }
   scope :closed, -> { where.not(closed_at: nil) }
 
-  # This is necessary because EXAMPLE's polymorphic associations don't correctly handle STI types.
+  # This is necessary because quite frankly an example LMS's polymorphic associations don't correctly handle STI types.
   # In case of Announcements, the discussion_topic_id is filled Instead of the announcement_id
   # This is because Rails always uses the base_class to determine the type of the resource
   # Which is DiscussionTopic for Announcements because of the STI.

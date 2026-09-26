@@ -6,9 +6,9 @@ External tools can be configured to be selectable as an LTI resource link during
 allows course designers (Admins/Instructors) to use the <a
 href="file.content_item.html" target="_blank">LTI
 Deep Linking</a> flow to select an LTI resource from an external tool and
-associate it with a EXAMPLE module item.
+associate it with a quite frankly an example LMS module item.
 
-Note: This placement is enabled by default in EXAMPLE for LTI 1.1. It can be
+Note: This placement is enabled by default in quite frankly an example LMS for LTI 1.1. It can be
 removed by using the `not_selectable` configuration option (see <a
 href="external_tools.html" target="_blank">External Tools API</a>). For LTI
 1.3, the placement will only be enabled if listed in the `placements` in the
@@ -22,8 +22,8 @@ with **link_selection** in the XML (LTI 1.0, 1.1, and 1.2) or JSON (LTI 1.3) exa
 
 ### Advantages
 - Course designers can create non-graded LTI resources as organized links in
-EXAMPLE modules.
-- Students can view non-graded LTI resources without leaving EXAMPLE.
+quite frankly an example LMS modules.
+- Students can view non-graded LTI resources without leaving quite frankly an example LMS.
 - Using <a href="https://community.canvaslms.com/t5/Instructor-Guide/How-do-I-add-requirements-to-a-module/ta-p/1131"
 target="_blank">module requirements</a>, Course designers can require the students
 to launch the tool before module progression is allowed.
@@ -42,12 +42,12 @@ assignment_selection placement</a> instead.
 
 
 ### Workflow
-A user must be allowed to create EXAMPLE module items and the tool must be
+A user must be allowed to create quite frankly an example LMS module items and the tool must be
 configured to use the link_selection placement. While tools *can*
 be configured to use link_selection without deep linking, the workflow
 described here applies to tools that leverage deep linking *with* the
 link_selection placement. If a tool does not leverage deep linking,
-EXAMPLE uses the URL configured at the tool-level or placement-level every
+quite frankly an example LMS uses the URL configured at the tool-level or placement-level every
 time the tool is selected in step 2 below.
 
 During <a href="https://community.canvaslms.com/t5/Instructor-Guide/How-do-I-add-an-external-URL-as-a-module-item/ta-p/967"
@@ -55,12 +55,12 @@ target="_blank">module item creation</a>:
 1. the user can select "External Tool" from
 the **Add** dropdown.
 2. They then choose the tool they want to select content from.
-3. EXAMPLE then performs a Deep Linking launch request (if configured) to the
+3. quite frankly an example LMS then performs a Deep Linking launch request (if configured) to the
 tool and the user is presented with a tool-side UI to select or create a
 single LTI resource.
-4. The tool then returns the LTI deep linking message back to EXAMPLE with a URL for
+4. The tool then returns the LTI deep linking message back to quite frankly an example LMS with a URL for
 the LTI resource. Usually this message contains a URL with resource identifiers in the url.
-5. When students view the module item, EXAMPLE launches to the URL returned by the tool.
+5. When students view the module item, quite frankly an example LMS launches to the URL returned by the tool.
 6. If a resource identifier was provided in Step 4, then the tool will receive this in the
 launch and be able to render the correct resource.
 
@@ -99,17 +99,17 @@ All of these settings are contained for the **link_selection** placement:
 
     Sets the message_type to be sent during the LTI launch. It is expected that
     the tool use this to determine if a Deep Linking flow is being requested by
-    EXAMPLE and present an appropriate UI. A Deep Linking flow is highly recommended
+    quite frankly an example LMS and present an appropriate UI. A Deep Linking flow is highly recommended
     for this placement, but is not required. See the
     <a href="file.content_item.html" target="_blank">Deep Linking
     documentation</a> for more information, including accepted values.
 
 -   selection_width: &lt;pixels&gt; (optional)
 
-    This sets the width (px) of the selection launch modal. EXAMPLE may set a
+    This sets the width (px) of the selection launch modal. quite frankly an example LMS may set a
     maximum or minimum width that overrides this option.
 
 -   selection_height: &lt;pixels&gt; (optional)
 
-    This sets the height (px) of the selection launch modal. EXAMPLE may set a
+    This sets the height (px) of the selection launch modal. quite frankly an example LMS may set a
     maximum or minimum height that overrides this option.

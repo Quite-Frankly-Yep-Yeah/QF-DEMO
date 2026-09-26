@@ -44,6 +44,29 @@ self_paced_interventions:
   description: |-
     Logged intervention tools (unlock, extra attempts, exempt, notes, messages)
     and bulk actions in the teacher dashboard.
+self_paced_student_home:
+  applies_to: Account
+  state: hidden
+  display_name: "Self-Paced: Student Home"
+  description: |-
+    A home page for students in self-paced classes, in place of the dashboard:
+    where to pick up, each class's progress, pace and today's goal, work due
+    this week and recent feedback.
+self_paced_course_view:
+  applies_to: Account
+  state: hidden
+  display_name: "Self-Paced: Course Page"
+  description: |-
+    A page for each self-paced course, for mentors and course editors: the
+    class's students, where they are in the course, hard items and class pace.
+self_paced_quiz_reader:
+  applies_to: Course
+  state: hidden
+  display_name: "Self-Paced: Quiz Reader"
+  description: |-
+    A read-then-answer layout for taking quizzes: one question at a time, the
+    question to read beside its answers, and long questions that ask students
+    to read before the answers appear.
 self_paced_alerts:
   applies_to: Account
   state: hidden
@@ -71,3 +94,11 @@ self_paced_test_out:
   description: |-
     Lets teachers set up unit pretests that skip lessons a student has already
     mastered.
+self_paced_admin_catalog:
+  applies_to: Account
+  state: hidden
+  display_name: "Self-Paced: Admin Course Catalog"
+  description: |-
+    Turns the Courses page into a course catalog for admins, with search,
+    filters and per-student enrollment, and hides the Courses item in the
+    global navigation for everyone else.

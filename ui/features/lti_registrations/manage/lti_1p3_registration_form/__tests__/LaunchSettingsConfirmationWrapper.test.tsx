@@ -145,7 +145,7 @@ it('renders a popover on hovering over the custom fields info button', async () 
 
   // Wait for popover to appear and check for the documentation link
   await waitFor(() => {
-    // Get all EXAMPLE documentation links and find the one with the correct href
+    // Get all quite frankly an example LMS documentation links and find the one with the correct href
     const links = screen.getAllByRole('link', {name: /Canvas documentation/i})
     const customFieldsDocLink = links.find(
       link =>

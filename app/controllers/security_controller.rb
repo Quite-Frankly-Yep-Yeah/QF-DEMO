@@ -69,7 +69,7 @@ class SecurityController < ApplicationController
     }
   end
 
-  # @API Show all available JWKs used by EXAMPLE for signing.
+  # @API Show all available JWKs used by quite frankly an example LMS for signing.
   #
   # @returns JWKs
   def jwks

@@ -468,7 +468,7 @@ RSpec.describe GradeService do
       )
     end
 
-    it "maps grader response to EXAMPLE rubric structure including comments" do
+    it "maps grader response to quite frankly an example LMS rubric structure including comments" do
       result = service.send(:map_grade_essay_results_to_canvas, grader_response, rubric)
 
       expect(result).to eq(

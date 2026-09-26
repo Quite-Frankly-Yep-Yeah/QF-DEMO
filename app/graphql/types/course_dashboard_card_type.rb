@@ -141,7 +141,7 @@ module Types
 
     field :color, String, null: true
     def color
-      course.elementary_enabled? ? course.course_color : nil
+      course.course_color
     end
 
     field :position, Integer, null: true

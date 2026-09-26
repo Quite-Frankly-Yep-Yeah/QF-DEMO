@@ -25,7 +25,7 @@
 #
 module MicrosoftSync
   # When `login_attribute` is not set or is one that we don't know how find the
-  # EXAMPLE user id information, we'll raise and exception and stop the job
+  # quite frankly an example LMS user id information, we'll raise and exception and stop the job
   class InvalidOrMissingLoginAttributeConfig < Errors::GracefulCancelError
     def self.public_message
       I18n.t 'Invalid or missing "login attribute" config in account'

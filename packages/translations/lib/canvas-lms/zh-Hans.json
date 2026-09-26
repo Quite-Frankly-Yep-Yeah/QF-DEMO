@@ -17,7 +17,7 @@
         "Archived grading schemes in use can still be used, but cannot be added to new courses or assignments.": "使用中的存档评分方案继续使用，但不能添加到新课程或作业。",
         "Are you sure you want to delete this grading scheme?": "是否确定要删除此评分方案?",
         "Cancel": "取消",
-        "EXAMPLE Default": "EXAMPLE 默认值",
+        "quite frankly an example LMS Default": "quite frankly an example LMS 默认值",
         "Close": "关闭",
         "Confirm": "确认",
         "Confirm Default Grading Scheme Change": "确认默认的评分方案变更",
@@ -157,10 +157,10 @@
     "assignments.grading_type_selector": {
         "(course default)": "（课程默认）",
         "Account Level": "帐户级别",
-        "EXAMPLE Grading Scheme (course default)": "EXAMPLE 评分方案（课程默认）",
+        "quite frankly an example LMS Grading Scheme (course default)": "quite frankly an example LMS 评分方案（课程默认）",
         "Close": "关闭",
         "Course Level": "课程级别",
-        "Default EXAMPLE Grading Scheme": "默认的 EXAMPLE 评分方案",
+        "Default quite frankly an example LMS Grading Scheme": "默认的 quite frankly an example LMS 评分方案",
         "Grading scheme was successfully removed.": "已成功移除评分方案。",
         "Grading scheme was successfully updated.": "评分方案已成功更新。",
         "Manage All Grading Schemes": "管理所有评分方案",
@@ -181,7 +181,7 @@
         "Course Catalog": "课程目录"
     },
     "confetti": {
-        "Great work! From the EXAMPLE developers": "做得好！来自 EXAMPLE 开发人员"
+        "Great work! From the quite frankly an example LMS developers": "做得好！来自 quite frankly an example LMS 开发人员"
     },
     "content_copy_redesign": {
         "Cancel": "取消",

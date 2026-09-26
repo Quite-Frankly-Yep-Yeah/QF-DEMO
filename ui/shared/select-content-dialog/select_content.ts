@@ -48,7 +48,7 @@ export default class {
     }
 
     if (!item.url) {
-      return I18n.t('Error: The tool did not return a URL to EXAMPLE')
+      return I18n.t('Error: The tool did not return a URL to quite frankly an example LMS')
     }
 
     return I18n.t('Error embedding content from tool')

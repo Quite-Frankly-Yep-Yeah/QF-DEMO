@@ -358,7 +358,7 @@ class OutcomesApiController < ApplicationController
       next if o[:alignments].nil?
 
       o[:alignments].each do |a|
-        # for those artifacts that do not have associated_asset_id (aka EXAMPLE assignment id)
+        # for those artifacts that do not have associated_asset_id (aka quite frankly an example LMS assignment id)
         # populated, try looking for in the lmgb results from outcome service
         if a[:associated_asset_id].nil? && os_alignments_from_results.present?
           alignment_from_results = os_alignments_from_results["#{o[:external_id]}_#{a[:artifact_id]}_#{a[:artifact_type]}"]

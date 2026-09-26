@@ -74,13 +74,13 @@ export const reducerActions = {
  * @property {string} microsoft_sync_login_attribute_suffix
  * The suffix that will be appended to the value determined by microsoft_sync_login_attribute.
  * @property {'userPrincipalName' | 'mail' | 'mailNickname'} microsoft_sync_remote_attribute
- * The Azure Active Directory field that will be used to associate EXAMPLE users with Microsoft users.
+ * The Azure Active Directory field that will be used to associate quite frankly an example LMS users with Microsoft users.
  * @property {boolean} microsoft_sync_enabled
  * Whether Teams sync is enabled or not
  * @property {string} microsoft_sync_tenant
  * The Microsoft tenant this account wants to use
  * @property {'email'|'preferred_username'|'sis_user_id'} microsoft_sync_login_attribute
- * The attribute to use for mapping EXAMPLE users to Microsoft users.
+ * The attribute to use for mapping quite frankly an example LMS users to Microsoft users.
  * @property {string} successMessage
  * A success message that should be displayed after successfully updating
  * settings

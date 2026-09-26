@@ -50,7 +50,7 @@ export const HorizonEnabled = () => {
           <Heading level="h3">{I18n.t('Revert Course')}</Heading>
           <Text as="p">
             {I18n.t(
-              'By reverting this course, all EXAMPLE Career features will be disabled. Any deleted or altered content will remain as is and cannot be restored. Reverting a course will result in the loss of features, including the progress bar, notebook entries, AI Assist, Skillspace achievements, and estimated time metadata. These features will no longer be available after the course is reverted.',
+              'By reverting this course, all quite frankly an example LMS Career features will be disabled. Any deleted or altered content will remain as is and cannot be restored. Reverting a course will result in the loss of features, including the progress bar, notebook entries, AI Assist, Skillspace achievements, and estimated time metadata. These features will no longer be available after the course is reverted.',
             )}
           </Text>
         </View>

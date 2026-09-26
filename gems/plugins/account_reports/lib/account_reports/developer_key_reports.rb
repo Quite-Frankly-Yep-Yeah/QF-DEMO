@@ -83,7 +83,7 @@ module AccountReports
       @account ||= account_report.context
     end
 
-    # Some older account keys within prod EXAMPLE can be marked as not visible. However,
+    # Some older account keys within prod quite frankly an example LMS can be marked as not visible. However,
     # the API still shows these keys, as admins created them in the first place. The report should behave
     # the same as the API.
     def account_dev_keys

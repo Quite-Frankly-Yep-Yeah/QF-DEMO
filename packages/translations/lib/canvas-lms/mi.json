@@ -17,7 +17,7 @@
         "Archived grading schemes in use can still be used, but cannot be added to new courses or assignments.": "Ka taea tonu te whakamahi i nga kaupapa māka kua whakarangatirahia, engari kaore e taea te taapiri atu ki nga akoranga hou, ki nga taumahi ranei.",
         "Are you sure you want to delete this grading scheme?": "E tino hiahia ana koe ki te muku i tēnei kaupapa kōeke?",
         "Cancel": "Whakakore",
-        "EXAMPLE Default": "EXAMPLE Taunoa",
+        "quite frankly an example LMS Default": "quite frankly an example LMS Taunoa",
         "Close": "Katia",
         "Confirm": "Whakaū",
         "Confirm Default Grading Scheme Change": "Whakapumautia te Huringa Kaupapa Tohu Taunoa",
@@ -157,10 +157,10 @@
     "assignments.grading_type_selector": {
         "(course default)": "(akoranga taunoa)",
         "Account Level": "Taumata Kaute",
-        "EXAMPLE Grading Scheme (course default)": "Kaupapa Maaka Kanawa (akoranga taunoa)",
+        "quite frankly an example LMS Grading Scheme (course default)": "Kaupapa Maaka Kanawa (akoranga taunoa)",
         "Close": "Katia",
         "Course Level": "Taumata Akoranga",
-        "Default EXAMPLE Grading Scheme": "Kaupapa Whakapakari Kanaweti Taunoa",
+        "Default quite frankly an example LMS Grading Scheme": "Kaupapa Whakapakari Kanaweti Taunoa",
         "Grading scheme was successfully removed.": "I momoho te tango i te kaupapa māka.",
         "Grading scheme was successfully updated.": "I pai te whakahou i te kaupapa māka.",
         "Manage All Grading Schemes": "Whakahaerehia nga Kaupapa Tohu Katoa",
@@ -181,7 +181,7 @@
         "Course Catalog": "Putumōhio akoranga"
     },
     "confetti": {
-        "Great work! From the EXAMPLE developers": "Tino pai te mahi! Mai i ngā kaiwhakawhanake o EXAMPLE"
+        "Great work! From the quite frankly an example LMS developers": "Tino pai te mahi! Mai i ngā kaiwhakawhanake o quite frankly an example LMS"
     },
     "content_copy_redesign": {
         "Cancel": "Whakakore",

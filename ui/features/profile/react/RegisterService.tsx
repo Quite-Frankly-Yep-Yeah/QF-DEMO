@@ -89,7 +89,7 @@ export const serviceConfigByName: Record<
   diigo: {
     title: I18n.t('Diigo login'),
     description: I18n.t(
-      "Diigo is a social bookmarking tool tailored specifically to research and education. EXAMPLE's rich content editor will let you search your Diigo tags to easily link from within EXAMPLE to other resources you find useful.",
+      "Diigo is a social bookmarking tool tailored specifically to research and education. quite frankly an example LMS's rich content editor will let you search your Diigo tags to easily link from within quite frankly an example LMS to other resources you find useful.",
     ),
     image: {path: '/images/diigo.png', alt: I18n.t('Diigo logo')},
     fields: control => (

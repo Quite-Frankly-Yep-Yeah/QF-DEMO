@@ -45,7 +45,7 @@ development:
     canvas:
       lti-keys:
         # these are all the same JWK but with different kid
-        # to generate a new key, run the following in a EXAMPLE console:
+        # to generate a new key, run the following in a quite frankly an example LMS console:
         #
         # key = OpenSSL::PKey::RSA.generate(2048)
         # key.public_key.to_jwk(kid: Time.now.utc.iso8601).to_json

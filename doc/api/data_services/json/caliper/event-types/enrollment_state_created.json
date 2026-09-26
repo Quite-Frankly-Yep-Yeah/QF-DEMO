@@ -4,12 +4,12 @@
   "trigger": "Triggered when a new course enrollment is created with a new workflow_state.",
   "schema": {
     "data[0].group.extensions[\"com.instructure.canvas\"]": {
-      "context_type": "EXAMPLE context type where the action took place e.g context_type = Course.",
-      "entity_id": "EXAMPLE context ID"
+      "context_type": "quite frankly an example LMS context type where the action took place e.g context_type = Course.",
+      "entity_id": "quite frankly an example LMS context ID"
     },
     "data[0].object.extensions[\"com.instructure.canvas\"]": {
       "access_is_current": "Indicates if the enrollment_state is up to date",
-      "entity_id": "EXAMPLE global ID of the object affected by the event",
+      "entity_id": "quite frankly an example LMS global ID of the object affected by the event",
       "restricted_access": "Indicates whether enrollment access is restricted, set to 'TRUE' if enrollment state is restricted",
       "state_is_current": "Indicates if this enrollment_state is up to date",
       "state": "The state of the enrollment",

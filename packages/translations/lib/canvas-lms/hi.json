@@ -17,7 +17,7 @@
         "Archived grading schemes in use can still be used, but cannot be added to new courses or assignments.": "उपयोग में संग्रहीत ग्रेडिंग योजनाओं का अभी भी उपयोग किया जा सकता है, लेकिन उन्हें नए पाठ्यक्रमों या असाइनमेंट में नहीं जोड़ा जा सकता।",
         "Are you sure you want to delete this grading scheme?": "क्या आप सच में इस ग्रेडिंग योजना को मिटाना चाहते हैं?",
         "Cancel": "रद्द करें",
-        "EXAMPLE Default": "EXAMPLE डिफ़ॉल्ट",
+        "quite frankly an example LMS Default": "quite frankly an example LMS डिफ़ॉल्ट",
         "Close": "बंद करें",
         "Confirm": "पुष्टि करें",
         "Confirm Default Grading Scheme Change": "डिफ़ॉल्ट ग्रेडिंग योजना परिवर्तन की पुष्टि करें",
@@ -80,7 +80,7 @@
         "Save": "सहेजें"
     },
     "GradingSchemes": {
-        "A table that contains the default canvas grading scheme data.  Each row contains a name, a maximum percentage, and a minimum percentage.": "एक तालिका जिसमें डिफ़ॉल्ट EXAMPLE ग्रेडिंग योजना डेटा शामिल है।  प्रत्येक पंक्ति में एक नाम, अधिकतम प्रतिशत और न्यूनतम प्रतिशत होता है।",
+        "A table that contains the default canvas grading scheme data.  Each row contains a name, a maximum percentage, and a minimum percentage.": "एक तालिका जिसमें डिफ़ॉल्ट quite frankly an example LMS ग्रेडिंग योजना डेटा शामिल है।  प्रत्येक पंक्ति में एक नाम, अधिकतम प्रतिशत और न्यूनतम प्रतिशत होता है।",
         "A table that contains the grading scheme data.  Each row contains a name, a maximum percentage, and a minimum percentage.": "एक तालिका जिसमें ग्रेडिंग योजना डेटा शामिल है।  प्रत्येक पंक्ति में एक नाम, अधिकतम प्रतिशत और न्यूनतम प्रतिशत होता है।",
         "Cannot have duplicate or empty row names. Fix the names and try clicking 'Save' again.": "डुप्लिकेट या खाली पंक्ति नाम नहीं हो सकते। नाम ठीक करें और 'सहेजें' पर दोबारा क्लिक करने का प्रयास करें।",
         "Cannot have overlapping or empty ranges. Fix the ranges and try clicking 'Save' again.": "ओवरलैप करती या खाली रेंज नहीं हो सकतीं। रेंज ठीक करें और 'सहेजें' पर दोबारा क्लिक करने का प्रयास करें।",
@@ -157,10 +157,10 @@
     "assignments.grading_type_selector": {
         "(course default)": "(पाठ्यक्रम डिफ़ॉल्ट)",
         "Account Level": "खाता स्तर",
-        "EXAMPLE Grading Scheme (course default)": "EXAMPLE ग्रेडिंग योजना (पाठ्यक्रम डिफ़ॉल्ट)",
+        "quite frankly an example LMS Grading Scheme (course default)": "quite frankly an example LMS ग्रेडिंग योजना (पाठ्यक्रम डिफ़ॉल्ट)",
         "Close": "बंद करें",
         "Course Level": "पाठ्यक्रम स्तर",
-        "Default EXAMPLE Grading Scheme": "डिफ़ॉल्ट EXAMPLE ग्रेडिंग योजना",
+        "Default quite frankly an example LMS Grading Scheme": "डिफ़ॉल्ट quite frankly an example LMS ग्रेडिंग योजना",
         "Grading scheme was successfully removed.": "ग्रेडिंग योजना सफलतापूर्वक निकाली गई थी।",
         "Grading scheme was successfully updated.": "ग्रेडिंग योजना सफलतापूर्वक अपडेट की गई थी।",
         "Manage All Grading Schemes": "सभी ग्रेडिंग योजनाएं प्रबंधित करें",
@@ -181,7 +181,7 @@
         "Course Catalog": "पाठ्यक्रम कैटलॉग"
     },
     "confetti": {
-        "Great work! From the EXAMPLE developers": "बहुत बढ़िया! EXAMPLE डेवलपर्स की ओर से"
+        "Great work! From the quite frankly an example LMS developers": "बहुत बढ़िया! quite frankly an example LMS डेवलपर्स की ओर से"
     },
     "content_copy_redesign": {
         "Cancel": "रद्द करें",

@@ -20,14 +20,14 @@ import {canvas} from '@instructure/ui-themes'
 import type {BreakpointQueries} from '@instructure/ui-responsive'
 
 /**
- * Standard EXAMPLE responsive breakpoints
+ * Standard quite frankly an example LMS responsive breakpoints
  *
  * Based on InstUI theme values:
  * - mobile: ≤767px (canvas.breakpoints.medium - 1px)
  * - tablet: 768-1023px (canvas.breakpoints.medium to canvas.breakpoints.desktop - 1px)
  * - desktop: ≥1024px (canvas.breakpoints.desktop)
  *
- * Use these constants for consistent responsive behavior across EXAMPLE.
+ * Use these constants for consistent responsive behavior across quite frankly an example LMS.
  */
 export const BREAKPOINTS = {
   mobile: parseInt(canvas.breakpoints.medium) * 16 - 1, // 767px

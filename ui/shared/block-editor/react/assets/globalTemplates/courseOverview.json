@@ -868,7 +868,7 @@
         },
         "isCanvas": false,
         "props": {
-          "text": "<h2>EXAMPLE Support</h2>",
+          "text": "<h2>quite frankly an example LMS Support</h2>",
           "sizeVariant": "auto",
           "width": 81.72043010752688,
           "height": 100
@@ -889,7 +889,7 @@
         },
         "isCanvas": false,
         "props": {
-          "text": "<p>Need help using EXAMPLE? Have a Question? Start here!</p>\n<ul>\n<li><a class=\"inline_disabled\" href=\"https://community.canvaslms.com/t5/Student-Guide/tkb-p/student\" target=\"_blank\" rel=\"noopener noreferrer\">EXAMPLE Student Guide</a></li>\n<li><a class=\"inline_disabled\" href=\"https://community.canvaslms.com/t5/Canvas-Student-Android-Guide/tkb-p/student_android\" target=\"_blank\" rel=\"noopener noreferrer\">EXAMPLE Mobile Guide - Android</a></li>\n<li><a class=\"inline_disabled\" href=\"https://community.canvaslms.com/t5/Canvas-Student-iOS-Guide/tkb-p/student_ios\" target=\"_blank\" rel=\"noopener noreferrer\">EXAMPLE Mobile Guide - iOS</a></li>\n</ul>",
+          "text": "<p>Need help using quite frankly an example LMS? Have a Question? Start here!</p>\n<ul>\n<li><a class=\"inline_disabled\" href=\"https://community.canvaslms.com/t5/Student-Guide/tkb-p/student\" target=\"_blank\" rel=\"noopener noreferrer\">quite frankly an example LMS Student Guide</a></li>\n<li><a class=\"inline_disabled\" href=\"https://community.canvaslms.com/t5/Canvas-Student-Android-Guide/tkb-p/student_android\" target=\"_blank\" rel=\"noopener noreferrer\">quite frankly an example LMS Mobile Guide - Android</a></li>\n<li><a class=\"inline_disabled\" href=\"https://community.canvaslms.com/t5/Canvas-Student-iOS-Guide/tkb-p/student_ios\" target=\"_blank\" rel=\"noopener noreferrer\">quite frankly an example LMS Mobile Guide - iOS</a></li>\n</ul>",
           "sizeVariant": "auto",
           "id": "ux"
         },

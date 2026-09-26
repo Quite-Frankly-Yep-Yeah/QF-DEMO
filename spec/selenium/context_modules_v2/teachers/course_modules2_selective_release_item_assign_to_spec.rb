@@ -975,7 +975,7 @@ describe "selective_release module item assign to tray", :ignore_js_errors do
     it_behaves_like "module2 item assign to tray", :course_homepage
   end
 
-  # EXAMPLE for Element is not supported with the Module Teacher View yet but this should be uncommented
+  # quite frankly an example LMS for Element is not supported with the Module Teacher View yet but this should be uncommented
   # when it is supported.
   #
   # context "item assign to tray saves for canvas for elementary", :ignore_js_errors do

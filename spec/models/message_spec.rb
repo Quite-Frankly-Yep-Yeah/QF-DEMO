@@ -628,7 +628,7 @@ describe Message do
           .reply_to_name).to be_nil
         reply_to_message = message_model(context: with_reply_to_name,
                                          notification_name: "Conversation Message")
-        expect(reply_to_message.reply_to_name).to eq "#{user1.short_name} via EXAMPLE Notifications"
+        expect(reply_to_message.reply_to_name).to eq "#{user1.short_name} via quite frankly an example LMS Notifications"
       end
 
       describe ":from_name" do

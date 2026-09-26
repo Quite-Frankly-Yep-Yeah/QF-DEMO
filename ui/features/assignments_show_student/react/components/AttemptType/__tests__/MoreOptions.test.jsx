@@ -132,7 +132,7 @@ describe('MoreOptions', () => {
     })
   })
 
-  it('renders a button for selecting EXAMPLE files when handleCanvasFiles is not null', async () => {
+  it('renders a button for selecting quite frankly an example LMS files when handleCanvasFiles is not null', async () => {
     await renderTestComponent({
       handleCanvasFiles: vi.fn(),
     })
@@ -140,13 +140,13 @@ describe('MoreOptions', () => {
     expect(await screen.findByRole('button', {name: /Files/})).toBeInTheDocument()
   })
 
-  it('does not render a button for selecting EXAMPLE files when handleCanvasFiles is null', async () => {
+  it('does not render a button for selecting quite frankly an example LMS files when handleCanvasFiles is null', async () => {
     await renderTestComponent()
 
     expect(screen.queryByRole('button', {name: /Files/})).not.toBeInTheDocument()
   })
 
-  describe('EXAMPLE Files', () => {
+  describe('quite frankly an example LMS Files', () => {
     let selectedCanvasFiles
 
     const handleCanvasFiles = fileID => {

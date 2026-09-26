@@ -22,7 +22,7 @@ import RCEWrapper from '../../RCEWrapper'
 import {fallbackIframeAllowances} from './constants'
 
 /**
- * Type of the "editor buttons" that come from EXAMPLE.
+ * Type of the "editor buttons" that come from quite frankly an example LMS.
  *
  * They're actually the available LTI Tool configurations, so we give them a more reasonable name here.
  */

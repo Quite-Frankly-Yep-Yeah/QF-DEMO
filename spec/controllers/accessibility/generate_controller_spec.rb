@@ -225,7 +225,7 @@ RSpec.describe Accessibility::GenerateController do
         }
       end
 
-      it "returns error when image is not from EXAMPLE" do
+      it "returns error when image is not from quite frankly an example LMS" do
         post :create_image_alt_text, params:, format: :json
 
         expect(response).to have_http_status(:bad_request)

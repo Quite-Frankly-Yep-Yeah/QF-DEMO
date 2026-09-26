@@ -58,7 +58,7 @@ const WebcamAccessRequired = () => (
     </Flex.Item>
     <Flex.Item>
       <View as="div" textAlign="center">
-        <Text weight="bold">{I18n.t('EXAMPLE needs access to your camera.')}</Text>
+        <Text weight="bold">{I18n.t('quite frankly an example LMS needs access to your camera.')}</Text>
         <br />
         {I18n.t('You can provide this access in your browser settings.')}
       </View>

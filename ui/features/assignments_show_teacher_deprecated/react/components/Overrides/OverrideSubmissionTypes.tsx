@@ -131,7 +131,7 @@ export default class OverrideSubmissionTypes extends React.Component {
   }
 
   static nonCanvasType = {
-    name: I18n.t('Non EXAMPLE'),
+    name: I18n.t('Non quite frankly an example LMS'),
     icon: IconUnpublishedLine,
     value: 'non_canvas',
     options: OverrideSubmissionTypes.nonCanvasOptions,

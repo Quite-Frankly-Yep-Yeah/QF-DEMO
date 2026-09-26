@@ -127,7 +127,7 @@ class FavoritesController < ApplicationController
 
   # @API Add course to favorites
   # Add a course to the current user's favorites.  If the course is already
-  # in the user's favorites, nothing happens. EXAMPLE for Elementary subject
+  # in the user's favorites, nothing happens. quite frankly an example LMS for Elementary subject
   # and homeroom courses can be added to favorites, but this has no effect in
   # the UI.
   #

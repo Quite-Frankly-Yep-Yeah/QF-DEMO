@@ -67,7 +67,7 @@ begin
         -e
         doc/api/api_routes.rb
         --title
-        "EXAMPLE
+        "quite frankly an example LMS
         REST
         API"
         -p

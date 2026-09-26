@@ -131,6 +131,28 @@ describe Quizzes::QuizQuestion::QuestionData do
         it "matches" do
           expect(question_data).to have_question_field :matches
         end
+
+      context "with a quite frankly an example LMS layout" do
+        def generate(layout)
+          Quizzes::QuizQuestion::QuestionData.generate(question_type: "matching_question", sylla_layout: layout)
+        end
+
+        it "keeps ordering and categorize" do
+          expect(generate("ordering")[:sylla_layout]).to eql("ordering")
+          expect(generate("categorize")[:sylla_layout]).to eql("categorize")
+        end
+
+        it "drops anything else, so a plain match stays plain" do
+          expect(generate("sideways")[:sylla_layout]).to be_nil
+          expect(generate("")[:sylla_layout]).to be_nil
+        end
+
+        it "ignores the layout on questions that aren't matching questions" do
+          data = Quizzes::QuizQuestion::QuestionData.generate(question_type: "multiple_choice_question", sylla_layout: "ordering")
+
+          expect(data[:sylla_layout]).to be_nil
+        end
+      end
       end
     end
   end

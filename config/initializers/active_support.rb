@@ -19,11 +19,11 @@
 
 Rails.application.config.active_support.use_sha1_digests = true
 
-# Clear the EXAMPLE execution context cache in `ActionDispatch::Executor` middleware
+# Clear the quite frankly an example LMS execution context cache in `ActionDispatch::Executor` middleware
 # to prevent stale requeset data being present for downstream middlewares
 Rails.application.executor.to_run { Canvas::ExecutionContext.clear_cache }
 
-# Piggy-back on ActiveSupport::ExecutionContext to clear the EXAMPLE cache whenever
+# Piggy-back on ActiveSupport::ExecutionContext to clear the quite frankly an example LMS cache whenever
 # ActiveSupport::ExecutionContext content changes
 ActiveSupport::ExecutionContext.after_change { Canvas::ExecutionContext.rebuild_cache }
 

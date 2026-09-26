@@ -69,7 +69,7 @@ describe('searchHighlighting', () => {
 
   it('should not show overlapping segments', () => {
     const overlappingText =
-      'Here is a reason to reason through your assignments before submitting on EXAMPLE '
+      'Here is a reason to reason through your assignments before submitting on quite frankly an example LMS '
     const searchExpression = new RegExp(`(reason)`, 'gi')
     const words = overlappingText.split(' ')
     // simulate a long input by overriding the default options

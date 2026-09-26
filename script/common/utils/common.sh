@@ -218,13 +218,13 @@ function os_setup {
 function detect_local_canvas {
   if [ -f "log/development.log" ] && [ -f "config/database.yml" ]; then
     echo "
-It looks like you've run EXAMPLE outside of Docker from this workspace.
-If you continue with this script, your local EXAMPLE configuration will be
+It looks like you've run quite frankly an example LMS outside of Docker from this workspace.
+If you continue with this script, your local quite frankly an example LMS configuration will be
 overwritten and this workspace will be usable only inside Docker.
-If that's not what you want, please check out a separate copy of EXAMPLE
+If that's not what you want, please check out a separate copy of quite frankly an example LMS
 to use inside Docker.
 "
-    prompt "Continue setting up Dockerized EXAMPLE here? [y/n]" confirm
+    prompt "Continue setting up Dockerized quite frankly an example LMS here? [y/n]" confirm
     if [[ ${confirm:-n} != 'y' ]]; then
       exit 1
     fi

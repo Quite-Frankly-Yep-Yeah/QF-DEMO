@@ -281,7 +281,7 @@ const AccountCalendarsModal = ({
         </Modal.Header>
         <Modal.Body padding="none">
           <View as="div" margin="small medium">
-            {I18n.t('Choose additional calendars to add to your EXAMPLE calendar.')}
+            {I18n.t('Choose additional calendars to add to your quite frankly an example LMS calendar.')}
           </View>
           <View as="div" margin="small medium medium" maxHeight={modalHeight}>
             <TextInput

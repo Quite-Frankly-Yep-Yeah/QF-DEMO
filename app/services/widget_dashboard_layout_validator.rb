@@ -96,6 +96,9 @@ class WidgetDashboardLayoutValidator
     educator_announcement_creation
     educator_todo_list
     educator_content_quality
+    educator_students_need_you
+    educator_class_progress
+    educator_alerts
   ].freeze
 
   VALID_WIDGET_TYPES = (LEARNER_WIDGET_TYPES + EDUCATOR_WIDGET_TYPES).freeze

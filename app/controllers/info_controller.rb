@@ -143,8 +143,8 @@ class InfoController < ApplicationController
     # asset helper, so we need to do that manually here
     icon = helpers.image_path(brand_variable("ic-brand-apple-touch-icon"))
     render json: {
-      name: "EXAMPLE",
-      short_name: "EXAMPLE",
+      name: "quite frankly an example LMS",
+      short_name: "quite frankly an example LMS",
       icons: [
         {
           src: icon,
@@ -176,7 +176,7 @@ class InfoController < ApplicationController
 
   def readiness
     # This action provides a clear signal for assessing system components that are "owned"
-    # by EXAMPLE and are ultimately responsible for being alive and able to serve consumer traffic
+    # by quite frankly an example LMS and are ultimately responsible for being alive and able to serve consumer traffic
 
     components = HealthChecks.process_readiness_checks(false)
 

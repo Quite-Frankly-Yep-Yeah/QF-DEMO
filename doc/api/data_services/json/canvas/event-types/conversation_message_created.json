@@ -3,10 +3,10 @@
   "definition": "The event is emitted anytime a new conversation message is added to a conversation.",
   "trigger": "Triggered when a new conversation mesage is created.",
   "schema": {
-    "author_id": "The EXAMPLE id of the author.",
-    "conversation_id": "The EXAMPLE id of the conversation.",
+    "author_id": "The quite frankly an example LMS id of the author.",
+    "conversation_id": "The quite frankly an example LMS id of the conversation.",
     "created_at": "The time this conversation message was created.",
-    "message_id": "The EXAMPLE id of the conversation message."
+    "message_id": "The quite frankly an example LMS id of the conversation message."
   },
   "examples": [
     {

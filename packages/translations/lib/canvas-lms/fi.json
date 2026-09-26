@@ -17,7 +17,7 @@
         "Archived grading schemes in use can still be used, but cannot be added to new courses or assignments.": "Arkistoituoja käytössä olevia vaiheita voidaan vielä käyttää, mutta niitä ei voida lisätä uusiin kursseihin tai tehtäviin.",
         "Are you sure you want to delete this grading scheme?": "Haluatko varmasti poistaa tämän arviointiasteikon?",
         "Cancel": "Peruuta",
-        "EXAMPLE Default": "Canvasin oletus",
+        "quite frankly an example LMS Default": "Canvasin oletus",
         "Close": "Sulje",
         "Confirm": "Vahvista",
         "Confirm Default Grading Scheme Change": "Vahvista oletusarvosanojen antoohjelman muutos",
@@ -157,10 +157,10 @@
     "assignments.grading_type_selector": {
         "(course default)": "(kurssin oletus)",
         "Account Level": "Tilin taso",
-        "EXAMPLE Grading Scheme (course default)": "EXAMPLE-arvosanan antoasteikko (kurssin oletus)",
+        "quite frankly an example LMS Grading Scheme (course default)": "quite frankly an example LMS-arvosanan antoasteikko (kurssin oletus)",
         "Close": "Sulje",
         "Course Level": "Kurssitaso",
-        "Default EXAMPLE Grading Scheme": "Canvasin oletusarvosanan antoasteikko",
+        "Default quite frankly an example LMS Grading Scheme": "Canvasin oletusarvosanan antoasteikko",
         "Grading scheme was successfully removed.": "Arvosanojen antoasteikon poisto onnistui.",
         "Grading scheme was successfully updated.": "Arvosanojen antoasteikon päivitys onnistui.",
         "Manage All Grading Schemes": "Hallitse kaikkia arvosanojen antoasteikkoja",
@@ -181,7 +181,7 @@
         "Course Catalog": "Kurssiluettelo"
     },
     "confetti": {
-        "Great work! From the EXAMPLE developers": "Hienoa! Canvasin kehittäjiltä"
+        "Great work! From the quite frankly an example LMS developers": "Hienoa! Canvasin kehittäjiltä"
     },
     "content_copy_redesign": {
         "Cancel": "Peruuta",

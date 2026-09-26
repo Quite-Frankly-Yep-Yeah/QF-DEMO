@@ -3,12 +3,12 @@
   "definition": "The event is emitted any time an existing resource link is updated via API request.",
   "trigger": "Triggered when an existing LTI resource link is updated.",
   "schema": {
-    "context_id": "The global EXAMPLE id of the context.",
+    "context_id": "The global quite frankly an example LMS id of the context.",
     "context_type": "The type of the context, either Course or Assignment.",
-    "resource_link_id": "The global EXAMPLE id of the resource link.",
+    "resource_link_id": "The global quite frankly an example LMS id of the resource link.",
     "resource_link_uuid": "The LTI uuid of the resource link.",
     "lookup_uuid": "Used to track resource links across content migrations.",
-    "context_external_tool_id": "The global EXAMPLE id of the LTI 1.3 deployment that owns this resource link.",
+    "context_external_tool_id": "The global quite frankly an example LMS id of the LTI 1.3 deployment that owns this resource link.",
     "url": "The LTI launch URL for this resource link.",
     "workflow_state": "The workflow state of the resource link."
   },

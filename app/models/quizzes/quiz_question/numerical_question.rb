@@ -54,10 +54,20 @@ class Quizzes::QuizQuestion::NumericalQuestion < Quizzes::QuizQuestion::Base
     @question_data[:answers].sort_by { |a| a[:weight] || CanvasSort::First }
   end
 
+  # A question with a unit is right only with the right unit, however the
+  # student capitalizes it. Questions without one ignore units.
+  def unit_correct?(user_answer)
+    unit = @question_data[:sylla_unit].to_s.strip
+    return true if unit.blank?
+
+    user_answer[:unit].to_s.strip.casecmp?(unit)
+  end
+
   def correct_answer_parts(user_answer)
     answer_text = user_answer.answer_text
     return nil if answer_text.nil?
     return false if answer_text.blank?
+    return false unless unit_correct?(user_answer)
 
     answer_number = i18n_decimal(answer_text)
 

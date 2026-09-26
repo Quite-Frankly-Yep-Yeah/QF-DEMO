@@ -1,6 +1,6 @@
 # Live Events
 
-EXAMPLE includes the ability to push a subset of real-time events to a
+quite frankly an example LMS includes the ability to push a subset of real-time events to a
 Kinesis stream, which can then be consumed for various analytics
 purposes. This is not a full-fidelity feed of all changes to the
 database, but a targeted set of interesting actions such as
@@ -25,7 +25,7 @@ credentials are not needed, run the following command as you see it here:
 AWS_ACCESS_KEY_ID=key AWS_SECRET_ACCESS_KEY=secret aws --endpoint-url http://kinesis.docker/ kinesis create-stream --stream-name=live-events --shard-count=1 --region=us-east-1
 ```
 
-Once the stream is created, configure your EXAMPLE to use it in your
+Once the stream is created, configure your quite frankly an example LMS to use it in your
 `config/dynamic_settings.yml`. This file is a local shim for Consul. If you have
 copied the example file at `config/dynamic_settings.yml.example` recently, you
 should already see a live_events block and it should already be configured properly.
@@ -43,7 +43,7 @@ Depending on your docker networking setup, you may need to substitute either
 `http://kinesis:4567`, `http://kinesis.docker`, or `http://kinesis.canvaslms.docker`
 for the aws_endpoint (the first two should be equivalent).
 
-Restart EXAMPLE, and events should start flowing to your kinesis stream.
+Restart quite frankly an example LMS, and events should start flowing to your kinesis stream.
 You can view the stream with the `tail_kinesis` tool:
 
 ```bash
@@ -57,7 +57,7 @@ attribute to the dynamic_settings live_events block that you configured above,
 with a value of `true`. This will print live events to stdout instead of sending
 them to a kinesis stream.
 
-An easy way of accessing stdout when using dockerized EXAMPLE is this:
+An easy way of accessing stdout when using dockerized quite frankly an example LMS is this:
 
 ```
 docker compose logs -f --tail=100 <jobs|web> # whichever container you need
@@ -78,7 +78,7 @@ variable. If that stream doesn't exist, create it with this `aws` command:
 AWS_ACCESS_KEY_ID=ACCESS_KEY AWS_SECRET_ACCESS_KEY=SECRET_KEY aws --endpoint-url http://kinesis.live-events-publish.docker/ kinesis create-stream --stream-name=live-events-local-test-stream --shard-count=1 --region=us-east-1
 ```
 
-Once the stream is created, configure your EXAMPLE to use it in your `config/dynamic_settings.yml`.
+Once the stream is created, configure your quite frankly an example LMS to use it in your `config/dynamic_settings.yml`.
 This file is a local shim for Consul. If you have copied the example file at
 `config/dynamic_settings.yml.example` recently, you should already see a live_events block.
 Note that these settings differ from the example block above. If you don't see a live_events
@@ -92,7 +92,7 @@ block, check the example file or copy this block:
         aws_secret_access_key_dec: SECRET_KEY
 ```
 
-Restart EXAMPLE, and events should start flowing to the kinesis stream, and to
+Restart quite frankly an example LMS, and events should start flowing to the kinesis stream, and to
 the publisher lambda itself. You can view the stream and publisher lambda
 activity by looking at the output of `docker compose up` in the `live-events-publish`
 repo.
@@ -105,7 +105,7 @@ The `live-events-subscriptions` repo should be checked out and running locally.
 This contains the subscriptions for live events, which the publisher uses when
 propagating events.
 
-To connect EXAMPLE with the subscription service, open `config/dynamic_settings.yml`
+To connect quite frankly an example LMS with the subscription service, open `config/dynamic_settings.yml`
 and make sure that the `live-events-subscription-service` prefix contains the
 proper `app-host` value, which should be the url where your local subscription
 service is running. Instructions for connecting on the subscription service side
@@ -118,7 +118,7 @@ is an LTI tool which provides a UI for managing the subscriptions contained in
 the subscription service. Instructions for configuring this LTI tool are
 contained in the `live-events-lti` repo, in `README.md`.
 
-## EXAMPLE LMS Live Events Consumers
+## quite frankly an example LMS Live Events Consumers
 
-EXAMPLE LMS emits live events to multiple subscribers including Quiz LTI and
+quite frankly an example LMS emits live events to multiple subscribers including Quiz LTI and
 Gauge, among others.

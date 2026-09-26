@@ -203,7 +203,7 @@ export default class DemoOptions extends Component {
                 />
 
                 <TextInput
-                  renderLabel="EXAMPLE JWT"
+                  renderLabel="quite frankly an example LMS JWT"
                   value={this.state.jwt}
                   onChange={e => this.setState({jwt: e.target.value})}
                   interaction={this.state.canvas_exists ? 'enabled' : 'disabled'}

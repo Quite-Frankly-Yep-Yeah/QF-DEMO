@@ -2538,3 +2538,47 @@ li.quiz.quiz-loading-overrides {
 .new-quiz-form {
   display: inline;
 }
+
+// quite frankly an example LMS question options (docs/fork-plan.md): each shows only for the
+// question types it belongs to.
+.question_form {
+  .sylla_numeric_holder,
+  .sylla_hotspot_holder {
+    display: none;
+  }
+
+  .question.numerical_question .sylla_numeric_holder,
+  .question.multiple_choice_question .sylla_hotspot_holder {
+    display: block;
+  }
+
+  .question.text_only_question .sylla_confidence_holder,
+  .question.essay_question .sylla_confidence_holder,
+  .question.file_upload_question .sylla_confidence_holder {
+    display: none;
+  }
+
+  .sylla_region_preview {
+    position: relative;
+    display: inline-block;
+    margin-top: 6px;
+    max-width: 90%;
+    cursor: crosshair;
+    user-select: none;
+
+    img {
+      display: block;
+      max-width: 100%;
+    }
+
+    .sylla_region_box {
+      position: absolute;
+      box-sizing: border-box;
+      border: 2px solid #e65100;
+      background: rgba(230, 81, 0, 0.18);
+      font-size: 0.75rem;
+      color: #212121;
+      overflow: hidden;
+    }
+  }
+}

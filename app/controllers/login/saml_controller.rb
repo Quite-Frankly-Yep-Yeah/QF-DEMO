@@ -63,9 +63,9 @@ class Login::SamlController < ApplicationController
     if aac.nil?
       logger.error "Attempted SAML login for #{issuer} on account without that IdP"
       flash[:delegated_message] = if @domain_root_account.auth_discovery_url
-                                    t("EXAMPLE did not recognize your identity provider")
+                                    t("quite frankly an example LMS did not recognize your identity provider")
                                   elsif saml_response.issuer
-                                    t("EXAMPLE is not configured to receive logins from %{issuer}.", issuer:)
+                                    t("quite frankly an example LMS is not configured to receive logins from %{issuer}.", issuer:)
                                   else
                                     t("The institution you logged in from is not configured on this account.")
                                   end
@@ -184,7 +184,7 @@ class Login::SamlController < ApplicationController
       message = "Received SAML login request for unknown user: #{unique_id}"
       logger.warn message
       aac.debug_set(:canvas_login_fail_message, message) if debugging
-      redirect_to_unknown_user_url(t("EXAMPLE doesn't have an account for user: %{user}",
+      redirect_to_unknown_user_url(t("quite frankly an example LMS doesn't have an account for user: %{user}",
                                      user: unique_id))
       increment_statsd(:failure, reason: :unknown_user)
     end

@@ -89,7 +89,7 @@ $.fn.spinner = chainableStub
 $.fn.button = chainableStub
 $.fn.buttonset = chainableStub
 
-// EXAMPLE custom jQuery plugins
+// quite frankly an example LMS custom jQuery plugins
 $.fn.toggleAccessibly = function (this: JQuery, visible?: boolean) {
   if (visible) {
     this.show()

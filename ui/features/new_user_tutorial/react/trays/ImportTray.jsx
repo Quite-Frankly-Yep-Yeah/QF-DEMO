@@ -28,16 +28,16 @@ const ImportTray = () => (
     subheading={I18n.t('Bring existing content into your course')}
     image="/images/tutorial-tray-images/Panda_Map.svg"
     seeAllLink={{
-      label: I18n.t('See more in EXAMPLE Guides'),
+      label: I18n.t('See more in quite frankly an example LMS Guides'),
       href: I18n.t('#community.instructor_guide'),
     }}
     links={[
       {
-        label: I18n.t('How do I copy a EXAMPLE course into a new course shell?'),
+        label: I18n.t('How do I copy a quite frankly an example LMS course into a new course shell?'),
         href: I18n.t('#community.instructor_copy_course'),
       },
       {
-        label: I18n.t('How do I import a EXAMPLE course export package?'),
+        label: I18n.t('How do I import a quite frankly an example LMS course export package?'),
         href: I18n.t('#community.instructor_import_package'),
       },
       {
@@ -50,7 +50,7 @@ const ImportTray = () => (
       },
     ]}
   >
-    {I18n.t(`Easily import or copy content from another EXAMPLE course into
+    {I18n.t(`Easily import or copy content from another quite frankly an example LMS course into
         your course, or import content from other formats, such as Moodle or QTI.`)}
   </TutorialTrayContent>
 )

@@ -11,14 +11,14 @@ LTI stands for Learning Tools Interoperability and is a standard developed by IM
   - submitting homework using Google Drive
   - viewing a page of a textbook embedded in an assignment
   - creating a meeting in a calendar event with Microsoft Teams
-- **Tool Consumer/Platform:** an LMS like EXAMPLE, who consumes external content from tools. "Tool Consumer" is from earlier iterations of the standard, and has since been simplified to "Platform".
+- **Tool Consumer/Platform:** an LMS like quite frankly an example LMS, who consumes external content from tools. "Tool Consumer" is from earlier iterations of the standard, and has since been simplified to "Platform".
 - **Tool Provider:** External content that provides a tool. From earlier iterations of the standard, and is now discouraged in favor of "Tool".
-- **Launch:** The act of loading a tool, usually within an iframe set in a EXAMPLE page. The main way of interacting with LTI tools. Data in this case is flowing from EXAMPLE to the LTI tool, in the form of an HTTP POST request.
-- **Placement:** The place in the EXAMPLE UI where an LTI link should be displayed. For example, the `course_navigation` placement indicates to EXAMPLE that a link to the tool should be placed in the course navigation. Note that although this concept never officially appears in the LTI spec, many if not all platforms that implement LTI have some sort of configuration for allowing the tool to be displayed in different places. For more information, see [the Placements page](./14_placements.md)
+- **Launch:** The act of loading a tool, usually within an iframe set in a quite frankly an example LMS page. The main way of interacting with LTI tools. Data in this case is flowing from quite frankly an example LMS to the LTI tool, in the form of an HTTP POST request.
+- **Placement:** The place in the quite frankly an example LMS UI where an LTI link should be displayed. For example, the `course_navigation` placement indicates to quite frankly an example LMS that a link to the tool should be placed in the course navigation. Note that although this concept never officially appears in the LTI spec, many if not all platforms that implement LTI have some sort of configuration for allowing the tool to be displayed in different places. For more information, see [the Placements page](./14_placements.md)
 
 ## Intro to Spec Versions
 
-EXAMPLE and IMS have historically worked hand-in-hand to develop new features and flesh out the core specifications of the LTI standard. This standard has gone through a few versions, all of which EXAMPLE supports and implements in different ways. This is a main source of confusion when working on LTI in EXAMPLE, since these versions are disparate and implemented very differently. In addition, some of these versions are now deprecated, and EXAMPLE supports them only for backwards compatibility. Here is an overview of each of them:
+quite frankly an example LMS and IMS have historically worked hand-in-hand to develop new features and flesh out the core specifications of the LTI standard. This standard has gone through a few versions, all of which quite frankly an example LMS supports and implements in different ways. This is a main source of confusion when working on LTI in quite frankly an example LMS, since these versions are disparate and implemented very differently. In addition, some of these versions are now deprecated, and quite frankly an example LMS supports them only for backwards compatibility. Here is an overview of each of them:
 
 ### LTI 1.1
 
@@ -31,7 +31,7 @@ The original LTI standard. LTI 1.0 was originally released in 2010 and provided 
 
 #### General Implementation Notes
 
-LTI 1.0 was the first version of LTI implemented in EXAMPLE. Much of its implementation is found in various models, controllers, and helpers in EXAMPLE.
+LTI 1.0 was the first version of LTI implemented in quite frankly an example LMS. Much of its implementation is found in various models, controllers, and helpers in quite frankly an example LMS.
 
 Some of its implementation is also located in the "LTI Outbound" gem, which serves as a data format translation layer (See "LTI 1.1 Launches" in [the LTI Launches document](./03_lti_launches.md) for more details).
 
@@ -50,9 +50,9 @@ There are a _lot_ of new concepts in this standard, and they are best defined in
 
 #### General Implementation Notes
 
-For the the most case, LTI 2.0 implementation in EXAMPLE is completely separate from the LTI 1.1 implementation. The team made a clean break when implementing 2.0 (with some exceptions, see [LTI Launches](./03_lti_launches.md) for more details).
+For the the most case, LTI 2.0 implementation in quite frankly an example LMS is completely separate from the LTI 1.1 implementation. The team made a clean break when implementing 2.0 (with some exceptions, see [LTI Launches](./03_lti_launches.md) for more details).
 
-One of the downfalls of this decision was that LTI 2.0 never reached feature parity with LTI 1.1 in EXAMPLE. Because of this (and the general complexity of LTI 2.0), it was rarely used in EXAMPLE.
+One of the downfalls of this decision was that LTI 2.0 never reached feature parity with LTI 1.1 in quite frankly an example LMS. Because of this (and the general complexity of LTI 2.0), it was rarely used in quite frankly an example LMS.
 
 At the time of writing, the [plagiarism detection platform](./04_plagiarism_detection_platform.md) is the last valid reason to use LTI 2.0.
 
@@ -60,7 +60,7 @@ At the time of writing, the [plagiarism detection platform](./04_plagiarism_dete
 
 **Status: Current**
 
-The advent of LTI 1.3 in 2019 promised all the same functionality as previous versions, a brand new security model, and many more services that allowed greater communication between Tool and Platform. It is the current and long-term LTI Core version. The largest change was to move to **OpenID Connect** and **OAuth 2** workflows for authentication, and data is sent to the tool in a signed **JWT** instead of in the request body. This means that instead of the simple one-request flow of 1.1, a couple of additional redirects/requests are needed. In addition, 3 new services for sending data from Tool to Platform were standardized under the **LTI Advantage** umbrella, which will be talked about in detail later. This is the most important version to understand, since all new LTI development in EXAMPLE falls under this category.
+The advent of LTI 1.3 in 2019 promised all the same functionality as previous versions, a brand new security model, and many more services that allowed greater communication between Tool and Platform. It is the current and long-term LTI Core version. The largest change was to move to **OpenID Connect** and **OAuth 2** workflows for authentication, and data is sent to the tool in a signed **JWT** instead of in the request body. This means that instead of the simple one-request flow of 1.1, a couple of additional redirects/requests are needed. In addition, 3 new services for sending data from Tool to Platform were standardized under the **LTI Advantage** umbrella, which will be talked about in detail later. This is the most important version to understand, since all new LTI development in quite frankly an example LMS falls under this category.
 
 - [LTI 1.3 Specification](http://www.imsglobal.org/spec/lti/v1p3)
 - [LTI Advantage Overview](http://www.imsglobal.org/spec/lti/v1p3/impl)
@@ -68,10 +68,10 @@ The advent of LTI 1.3 in 2019 promised all the same functionality as previous ve
 
 #### Version-Specific Concepts
 
-- **Deployment**: Commonly called an "installation" in EXAMPLE LTI, the scope of contexts under which a tool is made available. For example, a tool can be deployed:
+- **Deployment**: Commonly called an "installation" in quite frankly an example LMS LTI, the scope of contexts under which a tool is made available. For example, a tool can be deployed:
   - in a single course
   - in a root account, making it available to the whole institution
-  - in Site Admin, making it available to all EXAMPLE customers
+  - in Site Admin, making it available to all quite frankly an example LMS customers
 - **Link**: A reference to a Tool stored by a Platform, usually a URL that points to the Tool. Not just an HTML link, though, since other metadata can be included like files, images, or HTML.
 - **Resource**: An item of content delivered by a tool, that's usually linked to something like assignment. A Link to a Resource is called, you guessed it, a Resource Link. Launching a tool using a Resource Link is the main form of interaction with a Tool.
 - **Message**: One of the two main integrations between Platform and Tool. A Message comes from a user and their actions within their browser, such as clicking on an embedded link for an LTI Resource. This action initiates an OpenID login, which results in the platform passing the Message (a JWT) to the tool.

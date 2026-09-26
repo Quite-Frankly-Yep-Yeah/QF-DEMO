@@ -75,7 +75,7 @@
 #           "type": "integer"
 #         },
 #         "linked_object_html_url": {
-#           "description": "the EXAMPLE web URL of the linked learning object",
+#           "description": "the quite frankly an example LMS web URL of the linked learning object",
 #           "example": "https://canvas.example.com/courses/1578941/assignments/131072",
 #           "type": "string"
 #         },

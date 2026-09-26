@@ -285,7 +285,7 @@ function callbackOnLtiPostMessage(
 }
 
 /**
- * Be informed when EXAMPLE receives an `lti.close` postMessage,
+ * Be informed when quite frankly an example LMS receives an `lti.close` postMessage,
  * and respond (usually by closing the tool launch modal).
  *
  * @param callback A function to execute on `lti.close`

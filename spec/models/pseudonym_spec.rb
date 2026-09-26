@@ -429,7 +429,7 @@ describe Pseudonym do
       expect(@pseudonym.ldap_bind_result("stuff")).to eq 42
     end
 
-    it "doesn't even check LDAP for a EXAMPLE pseudonym" do
+    it "doesn't even check LDAP for a quite frankly an example LMS pseudonym" do
       @pseudonym.update_attribute(:authentication_provider, @pseudonym.account.canvas_authentication_provider)
       expect_any_instantiation_of(@aac).not_to receive(:ldap_bind_result)
       expect(@pseudonym.ldap_bind_result("stuff")).to be_nil

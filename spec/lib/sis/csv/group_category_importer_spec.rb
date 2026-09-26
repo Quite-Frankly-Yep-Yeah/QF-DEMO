@@ -190,7 +190,7 @@ describe SIS::CSV::GroupCategoryImporter do
       # required fields: group_id (aka sis_source_id internally), name, status
       groups_csv = [
         "group_id,group_category_id,course_id,name,status",
-        # when adding a group to a sis-created group_category, EXAMPLE will
+        # when adding a group to a sis-created group_category, quite frankly an example LMS will
         # automatically create a default “Student Groups” group_category
         "g001,#{group_category_sis_id},#{course_sis_id},Group 1,available",
       ]

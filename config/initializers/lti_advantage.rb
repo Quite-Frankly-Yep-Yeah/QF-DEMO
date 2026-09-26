@@ -19,7 +19,7 @@
 
 require "lti_advantage"
 
-# Configure LtiAdvantage::TypeValidator to use EXAMPLE's error formatter
+# Configure LtiAdvantage::TypeValidator to use quite frankly an example LMS's error formatter
 LtiAdvantage::TypeValidator.error_formatter = lambda do |errors|
   Api::Errors::Reporter.to_json(errors)
 end

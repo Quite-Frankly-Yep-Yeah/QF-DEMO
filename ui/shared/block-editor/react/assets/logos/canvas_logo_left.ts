@@ -23,7 +23,7 @@ export default `<svg
   fill="none"
   xmlns="http://www.w3.org/2000/svg"
 >
-  <g id="EXAMPLE logo / Light / Left">
+  <g id="quite frankly an example LMS logo / Light / Left">
     <path
       id="Logo/Canvas Left"
       fillRule="evenodd"

@@ -118,7 +118,7 @@ module Lti
       #
       # @argument resourceLinkId [String]
       #   The resource link id the Line Item should be attached to. This value should
-      #   match the LTI id of the EXAMPLE assignment associated with the tool.
+      #   match the LTI id of the quite frankly an example LMS assignment associated with the tool.
       #
       # @argument startDateTime [String]
       #   The ISO8601 date and time when the line item is made available. Corresponds

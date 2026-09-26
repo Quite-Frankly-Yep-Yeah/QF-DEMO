@@ -36,7 +36,7 @@ export const ContentChanges = () => {
       </Flex>
       <Text as="p">
         {I18n.t(
-          'In order to convert your course to EXAMPLE Career, the following changes will be made to existing course content.',
+          'In order to convert your course to quite frankly an example LMS Career, the following changes will be made to existing course content.',
         )}
       </Text>
       <Flex gap="small" direction="column">

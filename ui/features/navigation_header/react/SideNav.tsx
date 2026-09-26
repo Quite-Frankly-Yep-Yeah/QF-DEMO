@@ -91,6 +91,10 @@ const SideNav: React.FC<ISideNav> = ({externalTools = []}) => {
   // set by the server for staff who can open the self-paced student dashboard
   const selfPacedDashboardUrl = (window.ENV as {SELF_PACED_DASHBOARD_NAV_URL?: string} | undefined)
     ?.SELF_PACED_DASHBOARD_NAV_URL
+  // set by the server when the courses page is the admin catalog and this
+  // user isn't an admin
+  const hideCoursesNav = !!(window.ENV as {SELF_PACED_HIDE_COURSES_NAV?: boolean} | undefined)
+    ?.SELF_PACED_HIDE_COURSES_NAV
   const [collapseSideNav, setCollapseSideNav] = useState(window.ENV.SETTINGS.collapse_global_nav)
   const [state, dispatch] = useReducer(sideNavReducer, initialState)
   const {isTrayOpen, activeTray, selectedNavItem, previousSelectedNavItem} = state
@@ -349,22 +353,24 @@ const SideNav: React.FC<ISideNav> = ({externalTools = []}) => {
             }}
             minimized={collapseSideNav}
           />
-          <SideNavBar.Item
-            id="courses-tray"
-            icon={<IconCoursesLine />}
-            label={isK5User ? I18n.t('Subjects') : I18n.t('Courses')}
-            href="/courses"
-            onClick={event => {
-              event.preventDefault()
-              handleActiveTray('courses', true)
-            }}
-            selected={selectedNavItem === 'courses'}
-            data-selected={selectedNavItem === 'courses'}
-            themeOverride={{
-              fontWeight: 400,
-            }}
-            minimized={collapseSideNav}
-          />
+          {!hideCoursesNav && (
+            <SideNavBar.Item
+              id="courses-tray"
+              icon={<IconCoursesLine />}
+              label={isK5User ? I18n.t('Subjects') : I18n.t('Courses')}
+              href="/courses"
+              onClick={event => {
+                event.preventDefault()
+                handleActiveTray('courses', true)
+              }}
+              selected={selectedNavItem === 'courses'}
+              data-selected={selectedNavItem === 'courses'}
+              themeOverride={{
+                fontWeight: 400,
+              }}
+              minimized={collapseSideNav}
+            />
+          )}
           {selfPacedDashboardUrl && (
             <SideNavBar.Item
               id="self-paced-dashboard-link"

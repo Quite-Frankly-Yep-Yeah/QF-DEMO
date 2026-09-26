@@ -15,6 +15,7 @@
 # You should have received a copy of the GNU Affero General Public License along
 # with this program. If not, see <http://www.gnu.org/licenses/>.
 %>
+<% js_bundle :sylla_region_editor %>
 
 <% question_bank_id ||= ""
   object_is_locked = !!js_env.dig(:MASTER_COURSE_DATA, "is_master_course_child_content") &&
@@ -218,12 +219,49 @@
         </table>
       </div>
     </div>
+    <div class="sylla_confidence_holder" style="margin: 10px 0;">
+      <label>
+        <b><%= before_label(:sylla_confidence, "Ask how sure the student is") %></b>
+        <select name="sylla_confidence" class="sylla_confidence_select">
+          <option value=""><%= t("No") %></option>
+          <option value="1"><%= t("Yes: just guessing, not sure, or sure") %></option>
+        </select>
+      </label>
+    </div>
+    <div class="sylla_numeric_holder" style="margin: 10px 0;">
+      <b><%= before_label(:sylla_unit_heading, "Unit (optional)") %></b>
+      <div style="font-size: 0.8em; margin: 4px 0;"><%= t("Students pick a unit next to their number, and the answer is right only with the right unit. Leave both empty for a plain numeric question.") %></div>
+      <label><%= before_label(:sylla_unit, "Correct unit") %> <input type="text" name="sylla_unit" class="sylla_unit_input" maxlength="40" style="width: 8em;"></label>
+      <label><%= before_label(:sylla_unit_choices, "Units to choose from") %> <input type="text" name="sylla_unit_choices" class="sylla_unit_choices_input" maxlength="200" style="width: 16em;" placeholder="mm, cm, m"></label>
+    </div>
+    <div class="sylla_hotspot_holder" style="margin: 10px 0;">
+      <b><%= before_label(:sylla_hotspot_heading, "Hotspot (optional)") %></b>
+      <div style="font-size: 0.8em; margin: 4px 0;"><%= t("Add an image and a region for each choice, and students can click the image to choose. The choice text must match the text of an answer above.") %></div>
+      <label><%= before_label(:sylla_image, "Image address") %> <input type="text" name="sylla_image" class="sylla_image_input" maxlength="500" style="width: 24em;" placeholder="https://..."></label>
+      <div class="sylla_region_preview"></div>
+      <label style="display: block; margin-top: 6px;"><%= before_label(:sylla_regions, "Regions") %></label>
+      <div style="font-size: 0.8em;"><%= t("One per line: Choice text | left | top | width | height, in percent of the image. Drag on the picture to add a line.") %></div>
+      <textarea name="sylla_regions" class="sylla_regions_input" style="width: 90%; height: 70px;"></textarea>
+    </div>
     <div class="form_answers">
     </div>
     <div style="text-align: <%= direction('right') %>;" class="add_answer">
       <a href="#" class="add_answer_link icon-add"><%= t('links.add_another_answer', "Add Another Answer") %></a>
     </div>
     <div class="matching_answer_incorrect_matches_holder" style="margin-top: 15px;">
+      <div class="matching_layout_holder" style="margin-bottom: 15px;">
+        <label>
+          <b><%= before_label(:sylla_layout, "How students answer") %></b>
+          <select name="sylla_layout" class="sylla_layout_select">
+            <option value=""><%= t("Match each item to an option") %></option>
+            <option value="ordering"><%= t("Put the items in order") %></option>
+            <option value="categorize"><%= t("Sort the items into categories") %></option>
+          </select>
+        </label>
+        <div class="sylla_layout_hint" style="font-size: 0.8em; margin-top: 4px;">
+          <%= t("To put items in order, list each item on the left and type its position (1, 2, 3...) on the right. To sort into categories, type the item on the left and its category on the right; items can share a category.") %>
+        </div>
+      </div>
       <b id="distractor_label"><%= before_label(:distractors, "Additional Match Possibilities (distractors)") %></b>
       <div id="distractor_instructions" style="font-size: 0.8em;"><%= t(:distractor_instructions, "type each distractor on its own line") %></div>
       <div style="text-align: center;">

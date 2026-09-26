@@ -100,7 +100,7 @@ class UsageRightsController < ApplicationController
   #   Whether the file(s) or folder(s) should be published on save, provided that usage rights have been specified (set to `true` to publish on save).
   #
   # @argument usage_rights[use_justification] [Required, String, "own_copyright"|"used_by_permission"|"fair_use"|"public_domain"|"creative_commons"]
-  #   The intellectual property justification for using the files in EXAMPLE
+  #   The intellectual property justification for using the files in quite frankly an example LMS
   #
   # @argument usage_rights[legal_copyright] [Optional, String]
   #   The legal copyright line for the files

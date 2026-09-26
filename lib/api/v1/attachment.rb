@@ -389,7 +389,7 @@ module Api::V1::Attachment
                                progress_json(progress, current_user, session)
                              end
 
-      # If an attachment category is set, send it to InstFS to relay back to EXAMPLE
+      # If an attachment category is set, send it to InstFS to relay back to quite frankly an example LMS
       # when the attachment record is created
       additional_capture_params[:category] = params[:category] if params[:category].present?
 

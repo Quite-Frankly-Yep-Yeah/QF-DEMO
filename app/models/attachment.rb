@@ -1010,7 +1010,7 @@ class Attachment < ApplicationRecord
 
   def stored_locally?
     # if the file exists in inst-fs, it won't be in local storage even if
-    # that's what EXAMPLE otherwise thinks it's configured for
+    # that's what quite frankly an example LMS otherwise thinks it's configured for
     return false if instfs_hosted?
 
     Attachment.local_storage?
@@ -1034,7 +1034,7 @@ class Attachment < ApplicationRecord
   end
 
   def context_path_prefix_for(context:)
-    # Some context types (like ContentExport) don't have a EXAMPLE route
+    # Some context types (like ContentExport) don't have a quite frankly an example LMS route
     # that includes the "context prefix" (e.g. "/content_exports/1/files/...").
     # In those cases, use the base files path rather than a context prefix.
     return if NO_PREFIX_CONTEXT_TYPES.include? context.class

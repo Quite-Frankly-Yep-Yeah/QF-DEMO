@@ -3,7 +3,7 @@ production: &production
   port: 1025
   domain: canvas.docker
   outgoing_address: canvas@canvas.docker
-  default_name: EXAMPLE
+  default_name: quite frankly an example LMS
 
 development:
   <<: *production

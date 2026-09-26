@@ -73,7 +73,7 @@ module Accessibility
             "Using correct heading levels in a logical order (like H2, H3, etc.) ensures your course is clear, organized, and accessible to everyone."
           ),
           I18n.t(
-            "Each page on EXAMPLE already has a main title (H1), so your content should start with an H2 to keep the structure clear."
+            "Each page on quite frankly an example LMS already has a main title (H1), so your content should start with an H2 to keep the structure clear."
           )
         ]
       end

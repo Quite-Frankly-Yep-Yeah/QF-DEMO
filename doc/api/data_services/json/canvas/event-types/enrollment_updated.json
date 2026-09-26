@@ -4,14 +4,14 @@
   "trigger": "Triggered when a course enrollment is modified.",
   "schema": {
     "associated_user_id": "The id of the user observed by an observer's enrollment. Omitted from non-observer enrollments.",
-    "course_id": "The EXAMPLE id of the course for this enrollment.",
+    "course_id": "The quite frankly an example LMS id of the course for this enrollment.",
     "course_section_id": "The id of the section of the course for the new enrollment.",
     "created_at": "The time at which this enrollment was created.",
-    "enrollment_id": "The EXAMPLE id of the new enrollment.",
+    "enrollment_id": "The quite frankly an example LMS id of the new enrollment.",
     "limit_privileges_to_course_section": "Whether students can only talk to students within their course section.",
     "type": "The type of enrollment; e.g. StudentEnrollment, TeacherEnrollment, ObserverEnrollment, etc.",
     "updated_at": "The time at which this enrollment was last modified in any way.",
-    "user_id": "The EXAMPLE id of the user for this enrollment.",
+    "user_id": "The quite frankly an example LMS id of the user for this enrollment.",
     "user_name": "The user's name.",
     "workflow_state": "The state of the enrollment (active, completed, creation_pending, deleted, inactive, invited)"
   },

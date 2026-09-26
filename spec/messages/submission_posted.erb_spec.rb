@@ -139,7 +139,7 @@ describe "submission_posted" do
     it_behaves_like "a view with scores"
 
     it "includes a message subject" do
-      expect(message.subject).to eql "EXAMPLE Alert"
+      expect(message.subject).to eql "quite frankly an example LMS Alert"
     end
 
     it "includes a message body" do

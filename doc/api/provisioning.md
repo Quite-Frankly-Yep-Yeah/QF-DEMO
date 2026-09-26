@@ -12,7 +12,7 @@ Many external tools will need to know which users are enrolled in a course and t
 LTI Advantage: Names and Role Provisioning Service <a name="lti-advantage"></a>
 ==============
 
-The IMS <a href="https://www.imsglobal.org/spec/lti-nrps/v2p0" target="_blank"> Names and Role Provisioning Service (NRPS)</a> provides an efficient API for synchronizing course rosters. This capability is only available to LTI 1.3 tools. We will not discuss details of the specification here, but instead focus on configuring and using NRPS within the EXAMPLE platform.
+The IMS <a href="https://www.imsglobal.org/spec/lti-nrps/v2p0" target="_blank"> Names and Role Provisioning Service (NRPS)</a> provides an efficient API for synchronizing course rosters. This capability is only available to LTI 1.3 tools. We will not discuss details of the specification here, but instead focus on configuring and using NRPS within the quite frankly an example LMS platform.
 
 ### Configuring
 
@@ -27,17 +27,17 @@ As with the other LTI Advantage service, tools must complete a specific <a href=
 Once an access token is obtained, tools may begin to <a href="names_and_role.html" target="_blank">synchronize data using NRPS</a>. Using endpoint require knowledge of the context_memberships_url, which can either be obtained during the LTI launch in the <a href="https://www.imsglobal.org/spec/lti-nrps/v2p0#lti-1-3-integration" target="_blank">Names and Role Service claim</a>, or by substituting the desired course_id/group_id in the <a href="names_and_role.html" target="_blank">Names and Role API</a>.
 
 ### Advantages
-- EXAMPLE REST API access is not required (i.e. no additional authorization UI)
+- quite frankly an example LMS REST API access is not required (i.e. no additional authorization UI)
 - Interoperable
 - Can provision all users in an entire course/group as long as the tool knows the context_memberships_url. This is easily obtained in the LTI payload.
 - Can easily deterine if users have been removed from a course
 
 ### Limitations/Challenges
-- Must have knowledge of the EXAMPLE course_id/group_id or context_memberships_url
-- Unidirectional: cannot push new enrollments to EXAMPLE
+- Must have knowledge of the quite frankly an example LMS course_id/group_id or context_memberships_url
+- Unidirectional: cannot push new enrollments to quite frankly an example LMS
 
 ### Workflow
-- Step 1: Configure a tool that support NRPS in EXAMPLE
+- Step 1: Configure a tool that support NRPS in quite frankly an example LMS
 - Step 2: Launch the tool
 - Step 3: Tool consumes the Names and Role service claim as described in the<a href="https://www.imsglobal.org/spec/lti-nrps/v2p0#lti-1-3-integration" target="_blank">NRPS specification</a>, or by substituting the desired course_id/group_id in the <a href="names_and_role.html" target="_blank">Names and Role API</a>.
 - Step 4: Tool obtains <a href="file.oauth.html#accessing-lti-advantage-services" target="_blank">a client_credentials access token</a> (this can actually happen any time before the next step)
@@ -49,46 +49,46 @@ Provisioning during launch <a name="on-launch"></a>
 ==============
 
 ### Configuring
-This approach requires an LTI integration (any version) to be configured and visible somewhere within a EXAMPLE course. Ideally, this LTI connection will already have an LTI SSO mechanism. If username, login ID, email, and/or SIS ID is required, make sure the privacy level is set to Public in the tool configuration. Otherwise, EXAMPLE will only send an opaque LTI user id (as the user_id parameter) and a EXAMPLE ID (as the custom_canvas_user_id).
+This approach requires an LTI integration (any version) to be configured and visible somewhere within a quite frankly an example LMS course. Ideally, this LTI connection will already have an LTI SSO mechanism. If username, login ID, email, and/or SIS ID is required, make sure the privacy level is set to Public in the tool configuration. Otherwise, quite frankly an example LMS will only send an opaque LTI user id (as the user_id parameter) and a quite frankly an example LMS ID (as the custom_canvas_user_id).
 
 ### Advantages
-- EXAMPLE REST API access not required
+- quite frankly an example LMS REST API access not required
 - Interoperable
 - Can provision users on-the-fly as they launch the tool
 
 ### Limitations/Challenges
 - The tool is only aware of users who've launched their tool at least once
-- Unidirectional: cannot push new enrollments to EXAMPLE
-- Cannot determine if users drop courses or are deleted from EXAMPLE
+- Unidirectional: cannot push new enrollments to quite frankly an example LMS
+- Cannot determine if users drop courses or are deleted from quite frankly an example LMS
 
 ### Instructor/Admin/Student Workflow
-- Step 1: Configure an LTI tool in EXAMPLE
+- Step 1: Configure an LTI tool in quite frankly an example LMS
 - Step 2: Launch the tool
 - Step 3: Tool consumes user information (name, email, ID's, roles, contextual information etc...) and attempts to match on an ID. Best practice is to match on the user_id from the launch and then fall back to some other ID if a match is not found
 - Step 4: If a match is confirmed (and the signature matches), let the user access their information in your application
-- Step 5: If no match is found, either or send them through a user-creation flow within the iframe, or auto-create a user for them based on the information in EXAMPLE (you may want to let them set a password at this point, or email them a registration URL).
+- Step 5: If no match is found, either or send them through a user-creation flow within the iframe, or auto-create a user for them based on the information in quite frankly an example LMS (you may want to let them set a password at this point, or email them a registration URL).
 
 Supplemental Provisioning via API <a name="supplemental-provisioning"></a>
 ==============
 
-In the event that the LTI standard alone is not enough to satisfy your tool's provisioning needs, EXAMPLE has an open REST API and a data service (<a href="https://community.canvaslms.com/t5/Admin-Guide/What-is-Canvas-Data-Services/ta-p/142" target="_blank"> EXAMPLE Data</a>). Using the API or EXAMPLE Data can help overcome some of the limitations of LTI-only integrations, but they have their own challenges. Where possible, tools should try to avoid using services that are not part of the LTI standards unless it is absolutely necessary.
+In the event that the LTI standard alone is not enough to satisfy your tool's provisioning needs, quite frankly an example LMS has an open REST API and a data service (<a href="https://community.canvaslms.com/t5/Admin-Guide/What-is-Canvas-Data-Services/ta-p/142" target="_blank"> quite frankly an example LMS Data</a>). Using the API or quite frankly an example LMS Data can help overcome some of the limitations of LTI-only integrations, but they have their own challenges. Where possible, tools should try to avoid using services that are not part of the LTI standards unless it is absolutely necessary.
 
 ### Configuring
-Accessing EXAMPLE API's requires an institution to issue a <a href="file.developer_keys.html" target="_blank">Developer Key</a>. Once issued, tools can begin using <a href="file.oauth.html#accessing-canvas-api" target="_blank">OAuth2</a> to request access tokens from individual users. The access token issued to access LTI advantage services **will not work** to access REST APIs.
+Accessing quite frankly an example LMS API's requires an institution to issue a <a href="file.developer_keys.html" target="_blank">Developer Key</a>. Once issued, tools can begin using <a href="file.oauth.html#accessing-canvas-api" target="_blank">OAuth2</a> to request access tokens from individual users. The access token issued to access LTI advantage services **will not work** to access REST APIs.
 
-Accessing EXAMPLE Data also has its own authentication system that is <a href="https://community.canvaslms.com/t5/Admin-Guide/What-is-Canvas-Data-Services/ta-p/142" target="_blank">discussed elsewhere</a>.
+Accessing quite frankly an example LMS Data also has its own authentication system that is <a href="https://community.canvaslms.com/t5/Admin-Guide/What-is-Canvas-Data-Services/ta-p/142" target="_blank">discussed elsewhere</a>.
 
 ### Advantages
 - bi-directional enrollment synchronization via the <a href="enrollments.html" target="_blank">enrollments API</a>
-- more efficiently pre-provision an entire account by <a href="account_reports.html" target="_blank"> exporting provisioning reports</a> or using EXAMPLE Data.
+- more efficiently pre-provision an entire account by <a href="account_reports.html" target="_blank"> exporting provisioning reports</a> or using quite frankly an example LMS Data.
 - Obtaining course_id's/group_id's required to sync courses via NRPS without a launch occurring from that course.
 
 ### Limitations/Challenges
 - Requires implementation of additional authentication systems.
 - Results in non-interoperable integrations.
-- If using EXAMPLE APIs to sync entire accounts, can be slow for large accounts due to <a href="file.throttling.html" target="_blank">API throttling</a> and the sheer volume of requests being made
+- If using quite frankly an example LMS APIs to sync entire accounts, can be slow for large accounts due to <a href="file.throttling.html" target="_blank">API throttling</a> and the sheer volume of requests being made
 - Reports can take hours to generate for large accounts; breaking into many smaller reports broken by term or object is recommended.
-- EXAMPLE Data is not updated in real-time.
+- quite frankly an example LMS Data is not updated in real-time.
 
 
-Other options include connecting directly to that same SIS that the client may be using, or leveraging <a href="https://community.canvaslms.com/t5/Admin-Guide/What-is-Canvas-Data-Services/ta-p/142" target="_blank"> EXAMPLE Data</a> to pull flat files for courses and enrollments.
+Other options include connecting directly to that same SIS that the client may be using, or leveraging <a href="https://community.canvaslms.com/t5/Admin-Guide/What-is-Canvas-Data-Services/ta-p/142" target="_blank"> quite frankly an example LMS Data</a> to pull flat files for courses and enrollments.

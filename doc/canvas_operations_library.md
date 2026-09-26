@@ -1,7 +1,7 @@
 
 # CanvasOperations
 
-A library for running common operations in deployed EXAMPLE environments, with consistent logging, metric emission, progress tracking, and error handling, and more.
+A library for running common operations in deployed quite frankly an example LMS environments, with consistent logging, metric emission, progress tracking, and error handling, and more.
 
 See [`lib/canvas_operations`](../lib/canvas_operations)
 

@@ -35,7 +35,7 @@ module Lti
         {
           hello_world: {
             title: "Hello World!",
-            message: "Congratulations! You have successfully subscribed to LtiHelloWorldNotice in EXAMPLE.",
+            message: "Congratulations! You have successfully subscribed to LtiHelloWorldNotice in quite frankly an example LMS.",
           }
         }.merge(params)
       end

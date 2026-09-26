@@ -4,18 +4,18 @@
   "trigger": "Triggered when an assignment override has been modified.",
   "schema": {
     "data[0].group.extensions[\"com.instructure.canvas\"]": {
-      "context_type": "EXAMPLE context type where the action took place e.g context_type = Course.",
-      "entity_id": "EXAMPLE context ID"
+      "context_type": "quite frankly an example LMS context type where the action took place e.g context_type = Course.",
+      "entity_id": "quite frankly an example LMS context ID"
     },
     "data[0].object.extensions[\"com.instructure.canvas\"]": {
-      "entity_id": "EXAMPLE global ID of the object affected by the event",
-      "assignment_id": "The EXAMPLE id of the assignment linked to the override.",
+      "entity_id": "quite frankly an example LMS global ID of the object affected by the event",
+      "assignment_id": "The quite frankly an example LMS id of the assignment linked to the override.",
       "all_day": "The overridden all_day flag, or nil if not overridden.",
       "all_day_date": "The overridden all_day_date, or nil if not overridden.",
       "lock_at": "The overridden lock_at timestamp, or nil if not overridden.",
       "type": "Override type - `ADHOC` (list of Students), `CourseSection`, or `Group`.",
-      "course_section_id": "(if `type='CourseSection'`) EXAMPLE section id that this override applies to.",
-      "group_id": "(if `type='Group'`) EXAMPLE group id that this override applies to.",
+      "course_section_id": "(if `type='CourseSection'`) quite frankly an example LMS section id that this override applies to.",
+      "group_id": "(if `type='Group'`) quite frankly an example LMS group id that this override applies to.",
       "workflow_state": "Workflow state of the override. (active, deleted)"
     },
     "data[0].object": {

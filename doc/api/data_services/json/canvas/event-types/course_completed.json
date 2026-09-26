@@ -4,8 +4,8 @@
   "trigger": "Triggered when all the module requirements of a course have been met. Also gets triggered when a module has a set completion time or when the completion time gets updated.",
   "schema": {
     "course": {
-      "account_id": "The local EXAMPLE id of the course's account.",
-      "id": "The local EXAMPLE id of the course.",
+      "account_id": "The local quite frankly an example LMS id of the course's account.",
+      "id": "The local quite frankly an example LMS id of the course.",
       "name": "The name of the course.",
       "sis_source_id": "The SIS identifier for the course, if defined."
     },
@@ -17,7 +17,7 @@
     },
     "user": {
       "email": "The students email",
-      "id": "The EXAMPLE id of the student completing the course.",
+      "id": "The quite frankly an example LMS id of the student completing the course.",
       "name": "The name of the student."
     }
   },

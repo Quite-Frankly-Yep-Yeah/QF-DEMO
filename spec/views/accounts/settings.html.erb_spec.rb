@@ -145,7 +145,7 @@ describe "accounts/settings" do
     describe "Site Admin Announcements" do
       let(:account) { Account.site_admin }
 
-      it_behaves_like "account notifications", "This is an announcement from <b>EXAMPLE Administration</b>"
+      it_behaves_like "account notifications", "This is an announcement from <b>quite frankly an example LMS Administration</b>"
     end
   end
 

@@ -4,7 +4,7 @@
   "trigger": "Triggered when a new course is created (or copied).",
   "schema": {
     "data[0].object.extensions[\"com.instructure.canvas\"]": {
-      "entity_id": "EXAMPLE global ID of the object affected by the event"
+      "entity_id": "quite frankly an example LMS global ID of the object affected by the event"
     },
     "data[0].object": {
       "type": "CourseOffering"

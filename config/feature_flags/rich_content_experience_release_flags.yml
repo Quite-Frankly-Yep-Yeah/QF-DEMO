@@ -115,7 +115,7 @@ docviewer_enable_iwork_files:
   state: hidden
   applies_to: RootAccount
   display_name: "Docviewer Apple iWork file support"
-  description: "Allows EXAMPLE to send iWork files to docviewer."
+  description: "Allows quite frankly an example LMS to send iWork files to docviewer."
   visible_on: docviewer_enable_iwork_visible_on_hook
 
 enhanced_docviewer_url_security:
@@ -138,7 +138,7 @@ file_verifiers_for_quiz_links:
   shadow: true
   display_name: Use file verifier authentication for New Quiz file links
   description: |-
-    Links to EXAMPLE files created in New Quizzes will always add file verifiers to allow authentication
+    Links to quite frankly an example LMS files created in New Quizzes will always add file verifiers to allow authentication
   applies_to: RootAccount
   environments:
     development:
@@ -242,7 +242,7 @@ rce_asr_captioning_improvements:
   applies_to: RootAccount
   display_name: Video Caption Generation
   description: |-
-    Allows users to enable the rolling transcript for EXAMPLE media and request captions for media added to RCE content.
+    Allows users to enable the rolling transcript for quite frankly an example LMS media and request captions for media added to RCE content.
 
 rce_studio_embed_improvements:
   state: hidden

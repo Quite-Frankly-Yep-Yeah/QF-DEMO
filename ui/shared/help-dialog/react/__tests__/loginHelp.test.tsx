@@ -62,7 +62,7 @@ describe('LoginHelp Component and Helpers', () => {
       )
 
       // Modal should be open initially
-      expect(getByRole('dialog', {name: 'Login Help for EXAMPLE LMS'})).toBeInTheDocument()
+      expect(getByRole('dialog', {name: 'Login Help for quite frankly an example LMS'})).toBeInTheDocument()
       expect(getByText('Help')).toBeInTheDocument()
 
       // Verify close button exists
@@ -121,7 +121,7 @@ describe('LoginHelp Component and Helpers', () => {
       // Modal should be open initially when renderLoginHelp is called
       await waitFor(
         () => {
-          expect(screen.getByText('Login Help for EXAMPLE LMS')).toBeInTheDocument()
+          expect(screen.getByText('Login Help for quite frankly an example LMS')).toBeInTheDocument()
         },
         {timeout: 2000},
       )

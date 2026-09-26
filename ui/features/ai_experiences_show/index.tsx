@@ -22,7 +22,7 @@ import {render} from '@canvas/react'
 import {AIExperiencesShow} from './react'
 
 ready(() => {
-  // Remove default EXAMPLE content padding
+  // Remove default quite frankly an example LMS content padding
   const contentMain = document.querySelector('#content') as HTMLElement | null
   if (contentMain) {
     contentMain.style.padding = '0'

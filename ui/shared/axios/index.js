@@ -18,7 +18,7 @@
 
 import axios from 'axios'
 
-// Add CSRF stuffs to make EXAMPLE happy when we are making requests with axios
+// Add CSRF stuffs to make quite frankly an example LMS happy when we are making requests with axios
 axios.defaults.xsrfCookieName = '_csrf_token'
 axios.defaults.xsrfHeaderName = 'X-CSRF-Token'
 

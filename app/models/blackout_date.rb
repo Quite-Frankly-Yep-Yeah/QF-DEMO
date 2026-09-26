@@ -30,6 +30,8 @@ class BlackoutDate < ApplicationRecord
 
   extend RootAccountResolver
 
+  after_commit { SelfPaced::Pacer.blackout_changed(self) }
+
   resolves_root_account through: :context
 
   def end_date_not_before_start_date

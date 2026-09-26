@@ -497,7 +497,7 @@ class FilesController < ApplicationController
   #
   # @argument submission_id [Optional, Integer]
   #   The id of the submission the file is associated with.  Provide this argument to gain access to a file
-  #   that has been submitted to an assignment (EXAMPLE will verify that the file belongs to the submission
+  #   that has been submitted to an assignment (quite frankly an example LMS will verify that the file belongs to the submission
   #   and the calling user has rights to view the submission).
   #
   # @example_request
@@ -534,21 +534,21 @@ class FilesController < ApplicationController
   #   "usage_rights":: copyright and license information for the file (see UsageRights)
   #
   # @argument replacement_chain_context_type [Optional, String]
-  #   When a user replaces a file during upload, EXAMPLE keeps track of the "replacement chain."
+  #   When a user replaces a file during upload, quite frankly an example LMS keeps track of the "replacement chain."
   #
-  #   Include this parameter if you wish EXAMPLE to follow the replacement chain if the requested
+  #   Include this parameter if you wish quite frankly an example LMS to follow the replacement chain if the requested
   #   file was deleted and replaced by another.
   #
   #   Must be set to 'course' or 'account'. The "replacement_chain_context_id" parameter must
   #   also be included.
   #
   # @argument replacement_chain_context_id [Optional, Integer]
-  #   When a user replaces a file during upload, EXAMPLE keeps track of the "replacement chain."
+  #   When a user replaces a file during upload, quite frankly an example LMS keeps track of the "replacement chain."
   #
-  #   Include this parameter if you wish EXAMPLE to follow the replacement chain if the requested
+  #   Include this parameter if you wish quite frankly an example LMS to follow the replacement chain if the requested
   #   file was deleted and replaced by another.
   #
-  #   Indicates the context ID EXAMPLE should use when following the "replacement chain." The
+  #   Indicates the context ID quite frankly an example LMS should use when following the "replacement chain." The
   #   "replacement_chain_context_type" parameter must also be included.
   #
   # @example_request
@@ -904,7 +904,7 @@ class FilesController < ApplicationController
         send_stored_file(attachment)
       else
         # If the file is inlineable then redirect to the 'show' action
-        # so we can wrap it in all the EXAMPLE header/footer stuff
+        # so we can wrap it in all the quite frankly an example LMS header/footer stuff
         redirect_to(named_context_url(@context, :context_file_url, attachment.id))
       end
     else
@@ -1607,7 +1607,7 @@ class FilesController < ApplicationController
   #
   # Update the word count for a submission's attachment. This is an internal endpoint
   # designed to be called by external document viewers (like DocViewer) to report word
-  # counts back to EXAMPLE.
+  # counts back to quite frankly an example LMS.
   #
   # @argument attachment_jwt [Required, String]
   #   JWT token containing the id of the attachment

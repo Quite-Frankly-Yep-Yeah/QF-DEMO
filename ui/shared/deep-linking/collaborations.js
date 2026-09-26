@@ -29,7 +29,7 @@ export const addDeepLinkingListener = () => {
 }
 
 /*
- * Creates or updates a Collaboration in EXAMPLE.
+ * Creates or updates a Collaboration in quite frankly an example LMS.
  *
  * A processing function called by both the
  * LTI Advantage handleDeepLinking handler and the

@@ -27,15 +27,15 @@ module Lti
   # @model Lti::Deployment
   #     {
   #       "id": "Lti::Deployment",
-  #       "description": "A deployment of an LTI tool in EXAMPLE",
+  #       "description": "A deployment of an LTI tool in quite frankly an example LMS",
   #       "properties": {
   #         "id": {
-  #           "description": "the EXAMPLE ID of the Lti::Deployment object",
+  #           "description": "the quite frankly an example LMS ID of the Lti::Deployment object",
   #           "example": 2,
   #           "type": "integer"
   #         },
   #         "registration_id": {
-  #           "description": "the EXAMPLE ID of the associated Lti::Registration object",
+  #           "description": "the quite frankly an example LMS ID of the associated Lti::Registration object",
   #           "example": 2,
   #           "type": "integer"
   #         },
@@ -45,7 +45,7 @@ module Lti
   #           "type": "string"
   #         },
   #         "context_id": {
-  #           "description": "The EXAMPLE ID of the context this deployment is associated with",
+  #           "description": "The quite frankly an example LMS ID of the context this deployment is associated with",
   #           "example": 2,
   #           "type": "integer"
   #         },
@@ -186,7 +186,7 @@ module Lti
     # @API List LTI Context Controls
     #
     # List all context controls for the specified deployment. Context Controls are used to manage
-    # LTI tool availability in contexts across EXAMPLE.
+    # LTI tool availability in contexts across quite frankly an example LMS.
     #
     # @returns [Lti::ContextControl]
     #

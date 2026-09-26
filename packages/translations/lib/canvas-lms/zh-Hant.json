@@ -17,7 +17,7 @@
         "Archived grading schemes in use can still be used, but cannot be added to new courses or assignments.": "使用中的存檔的等級評分方式仍可使用，但無法添加至新課程或作業列表。",
         "Are you sure you want to delete this grading scheme?": "是否確定要刪除此評分方案？",
         "Cancel": "取消",
-        "EXAMPLE Default": "EXAMPLE 預設值",
+        "quite frankly an example LMS Default": "quite frankly an example LMS 預設值",
         "Close": "關閉",
         "Confirm": "確認",
         "Confirm Default Grading Scheme Change": "確認預設評分方式變更",
@@ -45,7 +45,7 @@
         "There was an error while archiving the grading scheme": "存檔等級評分方式時發生錯誤",
         "There was an error while creating the grading scheme": "建立等級評分方式時發生錯誤",
         "There was an error while loading grading schemes": "載入等級評分方式時發生錯誤",
-        "There was an error while loading the default canvas grading scheme": "載入預設的 EXAMPLE 等級評分方式時發生錯誤",
+        "There was an error while loading the default canvas grading scheme": "載入預設的 quite frankly an example LMS 等級評分方式時發生錯誤",
         "There was an error while loading the default grading scheme": "載入預設的等級評分方式時發生錯誤",
         "There was an error while removing the grading scheme": "移除等級評分方式時發生錯誤",
         "There was an error while unarchiving the grading scheme": "取消存檔等級評分方式時發生錯誤",
@@ -80,7 +80,7 @@
         "Save": "保存"
     },
     "GradingSchemes": {
-        "A table that contains the default canvas grading scheme data.  Each row contains a name, a maximum percentage, and a minimum percentage.": "包含預設的 EXAMPLE 等級評分方式資料的表格。每一列都有一個名稱、一個最大百分比和最小百分比。",
+        "A table that contains the default canvas grading scheme data.  Each row contains a name, a maximum percentage, and a minimum percentage.": "包含預設的 quite frankly an example LMS 等級評分方式資料的表格。每一列都有一個名稱、一個最大百分比和最小百分比。",
         "A table that contains the grading scheme data.  Each row contains a name, a maximum percentage, and a minimum percentage.": "包含等級評分方式資料的表格。每一列都有一個名稱、一個最大百分比和最小百分比。",
         "Cannot have duplicate or empty row names. Fix the names and try clicking 'Save' again.": "不可有重複或空白的行名稱。修復名稱，然後嘗試再按一下「儲存」。",
         "Cannot have overlapping or empty ranges. Fix the ranges and try clicking 'Save' again.": "不可有重疊或空白的範圍。修復範圍，然後嘗試再按一下「儲存」。",
@@ -157,10 +157,10 @@
     "assignments.grading_type_selector": {
         "(course default)": "（課程預設值）",
         "Account Level": "帳戶級別",
-        "EXAMPLE Grading Scheme (course default)": "EXAMPLE 等級評分方式（課程預設值）",
+        "quite frankly an example LMS Grading Scheme (course default)": "quite frankly an example LMS 等級評分方式（課程預設值）",
         "Close": "關閉",
         "Course Level": "課程級別",
-        "Default EXAMPLE Grading Scheme": "預設的 EXAMPLE 等級評分分式",
+        "Default quite frankly an example LMS Grading Scheme": "預設的 quite frankly an example LMS 等級評分分式",
         "Grading scheme was successfully removed.": "成功移除等級評分方式。",
         "Grading scheme was successfully updated.": "等級評分方式已成功更新。",
         "Manage All Grading Schemes": "管理所有等級評分方式",
@@ -181,7 +181,7 @@
         "Course Catalog": "課程目錄"
     },
     "confetti": {
-        "Great work! From the EXAMPLE developers": "做得好！來自 EXAMPLE 開發人員"
+        "Great work! From the quite frankly an example LMS developers": "做得好！來自 quite frankly an example LMS 開發人員"
     },
     "content_copy_redesign": {
         "Cancel": "取消",

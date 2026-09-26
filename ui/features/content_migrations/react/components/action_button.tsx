@@ -194,7 +194,7 @@ const MigrationIssuesModal = ({
           <Flex.Item>{content}</Flex.Item>
           {ENV.FEATURES.course_navigation_and_feature_options_permissions && issues && (
             <Flex.Item>
-              <Text>{I18n.t('Please contact your EXAMPLE Administrator for further details.')}</Text>
+              <Text>{I18n.t('Please contact your quite frankly an example LMS Administrator for further details.')}</Text>
             </Flex.Item>
           )}
         </Flex>

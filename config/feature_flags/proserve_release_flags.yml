@@ -14,7 +14,7 @@ allow_limited_access_for_students:
   shadow: true
   applies_to: RootAccount
   display_name: Allow Limited Access for Students
-  description: Makes available an account setting to make certain EXAMPLE features unavailable to students in that account.
+  description: Makes available an account setting to make certain quite frankly an example LMS features unavailable to students in that account.
 
 default_discussion_options:
   state: hidden

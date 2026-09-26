@@ -61,7 +61,7 @@ type Account implements LegacyIDInterface & Node {
     before: String
 
     """
-    Whether or not to include or exclude EXAMPLE Career learning library only courses
+    Whether or not to include or exclude quite frankly an example LMS Career learning library only courses
     """
     careerLearningLibraryOnly: Boolean
 
@@ -8846,7 +8846,7 @@ type Placement {
 }
 
 """
-A placement for an external tool in EXAMPLE
+A placement for an external tool in quite frankly an example LMS
 """
 type Placements {
   """
@@ -12710,7 +12710,7 @@ type User implements LegacyIDInterface & Node & Timestamped {
   email: String
   enrollments(
     """
-    Whether or not to only filter for or exclude EXAMPLE Career learning library only courses
+    Whether or not to only filter for or exclude quite frankly an example LMS Career learning library only courses
     """
     careerLearningLibraryOnly: Boolean
 
@@ -12730,7 +12730,7 @@ type User implements LegacyIDInterface & Node & Timestamped {
     excludeConcluded: Boolean
 
     """
-    Whether or not to include or exclude EXAMPLE Career courses
+    Whether or not to include or exclude quite frankly an example LMS Career courses
     """
     horizonCourses: Boolean
 
@@ -12786,7 +12786,7 @@ type User implements LegacyIDInterface & Node & Timestamped {
     first: Int
 
     """
-    Whether or not to include or exclude EXAMPLE Career courses
+    Whether or not to include or exclude quite frankly an example LMS Career courses
     """
     horizonCourses: Boolean
 

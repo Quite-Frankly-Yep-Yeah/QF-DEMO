@@ -646,7 +646,7 @@ class FoldersController < ApplicationController
 
   # @API Copy a file
   #
-  # Copy a file from elsewhere in EXAMPLE into a folder.
+  # Copy a file from elsewhere in quite frankly an example LMS into a folder.
   #
   # Copying a file across contexts (between courses and users) is permitted,
   # but the source and destination must belong to the same institution.
@@ -706,7 +706,7 @@ class FoldersController < ApplicationController
 
   # @API Copy a folder
   #
-  # Copy a folder (and its contents) from elsewhere in EXAMPLE into a folder.
+  # Copy a folder (and its contents) from elsewhere in quite frankly an example LMS into a folder.
   #
   # Copying a folder across contexts (between courses and users) is permitted,
   # but the source and destination must belong to the same institution.

@@ -27,11 +27,15 @@ import RecentGradesWidget from './widgets/RecentGradesWidget/RecentGradesWidget'
 import {
   ProgressOverviewWidget,
   EducatorAnnouncementCreationWidget,
-  EducatorTodoListWidget,
   EducatorContentQualityWidget,
 } from '@instructure/platform-widget-dashboard'
+// ours: the package's educator to-do widget only shows sample items
+import EducatorTodoListWidget from './widgets/EducatorTodoListWidget/EducatorTodoListWidget'
 import {renderAnnouncementMessageEditor} from './widgets/EducatorAnnouncementCreationWidget/AnnouncementMessageEditor'
 import InboxWidget from './widgets/InboxWidget/InboxWidget'
+import StudentsNeedYouWidget from './widgets/EducatorClassesWidget/StudentsNeedYouWidget'
+import ClassProgressWidget from './widgets/EducatorClassesWidget/ClassProgressWidget'
+import EducatorAlertsWidget from './widgets/EducatorClassesWidget/EducatorAlertsWidget'
 
 const widgetRegistry: WidgetRegistry = {
   [WIDGET_TYPES.COURSE_WORK_COMBINED]: {
@@ -72,7 +76,7 @@ const widgetRegistry: WidgetRegistry = {
   [WIDGET_TYPES.INBOX]: {
     component: InboxWidget,
     displayName: 'Inbox',
-    description: 'View recent messages from your EXAMPLE conversations',
+    description: 'View recent messages from your quite frankly an example LMS conversations',
   },
   [WIDGET_TYPES.EDUCATOR_ANNOUNCEMENT_CREATION]: {
     component: EducatorAnnouncementCreationWidget,
@@ -85,14 +89,32 @@ const widgetRegistry: WidgetRegistry = {
   },
   [WIDGET_TYPES.EDUCATOR_TODO_LIST]: {
     component: EducatorTodoListWidget,
-    displayName: 'Todo List',
-    description: 'Smart todo list educator widget',
+    displayName: 'To-do list',
+    description: 'Work to grade in your courses, and anything you need to submit',
     roles: [EDUCATOR_WIDGET_ROLE],
   },
   [WIDGET_TYPES.EDUCATOR_CONTENT_QUALITY]: {
     component: EducatorContentQualityWidget,
     displayName: 'Content Quality',
     description: 'Content quality and accessibility educator widget',
+    roles: [EDUCATOR_WIDGET_ROLE],
+  },
+  [WIDGET_TYPES.EDUCATOR_STUDENTS_NEED_YOU]: {
+    component: StudentsNeedYouWidget,
+    displayName: 'Students who need you',
+    description: 'Students who are stuck, behind pace or inactive',
+    roles: [EDUCATOR_WIDGET_ROLE],
+  },
+  [WIDGET_TYPES.EDUCATOR_CLASS_PROGRESS]: {
+    component: ClassProgressWidget,
+    displayName: 'Class progress',
+    description: 'Average progress in each of your self-paced classes',
+    roles: [EDUCATOR_WIDGET_ROLE],
+  },
+  [WIDGET_TYPES.EDUCATOR_ALERTS]: {
+    component: EducatorAlertsWidget,
+    displayName: 'Alerts',
+    description: 'Students your alert rules have flagged, with a way to dismiss each',
     roles: [EDUCATOR_WIDGET_ROLE],
   },
 }

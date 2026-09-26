@@ -18,12 +18,14 @@
 
 import React, {useEffect, useMemo, useRef, useState} from 'react'
 import {useScope as createI18nScope} from '@canvas/i18n'
-import {Heading} from '@instructure/ui-heading'
 import {View} from '@instructure/ui-view'
 import {Flex} from '@instructure/ui-flex'
 import {Button} from '@instructure/ui-buttons'
 import {IconConfigureLine} from '@instructure/ui-icons'
 import {Alert} from '@instructure/ui-alerts'
+import {InstUISettingsProvider} from '@instructure/emotion'
+import MaterialHeader from './components/MaterialHeader'
+import {MATERIAL_CSS, materialTheme, SURFACE} from './materialTheme'
 import DashboardTabs from './components/DashboardTabs'
 import DashboardNotifications from './components/DashboardNotifications'
 import ObserverOptions from '@canvas/observer-picker'
@@ -54,6 +56,7 @@ const WidgetDashboardContainer: React.FC = () => {
   const wasEditModeRef = useRef(isEditMode)
 
   const handleChangeObservedUser = useMemo(() => getHandleChangeObservedUser(), [])
+  const theme = useMemo(() => materialTheme(isDark), [isDark])
 
   // Focus customize button when exiting edit mode
   useEffect(() => {
@@ -93,112 +96,112 @@ const WidgetDashboardContainer: React.FC = () => {
     }
   }
 
+  const greeting = ENV.current_user?.display_name
+    ? I18n.t('Hello, %{name}!', {name: ENV.current_user.display_name})
+    : I18n.t('Dashboard')
+
   return (
-    <View as="div" background={isDark ? undefined : 'primary'}>
-      <DashboardNotifications />
-      {saveError && (
-        <Alert
-          variant="error"
-          margin="0 0 medium"
-          renderCloseButtonLabel={I18n.t('Close')}
-          onDismiss={clearError}
-        >
-          {I18n.t('Failed to save widget layout: %{error}', {error: saveError})}
-        </Alert>
-      )}
-      <Flex direction="column" gap="small" margin="0 0 medium">
-        <Flex.Item>
-          <Flex gap="small" direction={isMobile ? 'column' : 'row'} alignItems="center" wrap="wrap">
-            <Flex.Item shouldGrow>
-              <Heading
-                level="h1"
-                margin="0"
-                data-testid="dashboard-heading"
-                color={isDark ? 'primary-inverse' : undefined}
-              >
-                {ENV.current_user?.display_name
-                  ? I18n.t('Hello, %{name}!', {name: ENV.current_user.display_name})
-                  : I18n.t('Dashboard')}
-              </Heading>
-            </Flex.Item>
-            {ENV.widget_dashboard_overridable === true && (
-              <Flex.Item>
-                <Button
-                  onClick={handleSwitchToOldDashboard}
-                  disabled={switchingDashboard}
-                  data-testid="switch-to-old-dashboard-button"
-                >
-                  {I18n.t('Switch to old dashboard view')}
-                </Button>
-              </Flex.Item>
-            )}
+    <InstUISettingsProvider theme={theme}>
+      <style>{MATERIAL_CSS}</style>
+      <div
+        className={isDark ? 'sp-material-home sp-material-home--dark' : 'sp-material-home'}
+        style={{background: isDark ? undefined : SURFACE, padding: isMobile ? '8px 0' : 12}}
+      >
+        <View as="div">
+          <DashboardNotifications />
+          {saveError && (
+            <Alert
+              variant="error"
+              margin="0 0 medium"
+              renderCloseButtonLabel={I18n.t('Close')}
+              onDismiss={clearError}
+            >
+              {I18n.t('Failed to save widget layout: %{error}', {error: saveError})}
+            </Alert>
+          )}
+          <MaterialHeader
+            title={greeting}
+            headingTestId="dashboard-heading"
+            actions={
+              <>
+                {ENV.widget_dashboard_overridable === true && (
+                  <Button
+                    color="primary-inverse"
+                    withBackground={false}
+                    onClick={handleSwitchToOldDashboard}
+                    disabled={switchingDashboard}
+                    data-testid="switch-to-old-dashboard-button"
+                  >
+                    {I18n.t('Switch to old dashboard view')}
+                  </Button>
+                )}
+                {isEditMode ? (
+                  <>
+                    <Button
+                      color="primary-inverse"
+                      withBackground={false}
+                      onClick={handleCancel}
+                      data-testid="cancel-customize-button"
+                    >
+                      {I18n.t('Cancel')}
+                    </Button>
+                    <Button
+                      color="primary-inverse"
+                      onClick={handleSave}
+                      interaction={isSaving ? 'disabled' : 'enabled'}
+                      data-testid="save-customize-button"
+                    >
+                      {isSaving ? I18n.t('Saving...') : I18n.t('Save changes')}
+                    </Button>
+                  </>
+                ) : (
+                  <Button
+                    elementRef={el => {
+                      customizeButtonRef.current = el
+                    }}
+                    color="primary-inverse"
+                    onClick={enterEditMode}
+                    renderIcon={<IconConfigureLine />}
+                    data-testid="customize-dashboard-button"
+                  >
+                    {I18n.t('Customize dashboard')}
+                  </Button>
+                )}
+                {ENV.add_oak_mount_point && <div id="oak-mount-point"></div>}
+              </>
+            }
+          />
+          <Flex direction="column" gap="small" margin="small 0">
             {ENV.DASHBOARD_FEATURES?.widget_dashboard_dark_mode && (
               <Flex.Item>
                 <DarkModeToggle />
               </Flex.Item>
             )}
-            {isEditMode ? (
-              <>
-                <Flex.Item>
-                  <Button onClick={handleCancel} data-testid="cancel-customize-button">
-                    {I18n.t('Cancel')}
-                  </Button>
-                </Flex.Item>
-                <Flex.Item>
-                  <Button
-                    color="primary"
-                    onClick={handleSave}
-                    interaction={isSaving ? 'disabled' : 'enabled'}
-                    data-testid="save-customize-button"
-                  >
-                    {isSaving ? I18n.t('Saving...') : I18n.t('Save changes')}
-                  </Button>
-                </Flex.Item>
-              </>
-            ) : (
+            {observedUsersList.length > 0 && currentUser && (
               <Flex.Item>
-                <Button
-                  elementRef={el => {
-                    customizeButtonRef.current = el
-                  }}
-                  onClick={enterEditMode}
-                  renderIcon={<IconConfigureLine />}
-                  data-testid="customize-dashboard-button"
-                >
-                  {I18n.t('Customize dashboard')}
-                </Button>
+                <View as="div">
+                  <ObserverOptions
+                    autoFocus={autoFocusObserverPicker()}
+                    canAddObservee={canAddObservee}
+                    currentUserRoles={currentUserRoles}
+                    currentUser={currentUser}
+                    handleChangeObservedUser={handleChangeObservedUser}
+                    observedUsersList={observedUsersList}
+                    renderLabel={I18n.t(
+                      'Select a student to view. The page will refresh automatically.',
+                    )}
+                  />
+                </View>
               </Flex.Item>
             )}
-            {ENV.add_oak_mount_point && (
-              <Flex.Item>
-                <div id="oak-mount-point"></div>
-              </Flex.Item>
-            )}
+            <Flex.Item>
+              <FeedbackQuestionTile />
+            </Flex.Item>
           </Flex>
-        </Flex.Item>
-        {observedUsersList.length > 0 && currentUser && (
-          <Flex.Item>
-            <View as="div">
-              <ObserverOptions
-                autoFocus={autoFocusObserverPicker()}
-                canAddObservee={canAddObservee}
-                currentUserRoles={currentUserRoles}
-                currentUser={currentUser}
-                handleChangeObservedUser={handleChangeObservedUser}
-                observedUsersList={observedUsersList}
-                renderLabel={I18n.t(
-                  'Select a student to view. The page will refresh automatically.',
-                )}
-              />
-            </View>
-          </Flex.Item>
-        )}
-        <Flex.Item>
-          <FeedbackQuestionTile />
-        </Flex.Item>
-      </Flex>
-      <DashboardTabs />
-    </View>
+          <DashboardTabs />
+        </View>
+      </div>
+    </InstUISettingsProvider>
   )
 }
 

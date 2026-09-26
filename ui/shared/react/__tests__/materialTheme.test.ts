@@ -49,6 +49,17 @@ describe('applyMaterialOverrides', () => {
     expect(t.componentOverrides.Heading.h3FontWeight).toBe(500)
   })
 
+  it('softens surfaces to grey 100 without touching text or button colors', () => {
+    const t: any = applyMaterialOverrides({
+      ...base,
+      componentOverrides: {View: {colorPrimaryInverse: '#FFFFFF'}},
+    })
+    expect(t.componentOverrides.View.backgroundPrimary).toBe('#F5F5F5')
+    expect(t.componentOverrides.View.colorPrimaryInverse).toBe('#FFFFFF')
+    expect(t.componentOverrides.Options.background).toBe('#F5F5F5')
+    expect(t.componentOverrides.BaseButton.background).toBeUndefined()
+  })
+
   it('is a no-op in high contrast', () => {
     expect(applyMaterialOverrides(base, {highContrast: true})).toBe(base)
   })

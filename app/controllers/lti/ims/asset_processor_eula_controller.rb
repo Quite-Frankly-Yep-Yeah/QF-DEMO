@@ -94,7 +94,7 @@ module Lti::IMS
     #
     # @argument userId [String]
     #  The userId represents the user who has accepted or declined the EULA,
-    #  `lti_id` of the EXAMPLE User.
+    #  `lti_id` of the quite frankly an example LMS User.
     #
     # @argument accepted [Boolean]
     #   A boolean value representing whether or not the user has accepted the EULA

@@ -43,7 +43,7 @@ async function monitorWebpack() {
     if (currentUtilization <= BASELINE_CPU_UTILIZATION && !webpackFinished) {
       webpackFinished = true
       exec(
-        'osascript -e \'display notification "EXAMPLE Webpack build finished" with title "Build Finished"\''
+        'osascript -e \'display notification "quite frankly an example LMS Webpack build finished" with title "Build Finished"\''
       )
     }
     if (currentUtilization > BASELINE_CPU_UTILIZATION && webpackFinished) {

@@ -3,9 +3,9 @@
   "definition": "The event is emitted anytime a new module is created by an end user or API request.",
   "trigger": "Triggered when a new module is created.",
   "schema": {
-    "context_id": "The local EXAMPLE id of the context.",
+    "context_id": "The local quite frankly an example LMS id of the context.",
     "context_type": "The type of module's context.",
-    "module_id": "The EXAMPLE id of the module.",
+    "module_id": "The quite frankly an example LMS id of the module.",
     "name": "The name of the module.",
     "position": "The position of the module in the course.",
     "workflow_state": "The workflow state of the module."

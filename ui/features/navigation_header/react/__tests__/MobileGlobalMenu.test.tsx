@@ -237,16 +237,16 @@ describe('MobileGlobalMenu', () => {
     expect(fallbackIcon).toBeInTheDocument()
   })
 
-  it('renders EXAMPLE Career link when career enrollment is available', async () => {
+  it('renders quite frankly an example LMS Career link when career enrollment is available', async () => {
     setup([], [], true)
-    expect(await screen.findByText('EXAMPLE Career')).toBeInTheDocument()
+    expect(await screen.findByText('quite frankly an example LMS Career')).toBeInTheDocument()
   })
 
-  it('calls switchExperience mutate when EXAMPLE Career link clicked', async () => {
+  it('calls switchExperience mutate when quite frankly an example LMS Career link clicked', async () => {
     const mutateMock = vi.fn()
     mockedUseSwitchExperience.mockReturnValue({mutate: mutateMock} as any)
     setup([], [], true)
-    const link = await screen.findByText('EXAMPLE Career')
+    const link = await screen.findByText('quite frankly an example LMS Career')
     await userEvent.click(link)
     await waitFor(() => {
       expect(mutateMock).toHaveBeenCalled()

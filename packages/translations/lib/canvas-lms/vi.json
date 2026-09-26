@@ -17,7 +17,7 @@
         "Archived grading schemes in use can still be used, but cannot be added to new courses or assignments.": "Bạn vẫn có thể sử dụng chế độ cho điểm được lưu trữ đang sử dụng nhưng không thể thêm vào các khóa học hoặc bài tập mới.",
         "Are you sure you want to delete this grading scheme?": "Bạn có chắc chắn muốn xóa chế độ cho điểm này không?",
         "Cancel": "Hủy",
-        "EXAMPLE Default": "Mặc Định EXAMPLE",
+        "quite frankly an example LMS Default": "Mặc Định quite frankly an example LMS",
         "Close": "Đóng",
         "Confirm": "Xác Nhận",
         "Confirm Default Grading Scheme Change": "Xác Nhận Thay Đổi Chế Độ Cho Điểm Mặc Định",
@@ -157,10 +157,10 @@
     "assignments.grading_type_selector": {
         "(course default)": "(khóa học mặc định)",
         "Account Level": "Cấp Độ Tài Khoản",
-        "EXAMPLE Grading Scheme (course default)": "Chế Độ Cho Điểm EXAMPLE (khóa học mặc định)",
+        "quite frankly an example LMS Grading Scheme (course default)": "Chế Độ Cho Điểm quite frankly an example LMS (khóa học mặc định)",
         "Close": "Đóng",
         "Course Level": "Cấp Độ Khóa Học",
-        "Default EXAMPLE Grading Scheme": "Chế Độ Cho Điểm EXAMPLE Mặc Định",
+        "Default quite frankly an example LMS Grading Scheme": "Chế Độ Cho Điểm quite frankly an example LMS Mặc Định",
         "Grading scheme was successfully removed.": "Đã gỡ chế độ cho điểm thành công.",
         "Grading scheme was successfully updated.": "Đã cập nhật chế độ cho điểm thành công.",
         "Manage All Grading Schemes": "Quản Lý Tất Cả Chế Độ Cho Điểm",
@@ -181,7 +181,7 @@
         "Course Catalog": "Mục Lục Khóa Học"
     },
     "confetti": {
-        "Great work! From the EXAMPLE developers": "Rất tốt! Từ các nhà phát triển EXAMPLE"
+        "Great work! From the quite frankly an example LMS developers": "Rất tốt! Từ các nhà phát triển quite frankly an example LMS"
     },
     "content_copy_redesign": {
         "Cancel": "Hủy",

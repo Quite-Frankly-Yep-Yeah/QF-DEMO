@@ -1,5 +1,5 @@
 /**
- * EXAMPLE LMS - The open-source learning management system
+ * quite frankly an example LMS - The open-source learning management system
  *
  * Copyright (C) 2013 - present Instructure, Inc.
  *
@@ -34,7 +34,7 @@ interface LoginHelpProps {
   linkText: string
 }
 
-const modalLabel = () => I18n.t('Login Help for %{canvas}', {canvas: 'EXAMPLE LMS'})
+const modalLabel = () => I18n.t('Login Help for %{canvas}', {canvas: 'quite frankly an example LMS'})
 
 const LoginHelp = ({linkText}: LoginHelpProps): JSX.Element => {
   // Initial modal state is open, because this whole thing initially

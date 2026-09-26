@@ -118,8 +118,8 @@ module DataFixup::NormalizePseudonyms
 
     # If a non-associated pseudonym that has been used, and has a non-auto-generated password
     # conflicts with a pseudonym associated with CAS, LDAP, or SAML (that has an auto-generated
-    # password), and doesn't _also_ conflict with a pseudonym associated with EXAMPLE auth, move
-    # the pseudonym to EXAMPLE auth, so that it won't count as a conflict between CAS/LDAP/SAML and
+    # password), and doesn't _also_ conflict with a pseudonym associated with quite frankly an example LMS auth, move
+    # the pseudonym to quite frankly an example LMS auth, so that it won't count as a conflict between CAS/LDAP/SAML and
     # NULL later.
     def relink_canvas_auth_provider
       already_moved = Set.new

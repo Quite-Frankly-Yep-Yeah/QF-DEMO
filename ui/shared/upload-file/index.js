@@ -28,7 +28,7 @@ const I18n = createI18nScope('upload_file')
 // error messages.
 function preflightFailed(err) {
   if (err.message === 'Network Error') {
-    const wrapped = new Error(I18n.t('EXAMPLE failed to initiate the upload.'))
+    const wrapped = new Error(I18n.t('quite frankly an example LMS failed to initiate the upload.'))
     wrapped.originalError = err
     return Promise.reject(wrapped)
   }
@@ -43,7 +43,7 @@ function fileUploadFailed(err) {
     // fault
     const wrapped = new Error(
       I18n.t(
-        'Unable to transmit file to the storage service. The service may be down or you may need to re-login to EXAMPLE.',
+        'Unable to transmit file to the storage service. The service may be down or you may need to re-login to quite frankly an example LMS.',
       ),
     )
     wrapped.originalError = err
@@ -54,7 +54,7 @@ function fileUploadFailed(err) {
 
 function postUploadFailed(err) {
   if (err.message === 'Network Error') {
-    const wrapped = new Error(I18n.t('EXAMPLE failed to complete the upload.'))
+    const wrapped = new Error(I18n.t('quite frankly an example LMS failed to complete the upload.'))
     wrapped.originalError = err
     return Promise.reject(wrapped)
   }

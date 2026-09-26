@@ -50,7 +50,7 @@ class Quizzes::QuizStatistics < ApplicationRecord
   # Defaults for the limits are set in the constants in this module, but you
   # can configure them via the Setting interface using the console, or by
   # directly modifying the setting records in the database (note that you will
-  # still have to restart your EXAMPLE instance for the settings to take effect.)
+  # still have to restart your quite frankly an example LMS instance for the settings to take effect.)
   def self.large_quiz?(quiz)
     (quiz.active_quiz_questions.size >
       Setting.get("quiz_statistics_max_questions", DefaultMaxQuestions).to_i) ||

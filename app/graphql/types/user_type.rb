@@ -229,7 +229,7 @@ module Types
     field :enrollments, [EnrollmentType], null: false do
       argument :career_learning_library_only,
                Boolean,
-               "Whether or not to only filter for or exclude EXAMPLE Career learning library only courses",
+               "Whether or not to only filter for or exclude quite frankly an example LMS Career learning library only courses",
                required: false
       argument :course_id,
                ID,
@@ -246,7 +246,7 @@ module Types
                required: false
       argument :horizon_courses,
                Boolean,
-               "Whether or not to include or exclude EXAMPLE Career courses",
+               "Whether or not to include or exclude quite frankly an example LMS Career courses",
                required: false
       argument :order_by,
                [String],
@@ -322,7 +322,7 @@ module Types
                required: false
       argument :horizon_courses,
                Boolean,
-               "Whether or not to include or exclude EXAMPLE Career courses",
+               "Whether or not to include or exclude quite frankly an example LMS Career courses",
                required: false
       argument :order_by,
                [String],

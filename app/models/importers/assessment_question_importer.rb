@@ -187,7 +187,7 @@ module Importers
 
       if hash[:is_cc_pattern_match]
         migration.add_unique_warning(:cc_pattern_match,
-                                     t("This package includes the question type, Pattern Match, which is not compatible with EXAMPLE. We have converted the question type to Fill in the Blank"))
+                                     t("This package includes the question type, Pattern Match, which is not compatible with quite frankly an example LMS. We have converted the question type to Fill in the Blank"))
       end
 
       %i[question_text correct_comments_html incorrect_comments_html neutral_comments_html more_comments_html].each do |field|

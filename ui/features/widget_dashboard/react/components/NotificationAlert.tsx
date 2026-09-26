@@ -85,7 +85,7 @@ const NotificationAlert: React.FC<NotificationAlertProps> = ({notification, onDi
     <Text size="small">
       {I18n.t('This is an announcement from ')}
       <Text weight="bold" size="small">
-        {I18n.t('EXAMPLE Administration')}
+        {I18n.t('quite frankly an example LMS Administration')}
       </Text>
     </Text>
   ) : (

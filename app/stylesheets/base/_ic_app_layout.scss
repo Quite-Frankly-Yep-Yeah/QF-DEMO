@@ -36,10 +36,10 @@
   padding-#{direction(left)}: $ic-sp * 2;
 }
 
-$ic-left-side-width: $ic-sp * 16;
+$ic-left-side-width: $ic-sp * 24;
 
 @if $use_dyslexic_font {
-  $ic-left-side-width: $ic-sp * 18.2;
+  $ic-left-side-width: $ic-sp * 26;
 }
 
 body:not(.ic-no-flex-layout):not(.embedded) .ic-app-main-content {

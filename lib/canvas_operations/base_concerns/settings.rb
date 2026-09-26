@@ -35,7 +35,7 @@ module CanvasOperations
     # setting :do_sleep, default: false, type_cast: ->(string_value) { ActiveModel::Type::Boolean.new.cast(string_value) }
     # ```
     #
-    # Settings are currently backed by the EXAMPLE `Setting` model, which is un-sharded.
+    # Settings are currently backed by the quite frankly an example LMS `Setting` model, which is un-sharded.
     # Settings, however, are namespaced by the operation name and cluster, so can be overridden
     # per cluster.
     #

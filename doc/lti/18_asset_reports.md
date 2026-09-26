@@ -1,6 +1,6 @@
 # LTI Asset Processor
 
-## Asset Reports usage in EXAMPLE
+## Asset Reports usage in quite frankly an example LMS
 As of November 2025, Asset Reports (LTI Asset Processor storage) are shown in 6 places, listed below.
 
 Paths below are relative to `canvas-lms` or `canvas-lms/ui/shared/lti-asset-processor`

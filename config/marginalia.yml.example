@@ -1,7 +1,7 @@
 # Marginalia adds a SQL comment to all queries sent to the database with
 # context information
 # See https://github.com/37signals/marginalia
-# There are a couple of EXAMPLE-specific components available:
+# There are a couple of quite frankly an example LMS-specific components available:
 #   context_id and job_tag
 #
 # Uncomment the production block below to enable the default component config.

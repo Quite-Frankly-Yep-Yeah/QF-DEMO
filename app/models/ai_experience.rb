@@ -24,7 +24,7 @@ class AiExperience < ApplicationRecord
 
   has_many :ai_conversations, dependent: :destroy
   has_many :ai_experience_context_files, dependent: :destroy
-  # Excludes soft-deleted attachments. Note: if an attachment is deleted in EXAMPLE
+  # Excludes soft-deleted attachments. Note: if an attachment is deleted in quite frankly an example LMS
   # after being associated, the join record remains but the file is silently omitted
   # from context_data. The llm-conversation service JSONB will contain stale data
   # until the next explicit save of this AiExperience — this is intentional to avoid

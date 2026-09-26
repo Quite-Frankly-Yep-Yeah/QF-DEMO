@@ -1,15 +1,15 @@
 # frozen_string_literal: true
 
 #
-# Copyright (C) 2026 - present EXAMPLE contributors
+# Copyright (C) 2026 - present quite frankly an example LMS contributors
 #
-# This file is part of EXAMPLE LMS, a modified version of Canvas.
+# This file is part of quite frankly an example LMS, a modified version of Canvas.
 #
-# EXAMPLE LMS is free software: you can redistribute it and/or modify it under
+# quite frankly an example LMS is free software: you can redistribute it and/or modify it under
 # the terms of the GNU Affero General Public License as published by the Free
 # Software Foundation, version 3 of the License.
 #
-# EXAMPLE LMS is distributed in the hope that it will be useful, but WITHOUT ANY
+# quite frankly an example LMS is distributed in the hope that it will be useful, but WITHOUT ANY
 # WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS FOR
 # A PARTICULAR PURPOSE. See the GNU Affero General Public License for more
 # details.
@@ -29,10 +29,14 @@ module SelfPaced
     self_paced_course_player
     self_paced_pacing
     self_paced_interventions
+    self_paced_course_view
+    self_paced_quiz_reader
+    self_paced_student_home
     self_paced_alerts
     self_paced_reports
     self_paced_observer_view
     self_paced_test_out
+    self_paced_admin_catalog
   ].freeze
 
   # Whether the platform is on for the root account that owns +context+
@@ -69,5 +73,21 @@ module SelfPaced
                       expires_in: 5.minutes) do
       DashboardScope.new(user).allowed?
     end
+  end
+
+  # Whether the Courses page is the admin course catalog on this root account.
+  def self.course_catalog?(root_account)
+    !!root_account && feature_enabled?(root_account, :self_paced_admin_catalog)
+  end
+
+  # Whether +user+ can use the catalog: they can list the courses of the root
+  # account, which an account admin can and a teacher or student can't.
+  def self.course_catalog_admin?(user, root_account)
+    !!user && !!root_account && root_account.grants_right?(user, :read_course_list)
+  end
+
+  # Whether the Courses item is hidden from +user+ in the global navigation.
+  def self.hide_courses_nav?(user, root_account)
+    course_catalog?(root_account) && !course_catalog_admin?(user, root_account)
   end
 end

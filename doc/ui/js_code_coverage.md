@@ -43,7 +43,7 @@ RUN_TESTS_FIRST=true yarn run test:coverage
 which will call `COVERAGE=1 yarn test` prior to doing the report.
 
 
-## EXAMPLE Jest Coverage
+## quite frankly an example LMS Jest Coverage
 
 If you run:
 
@@ -53,7 +53,7 @@ yarn run test:jest:coverage
 
 ```
 
-then you will run the jest tests for EXAMPLE and the coverage report will be placed in the `coverage-jest` directory.
+then you will run the jest tests for quite frankly an example LMS and the coverage report will be placed in the `coverage-jest` directory.
 
 ## Packages Coverage
 

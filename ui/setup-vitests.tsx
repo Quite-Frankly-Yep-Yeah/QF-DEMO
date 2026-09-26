@@ -22,7 +22,7 @@ import {vi, afterEach, beforeEach} from 'vitest'
 import $ from 'jquery'
 import axios from 'axios'
 
-// In CI there is no dev server. Axios XHR requests to EXAMPLE API endpoints fail
+// In CI there is no dev server. Axios XHR requests to quite frankly an example LMS API endpoints fail
 // immediately with ECONNREFUSED, causing optimistic Redux store updates to revert
 // before waitFor can check them. jsdom logs the ECONNREFUSED error via console.error
 // (at xhr-utils.js:63) BEFORE the XHR error event fires and axios processes it.
@@ -305,10 +305,10 @@ import 'jqueryui/progressbar'
 // jQuery UI plugins are now stubbed in the vi.mock('jquery') factory above
 // This ensures ALL imports of jquery get the same instance with plugins attached
 
-// Import EXAMPLE jQuery plugins - these extend $.fn with custom methods
+// Import quite frankly an example LMS jQuery plugins - these extend $.fn with custom methods
 import '@canvas/serialize-form'
 
-// Import EXAMPLE jQuery plugins that extend $ with custom methods
+// Import quite frankly an example LMS jQuery plugins that extend $ with custom methods
 // These are normally loaded via webpack entry points in Jest
 import '@canvas/rails-flash-notifications/jquery'
 
@@ -585,7 +585,7 @@ if (!globalThis.fetch) {
   )
 }
 
-// EXAMPLE context mock
+// quite frankly an example LMS context mock
 HTMLCanvasElement.prototype.getContext = vi.fn().mockImplementation(() => ({
   fillRect: vi.fn(),
   clearRect: vi.fn(),

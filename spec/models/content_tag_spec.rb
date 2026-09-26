@@ -1405,7 +1405,7 @@ describe ContentTag do
     end
     let(:indirect_tag) do
       ct = ContentTag.create!(context: course, url:, context_module:, tag_type:)
-      # To work around a before_save that associates tools. Yay for old data in EXAMPLE.
+      # To work around a before_save that associates tools. Yay for old data in quite frankly an example LMS.
       ct.update_column(:content_id, nil)
       ct
     end

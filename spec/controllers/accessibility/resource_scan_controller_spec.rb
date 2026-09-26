@@ -625,7 +625,7 @@ describe Accessibility::ResourceScanController do
               "element" => "h1",
               "display_name" => "Heading levels should start at level 2",
               "message" => "This text is styled as a Heading 1, but there should only be one H1 on a web page — the page title. Use Heading 2 or lower (H2, H3, etc.) for your content headings instead.",
-              "why" => ["Sighted users scan web pages quickly by looking for large or bolded headings. Similarly, screen reader users rely on properly structured headings to scan the content and jump directly to key sections. Using correct heading levels in a logical order (like H2, H3, etc.) ensures your course is clear, organized, and accessible to everyone.", "Each page on EXAMPLE already has a main title (H1), so your content should start with an H2 to keep the structure clear."],
+              "why" => ["Sighted users scan web pages quickly by looking for large or bolded headings. Similarly, screen reader users rely on properly structured headings to scan the content and jump directly to key sections. Using correct heading levels in a logical order (like H2, H3, etc.) ensures your course is clear, organized, and accessible to everyone.", "Each page on quite frankly an example LMS already has a main title (H1), so your content should start with an H2 to keep the structure clear."],
               "path" => "./div/h1",
               "issue_url" => "https://www.w3.org/TR/WCAG20-TECHS/G141.html",
               "form" => { "type" => "radio_input_group" }

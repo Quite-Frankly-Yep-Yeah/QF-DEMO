@@ -3,12 +3,12 @@
   "definition": "The event is emitted anytime a user is created in an account.",
   "trigger": "Triggered when a user is added to an account.",
   "schema": {
-    "account_id": "The EXAMPLE id of the account for this association.",
+    "account_id": "The quite frankly an example LMS id of the account for this association.",
     "account_uuid": "The unique id of the account for this association.",
     "created_at": "The time at which this association was created.",
     "is_admin": "Is user an administrator?",
     "updated_at": "The time at which this association was last modified.",
-    "user_id": "The EXAMPLE id of the user for this association."
+    "user_id": "The quite frankly an example LMS id of the user for this association."
   },
   "examples": [
     {

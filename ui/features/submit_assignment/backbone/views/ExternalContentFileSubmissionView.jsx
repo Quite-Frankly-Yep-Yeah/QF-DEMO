@@ -79,7 +79,7 @@ class ExternalContentFileSubmissionView extends ExternalContentHomeworkSubmissio
     windowAlert(
       I18n.t(
         'processing_submission',
-        'EXAMPLE is currently processing your submission. You can safely navigate away from this page and we will email you if the submission fails to process.',
+        'quite frankly an example LMS is currently processing your submission. You can safely navigate away from this page and we will email you if the submission fails to process.',
       ),
     )
     reloadWindow()

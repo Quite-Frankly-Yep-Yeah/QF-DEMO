@@ -1,9 +1,9 @@
 # Lti 1.1 Implementation
 
-EXAMPLE LTI 1.1 Implementation can be divided into three sections: tool installation, tool launches, and content item.
+quite frankly an example LMS LTI 1.1 Implementation can be divided into three sections: tool installation, tool launches, and content item.
 
 ## Tool Installation
-Tools are created via post requests to the `ExternalToolsController#create` action. Sometimes this is done by partners or customers making API requests directly. Sometimes this is done by using the UI EXAMPLE provides.
+Tools are created via post requests to the `ExternalToolsController#create` action. Sometimes this is done by partners or customers making API requests directly. Sometimes this is done by using the UI quite frankly an example LMS provides.
 
 The [Instructure API documentation](https://canvas.instructure.com/doc/api/external_tools.html) is a helpful resource to see what parameters may be used when creating a tool.
 
@@ -39,13 +39,13 @@ Data in the setting column is one of two types: top-level configuration or place
 
 In this example, the first key (`url`) is an example of a top-level configuration. Top-level configuration can usually be overridden by placement-specific configuration.
 
-Placement-specific configuration is nested in a sub-hash with the placement name as the key. In the above configuration, the sub-hash identified by the `course_navigation` key is placement-specific. When EXAMPLE launches an LTI tool, placement-specific configuration always trumps top-level configuration.
+Placement-specific configuration is nested in a sub-hash with the placement name as the key. In the above configuration, the sub-hash identified by the `course_navigation` key is placement-specific. When quite frankly an example LMS launches an LTI tool, placement-specific configuration always trumps top-level configuration.
 
 See the [LTI Overview](./01_lti_overview.md) for more information on placements.
 
 The [External Tools Create API documentation](https://canvas.instructure.com/doc/api/external_tools.html#method.external_tools.create) does a good job enumerating possible keys and values the settings hash may contain.
 
-Once a tool has been added to EXAMPLE in the form of a `ContextExternalTool` record it can be launched.
+Once a tool has been added to quite frankly an example LMS in the form of a `ContextExternalTool` record it can be launched.
 
 Instructure-owned tools needing to bulk update settings on existing LTI 1.1 tools can use `BulkToolUpdater` in `instructure_misc_plugin`; talk to the Interop team.
 
@@ -79,7 +79,7 @@ This action is only used for handling LTI launches that use the `user_navigation
 
 This action is used to trigger LTI launches for two primary cases: "external tool" Assignment launches, and module item launches.
 
-Both of these launches have one thing in common: a ContentTag record exists in EXAMPLE that maps the assignment or module item to an external tool.
+Both of these launches have one thing in common: a ContentTag record exists in quite frankly an example LMS that maps the assignment or module item to an external tool.
 
 This action knows how to take a ContentTag pointing to an external tool and launch it.
 
@@ -100,7 +100,7 @@ This scenario can occur when an LTI link is embedded in the RCE, for example.
 
 **ExternalToolsController#generate_sessionless_launch**(`app/controllers/external_tools_controller.rb#generate_sessionless_launch`)
 
-This particular action enables LTI launches in contexts that do not have an active EXAMPLE web session. This is primarily used by the EXAMPLE mobile apps.
+This particular action enables LTI launches in contexts that do not have an active quite frankly an example LMS web session. This is primarily used by the quite frankly an example LMS mobile apps.
 
 To use an LTI 1.1 sessionless launch, a client first makes a request to the `generate_sessionless_launch` endpoint. This creates an LTI 1.1 launch in much the same way as the other actions (more details below).
 
@@ -169,11 +169,11 @@ The action is getting closer to populating the `Lti::Launch` model's `params` at
 
 Ultimately, the `lti_outbound` Ruby gem (located in `gems/lti_outbound`) is responsible for creating the hash we will use for the `params` attribute.
 
-This Ruby gem's original intent was to create a reusable library that other tool consumers (besides EXAMPLE) could use to easily do LTI launches. This intent was never fully realized, but it still provides a nice separation of concerns.
+This Ruby gem's original intent was to create a reusable library that other tool consumers (besides quite frankly an example LMS) could use to easily do LTI launches. This intent was never fully realized, but it still provides a nice separation of concerns.
 
-The `lti_outbound` gem models resources that are important to an LTI launch, then uses those models to generate a Hash representing the LTI launch parameters. This means we need some way to translate EXAMPLE models (like User, Course, etc.) into `lti_outbound` models (like LtiUser, LtiContext, etc.).
+The `lti_outbound` gem models resources that are important to an LTI launch, then uses those models to generate a Hash representing the LTI launch parameters. This means we need some way to translate quite frankly an example LMS models (like User, Course, etc.) into `lti_outbound` models (like LtiUser, LtiContext, etc.).
 
-The LTI controller actions use a class that serves as a translation layer between the EXAMPLE models and the `lti_outbound` models: an _adapter_.
+The LTI controller actions use a class that serves as a translation layer between the quite frankly an example LMS models and the `lti_outbound` models: an _adapter_.
 
 The LTI controller action constructs an instance of an Lti::LtiOutboundAdapter as the next step of getting the `Lti::Launch.params` populated.
 
@@ -193,7 +193,7 @@ Next, the controller action uses some public methods from the adapter to constru
 ### 3. LTI Outbound Adapter & Related Factories
 As noted above, all LTI launch controller actions construct an instance of the Lti::LtiOutboundAdapter class.
 
-This adapter helps to map EXAMPLE-side models (Course, Account, User, etc) to `lti_outbound` gem models (LtiContext, LtiUser, etc.). It then exercises the `lti_outbound` gem to generate the hash that will be used to populate the `params` attribute of the `Lti::Launch` mentioned in section II of the "Rails Controller Actions" section.
+This adapter helps to map quite frankly an example LMS-side models (Course, Account, User, etc) to `lti_outbound` gem models (LtiContext, LtiUser, etc.). It then exercises the `lti_outbound` gem to generate the hash that will be used to populate the `params` attribute of the `Lti::Launch` mentioned in section II of the "Rails Controller Actions" section.
 
 This adapter adheres to an "LTI Adapter" interface that is also implemented by another adapter described in the LTI 1.3 Implementation docs. The public methods of that "LTI Adapter" interface are:
 - generate_post_payload
@@ -306,15 +306,15 @@ The OAuth parameters and the default LTI parameters are merged and returned.
 
 One of the public methods required by the "LTI Adapter" interface mentioned in "*IV. Construct an Lti::LtiOutboundAdapter instance*"
 
-Serves the same purpose as `#generate_post_payload`, but adds additional parameters related to EXAMPLE assignments to the LTI parameters hash.
+Serves the same purpose as `#generate_post_payload`, but adds additional parameters related to quite frankly an example LMS assignments to the LTI parameters hash.
 
-This method is used to generate the LTI 1.1 launches that occur when an "External Tool Assignment" is launched in EXAMPLE.
+This method is used to generate the LTI 1.1 launches that occur when an "External Tool Assignment" is launched in quite frankly an example LMS.
 
 **IV. LtiOutboundAdapter#generate_post_payload_for_homework_submission**
 
 One of the public methods required by the "LTI Adapter" interface mentioned in "*IV. Construct an Lti::LtiOutboundAdapter instance*"
 
-Serves the same purpose as `#generate_post_payload`, but adds additional parameters related to EXAMPLE submissions to the LTI parameters hash.
+Serves the same purpose as `#generate_post_payload`, but adds additional parameters related to quite frankly an example LMS submissions to the LTI parameters hash.
 
 This method is used to generate the LTI 1.1 launches that occur in SpeedGrader and the submission details view.
 
@@ -331,13 +331,13 @@ The LTI Outbound Gem is a library used to model objects required to build an LTI
 
 This gem was initially intended to be released publicly, but the need never arose.
 
-The `Lti::LtiOutboundAdapter` (described in Section 3) is used to convert EXAMPLE models (like `Course`) into LTI Outbound models (like `LTIOutbound::LTICourse`).
+The `Lti::LtiOutboundAdapter` (described in Section 3) is used to convert quite frankly an example LMS models (like `Course`) into LTI Outbound models (like `LTIOutbound::LTICourse`).
 
 The models themselves are self-explanatory.
 
 One model of special significance is the `LtiOutBound::ToolLaunch` located at `gems/lti_outbound/lib/lti_outbound/tool_launch.rb` This model is the class that generates the LTI 1.1 launch parameters as a hash (more details in Section 3).
 
-This layer of abstraction between EXAMPLE models and the LTI 1.1 launch was originally intended to allow other Instructure or external systems to become LTI tool consumers. This vision was never realized, however.
+This layer of abstraction between quite frankly an example LMS models and the LTI 1.1 launch was originally intended to allow other Instructure or external systems to become LTI tool consumers. This vision was never realized, however.
 ### 5.IMS LTI Gem
 The IMS LTI Gem can be found [here](https://github.com/instructure/ims-lti).
 
@@ -350,12 +350,12 @@ See `Lti::Security.signed_post_params_frd`.
 After LTI launch parameters have been generated using the `Lti::LtiOutboundAdapter` described in section 3, the controller uses the `Lti::AppUtil.Lti::AppUtil.display_template` method to determine what view should be used to show the launch.
 
 Options are:
-- borderless (no EXAMPLE UI is shown)
-- full_width (The EXAMPLE global navigation is shown)
-- in_context (default - The EXAMPLE global and context navigations are shown)
-- full_width_in_context (The EXAMPLE global and context navigations are shown, but the tool's iframe takes all remaining space).
-- full_width_with_nav (The EXAMPLE global and context navigations are shown, but the tool's iframe takes all remaining space).
-- in_nav_context (The EXAMPLE global and context navigations are shown, but other contextual info like assignment details are hidden. The tools' iframe takes up all remaining space).
+- borderless (no quite frankly an example LMS UI is shown)
+- full_width (The quite frankly an example LMS global navigation is shown)
+- in_context (default - The quite frankly an example LMS global and context navigations are shown)
+- full_width_in_context (The quite frankly an example LMS global and context navigations are shown, but the tool's iframe takes all remaining space).
+- full_width_with_nav (The quite frankly an example LMS global and context navigations are shown, but the tool's iframe takes all remaining space).
+- in_nav_context (The quite frankly an example LMS global and context navigations are shown, but other contextual info like assignment details are hidden. The tools' iframe takes up all remaining space).
 
 Which view is selected is determined by the `display_type` top-level or placement-level tool configuration.
 

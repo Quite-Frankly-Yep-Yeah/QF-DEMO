@@ -28,7 +28,7 @@ module QtiExporter
         name: proc { I18n.t(:qti_name, "QTI Converter") },
         display_name: proc { I18n.t(:qti_display, "QTI") },
         author: "Instructure",
-        description: "This enables converting QTI .zip files to EXAMPLE quiz json.",
+        description: "This enables converting QTI .zip files to quite frankly an example LMS quiz json.",
         version: "1.0.0",
         settings_partial: "plugins/qti_converter_settings",
         select_text: proc { I18n.t(:qti_file_description, "QTI .zip file") },

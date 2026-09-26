@@ -24,7 +24,6 @@ import {Text} from '@instructure/ui-text'
 import {Spinner} from '@instructure/ui-spinner'
 import {createDashboardCards} from '../../../../shared/dashboard-card/loadCardDashboard'
 import DashboardCard from '../../../../shared/dashboard-card/react/DashboardCard'
-import DashboardCardBackgroundStore from '../../../../shared/dashboard-card/react/DashboardCardBackgroundStore'
 import type {Card} from '../../../../shared/dashboard-card/types'
 
 const I18n = createI18nScope('widget_dashboard')
@@ -57,9 +56,6 @@ const CoursesTab: React.FC = () => {
   useEffect(() => {
     if (dashboardCards.length > 0 && containerRef.current) {
       try {
-        const courseAssetStrings = dashboardCards.map(card => card.assetString)
-        DashboardCardBackgroundStore.setDefaultColors(courseAssetStrings)
-
         const dashboardCardsElement = createDashboardCards(dashboardCards, DashboardCard, {})
 
         containerRef.current.innerHTML = ''

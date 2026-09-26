@@ -226,7 +226,7 @@ describe('TraditionalViewCriterionRating', () => {
         'traditional-criterion-criterion-1-ratings-0-selected',
       )
       expect(selectedTriangle).toBeInTheDocument()
-      // Should use default EXAMPLE green color
+      // Should use default quite frankly an example LMS green color
       expect(selectedTriangle).toHaveStyle('border-bottom: 12px solid #03893D')
     })
   })

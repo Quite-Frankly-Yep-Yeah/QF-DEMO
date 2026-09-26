@@ -28,7 +28,7 @@ const AnnouncementsTray = () => (
     subheading={I18n.t('Keep students informed')}
     image="/images/tutorial-tray-images/Panda_Announcements.svg"
     seeAllLink={{
-      label: I18n.t('See more in EXAMPLE Guides'),
+      label: I18n.t('See more in quite frankly an example LMS Guides'),
       href: I18n.t('#community.instructor_guide'),
     }}
     links={[

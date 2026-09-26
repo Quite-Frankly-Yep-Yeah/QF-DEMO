@@ -1,15 +1,15 @@
 # frozen_string_literal: true
 
 #
-# Copyright (C) 2026 - present EXAMPLE contributors
+# Copyright (C) 2026 - present quite frankly an example LMS contributors
 #
-# This file is part of EXAMPLE LMS, a modified version of Canvas.
+# This file is part of quite frankly an example LMS, a modified version of Canvas.
 #
-# EXAMPLE LMS is free software: you can redistribute it and/or modify it under
+# quite frankly an example LMS is free software: you can redistribute it and/or modify it under
 # the terms of the GNU Affero General Public License as published by the Free
 # Software Foundation, version 3 of the License.
 #
-# EXAMPLE LMS is distributed in the hope that it will be useful, but WITHOUT ANY
+# quite frankly an example LMS is distributed in the hope that it will be useful, but WITHOUT ANY
 # WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS FOR
 # A PARTICULAR PURPOSE. See the GNU Affero General Public License for more
 # details.
@@ -25,7 +25,7 @@
 # finished.
 #
 # "Reopened" comes from data the platform already keeps: the activity ledger
-# (SelfPaced::ItemTime) and Canvas's own asset access records.
+# (SelfPaced::ItemTime) and quite frankly an example LMS's own asset access records.
 module SelfPaced
   module RetakeRules
     CHECK_ROLES = %w[check pretest].freeze
@@ -46,6 +46,8 @@ module SelfPaced
         last = quiz.quiz_submissions.where(user_id: user).first
         return [] unless last&.completed? && last.finished_at
         return [] if mastered?(quiz, last, setting)
+
+        return [] if reset_since?(user, tag, last.finished_at)
 
         items = instruction_items_before(tag)
         return [] if items.empty? || reviewed_since?(user, items, last.finished_at)
@@ -78,6 +80,13 @@ module SelfPaced
         role = ->(t) { settings[t.id]&.role || ItemSetting.suggested_role(t) }
         lesson = tags.reverse.take_while { |t| !CHECK_ROLES.include?(role.call(t)) }
         lesson.reverse.select { |t| role.call(t) == "instruction" }
+      end
+
+      # Staff who reset the attempt (§2.5) have decided the student may try
+      # again, so the review isn't asked for on top.
+      def reset_since?(user, tag, time)
+        Intervention.where(student_id: user, content_tag_id: tag.id, kind: %w[reset_attempt extra_attempts])
+                    .where("created_at > ?", time).exists?
       end
 
       def reviewed_since?(user, tags, time)

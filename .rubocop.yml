@@ -156,7 +156,7 @@ Rails/RedundantPresenceValidationOnBelongsTo:
                  # even though it's been a default since Rails 5.0, we don't have a
                  # config.load_defaults line
 Rails/SkipsModelValidations:
-  Enabled: false # EXAMPLE skips validations in many places for optimization reasons
+  Enabled: false # quite frankly an example LMS skips validations in many places for optimization reasons
 Rails/TimeZone:
   Exclude:
     - "gems/*/lib/**/*.rb"
@@ -188,7 +188,7 @@ RSpecRails:
 Security:
   Severity: error
 Security/YAMLLoad:
-  # technically even YAML.load is fairly safe in EXAMPLE because we override it and only allow certain types
+  # technically even YAML.load is fairly safe in quite frankly an example LMS because we override it and only allow certain types
   # but still avoid it if you can.
   Severity: warning
   AutoCorrect: false

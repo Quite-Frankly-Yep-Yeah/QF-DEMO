@@ -1,13 +1,13 @@
 /*
- * Copyright (C) 2026 - present EXAMPLE contributors
+ * Copyright (C) 2026 - present quite frankly an example LMS contributors
  *
- * This file is part of EXAMPLE LMS, a modified version of Canvas.
+ * This file is part of quite frankly an example LMS, a modified version of Canvas.
  *
- * EXAMPLE LMS is free software: you can redistribute it and/or modify it under
+ * quite frankly an example LMS is free software: you can redistribute it and/or modify it under
  * the terms of the GNU Affero General Public License as published by the Free
  * Software Foundation, version 3 of the License.
  *
- * EXAMPLE LMS is distributed in the hope that it will be useful, but WITHOUT ANY
+ * quite frankly an example LMS is distributed in the hope that it will be useful, but WITHOUT ANY
  * WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS FOR
  * A PARTICULAR PURPOSE. See the GNU Affero General Public License for more
  * details.
@@ -19,8 +19,6 @@
 import React, {useEffect, useState} from 'react'
 import {useScope as createI18nScope} from '@canvas/i18n'
 import doFetchApi from '@canvas/do-fetch-api-effect'
-import {Button} from '@instructure/ui-buttons'
-import {Heading} from '@instructure/ui-heading'
 import {IconLockSolid} from '@instructure/ui-icons'
 import {ScreenReaderContent} from '@instructure/ui-a11y-content'
 import {Spinner} from '@instructure/ui-spinner'
@@ -34,10 +32,12 @@ import {
   type PlayerMap,
   type PlayerUnit,
 } from '@canvas/self-paced/player'
+import PacingCard from './PacingCard'
 
 const I18n = createI18nScope('self_paced_player')
 
 const INK = {primary: '#0b0b0b', secondary: '#52514e', muted: '#6b6a65', line: '#dcdbd4'}
+const ROBOTO = "Roboto, 'Helvetica Neue', Helvetica, Arial, sans-serif"
 
 // One animated moment: the current step's marker breathes once a few seconds
 // so the eye finds it. Off for people who prefer reduced motion.
@@ -50,7 +50,7 @@ const STYLES = `
   .self-paced-unit > summary:focus-visible { outline: 2px solid #2a78d6; outline-offset: 2px; }
 `
 
-type Config = {map_url: string; course_color?: string | null}
+type Config = {map_url: string; pacing_url?: string | null; course_color?: string | null}
 
 export default function PlayerApp({config}: {config: Config}) {
   const [map, setMap] = useState<PlayerMap | null>(null)
@@ -95,53 +95,78 @@ export default function PlayerApp({config}: {config: Config}) {
   const done = map.requirements_total > 0 && map.requirements_completed >= map.requirements_total
 
   return (
-    <View as="div" padding="small 0 xx-large" maxWidth="56rem">
+    <View as="div" padding="0 0 xx-large" maxWidth="56rem">
       <style>{STYLES}</style>
-      <Heading level="h1" margin="0 0 small">
-        {map.course.name}
-      </Heading>
-
-      <div
+      <header
         style={{
-          display: 'flex',
-          alignItems: 'center',
-          gap: 16,
-          flexWrap: 'wrap',
-          margin: '8px 0 24px',
+          // the course color, darkened a touch so white text holds contrast on any color
+          background: `linear-gradient(rgba(0,0,0,0.16), rgba(0,0,0,0.16)), ${color}`,
+          color: '#fff',
+          padding: '48px 32px 24px',
+          margin: '0 0 24px',
+          borderRadius: 2,
+          boxShadow: '0 2px 5px rgba(0,0,0,0.26), 0 2px 10px rgba(0,0,0,0.16), 0 0 0 0 transparent',
         }}
       >
-        <div style={{flex: '1 1 18rem', minWidth: '14rem'}}>
-          <div
-            role="meter"
-            aria-label={I18n.t('Course progress')}
-            aria-valuemin={0}
-            aria-valuemax={100}
-            aria-valuenow={map.percent_complete}
-            style={{height: 12, borderRadius: 6, background: tint(color, 0.18), overflow: 'hidden'}}
-          >
+        <h1
+          style={{
+            margin: '0 0 32px',
+            fontFamily: ROBOTO,
+            fontWeight: 300,
+            fontSize: 'clamp(2.25rem, 6vw, 4rem)',
+            lineHeight: 1.1,
+            letterSpacing: '-0.5px',
+            color: '#fff',
+          }}
+        >
+          {map.course.name}
+        </h1>
+
+        <div style={{display: 'flex', alignItems: 'flex-end', gap: 16, flexWrap: 'wrap'}}>
+          <div style={{flex: '1 1 18rem', minWidth: '14rem'}}>
             <div
+              role="meter"
+              aria-label={I18n.t('Course progress')}
+              aria-valuemin={0}
+              aria-valuemax={100}
+              aria-valuenow={map.percent_complete}
+              style={{height: 4, background: 'rgba(255,255,255,0.35)', overflow: 'hidden'}}
+            >
+              <div
+                style={{width: `${map.percent_complete}%`, height: '100%', background: '#fff'}}
+              />
+            </div>
+            <div style={{marginTop: 8, fontFamily: ROBOTO, fontSize: '0.875rem'}}>
+              {I18n.t('%{done} of %{total} steps done (%{percent}%)', {
+                done: map.requirements_completed,
+                total: map.requirements_total,
+                percent: map.percent_complete,
+              })}
+            </div>
+          </div>
+          {map.current_item && !done && (
+            <a
+              href={map.current_item.url}
               style={{
-                width: `${map.percent_complete}%`,
-                height: '100%',
-                borderRadius: 6,
-                background: color,
+                padding: '10px 20px',
+                borderRadius: 2,
+                background: '#fff',
+                color: INK.primary,
+                fontFamily: ROBOTO,
+                fontWeight: 500,
+                textTransform: 'uppercase',
+                letterSpacing: '0.5px',
+                textDecoration: 'none',
+                boxShadow: '0 2px 2px rgba(0,0,0,0.14), 0 3px 1px -2px rgba(0,0,0,0.2)',
               }}
-            />
-          </div>
-          <div style={{marginTop: 6, color: INK.secondary}}>
-            {I18n.t('%{done} of %{total} steps done (%{percent}%)', {
-              done: map.requirements_completed,
-              total: map.requirements_total,
-              percent: map.percent_complete,
-            })}
-          </div>
+            >
+              {I18n.t('Continue', {title: map.current_item.title})}
+            </a>
+          )}
         </div>
-        {map.current_item && !done && (
-          <Button color="primary" href={map.current_item.url} size="large">
-            {I18n.t('Continue: %{title}', {title: map.current_item.title})}
-          </Button>
-        )}
-      </div>
+      </header>
+
+      {config.pacing_url && <PacingCard url={config.pacing_url} color={color} />}
 
       {done && (
         <View
@@ -152,7 +177,7 @@ export default function PlayerApp({config}: {config: Config}) {
           background="secondary"
         >
           <Text size="large" weight="bold">
-            {I18n.t("You've finished every step in this course. Well done!")}
+            {I18n.t("You've finished every step in this course!")}
           </Text>
         </View>
       )}
@@ -188,7 +213,7 @@ function Unit({unit, color}: {unit: PlayerUnit; color: string}) {
           gap: 12,
           padding: '12px 16px',
           borderRadius: 2,
-          background: '#fff',
+          background: '#FFFFFF',
           boxShadow:
             '0 1px 3px rgba(0,0,0,0.2), 0 1px 1px rgba(0,0,0,0.14), 0 2px 1px -1px rgba(0,0,0,0.12)',
           borderLeft: `4px solid ${locked ? INK.line : color}`,
@@ -324,6 +349,14 @@ function Step({item, color, last}: {item: PlayerItem; color: string; last: boole
           <a href={item.url} style={{fontWeight: current ? 500 : 400}}>
             {item.title}
           </a>
+        )}
+        {item.tested_out && (
+          <span
+            data-testid="tested-out"
+            style={{marginLeft: 8, fontSize: '0.8125rem', color: INK.secondary}}
+          >
+            {I18n.t('Skipped: you already know this')}
+          </span>
         )}
         <ScreenReaderContent> ({STATUS_TEXT[item.status || 'available']()})</ScreenReaderContent>
         {(role || item.estimated_minutes) && (

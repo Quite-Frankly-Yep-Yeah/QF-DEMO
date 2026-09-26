@@ -29,7 +29,7 @@ const PagesTray = () => (
     image="/images/tutorial-tray-images/Panda_Pages.svg"
     imageWidth="14.5rem"
     seeAllLink={{
-      label: I18n.t('See more in EXAMPLE Guides'),
+      label: I18n.t('See more in quite frankly an example LMS Guides'),
       href: I18n.t('#community.instructor_guide'),
     }}
     links={[
@@ -51,7 +51,7 @@ const PagesTray = () => (
       },
     ]}
   >
-    {I18n.t(`Pages let you create interactive content directly in EXAMPLE,
+    {I18n.t(`Pages let you create interactive content directly in quite frankly an example LMS,
       whether it's a weekly update, a collaborative course wiki, or a
       list of educational resources. Pages can include text, multimedia,
       and links to files and other course content or pages. You can also

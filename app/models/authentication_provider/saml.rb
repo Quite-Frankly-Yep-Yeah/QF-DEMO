@@ -84,10 +84,10 @@ class AuthenticationProvider::SAML < AuthenticationProvider::Delegated
      {
        idp_in_response_to: -> { t("IdP InResponseTo") },
        idp_login_destination: -> { t("IdP LoginResponse destination") },
-       is_valid_login_response: -> { t("EXAMPLE thinks response is valid") },
+       is_valid_login_response: -> { t("quite frankly an example LMS thinks response is valid") },
        login_response_validation_error: -> { t("Validation Error") },
-       login_to_canvas_success: -> { t("User succesfully logged into EXAMPLE") },
-       canvas_login_fail_message: -> { t("EXAMPLE Login failure message") },
+       login_to_canvas_success: -> { t("User succesfully logged into quite frankly an example LMS") },
+       canvas_login_fail_message: -> { t("quite frankly an example LMS Login failure message") },
        logged_in_user_id: -> { t("Logged in user id") },
        idp_response_encoded: -> { t("IdP LoginResponse encoded") },
        idp_response_xml_encrypted: -> { t("IdP LoginResponse encrypted") },
@@ -497,7 +497,7 @@ class AuthenticationProvider::SAML < AuthenticationProvider::Delegated
 
       prior_configs << federated_attributes
 
-      acs = SAML2::AttributeConsumingService.new(en: "EXAMPLE")
+      acs = SAML2::AttributeConsumingService.new(en: "quite frankly an example LMS")
       acs.index = ap.id
       federated_attributes.each do |(_canvas_attribute_name, provider_attribute_config)|
         acs.requested_attributes << SAML2::RequestedAttribute.create(provider_attribute_config["attribute"])

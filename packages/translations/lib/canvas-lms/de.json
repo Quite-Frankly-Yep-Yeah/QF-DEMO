@@ -17,7 +17,7 @@
         "Archived grading schemes in use can still be used, but cannot be added to new courses or assignments.": "Archivierte Benotungsschemata, die bereits in Gebrauch sind, können weiterhin verwendet werden, können aber nicht zu neuen Kursen oder Aufgaben hinzugefügt werden.",
         "Are you sure you want to delete this grading scheme?": "Möchten Sie dieses Benotungssystem wirklich löschen?",
         "Cancel": "Abbrechen",
-        "EXAMPLE Default": "EXAMPLE-Standard",
+        "quite frankly an example LMS Default": "quite frankly an example LMS-Standard",
         "Close": "Schließen",
         "Confirm": "Bestätigen",
         "Confirm Default Grading Scheme Change": "Änderung des Standard-Benotungsschemas bestätigen",
@@ -45,7 +45,7 @@
         "There was an error while archiving the grading scheme": "Bei der Archivierung des Benotungsschemas ist ein Fehler aufgetreten",
         "There was an error while creating the grading scheme": "Beim Erstellen des Benotungsschemas ist ein Fehler aufgetreten",
         "There was an error while loading grading schemes": "Beim Laden der Benotungsschemata ist ein Fehler aufgetreten",
-        "There was an error while loading the default canvas grading scheme": "Beim Laden des standardmäßigen EXAMPLE-Benotungsschemas ist ein Fehler aufgetreten",
+        "There was an error while loading the default canvas grading scheme": "Beim Laden des standardmäßigen quite frankly an example LMS-Benotungsschemas ist ein Fehler aufgetreten",
         "There was an error while loading the default grading scheme": "Beim Laden des standardmäßigen Benotungsschemas ist ein Fehler aufgetreten",
         "There was an error while removing the grading scheme": "Beim Entfernen des Benotungsschemas ist ein Fehler aufgetreten",
         "There was an error while unarchiving the grading scheme": "Bei der Aufhebung der Archivierung des Benotungsschemas ist ein Fehler aufgetreten",
@@ -80,7 +80,7 @@
         "Save": "Speichern"
     },
     "GradingSchemes": {
-        "A table that contains the default canvas grading scheme data.  Each row contains a name, a maximum percentage, and a minimum percentage.": "Eine Tabelle, die die Daten des standardmäßigen EXAMPLE-Bewertungsschemas enthält.  Jede Zeile enthält einen Namen, einen maximalen und einen minimalen Prozentsatz.",
+        "A table that contains the default canvas grading scheme data.  Each row contains a name, a maximum percentage, and a minimum percentage.": "Eine Tabelle, die die Daten des standardmäßigen quite frankly an example LMS-Bewertungsschemas enthält.  Jede Zeile enthält einen Namen, einen maximalen und einen minimalen Prozentsatz.",
         "A table that contains the grading scheme data.  Each row contains a name, a maximum percentage, and a minimum percentage.": "Eine Tabelle, die Benotungsschemadaten enthält  Jede Zeile enthält einen Namen, einen maximalen und einen minimalen Prozentsatz.",
         "Cannot have duplicate or empty row names. Fix the names and try clicking 'Save' again.": "Doppelte oder leere Zeilennamen sind nicht möglich. Korrigieren Sie die Namen und klicken Sie erneut auf „Speichern“.",
         "Cannot have overlapping or empty ranges. Fix the ranges and try clicking 'Save' again.": "Überlappende oder leere Bereiche sind nicht möglich. Korrigieren Sie die Bereiche und klicken Sie erneut auf „Speichern“.",
@@ -120,7 +120,7 @@
         "Search...": "Suchen ..."
     },
     "acceptable_use_policy": {
-        "Acceptable Use Policy": "Nutzungsbedingungen für das Lernmanagementsystem EXAMPLE",
+        "Acceptable Use Policy": "Nutzungsbedingungen für das Lernmanagementsystem quite frankly an example LMS",
         "Close": "Schließen",
         "Loading page": "Seite wird geladen",
         "The Acceptable Use Policy is currently unavailable. Please check back later or contact support if you need further assistance.": "Die Nutzungsbedingungen sind derzeit nicht verfügbar. Bitte versuchen Sie es später noch einmal oder wenden Sie sich an den Support, wenn Sie weitere Hilfe benötigen.",
@@ -157,10 +157,10 @@
     "assignments.grading_type_selector": {
         "(course default)": "(Kursstandard)",
         "Account Level": "Kontoebene",
-        "EXAMPLE Grading Scheme (course default)": "EXAMPLE-Benotungsschema (Kursvorgabe)",
+        "quite frankly an example LMS Grading Scheme (course default)": "quite frankly an example LMS-Benotungsschema (Kursvorgabe)",
         "Close": "Schließen",
         "Course Level": "Kursebene",
-        "Default EXAMPLE Grading Scheme": "Standardmäßiges EXAMPLE-Benotungsschema",
+        "Default quite frankly an example LMS Grading Scheme": "Standardmäßiges quite frankly an example LMS-Benotungsschema",
         "Grading scheme was successfully removed.": "Benotungsschema wurde erfolgreich entfernt.",
         "Grading scheme was successfully updated.": "Das Benotungsschema wurde erfolgreich aktualisiert.",
         "Manage All Grading Schemes": "Alle Benotungsschemata verwalten",
@@ -181,7 +181,7 @@
         "Course Catalog": "Kurskatalog"
     },
     "confetti": {
-        "Great work! From the EXAMPLE developers": "Gute Arbeit! Von den EXAMPLE-Entwicklern"
+        "Great work! From the quite frankly an example LMS developers": "Gute Arbeit! Von den quite frankly an example LMS-Entwicklern"
     },
     "content_copy_redesign": {
         "Cancel": "Abbrechen",
@@ -290,7 +290,7 @@
         "Website URL": "Website-URL"
     },
     "terms_of_service_modal": {
-        "Acceptable Use Policy": "Nutzungsbedingungen für das Lernmanagementsystem EXAMPLE",
+        "Acceptable Use Policy": "Nutzungsbedingungen für das Lernmanagementsystem quite frankly an example LMS",
         "Loading...": "Wird geladen ...",
         "Preview": "Vorschau"
     },

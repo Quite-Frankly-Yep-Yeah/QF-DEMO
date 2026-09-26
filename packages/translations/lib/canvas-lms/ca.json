@@ -17,7 +17,7 @@
         "Archived grading schemes in use can still be used, but cannot be added to new courses or assignments.": "Es poden seguir utilitzant els esquemes de qualificació arxivats en ús, però no es poden afegir a les assignatures ni a les activitats noves.",
         "Are you sure you want to delete this grading scheme?": "Segur que voleu suprimir aquest esquema de qualificació?",
         "Cancel": "Cancel·la",
-        "EXAMPLE Default": "Opció predeterminada del EXAMPLE",
+        "quite frankly an example LMS Default": "Opció predeterminada del quite frankly an example LMS",
         "Close": "Tanca",
         "Confirm": "Confirma",
         "Confirm Default Grading Scheme Change": "Confirma l'esquema de qualificació per defecte",
@@ -45,7 +45,7 @@
         "There was an error while archiving the grading scheme": "S'ha produït un error en arxivar l’esquema de qualificació",
         "There was an error while creating the grading scheme": "S'ha produït un error en crear l’esquema de qualificació",
         "There was an error while loading grading schemes": "S'ha produït un error en carregar els esquemes de qualificació",
-        "There was an error while loading the default canvas grading scheme": "S'ha produït un error en carregar l’esquema de qualificació del EXAMPLE predeterminat",
+        "There was an error while loading the default canvas grading scheme": "S'ha produït un error en carregar l’esquema de qualificació del quite frankly an example LMS predeterminat",
         "There was an error while loading the default grading scheme": "S'ha produït un error en carregar l’esquema de qualificació predeterminat",
         "There was an error while removing the grading scheme": "S'ha produït un error en suprimir l’esquema de qualificació",
         "There was an error while unarchiving the grading scheme": "S'ha produït un error en cancel·lar l'arxivament de l’esquema de qualificació",
@@ -80,7 +80,7 @@
         "Save": "Desa"
     },
     "GradingSchemes": {
-        "A table that contains the default canvas grading scheme data.  Each row contains a name, a maximum percentage, and a minimum percentage.": "Una taula que conté les dades de l'esquema de qualificació del EXAMPLE predeterminat.  Cada fila conté un nom, un percentatge màxim i un percentatge mínim.",
+        "A table that contains the default canvas grading scheme data.  Each row contains a name, a maximum percentage, and a minimum percentage.": "Una taula que conté les dades de l'esquema de qualificació del quite frankly an example LMS predeterminat.  Cada fila conté un nom, un percentatge màxim i un percentatge mínim.",
         "A table that contains the grading scheme data.  Each row contains a name, a maximum percentage, and a minimum percentage.": "Una taula que conté les dades de l'esquema de qualificació.  Cada fila conté un nom, un percentatge màxim i un percentatge mínim.",
         "Cannot have duplicate or empty row names. Fix the names and try clicking 'Save' again.": "Els noms de les files no poden estar duplicats ni buits. Corregiu els noms i proveu de tornar a fer clic a “Desa”.",
         "Cannot have overlapping or empty ranges. Fix the ranges and try clicking 'Save' again.": "Els intervals no poden superposar-se ni estar buits. Corregiu els intervals i proveu de tornar a fer clic a “Desa”.",
@@ -157,10 +157,10 @@
     "assignments.grading_type_selector": {
         "(course default)": "(valor per defecte de l'assignatura)",
         "Account Level": "Nivell del compte",
-        "EXAMPLE Grading Scheme (course default)": "Esquema de qualificació del EXAMPLE (valor per defecte de l'assignatura)",
+        "quite frankly an example LMS Grading Scheme (course default)": "Esquema de qualificació del quite frankly an example LMS (valor per defecte de l'assignatura)",
         "Close": "Tanca",
         "Course Level": "Nivell de l'assignatura",
-        "Default EXAMPLE Grading Scheme": "Esquema de qualificació del EXAMPLE predeterminat",
+        "Default quite frankly an example LMS Grading Scheme": "Esquema de qualificació del quite frankly an example LMS predeterminat",
         "Grading scheme was successfully removed.": "S’ha suprimit correctament l’esquema de qualificació.",
         "Grading scheme was successfully updated.": "S’ha actualitzat correctament l’esquema de qualificació.",
         "Manage All Grading Schemes": "Administra tots els esquemes de qualificació",
@@ -181,7 +181,7 @@
         "Course Catalog": "Catàleg d'assignatures"
     },
     "confetti": {
-        "Great work! From the EXAMPLE developers": "Molt bé! Dels desenvolupadors del EXAMPLE"
+        "Great work! From the quite frankly an example LMS developers": "Molt bé! Dels desenvolupadors del quite frankly an example LMS"
     },
     "content_copy_redesign": {
         "Cancel": "Cancel·la",

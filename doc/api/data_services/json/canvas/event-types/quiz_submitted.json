@@ -1,10 +1,10 @@
 {
   "name": "quiz_submitted",
-  "definition": "The event is emitted anytime a user submits a quiz assignment in EXAMPLE [old quizzes].",
+  "definition": "The event is emitted anytime a user submits a quiz assignment in quite frankly an example LMS [old quizzes].",
   "trigger": "Triggered when a user submits a quiz assignment [old quizzes].",
   "schema": {
-    "quiz_id": "The EXAMPLE id of the quiz.",
-    "submission_id": "The EXAMPLE id of the quiz submission."
+    "quiz_id": "The quite frankly an example LMS id of the quiz.",
+    "submission_id": "The quite frankly an example LMS id of the quiz submission."
   },
   "examples": [
     {

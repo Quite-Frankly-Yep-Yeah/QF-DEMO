@@ -237,7 +237,7 @@ const CheckboxTextInput: React.FC<FormComponentProps & React.RefAttributes<FormC
                     size="small"
                   >
                     {I18n.t(
-                      'AI alt text generation is only available for images uploaded to EXAMPLE.',
+                      'AI alt text generation is only available for images uploaded to quite frankly an example LMS.',
                     )}
                   </Text>
                 )}

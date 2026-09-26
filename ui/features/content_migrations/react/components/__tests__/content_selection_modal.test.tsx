@@ -43,7 +43,7 @@ const server = setupServer(
 const migration = {
   id: '2',
   migration_type: 'course_copy_importer',
-  migration_type_title: 'Copy a EXAMPLE Course',
+  migration_type_title: 'Copy a quite frankly an example LMS Course',
   progress_url: 'http://mock.progress.url',
   settings: {
     source_course_id: '456',

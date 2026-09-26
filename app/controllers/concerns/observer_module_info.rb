@@ -41,7 +41,7 @@ module ObserverModuleInfo
         end
       end
 
-      # Determine currently observed student using EXAMPLE's existing cookie mechanism
+      # Determine currently observed student using quite frankly an example LMS's existing cookie mechanism
       observed_student = if observed_students.any?
                            observed_user_cookie_name = "k5_observed_user_for_#{@current_user.id}"
                            selected_user_id = cookies[observed_user_cookie_name]

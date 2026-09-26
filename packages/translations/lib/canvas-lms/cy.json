@@ -17,7 +17,7 @@
         "Archived grading schemes in use can still be used, but cannot be added to new courses or assignments.": "Mae modd defnyddio cynlluniau Graddau wedi’u Harchifo o hyd, ond does dim modd eu hychwanegu at gyrsiau neu aseiniadau newydd.",
         "Are you sure you want to delete this grading scheme?": "Ydych chi’n siŵr eich bod am ddileu’r cynllun graddau hwn?",
         "Cancel": "Canslo",
-        "EXAMPLE Default": "EXAMPLE Diofyn",
+        "quite frankly an example LMS Default": "quite frankly an example LMS Diofyn",
         "Close": "Cau",
         "Confirm": "Cadarnhau",
         "Confirm Default Grading Scheme Change": "Cadarnhau'r Newid i’r Cynllun Graddau Diofyn",
@@ -157,10 +157,10 @@
     "assignments.grading_type_selector": {
         "(course default)": "(dewis diofyn y cwrs)",
         "Account Level": "Lefel Cyfrif",
-        "EXAMPLE Grading Scheme (course default)": "Cynlluniau Graddau EXAMPLE (dewis diofyn y cwrs)",
+        "quite frankly an example LMS Grading Scheme (course default)": "Cynlluniau Graddau quite frankly an example LMS (dewis diofyn y cwrs)",
         "Close": "Cau",
         "Course Level": "Lefel Cwrs",
-        "Default EXAMPLE Grading Scheme": "Cynllun Graddau Diofyn EXAMPLE",
+        "Default quite frankly an example LMS Grading Scheme": "Cynllun Graddau Diofyn quite frankly an example LMS",
         "Grading scheme was successfully removed.": "Wedi llwyddo i dynnu cynllun graddau.",
         "Grading scheme was successfully updated.": "Wedi llwyddo i ddiweddaru’r cynllun graddau.",
         "Manage All Grading Schemes": "Rheoli Pob Cynllun Graddau",
@@ -181,7 +181,7 @@
         "Course Catalog": "Catalog cyrsiau"
     },
     "confetti": {
-        "Great work! From the EXAMPLE developers": "Gwaith gwych! Gan ddatblygwyr EXAMPLE"
+        "Great work! From the quite frankly an example LMS developers": "Gwaith gwych! Gan ddatblygwyr quite frankly an example LMS"
     },
     "content_copy_redesign": {
         "Cancel": "Canslo",

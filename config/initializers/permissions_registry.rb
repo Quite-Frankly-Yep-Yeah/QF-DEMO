@@ -38,7 +38,7 @@ BASE_PERMISSIONS = {
     account_details: [
       { title: -> { I18n.t("People (Account)") },
         description: -> { I18n.t("Allows user to act as other users in the account.") } },
-      { description: -> { I18n.t("This permission should only be assigned to users that your institution has authorized to act as other users in your entire EXAMPLE account.") } },
+      { description: -> { I18n.t("This permission should only be assigned to users that your institution has authorized to act as other users in your entire quite frankly an example LMS account.") } },
       { description: -> { I18n.t("Users with this permission may be able to use the Act as feature to manage account settings, view and adjust grades, access user information, etc.") } },
       { title: -> { I18n.t("Student Context Card") },
         description: -> { I18n.t("Allows user to access the Act as User link on student context cards.") } },
@@ -254,7 +254,7 @@ BASE_PERMISSIONS = {
     available_to: %w[AccountAdmin AccountMembership],
     account_details: [
       { title: -> { I18n.t("Data Services") },
-        description: -> { I18n.t("Allows user to access and manage EXAMPLE Data Services.") } }
+        description: -> { I18n.t("Allows user to access and manage quite frankly an example LMS Data Services.") } }
     ]
   },
   manage_course_visibility: {
@@ -766,7 +766,7 @@ BASE_PERMISSIONS = {
         description: -> { I18n.t("To generate a pairing code from a student`s User Settings page, the User - act as permission must also be enabled.") } },
       { description: -> { I18n.t("To generate a pairing code from a student`s User Details page, the Users - allow administrative actions in courses permission must also be enabled.") } },
       { description: -> { I18n.t("Pairing codes are only supported when self registration is enabled for the account.") } },
-      { description: -> { I18n.t("QR codes are not the same as pairing codes and are only used to help users log into their own accounts via the EXAMPLE mobile apps. To disable QR code logins for all users in your account, please contact your Customer Success Manager.") } }
+      { description: -> { I18n.t("QR codes are not the same as pairing codes and are only used to help users log into their own accounts via the quite frankly an example LMS mobile apps. To disable QR code logins for all users in your account, please contact your Customer Success Manager.") } }
     ],
     course_details: [
       { title: -> { I18n.t("People") },
@@ -776,7 +776,7 @@ BASE_PERMISSIONS = {
       { title: -> { I18n.t("People") },
         description: -> { I18n.t("To generate a pairing code from a student`s User Details page, the Users - allow administrative actions in courses permission must also be enabled.") } },
       { description: -> { I18n.t("Pairing codes are only supported when self registration is enabled for the course.") } },
-      { description: -> { I18n.t("QR codes are not the same as pairing codes and are only used to help users log into their own accounts via the EXAMPLE mobile apps.") } }
+      { description: -> { I18n.t("QR codes are not the same as pairing codes and are only used to help users log into their own accounts via the quite frankly an example LMS mobile apps.") } }
     ]
   },
   import_outcomes: {
@@ -2176,7 +2176,7 @@ BASE_PERMISSIONS = {
     ],
     account_considerations: [
       { title: -> { I18n.t("Intelligent Insights") },
-        description: -> { I18n.t("Students in Need of Attention is part of the Intelligent Insights upgrade in EXAMPLE.") } }
+        description: -> { I18n.t("Students in Need of Attention is part of the Intelligent Insights upgrade in quite frankly an example LMS.") } }
     ]
   },
   view_students_in_need_in_course: {
@@ -2198,7 +2198,7 @@ BASE_PERMISSIONS = {
     ],
     account_considerations: [
       { title: -> { I18n.t("Intelligent Insights") },
-        description: -> { I18n.t("Course Readiness is part of the Intelligent Insights upgrade in EXAMPLE.") } }
+        description: -> { I18n.t("Course Readiness is part of the Intelligent Insights upgrade in quite frankly an example LMS.") } }
     ]
   },
   view_title_iv_financial_aid_report: {
@@ -2216,7 +2216,7 @@ BASE_PERMISSIONS = {
     ],
     account_considerations: [
       { title: -> { I18n.t("Intelligent Insights") },
-        description: -> { I18n.t("The Title IV Financial Aid Report is part of the Intelligent Insights upgrade in EXAMPLE.") } }
+        description: -> { I18n.t("The Title IV Financial Aid Report is part of the Intelligent Insights upgrade in quite frankly an example LMS.") } }
     ]
   },
   view_rsi_report: {
@@ -2234,7 +2234,7 @@ BASE_PERMISSIONS = {
     ],
     account_considerations: [
       { title: -> { I18n.t("Intelligent Insights") },
-        description: -> { I18n.t("Regular and Substantive Interaction Insights is part of the Intelligent Insights upgrade in EXAMPLE.") } }
+        description: -> { I18n.t("Regular and Substantive Interaction Insights is part of the Intelligent Insights upgrade in quite frankly an example LMS.") } }
     ]
 
   },
@@ -2257,7 +2257,7 @@ BASE_PERMISSIONS = {
     ],
     account_considerations: [
       { title: -> { I18n.t("Impact") },
-        description: -> { I18n.t("Impact is an add-on to EXAMPLE LMS. Contact your CSM if interested.") } }
+        description: -> { I18n.t("Impact is an add-on to quite frankly an example LMS. Contact your CSM if interested.") } }
     ]
   },
   manage_institutional_tags_view: {
@@ -2300,7 +2300,7 @@ BASE_PERMISSIONS = {
     account_allows: ->(a) { a.feature_enabled?(:oak_for_admins) },
     details: [
       { title: -> { I18n.t("IgniteAI Agent - Admins") },
-        description: -> { I18n.t("Allows user to access the IgniteAI Agent for EXAMPLE LMS.") } }
+        description: -> { I18n.t("Allows user to access the IgniteAI Agent for quite frankly an example LMS.") } }
     ],
     considerations: [
       { title: -> { I18n.t("IgniteAI Agent - Admins") },
@@ -2314,7 +2314,7 @@ BASE_PERMISSIONS = {
     account_allows: ->(a) { a.feature_enabled?(:oak_for_teachers) },
     details: [
       { title: -> { I18n.t("IgniteAI Agent - Faculty & Support") },
-        description: -> { I18n.t("Allows user to access the IgniteAI Agent for EXAMPLE LMS.") } }
+        description: -> { I18n.t("Allows user to access the IgniteAI Agent for quite frankly an example LMS.") } }
     ],
     considerations: [
       { title: -> { I18n.t("IgniteAI Agent - Faculty & Support") },

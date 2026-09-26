@@ -63,7 +63,7 @@ describe('HorizonAccountModal', () => {
 
   it('renders the modal', () => {
     setup()
-    expect(screen.getByText('EXAMPLE Career Account')).toBeInTheDocument()
+    expect(screen.getByText('quite frankly an example LMS Career Account')).toBeInTheDocument()
   })
 
   it('calls onClose when the Cancel button is clicked', () => {
@@ -76,7 +76,7 @@ describe('HorizonAccountModal', () => {
   it('shows ContentUnsupported when hasUnsupportedContent is true', () => {
     setup({}, {hasUnsupportedContent: true})
     expect(
-      screen.getByText(/These content types will not be available in EXAMPLE Career./i),
+      screen.getByText(/These content types will not be available in quite frankly an example LMS Career./i),
     ).toBeInTheDocument()
   })
 
@@ -84,7 +84,7 @@ describe('HorizonAccountModal', () => {
     setup({}, {hasChangesNeededContent: true})
     expect(
       screen.getByText(
-        /In order to convert your course to EXAMPLE Career, the following changes will be made to existing course content./i,
+        /In order to convert your course to quite frankly an example LMS Career, the following changes will be made to existing course content./i,
       ),
     ).toBeInTheDocument()
   })
@@ -93,7 +93,7 @@ describe('HorizonAccountModal', () => {
     setup()
     expect(
       screen.getByText(
-        'All existing course content is supported. Your course is ready to convert to EXAMPLE Career.',
+        'All existing course content is supported. Your course is ready to convert to quite frankly an example LMS Career.',
       ),
     ).toBeInTheDocument()
   })
@@ -101,7 +101,7 @@ describe('HorizonAccountModal', () => {
   it('toggles terms acceptance when checkbox is clicked', () => {
     setup()
     const checkbox = screen.getByLabelText(
-      /I acknowledge that switching to the EXAMPLE Career learner experience/i,
+      /I acknowledge that switching to the quite frankly an example LMS Career learner experience/i,
     )
     fireEvent.click(checkbox)
     expect(mockSetTermsAccepted).toHaveBeenCalledWith(true)
@@ -109,26 +109,26 @@ describe('HorizonAccountModal', () => {
 
   it('disables the submit button when terms are not accepted', () => {
     setup()
-    const submitButton = screen.getByText('Switch to EXAMPLE Career').closest('button')
+    const submitButton = screen.getByText('Switch to quite frankly an example LMS Career').closest('button')
     expect(submitButton).toBeDisabled()
   })
 
   it('enables the submit button when terms are accepted', () => {
     setup({}, {isTermsAccepted: true})
-    const submitButton = screen.getByText('Switch to EXAMPLE Career').closest('button')
+    const submitButton = screen.getByText('Switch to quite frankly an example LMS Career').closest('button')
     expect(submitButton).not.toBeDisabled()
   })
 
   it('calls onSubmit when the submit button is clicked', () => {
     setup({}, {isTermsAccepted: true})
-    const submitButton = screen.getByText('Switch to EXAMPLE Career').closest('button')
+    const submitButton = screen.getByText('Switch to quite frankly an example LMS Career').closest('button')
     fireEvent.click(submitButton!)
     expect(mockOnSubmit).toHaveBeenCalledTimes(1)
   })
 
   it('disables the submit button when loading', () => {
     setup({}, {loadingText: 'Loading...', isTermsAccepted: true})
-    const submitButton = screen.getByText('Switch to EXAMPLE Career').closest('button')
+    const submitButton = screen.getByText('Switch to quite frankly an example LMS Career').closest('button')
     expect(submitButton).toBeDisabled()
   })
 })

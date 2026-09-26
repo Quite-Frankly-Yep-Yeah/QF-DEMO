@@ -78,7 +78,7 @@ module FeatureFlags
     def self.quizzes_next_visible_on_hook(context)
       root_account = context.root_account
       # assume all Quizzes.Next provisions so far have been done through uuid_provisioner
-      #  so all provisioned accounts will have the FF in EXAMPLE UI
+      #  so all provisioned accounts will have the FF in quite frankly an example LMS UI
       root_account.settings&.dig(:provision, "lti").present?
     end
 
@@ -107,12 +107,12 @@ module FeatureFlags
     def self.k6_theme_hook(_user, _context, _from_state, transitions)
       transitions["on"] ||= {}
       transitions["on"]["message"] =
-        I18n.t("Enabling the Elementary Theme will change the font in the EXAMPLE interface and simplify " \
+        I18n.t("Enabling the Elementary Theme will change the font in the quite frankly an example LMS interface and simplify " \
                "the Course Navigation Menu for all users in your course.")
       transitions["on"]["reload_page"] = true
       transitions["off"] ||= {}
       transitions["off"]["message"] =
-        I18n.t("Disabling the Elementary Theme will change the font in the EXAMPLE interface for all users in your course.")
+        I18n.t("Disabling the Elementary Theme will change the font in the quite frankly an example LMS interface for all users in your course.")
       transitions["off"]["reload_page"] = true
     end
 

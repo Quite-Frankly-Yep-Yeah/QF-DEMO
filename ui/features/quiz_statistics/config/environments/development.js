@@ -27,7 +27,7 @@ export default {
 
   ajax: $.ajax,
 
-  // This assumes you have set up reverse proxying on /api/v1 to EXAMPLE.
+  // This assumes you have set up reverse proxying on /api/v1 to quite frankly an example LMS.
   //
   // See ./README.md for more info on overriding these to use fixtures.
   quizStatisticsUrl: '/api/v1/courses/1/quizzes/1/statistics',

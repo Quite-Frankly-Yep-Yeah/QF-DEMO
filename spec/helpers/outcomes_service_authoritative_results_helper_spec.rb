@@ -52,12 +52,12 @@ describe OutcomesServiceAuthoritativeResultsHelper do
   # helper matcher to assert that, after:
   #   - transforming a JSON AuthoritativeResult collection into LearningOutcomeResults, and,
   #   - calculating the resulting RollupScores
-  # the resulting collection will not differ as if they came from native EXAMPLE' data
+  # the resulting collection will not differ as if they came from native quite frankly an example LMS' data
   RSpec::Matchers.define :be_eq_rollup do |expected_rollup|
     match do |actual_rollup|
       actual_rollup.each do |o|
         o.outcome_results.each do |lor|
-          # the properties below are removed from the native EXAMPLE' collection
+          # the properties below are removed from the native quite frankly an example LMS' collection
           # since they cannot be computed from a AuthoritativeResult collection
           lor.association_id = nil
           lor.association_type = nil
@@ -134,7 +134,7 @@ describe OutcomesServiceAuthoritativeResultsHelper do
 
   # Mocks calls to the OS endpoints:
   #
-  #   - retrieving data from the EXAMPLE' LearningOutcomeResult table
+  #   - retrieving data from the quite frankly an example LMS' LearningOutcomeResult table
   #   - transforming this data into a collection of AuthoritativeResult objects
   def authoritative_results_from_db
     LearningOutcomeResult.all.map do |lor|

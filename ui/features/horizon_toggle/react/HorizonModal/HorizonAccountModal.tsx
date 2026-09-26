@@ -67,7 +67,7 @@ export const AccountChangeModal: React.FC<AccountChangeModalProps> = ({
       >
         <Modal.Header>
           <CloseButton placement="end" offset="small" onClick={onClose} screenReaderLabel="Close" />
-          <Heading level="h2">{I18n.t('EXAMPLE Career Account')}</Heading>
+          <Heading level="h2">{I18n.t('quite frankly an example LMS Career Account')}</Heading>
         </Modal.Header>
         <Modal.Body>
           <Flex direction="column" gap="large" as="div" padding="medium 0">
@@ -83,7 +83,7 @@ export const AccountChangeModal: React.FC<AccountChangeModalProps> = ({
               <View as="div" minHeight="500px">
                 <Text as="p">
                   {I18n.t(
-                    'All existing course content is supported. Your course is ready to convert to EXAMPLE Career.',
+                    'All existing course content is supported. Your course is ready to convert to quite frankly an example LMS Career.',
                   )}
                 </Text>
               </View>
@@ -95,7 +95,7 @@ export const AccountChangeModal: React.FC<AccountChangeModalProps> = ({
             {!loadingText && (
               <Checkbox
                 label={I18n.t(
-                  'I acknowledge that switching to the EXAMPLE Career learner experience may result in some course content being deleted or modified.',
+                  'I acknowledge that switching to the quite frankly an example LMS Career learner experience may result in some course content being deleted or modified.',
                 )}
                 checked={isTermsAccepted}
                 onChange={() => setTermsAccepted(!isTermsAccepted)}
@@ -109,7 +109,7 @@ export const AccountChangeModal: React.FC<AccountChangeModalProps> = ({
                 disabled={!!loadingText || !isTermsAccepted}
                 onClick={onSubmit}
               >
-                {I18n.t('Switch to EXAMPLE Career')}
+                {I18n.t('Switch to quite frankly an example LMS Career')}
               </Button>
             </Flex>
           </Flex>

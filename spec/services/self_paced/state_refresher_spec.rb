@@ -1,15 +1,15 @@
 # frozen_string_literal: true
 
 #
-# Copyright (C) 2026 - present EXAMPLE contributors
+# Copyright (C) 2026 - present quite frankly an example LMS contributors
 #
-# This file is part of EXAMPLE LMS, a modified version of Canvas.
+# This file is part of quite frankly an example LMS, a modified version of Canvas.
 #
-# EXAMPLE LMS is free software: you can redistribute it and/or modify it under
+# quite frankly an example LMS is free software: you can redistribute it and/or modify it under
 # the terms of the GNU Affero General Public License as published by the Free
 # Software Foundation, version 3 of the License.
 #
-# EXAMPLE LMS is distributed in the hope that it will be useful, but WITHOUT ANY
+# quite frankly an example LMS is distributed in the hope that it will be useful, but WITHOUT ANY
 # WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS FOR
 # A PARTICULAR PURPOSE. See the GNU Affero General Public License for more
 # details.
@@ -48,6 +48,22 @@ describe SelfPaced::StateRefresher do
                                        requirements_completed: 1,
                                        requirements_total: 2,
                                        percent_complete: 50.0)
+    end
+
+    it "makes the student's pacing plan and records their pace in paced courses" do
+      course.root_account.enable_feature!(:self_paced)
+      course.enable_feature!(:self_paced_pacing)
+      course.update!(self_paced_target_date: 1.year.from_now.to_date.iso8601)
+      described_class.refresh(course, student)
+
+      expect(SelfPaced::PacingPlan.find_by(course:, user: student)).to be_present
+      expect(state).to have_attributes(days_behind: 0, target_date: 1.year.from_now.to_date)
+    end
+
+    it "leaves the pacing columns empty in courses without pacing" do
+      described_class.refresh(course, student)
+
+      expect(state).to have_attributes(days_behind: nil, target_date: nil, expected_percent: nil)
     end
 
     it "counts the attempts made on the current item" do

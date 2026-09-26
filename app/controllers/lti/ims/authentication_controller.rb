@@ -69,7 +69,7 @@ module Lti
       # to retrieve a cached ID token (LTI launch) and sends it to the
       # tool.
       #
-      # The cached ID Token is generated at the time EXAMPLE makes
+      # The cached ID Token is generated at the time quite frankly an example LMS makes
       # the login request to the tool.
       #
       # For more details on how the cached ID token is generated,
@@ -102,7 +102,7 @@ module Lti
               InstStatsd::Statsd.increment("lti.oidc_login_required_error", tags: Utils::InstStatsdUtils::Tags.tags_for(account&.shard || Shard.current))
               render("lti/ims/authentication/login_required_error_screen", status: :unauthorized, layout: "borderless_lti", formats: :html)
             else
-              # In some cases resubmitting the request from within EXAMPLE can fix the missing cookie problem (see INTEROP-8868)
+              # In some cases resubmitting the request from within quite frankly an example LMS can fix the missing cookie problem (see INTEROP-8868)
               Rails.logger.info("[LTI] OIDC missing cookie retry for account #{account&.global_id}, client_id #{oidc_params[:client_id]}")
               InstStatsd::Statsd.increment("lti.oidc_missing_cookie_retry", tags: Utils::InstStatsdUtils::Tags.tags_for(account&.shard || Shard.current))
               @oidc_params = oidc_params

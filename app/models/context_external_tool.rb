@@ -795,7 +795,7 @@ class ContextExternalTool < ApplicationRecord
   end
 
   # Modifies url based on `environments` overrides.
-  # Only valid for 1.1 tools, and only in beta or test Instructure-hosted EXAMPLE.
+  # Only valid for 1.1 tools, and only in beta or test Instructure-hosted quite frankly an example LMS.
   # Only valid for tools that define overrides in the `environments` configuration
   # (see doc/api/file.tools_xml.md#test_env_settings for details).
   # Replaces the old behavior of rewriting tool urls/domain in the database during
@@ -838,7 +838,7 @@ class ContextExternalTool < ApplicationRecord
   end
 
   # Modifies domain based on `environments` overrides.
-  # Only valid for 1.1 tools, and only in beta or test Instructure-hosted EXAMPLE.
+  # Only valid for 1.1 tools, and only in beta or test Instructure-hosted quite frankly an example LMS.
   # Only valid for tools that define overrides in the `environments` configuration
   # (see doc/api/file.tools_xml.md#test_env_settings for details).
   # Replaces the old behavior of rewriting tool domain in the database during
@@ -1511,7 +1511,7 @@ class ContextExternalTool < ApplicationRecord
   # Locally and in OSS installations, this can be configured in config/dynamic_settings.yml.
   # Returns an array of strings, each listing a partial or full domain suffix that is considered "internal".
   # Domains should not have a preceding ".".
-  # For example, ["instructure.com", "inscloudgate.net", "inseng.net"] in Instructure-deployed production EXAMPLE.
+  # For example, ["instructure.com", "inscloudgate.net", "inseng.net"] in Instructure-deployed production quite frankly an example LMS.
   def internal_tool_domain_allowlist
     config = DynamicSettings.find("lti", default_ttl: 2.hours)["internal_tool_domain_allowlist"] || "[]"
     @internal_tool_domain_allowlist ||= YAML.safe_load(config)

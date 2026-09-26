@@ -39,7 +39,7 @@ vi.mock('../utils', () => ({
 const migration = {
   id: '2',
   migration_type: 'course_copy_importer',
-  migration_type_title: 'Copy a EXAMPLE Course',
+  migration_type_title: 'Copy a quite frankly an example LMS Course',
   progress_url: false,
   settings: {
     source_course_id: '456',
@@ -107,12 +107,12 @@ describe('MigrationRow', () => {
 
   it('renders the proper view if extended', async () => {
     renderComponent()
-    await waitFor(() => expect(screen.getByText('Copy a EXAMPLE Course').tagName).toEqual('TD'))
+    await waitFor(() => expect(screen.getByText('Copy a quite frankly an example LMS Course').tagName).toEqual('TD'))
   })
 
   it('renders the proper view if condensed', async () => {
     renderComponent({layout: 'stacked'})
-    await waitFor(() => expect(screen.getByText('Copy a EXAMPLE Course').tagName).toEqual('DIV'))
+    await waitFor(() => expect(screen.getByText('Copy a quite frankly an example LMS Course').tagName).toEqual('DIV'))
   })
 
   it('polls for progress when appropriate', async () => {

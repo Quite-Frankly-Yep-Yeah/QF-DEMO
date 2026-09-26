@@ -1,0 +1,124 @@
+/*
+ * Copyright (C) 2015 - present Instructure, Inc.
+ *
+ * This file is part of Canvas.
+ *
+ * Canvas is free software: you can redistribute it and/or modify it under
+ * the terms of the GNU Affero General Public License as published by the Free
+ * Software Foundation, version 3 of the License.
+ *
+ * Canvas is distributed in the hope that it will be useful, but WITHOUT ANY
+ * WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS FOR
+ * A PARTICULAR PURPOSE. See the GNU Affero General Public License for more
+ * details.
+ *
+ * You should have received a copy of the GNU Affero General Public License along
+ * with this program. If not, see <http://www.gnu.org/licenses/>.
+ */
+
+// Every account (admin) page as Material 1: the page's content is one white
+// card on the grey surface, with the same headings, form controls and tables
+// as the account settings page (which builds its own cards, so it is left
+// out). Account pages are the ones whose body has a context-account_N class:
+// Courses, People, Statistics, Permissions, Outcomes, Rubrics, Grading,
+// Question Banks, Accessibility, Sub-Accounts, Terms, Authentication, SIS
+// Import, Themes, Developer Keys, Analytics Hub, Apps, Admin Tools and the
+// rest.
+@if not $use_high_contrast {
+  body[class*="context-account_"]:not(.settings) #content {
+    box-sizing: border-box;
+    background: #ffffff;
+    border-radius: 2px;
+    box-shadow: $md-elevation-1;
+    padding: 24px 32px;
+    margin-bottom: 24px;
+  }
+
+  body[class*="context-account_"] #content {
+    h1:not(.screenreader-only),
+    h2:not(.screenreader-only):not([class*="css-"]) {
+      font-weight: 300;
+      color: #212121;
+      line-height: 1.25;
+    }
+
+    h1:not(.screenreader-only) {
+      font-size: 2rem;
+      margin: 0 0 16px;
+    }
+
+    h2:not(.screenreader-only):not([class*="css-"]) {
+      font-size: 1.5rem;
+      margin: 24px 0 12px;
+    }
+
+    input[type="text"],
+    input[type="email"],
+    input[type="number"],
+    input[type="password"],
+    input[type="url"],
+    input[type="search"],
+    select,
+    textarea {
+      box-sizing: border-box;
+      min-height: 36px;
+      padding: 6px 10px;
+      border: 1px solid #bdbdbd;
+      border-radius: 2px;
+      background: #ffffff;
+      color: #212121;
+      box-shadow: none;
+
+      &:hover {
+        border-color: #757575;
+      }
+
+      &:focus {
+        outline: 2px solid var(--ic-brand-primary);
+        outline-offset: 0;
+        border-color: var(--ic-brand-primary);
+      }
+    }
+
+    table.ic-Table,
+    table.summary,
+    table.formtable {
+      background: #ffffff;
+
+      th {
+        font-weight: 500;
+        color: #616161;
+      }
+
+      th,
+      td {
+        border-color: rgba(0, 0, 0, 0.08);
+      }
+    }
+
+    fieldset {
+      border: 0;
+      padding: 0;
+      margin: 0 0 24px;
+    }
+
+    fieldset legend:not(.screenreader-only) {
+      float: none;
+      width: auto;
+      padding: 0;
+      margin: 0 0 12px;
+      border: 0;
+      font-size: 1.25rem;
+      font-weight: 400;
+      color: #212121;
+    }
+
+    // tab strips (Admin Tools, Grading, Apps and the rest)
+    [role="tablist"] [role="tab"] {
+      font-size: 0.875rem;
+      font-weight: 500;
+      letter-spacing: 0.5px;
+      text-transform: uppercase;
+    }
+  }
+}

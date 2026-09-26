@@ -17,7 +17,7 @@
         "Archived grading schemes in use can still be used, but cannot be added to new courses or assignments.": "Arkiverade omdömesscheman som används kan fortfarande användas, men kan inte läggas till i nya kurser eller uppgifter.",
         "Are you sure you want to delete this grading scheme?": "Vill du radera det här bedömningsschemat?",
         "Cancel": "Avbryt",
-        "EXAMPLE Default": "EXAMPLE-standard",
+        "quite frankly an example LMS Default": "quite frankly an example LMS-standard",
         "Close": "Stäng",
         "Confirm": "Bekräfta",
         "Confirm Default Grading Scheme Change": "Bekräfta ändring i standardomdömesschema",
@@ -45,7 +45,7 @@
         "There was an error while archiving the grading scheme": "Ett fel inträffade när omdömesschemat arkiverades.",
         "There was an error while creating the grading scheme": "Ett fel inträffade när bedömningsschemat skapades.",
         "There was an error while loading grading schemes": "Ett fel inträffade när bedömningsscheman lästes in.",
-        "There was an error while loading the default canvas grading scheme": "Ett fel inträffade när EXAMPLE standardbedömningsschema lästes in.",
+        "There was an error while loading the default canvas grading scheme": "Ett fel inträffade när quite frankly an example LMS standardbedömningsschema lästes in.",
         "There was an error while loading the default grading scheme": "Ett fel inträffade när standardbedömningsschemat lästes in.",
         "There was an error while removing the grading scheme": "Ett fel inträffade när bedömningsschemat togs bort.",
         "There was an error while unarchiving the grading scheme": "Ett fel inträffade när omdömesschemat hämtades från arkivet.",
@@ -80,7 +80,7 @@
         "Save": "Spara"
     },
     "GradingSchemes": {
-        "A table that contains the default canvas grading scheme data.  Each row contains a name, a maximum percentage, and a minimum percentage.": "En tabell som innehåller data för EXAMPLE standardbedömningsschema.  Varje rad innehåller ett namn, ett maximalt procenttal och ett minsta procenttal.",
+        "A table that contains the default canvas grading scheme data.  Each row contains a name, a maximum percentage, and a minimum percentage.": "En tabell som innehåller data för quite frankly an example LMS standardbedömningsschema.  Varje rad innehåller ett namn, ett maximalt procenttal och ett minsta procenttal.",
         "A table that contains the grading scheme data.  Each row contains a name, a maximum percentage, and a minimum percentage.": "En tabell som innehåller data för bedömningsschema.  Varje rad innehåller ett namn, ett maximalt procenttal och ett minsta procenttal.",
         "Cannot have duplicate or empty row names. Fix the names and try clicking 'Save' again.": "Det får inte finnas radnamn som är dubbletter eller tomma. Åtgärda namnen och försök klicka på ”Spara” igen.",
         "Cannot have overlapping or empty ranges. Fix the ranges and try clicking 'Save' again.": "Det får inte finnas överlappande eller tomma intervall. Åtgärda intervallen och försök klicka på ”Spara” igen.",
@@ -157,10 +157,10 @@
     "assignments.grading_type_selector": {
         "(course default)": "(kurstandard)",
         "Account Level": "Kontonivå",
-        "EXAMPLE Grading Scheme (course default)": "EXAMPLE-bedömningsschema (kursstandard)",
+        "quite frankly an example LMS Grading Scheme (course default)": "quite frankly an example LMS-bedömningsschema (kursstandard)",
         "Close": "Stäng",
         "Course Level": "Kursnivå",
-        "Default EXAMPLE Grading Scheme": "EXAMPLE standardbedömningsschema",
+        "Default quite frankly an example LMS Grading Scheme": "quite frankly an example LMS standardbedömningsschema",
         "Grading scheme was successfully removed.": "Bedömningsschemat togs bort.",
         "Grading scheme was successfully updated.": "Omdömesschemat uppdaterades.",
         "Manage All Grading Schemes": "Hantera alla bedömningsscheman",
@@ -181,7 +181,7 @@
         "Course Catalog": "Kurskatalog"
     },
     "confetti": {
-        "Great work! From the EXAMPLE developers": "Bra jobbat! Från EXAMPLE-utvecklarna"
+        "Great work! From the quite frankly an example LMS developers": "Bra jobbat! Från quite frankly an example LMS-utvecklarna"
     },
     "content_copy_redesign": {
         "Cancel": "Avbryt",

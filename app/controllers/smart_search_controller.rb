@@ -48,7 +48,7 @@
 #          "type": "string"
 #         },
 #         "html_url": {
-#           "description": "The EXAMPLE URL of the matching object.",
+#           "description": "The quite frankly an example LMS URL of the matching object.",
 #           "example": "https://canvas.example.com/courses/123/pages/nicolaus-copernicus",
 #           "type": "string"
 #         },

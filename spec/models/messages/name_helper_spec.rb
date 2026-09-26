@@ -43,15 +43,15 @@ module Messages
 
       it "uses the author name for messages with authors" do
         comment = instance_double(SubmissionComment, author:, recipient: user, submission:, can_read_author?: true)
-        expect(asset_for("Submission Comment", comment).reply_to_name).to eq "Author Name via EXAMPLE Notifications"
+        expect(asset_for("Submission Comment", comment).reply_to_name).to eq "Author Name via quite frankly an example LMS Notifications"
       end
 
       it "uses the user name for messages belonging to users" do
-        expect(asset_for("New Discussion Entry", discussion_entry_asset).reply_to_name).to eq "User Name via EXAMPLE Notifications"
+        expect(asset_for("New Discussion Entry", discussion_entry_asset).reply_to_name).to eq "User Name via quite frankly an example LMS Notifications"
       end
 
       it "uses the user name for mention belonging to users" do
-        expect(asset_for("Discussion Mention", discussion_entry_asset).reply_to_name).to eq "User Name via EXAMPLE Notifications"
+        expect(asset_for("Discussion Mention", discussion_entry_asset).reply_to_name).to eq "User Name via quite frankly an example LMS Notifications"
       end
     end
 

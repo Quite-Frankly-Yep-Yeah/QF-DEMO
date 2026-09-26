@@ -20,7 +20,7 @@
 
 # @API Groups
 #
-# Groups serve as the data for a few different ideas in EXAMPLE.  The first is
+# Groups serve as the data for a few different ideas in quite frankly an example LMS.  The first is
 # that they can be a community in the canvas network.  The second is that they
 # can be organized by students in a course, for study or communication (but not
 # grading).  The third is that they can be organized by teachers or account

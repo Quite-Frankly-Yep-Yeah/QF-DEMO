@@ -34,7 +34,7 @@
 #         },
 #         "name": {
 #           "description": "The display name of the account",
-#           "example": "EXAMPLE Account",
+#           "example": "quite frankly an example LMS Account",
 #           "type": "string"
 #         },
 #         "uuid": {
@@ -268,7 +268,7 @@
 #                 "observer",
 #                 "unenrolled"
 #               ],
-#               "text": "Search the EXAMPLE Guides",
+#               "text": "Search the quite frankly an example LMS Guides",
 #               "subtext": "Find answers to common questions",
 #               "url": "https://community.canvaslms.com/t5/Guides/ct-p/guides",
 #               "type": "default",
@@ -287,7 +287,7 @@
 #                 "unenrolled"
 #               ],
 #               "text": "Report a Problem",
-#               "subtext": "If EXAMPLE misbehaves, tell us about it",
+#               "subtext": "If quite frankly an example LMS misbehaves, tell us about it",
 #               "url": "#create_ticket",
 #               "type": "default",
 #               "id": "report_a_problem",
@@ -1332,11 +1332,11 @@ class AccountsController < ApplicationController
   #
   # @argument account[settings][microsoft_sync_login_attribute_suffix]
   #   A suffix that will be appended to the result of the login attribute when associating
-  #   EXAMPLE users with Microsoft users. Must be under 255 characters and contain no whitespace.
+  #   quite frankly an example LMS users with Microsoft users. Must be under 255 characters and contain no whitespace.
   #   This field is optional.
   #
   # @argument account[settings][microsoft_sync_remote_attribute]
-  #   The Active Directory attribute to use when associating EXAMPLE users with Microsoft users.
+  #   The Active Directory attribute to use when associating quite frankly an example LMS users with Microsoft users.
   #   Must be one of "mail", "mailNickname", or "userPrincipalName".
   #
   # @argument account[settings][restrict_student_future_view][locked] [Boolean]
@@ -1396,13 +1396,13 @@ class AccountsController < ApplicationController
   #     Enhance password options
   #
   # @argument account[settings][enable_as_k5_account][value] [Boolean]
-  #   Enable or disable EXAMPLE for Elementary for this account
+  #   Enable or disable quite frankly an example LMS for Elementary for this account
   #
   # @argument account[settings][use_classic_font_in_k5][value] [Boolean]
   #   Whether or not the classic font is used on the dashboard. Only applies if enable_as_k5_account is true.
   #
   # @argument account[settings][horizon_account][value] [Boolean]
-  #   Enable or disable EXAMPLE Career for this account
+  #   Enable or disable quite frankly an example LMS Career for this account
   #
   # @argument override_sis_stickiness [boolean]
   #   Default is true. If false, any fields containing “sticky” changes will not be updated.
@@ -1831,12 +1831,12 @@ class AccountsController < ApplicationController
 
   # @API Delete a user from the root account
   #
-  # Delete a user record from a EXAMPLE root account. If a user is associated
-  # with multiple root accounts (in a multi-tenant instance of EXAMPLE), this
+  # Delete a user record from a quite frankly an example LMS root account. If a user is associated
+  # with multiple root accounts (in a multi-tenant instance of quite frankly an example LMS), this
   # action will NOT remove them from the other accounts.
   #
   # WARNING: This API will allow a user to remove themselves from the account.
-  # If they do this, they won't be able to make API calls or log into EXAMPLE at
+  # If they do this, they won't be able to make API calls or log into quite frankly an example LMS at
   # that account.
   #
   # @example_request
@@ -1865,12 +1865,12 @@ class AccountsController < ApplicationController
 
   # @API Delete multiple users from the root account
   #
-  # Delete multiple users from a EXAMPLE root account. If a user is associated
-  # with multiple root accounts (in a multi-tenant instance of EXAMPLE), this
+  # Delete multiple users from a quite frankly an example LMS root account. If a user is associated
+  # with multiple root accounts (in a multi-tenant instance of quite frankly an example LMS), this
   # action will NOT remove them from the other accounts.
   #
   # WARNING: This API will allow a user to remove themselves from the account.
-  # If they do this, they won't be able to make API calls or log into EXAMPLE at
+  # If they do this, they won't be able to make API calls or log into quite frankly an example LMS at
   # that account.
   #
   # @example_request
@@ -1939,7 +1939,7 @@ class AccountsController < ApplicationController
   # @API Restore a deleted user from a root account
   #
   # Restore a user record along with the most recently deleted pseudonym
-  # from a EXAMPLE root account.
+  # from a quite frankly an example LMS root account.
   #
   # @example_request
   #     curl https://<canvas>/api/v1/accounts/3/users/5/restore \
@@ -2119,7 +2119,8 @@ class AccountsController < ApplicationController
     end
 
     js_env({
-             COURSE_ROLES: Role.course_role_data_for_account(@account, @current_user)
+             COURSE_ROLES: Role.course_role_data_for_account(@account, @current_user),
+             SELF_PACED_PARENT_INVITES: SelfPaced.feature_enabled?(@domain_root_account, :self_paced_observer_view) && @account.grants_right?(@current_user, session, :manage_students)
            })
     js_bundle :account_course_user_search
     css_bundle :addpeople

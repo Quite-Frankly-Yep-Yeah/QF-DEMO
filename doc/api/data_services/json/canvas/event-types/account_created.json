@@ -4,13 +4,13 @@
   "trigger": "Triggered anytime a new account is created.",
   "schema": {
     "name": "The name of the account.",
-    "account_id": "The EXAMPLE id of the account.",
-    "root_account_id": "The id of the EXAMPLE root account the created account belongs to.",
-    "root_account_uuid": "The uuid of the EXAMPLE root account the created account belongs to.",
-    "parent_account_id": "The id of the EXAMPLE parent account of the created account.",
+    "account_id": "The quite frankly an example LMS id of the account.",
+    "root_account_id": "The id of the quite frankly an example LMS root account the created account belongs to.",
+    "root_account_uuid": "The uuid of the quite frankly an example LMS root account the created account belongs to.",
+    "parent_account_id": "The id of the quite frankly an example LMS parent account of the created account.",
     "external_status": "The external status of the account.",
     "workflow_state": "The workflow state of the account.",
-    "domain": "The EXAMPLE domain of the root account of the account.",
+    "domain": "The quite frankly an example LMS domain of the root account of the account.",
     "default_time_zone": "The default time zone of the account.",
     "default_locale": "The default locale of the account."
   },

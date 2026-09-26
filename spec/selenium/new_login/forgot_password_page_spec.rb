@@ -75,7 +75,7 @@ describe "new login Forgot Password page" do
       expect(f('[data-testid="confirmation-heading"]').text).to include("Check Your Email")
       f('[data-testid="confirmation-back-button"]').click
       wait_for_selector("h1")
-      expect(f("h1").text).to include("Welcome to EXAMPLE")
+      expect(f("h1").text).to include("Welcome to quite frankly an example LMS")
     end
 
     it "goes back to login if user navigated from login → forgot-password" do
@@ -83,13 +83,13 @@ describe "new login Forgot Password page" do
       f('[data-testid="forgot-password-link"]').click
       expect(f("h1").text).to include("Forgot password?")
       f('[data-testid="cancel-button"]').click
-      expect(f("h1").text).to include("Welcome to EXAMPLE")
+      expect(f("h1").text).to include("Welcome to quite frankly an example LMS")
     end
 
     it "returns to login page from Forgot Password" do
       get "/login/canvas/forgot-password"
       f('[data-testid="cancel-button"]').click
-      expect(f("h1").text).to include("Welcome to EXAMPLE")
+      expect(f("h1").text).to include("Welcome to quite frankly an example LMS")
     end
   end
 end

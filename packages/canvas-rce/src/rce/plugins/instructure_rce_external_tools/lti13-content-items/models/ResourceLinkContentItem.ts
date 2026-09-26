@@ -31,7 +31,7 @@ export default class ResourceLinkContentItem extends BaseLinkContentItem<Resourc
 
   toHtmlString() {
     if (this.iframe != null) {
-      // The iframe src must always be the EXAMPLE launch endpoint
+      // The iframe src must always be the quite frankly an example LMS launch endpoint
       this.iframe.src = this.safeUrl
       return this.iframeTag()
     } else {

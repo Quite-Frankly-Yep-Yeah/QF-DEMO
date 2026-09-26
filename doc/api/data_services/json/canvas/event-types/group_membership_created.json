@@ -3,12 +3,12 @@
   "definition": "The event is emitted anytime a new member is added to a course group by an end user or API request.",
   "trigger": "Triggered when a new user is added to a group.",
   "schema": {
-    "group_category_id": "The EXAMPLE id of the group category.",
+    "group_category_id": "The quite frankly an example LMS id of the group category.",
     "group_category_name": "The name of the group category.",
-    "group_id": "The EXAMPLE id of the group the user is assigned to.",
-    "group_membership_id": "The EXAMPLE id of the group membership.",
+    "group_id": "The quite frankly an example LMS id of the group the user is assigned to.",
+    "group_membership_id": "The quite frankly an example LMS id of the group membership.",
     "group_name": "The name of the group the user is being assigned to.",
-    "user_id": "The EXAMPLE id of the user being assigned to a group.",
+    "user_id": "The quite frankly an example LMS id of the user being assigned to a group.",
     "workflow_state": "The state of the group membership."
   },
   "examples": [

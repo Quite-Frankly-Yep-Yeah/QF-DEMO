@@ -169,13 +169,13 @@ module Canvas::Plugins::DefaultPlugins
                             })
 
     Canvas::Plugin.register "canvas_cartridge_importer", :export_system, {
-      name: -> { I18n.t "canvas_cartridge_name", "EXAMPLE Cartridge Importer" },
-      display_name: -> { I18n.t "canvas_cartridge_display", "EXAMPLE Common Cartridge" },
+      name: -> { I18n.t "canvas_cartridge_name", "quite frankly an example LMS Cartridge Importer" },
+      display_name: -> { I18n.t "canvas_cartridge_display", "quite frankly an example LMS Common Cartridge" },
       author: "Instructure",
       author_website: "http://www.instructure.com",
       description: -> { I18n.t :canvas_cartridge_description, "This enables converting a canvas export to the intermediary json format to be imported" },
       version: "1.0.0",
-      select_text: -> { I18n.t :canvas_cartridge_file_description, "EXAMPLE Course Export Package" },
+      select_text: -> { I18n.t :canvas_cartridge_file_description, "quite frankly an example LMS Course Export Package" },
       sort_order: 1,
       settings: {
         worker: "CCWorker",
@@ -186,13 +186,13 @@ module Canvas::Plugins::DefaultPlugins
       },
     }
     Canvas::Plugin.register "course_copy_importer", :export_system, {
-      name: -> { I18n.t :course_copy_name, "Copy EXAMPLE Course" },
+      name: -> { I18n.t :course_copy_name, "Copy quite frankly an example LMS Course" },
       display_name: -> { I18n.t :course_copy_display, "Course Copy" },
       author: "Instructure",
       author_website: "http://www.instructure.com",
       description: -> { I18n.t :course_copy_description, "Migration plugin for copying canvas courses" },
       version: "1.0.0",
-      select_text: -> { I18n.t :course_copy_file_description, "Copy a EXAMPLE Course" },
+      select_text: -> { I18n.t :course_copy_file_description, "Copy a quite frankly an example LMS Course" },
       sort_order: 0,
       settings: {
         worker: "CourseCopyWorker",
@@ -323,7 +323,7 @@ module Canvas::Plugins::DefaultPlugins
                             })
     Canvas::Plugin.register("app_center", nil, {
                               name: -> { t :name, "App Center" },
-                              description: -> { t :description, "App Center for tracking/installing external tools in EXAMPLE" },
+                              description: -> { t :description, "App Center for tracking/installing external tools in quite frankly an example LMS" },
                               settings_partial: "plugins/app_center_settings",
                               settings: {
                                 base_url: "https://www.eduappcenter.com",

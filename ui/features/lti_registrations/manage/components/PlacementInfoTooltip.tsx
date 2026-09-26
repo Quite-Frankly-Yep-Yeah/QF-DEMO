@@ -66,7 +66,7 @@ export const PlacementInfoTooltip = memo(({placement}: PlacementInfoTooltipProps
                     data-testid={`placement-img-${placement}`}
                     constrain="contain"
                     src={`/doc/api/images/placements/${placement}.png`}
-                    alt={I18n.t('An image showing the %{placement} placement within EXAMPLE', {
+                    alt={I18n.t('An image showing the %{placement} placement within quite frankly an example LMS', {
                       placement: i18nLtiPlacement(placement),
                     })}
                   />

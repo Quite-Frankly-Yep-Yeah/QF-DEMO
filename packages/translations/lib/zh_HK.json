@@ -453,7 +453,7 @@
         "message": "版權持有人："
     },
     "could_not_insert_content_itemtype_items_are_not_cu_638dfecd": {
-        "message": "無法插入內容：EXAMPLE 中目前不支援「{ itemType }」項目。"
+        "message": "無法插入內容：quite frankly an example LMS 中目前不支援「{ itemType }」項目。"
     },
     "count_40eced3b": {
         "message": "計數"
@@ -1878,7 +1878,7 @@
         "message": "播放器佈局"
     },
     "please_allow_canvas_to_access_your_microphone_and__dc2c3079": {
-        "message": "請允許 EXAMPLE 存取您的麥克風和網路攝影機。"
+        "message": "請允許 quite frankly an example LMS 存取您的麥克風和網路攝影機。"
     },
     "please_choose_a_file_c2449cc": {
         "message": "請選擇一個檔案"
@@ -2544,7 +2544,7 @@
         "message": "粗向上箭頭"
     },
     "this_document_cannot_be_displayed_within_canvas_7aba77be": {
-        "message": "在 EXAMPLE 中無法顯示此文件。"
+        "message": "在 quite frankly an example LMS 中無法顯示此文件。"
     },
     "this_equation_cannot_be_rendered_in_basic_view_9b6c07ae": {
         "message": "此方程式不能在基本視圖中呈現。"

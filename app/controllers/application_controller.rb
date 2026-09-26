@@ -411,6 +411,7 @@ class ApplicationController < ActionController::Base
           @js_env[:SELF_PACED_ACTIVITY] = self_paced_activity
         end
         @js_env[:SELF_PACED_DASHBOARD_NAV_URL] = self_paced_dashboard_path if SelfPaced.dashboard_available?(@current_user, @domain_root_account)
+        @js_env[:SELF_PACED_HIDE_COURSES_NAV] = true if SelfPaced.hide_courses_nav?(@current_user, @domain_root_account)
         if params[:session_timezone].present? && supported_timezones.include?(params[:session_timezone])
           timezone = context_timezone = params[:session_timezone]
         else
@@ -522,7 +523,7 @@ class ApplicationController < ActionController::Base
   end
   helper_method :js_env
 
-  # Determines whether the EXAMPLE Career switch button should be displayed in the
+  # Determines whether the quite frankly an example LMS Career switch button should be displayed in the
   # global navigation header.
   def show_career_switch?
     return false unless @current_user
@@ -2052,7 +2053,7 @@ class ApplicationController < ActionController::Base
   end
 
   def log_api_asset_access(asset, asset_category, asset_group = nil, level = nil, membership_type = nil, overwrite: true)
-    return if in_app? # don't log duplicate accesses for API calls made by the EXAMPLE front-end
+    return if in_app? # don't log duplicate accesses for API calls made by the quite frankly an example LMS front-end
     return if params[:page].to_i > 1 # don't log duplicate accesses for pages after the first
 
     log_asset_access(asset, asset_category, asset_group, level, membership_type, overwrite:)
@@ -2149,7 +2150,7 @@ class ApplicationController < ActionController::Base
   rescue_from ActiveRecord::RecordInvalid, with: :rescue_expected_error_type
   rescue_from ActionView::MissingTemplate, with: :rescue_expected_error_type
   rescue_from ActiveRecord::StaleObjectError, with: :rescue_expected_error_type
-  # EXAMPLE exceptions
+  # quite frankly an example LMS exceptions
   rescue_from RequestError, with: :rescue_expected_error_type
   rescue_from Canvas::Security::TokenExpired, with: :rescue_expected_error_type
   rescue_from SearchTermHelper::SearchTermTooShortError, with: :rescue_expected_error_type
@@ -3219,7 +3220,7 @@ class ApplicationController < ActionController::Base
   helper_method :flash_notices
 
   def unsupported_browser
-    t("Your browser does not meet the minimum requirements for EXAMPLE. Please visit the *EXAMPLE Community* for a complete list of supported browsers.", wrapper: view_context.link_to('\1', t(:"#community.basics_browser_requirements")))
+    t("Your browser does not meet the minimum requirements for quite frankly an example LMS. Please visit the *quite frankly an example LMS Community* for a complete list of supported browsers.", wrapper: view_context.link_to('\1', t(:"#community.basics_browser_requirements")))
   end
 
   def browser_supported?
@@ -3527,7 +3528,7 @@ class ApplicationController < ActionController::Base
         ctx[:user_agent] = request.headers["User-Agent"]
         ctx[:client_ip] = request.remote_ip
         ctx[:url] = request.url
-        # The Caliper spec uses the spelling "referrer", so use it in the EXAMPLE output JSON too.
+        # The Caliper spec uses the spelling "referrer", so use it in the quite frankly an example LMS output JSON too.
         ctx[:referrer] = request.referer
         ctx[:producer] = "canvas"
 

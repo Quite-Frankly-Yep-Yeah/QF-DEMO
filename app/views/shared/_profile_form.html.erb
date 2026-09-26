@@ -85,7 +85,7 @@
         <% if @user_data[:user_services].present? %>
           <ul class="social-links">
             <li>
-              <label for="social_message" class="social hide-text message ic-Label" title="<%= t :message_title, 'Message' %>" data-tooltip><%= t :message_me, 'message me in EXAMPLE' %></label>
+              <label for="social_message" class="social hide-text message ic-Label" title="<%= t :message_title, 'Message' %>" data-tooltip><%= t :message_me, 'message me in quite frankly an example LMS' %></label>
             </li>
             <% @user_data[:user_services].each do |s| %>
               <li>
@@ -114,7 +114,7 @@
         <% else %>
           <ul class="social-links">
             <% if current_user_is_account_admin && @user != @current_user %>
-              <li><a href="<%= message_user_path(@user) %>" class="social hide-text message" title="<%= t :message_title, 'Message' %>" data-tooltip><%= t :message_user_canvas, 'Message %{user} in EXAMPLE', :user => @user_data[:short_name] %></a></li>
+              <li><a href="<%= message_user_path(@user) %>" class="social hide-text message" title="<%= t :message_title, 'Message' %>" data-tooltip><%= t :message_user_canvas, 'Message %{user} in quite frankly an example LMS', :user => @user_data[:short_name] %></a></li>
             <% end %>
             <% if @user_data[:user_services].present? && @user.show_user_services %>
               <% @user_data[:user_services].select{|s| s[:visible] }.each do |s| %>

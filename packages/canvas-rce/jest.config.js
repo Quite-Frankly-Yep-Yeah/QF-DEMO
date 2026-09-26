@@ -27,7 +27,7 @@ module.exports = {
     [
       'jest-junit',
       {
-        suiteName: 'EXAMPLE RCE Jest Tests',
+        suiteName: 'quite frankly an example LMS RCE Jest Tests',
         outputDirectory: process.env.TEST_RESULT_OUTPUT_DIR || './coverage',
         outputName: 'canvas-rce-jest.xml',
       },

@@ -148,12 +148,12 @@
 #           "type": "integer"
 #         },
 #         "html_url": {
-#           "description": "link to the item in EXAMPLE",
+#           "description": "link to the item in quite frankly an example LMS",
 #           "example": "https://canvas.example.edu/courses/222/modules/items/768",
 #           "type": "string"
 #         },
 #         "url": {
-#           "description": "(Optional) link to the EXAMPLE API object, if applicable",
+#           "description": "(Optional) link to the quite frankly an example LMS API object, if applicable",
 #           "example": "https://canvas.example.edu/api/v1/courses/222/assignments/987",
 #           "type": "string"
 #         },
@@ -729,7 +729,7 @@ class ContextModuleItemsApiController < ApplicationController
   #
   # Fulfills "must view" requirement for a module item. It is generally not necessary to do this explicitly,
   # but it is provided for applications that need to access external content directly (bypassing the html_url
-  # redirect that normally allows EXAMPLE to fulfill "must view" requirements).
+  # redirect that normally allows quite frankly an example LMS to fulfill "must view" requirements).
   #
   # This endpoint cannot be used to complete requirements on locked or unpublished module items.
   #

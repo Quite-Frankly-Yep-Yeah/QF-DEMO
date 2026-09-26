@@ -670,7 +670,7 @@ describe Login::SamlController do
         expect(session[:sentinel]).to be true
 
         expect(response).to redirect_to(login_url)
-        expect(flash[:delegated_message]).to eq "EXAMPLE is not configured to receive logins from hahahahahahaha."
+        expect(flash[:delegated_message]).to eq "quite frankly an example LMS is not configured to receive logins from hahahahahahaha."
       end
     end
 

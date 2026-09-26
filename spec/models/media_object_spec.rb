@@ -536,11 +536,11 @@ describe MediaObject do
 
     it "keeps the current title if already set" do
       mo = @media_object
-      mo.title = "EXAMPLE Title"
+      mo.title = "quite frankly an example LMS Title"
       mo.save!
 
       mo.process_retrieved_details(@mock_entry, @media_type, @assets)
-      expect(mo.title).to eq "EXAMPLE Title"
+      expect(mo.title).to eq "quite frankly an example LMS Title"
     end
 
     it "uses the kaltura title if no current title" do

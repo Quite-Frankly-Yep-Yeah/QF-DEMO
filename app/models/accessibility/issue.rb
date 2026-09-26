@@ -21,7 +21,7 @@ module Accessibility
   # TODO: RCX-4765 - This class generates accessibility issue data for the old wizard UI
   # that was removed in commit 70d63e25976. The new accessibility checker uses
   # AccessibilityResourceScan instead. This may still be used by external tools
-  # via the /accessibility/issues API endpoints, but has no EXAMPLE UI consumers.
+  # via the /accessibility/issues API endpoints, but has no quite frankly an example LMS UI consumers.
   class Issue
     include WikiPageIssues
     include AssignmentIssues

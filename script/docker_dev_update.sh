@@ -99,7 +99,7 @@ fi
 echo ""
 
 create_log_file
-message "Bringing EXAMPLE up to date ..."
+message "Bringing quite frankly an example LMS up to date ..."
 init_log_file "Docker Dev Update"
 [[ -n "$UPDATE_CODE" ]] && ./script/rebase_canvas_and_plugins.sh "${params[@]}"
 if [[ -n "$REBUILD_DOCKER" ]]; then rebuild_docker_images; else check_dockerfile; fi

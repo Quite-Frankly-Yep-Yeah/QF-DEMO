@@ -20,14 +20,14 @@
 # API implementation for PandataEvents
 # https://gerrit.instructure.com/plugins/gitiles/PandataEvents/+/refs/heads/master/
 #
-# Allows EXAMPLE to send arbitrary events to the PandataEvents service
+# Allows quite frankly an example LMS to send arbitrary events to the PandataEvents service
 # for further processing or querying.
 #
 # Why use this?
 # - You need more metadata than Datadog tags can provide
-# - You need to query these events to build dashboards around the data, but EXAMPLE only sends
+# - You need to query these events to build dashboards around the data, but quite frankly an example LMS only sends
 #   request logs to Splunk
-# - These events are lightweight and the service can handle a EXAMPLE-sized load
+# - These events are lightweight and the service can handle a quite frankly an example LMS-sized load
 #
 # Usage:
 #   PandataEvents.send_event(:an_event, { context_id: 2, meta: :data }, for_user_id: @current_user.global_id)
@@ -50,7 +50,7 @@ module PandataEvents
     @endpoint ||= config[:url]
   end
 
-  # Whether or not PandataEvents is enabled for EXAMPLE purposes,
+  # Whether or not PandataEvents is enabled for quite frankly an example LMS purposes,
   # since it's always available for specific dev keys
   # in UsersController#pandata_events_token
   def self.enabled?

@@ -51,21 +51,21 @@ describe Lti::LtiAccountCreator do
   end
 
   describe "#convert" do
-    it "creates an account for a EXAMPLE Account" do
+    it "creates an account for a quite frankly an example LMS Account" do
       account = Lti::LtiAccountCreator.new(canvas_account, canvas_tool).convert
       expect(account.id).to eq 123
       expect(account.name).to eq "account_name"
       expect(account.sis_source_id).to eq "sis_id"
     end
 
-    it "creates an account for a EXAMPLE Course" do
+    it "creates an account for a quite frankly an example LMS Course" do
       account = Lti::LtiAccountCreator.new(canvas_course, canvas_tool).convert
       expect(account.id).to eq 123
       expect(account.name).to eq "account_name"
       expect(account.sis_source_id).to eq "sis_id"
     end
 
-    it "creates an account for a EXAMPLE User" do
+    it "creates an account for a quite frankly an example LMS User" do
       account = Lti::LtiAccountCreator.new(canvas_user, canvas_tool).convert
       expect(account.id).to eq 42
       expect(account.name).to eq "root_account"

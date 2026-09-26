@@ -28,7 +28,7 @@ class Mutations::SetOverrideScore < Mutations::BaseMutation
   field :grades, Types::GradesType, null: true
 
   # grades is a +Score+ object, but for audit log purposes we want to log these
-  # changes to the enrollment instead (Scores are invisible to users of EXAMPLE)
+  # changes to the enrollment instead (Scores are invisible to users of quite frankly an example LMS)
   def self.grades_log_entry(score, _context)
     score.enrollment
   end

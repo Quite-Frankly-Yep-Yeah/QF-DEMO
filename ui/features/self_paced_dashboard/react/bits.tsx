@@ -1,13 +1,13 @@
 /*
- * Copyright (C) 2026 - present EXAMPLE contributors
+ * Copyright (C) 2026 - present quite frankly an example LMS contributors
  *
- * This file is part of EXAMPLE LMS, a modified version of Canvas.
+ * This file is part of quite frankly an example LMS, a modified version of Canvas.
  *
- * EXAMPLE LMS is free software: you can redistribute it and/or modify it under
+ * quite frankly an example LMS is free software: you can redistribute it and/or modify it under
  * the terms of the GNU Affero General Public License as published by the Free
  * Software Foundation, version 3 of the License.
  *
- * EXAMPLE LMS is distributed in the hope that it will be useful, but WITHOUT ANY
+ * quite frankly an example LMS is distributed in the hope that it will be useful, but WITHOUT ANY
  * WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS FOR
  * A PARTICULAR PURPOSE. See the GNU Affero General Public License for more
  * details.
@@ -93,8 +93,17 @@ export function StuckBadge({attempts}: {attempts: number}) {
   )
 }
 
-export function CourseChip({name, color}: {name: string; color: string}) {
-  return (
+// A course's name with its color. With +href+ it links to the course's page.
+export function CourseChip({
+  name,
+  color,
+  href,
+}: {
+  name: string
+  color: string
+  href?: string | null
+}) {
+  const chip = (
     <span style={{display: 'inline-flex', alignItems: 'center', gap: 6, maxWidth: '100%'}}>
       <span
         aria-hidden="true"
@@ -104,6 +113,12 @@ export function CourseChip({name, color}: {name: string; color: string}) {
         {name}
       </span>
     </span>
+  )
+  if (!href) return chip
+  return (
+    <a href={href} className="self-paced-course-link" style={{color: 'inherit', maxWidth: '100%'}}>
+      {chip}
+    </a>
   )
 }
 

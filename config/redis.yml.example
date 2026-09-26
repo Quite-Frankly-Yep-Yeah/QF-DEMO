@@ -1,9 +1,9 @@
-# # EXAMPLE currently works without Redis, however some features require Redis and will be disabled.
+# # quite frankly an example LMS currently works without Redis, however some features require Redis and will be disabled.
 # # Redis can also be used as a replacement for memcache, for both session store and caching.
 #
 # # The recommended setup is to define your redis url(s) in this file, and
 # # then in cache_store.yml specify cache_store: redis_cache_store without any
-# # other config, which will tell EXAMPLE to use the same redis instance. You
+# # other config, which will tell quite frankly an example LMS to use the same redis instance. You
 # # can also reverse this by configuring servers in cache_store.yml, and
 # # referencing them here with servers: cache_store
 

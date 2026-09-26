@@ -37,7 +37,7 @@ const mockConfig = (overrides?: Partial<InternalLtiConfiguration>): InternalLtiC
 })
 
 describe('isSubstitutionVariable', () => {
-  it('returns true for valid EXAMPLE substitution variables', () => {
+  it('returns true for valid quite frankly an example LMS substitution variables', () => {
     expect(isSubstitutionVariable('$Canvas.user.id')).toBe(true)
     expect(isSubstitutionVariable('$User.id')).toBe(true)
     expect(isSubstitutionVariable('$Person.name.full')).toBe(true)

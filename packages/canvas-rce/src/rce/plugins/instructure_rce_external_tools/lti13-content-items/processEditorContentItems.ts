@@ -63,7 +63,7 @@ export default function processEditorContentItems(
       } else if (!unsupportedItemWarningShown) {
         showFlashAlert({
           message: formatMessage(
-            'Could not insert content: "{itemType}" items are not currently supported in EXAMPLE.',
+            'Could not insert content: "{itemType}" items are not currently supported in quite frankly an example LMS.',
             {itemType: inputItem.type ?? 'unknown'},
           ),
           type: 'warning',

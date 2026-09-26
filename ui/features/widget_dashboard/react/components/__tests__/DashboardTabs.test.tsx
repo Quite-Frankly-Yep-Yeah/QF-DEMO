@@ -144,7 +144,7 @@ const buildDefaultProps = (overrides = {}): Props => {
 const setup = (props?: Props, envOverrides = {}, preferencesOverrides = {}) => {
   const user = userEvent.setup()
 
-  // Set up EXAMPLE ENV with current_user_id
+  // Set up quite frankly an example LMS ENV with current_user_id
   const originalEnv = window.ENV
   window.ENV = {
     ...originalEnv,

@@ -21,6 +21,7 @@
 class OutcomesController < ApplicationController
   include Api::V1::Outcome
   include Api::V1::Role
+  include SelfPaced::StaffSkills
 
   before_action :require_context
 
@@ -39,6 +40,8 @@ class OutcomesController < ApplicationController
     return unless tab_enabled?(@context.class::TAB_OUTCOMES)
 
     log_asset_access(["outcomes", @context], "outcomes", "other")
+
+    return render_self_paced_skills if self_paced_skills?
 
     @root_outcome_group = @context.root_outcome_group
 

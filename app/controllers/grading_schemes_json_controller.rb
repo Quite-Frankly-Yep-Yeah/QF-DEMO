@@ -301,7 +301,7 @@ class GradingSchemesJsonController < ApplicationController
   def self.default_canvas_grading_standard(context)
     grading_standard_data = GradingStandard.default_grading_standard
     props = {}
-    props["title"] = I18n.t("Default EXAMPLE Grading Scheme")
+    props["title"] = I18n.t("Default quite frankly an example LMS Grading Scheme")
     props["data"] = grading_standard_data
     props["scaling_factor"] = 1.0
     props["points_based"] = false

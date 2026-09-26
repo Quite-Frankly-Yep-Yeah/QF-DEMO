@@ -45,17 +45,17 @@
 #           "type": "string"
 #         },
 #         "header_match": {
-#           "description": "If not null, only feed entries whose title contains this string will trigger new posts in EXAMPLE",
+#           "description": "If not null, only feed entries whose title contains this string will trigger new posts in quite frankly an example LMS",
 #           "example": "pattern",
 #           "type": "string"
 #         },
 #         "created_at": {
-#           "description": "When this external feed was added to EXAMPLE",
+#           "description": "When this external feed was added to quite frankly an example LMS",
 #           "example": "2012-06-01T00:00:00-06:00",
 #           "type": "datetime"
 #         },
 #         "verbosity": {
-#           "description": "The verbosity setting determines how much of the feed's content is imported into EXAMPLE as part of the posting. 'link_only' means that only the title and a link to the item. 'truncate' means that a summary of the first portion of the item body will be used. 'full' means that the full item body will be used.",
+#           "description": "The verbosity setting determines how much of the feed's content is imported into quite frankly an example LMS as part of the posting. 'link_only' means that only the title and a link to the item. 'truncate' means that a summary of the first portion of the item body will be used. 'full' means that the full item body will be used.",
 #           "example": "truncate",
 #           "type": "string",
 #           "allowableValues": {

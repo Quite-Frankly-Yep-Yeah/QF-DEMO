@@ -1,6 +1,6 @@
 # UI Development Guide
 
-AI coding assistant guidance for EXAMPLE LMS frontend development.
+AI coding assistant guidance for quite frankly an example LMS frontend development.
 
 ## Project Structure
 
@@ -82,7 +82,7 @@ Use `useState` for component-local state.
 
 **All GraphQL fragment names must be globally unique across the entire codebase.** Use a feature-specific prefix to avoid naming collisions.
 
-EXAMPLE uses GraphQL codegen (`yarn graphql:codegen`) to generate TypeScript types from GraphQL files. The codegen process scans all `.js` and `.ts` files, and duplicate fragment names will cause it to fail.
+quite frankly an example LMS uses GraphQL codegen (`yarn graphql:codegen`) to generate TypeScript types from GraphQL files. The codegen process scans all `.js` and `.ts` files, and duplicate fragment names will cause it to fail.
 
 **Naming convention:**
 ```tsx

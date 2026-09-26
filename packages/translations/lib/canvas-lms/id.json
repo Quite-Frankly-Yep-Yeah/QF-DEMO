@@ -17,7 +17,7 @@
         "Archived grading schemes in use can still be used, but cannot be added to new courses or assignments.": "Skema penilaian yang diarsipkan yang digunakan masih dapat digunakan, tetapi tidak dapat ditambahkan ke kursus atau tugas baru.",
         "Are you sure you want to delete this grading scheme?": "Anda yakin mau menghapus skema penilaian ini?",
         "Cancel": "Batal",
-        "EXAMPLE Default": "Default EXAMPLE",
+        "quite frankly an example LMS Default": "Default quite frankly an example LMS",
         "Close": "Tutup",
         "Confirm": "Konfirmasi",
         "Confirm Default Grading Scheme Change": "Konfirmasi Perubahan Skema Penilaian Default",
@@ -157,10 +157,10 @@
     "assignments.grading_type_selector": {
         "(course default)": "(default kursus)",
         "Account Level": "Level Akun",
-        "EXAMPLE Grading Scheme (course default)": "Skema Penilaian EXAMPLE (default kursus)",
+        "quite frankly an example LMS Grading Scheme (course default)": "Skema Penilaian quite frankly an example LMS (default kursus)",
         "Close": "Tutup",
         "Course Level": "Level Kursus",
-        "Default EXAMPLE Grading Scheme": "Skema Penilaian EXAMPLE Default",
+        "Default quite frankly an example LMS Grading Scheme": "Skema Penilaian quite frankly an example LMS Default",
         "Grading scheme was successfully removed.": "Skema penilaian berhasil dihapus.",
         "Grading scheme was successfully updated.": "Skema penilaian berhasil diperbarui.",
         "Manage All Grading Schemes": "Kelola Semua Skema Penilaian",
@@ -181,7 +181,7 @@
         "Course Catalog": "Katalog Kursus"
     },
     "confetti": {
-        "Great work! From the EXAMPLE developers": "Luar biasa! Dari para pengembang EXAMPLE"
+        "Great work! From the quite frankly an example LMS developers": "Luar biasa! Dari para pengembang quite frankly an example LMS"
     },
     "content_copy_redesign": {
         "Cancel": "Batal",

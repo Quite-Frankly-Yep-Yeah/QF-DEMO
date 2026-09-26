@@ -2,7 +2,7 @@
 
 ## Origin
 
-EXAMPLE is a modified version of Canvas LMS
+quite frankly an example LMS is a modified version of Canvas LMS
 (<https://github.com/instructure/canvas-lms>), Copyright (C) 2011 - present
 Instructure, Inc., licensed under the GNU Affero General Public License,
 version 3 (AGPL-3.0).
@@ -17,7 +17,7 @@ This version has been modified from the original (AGPL-3.0 section 5(a)).
 Modified on: 2026-09-20.
 
 The user-visible product name, documentation, and interface text were changed
-from "Canvas" to "EXAMPLE". Internal identifiers were left as they are, so that
+from "Canvas" to "quite frankly an example LMS". Internal identifiers were left as they are, so that
 existing plugins, LTI tools, and API clients keep working. These include:
 
 - the Ruby `Canvas` module and `canvas_*` gems
@@ -28,7 +28,7 @@ existing plugins, LTI tools, and API clients keep working. These include:
 
 ## Trademarks
 
-EXAMPLE is not affiliated with, endorsed by, or sponsored by Instructure, Inc.
+quite frankly an example LMS is not affiliated with, endorsed by, or sponsored by Instructure, Inc.
 "Canvas" and "Instructure" are trademarks of Instructure, Inc. They are used
 here only to describe the origin and compatibility of this software.
 

@@ -129,7 +129,7 @@ describe "new login Sign In page" do
       end
 
       it "renders the LDAP sign-in page and posts to /login/ldap" do
-        expect(f("h1").text).to include("Welcome to EXAMPLE")
+        expect(f("h1").text).to include("Welcome to quite frankly an example LMS")
         expect(f('[data-testid="username-input"]')).to be_displayed
         expect(f('[data-testid="password-input"]')).to be_displayed
         form = f("form")

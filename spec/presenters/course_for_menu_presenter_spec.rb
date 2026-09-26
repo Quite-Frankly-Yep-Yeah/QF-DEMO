@@ -170,16 +170,21 @@ describe CourseForMenuPresenter do
         course.update! settings: course.settings.merge(course_color: "#789")
       end
 
-      it "sets `color` to nil if the course is not associated with a K-5 account" do
+      it "sets `color` regardless of whether the course is associated with a K-5 account" do
         h = CourseForMenuPresenter.new(course, user, account).to_h
-        expect(h[:color]).to be_nil
-      end
+        expect(h[:color]).to eq "#789"
 
-      it "sets `color` if the course is associated with a K-5 account" do
         toggle_k5_setting(course.account)
 
         h = CourseForMenuPresenter.new(course, user, account).to_h
         expect(h[:color]).to eq "#789"
+      end
+
+      it "sets `color` to nil when the course has no course_color set" do
+        course.update! settings: course.settings.except(:course_color)
+
+        h = CourseForMenuPresenter.new(course, user, account).to_h
+        expect(h[:color]).to be_nil
       end
     end
 

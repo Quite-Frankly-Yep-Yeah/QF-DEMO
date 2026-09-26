@@ -6,7 +6,7 @@ The **editor_button** placement allows many users to use the <a
 href="file.content_item.html" target="_blank">LTI Deep Linking</a>
 flow to select resources from an external tool and embed them in the
 <a href="https://community.canvaslms.com/t5/Canvas-Basics-Guide/What-is-the-New-Rich-Content-Editor/ta-p/12"
-target="_blank">EXAMPLE Rich Content Editor</a> (RCE).
+target="_blank">quite frankly an example LMS Rich Content Editor</a> (RCE).
 
 ### Configuring
 For configuration examples and links to the specification, please refer to the <a
@@ -28,7 +28,7 @@ such as assignment descriptions, discussions posts, and wiki pages.
 <a href="file.assignment_selection_placement.html" target="_blank">assignment_selection
 placement</a> if grades are desired.
 - Requires UI interactions to generate content. To generate content server-to-server,
-use of <a href="file.oauth.html#accessing-canvas-api" target="_blank">EXAMPLE API</a> is required.
+use of <a href="file.oauth.html#accessing-canvas-api" target="_blank">quite frankly an example LMS API</a> is required.
 
 
 ### Workflow
@@ -36,15 +36,15 @@ use of <a href="file.oauth.html#accessing-canvas-api" target="_blank">EXAMPLE AP
 questions, etc.).
 2. Once loaded, tools that use the **editor_button** placement
 will appear in the tool bar of the RCE.
-3. When the tool bar button is clicked, EXAMPLE initiates an LTI launch to the
+3. When the tool bar button is clicked, quite frankly an example LMS initiates an LTI launch to the
 tool and indicates that a deep linking selection request is happening.
 4. The tool can then present the user with a UI to select and/or create content and return
-items of different types to EXAMPLE.
-5. EXAMPLE then consumes the request and converts the payload to HTML in the RCE.
+items of different types to quite frankly an example LMS.
+5. quite frankly an example LMS then consumes the request and converts the payload to HTML in the RCE.
 6. Once published, the audience can then view the content returned by the tool.
 
 The end result is users can search for embeddable content from a tool provider
-and submit it back to the RCE without having to leave EXAMPLE or paste embed code!
+and submit it back to the RCE without having to leave quite frankly an example LMS or paste embed code!
 
 **Pro-tip:** Use the com.instructure.Editor.contents and/or com.instructure.Editor.selection
 <a href="file.tools_variable_substitutions.html"
@@ -98,19 +98,19 @@ All of these settings are contained for the **editor_button** placement:
 
     Sets the message_type to be sent during the LTI launch. It is expected that
     the tool use this to determine if a Deep Linking flow is being requested by
-    EXAMPLE and present an appropriate UI. A Deep Linking flow is highly recommended
+    quite frankly an example LMS and present an appropriate UI. A Deep Linking flow is highly recommended
     for this placement, but is not required. See the
     <a href="file.content_item.html" target="_blank">Deep Linking
     documentation</a> for more information, including accepted values.
 
 -   selection_width: &lt;pixels&gt; (optional)
 
-    This sets the width (px) of the selection launch modal. EXAMPLE may set a
+    This sets the width (px) of the selection launch modal. quite frankly an example LMS may set a
     maximum or minimum width that overrides this option.
 
 -   selection_height: &lt;pixels&gt; (optional)
 
-    This sets the height (px) of the selection launch modal. EXAMPLE may set a
+    This sets the height (px) of the selection launch modal. quite frankly an example LMS may set a
     maximum or minimum height that overrides this option.
 
 -   visibility: 'public', 'members', 'admins' (optional, 'public' by default)

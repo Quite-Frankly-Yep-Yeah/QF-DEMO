@@ -233,7 +233,7 @@ describe('TempEnrollAssign', () => {
       const options = await screen.findAllByRole('option')
       fireEvent.click(options[0]) // select the "Student" option
 
-      // Format: EXAMPLE will enroll %{recipient} as a %{role} in %{source}'s selected courses from %{start} - %{end}
+      // Format: quite frankly an example LMS will enroll %{recipient} as a %{role} in %{source}'s selected courses from %{start} - %{end}
       expect(await screen.findByText(/Canvas will enroll Melvin as a Student/)).toBeInTheDocument()
     })
 
@@ -381,7 +381,7 @@ describe('TempEnrollAssign', () => {
       const summary = getByTestId('temp-enroll-summary')
 
       // Verify the summary contains the expected text
-      expect(summary.textContent).toContain('EXAMPLE will enroll Melvin')
+      expect(summary.textContent).toContain('quite frankly an example LMS will enroll Melvin')
       expect(summary.textContent).toContain('in the selected courses of John Smith')
       expect(summary.textContent).toContain('with an ending enrollment state of Deleted')
 

@@ -23,7 +23,7 @@ type AdaChatbotProps = {
   onDialogClose: () => void
 }
 
-// EXAMPLE-hosted popup page — Ada SDK loads here and receives metadata via
+// quite frankly an example LMS-hosted popup page — Ada SDK loads here and receives metadata via
 // postMessage. PII never appears in a URL.
 const ADA_POPUP_PATH = '/ada_chat_popup'
 
@@ -83,7 +83,7 @@ export function getAdaMetaFields(): AdaMetaFieldsResult {
 let pendingReadyListener: ((event: MessageEvent) => void) | null = null
 
 /**
- * Opens the Ada chatbot popup. The popup page is EXAMPLE-hosted; once it
+ * Opens the Ada chatbot popup. The popup page is quite frankly an example LMS-hosted; once it
  * signals ready, metadata is forwarded via same-origin postMessage so PII
  * is never exposed in a URL.
  */

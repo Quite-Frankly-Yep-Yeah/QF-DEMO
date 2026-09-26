@@ -39,7 +39,7 @@ module CC
     # imsqti_xmlv1p2/imscc_xmlv1p0/assessment
     # imsqti_xmlv1p2/imscc_xmlv1p0/question-bank
 
-    # Common Cartridge 1.1 (What EXAMPLE exports)
+    # Common Cartridge 1.1 (What quite frankly an example LMS exports)
     ASSESSMENT_TYPE = "imsqti_xmlv1p2/imscc_xmlv1p1/assessment"
     QUESTION_BANK = "imsqti_xmlv1p2/imscc_xmlv1p1/question-bank"
     DISCUSSION_TOPIC = "imsdt_xmlv1p1"
@@ -448,7 +448,7 @@ module CC
 
         return doc.to_html if @for_course_copy
 
-        # prepend the EXAMPLE domain to remaining absolute paths that are missing the host
+        # prepend the quite frankly an example LMS domain to remaining absolute paths that are missing the host
         # (those in the course are already "$CANVAS_COURSE_REFERENCE$/...", but links
         #  outside the course need a domain to be meaningful in the export)
         # see also Api#api_user_content, which does a similar thing

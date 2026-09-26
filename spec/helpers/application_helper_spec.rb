@@ -704,7 +704,7 @@ describe ApplicationHelper do
       allow(helper).to receive(:k12?).and_return(true)
       allow(BrandConfig).to receive(:k12_config)
 
-      # this is what happens if you pick "EXAMPLE Default" from the theme picker
+      # this is what happens if you pick "quite frankly an example LMS Default" from the theme picker
       session[:brand_config] = { md5: nil, type: :default }
 
       expect(helper.send(:active_brand_config)).to eq BrandConfig.k12_config
@@ -1156,7 +1156,7 @@ describe ApplicationHelper do
 
     it "returns the default value when there is no custom login logo" do
       allow(helper).to receive(:k12?).and_return(false)
-      expect(helper.send(:alt_text_for_login_logo)).to eql "EXAMPLE"
+      expect(helper.send(:alt_text_for_login_logo)).to eql "quite frankly an example LMS"
     end
 
     it "returns the account short name when the logo is custom" do

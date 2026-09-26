@@ -72,7 +72,7 @@ function QuizEngineModal({setOpen, onDismiss}) {
   const description = (
     <div style={{paddingBottom: '1.5rem', maxWidth: '25rem'}}>
       <Text>
-        {I18n.t(`EXAMPLE now has two quiz engines. Please choose which
+        {I18n.t(`quite frankly an example LMS now has two quiz engines. Please choose which
         you'd like to use.`)}
         &nbsp;{link}
       </Text>

@@ -3911,7 +3911,7 @@ describe AssignmentsController do
 
       it "shows a custom error message about required feature flags" do
         get :peer_reviews, params: { course_id: @course.id, assignment_id: @assignment.id }
-        expect(assigns[:unauthorized_message]).to include("EXAMPLE Administrator")
+        expect(assigns[:unauthorized_message]).to include("quite frankly an example LMS Administrator")
         expect(assigns[:unauthorized_details]).to include("Assignment Enhancements - Student")
         expect(assigns[:unauthorized_details].length).to eq(4)
       end
@@ -3948,7 +3948,7 @@ describe AssignmentsController do
         @course.disable_feature!(:assignments_2_student)
         get :peer_reviews, params: { course_id: @course.id, assignment_id: @assignment.id }
         expect(response).to have_http_status(:unauthorized)
-        expect(assigns[:unauthorized_message]).to include("EXAMPLE Administrator")
+        expect(assigns[:unauthorized_message]).to include("quite frankly an example LMS Administrator")
       end
 
       it "redirects to allocation tray when not assigned to the assignment" do

@@ -925,7 +925,7 @@ describe Lti::ToolFinder do
         end
 
         before do
-          # Creation order is important. Be default EXAMPLE uses
+          # Creation order is important. Be default quite frankly an example LMS uses
           # creation order as a tie-breaker. Creating the LTI 1.3
           # tool first ensures we are actually exercising the preferred
           # LTI version matching logic.

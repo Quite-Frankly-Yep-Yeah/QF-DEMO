@@ -74,7 +74,7 @@ const store = new Store(
 
     /**
      * Populate the store with pre-loaded statistics data you've received from
-     * the EXAMPLE stats index endpoint (JSON-API or JSON).
+     * the quite frankly an example LMS stats index endpoint (JSON-API or JSON).
      *
      * @fires change
      */

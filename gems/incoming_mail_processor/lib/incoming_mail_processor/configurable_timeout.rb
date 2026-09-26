@@ -24,7 +24,7 @@ module IncomingMailProcessor
   # Internal: A helper mixin for Mailbox implementation to properly implement
   # a configurable timeout. This keeps the Mailbox classes from directly
   # depending on canvas methods. The IncomingMessageProcessor will configure
-  # the Mailboxes with the appropriate timeout method to use in a EXAMPLE
+  # the Mailboxes with the appropriate timeout method to use in a quite frankly an example LMS
   # periodic job.
   module ConfigurableTimeout
     # Public: Set the method to call to implement timeouts. By default this

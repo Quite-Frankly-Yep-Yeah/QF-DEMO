@@ -41,7 +41,7 @@ describe('RceFileBrowser', () => {
   it('invokes onFileSelect callback with appropriate data when a file is selected', () => {
     const onFileSelect = jest.fn()
     render(<RceFileBrowser onFileSelect={onFileSelect} {...props} />)
-    // This is the selectFile prop passed to the EXAMPLE FileBrowser that we mocked above
+    // This is the selectFile prop passed to the quite frankly an example LMS FileBrowser that we mocked above
     const selectFile = FileBrowser.mock.calls[0][0].selectFile
     selectFile({
       name: 'a file',
@@ -62,7 +62,7 @@ describe('RceFileBrowser', () => {
   it('plumbs the media_id when a video file is selected', () => {
     const onFileSelect = jest.fn()
     render(<RceFileBrowser onFileSelect={onFileSelect} {...props} />)
-    // This is the selectFile prop passed to the EXAMPLE FileBrowser that we mocked above
+    // This is the selectFile prop passed to the quite frankly an example LMS FileBrowser that we mocked above
     const selectFile = FileBrowser.mock.calls[0][0].selectFile
     selectFile({
       name: 'a video',
@@ -89,7 +89,7 @@ describe('RceFileBrowser', () => {
     it('adds icon maker icon attributes to onFileSelect object param', () => {
       const onFileSelect = jest.fn()
       render(<RceFileBrowser onFileSelect={onFileSelect} {...props} />)
-      // This is the selectFile prop passed to the EXAMPLE FileBrowser that we mocked above
+      // This is the selectFile prop passed to the quite frankly an example LMS FileBrowser that we mocked above
       const selectFile = FileBrowser.mock.calls[0][0].selectFile
       const fullUrl = 'http://dev.env/files/123/download'
       selectFile({

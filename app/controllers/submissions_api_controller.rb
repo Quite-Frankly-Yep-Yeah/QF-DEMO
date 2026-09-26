@@ -1564,7 +1564,7 @@ class SubmissionsApiController < ApplicationController
   # Indicate that rubric comments/grading made on a submission have been read by the student being assessed.
   # Only the student who owns the submission can use this endpoint.
   #
-  # NOTE: Rubric assessments will be marked as read automatically when they are viewed in EXAMPLE web.
+  # NOTE: Rubric assessments will be marked as read automatically when they are viewed in quite frankly an example LMS web.
   #
   # @example_request
   #
@@ -1617,7 +1617,7 @@ class SubmissionsApiController < ApplicationController
   # Indicate that annotations made on a submitted document have been read by the student.
   # Only the student who owns the submission can use this endpoint.
   #
-  # NOTE: Document annotations will be marked as read automatically when they are viewed in EXAMPLE web.
+  # NOTE: Document annotations will be marked as read automatically when they are viewed in quite frankly an example LMS web.
   #
   # @example_request
   #

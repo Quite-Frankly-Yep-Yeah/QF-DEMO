@@ -71,15 +71,6 @@ class CoursePaceDueDatesCalculator
   end
 
   def blackout_dates
-    @blackout_dates ||= course_pace.course.blackout_dates + calendar_event_blackout_dates
-  end
-
-  private
-
-  def calendar_event_blackout_dates
-    account_codes =
-      Account.multi_account_chain_ids([course_pace.course.account.id]).map { |id| "account_#{id}" }
-    context_codes = account_codes.append("course_#{course_pace.course.id}")
-    CalendarEvent.with_blackout_date.active.valid_ranges.for_context_codes(context_codes)
+    @blackout_dates ||= SchoolCalendar.new(course_pace.course, calendar: nil).blackout_records
   end
 end

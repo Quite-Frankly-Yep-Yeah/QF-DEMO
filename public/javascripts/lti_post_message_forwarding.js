@@ -86,7 +86,7 @@ const handler = (parentOrigin, windowReferences, parentWindow, includeRCESignal)
       windowId = windowReferences.length - 1
     }
 
-    // Index of the source window in the top frames, for case where EXAMPLE's
+    // Index of the source window in the top frames, for case where quite frankly an example LMS's
     // postMessage processing needs to know which iframe the message came from.
     let indexInTopFrames = null
     for (let i = 0; i < window.top.frames.length; i++) {
@@ -134,8 +134,8 @@ const init = () => {
     const windowReferences = []
 
     if (IN_RCE) {
-      // EXAMPLE renders the RCE/TinyMCE, which uses an iframe to enclose the content being edited
-      // tools inside the editor should send _all_ postMessages directly to EXAMPLE.
+      // quite frankly an example LMS renders the RCE/TinyMCE, which uses an iframe to enclose the content being edited
+      // tools inside the editor should send _all_ postMessages directly to quite frankly an example LMS.
       const canvasWindow = window.parent.parent
       window.addEventListener(
         'message',

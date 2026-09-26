@@ -18,7 +18,7 @@
 # with this program. If not, see <http://www.gnu.org/licenses/>.
 
 module Canvas
-  # EXAMPLE extensions to the base AMS. All instances of this class require a
+  # quite frankly an example LMS extensions to the base AMS. All instances of this class require a
   # Controller instance to operate.
   #
   # Serializers inherting from this class will be equipped with several helper

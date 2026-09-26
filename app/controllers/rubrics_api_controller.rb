@@ -345,7 +345,7 @@ class RubricsApiController < ApplicationController
   end
 
   # @API Templated file for importing a rubric
-  # Returns a CSV template file that can be used to import rubrics into EXAMPLE.
+  # Returns a CSV template file that can be used to import rubrics into quite frankly an example LMS.
   # @returns a CSV file in the format that can be imported
   def upload_template
     send_data(

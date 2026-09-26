@@ -17,6 +17,13 @@
 %>
 
 <% add_body_class 'assessing' %>
+<%# ordering and categorizing layouts for matching questions %>
+<% js_bundle :sylla_question_layouts %>
+<%# read-then-answer layout for self-paced courses; the server-paged one-question-at-a-time mode keeps its own flow %>
+<% if SelfPaced.feature_enabled?(@context, :self_paced_quiz_reader) && !@quiz_presenter.one_question_at_a_time? %>
+  <% add_body_class 'self-paced-quiz' %>
+  <% js_bundle :self_paced_quiz_reader %>
+<% end %>
 <% provide :page_title do %><%= join_title @quiz.readable_type, @quiz.quiz_title %><% end %>
 
 <% provide :right_side do %>

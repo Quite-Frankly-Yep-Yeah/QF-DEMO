@@ -698,7 +698,7 @@ self.user,
         populate_body(message_body_template, path_type, binding, filename)
 
         # Set the subject and url
-        self.subject = @message_content_subject || t("#message.default_subject", "EXAMPLE Alert")
+        self.subject = @message_content_subject || t("#message.default_subject", "quite frankly an example LMS Alert")
         self.url     = @message_content_link || nil
       else
         # Message doesn't exist so we flag the message as an error

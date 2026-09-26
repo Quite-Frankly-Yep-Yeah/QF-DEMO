@@ -23,7 +23,7 @@
  */
 export interface NewQuizzesContext {
   params: {
-    // EXAMPLE instance
+    // quite frankly an example LMS instance
     custom_canvas_api_domain?: string
 
     // LTI Resource Link ID (for assignment lookup)

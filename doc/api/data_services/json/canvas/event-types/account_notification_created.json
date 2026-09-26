@@ -3,7 +3,7 @@
   "definition": "The event is emitted anytime an account level notification is created by and end user or API request.",
   "trigger": "Triggered anytime a new account notification is created.",
   "schema": {
-    "account_notification_id": "The EXAMPLE id of the account notification.",
+    "account_notification_id": "The quite frankly an example LMS id of the account notification.",
     "end_at": "When to expire the notification.",
     "icon": "The icon to display with the message.  Defaults to warning.",
     "message": "The message to be sent in the notification. NOTE: This field will be truncated to only include the first 8192 characters.",

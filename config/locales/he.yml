@@ -217,7 +217,7 @@ he:
   access_token_count_access_token_count_dfb5463c: "מונה אסימון גישה: %{access_token_count}"
   access_token_details_495d989: "פרטי אסימון הגישה"
   access_token_is_valid_until_d2f048cf: "הרשאת אסימון הגישה בתוקף עד"
-  access_tokens_can_be_used_to_allow_other_applicati_16c4a3ab: "ניתן להשתמש באסימוני גישה כדי לאפשר לאפליקציות אחרות לבצע קריאות API בעבורך. תוכל/י גם לייצר אסימוני גישה ו *להשתמש ב EXAMPLE Open API* כדי לפתח אינטגרציות עצמיות."
+  access_tokens_can_be_used_to_allow_other_applicati_16c4a3ab: "ניתן להשתמש באסימוני גישה כדי לאפשר לאפליקציות אחרות לבצע קריאות API בעבורך. תוכל/י גם לייצר אסימוני גישה ו *להשתמש ב quite frankly an example LMS Open API* כדי לפתח אינטגרציות עצמיות."
   accordion_section_1_7888782d: "איזור נפתח 1"
   accordion_section_2_e1812997: "איזור נפתח  2"
   accordion_section_3_96861901: "איזור נפתח 3"
@@ -282,7 +282,7 @@ he:
     index: 
       delete_auth_confirmation: "האם אתם בטוחים? משתמשים עשויים לא להצליח להתחבר במידה וזה מוסר."
       delete_auth_link: "הסרת ההזדהות"
-      ip_address_list_description: "במידה ואתם משתמשים בשירות הזדהות שדורש ששרתי EXAMPLE יתקשרו ישירות עם השרתים שלכם, דוגמת LDAP, עליכם לוודא שהשרתים יודעים לקבל חיבורים מכתובות ה-IP הבאות:"
+      ip_address_list_description: "במידה ואתם משתמשים בשירות הזדהות שדורש ששרתי quite frankly an example LMS יתקשרו ישירות עם השרתים שלכם, דוגמת LDAP, עליכם לוודא שהשרתים יודעים לקבל חיבורים מכתובות ה-IP הבאות:"
       no_auth_type_description: "אתר זה כרגע לא עובד עם מנגנון הזדהות"
       page_title: "הגדרות הזדהות"
       profile_page_link_example: "לדוגמא, כאן דף הפרופיל שלכם: [%{friendlyname}](%{url})"
@@ -300,7 +300,7 @@ he:
       ldap_test_login_button: "בחינת התחברות"
       test_ldap_bind_help_body: "שרת הLDAP  דחה את נסיון ההתחברות. דברים שאפשר להביא בחשבון:"
       test_ldap_bind_help_fixes_1: "אנא וודא את הגדרת מחרוזת הסינון (למשל '(sAMAccountName={{login}})')."
-      test_ldap_bind_help_fixes_2: "האם שם המשתמש צריך להיות ממוקד יותר? (למשל  'cn=EXAMPLE,ou=people,dc=example,dc=com')."
+      test_ldap_bind_help_fixes_2: "האם שם המשתמש צריך להיות ממוקד יותר? (למשל  'cn=quite frankly an example LMS,ou=people,dc=example,dc=com')."
       test_ldap_bind_help_header: "המערכת לא מצליחה לבצע היקשרות (bind) לשרת הLDAP"
       test_ldap_bind_label: "בודק את היקשרות (bind) ה LDAP"
       test_ldap_connection_help_body: "החיבור נדחה או עבר Timeout. דברים לקחת בחשבון:"
@@ -3400,7 +3400,7 @@ he:
     index: 
       delete_auth_confirmation: "האם אתם בטוחים? משתמשים עשויים לא להצליח להתחבר במידה וזה מוסר."
       delete_auth_link: "הסרת ההזדהות"
-      ip_address_list_description: "במידה ואתם משתמשים בשירות הזדהות שדורש ששרתי EXAMPLE יתקשרו ישירות עם השרתים שלכם, דוגמת LDAP, עליכם לוודא שהשרתים יודעים לקבל חיבורים מכתובות ה-IP הבאות:"
+      ip_address_list_description: "במידה ואתם משתמשים בשירות הזדהות שדורש ששרתי quite frankly an example LMS יתקשרו ישירות עם השרתים שלכם, דוגמת LDAP, עליכם לוודא שהשרתים יודעים לקבל חיבורים מכתובות ה-IP הבאות:"
       no_auth_type_description: "אתר זה כרגע לא עובד עם מנגנון הזדהות"
       page_title: "הגדרות הזדהות"
       profile_page_link_example: "לדוגמא, כאן דף הפרופיל שלכם: [%{friendlyname}](%{url})"
@@ -3418,7 +3418,7 @@ he:
       ldap_test_login_button: "בדיקת התחברות"
       test_ldap_bind_help_body: "שרת הLDAP  דחה את נסיון ההתחברות. דברים שאפשר להביא בחשבון:"
       test_ldap_bind_help_fixes_1: "אנא וודא את מחרוזת הסינון (למשל '(sAMAccountName={{login}})')."
-      test_ldap_bind_help_fixes_2: "האם שם המשתמש צריך להיות ממוקד יותר? (למשל  'cn=EXAMPLE,ou=people,dc=example,dc=com')."
+      test_ldap_bind_help_fixes_2: "האם שם המשתמש צריך להיות ממוקד יותר? (למשל  'cn=quite frankly an example LMS,ou=people,dc=example,dc=com')."
       test_ldap_bind_help_header: "המערכת לא מצליחה לבצע היקשרות (bind) לשרת הLDAP"
       test_ldap_bind_label: "בודק את היקשרות (bind) ה LDAP"
       test_ldap_connection_help_body: "החיבור נדחה או עבר Timeout. דברים לקחת בחשבון:"
@@ -4192,8 +4192,8 @@ he:
   canvas_cartridge_description: "הדבר מאפשר המרה של ייצוא קנבס לפורמט זמני של JSON אשר אותו יש לייבא"
   canvas_cartridge_display: "Common Cartridge של קנבס"
   canvas_cartridge_file_description: "חבילת הייצוא של קורס קנבס"
-  canvas_cartridge_name: "מייבא EXAMPLE Cartridge"
-  canvas_cloud_information_fdd404f2: "מידע על EXAMPLE Cloud"
+  canvas_cartridge_name: "מייבא quite frankly an example LMS Cartridge"
+  canvas_cloud_information_fdd404f2: "מידע על quite frankly an example LMS Cloud"
   canvas_course_id_db4de2b8: canvas_course_id
   canvas_dashboard_links_will_navigate_to_the_catalo_4143635e: "קישורי לוח המחוונים של קנבס ינתבו ללוח המחוונים של הקטלוג"
   canvas_default_7f81a6b8: "ברירת המחדל של קנבס"
@@ -4210,7 +4210,7 @@ he:
   canvas_login_instructure_271b8d00: "התחברות לקנבס"
   canvas_multi_factor_authentication_backup_codes_4bd08f93: "קודי גיבוי להזדהות מרובת מרכיבים של קנבס."
   canvas_observer_id_59db0918: canvas_observer_id
-  canvas_parent_description: "סידור זה מבצע בקרה לגבי קישור הורים לתלמידים במוסד שלך בעזרת אפליקצית הסמארטפון EXAMPLE Parent"
+  canvas_parent_description: "סידור זה מבצע בקרה לגבי קישור הורים לתלמידים במוסד שלך בעזרת אפליקצית הסמארטפון quite frankly an example LMS Parent"
   canvas_parent_improved_description: "הגדרה זו מאפשרת בקרה באם הורים שיצרו לעצמם חשבון הורה יכולים להתחבר לתלמיד במוסדך תוך שימוש באפליקציה הסלולרית של הורי קנבס. שימו לב: הורים שנרשמו כמשגיחי קנבס יכולים להשתמש באפליקצית הורי קנבס גם כאשר אופציה זו כבויה."
   canvas_revision_unknown: "לא מוכר"
   canvas_student_id_c74f57bf: canvas_student_id
@@ -6035,7 +6035,7 @@ he:
   course_sis_id_bbed1a60: "מזהה הקורס במערכת הבית ספרית"
   course_sis_id_c026d0f3: "מזהה SIS של הקורס"
   course_sis_id_cd834b3c: "מזהה קורס במערכת הבית ספרית"
-  course_sis_id_sis_id_or_canvas_id_4d323f5c: "מזהה קורס  מערכת בית ספרית או של קנבס  SIS ID (SIS_ID:####) OR EXAMPLE ID: (###)"
+  course_sis_id_sis_id_or_canvas_id_4d323f5c: "מזהה קורס  מערכת בית ספרית או של קנבס  SIS ID (SIS_ID:####) OR quite frankly an example LMS ID: (###)"
   course_starts_at_3a01f9da: "קורס מתחיל ב"
   course_statistics: 
     unknown: "לא ידוע"
@@ -7584,7 +7584,7 @@ he:
   do_not_count_this_assignment_towards_the_final_gra_4dd92e00: "מטלה זו אינה נספרת בציון הסופי"
   do_nothing_9672b478: "אין צורך לנקוט בפעולה"
   does_not_meet_expectations_b0736d20: "אינו עונה על הציפיות"
-  does_the_username_require_more_scoping_information_40d51df: "האם שם המשתמש צריך להיות ממוקד יותר? (למשל  'cn=EXAMPLE,ou=people,dc=example,dc=com')."
+  does_the_username_require_more_scoping_information_40d51df: "האם שם המשתמש צריך להיות ממוקד יותר? (למשל  'cn=quite frankly an example LMS,ou=people,dc=example,dc=com')."
   domain_3b54c511: דומיין
   domain_69fe564b: דומיין
   domain_is_required_1d4c8b25: "נדרש דומיין"
@@ -8573,7 +8573,7 @@ he:
   features: 
     allow_opt_out_of_inbox: "הרשאה למשתמשים להתנתק מתיבת הדואר הנכנס"
     better_file_browsing: "הצגה משופרת של הקובץ"
-    canvas_parent_display_name: "EXAMPLE Parent"
+    canvas_parent_display_name: "quite frankly an example LMS Parent"
     differentiated_assignments: "משימות נבדלות"
     differentiated_assignments_account_disable_warning: |-
         השתקת תכונה זו תשפיע על קורסים קיימים. לעזרה בהשתקת תכונה זו, 
@@ -14548,8 +14548,8 @@ he:
         api_key: "מפתח API"
         base_url: "כתובת דף בסיסית"
     canvas_webhooks: 
-      description: "תוסף Webhooks עבור EXAMPLE"
-      name: " Webhooks  עבור  EXAMPLE"
+      description: "תוסף Webhooks עבור quite frankly an example LMS"
+      name: " Webhooks  עבור  quite frankly an example LMS"
     catalog_provisioner: 
       description: "ספק חשבונות קטלוג עבור קנבס"
       name: "ספק שרותי קטלוג"
@@ -21249,7 +21249,7 @@ he:
   your_assignment_list_can_now_be_found_on_the_calen_9785b5ac: "רשימת משימותיך ניתנת לאיתור בדף ה*יומן*"
   your_assignments_list_has_improved_3eded80e: "רשימת ה*משימות* שלך שופרה!"
   your_assignments_will_show_here_listed_by_due_date_18dc880f: "משימותיך תוצגנה כאן, ממוינות לפי תאריך יעד."
-  your_browser_does_not_meet_the_minimum_requirement_2fa7c11f: "הדפדפן שלך אינו תומך בדרישות המינימום של קנבס. נא לבקר ב *EXAMPLE Community* כדי ללמוד על הרשימה השלמה של דפדפנים נתמכים."
+  your_browser_does_not_meet_the_minimum_requirement_2fa7c11f: "הדפדפן שלך אינו תומך בדרישות המינימום של קנבס. נא לבקר ב *quite frankly an example LMS Community* כדי ללמוד על הרשימה השלמה של דפדפנים נתמכים."
   your_comment_was_auto_saved_as_a_draft_c49d3510: "הערתך נשמרה באופן אוטומטי כטיוטה"
   your_content_has_been_exported_bbb57764: "התוכן שלך יוצא"
   your_custom_theme_has_been_successfully_applied_eaa0fc82: "העיצוב הידני של ערכת הנושא שלך יושם בהצלחה"

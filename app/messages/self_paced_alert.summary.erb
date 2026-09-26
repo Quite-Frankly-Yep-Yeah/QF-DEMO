@@ -1,0 +1,9 @@
+<% define_content :link do %>
+  <%= "#{HostUrl.protocol}://#{HostUrl.context_host(asset.course)}/self_paced/dashboard?course_id=#{asset.course_id}&student_id=#{asset.student_id}" %>
+<% end %>
+
+<% define_content :subject do %>
+  <%= t "%{student} needs you in %{course}", student: asset.student.name, course: asset.course.name %>
+<% end %>
+
+<%= t "%{student}: %{problem}.", student: asset.student.name, problem: asset.description %>

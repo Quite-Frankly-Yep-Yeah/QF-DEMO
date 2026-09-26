@@ -22,7 +22,7 @@
 #
 # API for viewing and toggling settings of account calendars.
 #
-# An account calendar is available for each account in EXAMPLE. All account calendars
+# An account calendar is available for each account in quite frankly an example LMS. All account calendars
 # are hidden by default, but administrators with the `manage_account_calendar_visibility`
 # permission may set calendars as visible. Administrators with the
 # `manage_account_calendar_events` permission can create events in visible account

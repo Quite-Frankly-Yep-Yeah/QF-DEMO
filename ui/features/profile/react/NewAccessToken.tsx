@@ -149,7 +149,7 @@ const NewAccessToken = ({onSubmit, onClose}: NewAccessTokenProps) => {
             dangerouslySetInnerHTML={{
               __html: raw(
                 I18n.t(
-                  "Access tokens are what allow third-party applications to access EXAMPLE resources on your behalf. These tokens are normally created automatically for applications as needed, but if *you're developing a new or limited project* you can just generate the token from here.",
+                  "Access tokens are what allow third-party applications to access quite frankly an example LMS resources on your behalf. These tokens are normally created automatically for applications as needed, but if *you're developing a new or limited project* you can just generate the token from here.",
                   {
                     wrapper:
                       '<a href="https://developerdocs.instructure.com/services/canvas" class="external" target="_blank" rel="noreferrer noopener">$1</a>',

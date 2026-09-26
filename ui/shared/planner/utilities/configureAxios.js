@@ -16,7 +16,7 @@
  * with this program. If not, see <http://www.gnu.org/licenses/>.
  */
 export default function (axiosInstance) {
-  // Add CSRF stuffs to make EXAMPLE happy when we are making requests with axios
+  // Add CSRF stuffs to make quite frankly an example LMS happy when we are making requests with axios
   axiosInstance.defaults.xsrfCookieName = '_csrf_token'
   axiosInstance.defaults.xsrfHeaderName = 'X-CSRF-Token'
 

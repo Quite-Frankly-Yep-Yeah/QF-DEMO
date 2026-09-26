@@ -152,7 +152,7 @@ class OutcomeImport < ApplicationRecord
                             delay_for: 0,
                             context: nil,
                             path_type: "email",
-                            from_name: "EXAMPLE"
+                            from_name: "quite frankly an example LMS"
                           })
     message.communication_channel = user.email_channel
     message.user = user
@@ -216,7 +216,7 @@ class OutcomeImport < ApplicationRecord
         The following error occurred:
         %{row}
 
-        To view the proper import format, please review the EXAMPLE API Docs at %{doc_url}
+        To view the proper import format, please review the quite frankly an example LMS API Docs at %{doc_url}
 
         Thank you,
         Instructure

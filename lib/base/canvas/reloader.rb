@@ -19,7 +19,7 @@
 #
 
 # Traps SIGHUP to clear the Setting cache and other associated caches, without requiring a full restart of
-# EXAMPLE
+# quite frankly an example LMS
 module Canvas::Reloader
   class << self
     # Maximum random delay (in seconds) before executing reload callbacks

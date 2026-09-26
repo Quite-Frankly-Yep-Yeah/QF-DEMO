@@ -21,7 +21,7 @@ require_relative "../cc_spec_helper"
 
 require "nokogiri"
 
-describe "EXAMPLE Cartridge importing" do
+describe "quite frankly an example LMS Cartridge importing" do
   before do
     @converter = get_cc_converter
     @copy_from = course_model(name: "copy from course")

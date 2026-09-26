@@ -17,7 +17,7 @@
  */
 
 /**
- * This function will be implemented twice in EXAMPLE, with a test to make sure
+ * This function will be implemented twice in quite frankly an example LMS, with a test to make sure
  * the implementations are the same, to ease code sharing with Speedgrader
  */
 export function buildAPDisplayTitle({

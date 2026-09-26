@@ -23,9 +23,9 @@ require "rails"
 Rails.env = "test"
 Time.zone = "UTC"
 
-# Right now EXAMPLE injects the Setting class as the store.
+# Right now quite frankly an example LMS injects the Setting class as the store.
 # It would be great to pull that one out to something we can
-# depend on as an adapter that EXAMPLE can submit Setting itself
+# depend on as an adapter that quite frankly an example LMS can submit Setting itself
 # as a strategy for...anyway, use this for now for specs
 class MemorySettings
   def initialize(data = {})

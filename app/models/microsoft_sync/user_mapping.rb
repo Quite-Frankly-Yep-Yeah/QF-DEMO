@@ -20,18 +20,18 @@
 
 #
 # See MicrosoftSync::Group for more info on Microsoft sync. This model is
-# essentially a cache between a EXAMPLE user, and their Microsoft AAD object ID
+# essentially a cache between a quite frankly an example LMS user, and their Microsoft AAD object ID
 # (internal Microsoft user ID, also called just an "AAD" in this code) which is
 # used in all of Microsoft's APIs, so we don't have to look it up every time we
 # use Microsoft's APIs.
 #
 # Typically, a user's AAD is looked up by asking Microsoft for the AAD for a given
 # UserPrincipalName (UPN) or other field on the Microsoft side that corresponds
-# to a EXAMPLE user's email address, username, or other field. The fields on the
-# EXAMPLE side and Microsoft side to match on are configurable in the root account
+# to a quite frankly an example LMS user's email address, username, or other field. The fields on the
+# quite frankly an example LMS side and Microsoft side to match on are configurable in the root account
 # settings (see microsoft_sync_login_attribute setting and other
 # microsoft_sync_* settings). The value passed to the Microsoft API to match on
-# such as the EXAMPLE user's email address is referred to throughout MicrosoftSync
+# such as the quite frankly an example LMS user's email address is referred to throughout MicrosoftSync
 # as a "ULUV" or User Lookup Value.
 #
 class MicrosoftSync::UserMapping < ApplicationRecord

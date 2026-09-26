@@ -1,14 +1,14 @@
 # Placements
 
-As stated in the [LTI Overview](./01_lti_overview.md), placements are an integral part of the LTI experience in EXAMPLE even though they aren't officially supported by the LTI spec. The list of supported placements in EXAMPLE has grown over the years as both internal and external customers require new functionality.
+As stated in the [LTI Overview](./01_lti_overview.md), placements are an integral part of the LTI experience in quite frankly an example LMS even though they aren't officially supported by the LTI spec. The list of supported placements in quite frankly an example LMS has grown over the years as both internal and external customers require new functionality.
 
 The officially-documented list of placements is found in the API docs, in the LTI -> Placements section of the sidebar. It can be found [here](/doc/api/placements_overview.md).
 
 ## Definition and Configuration
 
-Placement configuration and definition is currently somewhat scattered across a few different places in EXAMPLE (and is ripe for consolidation).
+Placement configuration and definition is currently somewhat scattered across a few different places in quite frankly an example LMS (and is ripe for consolidation).
 
-The definitive list of all supported placements in EXAMPLE is currently found in the [`Lti::ResourcePlacement`](/app/models/lti/resource_placement.rb) class.
+The definitive list of all supported placements in quite frankly an example LMS is currently found in the [`Lti::ResourcePlacement`](/app/models/lti/resource_placement.rb) class.
 
 As far as the front end goes, a list of placements with user-friendly names is also found in [`ExternalToolPlacementList`](/ui/features/external_apps/react/components/ExternalToolPlacementList.jsx), used by the External Apps UI to display a list of enabled placements for a tool, and the Developer Keys UI constructs the user-friendly name dynamically (and sadly not-i18n-ed either) in [`Placements.jsx`](/ui/features/developer_keys_v2/react/ManualConfigurationForm/Placements.jsx). 
 As part of the LIME project, we also have some duplicated code that offers similar functionality in [LtiPlacement.ts](/ui/features/lti_registrations/manage/model/LtiPlacement.ts) and [i18nLtiPlacement.ts](/ui/features/lti_registrations/manage/model/i18nLtiPlacement.ts)
@@ -17,7 +17,7 @@ Placements that support [deep linking](./12_deep_linking.md) are listed and have
 
 ## Adding a New Placement
 
-Congratulations! If you have made it here, you have been tasked with adding a new placement in EXAMPLE. It's up to you to work with product and design to figure out what this looks like and where it goes, but here are steps to help EXAMPLE and LTI tools recognize this as a valid placement:
+Congratulations! If you have made it here, you have been tasked with adding a new placement in quite frankly an example LMS. It's up to you to work with product and design to figure out what this looks like and where it goes, but here are steps to help quite frankly an example LMS and LTI tools recognize this as a valid placement:
 
 1. Choose a name for your new placement. It should describe roughly where it appears and be relatively short. Recent examples include `course_assignments_menu` and `module_index_menu_modal`.
 2. Add the new placement to the list in [`Lti::ResourcePlacement::PLACEMENTS`](/app/models/lti/resource_placement.rb).

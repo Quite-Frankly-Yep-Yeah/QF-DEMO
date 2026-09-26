@@ -99,7 +99,7 @@ class ReleaseNotesController < ApplicationController
   def manage
     raise ActiveRecord::RecordNotFound unless @context.site_admin?
 
-    @page_title = t("EXAMPLE Release Notes")
+    @page_title = t("quite frankly an example LMS Release Notes")
     set_active_tab "release_notes"
     add_crumb t("Release Notes")
     js_env({

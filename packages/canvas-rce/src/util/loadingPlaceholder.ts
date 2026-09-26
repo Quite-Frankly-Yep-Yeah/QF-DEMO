@@ -309,7 +309,7 @@ let placeholderIdCounter = 0
 
 /**
  * A fully standalone version of InstUI <Spinner> that can be used inside TinyMCE's iframe without access to
- * EXAMPLE's CSS or JS.
+ * quite frankly an example LMS's CSS or JS.
  */
 // language=html
 function spinnerSvg(size: 'x-small' | 'small' | 'medium' | 'large', labelId: string) {

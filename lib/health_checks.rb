@@ -85,7 +85,7 @@ module HealthChecks
           path = "#{Canvas::Vault.kv_mount}/data/secrets"
 
           # First try to check if it's cached without reaching out to vault because
-          # EXAMPLE can operate without vault if the secrets are cached
+          # quite frankly an example LMS can operate without vault if the secrets are cached
           # If it's not cached, we'll reach out to vault and cache the response
           Canvas::Vault.cached?(path) || !Canvas::Vault.read(path).nil?
         end

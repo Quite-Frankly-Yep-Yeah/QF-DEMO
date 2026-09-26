@@ -5,7 +5,7 @@
   "schema": {
     "body": "The body of the new page. NOTE: This field will be truncated to only include the first 8192 characters.",
     "title": "The title of the new page. NOTE: This field will be truncated to only include the first 8192 characters.",
-    "wiki_page_id": "The EXAMPLE id of the new wiki page."
+    "wiki_page_id": "The quite frankly an example LMS id of the new wiki page."
   },
   "examples": [
     {

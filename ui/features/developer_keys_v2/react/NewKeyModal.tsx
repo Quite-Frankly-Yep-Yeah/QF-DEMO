@@ -378,7 +378,7 @@ export default class DeveloperKeyModal extends React.Component<Props, State> {
     return confirmWithPrompt({
       title: I18n.t('Environment Confirmation'),
       message: I18n.t(
-        'Changing Site Admin Developer Keys impacts all customers. To proceed, please confirm the current EXAMPLE environment by typing it in the box below.',
+        'Changing Site Admin Developer Keys impacts all customers. To proceed, please confirm the current quite frankly an example LMS environment by typing it in the box below.',
       ),
       label: I18n.t('Environment'),
       placeholder: ENV.RAILS_ENVIRONMENT,

@@ -17,7 +17,7 @@
         "Archived grading schemes in use can still be used, but cannot be added to new courses or assignments.": "Skema penggredan diarkibkan yang sedang digunakan masih boleh digunakan, tetapi tidak boleh ditambah kepada kursus atau tugasan baharu.",
         "Are you sure you want to delete this grading scheme?": "Adakah anda pasti anda ingin memadamkan skema penggredan ini?",
         "Cancel": "Batal",
-        "EXAMPLE Default": "Lalai EXAMPLE",
+        "quite frankly an example LMS Default": "Lalai quite frankly an example LMS",
         "Close": "Tutup",
         "Confirm": "Sahkan",
         "Confirm Default Grading Scheme Change": "Sahkan Perubahan Skema Penggredan Lalai",
@@ -80,7 +80,7 @@
         "Save": "Simpan"
     },
     "GradingSchemes": {
-        "A table that contains the default canvas grading scheme data.  Each row contains a name, a maximum percentage, and a minimum percentage.": "Jadual yang mengandungi data skema penggredan EXAMPLE lalai.  Setiap baris mengandungi nama, peratusan maksimum dan peratusan minimum.",
+        "A table that contains the default canvas grading scheme data.  Each row contains a name, a maximum percentage, and a minimum percentage.": "Jadual yang mengandungi data skema penggredan quite frankly an example LMS lalai.  Setiap baris mengandungi nama, peratusan maksimum dan peratusan minimum.",
         "A table that contains the grading scheme data.  Each row contains a name, a maximum percentage, and a minimum percentage.": "Jadual yang mengandungi data skema penggredan.  Setiap baris mengandungi nama, peratusan maksimum dan peratusan minimum.",
         "Cannot have duplicate or empty row names. Fix the names and try clicking 'Save' again.": "Tidak boleh mempunyai nama baris yang serupa atau kosong Betulkan nama dan cuba klik 'Simpan' sekali lagi.",
         "Cannot have overlapping or empty ranges. Fix the ranges and try clicking 'Save' again.": "Tidak boleh mempunyai julat yang bertindan atau kosong. Betulkan julat dan cuba klik 'Simpan' sekali lagi.",
@@ -157,10 +157,10 @@
     "assignments.grading_type_selector": {
         "(course default)": "(lalai kursus)",
         "Account Level": "Tahap Akaun",
-        "EXAMPLE Grading Scheme (course default)": "Skema Penggredan EXAMPLE (lalai kursus)",
+        "quite frankly an example LMS Grading Scheme (course default)": "Skema Penggredan quite frankly an example LMS (lalai kursus)",
         "Close": "Tutup",
         "Course Level": "Tahap Kursus",
-        "Default EXAMPLE Grading Scheme": "Skema Penggredan EXAMPLE Lalai",
+        "Default quite frankly an example LMS Grading Scheme": "Skema Penggredan quite frankly an example LMS Lalai",
         "Grading scheme was successfully removed.": "Skema penggredan berjaya dialih keluar.",
         "Grading scheme was successfully updated.": "Skema penggredan berjaya dikemaskinikan.",
         "Manage All Grading Schemes": "Urus Semua Skema Penggredan",
@@ -181,7 +181,7 @@
         "Course Catalog": "Katalog Kursus"
     },
     "confetti": {
-        "Great work! From the EXAMPLE developers": "Hasil kerja yang bagus! Daripada pembangun EXAMPLE"
+        "Great work! From the quite frankly an example LMS developers": "Hasil kerja yang bagus! Daripada pembangun quite frankly an example LMS"
     },
     "content_copy_redesign": {
         "Cancel": "Batal",

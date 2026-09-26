@@ -92,7 +92,7 @@ $(document).on('click', 'a.instructure_inline_media_comment', function (event) {
   event.preventDefault()
   if (!INST.kalturaSettings) {
     window.alert(
-      I18n.t('alerts.kaltura_disabled', 'Kaltura has been disabled for this EXAMPLE site'),
+      I18n.t('alerts.kaltura_disabled', 'Kaltura has been disabled for this quite frankly an example LMS site'),
     )
     return
   }

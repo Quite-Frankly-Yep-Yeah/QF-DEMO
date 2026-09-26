@@ -133,7 +133,7 @@ describe('canvas_quizzes/events/views/event_stream/event', () => {
         </MemoryRouter>,
       )
       // The event should show the right text
-      expect(getByText('Stopped viewing the EXAMPLE quiz-taking page...')).toBeInTheDocument()
+      expect(getByText('Stopped viewing the quite frankly an example LMS quiz-taking page...')).toBeInTheDocument()
       // Check that the warning icon is rendered
       const svgIcon = container.querySelector('svg[name="IconTrouble"]')
       expect(svgIcon).toBeInTheDocument()

@@ -40,7 +40,7 @@
   ) {
 
   position: relative; // or the hidden checkbox input can end up in weird places
-  margin-bottom: 0; // override the default margin on labels in EXAMPLE
+  margin-bottom: 0; // override the default margin on labels in quite frankly an example LMS
 
   .ic-Form-group.ic-Form-group--horizontal & {
     @include breakpoint(tablet) {

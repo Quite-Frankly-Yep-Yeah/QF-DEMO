@@ -3,7 +3,7 @@
   "definition": "The event is emitted anytime a file is removed by an end user or API request.",
   "trigger": "Triggered anytime a file is deleted from a course or user file directory.",
   "schema": {
-    "attachment_id": "The EXAMPLE id of the attachment.",
+    "attachment_id": "The quite frankly an example LMS id of the attachment.",
     "content_type": "The attached files mime-type.",
     "context_id": "The id of the context the attachment is used in.",
     "context_type": "The type of context the attachment is used in.",
@@ -13,7 +13,7 @@
     "lock_at": "The lock date (attachment is locked after this date).",
     "unlock_at": "The unlock date (attachment is unlocked after this date).",
     "updated_at": "The time at which this attachment was last modified in any way.",
-    "user_id": "The EXAMPLE id of the user associated with the attachment."
+    "user_id": "The quite frankly an example LMS id of the user associated with the attachment."
   },
   "examples": [
     {

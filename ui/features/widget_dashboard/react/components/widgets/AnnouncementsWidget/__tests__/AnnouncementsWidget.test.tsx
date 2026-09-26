@@ -250,7 +250,7 @@ const setup = (
   sharedCourseData: SharedCourseData[] = mockSharedCourseData,
   observedUserId: string | null = null,
 ) => {
-  // Set up EXAMPLE ENV with current_user_id
+  // Set up quite frankly an example LMS ENV with current_user_id
   const originalEnv = window.ENV
   window.ENV = {
     ...originalEnv,

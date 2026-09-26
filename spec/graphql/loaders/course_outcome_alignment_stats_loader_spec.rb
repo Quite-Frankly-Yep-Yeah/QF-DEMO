@@ -70,7 +70,7 @@ describe Loaders::CourseOutcomeAlignmentStatsLoader do
           .and_return(OutcomeAlignmentsSpecHelper.mock_os_aligned_outcomes([@outcome2], @new_quiz.id))
       end
 
-      context "when outcome is aligned in both EXAMPLE and Outcomes-Service" do
+      context "when outcome is aligned in both quite frankly an example LMS and Outcomes-Service" do
         it "returns correct alignment stats if outcome is aligned to a New Quiz only at the quiz level" do
           GraphQL::Batch.batch do
             Loaders::CourseOutcomeAlignmentStatsLoader.load(@course).then do |stats|
@@ -120,7 +120,7 @@ describe Loaders::CourseOutcomeAlignmentStatsLoader do
         end
       end
 
-      it "returns alignments stats for outcome alignments in both EXAMPLE and Outcomes-Service" do
+      it "returns alignments stats for outcome alignments in both quite frankly an example LMS and Outcomes-Service" do
         GraphQL::Batch.batch do
           Loaders::CourseOutcomeAlignmentStatsLoader.load(@course).then do |stats|
             expect(stats).not_to be_nil
@@ -134,7 +134,7 @@ describe Loaders::CourseOutcomeAlignmentStatsLoader do
         end
       end
 
-      it "returns correct alignments stats even if outcome is deleted in EXAMPLE but not synched to OS" do
+      it "returns correct alignments stats even if outcome is deleted in quite frankly an example LMS but not synched to OS" do
         @outcome2.destroy
         GraphQL::Batch.batch do
           Loaders::CourseOutcomeAlignmentStatsLoader.load(@course).then do |stats|
@@ -149,7 +149,7 @@ describe Loaders::CourseOutcomeAlignmentStatsLoader do
         end
       end
 
-      it "returns correct alignments stats even if new quiz is deleted in EXAMPLE but not synched to OS" do
+      it "returns correct alignments stats even if new quiz is deleted in quite frankly an example LMS but not synched to OS" do
         @new_quiz.destroy
         GraphQL::Batch.batch do
           Loaders::CourseOutcomeAlignmentStatsLoader.load(@course).then do |stats|

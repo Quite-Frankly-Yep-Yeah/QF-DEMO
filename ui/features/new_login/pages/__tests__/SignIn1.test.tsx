@@ -103,7 +103,7 @@ describe('SignIn', () => {
   })
 
   describe('login behavior', () => {
-    it('calls performSignIn with /login/canvas when on the EXAMPLE login route', async () => {
+    it('calls performSignIn with /login/canvas when on the quite frankly an example LMS login route', async () => {
       vi.mocked(windowPathname).mockReturnValue('/login/canvas')
       const {getByTestId} = setup()
       const usernameInput = getByTestId('username-input')

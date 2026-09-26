@@ -252,13 +252,13 @@ describe('DeveloperKey', () => {
         window.ENV.FEATURES.lti_link_to_apps_from_developer_keys = true
       })
 
-      it('displays link to EXAMPLE Apps', () => {
+      it('displays link to quite frankly an example LMS Apps', () => {
         const props = {
           ...defaultProps,
           developerKey: {...defaultProps.developerKey, is_lti_key: true},
         }
         const {getByText} = renderComponent(props)
-        expect(getByText('View in EXAMPLE Apps')).toBeInTheDocument()
+        expect(getByText('View in quite frankly an example LMS Apps')).toBeInTheDocument()
       })
 
       it('does not display developer key secret', () => {
@@ -276,13 +276,13 @@ describe('DeveloperKey', () => {
         window.ENV.FEATURES.lti_link_to_apps_from_developer_keys = false
       })
 
-      it('does not display link to EXAMPLE Apps', () => {
+      it('does not display link to quite frankly an example LMS Apps', () => {
         const props = {
           ...defaultProps,
           developerKey: {...defaultProps.developerKey, is_lti_key: true},
         }
         const {queryByText} = renderComponent(props)
-        expect(queryByText('View in EXAMPLE Apps')).not.toBeInTheDocument()
+        expect(queryByText('View in quite frankly an example LMS Apps')).not.toBeInTheDocument()
       })
 
       it('displays developer key secret', () => {

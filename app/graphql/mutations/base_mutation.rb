@@ -19,7 +19,7 @@
 #
 
 ##
-# = Base EXAMPLE Mutation class
+# = Base quite frankly an example LMS Mutation class
 #
 # The most fundamental change this class makes compared to
 # +GraphQL::Schema::Mutation+ is that it facilitates conveniently following

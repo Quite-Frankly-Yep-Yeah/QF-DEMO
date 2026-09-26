@@ -20,29 +20,180 @@
   display: none;
 }
 
-// Material Design 1 dark navigation panel for the course menu. Uses the
-// global navigation brand colors, so Theme Editor changes still apply.
-@if not $use_high_contrast {
-  .with-left-side #left-side {
-    background: var(--ic-brand-global-nav-bgd);
-    border-radius: 2px;
-    box-shadow: $md-elevation-2;
-    padding: $ic-sp 0;
+// The course menu (docs/fork-plan.md): a white Material 1 card with an icon
+// for every tab. The active tab is tinted in the brand color; hidden tabs are
+// dimmed. Icons are Material Symbols (Sharp) drawn as masks, so they follow
+// the text color.
+$course-menu-icons: (
+  "home": "home",
+  "announcements": "campaign",
+  "assignments": "assignment",
+  "discussions": "forum",
+  "grades": "bar_chart",
+  "people": "group",
+  "pages": "article",
+  "files": "folder",
+  "syllabus": "description",
+  "outcomes": "track_changes",
+  "rubrics": "checklist",
+  "quizzes": "quiz",
+  "modules": "view_agenda",
+  "conferences": "videocam",
+  "collaborations": "share",
+  "settings": "settings",
+  "schedule": "calendar_month",
+  "groups": "account_tree",
+  "search": "search",
+  "course_paces": "speed",
+  "self_paced_setup": "tune",
+  "accessibility": "accessibility_new",
+  "ai_experiences": "design_services",
+  "notebook": "edit_note",
+  "item_banks": "inventory_2",
+  "youtube_migration": "smart_display",
+  // account (admin) tabs
+  "courses": "school",
+  "users": "group",
+  "permissions": "lock",
+  "sub_accounts": "account_tree",
+  "authentication": "key",
+  "plugins": "extension",
+  "release_notes": "campaign",
+  "rate_limiting": "speed",
+  "jobs": "schedule",
+  "statistics": "analytics",
+  "account_reports": "description",
+  "grading_standards": "grading",
+  "question_banks": "inventory_2",
+  "account_calendars": "calendar_month",
+  "terms": "date_range",
+  "sis_import": "cloud_upload",
+  "brand_configs": "design_services",
+  "developer_keys": "code",
+  "analytics_hub": "analytics",
+  "apps": "extension",
+  "admin_tools": "tune",
+  "eportfolio_moderation": "verified_user"
+);
 
-    &, h2, h3, h4, li, span, i, a, a:hover, a:focus, a:visited {
-      color: var(--ic-brand-global-nav-menu-item__text-color);
+@if not $use_high_contrast {
+  .with-left-side #left-side #sticky-container {
+    background: #ffffff;
+    border-radius: 2px;
+    box-shadow: $md-elevation-1;
+    // float as a card in the gutter beside the page, and scroll on its own
+    top: $ic-sp;
+    max-height: calc(100vh - #{$ic-sp * 2});
+    margin: 0 $ic-sp 0 $ic-sp * 2;
+    padding: $ic-sp 0;
+    box-sizing: border-box;
+    max-width: 100%;
+
+    &, h2, h3, h4, li, span {
+      color: #212121;
     }
 
-    ul { margin: 0; padding: 0; list-style: none; }
+    #section-tabs-header-subtitle {
+      display: block;
+      padding: 0 $ic-sp * 2 $ic-sp;
+      font-size: 0.75rem;
+      font-style: normal;
+      color: #616161;
+    }
+
+    ul {
+      margin: 0;
+      padding: 0;
+      list-style: none;
+    }
+
+    li.section {
+      margin: 0;
+      padding: 0;
+    }
 
     a {
-      display: block;
-      padding: 10px $ic-sp * 2;
-      text-decoration: none;
+      position: relative;
+      display: flex;
+      align-items: center;
+      gap: $ic-sp * 1.5;
+      min-width: 0;
+      min-height: 44px;
+      box-sizing: border-box;
+      padding: 8px $ic-sp * 2;
+      border: 0;
+      border-radius: 0;
+      font-size: 0.9375rem;
       font-weight: 500;
-      transition: background-color 0.2s;
-      &:hover, &:focus { background: rgba(255, 255, 255, 0.1); }
-      &.active { background: rgba(255, 255, 255, 0.18); }
+      line-height: 1.3;
+      text-decoration: none;
+      overflow-wrap: anywhere;
+      transition: background-color 0.15s;
+
+      &, &:visited, &:hover, &:focus {
+        color: #212121;
+      }
+
+      // the tab's icon; tabs without one (external tools) get a puzzle piece
+      &::before {
+        content: "";
+        flex: none;
+        width: 22px;
+        height: 22px;
+        background-color: #616161;
+        -webkit-mask: url("/images/material-symbols/extension.svg") no-repeat center / contain;
+        mask: url("/images/material-symbols/extension.svg") no-repeat center / contain;
+      }
+
+      &:hover {
+        text-decoration: none;
+        background: rgba(0, 0, 0, 0.05);
+      }
+
+      &:focus-visible {
+        outline: 2px solid var(--ic-brand-primary);
+        outline-offset: -2px;
+      }
+
+      &.active {
+        background: rgba(0, 0, 0, 0.06);
+        border: 0;
+        box-shadow: inset 4px 0 0 var(--ic-brand-primary);
+
+        &, &:visited, &:hover, &:focus {
+          color: var(--ic-brand-primary);
+        }
+
+        &::before {
+          background-color: var(--ic-brand-primary);
+        }
+      }
+
+      // badges (the "new" dot, the hidden-tab eye) come before the label in
+      // the markup but belong at the far edge
+      .nav-icon {
+        order: 2;
+        margin-#{direction(left)}: auto;
+        flex: none;
+      }
+
+      .new-tab-indicator {
+        width: 8px;
+        height: 8px;
+        border-radius: 50%;
+        background: var(--ic-brand-primary);
+      }
+    }
+
+    li.section-hidden a {
+      opacity: 0.6;
+    }
+
+    @each $tab, $symbol in $course-menu-icons {
+      a.#{$tab}::before {
+        -webkit-mask-image: url("/images/material-symbols/#{$symbol}.svg");
+        mask-image: url("/images/material-symbols/#{$symbol}.svg");
+      }
     }
   }
 }

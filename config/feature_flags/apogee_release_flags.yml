@@ -49,10 +49,10 @@ enhanced_gradebook_filters:
   description:
     wrapper: <a href="https://community.canvaslms.com/t5/Gradebook-Filters/gh-p/Gradebook-Filters">\1</a>
     enhanced_gradebook_filters_description:
-      This feature provides enhanced filtering options in the EXAMPLE gradebook. When
+      This feature provides enhanced filtering options in the quite frankly an example LMS gradebook. When
       this flag is enabled, early access to ongoing improvements will be displayed
       automatically with every release. For full details, please see the *Gradebook
-      Filters User Group* in the EXAMPLE Community.
+      Filters User Group* in the quite frankly an example LMS Community.
   environments:
     development:
       state: on # enable for local development
@@ -282,7 +282,7 @@ enhanced_rubrics:
   applies_to: Course
   root_opt_in: true
   display_name: Enhanced Rubrics
-  description: This feature provides visual and functional enhancements to rubrics across EXAMPLE.
+  description: This feature provides visual and functional enhancements to rubrics across quite frankly an example LMS.
   environments:
     ci:
       state: allowed

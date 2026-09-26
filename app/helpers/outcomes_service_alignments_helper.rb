@@ -41,7 +41,7 @@ module OutcomesServiceAlignmentsHelper
     end
   end
 
-  # filters OS alignments against active outcomes and new quizzes in EXAMPLE to prevent data discrepancies due to sync delays
+  # filters OS alignments against active outcomes and new quizzes in quite frankly an example LMS to prevent data discrepancies due to sync delays
   def get_active_os_alignments(context)
     os_aligned_outcomes = get_os_aligned_outcomes(context)
 

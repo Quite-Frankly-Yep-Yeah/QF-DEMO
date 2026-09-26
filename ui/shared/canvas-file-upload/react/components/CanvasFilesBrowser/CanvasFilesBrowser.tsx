@@ -97,7 +97,7 @@ const CanvasFilesBrowser: React.FC<CanvasFilesBrowserProps> = ({
         onReportError={reportError}
         translations={canvasErrorPageTranslations}
         errorSubject={error.message}
-        errorCategory={I18n.t('EXAMPLE File Browser Error')}
+        errorCategory={I18n.t('quite frankly an example LMS File Browser Error')}
       />
     )
   }

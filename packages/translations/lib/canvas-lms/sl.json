@@ -17,7 +17,7 @@
         "Archived grading schemes in use can still be used, but cannot be added to new courses or assignments.": "Arhivirane ocenjevalne sheme, ki so v uporabi, je še vedno mogoče uporabiti, vendar jih ni mogoče dodati novim predmetom ali dodelitvam.",
         "Are you sure you want to delete this grading scheme?": "Ali ste prepričani, da želite izbrisati to ocenjevalno shemo?",
         "Cancel": "Prekliči",
-        "EXAMPLE Default": "Privzeto za sistem EXAMPLE",
+        "quite frankly an example LMS Default": "Privzeto za sistem quite frankly an example LMS",
         "Close": "Zapri",
         "Confirm": "Potrdi",
         "Confirm Default Grading Scheme Change": "Potrdi spremembo privzete ocenjevalne sheme",
@@ -45,7 +45,7 @@
         "There was an error while archiving the grading scheme": "Pri arhiviranju ocenjevalne sheme je prišlo do napake",
         "There was an error while creating the grading scheme": "Pri ustvarjanju ocenjevalne sheme je prišlo do napake",
         "There was an error while loading grading schemes": "Pri nalaganju ocenjevalne sheme je prišlo do napake",
-        "There was an error while loading the default canvas grading scheme": "Pri nalaganju privzete ocenjevalne sheme EXAMPLE je prišlo do napake",
+        "There was an error while loading the default canvas grading scheme": "Pri nalaganju privzete ocenjevalne sheme quite frankly an example LMS je prišlo do napake",
         "There was an error while loading the default grading scheme": "Pri nalaganju privzete ocenjevalne sheme je prišlo do napake",
         "There was an error while removing the grading scheme": "Pri odstranjevanju ocenjevalne sheme je prišlo do napake",
         "There was an error while unarchiving the grading scheme": "Pri razveljavljanju arhiviranja ocenjevalne sheme je prišlo do napake",
@@ -80,7 +80,7 @@
         "Save": "Shrani"
     },
     "GradingSchemes": {
-        "A table that contains the default canvas grading scheme data.  Each row contains a name, a maximum percentage, and a minimum percentage.": "Preglednica, ki vsebuje podatke o ocenjevalni shemi EXAMPLE.  V vsaki vrstici so ime ter največji in najmanjši odstotek.",
+        "A table that contains the default canvas grading scheme data.  Each row contains a name, a maximum percentage, and a minimum percentage.": "Preglednica, ki vsebuje podatke o ocenjevalni shemi quite frankly an example LMS.  V vsaki vrstici so ime ter največji in najmanjši odstotek.",
         "A table that contains the grading scheme data.  Each row contains a name, a maximum percentage, and a minimum percentage.": "Preglednica, ki vsebuje podatke o ocenjevalni shemi.  V vsaki vrstici so ime ter največji in najmanjši odstotek.",
         "Cannot have duplicate or empty row names. Fix the names and try clicking 'Save' again.": "Imena vrstic ne smejo biti podvojena ali prazna. Popravite imena in poskusite znova klikniti »Shrani«.",
         "Cannot have overlapping or empty ranges. Fix the ranges and try clicking 'Save' again.": "Ne sme imeti prekrivajočih se ali praznih razponov. Popravite razpone in poskusite znova klikniti »Shrani«.",
@@ -157,10 +157,10 @@
     "assignments.grading_type_selector": {
         "(course default)": "(privzeto za predmet)",
         "Account Level": "Raven računa",
-        "EXAMPLE Grading Scheme (course default)": "Ocenjevalna shema EXAMPLE (privzeto za predmet)",
+        "quite frankly an example LMS Grading Scheme (course default)": "Ocenjevalna shema quite frankly an example LMS (privzeto za predmet)",
         "Close": "Zapri",
         "Course Level": "Raven predmeta",
-        "Default EXAMPLE Grading Scheme": "Privzeta ocenjevalna shema EXAMPLE",
+        "Default quite frankly an example LMS Grading Scheme": "Privzeta ocenjevalna shema quite frankly an example LMS",
         "Grading scheme was successfully removed.": "Ocenjevalna shema je bila uspešno odstranjena.",
         "Grading scheme was successfully updated.": "Ocenjevalna shema je bila uspešno posodobljena.",
         "Manage All Grading Schemes": "Upravljaj vse ocenjevalne sheme",
@@ -181,7 +181,7 @@
         "Course Catalog": "Katalog predmeta"
     },
     "confetti": {
-        "Great work! From the EXAMPLE developers": "Odlično! Od razvijalcev sistema EXAMPLE"
+        "Great work! From the quite frankly an example LMS developers": "Odlično! Od razvijalcev sistema quite frankly an example LMS"
     },
     "content_copy_redesign": {
         "Cancel": "Prekliči",

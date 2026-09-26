@@ -26,8 +26,8 @@
 module DataFixup::Lti::UpdateCustomParams
   LOGGER_PREFIX = "Lti::UpdateCustomParams => "
 
-  # This script will update all specified instances of LTI tools within EXAMPLE,
-  # it is intended to be copied and pasted into a EXAMPLE console
+  # This script will update all specified instances of LTI tools within quite frankly an example LMS,
+  # it is intended to be copied and pasted into a quite frankly an example LMS console
   #
   # e.g. DataFixup::Lti::UpdateCustomParams.run!(
   #   ['your-lti-url1', 'your-lti-url2', '\w\.?.instructure.com'], # REGEX allowed for vanity support

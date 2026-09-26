@@ -1415,7 +1415,7 @@ class RCEWrapper extends React.Component<RCEWrapperProps, RCEWrapperState> {
         const autosaved = this.getAutoSaved(this.autoSaveKey)
         if (autosaved && autosaved.content) {
           // We'll compare just the text of the autosave content, since
-          // EXAMPLE is prone to swizzling images and iframes which will
+          // quite frankly an example LMS is prone to swizzling images and iframes which will
           // make the editor content and autosave content never match up
           const editorContent = patchAutosavedContent(editor.getContent({no_events: true}), true)
           const autosavedContent = patchAutosavedContent(autosaved.content, true)

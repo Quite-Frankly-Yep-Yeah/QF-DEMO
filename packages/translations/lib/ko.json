@@ -453,7 +453,7 @@
         "message": "저작권 보유자:"
     },
     "could_not_insert_content_itemtype_items_are_not_cu_638dfecd": {
-        "message": "콘텐츠를 삽입할 수 없음: ‘{ itemType }‘ 항목은 현재 EXAMPLE에서 지원하지 않습니다."
+        "message": "콘텐츠를 삽입할 수 없음: ‘{ itemType }‘ 항목은 현재 quite frankly an example LMS에서 지원하지 않습니다."
     },
     "count_40eced3b": {
         "message": "수"
@@ -1878,7 +1878,7 @@
         "message": "플레이어 레이아웃"
     },
     "please_allow_canvas_to_access_your_microphone_and__dc2c3079": {
-        "message": "EXAMPLE에서 마이크 및 웹캠에 액세스를 허용하세요."
+        "message": "quite frankly an example LMS에서 마이크 및 웹캠에 액세스를 허용하세요."
     },
     "please_choose_a_file_c2449cc": {
         "message": "파일을 선택하세요"
@@ -2544,7 +2544,7 @@
         "message": "두꺼운 위로 향한 화살"
     },
     "this_document_cannot_be_displayed_within_canvas_7aba77be": {
-        "message": "이 문서는 EXAMPLE 내에 표시할 수 없습니다."
+        "message": "이 문서는 quite frankly an example LMS 내에 표시할 수 없습니다."
     },
     "this_equation_cannot_be_rendered_in_basic_view_9b6c07ae": {
         "message": "이 방정식은 기본 보기에서 렌더링할 수 없습니다."

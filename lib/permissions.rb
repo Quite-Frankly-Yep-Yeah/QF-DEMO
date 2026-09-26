@@ -64,7 +64,7 @@ module Permissions
   def self.retrieve(context = nil)
     @permissions ||= {}
 
-    # Apply EXAMPLE Career overrides to individual permissions
+    # Apply quite frankly an example LMS Career overrides to individual permissions
     if context
       begin
         label_overrides = CanvasCareer::LabelOverrides.permission_label_overrides(context)
@@ -84,7 +84,7 @@ module Permissions
           return permissions_with_overrides
         end
       rescue => e
-        Rails.logger.warn("EXAMPLE Career permission overrides failed: #{e.message}")
+        Rails.logger.warn("quite frankly an example LMS Career permission overrides failed: #{e.message}")
       end
     end
 
@@ -108,7 +108,7 @@ module Permissions
   def self.permission_groups(context = nil)
     base_groups = PERMISSION_GROUPS
 
-    # Apply EXAMPLE Career overrides to permission groups
+    # Apply quite frankly an example LMS Career overrides to permission groups
     if context
       begin
         label_overrides = CanvasCareer::LabelOverrides.permission_label_overrides(context)
@@ -133,7 +133,7 @@ module Permissions
           end
         end
       rescue => e
-        Rails.logger.warn("EXAMPLE Career permission group overrides failed: #{e.message}")
+        Rails.logger.warn("quite frankly an example LMS Career permission group overrides failed: #{e.message}")
       end
     end
 

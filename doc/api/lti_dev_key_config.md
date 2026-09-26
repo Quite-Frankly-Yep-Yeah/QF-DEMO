@@ -6,12 +6,12 @@
     refer to the <a href="file.tools_xml.html">older documentation</a></div>
 
 For a successful launch to occur, LTI Advantage Tools require configuration
-on both EXAMPLE and inside the tool:
+on both quite frankly an example LMS and inside the tool:
 
 - [Manually Configuring LTI Advantage Tools](#manually-configuring-lti-advantage-tools)
 - [Overview of an LTI Launch](file.lti_launch_overview.html)
-- [Configuring EXAMPLE in the Tool](#config-in-tool)
-- [Configuring the Tool in EXAMPLE](#config-in-canvas)
+- [Configuring quite frankly an example LMS in the Tool](#config-in-tool)
+- [Configuring the Tool in quite frankly an example LMS](#config-in-canvas)
   - [Anatomy of a JSON configuration](#anatomy-of-a-json-configuration)
 
 Overview of an LTI Launch <a name="launch-overview"></a>
@@ -19,26 +19,26 @@ Overview of an LTI Launch <a name="launch-overview"></a>
 
 This section has moved to the [LTI Launch Overview page](file.lti_launch_overview.html).
 
-Configuring EXAMPLE in the Tool <a name="config-in-tool"></a>
+Configuring quite frankly an example LMS in the Tool <a name="config-in-tool"></a>
 =======================================
-Tools will need to be aware of some EXAMPLE-specific settings in order to accept a launch from EXAMPLE and use the LTI Advantage Services:
+Tools will need to be aware of some quite frankly an example LMS-specific settings in order to accept a launch from quite frankly an example LMS and use the LTI Advantage Services:
 
-- **EXAMPLE Public JWKs**: When the tool receives the authentication response (<a href="file.lti_launch_overview.html#step-3" target="_blank">Step 3</a>), tools must <a href="http://www.imsglobal.org/spec/security/v1p0/#authentication-response-validation" target="_blank">validate that the request is actually coming from Canvas</a>. EXAMPLE' public keys are environment-specific, but not domain-specific (the same key set can be used across all client accounts):
+- **quite frankly an example LMS Public JWKs**: When the tool receives the authentication response (<a href="file.lti_launch_overview.html#step-3" target="_blank">Step 3</a>), tools must <a href="http://www.imsglobal.org/spec/security/v1p0/#authentication-response-validation" target="_blank">validate that the request is actually coming from Canvas</a>. quite frankly an example LMS' public keys are environment-specific, but not domain-specific (the same key set can be used across all client accounts):
   - Production: `https://sso.canvaslms.com/api/lti/security/jwks`
   - Beta: `https://sso.beta.canvaslms.com/api/lti/security/jwks`
   - Test: `https://sso.test.canvaslms.com/api/lti/security/jwks`
 
-    **Note:** The domain for this endpoint used to be `https://canvas.instructure.com`. The impetus for this change and other exact details are described in <a href="https://community.canvaslms.com/t5/The-Product-Blog/Minor-LTI-1-3-Changes-New-OIDC-Auth-Endpoint-Support-for/ba-p/551677" target="_blank">this EXAMPLE Community article</a>. Tools wishing to implement the Platform Storage spec are required to use the new domain for this endpoint, and all other tools should update this endpoint in their configuration store as soon as possible. This change will eventually be enforced, but for now is not a breaking change - the old domain will continue to work. Any questions or issues are either addressed in the linked article or can be filed as a standard support/partner support case, referencing the OIDC Auth endpoint change.
+    **Note:** The domain for this endpoint used to be `https://canvas.instructure.com`. The impetus for this change and other exact details are described in <a href="https://community.canvaslms.com/t5/The-Product-Blog/Minor-LTI-1-3-Changes-New-OIDC-Auth-Endpoint-Support-for/ba-p/551677" target="_blank">this quite frankly an example LMS Community article</a>. Tools wishing to implement the Platform Storage spec are required to use the new domain for this endpoint, and all other tools should update this endpoint in their configuration store as soon as possible. This change will eventually be enforced, but for now is not a breaking change - the old domain will continue to work. Any questions or issues are either addressed in the linked article or can be filed as a standard support/partner support case, referencing the OIDC Auth endpoint change.
 
 - **Authorization Redirect URL**: The values and use of this are described in <a href="file.lti_launch_overview.html#step-2" target="_blank">Step 2</a>. Since the URL is static, you will want to configure this in your tool. Tools that wish to utilize <a href="file.lti_launch_overview.html#login-redirect" target="_blank">Step 1.5</a> need to include _all_ possible redirect URLs here.
 
-- **Client ID**: The `client_id` of the Developer Key that's been configured in EXAMPLE. Your tool will need to use this in the authentication response to EXAMPLE (<a href="file.lti_launch_overview.html#step-2" target="_blank">Step 2</a>) and it is also used during the <a href="" target="_blank">Client Credentials Grant</a> to access <a href="file.oauth.html#accessing-lti-advantage-services" target="_blank">LTI Advantage Services</a>.
+- **Client ID**: The `client_id` of the Developer Key that's been configured in quite frankly an example LMS. Your tool will need to use this in the authentication response to quite frankly an example LMS (<a href="file.lti_launch_overview.html#step-2" target="_blank">Step 2</a>) and it is also used during the <a href="" target="_blank">Client Credentials Grant</a> to access <a href="file.oauth.html#accessing-lti-advantage-services" target="_blank">LTI Advantage Services</a>.
 
-- **Deployment ID**: The `deployment_id` can be optionally configured in the tool. A single developer key may have many deployments, so the deployment ID can be used to identify which deployment is being launched. For more, refer to the LTI 1.3 core specification, <a href="https://www.imsglobal.org/spec/lti/v1p3/#lti_deployment_id-login-parameter" target="_blank">section 4.1.2</a>. The `deployment_id` in EXAMPLE is exposed after a tool has been <a href="https://community.canvaslms.com/t5/Admin-Guide/How-do-I-configure-an-external-app-for-an-account-using-a-client/ta-p/202" target="_blank">deployed using the `client_id`</a>.
+- **Deployment ID**: The `deployment_id` can be optionally configured in the tool. A single developer key may have many deployments, so the deployment ID can be used to identify which deployment is being launched. For more, refer to the LTI 1.3 core specification, <a href="https://www.imsglobal.org/spec/lti/v1p3/#lti_deployment_id-login-parameter" target="_blank">section 4.1.2</a>. The `deployment_id` in quite frankly an example LMS is exposed after a tool has been <a href="https://community.canvaslms.com/t5/Admin-Guide/How-do-I-configure-an-external-app-for-an-account-using-a-client/ta-p/202" target="_blank">deployed using the `client_id`</a>.
 
-Configuring the Tool in EXAMPLE <a name="config-in-canvas"></a>
+Configuring the Tool in quite frankly an example LMS <a name="config-in-canvas"></a>
 =======================================
-With LTI Advantage, EXAMPLE moved to using Developer Keys to store tool
+With LTI Advantage, quite frankly an example LMS moved to using Developer Keys to store tool
 configuration information. After a developer key is
 <a href="https://community.canvaslms.com/t5/Admin-Guide/How-do-I-configure-an-LTI-key-for-an-account/ta-p/140" target="_blank">created and enabled</a>,
 tools can be deployed to
@@ -196,7 +196,7 @@ also found in the placements sub-menu in the left-navigation of this documentati
       </td>
       <td>string</td>
       <td class="param-desc">
-<p>The <a href="https://www.imsglobal.org/spec/security/v1p0#step-1-third-party-initiated-login" target="_blank">login initiation url</a> that EXAMPLE should redirect the User Agent to.
+<p>The <a href="https://www.imsglobal.org/spec/security/v1p0#step-1-third-party-initiated-login" target="_blank">login initiation url</a> that quite frankly an example LMS should redirect the User Agent to.
       </td>
     </tr>
 <!-- oidc_initiation_urls -->
@@ -206,7 +206,7 @@ also found in the placements sub-menu in the left-navigation of this documentati
       </td>
       <td>JSON object</td>
       <td class="param-desc">
-<p>Optional region-specific <a href="https://www.imsglobal.org/spec/security/v1p0#step-1-third-party-initiated-login" target="_blank">login initiation urls</a> that EXAMPLE should redirect the User Agent to. Each institution's EXAMPLE install lives in a particular AWS region, typically one close to the institution's physical region. If this AWS region is listed as a key in this object, the URL in the value will override the default `oidc_initiation_url`. As of 2023, the regions used by EXAMPLE are: us-east-1, us-west-2, ca-central-1, eu-west-1, eu-central-1, ap-southeast-1, ap-southeast-2.
+<p>Optional region-specific <a href="https://www.imsglobal.org/spec/security/v1p0#step-1-third-party-initiated-login" target="_blank">login initiation urls</a> that quite frankly an example LMS should redirect the User Agent to. Each institution's quite frankly an example LMS install lives in a particular AWS region, typically one close to the institution's physical region. If this AWS region is listed as a key in this object, the URL in the value will override the default `oidc_initiation_url`. As of 2023, the regions used by quite frankly an example LMS are: us-east-1, us-west-2, ca-central-1, eu-west-1, eu-central-1, ap-southeast-1, ap-southeast-2.
       </td>
     </tr>
 <!-- target_link_uri -->
@@ -217,7 +217,7 @@ also found in the placements sub-menu in the left-navigation of this documentati
       </td>
       <td>string</td>
       <td class="param-desc">
-<p>The <a href="https://www.imsglobal.org/spec/security/v1p0#step-1-third-party-initiated-login" target="_blank">target_link_uri</a> that EXAMPLE should pass in the to the login initiation endpoint. This allows tools to determine which redirect_uri to pass EXAMPLE in the authorization redirect request and should be <a href="https://www.imsglobal.org/spec/lti/v1p3/impl#verify-the-target_link_uri" target="_blank">verified during the final
+<p>The <a href="https://www.imsglobal.org/spec/security/v1p0#step-1-third-party-initiated-login" target="_blank">target_link_uri</a> that quite frankly an example LMS should pass in the to the login initiation endpoint. This allows tools to determine which redirect_uri to pass quite frankly an example LMS in the authorization redirect request and should be <a href="https://www.imsglobal.org/spec/lti/v1p3/impl#verify-the-target_link_uri" target="_blank">verified during the final
 launch</a>. This can be set at the tool-level, or within the "placements" JSON
 object for placement-specific target_link_uri's.</p>
       </td>
@@ -252,7 +252,7 @@ object for placement-specific target_link_uri's.</p>
       </td>
       <td>array of JSON objects</td>
       <td class="param-desc">
-<p>The set of EXAMPLE extensions, including placements, that the tool should use. [See extensions parameters below.](#extension-params)</p>
+<p>The set of quite frankly an example LMS extensions, including placements, that the tool should use. [See extensions parameters below.](#extension-params)</p>
       </td>
     </tr>
 
@@ -266,7 +266,7 @@ object for placement-specific target_link_uri's.</p>
       <td>JSON object</td>
       <td class="param-desc">
         <p>LTI 1.1 tools <a href="file.tools_xml.html">support environment-specific domains and launch urls</a>, used for launching
-        from beta or test instances of EXAMPLE. This config option is not supported for LTI 1.3. Tools instead should use the
+        from beta or test instances of quite frankly an example LMS. This config option is not supported for LTI 1.3. Tools instead should use the
         <code>canvas_environment</code> parameter of the OIDC Login request to redirect to environment-specific launch urls or
         instances of the tool, as specified in <a href="file.lti_dev_key_config.html#login-redirect">Step 1.5</a> above, and/or
         use the region-specific <a href="#param-oidc-initial-urls">oidc_initiation_urls</a>.
@@ -330,7 +330,7 @@ The following fields can be put under `extensions`:
       </td>
       <td>string</td>
       <td class="param-desc">
-        <p>The domain EXAMPLE should use to match clicked LTI links against. This is recommended if <a href="file.content_item.html">deep linking</a> is used.</p>
+        <p>The domain quite frankly an example LMS should use to match clicked LTI links against. This is recommended if <a href="file.content_item.html">deep linking</a> is used.</p>
       </td>
     </tr>
     <tr class="request-param">
@@ -348,7 +348,7 @@ The following fields can be put under `extensions`:
       </td>
       <td>string</td>
       <td class="param-desc">
-        <p>The LMS platform that the extensions belong to. This should always be set to "canvas.instructure.com" for cloud-hosted EXAMPLE.</p>
+        <p>The LMS platform that the extensions belong to. This should always be set to "canvas.instructure.com" for cloud-hosted quite frankly an example LMS.</p>
       </td>
     </tr>
     <tr class="request-param">
@@ -416,7 +416,7 @@ The following fields can be put under `extensions`:
       </td>
       <td>JSON object</td>
       <td class="param-desc">
-        <p>An object for translations of the "text", used to support internationalization (i18n) / localization (l10n). If the user's EXAMPLE interface is set to one of the languages listed, the tool will display the translated text in place of the value in the "text" field. This JSON object is in the format <code>{"en": "Name", "es": "Nombre"}</code>, where "en" and "es" are IETF language tags. More specific locales ("en-AU") are preferred over less specific ones ("en").  A partial list of language tags can be found <a href="https://en.wikipedia.org/wiki/IETF_language_tag#List_of_common_primary_language_subtags" target="_blank">here</a>. Can be set within "settings" or individual placements.
+        <p>An object for translations of the "text", used to support internationalization (i18n) / localization (l10n). If the user's quite frankly an example LMS interface is set to one of the languages listed, the tool will display the translated text in place of the value in the "text" field. This JSON object is in the format <code>{"en": "Name", "es": "Nombre"}</code>, where "en" and "es" are IETF language tags. More specific locales ("en-AU") are preferred over less specific ones ("en").  A partial list of language tags can be found <a href="https://en.wikipedia.org/wiki/IETF_language_tag#List_of_common_primary_language_subtags" target="_blank">here</a>. Can be set within "settings" or individual placements.
 </p>
       </td>
     </tr>
@@ -435,7 +435,7 @@ The following fields can be put under `extensions`:
       </td>
       <td>string</td>
       <td class="param-desc">
-        <p>Limits tool visibility to users with certain permissions, as defined on the user's built-in EXAMPLE user roles AND the custom roles that you may have created in EXAMPLE. This is a comma-separated string of one or more required permissions, such as <code>manage_groups_add,manage_groups_delete</code> or <code>read_outcomes</code>. The tool will be hidden for users without all specified permissions. If set in placement-specific settings, that placement will be hidden; if set at the tool-level (e.g. under <code>extensions[0]</code>), each of the tool's placements will be hidden. For true access control, please use (instead or in addition) the <a href="file.tools_variable_substitutions.html#Canvas-membership-permissions">Canvas.membership.permissions&lt;&gt;</a> custom variable expansion, and check its value in your tool. To learn more about roles and permissions, and to see the permissions available for this parameter, visit the <a href="roles.html" target="_blank">Roles API docs</a>.
+        <p>Limits tool visibility to users with certain permissions, as defined on the user's built-in quite frankly an example LMS user roles AND the custom roles that you may have created in quite frankly an example LMS. This is a comma-separated string of one or more required permissions, such as <code>manage_groups_add,manage_groups_delete</code> or <code>read_outcomes</code>. The tool will be hidden for users without all specified permissions. If set in placement-specific settings, that placement will be hidden; if set at the tool-level (e.g. under <code>extensions[0]</code>), each of the tool's placements will be hidden. For true access control, please use (instead or in addition) the <a href="file.tools_variable_substitutions.html#Canvas-membership-permissions">Canvas.membership.permissions&lt;&gt;</a> custom variable expansion, and check its value in your tool. To learn more about roles and permissions, and to see the permissions available for this parameter, visit the <a href="roles.html" target="_blank">Roles API docs</a>.
         </p>
       </td>
     </tr>
@@ -445,14 +445,14 @@ The following fields can be put under `extensions`:
       </td>
       <td>string</td>
       <td class="param-desc">
-        <p>The display height of the iframe. This may be ignored or overridden for some LTI placements due to other UI requirements set by EXAMPLE. Tools are advised to experiment with this setting to see what makes the most sense for their application.</p>
+        <p>The display height of the iframe. This may be ignored or overridden for some LTI placements due to other UI requirements set by quite frankly an example LMS. Tools are advised to experiment with this setting to see what makes the most sense for their application.</p>
     <tr class="request-param">
       <td>selection_width</td>
       <td>
       </td>
       <td>string</td>
       <td class="param-desc">
-        <p>The display width of the iframe. This may be ignored or overridden for some LTI placements due to other UI requirements set by EXAMPLE. Tools are advised to experiment with this setting to see what makes the most sense for their application.</p>
+        <p>The display width of the iframe. This may be ignored or overridden for some LTI placements due to other UI requirements set by quite frankly an example LMS. Tools are advised to experiment with this setting to see what makes the most sense for their application.</p>
       </td>
     </tr>
     <tr class="request-param">
@@ -524,7 +524,7 @@ The following can be put under `extensions.settings.placements`. (Note: `extensi
       </td>
       <td>JSON object</td>
       <td class="param-desc">
-        <p>An object for translations of the "text", used to support internationalization (i18n) / localization (l10n). If the user's EXAMPLE interface is set to one of the languages listed, the tool will display the translated text in place of the value in the "text" field. This JSON object is in the format <code>{"en": "Name", "es": "Nombre"}</code>, where "en" and "es" are IETF language tags. More specific locales ("en-AU") are preferred over less specific ones ("en").  A partial list of language tags can be found <a href="https://en.wikipedia.org/wiki/IETF_language_tag#List_of_common_primary_language_subtags" target="_blank">here</a>. Can be set within "settings" or individual placements.</p>
+        <p>An object for translations of the "text", used to support internationalization (i18n) / localization (l10n). If the user's quite frankly an example LMS interface is set to one of the languages listed, the tool will display the translated text in place of the value in the "text" field. This JSON object is in the format <code>{"en": "Name", "es": "Nombre"}</code>, where "en" and "es" are IETF language tags. More specific locales ("en-AU") are preferred over less specific ones ("en").  A partial list of language tags can be found <a href="https://en.wikipedia.org/wiki/IETF_language_tag#List_of_common_primary_language_subtags" target="_blank">here</a>. Can be set within "settings" or individual placements.</p>
       </td>
     </tr>
     <tr class="request-param">
@@ -548,7 +548,7 @@ The following can be put under `extensions.settings.placements`. (Note: `extensi
       </td>
       <td>string</td>
       <td class="param-desc">
-        <p>Limits tool visibility to users with certain permissions, as defined on the user's built-in EXAMPLE user roles AND the custom roles that you may have created in EXAMPLE. This is a comma-separated string of one or more required permissions, such as <code>manage_groups_add,manage_groups_delete</code> or <code>read_outcomes</code>. The tool will be hidden for users without all specified permissions. If set in placement-specific settings, that placement will be hidden; if set at the tool-level (e.g. under <code>extensions[0]</code>), each of the tool's placements will be hidden. For true access control, please use (instead or in addition) the <a href="file.tools_variable_substitutions.html#Canvas-membership-permissions">Canvas.membership.permissions&lt;&gt;</a> custom variable expansion, and check its value in your tool. To learn more about roles and permissions, and to see the permissions available for this parameter, visit the <a href="roles.html" target="_blank">Roles API docs</a>.</p>
+        <p>Limits tool visibility to users with certain permissions, as defined on the user's built-in quite frankly an example LMS user roles AND the custom roles that you may have created in quite frankly an example LMS. This is a comma-separated string of one or more required permissions, such as <code>manage_groups_add,manage_groups_delete</code> or <code>read_outcomes</code>. The tool will be hidden for users without all specified permissions. If set in placement-specific settings, that placement will be hidden; if set at the tool-level (e.g. under <code>extensions[0]</code>), each of the tool's placements will be hidden. For true access control, please use (instead or in addition) the <a href="file.tools_variable_substitutions.html#Canvas-membership-permissions">Canvas.membership.permissions&lt;&gt;</a> custom variable expansion, and check its value in your tool. To learn more about roles and permissions, and to see the permissions available for this parameter, visit the <a href="roles.html" target="_blank">Roles API docs</a>.</p>
       </td>
     </tr>
     <tr class="request-param">
@@ -557,7 +557,7 @@ The following can be put under `extensions.settings.placements`. (Note: `extensi
       </td>
       <td>string</td>
       <td class="param-desc">
-        <p>The display height of the iframe. This may be ignored or overridden for some LTI placements due to other UI requirements set by EXAMPLE. Tools are advised to experiment with this setting to see what makes the most sense for their application.</p>
+        <p>The display height of the iframe. This may be ignored or overridden for some LTI placements due to other UI requirements set by quite frankly an example LMS. Tools are advised to experiment with this setting to see what makes the most sense for their application.</p>
       </td>
     </tr>
     <tr class="request-param">
@@ -566,7 +566,7 @@ The following can be put under `extensions.settings.placements`. (Note: `extensi
       </td>
       <td>string</td>
       <td class="param-desc">
-        <p>The display width of the iframe. This may be ignored or overridden for some LTI placements due to other UI requirements set by EXAMPLE. Tools are advised to experiment with this setting to see what makes the most sense for their application.</p>
+        <p>The display width of the iframe. This may be ignored or overridden for some LTI placements due to other UI requirements set by quite frankly an example LMS. Tools are advised to experiment with this setting to see what makes the most sense for their application.</p>
       </td>
     </tr>
     <tr class="request-param">

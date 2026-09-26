@@ -583,7 +583,7 @@ class RoleOverridesController < ApplicationController
   end
 
   # Internal API endpoint
-  # Used for checking EXAMPLE permissions from Catalog
+  # Used for checking quite frankly an example LMS permissions from Catalog
   # Could be generalized for other use cases by adding to the whitelist
 
   def check_account_permission

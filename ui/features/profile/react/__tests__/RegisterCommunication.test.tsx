@@ -84,7 +84,7 @@ describe('RegisterCommunication', () => {
     it('should show the input and the checkbox if the account is the default', () => {
       render(<RegisterCommunication availableTabs={[Tab.EMAIL]} isDefaultAccount={true} />)
       const input = screen.getByLabelText('Email')
-      const checkbox = screen.getByLabelText('I want to log in to EXAMPLE using this email address')
+      const checkbox = screen.getByLabelText('I want to log in to quite frankly an example LMS using this email address')
 
       expect(input).toBeInTheDocument()
       expect(checkbox).toBeInTheDocument()
@@ -94,7 +94,7 @@ describe('RegisterCommunication', () => {
       render(<RegisterCommunication availableTabs={[Tab.EMAIL]} isDefaultAccount={false} />)
       const input = screen.getByLabelText('Email')
       const checkbox = screen.queryByLabelText(
-        'I want to log in to EXAMPLE using this email address',
+        'I want to log in to quite frankly an example LMS using this email address',
       )
 
       expect(input).toBeInTheDocument()
@@ -131,7 +131,7 @@ describe('RegisterCommunication', () => {
       )
       const inputValue = 'test@test.com'
       const input = screen.getByLabelText('Email Address')
-      const checkbox = screen.getByLabelText('I want to log in to EXAMPLE using this email address')
+      const checkbox = screen.getByLabelText('I want to log in to quite frankly an example LMS using this email address')
       const submit = screen.getByLabelText('Register Email')
 
       await userEvent.type(input, inputValue)

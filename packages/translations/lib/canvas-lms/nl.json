@@ -17,7 +17,7 @@
         "Archived grading schemes in use can still be used, but cannot be added to new courses or assignments.": "Gearchiveerde beoordelingsschema's die in gebruik zijn, kunnen gewoon worden gebruikt, maar kunnen niet worden toegevoegd aan nieuwe cursussen of opdrachten.",
         "Are you sure you want to delete this grading scheme?": "Weet je zeker dat je dit beoordelingsschema wilt verwijderen?",
         "Cancel": "Annuleren",
-        "EXAMPLE Default": "EXAMPLE-standaard",
+        "quite frankly an example LMS Default": "quite frankly an example LMS-standaard",
         "Close": "Sluiten",
         "Confirm": "Bevestigen",
         "Confirm Default Grading Scheme Change": "Wijziging van standaard beoordelingsschema bevestigen",
@@ -45,7 +45,7 @@
         "There was an error while archiving the grading scheme": "Er is een fout opgetreden tijdens het archiveren van het beoordelingsschema",
         "There was an error while creating the grading scheme": "Er is een fout opgetreden bij het maken van het beoordelingsschema",
         "There was an error while loading grading schemes": "Er is een fout opgetreden bij het laden van beoordelingsschema's",
-        "There was an error while loading the default canvas grading scheme": "Er is een fout opgetreden bij het laden van het standaard EXAMPLE-beoordelingsschema",
+        "There was an error while loading the default canvas grading scheme": "Er is een fout opgetreden bij het laden van het standaard quite frankly an example LMS-beoordelingsschema",
         "There was an error while loading the default grading scheme": "Er is een fout opgetreden bij het laden van het standaard beoordelingsschema",
         "There was an error while removing the grading scheme": "Er is een fout opgetreden bij het verwijderen van het beoordelingsschema",
         "There was an error while unarchiving the grading scheme": "Er is een fout opgetreden tijdens het ongedaan maken van de archivering van het beoordelingsschema",
@@ -80,7 +80,7 @@
         "Save": "Opslaan"
     },
     "GradingSchemes": {
-        "A table that contains the default canvas grading scheme data.  Each row contains a name, a maximum percentage, and a minimum percentage.": "Een tabel die de gegevens voor het standaard EXAMPLE-beoordelingsschema bevat.  Elke rij bevat een naam, een maximumpercentage en een minimumpercentage.",
+        "A table that contains the default canvas grading scheme data.  Each row contains a name, a maximum percentage, and a minimum percentage.": "Een tabel die de gegevens voor het standaard quite frankly an example LMS-beoordelingsschema bevat.  Elke rij bevat een naam, een maximumpercentage en een minimumpercentage.",
         "A table that contains the grading scheme data.  Each row contains a name, a maximum percentage, and a minimum percentage.": "Een tabel die de gegevens van het beoordelingsschema bevat.  Elke rij bevat een naam, een maximumpercentage en een minimumpercentage.",
         "Cannot have duplicate or empty row names. Fix the names and try clicking 'Save' again.": "Dubbele of lege rijnamen zijn niet toegestaan. Leg de namen vast en probeer nogmaals op 'Opslaan' te klikken.",
         "Cannot have overlapping or empty ranges. Fix the ranges and try clicking 'Save' again.": "Overlappende of lege bereiken zijn niet toegestaan. Leg de bereiken vast en probeer nogmaals op 'Opslaan' te klikken.",
@@ -157,10 +157,10 @@
     "assignments.grading_type_selector": {
         "(course default)": "(standaard voor cursussen)",
         "Account Level": "Accountniveau",
-        "EXAMPLE Grading Scheme (course default)": "EXAMPLE-beoordelingsschema (standaard voor cursussen)",
+        "quite frankly an example LMS Grading Scheme (course default)": "quite frankly an example LMS-beoordelingsschema (standaard voor cursussen)",
         "Close": "Sluiten",
         "Course Level": "Cursusniveau",
-        "Default EXAMPLE Grading Scheme": "Standaard EXAMPLE-beoordelingsschema",
+        "Default quite frankly an example LMS Grading Scheme": "Standaard quite frankly an example LMS-beoordelingsschema",
         "Grading scheme was successfully removed.": "Beoordelingsschema is verwijderd.",
         "Grading scheme was successfully updated.": "Beoordelingsschema is bijgewerkt.",
         "Manage All Grading Schemes": "Alle beoordelingsschema's beheren",
@@ -181,7 +181,7 @@
         "Course Catalog": "Catalogus van de cursus"
     },
     "confetti": {
-        "Great work! From the EXAMPLE developers": "Prima werk! Van de ontwikkelaars van EXAMPLE"
+        "Great work! From the quite frankly an example LMS developers": "Prima werk! Van de ontwikkelaars van quite frankly an example LMS"
     },
     "content_copy_redesign": {
         "Cancel": "Annuleren",

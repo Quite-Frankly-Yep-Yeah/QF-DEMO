@@ -6,7 +6,7 @@
 # and pop3 are the same as before.
 #
 # The mail processor can run in the following ways:
-#  * controlled by the EXAMPLE job server:
+#  * controlled by the quite frankly an example LMS job server:
 #     * set run_periodically: true
 #  * by running script/process_incoming_emails periodically
 #

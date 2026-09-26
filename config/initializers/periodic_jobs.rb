@@ -123,6 +123,10 @@ Rails.configuration.after_initialize do
     with_each_shard_by_database(SelfPaced::StateRefresher, :rebuild_all)
   end
 
+  Delayed::Periodic.cron "SelfPaced::AlertEvaluator.evaluate_all", "*/30 * * * *" do
+    with_each_shard_by_database(SelfPaced::AlertEvaluator, :evaluate_all)
+  end
+
   Delayed::Periodic.cron "Reporting::CountsReport.process", "0 11 * * 0" do
     with_each_shard_by_database(Reporting::CountsReport, :process_shard)
   end

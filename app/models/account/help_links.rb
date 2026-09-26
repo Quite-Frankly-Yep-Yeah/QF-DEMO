@@ -41,7 +41,7 @@ class Account::HelpLinks
       }.freeze,
       {
         available_to: %w[user student teacher admin observer unenrolled],
-        text: -> { I18n.t("#help_dialog.search_the_canvas_guides", "Search the EXAMPLE Guides") },
+        text: -> { I18n.t("#help_dialog.search_the_canvas_guides", "Search the quite frankly an example LMS Guides") },
         subtext: -> { I18n.t("#help_dialog.canvas_help_sub", "Find answers to common questions.") },
         url: I18n.t(:"community.guides_home"),
         type: "default",
@@ -53,7 +53,7 @@ class Account::HelpLinks
       {
         available_to: %w[user student teacher admin observer unenrolled],
         text: -> { I18n.t("#help_dialog.report_problem", "Report a Problem") },
-        subtext: -> { I18n.t("#help_dialog.report_problem_sub", "If EXAMPLE misbehaves, tell us about it.") },
+        subtext: -> { I18n.t("#help_dialog.report_problem_sub", "If quite frankly an example LMS misbehaves, tell us about it.") },
         url: "#create_ticket",
         type: "default",
         id: :report_a_problem,

@@ -39,7 +39,7 @@ export const ContentUnsupported = () => {
       </Flex>
       <Text as="p">
         {I18n.t(
-          'These content types will not be available in EXAMPLE Career. You may modify these items to a supported format or proceed without including them. Discussions will be removed from your course. Collaborations and Outcomes will be hidden. Classic Quizzes must be converted to New Quizzes.',
+          'These content types will not be available in quite frankly an example LMS Career. You may modify these items to a supported format or proceed without including them. Discussions will be removed from your course. Collaborations and Outcomes will be hidden. Classic Quizzes must be converted to New Quizzes.',
         )}
       </Text>
       <Collaborations />

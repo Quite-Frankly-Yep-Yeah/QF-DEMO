@@ -448,14 +448,14 @@ class SisImportsApiController < ApplicationController
 
   # @API Import SIS data
   #
-  # Import SIS data into EXAMPLE. Must be on a root account with SIS imports
+  # Import SIS data into quite frankly an example LMS. Must be on a root account with SIS imports
   # enabled.
   #
   # For more information on the format that's expected here, please see the
   # "SIS CSV" section in the API docs.
   #
   # @argument import_type [String]
-  #   Choose the data format for reading SIS data. With a standard EXAMPLE
+  #   Choose the data format for reading SIS data. With a standard quite frankly an example LMS
   #   install, this option can only be 'instructure_csv', and if unprovided,
   #   will be assumed to be so. Can be part of the query string.
   #
@@ -503,7 +503,7 @@ class SisImportsApiController < ApplicationController
   #   The name of the file to be uploaded (in a separate request) via the
   #   {file:file.file_uploads.html File Upload} workflow. This is the recommended
   #   way to upload larger batches, since the upload itself no longer has to finish
-  #   within the 1-minute EXAMPLE request timeout period. This argument cannot be combined
+  #   within the 1-minute quite frankly an example LMS request timeout period. This argument cannot be combined
   #   with the +attachment+ argument; use one or the other.
   #
   #   To use this flow:
@@ -563,7 +563,7 @@ class SisImportsApiController < ApplicationController
   #   if a pseudonym is found from the login field and the SIS ID doesn't match.
   #
   # @argument diffing_data_set_identifier [String]
-  #   If set on a CSV import, EXAMPLE will attempt to optimize the SIS import by
+  #   If set on a CSV import, quite frankly an example LMS will attempt to optimize the SIS import by
   #   comparing this set of CSVs to the previous set that has the same data set
   #   identifier, and only applying the difference between the two. See the
   #   SIS CSV Format documentation for more details.

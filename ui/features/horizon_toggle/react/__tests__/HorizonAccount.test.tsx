@@ -55,21 +55,21 @@ describe('HorizonAccount', () => {
 
   it('button and checkbox are enabled', () => {
     setup()
-    const button = screen.getByText('Switch to EXAMPLE Career')
-    const checkbox = screen.getByLabelText(/I acknowledge that switching to EXAMPLE Career/)
+    const button = screen.getByText('Switch to quite frankly an example LMS Career')
+    const checkbox = screen.getByLabelText(/I acknowledge that switching to quite frankly an example LMS Career/)
     expect(button).not.toBeDisabled()
     expect(checkbox).not.toBeDisabled()
   })
 
   it('disables the checkbox when account has courses', () => {
     setup({hasCourses: true})
-    const checkbox = screen.getByLabelText(/I acknowledge that switching to EXAMPLE Career/)
+    const checkbox = screen.getByLabelText(/I acknowledge that switching to quite frankly an example LMS Career/)
     expect(checkbox).toBeDisabled()
   })
 
   it('disables the checkbox when account is locked', () => {
     setup({locked: true})
-    const checkbox = screen.getByLabelText(/I acknowledge that switching to EXAMPLE Career/)
+    const checkbox = screen.getByLabelText(/I acknowledge that switching to quite frankly an example LMS Career/)
     expect(checkbox).toBeDisabled()
   })
 
@@ -83,9 +83,9 @@ describe('HorizonAccount', () => {
     )
 
     setup()
-    const checkbox = screen.getByLabelText(/I acknowledge that switching to EXAMPLE Career/)
+    const checkbox = screen.getByLabelText(/I acknowledge that switching to quite frankly an example LMS Career/)
     fireEvent.click(checkbox)
-    const button = screen.getByText('Switch to EXAMPLE Career')
+    const button = screen.getByText('Switch to quite frankly an example LMS Career')
     fireEvent.click(button)
 
     await waitFor(() => {
@@ -100,14 +100,14 @@ describe('HorizonAccount', () => {
     server.use(http.put('/api/v1/accounts/123', () => HttpResponse.error()))
 
     setup()
-    const checkbox = screen.getByLabelText(/I acknowledge that switching to EXAMPLE Career/)
+    const checkbox = screen.getByLabelText(/I acknowledge that switching to quite frankly an example LMS Career/)
     fireEvent.click(checkbox)
-    const button = screen.getByText('Switch to EXAMPLE Career')
+    const button = screen.getByText('Switch to quite frankly an example LMS Career')
     fireEvent.click(button)
 
     await waitFor(() => {
       expect(showFlashError).toHaveBeenCalledWith(
-        'Failed to switch to EXAMPLE Career. Please try again.',
+        'Failed to switch to quite frankly an example LMS Career. Please try again.',
       )
     })
   })

@@ -113,7 +113,7 @@
           "constraint": "cover",
           "maintainAspectRatio": true,
           "sizeVariant": "pixel",
-          "alt": "EXAMPLE logo",
+          "alt": "quite frankly an example LMS logo",
           "width": 99,
           "height": 25
         },
@@ -983,7 +983,7 @@
           "constraint": "contain",
           "maintainAspectRatio": false,
           "sizeVariant": "pixel",
-          "alt": "EXAMPLE Logo",
+          "alt": "quite frankly an example LMS Logo",
           "width": 127,
           "height": 24
         },

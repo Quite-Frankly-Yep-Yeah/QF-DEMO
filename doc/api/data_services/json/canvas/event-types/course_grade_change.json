@@ -3,8 +3,8 @@
   "definition": "The event gets emitted anytime any of the course scores are changed for a student.",
   "trigger": "Triggered when anything (a user or asynchronous job) updates the final_score, course_score, unposted_current_score, or unposted_final_score columns in the scores table in the database.",
   "schema": {
-    "user_id": "The EXAMPLE user ID of the student.",
-    "course_id": "The EXAMPLE ID of the course.",
+    "user_id": "The quite frankly an example LMS user ID of the student.",
+    "course_id": "The quite frankly an example LMS ID of the course.",
     "workflow_state": "The state of the score record in the database, could be \"active\" or \"deleted\".",
     "created_at": "The time when the row in the scores table (representing the course grade) was created. The score row is created as a result of some grade calculation, even if there are not yet any graded submissions for a student, i.e. when a student is enrolled in the class.",
     "updated_at": "The time when the row in the scores table was last updated -- that is, when the event is emitted.",

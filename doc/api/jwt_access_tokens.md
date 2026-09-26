@@ -1,5 +1,5 @@
 ### JWT Access Tokens for LTI2 Tools
-EXAMPLE JWT access tokens allow Tool Providers (TPs) to make EXAMPLE API calls on behalf of a tool itself rather than a specific EXAMPLE user. They can also be used to retrieve custom Tool Consumer Profiles (TCP) with restricted capabilities and register Tool Proxies with those restricted capabilities enabled.
+quite frankly an example LMS JWT access tokens allow Tool Providers (TPs) to make quite frankly an example LMS API calls on behalf of a tool itself rather than a specific quite frankly an example LMS user. They can also be used to retrieve custom Tool Consumer Profiles (TCP) with restricted capabilities and register Tool Proxies with those restricted capabilities enabled.
 
 Section 1.0 of this document describes how to retrieve a JWT access token for fetching custom TCPs and registering tools. Section 2.0 describes how to retrieve a JWT access token for use with LTI2 API. (such as the originality reports API).
 
@@ -14,7 +14,7 @@ To retrieve a JWT access token for this purpose first build a JWT using the foll
 
 ```javascript
 my_jwt = {
-  "sub": 10000000000003, // EXAMPLE developer key global id
+  "sub": 10000000000003, // quite frankly an example LMS developer key global id
   // This URL is sent in the initial registration request as a param named 'oauth2_access_token_url'.
   "aud": "http://my.canvas.com/api/lti/accounts/1/authorize",
   "exp": 1486393868, // expiration time
@@ -32,7 +32,7 @@ signed_jwt = my_jwt.sign(<my_dev_key_secret>).to_string
 
 We highly recommend using a library to create and sign these tokens.
 
-Then, make a request to the authorization endpoint to retrieve your JWT access token. The URL you should use to make this request is sent in the initial registration request sent from EXAMPLE as a parameter named oauth2_access_token_url.
+Then, make a request to the authorization endpoint to retrieve your JWT access token. The URL you should use to make this request is sent in the initial registration request sent from quite frankly an example LMS as a parameter named oauth2_access_token_url.
 
 The signed JWT should be used as the `assertion` parameter, the `grant_type` parameter should be set to `authorization_code`, and the `code` parameter should be set to the value of the `reg_key` received from the registration message sent by the tool consumer.
 
@@ -62,7 +62,7 @@ Authorization Bearer <JWT access_token>
 ```
 
 #### 2.0 JWT Access Tokens for LTI2 APIs
-Use of JWT access tokens with the EXAMPLE API is restricted to a set of endpoints which currently includes Originality Report and Subscription create, edit, and update. JWT access tokens are only valid for tools who register as described in section 1 of this document.
+Use of JWT access tokens with the quite frankly an example LMS API is restricted to a set of endpoints which currently includes Originality Report and Subscription create, edit, and update. JWT access tokens are only valid for tools who register as described in section 1 of this document.
 
 To retrieve a JWT access token first build a JWT using the following JWT as a template:
 
@@ -85,7 +85,7 @@ signed_jwt = my_jwt.sign("tool-proxy-shared-secret").to_string
 
 We highly recommend using a library to create and sign these tokens.
 
-Next make a request to the authorization endpoint to retrieve your JWT access token. The URL you should use to make this request if sent in the initial registration request sent from EXAMPLE as a parameter named `oauth2_access_token_url`.
+Next make a request to the authorization endpoint to retrieve your JWT access token. The URL you should use to make this request if sent in the initial registration request sent from quite frankly an example LMS as a parameter named `oauth2_access_token_url`.
 
 
 This signed JWT should be used as the `assertion` parameter and the `grant_type` parameter  should be set to `urn:ietf:params:oauth:grant-type:jwt-bearer`

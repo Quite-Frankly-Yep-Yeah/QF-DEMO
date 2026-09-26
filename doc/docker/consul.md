@@ -1,7 +1,7 @@
 # Consul
 
 [Consul](https://www.consul.io/) is a service discovery and configuration
-management system from Hashicorp. EXAMPLE currently only uses the configuration
+management system from Hashicorp. quite frankly an example LMS currently only uses the configuration
 management k/v store. Generally speaking you won't need to run Consul during
 development (or even small production deployments) because we have full
 configuration support through `config/dynamic_settings.yml`.

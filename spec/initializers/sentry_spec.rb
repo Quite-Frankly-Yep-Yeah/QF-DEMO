@@ -26,7 +26,7 @@ describe "sentry" do
     end.not_to raise_error
   end
 
-  context "on EXAMPLE reload" do
+  context "on quite frankly an example LMS reload" do
     before do
       Sentry.configuration.sample_rate = 1.0
     end

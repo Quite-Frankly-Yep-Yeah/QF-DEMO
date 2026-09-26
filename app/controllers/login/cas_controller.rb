@@ -150,7 +150,7 @@ class Login::CasController < ApplicationController
       successful_login(user, pseudonym)
     else
       logger.warn "Received CAS login for unknown user: #{service_ticket.user}"
-      redirect_to_unknown_user_url(t("EXAMPLE doesn't have an account for user: %{user}", user: service_ticket.user))
+      redirect_to_unknown_user_url(t("quite frankly an example LMS doesn't have an account for user: %{user}", user: service_ticket.user))
       increment_statsd(:failure, reason: :unknown_user)
     end
   end

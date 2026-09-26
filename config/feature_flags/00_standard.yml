@@ -65,7 +65,7 @@ disable_keyboard_shortcuts:
   state: hidden
   display_name: Disable Keyboard Shortcuts
   description: |-
-    Disable EXAMPLE keyboard shortcuts. Some users using screenreaders or keyboard navigation
+    Disable quite frankly an example LMS keyboard shortcuts. Some users using screenreaders or keyboard navigation
     will have an improved experience with these shortcuts turned off.
   applies_to: User
 disable_lti_post_only:
@@ -85,7 +85,7 @@ encrypted_sourcedids:
   type: setting
   state: allowed
   display_name: Encrypted Sourcedids for Basic Outcomes
-  description: If enabled, Sourcedids used by EXAMPLE for Basic Outcomes will be encrypted.
+  description: If enabled, Sourcedids used by quite frankly an example LMS for Basic Outcomes will be encrypted.
   applies_to: RootAccount
   root_opt_in: true
 epub_export:
@@ -205,8 +205,8 @@ new_sis_integrations:
   display_name: Enable new SIS integration settings
   description:
     new_sis_integrations: |-
-      This feature applies to institutions with an existing SIS EXAMPLE integration.
-      Any customers that are currently using grade passback solutions in EXAMPLE or
+      This feature applies to institutions with an existing SIS quite frankly an example LMS integration.
+      Any customers that are currently using grade passback solutions in quite frankly an example LMS or
       partner products should enable this feature for enhanced assignment data
       validation workflows. When enabled, this feature displays the new SIS
       Integration settings for SIS Sync (Assignment Level Grade Passback) in Account
@@ -218,7 +218,7 @@ new_user_tutorial:
   type: setting
   state: allowed
   display_name: New User Tutorial
-  description: Provide tutorial information for instructors new to EXAMPLE.
+  description: Provide tutorial information for instructors new to quite frankly an example LMS.
   applies_to: RootAccount
   root_opt_in: true
 new_user_tutorial_on_off:
@@ -226,8 +226,8 @@ new_user_tutorial_on_off:
   state: allowed_on
   display_name: Course Set-up Tutorial
   description: Course set-up tutorial provides tips on how to leverage the feature
-    opportunities on each page in EXAMPLE. It is especially useful when you are new
-    to EXAMPLE or are setting up a new course for the first time in a long time.
+    opportunities on each page in quite frankly an example LMS. It is especially useful when you are new
+    to quite frankly an example LMS or are setting up a new course for the first time in a long time.
   applies_to: User
 newquizzes_on_quiz_page:
   state: hidden
@@ -285,7 +285,7 @@ quizzes_next:
     features.quizzes.next: New Quizzes
   description:
     wrapper: <a target="blank" href="https://community.instructure.com/en/kb/articles/664245-faq-new-quizzes?utm_source=community-search&utm_medium=organic-search&utm_term=new+quizzes">\1</a>
-    new_quizzes_description: This feature enhances the EXAMPLE experience for quizzing.
+    new_quizzes_description: This feature enhances the quite frankly an example LMS experience for quizzing.
       When this flag is enabled, the New Quizzes tool will be available. For full details,
       please see the *New Quizzes FAQ* in the Instructure Community.
   applies_to: Course
@@ -392,7 +392,7 @@ new_quiz_public_api:
   applies_to: SiteAdmin
   state: hidden
   display_name: New Quizzes Public API
-  description: Enables access to the New Quizzes Public API through EXAMPLE.
+  description: Enables access to the New Quizzes Public API through quite frankly an example LMS.
   environments:
     ci:
       state: allowed_on

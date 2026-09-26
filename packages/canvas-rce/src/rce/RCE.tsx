@@ -84,9 +84,9 @@ const RCE = forwardRef<RCEWrapper, RCEPropTypes>(function RCE(props, rceRef) {
   })
 
   // some properties are only used on initialization
-  // Languages are a bit of a mess since Tinymce and EXAMPLE
+  // Languages are a bit of a mess since Tinymce and quite frankly an example LMS
   // have 2 different sets of language names. normalizeLocale
-  // takes the language prop and returns the locale EXAMPLE knows,
+  // takes the language prop and returns the locale quite frankly an example LMS knows,
   // editorLanguage takes the language prop and returns the
   // corresponding locale for tinymce.
   const [initOnlyProps] = useState(() => {

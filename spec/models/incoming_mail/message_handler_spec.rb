@@ -184,7 +184,7 @@ describe IncomingMail::MessageHandler do
             The message you sent with the subject line "some subject" was not delivered because your account has been suspended.
 
             Thank you,
-            EXAMPLE Support
+            quite frankly an example LMS Support
           TEXT
 
           message_attributes = {
@@ -238,10 +238,10 @@ describe IncomingMail::MessageHandler do
 
             email_subject = "Undelivered message"
             body = <<~TEXT.strip
-              The message titled "some subject" could not be delivered.  The message was sent to an unknown mailbox address.  If you are trying to contact someone through EXAMPLE you can try logging in to your account and sending them a message using the Inbox tool.
+              The message titled "some subject" could not be delivered.  The message was sent to an unknown mailbox address.  If you are trying to contact someone through quite frankly an example LMS you can try logging in to your account and sending them a message using the Inbox tool.
 
               Thank you,
-              EXAMPLE Support
+              quite frankly an example LMS Support
 
               Reference: TestRef
             TEXT
@@ -272,10 +272,10 @@ describe IncomingMail::MessageHandler do
 
             email_subject = "Undelivered message"
             body = <<~TEXT.strip
-              The message titled "some subject" could not be delivered because the discussion topic is locked. If you are trying to contact someone through EXAMPLE you can try logging in to your account and sending them a message using the Inbox tool.
+              The message titled "some subject" could not be delivered because the discussion topic is locked. If you are trying to contact someone through quite frankly an example LMS you can try logging in to your account and sending them a message using the Inbox tool.
 
               Thank you,
-              EXAMPLE Support
+              quite frankly an example LMS Support
             TEXT
 
             message_attributes = {
@@ -308,7 +308,7 @@ describe IncomingMail::MessageHandler do
               The message you sent with the subject line "some subject" was not delivered because you are not a valid participant in the conversation.
 
               Thank you,
-              EXAMPLE Support
+              quite frankly an example LMS Support
             TEXT
 
             message_attributes = {
@@ -340,10 +340,10 @@ describe IncomingMail::MessageHandler do
 
             email_subject = "Undelivered message"
             body = <<~TEXT.strip
-              The message titled "some subject" could not be delivered.  The message was sent to an unknown mailbox address.  If you are trying to contact someone through EXAMPLE you can try logging in to your account and sending them a message using the Inbox tool.
+              The message titled "some subject" could not be delivered.  The message was sent to an unknown mailbox address.  If you are trying to contact someone through quite frankly an example LMS you can try logging in to your account and sending them a message using the Inbox tool.
 
               Thank you,
-              EXAMPLE Support
+              quite frankly an example LMS Support
 
               Reference: TestRef
             TEXT

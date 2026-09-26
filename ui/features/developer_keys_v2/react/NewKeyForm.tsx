@@ -71,7 +71,7 @@ const validationMessage: {
 }[] = [{text: I18n.t('Must have at least one redirect_uri defined.'), type: 'error'}]
 
 const clientCredentialsAudienceTooltip = I18n.t(
-  'Will credentials issued by this key be presented to EXAMPLE or to a peer service (e.g. EXAMPLE Data)?',
+  'Will credentials issued by this key be presented to quite frankly an example LMS or to a peer service (e.g. quite frankly an example LMS Data)?',
 )
 
 export default class NewKeyForm extends React.Component<NewKeyFormProps> {
@@ -312,7 +312,7 @@ export default class NewKeyForm extends React.Component<NewKeyFormProps> {
                     }
                   >
                     <SimpleSelect.Option id="audience-internal" value="internal">
-                      {I18n.t('EXAMPLE')}
+                      {I18n.t('quite frankly an example LMS')}
                     </SimpleSelect.Option>
                     <SimpleSelect.Option id="audience-external" value="external">
                       {I18n.t('Peer Service')}

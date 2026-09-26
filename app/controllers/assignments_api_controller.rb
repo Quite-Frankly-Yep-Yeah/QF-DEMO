@@ -1303,12 +1303,12 @@ class AssignmentsApiController < ApplicationController
   #   will be turned on for the assignment.
   #
   # @argument assignment[automatic_peer_reviews] [Boolean]
-  #   Whether peer reviews will be assigned automatically by EXAMPLE or if
+  #   Whether peer reviews will be assigned automatically by quite frankly an example LMS or if
   #   teachers must manually assign peer reviews. Does not apply if peer reviews
   #   are not enabled.
   #
   # @argument assignment[notify_of_update] [Boolean]
-  #   If true, EXAMPLE will send a notification to students in the class
+  #   If true, quite frankly an example LMS will send a notification to students in the class
   #   notifying them that the content has changed.
   #
   # @argument assignment[group_category_id] [Integer]
@@ -1317,7 +1317,7 @@ class AssignmentsApiController < ApplicationController
   #
   # @argument assignment[grade_group_students_individually] [Integer]
   #   If this is a group assignment, teachers have the options to grade
-  #   students individually. If false, EXAMPLE will apply the assignment's
+  #   students individually. If false, quite frankly an example LMS will apply the assignment's
   #   score to each member of the group. If true, the teacher can manually
   #   assign scores to each member of the group.
   #
@@ -1545,12 +1545,12 @@ class AssignmentsApiController < ApplicationController
   #   will be turned on for the assignment.
   #
   # @argument assignment[automatic_peer_reviews] [Boolean]
-  #   Whether peer reviews will be assigned automatically by EXAMPLE or if
+  #   Whether peer reviews will be assigned automatically by quite frankly an example LMS or if
   #   teachers must manually assign peer reviews. Does not apply if peer reviews
   #   are not enabled.
   #
   # @argument assignment[notify_of_update] [Boolean]
-  #   If true, EXAMPLE will send a notification to students in the class
+  #   If true, quite frankly an example LMS will send a notification to students in the class
   #   notifying them that the content has changed.
   #
   # @argument assignment[group_category_id] [Integer]
@@ -1559,7 +1559,7 @@ class AssignmentsApiController < ApplicationController
   #
   # @argument assignment[grade_group_students_individually] [Integer]
   #   If this is a group assignment, teachers have the options to grade
-  #   students individually. If false, EXAMPLE will apply the assignment's
+  #   students individually. If false, quite frankly an example LMS will apply the assignment's
   #   score to each member of the group. If true, the teacher can manually
   #   assign scores to each member of the group.
   #

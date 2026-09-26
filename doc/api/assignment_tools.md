@@ -1,21 +1,21 @@
 # Introduction
 
-External tools can be associated with EXAMPLE assignments so that students are
+External tools can be associated with quite frankly an example LMS assignments so that students are
 able to experience an integrated offering of the tool. Tools can also leverage
-LTI services to return submissions and/or scores back to the EXAMPLE gradebook.
+LTI services to return submissions and/or scores back to the quite frankly an example LMS gradebook.
 
 The specifics for how grading is achieved depend on the LTI version being used:
 
 - [LTI Advantage: Assignment and Grading Services](#lti_advantage)
 - [LTI 1.1 Grade Passback Tools (deprecated)](#outcomes_service)
 
-Tools become associated with EXAMPLE assignments either through the UI during
+Tools become associated with quite frankly an example LMS assignments either through the UI during
 <a href="https://community.canvaslms.com/t5/Instructor-Guide/How-do-I-add-an-assignment-using-an-external-app/ta-p/656"
 target="_blank">assignment creation</a>, or by the tool using the
 <a href="line_items.html" target="_blank">Line Items Service</a> to
 create assignments.
 
-If configured in via the EXAMPLE UI, Course Designers (Admins/Instructors) will
+If configured in via the quite frankly an example LMS UI, Course Designers (Admins/Instructors) will
 see a submission type called "External Tool" during assignment creation where
 they can select a tool configuration to use for the assignment. The
 <a href="file.assignment_selection_placement.html" target="_blank">
@@ -23,7 +23,7 @@ assignment_selection placement</a> is often used in conjunction with the
 <a href="file.content_item.html" target="_blank">deep linking specification</a>
 to allow an Instructor or Course Designer to launch out to the tool and select a
 specific resource to be associated to the assignment. When students view
-the assignment, instead of seeing a standard EXAMPLE assignment they'll see
+the assignment, instead of seeing a standard quite frankly an example LMS assignment they'll see
 the tool loaded in an iframe on the page.
 
 # LTI Advantage: Assignment and Grading Services <a name="lti_advantage"></a>
@@ -82,7 +82,7 @@ assignments) that are associated with the tool:
         "icon_url": "https://some.icon.url",
         "placements": [
           {
-            "text": "Embed Tool Content as a EXAMPLE Assignment",
+            "text": "Embed Tool Content as a quite frankly an example LMS Assignment",
             "enabled": true,
             "icon_url": "https://some.icon.url",
             "placement": "assignment_selection",
@@ -112,7 +112,7 @@ the placement(s) here could be any placement(s).
 
 ## Available Services
 
-EXAMPLE supports the following AGS services:
+quite frankly an example LMS supports the following AGS services:
 
 - <a href="line_items.html" target="_blank">Line Items</a>
 - <a href="score.html" target="_blank">Score</a>
@@ -129,9 +129,9 @@ IMS LTI Security Framework, SEC 4</a>.
 
 ## Request Throttling
 
-Like all requests made to the EXAMPLE API, AGS requests are throttled (see the
+Like all requests made to the quite frankly an example LMS API, AGS requests are throttled (see the
 <a href="file.throttling.html" target="_blank">Throttling docs</a> for details)
-to ensure that EXAMPLE stays up and running. Unlike normal API requests which are made with
+to ensure that quite frankly an example LMS stays up and running. Unlike normal API requests which are made with
 a token specific to a user, AGS tokens are specific to a tool installation for a Course or
 an Account, and so there is the possibility of many more requests in a short amount of time.
 As long as you as a tool provider keep requests more-or-less sequential, and pay attention
@@ -164,19 +164,19 @@ and Grade Services API. Each code also comes with some advice for fixing your is
 
 ## Extensions
 
-EXAMPLE has extended several AGS endpoints to support deeper grading
+quite frankly an example LMS has extended several AGS endpoints to support deeper grading
 integrations. Here, we will focus on these extensions and describe how tools can
-be configured to leverage AGS in EXAMPLE.
+be configured to leverage AGS in quite frankly an example LMS.
 
 ### Line Item Extension: Creating deep linked assignments
 
 The <a href="line_items.html" target="_blank">Line Item service</a> has been extended
 to allow an external tool to not only create gradebook columns (i.e. assignments)
-in EXAMPLE, but also connect the column/assignment to a specific LTI resource on
+in quite frankly an example LMS, but also connect the column/assignment to a specific LTI resource on
 the external tool. This means that when the student accesses the assignment from
-EXAMPLE, they are able to see the external tool content directly in the page,
+quite frankly an example LMS, they are able to see the external tool content directly in the page,
 complete their assessment on the tool side, and have grades returned without
-the instructor having to manually create assignments in EXAMPLE.
+the instructor having to manually create assignments in quite frankly an example LMS.
 
 This also allows tools to introduce new workflows, such as allowing instructors
 to launch from a Course Navigation Placement, select multiple resources, and
@@ -185,10 +185,10 @@ import them into their course.
 ### Score Extension: Creating submission data
 
 The <a href="score.html" target="_blank">Score service</a> has been extended to allow
-an external tool to submission data back to the EXAMPLE Gradebook. This data is
+an external tool to submission data back to the quite frankly an example LMS Gradebook. This data is
 then exposed in the Submission Details and SpeedGrader Views so that both
 students and teachers can see what was submitted to the external tool without
-leaving EXAMPLE. Support for basic urls, text, and LTI links are supported.
+leaving quite frankly an example LMS. Support for basic urls, text, and LTI links are supported.
 
 # LTI 1.1 Grade Passback Tools (deprecated) <a name="outcomes_service"></a>
 
@@ -200,21 +200,21 @@ Tools can know that they have been launched in a graded context because
 additional parameters are sent across when a student accesses the external
 tool assignment. Specifically, the `lis_outcome_service_url` and
 `lis_result_sourced_id` are sent as specified in the LTI 1.1 specification.
-Grades are passed back to EXAMPLE from the tool's servers using the
+Grades are passed back to quite frankly an example LMS from the tool's servers using the
 <a href="http://www.imsglobal.org/LTI/v1p1/ltiIMGv1p1.html#_Toc319560472">
 outcomes component of LTI 1.1</a>. Notably, one of the major limitations of the
 LTI 1.1 Outcomes Service is the inability of tools to return grades _before_ a
-student accesses the assignment from EXAMPLE. If this functionality is desirable,
+student accesses the assignment from quite frankly an example LMS. If this functionality is desirable,
 you should upgrade to LTI Advantage's Assignment and Grading Services.
 
-**Note** that in the past EXAMPLE would return a 200 HTTP response code, even if the
+**Note** that in the past quite frankly an example LMS would return a 200 HTTP response code, even if the
 XML in the body of the response indicated failure. This behavior has changed,
 and now if the `imsx_codeMajor` in the XML response is not `success`, then
-EXAMPLE will return a 422 (Unprocessable Entity) HTTP response code.
+quite frankly an example LMS will return a 422 (Unprocessable Entity) HTTP response code.
 
 ## Data Return Extension
 
-EXAMPLE sends an extension parameter for assignment launches that allows the tool
+quite frankly an example LMS sends an extension parameter for assignment launches that allows the tool
 provider to pass back values as submission text in canvas.
 The key is `ext_outcome_data_values_accepted` and the value is a comma separated list of
 types of data accepted. The currently available data types are `url` and `text`.
@@ -228,7 +228,7 @@ If the external tool wants to supply these values, it can augment the POX sent
 with the grading value. <a href="http://www.imsglobal.org/LTI/v1p1/ltiIMGv1p1.html#_Toc319560473">LTI replaceResult POX</a>
 
 Only one type of resultData should be sent, if multiple types are sent the tool
-consumer behavior is undefined and is implementation-specific. EXAMPLE will take
+consumer behavior is undefined and is implementation-specific. quite frankly an example LMS will take
 the text value and ignore the url value if both are sent.
 
 #### Text
@@ -339,7 +339,7 @@ Add a `resultData` node with a `ltiLaunchUrl` node like this:
 
 ## Total Score Return Extension
 
-EXAMPLE sends an extension parameter for assignment launches that allows the tool
+quite frankly an example LMS sends an extension parameter for assignment launches that allows the tool
 provider to pass back a raw score value instead of a percentage.
 The key is `ext_outcome_result_total_score_accepted` and the value is `true`.
 The added launch parameter will look like this:
@@ -385,7 +385,7 @@ an Integer or Float value.
 
 # Submission Details Return Extension
 
-EXAMPLE sends an extension parameter for assignment launches that allows the tool
+quite frankly an example LMS sends an extension parameter for assignment launches that allows the tool
 provider to pass back submission metadata not directly related to the result.
 
 Details about the submission the external tool wants to supply
@@ -426,7 +426,7 @@ the submission that is not related directly to the result will be included in th
 
 ## Submission Submitted At Timestamp Extension
 
-EXAMPLE sends an extension parameter for assignment launches that allows the tool
+quite frankly an example LMS sends an extension parameter for assignment launches that allows the tool
 provider to pass back the submission submitted at timestamp.
 The key is `ext_outcome_submission_submitted_at_accepted` and the value is `true`.
 The added launch parameter will look like this:
@@ -478,11 +478,11 @@ result score or result total score are not present.
 
 ### Submission Prioritize Non-tool Grade from Tool Provider
 
-If an external tool wants to honor/preserve any grading done in EXAMPLE by a human, it can augment the POX sent with a
+If an external tool wants to honor/preserve any grading done in quite frankly an example LMS by a human, it can augment the POX sent with a
 prioritize non-tool grade tag.
 
 Simply add a node called `prioritizeNonToolGrade` to the `submissionDetails` node. The tag expects no data, just its
-presence is all that is required for EXAMPLE. If included, any grading done by something other than an LTI tool will
+presence is all that is required for quite frankly an example LMS. If included, any grading done by something other than an LTI tool will
 be preserved.
 
 ```xml
@@ -522,7 +522,7 @@ If an external tool wants to tell canvas that grading isn't final and additional
 can augment the POX sent with the needs additional review grade tag.
 
 Simply add a node called `needsAdditionalReview` to the `submissionDetails` node. The tag expects no data, just its
-presence is all that is required for EXAMPLE. If included, the EXAMPLE gradebook will signal to the teacher additional
+presence is all that is required for quite frankly an example LMS. If included, the quite frankly an example LMS gradebook will signal to the teacher additional
 grading action is needed.
 
 ```xml

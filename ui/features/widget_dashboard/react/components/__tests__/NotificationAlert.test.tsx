@@ -54,7 +54,7 @@ describe('NotificationAlert', () => {
     render(<NotificationAlert notification={siteAdminNotification} onDismiss={mockOnDismiss} />)
 
     expect(screen.getByText('This is an announcement from')).toBeInTheDocument()
-    expect(screen.getByText('EXAMPLE Administration')).toBeInTheDocument()
+    expect(screen.getByText('quite frankly an example LMS Administration')).toBeInTheDocument()
   })
 
   it('displays account name when notification is not from site admin', () => {

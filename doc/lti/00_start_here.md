@@ -1,17 +1,17 @@
-# The EXAMPLE LTI Manual
+# The quite frankly an example LMS LTI Manual
 
 **Audience:**
 
 - new developers on the Interoperability team
-- other EXAMPLE developers who are interested in LTI
-- anyone who is curious about how EXAMPLE supports LTI
+- other quite frankly an example LMS developers who are interested in LTI
+- anyone who is curious about how quite frankly an example LMS supports LTI
 - not really customers
 
 **Goal:**
 
-- Provide a code-focused overview of the way that EXAMPLE implements the LTI standard
+- Provide a code-focused overview of the way that quite frankly an example LMS implements the LTI standard
 - Help readers make an informed decision on where in the code to make changes
-- Allow readers to discover existing LTI documentation, whether EXAMPLE-specific or not
+- Allow readers to discover existing LTI documentation, whether quite frankly an example LMS-specific or not
 - Bring new developers up to speed so that they feel comfortable working with LTI
 - Provide explanation for design decisions and why things are The Way They Are
 
@@ -38,10 +38,10 @@
 
 **Other Docs**
 
-- [External Tools Introduction - EXAMPLE LMS REST API Documentation (instructure.com)](https://canvas.instructure.com/doc/api/file.tools_intro.html)
-  - the EXAMPLE API docs have lots of reference-level specifics about installing tools, placements, variable substitutions, deep linking, etc
+- [External Tools Introduction - quite frankly an example LMS REST API Documentation (instructure.com)](https://canvas.instructure.com/doc/api/file.tools_intro.html)
+  - the quite frankly an example LMS API docs have lots of reference-level specifics about installing tools, placements, variable substitutions, deep linking, etc
 - [LTI from scratch (ruby) (instructure.com)](https://canvas.instructure.com/courses/913512)
-  - a community EXAMPLE course written by an unknown Platform team member years ago about LTI 1.1
+  - a community quite frankly an example LMS course written by an unknown Platform team member years ago about LTI 1.1
 
 ---
 

@@ -29,7 +29,7 @@ export type AssetProcessorContentItemReport = {
 export type AssetProcessorContentItem = {
   type: 'ltiAssetProcessor' | 'ltiAssetProcessorContribution'
   // Not sure where this comes from. Cargo cult from ResourceLinkContentItem, needed by usages of ContentItem.
-  // presumably EXAMPLE is adding it somewhere
+  // presumably quite frankly an example LMS is adding it somewhere
   errors?: Record<string, string>
 } & AssetProcessorCommonFields
 

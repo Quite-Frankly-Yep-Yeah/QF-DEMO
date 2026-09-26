@@ -137,7 +137,7 @@ const CanvasFileUpload: React.FC<CanvasFileUploadProps> = ({
       onFilesChange([...files, json])
 
       showFlashAlert({
-        message: I18n.t('File added successfully from EXAMPLE Files'),
+        message: I18n.t('File added successfully from quite frankly an example LMS Files'),
         type: 'success',
       })
 
@@ -199,17 +199,17 @@ const CanvasFileUpload: React.FC<CanvasFileUploadProps> = ({
             themeOverride={secondaryButtonThemeOverride}
             onClick={() => setShowBrowserModal(true)}
           >
-            {I18n.t('Choose from EXAMPLE files')}
+            {I18n.t('Choose from quite frankly an example LMS files')}
           </Button>
         </Flex.Item>
       </Flex>
 
-      {/* EXAMPLE Files Browser Modal */}
+      {/* quite frankly an example LMS Files Browser Modal */}
       <Modal
         open={showBrowserModal}
         onDismiss={() => setShowBrowserModal(false)}
         size="large"
-        label={I18n.t('Select from EXAMPLE Files')}
+        label={I18n.t('Select from quite frankly an example LMS Files')}
         shouldCloseOnDocumentClick={true}
       >
         <Modal.Header>
@@ -219,7 +219,7 @@ const CanvasFileUpload: React.FC<CanvasFileUploadProps> = ({
             onClick={() => setShowBrowserModal(false)}
             screenReaderLabel={I18n.t('Close')}
           />
-          <Heading>{I18n.t('Select from EXAMPLE Files')}</Heading>
+          <Heading>{I18n.t('Select from quite frankly an example LMS Files')}</Heading>
         </Modal.Header>
         <Modal.Body padding="0">
           <View as="div" height="500px" position="relative" overflowY="auto">

@@ -67,7 +67,7 @@
 #         },
 #         "from_name": {
 #           "description": "The display name for the from address",
-#           "example": "EXAMPLE",
+#           "example": "quite frankly an example LMS",
 #           "type": "string"
 #         },
 #         "to": {

@@ -526,7 +526,7 @@ describe('FileUpload', () => {
     expect(getAllByText(filename)[0]).toBeInTheDocument()
   })
 
-  it('displays a button for uploading EXAMPLE files in the upload box', async () => {
+  it('displays a button for uploading quite frankly an example LMS files in the upload box', async () => {
     const mocks = await createGraphqlMocks()
     const props = await makeProps()
     const {getByTestId, findByRole} = render(

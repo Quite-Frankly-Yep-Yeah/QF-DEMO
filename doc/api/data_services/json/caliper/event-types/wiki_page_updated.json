@@ -4,12 +4,12 @@
   "trigger": "Triggered when title or body of wiki page is altered.",
   "schema": {
     "data[0].group.extensions[\"com.instructure.canvas\"]": {
-      "context_type": "EXAMPLE context type where the action took place e.g context_type = Course.",
-      "entity_id": "EXAMPLE context ID"
+      "context_type": "quite frankly an example LMS context type where the action took place e.g context_type = Course.",
+      "entity_id": "quite frankly an example LMS context ID"
     },
     "data[0].object.extensions[\"com.instructure.canvas\"]": {
       "body": "The body of the new page. NOTE: This field will be truncated to only include the first 8192 characters.",
-      "entity_id": "EXAMPLE global ID of the object affected by the event",
+      "entity_id": "quite frankly an example LMS global ID of the object affected by the event",
       "workflow_state": "The current workflow_state of the wiki page. Possible values are \"active\", \"unpublished\", and \"deleted\"."
     },
     "data[0].object": {

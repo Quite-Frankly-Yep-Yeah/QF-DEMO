@@ -188,7 +188,7 @@ export const GradingSchemeSummaries: GradingSchemeSummary[] = AccountGradingSche
 
 export const DefaultGradingScheme: GradingScheme = {
   id: '',
-  title: 'Default EXAMPLE Grading Scheme',
+  title: 'Default quite frankly an example LMS Grading Scheme',
   context_id: '2',
   context_type: 'Account',
   workflow_state: 'active',

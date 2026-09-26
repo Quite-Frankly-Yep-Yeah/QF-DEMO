@@ -16,7 +16,7 @@
 # You should have received a copy of the GNU Affero General Public License along
 # with this program. If not, see <http://www.gnu.org/licenses/>.
 
-# EXAMPLE uses 'tabs' hashes to represent items in the nav (course nav, account
+# quite frankly an example LMS uses 'tabs' hashes to represent items in the nav (course nav, account
 # nav, user nav). These helpers deal with the items added by teachers backed by
 # NavMenuLink.
 module NavMenuLinkTabs
@@ -105,7 +105,7 @@ module NavMenuLinkTabs
 
         if id.nil? && tab[:href].to_s == TAB_HREF_VALUE.to_s && new_link_url.present?
           if can_manage_links
-            # Strip host if a EXAMPLE link (e.g. result is "/courses/123" rather
+            # Strip host if a quite frankly an example LMS link (e.g. result is "/courses/123" rather
             # than full URL) to make it available for translating Course links
             # during Course Copy
             new_link_url = Api::Html::Link.strip_host(link: new_link_url, host: request_host, port: request_port)

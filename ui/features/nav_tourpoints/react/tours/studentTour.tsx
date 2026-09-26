@@ -43,7 +43,7 @@ export default [
               : '',
           })}
         </Heading>
-        <Text as="p">{I18n.t("Here's some quick tips to get you started in EXAMPLE!")}</Text>
+        <Text as="p">{I18n.t("Here's some quick tips to get you started in quite frankly an example LMS!")}</Text>
         <ol>
           <li>{I18n.t('How do I find my courses?')}</li>
           <li>{I18n.t('How do I contact my instructor?')}</li>
@@ -82,7 +82,7 @@ export default [
       <section>
         <Heading level="h3">{I18n.t('How do I contact my instructor?')}</Heading>
         <Text as="p">
-          {I18n.t('Start a conversation with your instructor in the EXAMPLE Inbox.')}
+          {I18n.t('Start a conversation with your instructor in the quite frankly an example LMS Inbox.')}
         </Text>
       </section>
     ),
@@ -106,7 +106,7 @@ export default [
               href="https://apps.apple.com/us/app/canvas-student/id480883488"
               target="_blank"
               rel="noopener noreferrer"
-              aria-label={I18n.t(`Download EXAMPLE iOS app`)}
+              aria-label={I18n.t(`Download quite frankly an example LMS iOS app`)}
             >
               iOS
             </Link>
@@ -117,7 +117,7 @@ export default [
               href="https://play.google.com/store/apps/details?id=com.instructure.candroid&hl=en_US"
               target="_blank"
               rel="noopener noreferrer"
-              aria-label={I18n.t(`Download EXAMPLE Android app`)}
+              aria-label={I18n.t(`Download quite frankly an example LMS Android app`)}
             >
               Android
             </Link>

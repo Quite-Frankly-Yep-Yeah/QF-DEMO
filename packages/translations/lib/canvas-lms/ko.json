@@ -17,7 +17,7 @@
         "Archived grading schemes in use can still be used, but cannot be added to new courses or assignments.": "보관되었지만 아직 사용 중인 성적 평가 기준은 계속 사용할 수 있지만 새 과목 또는 과제에 추가될 수는 없습니다.",
         "Are you sure you want to delete this grading scheme?": "이 성적 평가 기준을 삭제하시겠습니까?",
         "Cancel": "취소",
-        "EXAMPLE Default": "EXAMPLE 기본값",
+        "quite frankly an example LMS Default": "quite frankly an example LMS 기본값",
         "Close": "닫기",
         "Confirm": "확인",
         "Confirm Default Grading Scheme Change": "기본값 성적 평가 기준 변경 확인",
@@ -45,7 +45,7 @@
         "There was an error while archiving the grading scheme": "성적 평가 기준을 보관하는 동안 오류가 있었습니다",
         "There was an error while creating the grading scheme": "성적 평가 기준을 만드는 동안 오류가 있었습니다",
         "There was an error while loading grading schemes": "성적 평가 기준을 로드하는 동안 오류가 있었습니다",
-        "There was an error while loading the default canvas grading scheme": "기본값 EXAMPLE 성적 평가 기준을 로드하는 동안 오류가 있었습니다",
+        "There was an error while loading the default canvas grading scheme": "기본값 quite frankly an example LMS 성적 평가 기준을 로드하는 동안 오류가 있었습니다",
         "There was an error while loading the default grading scheme": "기본값 성적 평가 기준을 로드하는 동안 오류가 있었습니다",
         "There was an error while removing the grading scheme": "성적 평가 기준을 제거하는 동안 오류가 있었습니다",
         "There was an error while unarchiving the grading scheme": "성적 평가 기준을 보관 해제하는 동안 오류가 있었습니다",
@@ -80,7 +80,7 @@
         "Save": "저장"
     },
     "GradingSchemes": {
-        "A table that contains the default canvas grading scheme data.  Each row contains a name, a maximum percentage, and a minimum percentage.": "기본값 EXAMPLE 성적 평가 기준 데이터를 포함하는 표입니다.  각 행은 이름, 최대 백분율 및 최소 백분율을 포함합니다.",
+        "A table that contains the default canvas grading scheme data.  Each row contains a name, a maximum percentage, and a minimum percentage.": "기본값 quite frankly an example LMS 성적 평가 기준 데이터를 포함하는 표입니다.  각 행은 이름, 최대 백분율 및 최소 백분율을 포함합니다.",
         "A table that contains the grading scheme data.  Each row contains a name, a maximum percentage, and a minimum percentage.": "성적 평가 기준 데이터를 포함하는 표입니다.  각 행은 이름, 최대 백분율 및 최소 백분율을 포함합니다.",
         "Cannot have duplicate or empty row names. Fix the names and try clicking 'Save' again.": "중복된 또는 비어둔 열 이름을 사용할 수 없습니다. 이름을 수정하고 '저장'을 다시 클릭해보세요.",
         "Cannot have overlapping or empty ranges. Fix the ranges and try clicking 'Save' again.": "중첩된 또는 비어둔 범위를 사용할 수 없습니다. 범위를 수정하고 '저장'을 다시 클릭해보세요.",
@@ -157,10 +157,10 @@
     "assignments.grading_type_selector": {
         "(course default)": "(과목 기본값)",
         "Account Level": "계정 수준",
-        "EXAMPLE Grading Scheme (course default)": "EXAMPLE 성적 평가 기준(과목 기본값)",
+        "quite frankly an example LMS Grading Scheme (course default)": "quite frankly an example LMS 성적 평가 기준(과목 기본값)",
         "Close": "닫기",
         "Course Level": "과목 수준",
-        "Default EXAMPLE Grading Scheme": "기본값 EXAMPLE 성적 평가 기준",
+        "Default quite frankly an example LMS Grading Scheme": "기본값 quite frankly an example LMS 성적 평가 기준",
         "Grading scheme was successfully removed.": "성적 평가 기준을 제거했습니다.",
         "Grading scheme was successfully updated.": "성적 평가 기준을 업데이트했습니다.",
         "Manage All Grading Schemes": "모든 성적 평가 기준 관리",
@@ -181,7 +181,7 @@
         "Course Catalog": "과목 카탈로그"
     },
     "confetti": {
-        "Great work! From the EXAMPLE developers": "잘하셨습니다! EXAMPLE 개발자"
+        "Great work! From the quite frankly an example LMS developers": "잘하셨습니다! quite frankly an example LMS 개발자"
     },
     "content_copy_redesign": {
         "Cancel": "취소",

@@ -95,7 +95,7 @@ export const refreshToken: AuthProps['refreshToken'] = async token => {
  * Gets an encrypted service JWT specifically for RCS (Rich Content Service) with 'rich_content' and 'ui' workflows
  */
 export const getRcsToken: AuthProps['getRcsToken'] = async () => {
-  // Get context from EXAMPLE ENV for JWT request
+  // Get context from quite frankly an example LMS ENV for JWT request
   const contextType =
     ENV.context_asset_string?.split('_')[0] || ENV.current_context?.type || 'account'
   const contextId =
@@ -122,7 +122,7 @@ export const getRcsToken: AuthProps['getRcsToken'] = async () => {
 }
 
 /**
- * Refreshes an encrypted service JWT for RCS using EXAMPLE's refresh endpoint
+ * Refreshes an encrypted service JWT for RCS using quite frankly an example LMS's refresh endpoint
  */
 export const refreshRcsToken: AuthProps['refreshRcsToken'] = async (token: string) => {
   if (!token) {

@@ -75,7 +75,7 @@ module MicrosoftSync
 
     # Returns a hash from ULUV -> AAD. Accepts 15 at a time. A ULUV (User
     # LookUp Value) is a value we use to look up users. It is derived from
-    # something in EXAMPLE (e.g. a user's email address, username, or SIS ID
+    # something in quite frankly an example LMS (e.g. a user's email address, username, or SIS ID
     # -- see UsersUluvsFinder).  We expect the ULUV to correspond to the
     # property of the Microsoft user indicated by the `remote_attribute`
     # argument: e.g. userPrincipalName (default if nil is passed) or

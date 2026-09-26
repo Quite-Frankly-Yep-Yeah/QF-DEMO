@@ -26,7 +26,7 @@ describe SIS::CSV::ImportRefactored do
       "course_id,randomness,smelly",
       "test_1,TC 101,Test Course 101,,,active"
     )
-    expect(importer.errors.first.last).to eq "Couldn't find EXAMPLE CSV import headers"
+    expect(importer.errors.first.last).to eq "Couldn't find quite frankly an example LMS CSV import headers"
   end
 
   it "errors files with invalid UTF-8" do

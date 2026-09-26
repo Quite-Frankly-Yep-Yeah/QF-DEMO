@@ -280,7 +280,7 @@ class PseudonymsController < ApplicationController
   #
   # @argument login[declared_user_type] [String]
   #   The declared intention of the user type. This can be set, but does
-  #   not change any EXAMPLE functionality with respect to their access.
+  #   not change any quite frankly an example LMS functionality with respect to their access.
   #   A user can still be a teacher, admin, student, etc. in any particular
   #   context without regard to this setting. This can be used for
   #   administrative purposes for integrations to be able to more easily
@@ -294,24 +294,24 @@ class PseudonymsController < ApplicationController
   #     * teacher
   #
   # @argument user[existing_user_id] [String]
-  #   A EXAMPLE User ID to identify a user in a trusted account (alternative to `id`,
+  #   A quite frankly an example LMS User ID to identify a user in a trusted account (alternative to `id`,
   #   `existing_sis_user_id`, or `existing_integration_id`). This parameter is
-  #   not available in OSS EXAMPLE.
+  #   not available in OSS quite frankly an example LMS.
   #
   # @argument user[existing_integration_id] [String]
   #   An Integration ID to identify a user in a trusted account (alternative to `id`,
   #   `existing_user_id`, or `existing_sis_user_id`). This parameter is not
-  #   available in OSS EXAMPLE.
+  #   available in OSS quite frankly an example LMS.
   #
   # @argument user[existing_sis_user_id] [String]
   #   An SIS User ID to identify a user in a trusted account (alternative to `id`,
   #   `existing_integration_id`, or `existing_user_id`). This parameter is not
-  #   available in OSS EXAMPLE.
+  #   available in OSS quite frankly an example LMS.
   #
   # @argument user[trusted_account] [String]
   #   The domain of the account to search for the user. This field is required when
   #   identifying a user in a trusted account. This parameter is not available in OSS
-  #   EXAMPLE.
+  #   quite frankly an example LMS.
   #
   # @example_request
   #
@@ -417,7 +417,7 @@ class PseudonymsController < ApplicationController
   #
   # @argument login[declared_user_type] [String]
   #   The declared intention of the user type. This can be set, but does
-  #   not change any EXAMPLE functionality with respect to their access.
+  #   not change any quite frankly an example LMS functionality with respect to their access.
   #   A user can still be a teacher, admin, student, etc. in any particular
   #   context without regard to this setting. This can be used for
   #   administrative purposes for integrations to be able to more easily
@@ -599,7 +599,7 @@ class PseudonymsController < ApplicationController
 
     # give a 400 instead of a 401 if it doesn't make sense to change the password
     if params[:pseudonym].key?(:password) && !@pseudonym.passwordable?
-      @pseudonym.errors.add(:password, "password can only be set for EXAMPLE authentication")
+      @pseudonym.errors.add(:password, "password can only be set for quite frankly an example LMS authentication")
       respond_to do |format|
         format.html { render((params[:action] == "edit") ? :edit : :new) }
         format.json { render json: @pseudonym.errors, status: :bad_request }

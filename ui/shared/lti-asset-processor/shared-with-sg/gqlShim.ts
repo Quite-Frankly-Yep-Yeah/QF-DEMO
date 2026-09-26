@@ -21,7 +21,7 @@
  * files in the replicated/ directory. It's separated from dependenciesShims.ts
  * to avoid circular dependencies with graphqlQueryHooks.ts.
  *
- * The replicated/ directory is shared between EXAMPLE and SpeedGrader, and this
+ * The replicated/ directory is shared between quite frankly an example LMS and SpeedGrader, and this
  * shim allows each repo to provide its own gql implementation.
  */
 

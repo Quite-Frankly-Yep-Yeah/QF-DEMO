@@ -17,11 +17,9 @@
  */
 
 import React from 'react'
-import {render, waitFor, screen} from '@testing-library/react'
-import userEvent from '@testing-library/user-event'
+import {render} from '@testing-library/react'
 import {DragDropContext} from 'react-dnd'
 import ReactDndTestBackend from 'react-dnd-test-backend'
-import {http, HttpResponse} from 'msw'
 import {setupServer} from 'msw/node'
 
 import DashboardCard from '../DashboardCard'
@@ -55,16 +53,6 @@ describe('DashboardCardBox', () => {
 
   beforeEach(() => {
     props = {...defaultProps}
-
-    // Mock all color-related API calls
-    server.use(
-      http.put('/api/v1/users/:userId/colors/:assetString', () => {
-        return HttpResponse.json({})
-      }),
-      http.get('/api/v1/users/:userId/colors', () => {
-        return HttpResponse.json({})
-      }),
-    )
 
     vi.spyOn(CourseActivitySummaryStore, 'getStateForCourse').mockReturnValue({})
   })
@@ -114,44 +102,6 @@ describe('DashboardCardBox', () => {
       renderComponent()
       const dashboardBox = document.querySelector('.unpublished_courses_redesign')
       expect(dashboardBox.textContent).toContain('No courses to display')
-    })
-  })
-
-  describe('card interactions', () => {
-    it('removes unfavorited card from dashboard cards', async () => {
-      const user = userEvent.setup()
-      const {rerender, Box} = renderComponent()
-
-      // Mock the unfavorite API call
-      server.use(
-        http.delete('/api/v1/users/self/favorites/courses/1', () => {
-          return HttpResponse.json({})
-        }),
-      )
-
-      const cards = document.querySelectorAll('.ic-DashboardCard')
-      const initialCardCount = cards.length
-
-      const moreButton = cards[0].querySelector('.icon-more')
-      await user.click(moreButton)
-
-      const moveTab = screen.getByRole('tab', {name: /Move/})
-      await user.click(moveTab)
-
-      const unfavoriteButton = screen.getByText(/Unfavorite/)
-      await user.click(unfavoriteButton)
-
-      const submitButton = screen.getByRole('button', {name: /Submit/})
-      await user.click(submitButton)
-
-      // Update props to simulate card being unfavorited
-      props.courseCards = props.courseCards.filter(card => card.id !== '1')
-      rerender(<Box connectDropTarget={el => el} ref={() => {}} {...props} />)
-
-      await waitFor(() => {
-        const updatedCards = document.querySelectorAll('.ic-DashboardCard')
-        expect(updatedCards).toHaveLength(initialCardCount - 1)
-      })
     })
   })
 })

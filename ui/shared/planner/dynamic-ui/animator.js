@@ -122,7 +122,7 @@ export class Animator {
   isBelowScreen(elt) {
     // clientHeight is rounded to an integer, while the rect is a more precise
     // float. Add some padding so we err on the side of loading too much.
-    // Also, EXAMPLE's footer makes the document always at least as tall as
+    // Also, quite frankly an example LMS's footer makes the document always at least as tall as
     // the viewport.
     const doc = this.window.document.documentElement
     return elt?.getBoundingClientRect().bottom + 2 > doc.clientHeight

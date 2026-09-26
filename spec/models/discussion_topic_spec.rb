@@ -125,7 +125,7 @@ describe DiscussionTopic do
         expect(@topic.grading_standard_or_default).to be @grading_standard
       end
 
-      it "returns the EXAMPLE default grading scheme if neither the topic nor course are not using a grading scheme" do
+      it "returns the quite frankly an example LMS default grading scheme if neither the topic nor course are not using a grading scheme" do
         expect(@course.grading_standard_or_default.data).to eq GradingStandard.default_grading_standard
       end
     end
@@ -146,11 +146,11 @@ describe DiscussionTopic do
         expect(@topic.grading_standard_or_default).to be @grading_standard
       end
 
-      it "returns the EXAMPLE default grading scheme if neither the topic nor course are not using a grading scheme" do
+      it "returns the quite frankly an example LMS default grading scheme if neither the topic nor course are not using a grading scheme" do
         expect(@topic.grading_standard_or_default.data).to eq GradingStandard.default_grading_standard
       end
 
-      it "returns the EXAMPLE default grading scheme if the Group belongs to an Account" do
+      it "returns the quite frankly an example LMS default grading scheme if the Group belongs to an Account" do
         group = @course.root_account.groups.create!
         @topic.update!(context: group)
         expect(@topic.grading_standard_or_default.data).to eq GradingStandard.default_grading_standard

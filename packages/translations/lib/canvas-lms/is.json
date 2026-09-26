@@ -17,7 +17,7 @@
         "Archived grading schemes in use can still be used, but cannot be added to new courses or assignments.": "Enn er hægt að nota geymda einkunnakvarða sem eru í notkun en ekki er hægt að bæta þeim við ný námskeið eða verkefni.",
         "Are you sure you want to delete this grading scheme?": "Viltu örugglega eyða þessum einkunnakvarða?",
         "Cancel": "Hætta við",
-        "EXAMPLE Default": "EXAMPLE sjálfgilt",
+        "quite frankly an example LMS Default": "quite frankly an example LMS sjálfgilt",
         "Close": "Loka",
         "Confirm": "Staðfesta",
         "Confirm Default Grading Scheme Change": "Staðfesta breytingu á sjálfgildum einkunnakvarða",
@@ -157,10 +157,10 @@
     "assignments.grading_type_selector": {
         "(course default)": "(sjálfgildur fyrir námskeið)",
         "Account Level": "Reikningsstig",
-        "EXAMPLE Grading Scheme (course default)": "Einkunnakvarði EXAMPLE (sjálfgildur fyrir námskeið)",
+        "quite frankly an example LMS Grading Scheme (course default)": "Einkunnakvarði quite frankly an example LMS (sjálfgildur fyrir námskeið)",
         "Close": "Loka",
         "Course Level": "Námskeiðsstig",
-        "Default EXAMPLE Grading Scheme": "Sjálfgefinn einkunnakvarði EXAMPLE",
+        "Default quite frankly an example LMS Grading Scheme": "Sjálfgefinn einkunnakvarði quite frankly an example LMS",
         "Grading scheme was successfully removed.": "Einkunnakvarði var fjarlægður.",
         "Grading scheme was successfully updated.": "Einkunnakvarði var uppfærður með góðum árangri.",
         "Manage All Grading Schemes": "Stjórna öllum einkunnakvörðum",
@@ -181,7 +181,7 @@
         "Course Catalog": "Catalog námskeiðs"
     },
     "confetti": {
-        "Great work! From the EXAMPLE developers": "Frábært! Frá hönnuðum EXAMPLE"
+        "Great work! From the quite frankly an example LMS developers": "Frábært! Frá hönnuðum quite frankly an example LMS"
     },
     "content_copy_redesign": {
         "Cancel": "Hætta við",

@@ -1,7 +1,7 @@
 # Vault
 
 [Vault](https://www.vaultproject.io/) is a secrets management system from
-Hashicorp. EXAMPLE will eventually use Vault for its key-value store and for
+Hashicorp. quite frankly an example LMS will eventually use Vault for its key-value store and for
 authentication tokens for some backend services, though there will be a
 file-based alternative in the style of `dynamic_settings.yml`
 

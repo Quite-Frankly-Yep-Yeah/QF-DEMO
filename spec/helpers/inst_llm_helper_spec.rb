@@ -69,7 +69,7 @@ describe InstLLMHelper do
         InstLLMHelper.with_rate_limit(user:, llm_config:) do
           true
         end
-      end.to raise_error("InstLLMHelper rate limiting requires Redis to be enabled for the EXAMPLE instance. You may remove the 'rate_limit' option from the LLMConfig to disable rate limiting.")
+      end.to raise_error("InstLLMHelper rate limiting requires Redis to be enabled for the quite frankly an example LMS instance. You may remove the 'rate_limit' option from the LLMConfig to disable rate limiting.")
     end
 
     it "raises an error if period is not 'day'" do

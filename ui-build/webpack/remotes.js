@@ -285,7 +285,7 @@ function fetchCanvasCourseCriteria(resolve, reject) {
   const script = document.createElement('script')
 
   if (!window.REMOTES?.canvas_course_criteria?.launch_url) {
-    console.debug(`EXAMPLE Criteria remote not configured; using ${DEV_HOST}`)
+    console.debug(`quite frankly an example LMS Criteria remote not configured; using ${DEV_HOST}`)
   }
 
   script.src = window.REMOTES?.canvas_course_criteria?.launch_url || DEV_HOST
@@ -296,7 +296,7 @@ function fetchCanvasCourseCriteria(resolve, reject) {
         try {
           return window.CanvasCourseCriteria.init(arg)
         } catch (e) {
-          console.warn('Remote EXAMPLE Criteria has already been loaded')
+          console.warn('Remote quite frankly an example LMS Criteria has already been loaded')
         }
       },
     }

@@ -40,11 +40,11 @@ export const useSwitchExperience = () => {
       if (data.json?.experience) {
         assignLocation(`/${data.json.experience}`)
       } else {
-        showFlashError(I18n.t('Error switching to EXAMPLE Career'))
+        showFlashError(I18n.t('Error switching to quite frankly an example LMS Career'))
       }
     },
     onError: () => {
-      showFlashError(I18n.t('Error switching to EXAMPLE Career'))
+      showFlashError(I18n.t('Error switching to quite frankly an example LMS Career'))
     },
   })
 

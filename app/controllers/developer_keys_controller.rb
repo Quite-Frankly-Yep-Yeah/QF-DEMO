@@ -20,19 +20,19 @@
 
 # @API Developer Keys
 #
-# Manage EXAMPLE API Keys, used for OAuth access to this API.
+# Manage quite frankly an example LMS API Keys, used for OAuth access to this API.
 # See <a href="file.oauth.html">the OAuth access docs</a> for usage of these keys.
 # Note that DeveloperKeys are also (currently) used for LTI 1.3 registration and OIDC access,
-# but this endpoint deals with EXAMPLE API keys. See <a href="file.registration.html">LTI Registration</a>
+# but this endpoint deals with quite frankly an example LMS API keys. See <a href="file.registration.html">LTI Registration</a>
 # for details.
 #
 # @model DeveloperKey
 #    {
 #      "id": "DeveloperKey",
-#      "description": "a EXAMPLE API key (or LTI 1.3 registration)",
+#      "description": "a quite frankly an example LMS API key (or LTI 1.3 registration)",
 #      "properties": {
 #        "id": {
-#          "description": "The EXAMPLE ID of the DeveloperKey object",
+#          "description": "The quite frankly an example LMS ID of the DeveloperKey object",
 #          "example": 1,
 #          "type": "integer"
 #        },
@@ -62,7 +62,7 @@
 #          ]
 #        },
 #        "is_lti_key": {
-#          "description": "True if key represents an LTI 1.3 Registration. False for EXAMPLE API keys",
+#          "description": "True if key represents an LTI 1.3 Registration. False for quite frankly an example LMS API keys",
 #          "example": false,
 #          "type": "boolean"
 #        },
@@ -149,7 +149,7 @@
 #          "type": "string"
 #        },
 #        "tool_configuration": {
-#          "description": "(LTI keys only) The EXAMPLE-style tool configuration for this key.",
+#          "description": "(LTI keys only) The quite frankly an example LMS-style tool configuration for this key.",
 #           "example": { "type": "Lti::ToolConfiguration" },
 #           "$ref": "Lti::ToolConfiguration"
 #        },
@@ -159,7 +159,7 @@
 #          "type": "object"
 #        },
 #        "public_jwk_url": {
-#          "description": "(LTI keys only) The tool-hosted URL containing its public JWK keyset. EXAMPLE may cache JWKs up to 5 minutes.",
+#          "description": "(LTI keys only) The tool-hosted URL containing its public JWK keyset. quite frankly an example LMS may cache JWKs up to 5 minutes.",
 #          "example": "https://mytool.com/1_3/jwks",
 #          "type": "string"
 #        },
@@ -246,7 +246,7 @@ class DeveloperKeysController < ApplicationController
 
   # @API Create a Developer Key
   #
-  # Create a new EXAMPLE API key. Creating an LTI 1.3 registration is not supported here and
+  # Create a new quite frankly an example LMS API key. Creating an LTI 1.3 registration is not supported here and
   # should be done via the LTI Registration API.
   #
   # @argument developer_key [Required, json]
@@ -288,7 +288,7 @@ class DeveloperKeysController < ApplicationController
 
   # @API Update a Developer Key
   #
-  # Update an existing EXAMPLE API key. Updating an LTI 1.3 registration is not supported here and should
+  # Update an existing quite frankly an example LMS API key. Updating an LTI 1.3 registration is not supported here and should
   # be done via the LTI Registration API.
   #
   # @argument developer_key [Required, json]
@@ -332,7 +332,7 @@ class DeveloperKeysController < ApplicationController
 
   # @API Delete a Developer Key
   #
-  # Delete an existing EXAMPLE API key. Deleting an LTI 1.3 registration should be done via the LTI Registration API.
+  # Delete an existing quite frankly an example LMS API key. Deleting an LTI 1.3 registration should be done via the LTI Registration API.
   #
   # @returns DeveloperKey
   def destroy

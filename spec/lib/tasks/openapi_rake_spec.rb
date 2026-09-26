@@ -148,7 +148,7 @@ describe "doc:openapi rake task" do
       end
     end
 
-    it "includes EXAMPLE-specific configuration" do
+    it "includes quite frankly an example LMS-specific configuration" do
       Dir.mktmpdir do |tmpdir|
         tmpdir_path = Pathname.new(tmpdir)
         output_file = tmpdir_path.join("public/doc/openapi/canvas.openapi.yaml")

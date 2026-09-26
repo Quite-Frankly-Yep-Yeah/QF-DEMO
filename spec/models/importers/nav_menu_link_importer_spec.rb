@@ -320,7 +320,7 @@ describe Importers::NavMenuLinkImporter do
         "https://example.com/123?456#789" => "https://example.com/123?456#789",
         "https://example.com/courses/123/assignments/123" => "https://example.com/courses/123/assignments/123",
 
-        # EXAMPLE object references
+        # quite frankly an example LMS object references
         "$CANVAS_OBJECT_REFERENCE$/assignments/#{assignment.migration_id}" => "/courses/#{@course.id}/assignments/#{assignment.id}",
         "$CANVAS_OBJECT_REFERENCE$/assignments/#{assignment.migration_id}?foo=bar&baz=qux" => "/courses/#{@course.id}/assignments/#{assignment.id}?foo=bar&baz=qux",
         "%24CANVAS_OBJECT_REFERENCE%24/assignments/#{assignment.migration_id}" => "/courses/#{@course.id}/assignments/#{assignment.id}",

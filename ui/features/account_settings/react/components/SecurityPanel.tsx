@@ -325,15 +325,15 @@ export function SecurityPanel({
   return (
     <div>
       <Heading margin="small 0" level="h3" as="h2" border="bottom">
-        {I18n.t('EXAMPLE Content Security Policy')}
+        {I18n.t('quite frankly an example LMS Content Security Policy')}
       </Heading>
       <View as="div" margin="small 0">
         <Text as="p">
           {I18n.t(
             `The Content Security Policy allows you to restrict custom
-             JavaScript that runs in your instance of EXAMPLE. You can manually add
+             JavaScript that runs in your instance of quite frankly an example LMS. You can manually add
              up to %{max_domains} allowed domains. Wild cards are recommended
-             (e.g. *.instructure.com). EXAMPLE and Instructure domains are included
+             (e.g. *.instructure.com). quite frankly an example LMS and Instructure domains are included
              automatically and do not count against your %{max_domains} domain limit.`,
             {
               max_domains: maxDomains,

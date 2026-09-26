@@ -25,7 +25,7 @@
 
 <div id="modal-box" class="ic-Login-confirmation">
   <header class="ic-Login-confirmation__header">
-    <%= image_tag("login/canvas-logo@2x.png", class:"ic-Login-confirmation__logo", alt:"EXAMPLE") %>
+    <%= image_tag("login/canvas-logo@2x.png", class:"ic-Login-confirmation__logo", alt:"quite frankly an example LMS") %>
   </header>
   <div class="ic-Login-confirmation__content">
     <h2 class="ic-Login-confirmation__headline"><%= t("Multi-Factor Authentication") %></h2>
@@ -40,7 +40,7 @@
           MESSAGE
         %>
         <%= mt(<<~BODY, otp_via_sms_message:)
-            Multi-Factor Authentication (MFA) enhances security by requiring a physical device and your EXAMPLE login password.
+            Multi-Factor Authentication (MFA) enhances security by requiring a physical device and your quite frankly an example LMS login password.
             %{otp_via_sms_message}
 
             Configure MFA by scanning the QR code with a Time-based One-Time Password (TOTP) app on iPhone or Android
@@ -53,7 +53,7 @@
             <div class="<%= otp_via_sms_in_us_region? ? "col-xs-12 col-sm-12 col-md-6" : "col-xs-12" %>">
               <h3><%= t("Use Authenticator App") %></h3>
               <%
-                provisioning_uri = ROTP::TOTP.new(session[:pending_otp_secret_key]).provisioning_uri("#{@domain_root_account.name} EXAMPLE- #{@current_pseudonym.unique_id}")
+                provisioning_uri = ROTP::TOTP.new(session[:pending_otp_secret_key]).provisioning_uri("#{@domain_root_account.name} quite frankly an example LMS- #{@current_pseudonym.unique_id}")
                 qr_code = RQRCode::QRCode.new(provisioning_uri, level: :l)
               %>
               <div class="otp-qr-code">

@@ -38,7 +38,7 @@ describe('render available pronouns input', () => {
     fireEvent.focus(icon)
     expect(
       getAllByText(
-        'These pronouns will be available to EXAMPLE users in your account to choose from.',
+        'These pronouns will be available to quite frankly an example LMS users in your account to choose from.',
       )[0],
     ).toBeVisible()
   })

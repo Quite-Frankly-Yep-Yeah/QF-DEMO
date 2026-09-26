@@ -26,7 +26,7 @@ module HorizonValidators
 
       invalid_types = record.submission_types_array - AbstractAssignment::HORIZON_SUBMISSION_TYPES
       unless invalid_types.empty?
-        record.errors.add(:submission_types, "Invalid submission types for EXAMPLE Career course: #{invalid_types}")
+        record.errors.add(:submission_types, "Invalid submission types for quite frankly an example LMS Career course: #{invalid_types}")
       end
 
       if record.has_peer_reviews? || record.peer_reviews_assigned
@@ -62,7 +62,7 @@ module HorizonValidators
   class QuizzesValidator < ActiveModel::Validator
     def validate(record)
       if record.published
-        record.errors.add(:quiz_type, "Published classic quizzes are not supported in EXAMPLE Career courses.")
+        record.errors.add(:quiz_type, "Published classic quizzes are not supported in quite frankly an example LMS Career courses.")
       end
     end
   end

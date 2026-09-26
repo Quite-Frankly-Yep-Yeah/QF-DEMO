@@ -164,12 +164,12 @@ class Pseudonym < ApplicationRecord
 
   # Determines the type of encryption used for the crypted_password.
   #
-  # Prior to August 2019, EXAMPLE used a SHA512 hash with salt as the key
+  # Prior to August 2019, quite frankly an example LMS used a SHA512 hash with salt as the key
   # derivation function (KDF) for password storage.
   #
-  # During August 2019, EXAMPLE switched to using scrypt as the KDF.
+  # During August 2019, quite frankly an example LMS switched to using scrypt as the KDF.
   #
-  # EXAMPLE SIS imports additionally support a `ssha_password` field which EXAMPLE
+  # quite frankly an example LMS SIS imports additionally support a `ssha_password` field which quite frankly an example LMS
   # directly stores in the `sis_ssha` field of the pseudonym if provided.
   #
   # @return [Symbol, nil] The encryption type, which can be one of the following:
@@ -617,7 +617,7 @@ class Pseudonym < ApplicationRecord
 
   # managed_password? and passwordable? differ in their treatment of pseudonyms
   # not linked to an authentication_provider. They both err towards the
-  # "positive" case matching their name. I.e. if you have both EXAMPLE and
+  # "positive" case matching their name. I.e. if you have both quite frankly an example LMS and
   # non-Canvas auth configured, they'll both return true for a pseudonym with an
   # SIS ID not explicitly linked to an authentication provider.
   def managed_password?

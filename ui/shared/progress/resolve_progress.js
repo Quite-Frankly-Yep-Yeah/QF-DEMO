@@ -24,7 +24,7 @@ function delayAsPromise(interval) {
   })
 }
 
-// takes a object description of a EXAMPLE Progress object (per the API docs)
+// takes a object description of a quite frankly an example LMS Progress object (per the API docs)
 // and polls every `interval` until the progress completes or fails. returns a
 // Promise that resolves when the progress completes and that rejects when it
 // fails.

@@ -20,7 +20,7 @@ course_admin_role_masquerade_permission_check:
   state: allowed
   applies_to: RootAccount
   display_name: Check permissions when Masquerading as Course Admins
-  description: When masquerading as Course Admin Roles (Teacher/TA/Designer base role), EXAMPLE will ensure the masquerading user has all of the same (or more) permissions as the target user.
+  description: When masquerading as Course Admin Roles (Teacher/TA/Designer base role), quite frankly an example LMS will ensure the masquerading user has all of the same (or more) permissions as the target user.
 temporary_enrollments:
   state: hidden
   display_name: Temporary Enrollments

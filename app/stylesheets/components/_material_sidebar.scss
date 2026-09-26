@@ -1,0 +1,75 @@
+/*
+ * Copyright (C) 2015 - present Instructure, Inc.
+ *
+ * This file is part of Canvas.
+ *
+ * Canvas is free software: you can redistribute it and/or modify it under
+ * the terms of the GNU Affero General Public License as published by the Free
+ * Software Foundation, version 3 of the License.
+ *
+ * Canvas is distributed in the hope that it will be useful, but WITHOUT ANY
+ * WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS FOR
+ * A PARTICULAR PURPOSE. See the GNU Affero General Public License for more
+ * details.
+ *
+ * You should have received a copy of the GNU Affero General Public License along
+ * with this program. If not, see <http://www.gnu.org/licenses/>.
+ */
+
+// The right-hand sidebar (To Do, Coming Up, recent feedback, and on admin
+// pages the "add authentication" and other action buttons) as one white
+// Material 1 card, matching the course menu on the left.
+@if not $use_high_contrast {
+  #right-side {
+    box-sizing: border-box;
+    background: #ffffff;
+    border-radius: 2px;
+    box-shadow: $md-elevation-1;
+    padding: 16px;
+
+    h2,
+    .h2 {
+      border-bottom: 0;
+      margin: 0 0 8px;
+      padding: 0;
+      font-size: 1rem;
+      font-weight: 500;
+      color: #212121;
+    }
+
+    hr {
+      border: 0;
+      border-top: 1px solid rgba(0, 0, 0, 0.12);
+      margin: 16px 0;
+    }
+
+    .right-side-list li a {
+      border-radius: 2px;
+      padding: 10px 8px;
+      margin: 0 -8px;
+      transition: background-color 0.15s;
+
+      &:hover,
+      &:focus {
+        background: rgba(0, 0, 0, 0.05);
+        text-decoration: none;
+      }
+    }
+
+    // the full-width action buttons at the top of the sidebar
+    .button-sidebar-wide,
+    .Button.button-sidebar-wide {
+      display: block;
+      box-sizing: border-box;
+      width: 100%;
+      margin: 0 0 8px;
+      padding: 10px 16px;
+      border-radius: 2px;
+      font-size: 0.875rem;
+      font-weight: 500;
+      letter-spacing: 0.5px;
+      text-align: center;
+      text-transform: uppercase;
+    }
+  }
+}

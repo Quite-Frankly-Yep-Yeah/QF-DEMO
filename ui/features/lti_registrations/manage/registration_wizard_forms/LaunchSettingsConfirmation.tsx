@@ -125,7 +125,7 @@ export const LaunchSettingsConfirmation = (props: LaunchSettingsConfirmationProp
         <Text
           dangerouslySetInnerHTML={{
             __html: I18n.t(
-              'Find more information about manual configuration in the *EXAMPLE documentation.*',
+              'Find more information about manual configuration in the *quite frankly an example LMS documentation.*',
               {
                 wrapper: [
                   '<a href="https://canvas.instructure.com/doc/api/file.lti_dev_key_config.html" target="_blank">$1</a>',
@@ -275,7 +275,7 @@ export const LaunchSettingsConfirmation = (props: LaunchSettingsConfirmationProp
                 >
                   <Text
                     dangerouslySetInnerHTML={{
-                      __html: I18n.t('Refer to the *EXAMPLE documentation* for more details.', {
+                      __html: I18n.t('Refer to the *quite frankly an example LMS documentation* for more details.', {
                         wrapper: [
                           '<a href="https://canvas.instructure.com/doc/api/file.tools_variable_substitutions.html" target="_blank">$1</a>',
                         ],

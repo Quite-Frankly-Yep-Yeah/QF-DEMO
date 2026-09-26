@@ -59,7 +59,7 @@ export const RevertAccount = ({accountId, isHorizonAccountLocked}: RevertAccount
           <Heading level="h3">{I18n.t('Revert Account')}</Heading>
           <Text as="p">
             {I18n.t(
-              'By reverting, all EXAMPLE Career features will be disabled. Reverting will result in the loss of features, including the simplified user interface, program management, AI-driven actionable insights, and more! These features will no longer be available after the account is reverted.',
+              'By reverting, all quite frankly an example LMS Career features will be disabled. Reverting will result in the loss of features, including the simplified user interface, program management, AI-driven actionable insights, and more! These features will no longer be available after the account is reverted.',
             )}
           </Text>
         </View>

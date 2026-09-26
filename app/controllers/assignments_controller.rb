@@ -302,7 +302,7 @@ class AssignmentsController < ApplicationController
       return redirect_to named_context_url(@context, :context_assignments_url)
     end
 
-    params[:display] = "borderless" # render the LTI launch full screen, without any EXAMPLE chrome
+    params[:display] = "borderless" # render the LTI launch full screen, without any quite frankly an example LMS chrome
     params[:assignments_2] = false # bypass A2 rendering to get to the call to content_tag_redirect
     show
   end
@@ -763,7 +763,7 @@ class AssignmentsController < ApplicationController
 
     if @context.feature_enabled?(:peer_review_allocation_and_grading) && @assignment.peer_review_sub_assignment.present?
       unless @assignment.grants_right?(@current_user, session, :grade) && !user_assigned_as_student?
-        @unauthorized_message = t("Please contact your EXAMPLE Administrator, as one or more of the following feature options is not enabled to view this Peer Review Assignment:")
+        @unauthorized_message = t("Please contact your quite frankly an example LMS Administrator, as one or more of the following feature options is not enabled to view this Peer Review Assignment:")
         @unauthorized_details = [
           t("Peer Review Allocation and Grading"),
           t("Assignment Enhancements - Student"),

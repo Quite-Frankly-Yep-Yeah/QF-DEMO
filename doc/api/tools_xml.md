@@ -2,7 +2,7 @@ Importing Extended Tool Configurations
 =======================================
 
 Standard LTI tool configurations can be manually entered by users in
-the EXAMPLE UI, or set up via the
+the quite frankly an example LMS UI, or set up via the
 <a href="external_tools.html">external tools API</a>.
 In the manual case, since many of the extensions listed here require
 more than a few lines of configuration, there is not currently an
@@ -700,9 +700,9 @@ by the service should be scoped to the matching domain.
 ```
 
 ## Launch URL's containing query parameters
-By default, EXAMPLE handles LTI launch URLs with query parameters by including the query parameters
+By default, quite frankly an example LMS handles LTI launch URLs with query parameters by including the query parameters
 in the URL and the post body. This can result in a signature mismatch if not accounted for. The
-`oauth_compliant` parameter allows an external tool provider to specify how it wants EXAMPLE to
+`oauth_compliant` parameter allows an external tool provider to specify how it wants quite frankly an example LMS to
 handle launch URLs with query parameters: if set to `true` LTI query parameters will not be copied
 to the POST body.
 
@@ -787,7 +787,7 @@ upon import.
 The `status_url` will be polled to determine when the content should be
 retreived. The response MUST include a `status` key; this key will be used to
 determine when the tool considers the export process to be completed whether it
-has been successful or not. When this field contains `complete` EXAMPLE will then
+has been successful or not. When this field contains `complete` quite frankly an example LMS will then
 attempt to use the `fetch_url` to retrieve the exported data. In the case of
 failure set the `status` field to `failed` and supply a `message` field for
 display to the user.
@@ -814,7 +814,7 @@ these use the same mappings as exported identifiers below. In the event that a
 tool provider has no content to export for a subset export either return an
 empty JSON object in the response or a status code outside the 200 range.
 
-#### Exported Data Including EXAMPLE Record IDs.
+#### Exported Data Including quite frankly an example LMS Record IDs.
 If in the process of importing your tool needs to receive record identifers for
 newly created items in Canavs the source IDs may be included in the export data
 with keys matching the pattern `/^\$canvas_(\w+)_id$/`. Example export data

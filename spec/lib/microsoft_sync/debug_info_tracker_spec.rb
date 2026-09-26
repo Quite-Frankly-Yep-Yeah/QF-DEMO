@@ -290,7 +290,7 @@ describe MicrosoftSync::DebugInfoTracker do
 
           expect_msg(
             group.debug_info.last,
-            msg: "%{n_users} EXAMPLE users without corresponding Microsoft user. First %{n_shown}:",
+            msg: "%{n_users} quite frankly an example LMS users without corresponding Microsoft user. First %{n_shown}:",
             data: { n_users: 3, n_shown: 2 },
             n_users: 2,
             user_ids: [1, 2, 3]
@@ -304,7 +304,7 @@ describe MicrosoftSync::DebugInfoTracker do
 
           expect_msg(
             group.debug_info.last,
-            msg: "%{n_users} EXAMPLE users without corresponding Microsoft user:",
+            msg: "%{n_users} quite frankly an example LMS users without corresponding Microsoft user:",
             data: { n_users: 3 },
             n_users: 3,
             user_ids: [1, 2, 3]
@@ -322,7 +322,7 @@ describe MicrosoftSync::DebugInfoTracker do
 
           expect_msg(
             group.debug_info.last,
-            msg: "One EXAMPLE user without corresponding Microsoft user:",
+            msg: "One quite frankly an example LMS user without corresponding Microsoft user:",
             n_users: 1,
             user_ids: [1]
           )

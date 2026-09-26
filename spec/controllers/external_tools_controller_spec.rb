@@ -1743,7 +1743,7 @@ describe ExternalToolsController do
       it "uses deep linking when editing assignment to select new resource via retrieve endpoint" do
         # This test verifies the fix for INTEROP-9964 / https://github.com/instructure/canvas-lms/issues/2553
         # When launching with placement=assignment_selection and assignment in secure_params (not URL params),
-        # EXAMPLE should send LtiDeepLinkingRequest for resource selection, not LtiResourceLinkRequest
+        # quite frankly an example LMS should send LtiDeepLinkingRequest for resource selection, not LtiResourceLinkRequest
         # This happens when an instructor edits an existing assignment to select a NEW resource
 
         # Create a tool with assignment_selection configured for deep linking

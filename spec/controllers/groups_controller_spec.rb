@@ -968,7 +968,7 @@ describe GroupsController do
         @restricted_teacher = user_factory(active_all: true, name: "Restricted Teacher")
         @course.enroll_teacher(@restricted_teacher, section: @section1, enrollment_state: "active")
 
-        # Apply section restriction using proper EXAMPLE helper
+        # Apply section restriction using proper quite frankly an example LMS helper
         Enrollment.limit_privileges_to_course_section!(@course, @restricted_teacher, true)
 
         # Create group category and group with students from both sections

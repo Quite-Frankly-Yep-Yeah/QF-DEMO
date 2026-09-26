@@ -59,7 +59,7 @@ class ServicesApiController < ApplicationController
 
   # @API Start Kaltura session
   # Start a new Kaltura session, so that new media can be recorded and uploaded
-  # to this EXAMPLE instance's Kaltura instance.
+  # to this quite frankly an example LMS instance's Kaltura instance.
   #
   # @response_field ks The kaltura session id, for use in the kaltura v3 API.
   #     This can be used in the uploadtoken service, for instance, to upload a new

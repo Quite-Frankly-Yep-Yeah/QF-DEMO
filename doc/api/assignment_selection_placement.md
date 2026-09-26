@@ -6,12 +6,12 @@ assignment creation or editing. The **assignment_selection** placement
 alows course designers (Admins/Instructors) to use the <a
 href="file.content_item.html" target="_blank">LTI
 Deep Linking</a> flow to select an LTI resource from an external tool and
-associate it with a EXAMPLE assignment. Assigned students can then directly
-access the tools assessment activity from EXAMPLE. Tools can then leverage <a
+associate it with a quite frankly an example LMS assignment. Assigned students can then directly
+access the tools assessment activity from quite frankly an example LMS. Tools can then leverage <a
 href="file.assignment_tools.html" target="_blank">
 LTI grading services</a> for a deeper assignment integration.
 
-Note: This placement is enabled by default in EXAMPLE for LTI 1.1. It can be
+Note: This placement is enabled by default in quite frankly an example LMS for LTI 1.1. It can be
 removed by using the `not_selectable` configuration option (see <a
 href="external_tools.html" target="_blank">External Tools API</a>). For LTI
 1.3, the placement will only be enabled if listed in the `placements` in the
@@ -23,8 +23,8 @@ href="file.content_item.html" target="_blank">LTI
 Deep Linking documentation</a>.
 
 ### Advantages
-- Course designers can associate LTI resources with EXAMPLE assignments.
-- Students can complete LTI assignments without leaving EXAMPLE.
+- Course designers can associate LTI resources with quite frankly an example LMS assignments.
+- Students can complete LTI assignments without leaving quite frankly an example LMS.
 - Tools can synchronize grades and submissions back to the course gradebook by
 leveraging <a href="file.assignment_tools.html" target="_blank">
 LTI grading services</a>.
@@ -44,11 +44,11 @@ LTI resources or create LTI resources on-the-fly.
 
 
 ### Workflow
-A user must be allowed to create EXAMPLE Assignments and the tool must be
+A user must be allowed to create quite frankly an example LMS Assignments and the tool must be
 configured to use the **assignment_selection** placement. While tools *can*
 be configured to use this placement without deep linking, the workflow
 described here applies to tools that leverage deep linking *with* the placement.
-If a tool does not leverage deep linking, EXAMPLE uses the URL configured at the
+If a tool does not leverage deep linking, quite frankly an example LMS uses the URL configured at the
 tool-level or placement-level every time the tool is selected in step 2 below.
 
 During <a href="https://community.canvaslms.com/t5/Instructor-Guide/How-do-I-create-an-assignment/ta-p/740" 
@@ -57,19 +57,19 @@ target="_blank">assignment creation</a>:
 the **Submission Type** dropdown.
 2. They then choose "Find" and select the tool
 they wish to select content from.
-3. EXAMPLE then performs a Deep Linking launch
+3. quite frankly an example LMS then performs a Deep Linking launch
 request (if configured) to the tool and the user is presented with a tool-side UI
 to select or create a single LTI resource.
-4. The tool can return an LTI deep linking message back to EXAMPLE with a URL for
+4. The tool can return an LTI deep linking message back to quite frankly an example LMS with a URL for
 the LTI resource. Usually this is a URL with resource identifiers in the url.
-5. When students view the assignment, EXAMPLE launches to the URL returned by the tool.
+5. When students view the assignment, quite frankly an example LMS launches to the URL returned by the tool.
 6. If a resource identifier was provided as part of the url, then the tool will see this in the
 launch payload and be able to look up and render the correct resource.
 7. After completing the tool-side assignment, tools may optionally return a grade
 and/or submission. See the <a href="file.assignment_tools.html">Grading</a>
 documentation for more details.
 
-Now the instructors and students can view the grade/submission in the EXAMPLE
+Now the instructors and students can view the grade/submission in the quite frankly an example LMS
 gradebook if they were returned!
 
 ### Settings
@@ -107,17 +107,17 @@ All of these settings are contained for the **assignment_selection** placement:
 
     Sets the message_type to be sent during the LTI launch. It is expected that
     the tool use this to determine if a Deep Linking flow is being requested by
-    EXAMPLE and present an appropriate UI. A Deep Linking flow is highly recommended
+    quite frankly an example LMS and present an appropriate UI. A Deep Linking flow is highly recommended
     for this placement, but is not required. See the
     <a href="file.content_item.html" target="_blank">Deep Linking
     documentation</a> for more information, including accepted values.
 
 -   selection_width: &lt;pixels&gt; (optional)
 
-    This sets the width (px) of the selection launch modal. EXAMPLE may set a
+    This sets the width (px) of the selection launch modal. quite frankly an example LMS may set a
     maximum or minimum width that overrides this option.
 
 -   selection_height: &lt;pixels&gt; (optional)
 
-    This sets the height (px) of the selection launch modal. EXAMPLE may set a
+    This sets the height (px) of the selection launch modal. quite frankly an example LMS may set a
     maximum or minimum height that overrides this option.

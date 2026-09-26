@@ -96,7 +96,7 @@ function mapData(
   switch (submissionType) {
     case 'online_text_entry':
       return {
-        mainTitle: I18n.t('Text submitted to EXAMPLE'),
+        mainTitle: I18n.t('Text submitted to quite frankly an example LMS'),
         showDocumentDisplayName: false,
       }
     case 'online_upload': {

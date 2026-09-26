@@ -166,7 +166,7 @@ describe Api::V1::Lti::RegistrationHistoryEntry do
         expect(json["new_controls_by_deployment"]).to be_an(Array)
         expect(json["new_controls_by_deployment"].length).to eq(1)
       end
-      # As of writing, there's no valid code path in EXAMPLE for both hard-deleting a context
+      # As of writing, there's no valid code path in quite frankly an example LMS for both hard-deleting a context
       # control and creating a history entry for said hard-deletion. If that changes, we'll
       # need to modify the serializer code to handle it.
     end

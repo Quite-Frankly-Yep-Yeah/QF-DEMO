@@ -72,12 +72,12 @@ const JQUERY_UI_WIDGETS_WE_TRY_TO_ENHANCE = '.dialog, .draggable, .resizable, .s
 function deprecationWarning(els) {
   const msg =
     'Deprecated use of magic jQueryUI widget markup detected:\n\n' +
-    "You're relying on undocumented functionality where EXAMPLE makes " +
+    "You're relying on undocumented functionality where quite frankly an example LMS makes " +
     'jQueryUI widgets out of rich content that has the following class names: ' +
     JQUERY_UI_WIDGETS_WE_TRY_TO_ENHANCE +
     '.\n\n' +
-    'EXAMPLE is moving away from jQueryUI for our own widgets and this behavior ' +
-    "will go away. Rather than relying on the internals of EXAMPLE's JavaScript, " +
+    'quite frankly an example LMS is moving away from jQueryUI for our own widgets and this behavior ' +
+    "will go away. Rather than relying on the internals of quite frankly an example LMS's JavaScript, " +
     'you should use your own custom JS file to do any such customizations.'
   console.error(msg, els)
   captureException(new Error(msg))

@@ -3,7 +3,7 @@
   "definition": "The event is emitted anytime a new outcome_proficiency (mastery scale) is created by an end user or API request.",
   "trigger": "Triggered when a new outcome_proficiency is saved.",
   "schema": {
-    "outcome_proficiency_id": "The EXAMPLE id of the outcome proficiency.",
+    "outcome_proficiency_id": "The quite frankly an example LMS id of the outcome proficiency.",
     "context_type": "The type of context the outcome proficiency is used in.",
     "context_id": "The id of the context the outcome proficiency is used in.",
     "workflow_state": "Workflow state of the outcome proficiency. E.g active, deleted.",

@@ -42,29 +42,31 @@ const StatisticsCardsGrid: React.FC<StatisticsCardsGridProps> = ({
 }) => {
   const {isMobile} = useResponsiveContext()
   const {isDark, colors} = useWidgetTheme()
-  const cardBackground = isDark ? colors.cardSecondary : '#F5F5F5'
+  const cardBackground = colors.cardSecondary
+  // light mode: solid Material tiles with white numbers
+  const tile = (light: string) => (isDark ? cardBackground : light)
   const statisticsData = useMemo(
     () => [
       {
         key: 'due',
         count: summary.due,
         label: I18n.t('Due'),
-        backgroundColor: cardBackground,
-        textColor: isDark ? '#5A9FD4' : '#1A5A8E',
+        backgroundColor: tile('#1565C0'),
+        textColor: isDark ? '#5A9FD4' : '#FFFFFF',
       },
       {
         key: 'missing',
         count: summary.missing,
         label: I18n.t('Missing'),
-        backgroundColor: cardBackground,
-        textColor: isDark ? '#F08A8D' : '#E62429',
+        backgroundColor: tile('#C62828'),
+        textColor: isDark ? '#F08A8D' : '#FFFFFF',
       },
       {
         key: 'submitted',
         count: summary.submitted,
         label: I18n.t('Submitted'),
-        backgroundColor: cardBackground,
-        textColor: isDark ? '#6FCF8A' : '#03893D',
+        backgroundColor: tile('#2E7D32'),
+        textColor: isDark ? '#6FCF8A' : '#FFFFFF',
       },
     ],
     [summary, isDark, cardBackground],

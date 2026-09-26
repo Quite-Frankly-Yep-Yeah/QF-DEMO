@@ -3,7 +3,7 @@
 _*Instructure employees should use the `inst` CLI. Go [here](./../../inst-cli/doc/docker/developing_with_docker.md) for more info.*_
 
 **Note:** this works through the details of how to set docker up manually. If
-you just want to set up a EXAMPLE development environment with a minimum of
+you just want to set up a quite frankly an example LMS development environment with a minimum of
 effort, run:
 
 ```
@@ -11,7 +11,7 @@ effort, run:
 ```
 
 The script will guide you through the process of installing docker and setting
-up EXAMPLE.
+up quite frankly an example LMS.
 
 Docker has lots of info getting up and running [here](https://www.docker.com/products/docker). The info below should still get you going though.
 

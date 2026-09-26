@@ -48,7 +48,7 @@ const ListItems: ListItem[] = [
     },
     get text() {
       return I18n.t(
-        "If you've been using another course management system, you probably have stuff in there that you're going to want moved over to EXAMPLE. We can walk you through the process of easily migrating your content into EXAMPLE.",
+        "If you've been using another course management system, you probably have stuff in there that you're going to want moved over to quite frankly an example LMS. We can walk you through the process of easily migrating your content into quite frankly an example LMS.",
       )
     },
     get url() {
@@ -108,7 +108,7 @@ const ListItems: ListItem[] = [
     },
     get text() {
       return I18n.t(
-        "The Files tab is the place to share lecture slides, example documents, study helps -- anything your students will want to download.  Uploading and organizing your files is easy with EXAMPLE.  We'll show you how.",
+        "The Files tab is the place to share lecture slides, example documents, study helps -- anything your students will want to download.  Uploading and organizing your files is easy with quite frankly an example LMS.  We'll show you how.",
       )
     },
     get url() {
@@ -209,7 +209,7 @@ const ListItems: ListItem[] = [
     },
     get non_registered_text() {
       return I18n.t(
-        "This course is claimed and ready, but you'll need to finish the registration process before you can publish the course.  You should have received an email from EXAMPLE with a link to finish the process.  Be sure to check your spam box.",
+        "This course is claimed and ready, but you'll need to finish the registration process before you can publish the course.  You should have received an email from quite frankly an example LMS with a link to finish the process.  Be sure to check your spam box.",
       )
     },
     iconClass: 'icon-publish icon-Solid',

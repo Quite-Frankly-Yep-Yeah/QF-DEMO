@@ -91,7 +91,7 @@ module BrandableCSS
     "ic-brand-apple-touch-icon" => -> { I18n.t("The shortcut icon for iOS/Android devices. 180x180 png") },
     "ic-brand-msapplication-tile-square" => -> { I18n.t("558x558 png, jpg, gif (1.8x the standard tile size, so it can be scaled up or down as needed)") },
     "ic-brand-msapplication-tile-wide" => -> { I18n.t("558x270 png, jpg, gif") },
-    "ic-brand-right-sidebar-logo" => -> { I18n.t("A full-size logo that appears in the right sidebar on the EXAMPLE dashboard. Ideal size is 360 x 140 pixels. Accepted formats: svg, png, jpeg, gif") },
+    "ic-brand-right-sidebar-logo" => -> { I18n.t("A full-size logo that appears in the right sidebar on the quite frankly an example LMS dashboard. Ideal size is 360 x 140 pixels. Accepted formats: svg, png, jpeg, gif") },
     "ic-brand-Login-body-bgd-shadow-color" => -> { I18n.t("accepted formats: hex, rgba, rgb, hsl") },
     "ic-brand-Login-custom-message" => -> { I18n.t("A custom message to display on the login screen (see: /login/canvas).") },
     "ic-brand-Discovery-custom-message" => -> { I18n.t("A custom message to display on the discovery screen (see: /login/discovery).") },

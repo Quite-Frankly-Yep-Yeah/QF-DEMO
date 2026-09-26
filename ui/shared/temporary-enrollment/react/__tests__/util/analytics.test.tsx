@@ -27,7 +27,7 @@ const ANALYTICS_PREFIX = 'testPrefix'
 const ANALYTICS_TEST_VALUE = 'testValue'
 
 // this test suite uses plain JavaScript for demonstration purposes only
-// in EXAMPLE, you would typically use JSX and React achieve similar results
+// in quite frankly an example LMS, you would typically use JSX and React achieve similar results
 describe('analytics.ts', () => {
   let divElement: HTMLDivElement
 

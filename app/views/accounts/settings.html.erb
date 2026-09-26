@@ -101,7 +101,7 @@
 <% end %>
 
 <% if @account.feature_enabled?(:horizon_course_setting) && can_do(@context, @current_user, :read_as_admin) %>
-  <% tabs << { id: "canvas-career", title: t("EXAMPLE Career"), contentMount: "tab-canvas-career-mount" } %>
+  <% tabs << { id: "canvas-career", title: t("quite frankly an example LMS Career"), contentMount: "tab-canvas-career-mount" } %>
 <% end %>
 
 <%= tag.div id: "account_settings_tabs_mount",
@@ -213,7 +213,7 @@
                                               :value => @account.settings[:trusted_referers],
                                               :class => 'same-width-as-select',
                                               :placeholder => "https://example.edu" %>
-                      <p class="aside"><%= t("This is a comma separated list of URL's to trust.  Trusting any URL's in this list will bypass the CSRF token when logging in to EXAMPLE.") %></p>
+                      <p class="aside"><%= t("This is a comma separated list of URL's to trust.  Trusting any URL's in this list will bypass the CSRF token when logging in to quite frankly an example LMS.") %></p>
                     </td>
                   </tr>
 
@@ -432,7 +432,7 @@
                   <tr>
                     <td colspan="2">
                       <%= r.check_box :value, checked: hash[:value], disabled: disabled %>
-                      <%= r.label :value, t("Disable uploads to EXAMPLE Media from the enhanced rich content editor") %>
+                      <%= r.label :value, t("Disable uploads to quite frankly an example LMS Media from the enhanced rich content editor") %>
                     </td>
                   </tr>
                 <% end %>
@@ -560,7 +560,7 @@
                 <div id="personal_pronouns_options" <%= hidden(include_style: true) unless @account.settings[:can_add_pronouns] %>>
                   <div id="change_personal_pronouns">
                     <%= settings.check_box :can_change_pronouns, :checked => @account.can_change_pronouns? %>
-                    <%= settings.label :can_change_pronouns, en: "Allow users to change their pronouns in EXAMPLE" %>
+                    <%= settings.label :can_change_pronouns, en: "Allow users to change their pronouns in quite frankly an example LMS" %>
                   </div>
                     <% js_env({ PRONOUNS_LIST: ((@account.pronouns.presence || Pronouns.default_pronouns)) })
                     js_bundle :available_pronouns_list %>
@@ -681,23 +681,23 @@
               <% disabled = k5_settings[:locked] && k5_settings[:inherited] %>
               <%= settings.fields_for :enable_as_k5_account do |k5| %>
                 <%= k5.check_box :value, :checked => k5_settings[:value], :disabled => disabled %>
-                <%= k5.label :value, t("EXAMPLE for Elementary") %>
+                <%= k5.label :value, t("quite frankly an example LMS for Elementary") %>
               <% end %>
               <div id="k5_account_warning_message" class="account_settings__k5-help-text">
                 <i class='icon-warning-borderless'></i>
                 <div class="account_settings__k5-help-text-container">
                   <p>
-                    <%= t ("This setting significantly changes the EXAMPLE experience for students and teachers.")%>
+                    <%= t ("This setting significantly changes the quite frankly an example LMS experience for students and teachers.")%>
                   </p>
                   <p>
                     <%= t do %>
-                      To learn more about EXAMPLE for Elementary, please refer to <a href="<%= t(:'#community.canvas_for_elementary') %>" target="_blank">our documentation</a>.
+                      To learn more about quite frankly an example LMS for Elementary, please refer to <a href="<%= t(:'#community.canvas_for_elementary') %>" target="_blank">our documentation</a>.
                     <% end %>
                   </p>
                   <% font_settings = @account.use_classic_font_in_k5 %>
                   <%= settings.fields_for :use_classic_font_in_k5 do |font| %>
                     <div>
-                      <span class="screenreader-only"><%= t('EXAMPLE for Elementary Font Selection') %></span>
+                      <span class="screenreader-only"><%= t('quite frankly an example LMS for Elementary Font Selection') %></span>
                       <%= font.radio_button :value, false, checked: !font_settings[:value], disabled: disabled, id: "k5_font_disabled_radio" %>
                       <%= font.label :value, t("Large Balsamiq Font"), for: "k5_font_disabled_radio", style: "margin-bottom: 0;" %>
                       <br />
@@ -799,7 +799,7 @@
                   <%= settings.label :global_includes, :en => "Custom CSS/JavaScript overrides" %>
                   <div id="global_includes_warning_message" class="account_settings__help-text">
                     <p>
-                      <%= t ("Custom CSS and Javascript may cause accessibility issues or conflicts with future EXAMPLE updates!")%>
+                      <%= t ("Custom CSS and Javascript may cause accessibility issues or conflicts with future quite frankly an example LMS updates!")%>
                     </p>
                     <p>
                       <%= t do %>
@@ -814,7 +814,7 @@
                 </div>
                 <div>
                   <%= settings.check_box :limit_parent_app_web_access, :checked => @account.settings[:limit_parent_app_web_access] %>
-                  <%= settings.label :limit_parent_app_web_access, :en => "Limit access to EXAMPLE web from the EXAMPLE Parent app" %>
+                  <%= settings.label :limit_parent_app_web_access, :en => "Limit access to quite frankly an example LMS web from the quite frankly an example LMS Parent app" %>
                 </div>
                 <div>
                   <%= settings.check_box :suppress_assignments, :checked => @account.suppress_assignments? %>
@@ -1087,11 +1087,11 @@
               <div class="service_help_dialog" title="<%= t(:about_google_docs_tooltip, "About Google Docs Previews") %>" id="google_docs_previews_help_dialog">
                 <%= mt(:about_google_docs, <<~TEXT, :terms_url => "https://www.google.com/drive/terms-of-service")
 Google Docs Previews allow users to view documents from
-within EXAMPLE, rather than having to download them and
+within quite frankly an example LMS, rather than having to download them and
 open the corresponding program (e.g. Word or Excel).
 
 Google Docs Previews can also render file types
-not supported by the EXAMPLE document previewer.
+not supported by the quite frankly an example LMS document previewer.
 
 By using this service you
 acknowledge that you have read and agreed to the
@@ -1316,7 +1316,7 @@ acknowledge that you have read and agreed to the
               <%= t(:interpolate_account_domain, "Enter \"{{ACCOUNT_DOMAIN}}\" to substitute the user's root account domain") %>
             </p>
             <p>
-              <%= t(:interpolate_user_id, "Enter \"{{CANVAS_USER_ID}}\" to substitute the user's unique EXAMPLE ID") %>
+              <%= t(:interpolate_user_id, "Enter \"{{CANVAS_USER_ID}}\" to substitute the user's unique quite frankly an example LMS ID") %>
             </p>
           <% end %>
         </div>
@@ -1502,7 +1502,7 @@ acknowledge that you have read and agreed to the
               </div>
               <span class="notification_account_content_text">
                 <% if @account.site_admin? %>
-                  <%= t("This is an announcement from *EXAMPLE Administration*", wrapper: '<b>\1</b>') %>
+                  <%= t("This is an announcement from *quite frankly an example LMS Administration*", wrapper: '<b>\1</b>') %>
                 <% else %>
                   <%= t("This is an announcement from *%{name}*", name: announcement.account.name, wrapper: '<b>\1</b>') %>
                 <% end %>

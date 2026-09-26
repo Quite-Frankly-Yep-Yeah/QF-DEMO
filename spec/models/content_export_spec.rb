@@ -351,7 +351,7 @@ describe ContentExport do
       end
 
       # CC export is the first step of Quiz migration
-      # EXAMPLE then sends live events to N.Q
+      # quite frankly an example LMS then sends live events to N.Q
       # N.Q finally imports the CC package
       it "completes CC export for new quizzes migration" do
         cc_exporter = CC::CCExporter.new(@ce)

@@ -100,10 +100,10 @@ const Zoom = props => (
       [
         <Link href={visitZoomUrl}>{I18n.t('Visit Zoom')}</Link>,
         I18n.t(
-          'to create a link you can use in EXAMPLE. You’ll need to sign-up for a Zoom account if you don’t already have one.',
+          'to create a link you can use in quite frankly an example LMS. You’ll need to sign-up for a Zoom account if you don’t already have one.',
         ),
       ],
-      // <Link href={learnZoomUrl}>{I18n.t('Learn how to use Zoom in EXAMPLE.')}</Link>
+      // <Link href={learnZoomUrl}>{I18n.t('Learn how to use Zoom in quite frankly an example LMS.')}</Link>
     ]}
   />
 )
@@ -121,11 +121,11 @@ const Meet = props => (
       [
         <Link href={visitMeetUrl}>{I18n.t('Visit Google Meet')}</Link>,
         I18n.t(
-          'to create a link you can use in EXAMPLE. You’ll need a Google account to use Google Meet.',
+          'to create a link you can use in quite frankly an example LMS. You’ll need a Google account to use Google Meet.',
         ),
       ],
       <Link href={I18n.t('#community.admin_hangouts_meet_lti')}>
-        {I18n.t('Learn how to use Google Meet in EXAMPLE')}
+        {I18n.t('Learn how to use Google Meet in quite frankly an example LMS')}
       </Link>,
     ]}
   />
@@ -142,7 +142,7 @@ const Teams = props => (
         'If your school uses Microsoft Teams, you can use the Enhanced Rich Content Editor (RCE) to easily add a Team room while creating Calendar Events, Announcements, discussions posts and more.',
       ),
       <Link href={I18n.t('#community.admin_teams_meetings')}>
-        {I18n.t('Learn how to use Microsoft Teams in EXAMPLE')}
+        {I18n.t('Learn how to use Microsoft Teams in quite frankly an example LMS')}
       </Link>,
     ]}
   />

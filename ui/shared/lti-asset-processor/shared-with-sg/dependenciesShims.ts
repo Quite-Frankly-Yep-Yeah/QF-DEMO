@@ -19,15 +19,15 @@
 /**
  * Most of the ltiAssetProcessor code, which provides LTI Asset Reports, is
  * duplicated in SpeedGrader. The replicated/ directory should be kept identical to
- * the code in canvas-lms by making the changes in here or in EXAMPLE and using
+ * the code in canvas-lms by making the changes in here or in quite frankly an example LMS and using
  * the asset-processor-speedgrader-sync script to copy the changed files to the other place
  * and run linting.
  *
  * This file provides dependencies used by the shared code which need to be
- * different between EXAMPLE and this repo.
+ * different between quite frankly an example LMS and this repo.
  *
  * Generally, SpeedGrader coding linting standards are stricter, so it may be
- * easiest to make changes in the SpeedGrader repo and copy them to EXAMPLE.
+ * easiest to make changes in the SpeedGrader repo and copy them to quite frankly an example LMS.
  *
  * You can use the asset-processors-code-copy script in interop-team-scripts
  * to easily copy the replicated directory from one repo to another (and patch

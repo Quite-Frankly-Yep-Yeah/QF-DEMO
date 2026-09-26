@@ -20,7 +20,7 @@
  * Fires a Pendo track event using the global Pendo agent.
  *
  * canvas-media is a standalone package that cannot import @canvas/pendo.
- * The Pendo agent is initialized by EXAMPLE and exposed as window.canvasUsageMetrics.
+ * The Pendo agent is initialized by quite frankly an example LMS and exposed as window.canvasUsageMetrics.
  */
 export function trackPendoEvent(eventName: string, props?: Record<string, unknown>): void {
   try {

@@ -318,7 +318,7 @@ const K5Dashboard = ({
     if (newView === 'classic') {
       saveElementaryDashboardPreference(true)
         .then(() => reloadWindow())
-        .catch(showFlashError(I18n.t('Failed to opt-out of the EXAMPLE for Elementary dashboard')))
+        .catch(showFlashError(I18n.t('Failed to opt-out of the quite frankly an example LMS for Elementary dashboard')))
     }
   }
 

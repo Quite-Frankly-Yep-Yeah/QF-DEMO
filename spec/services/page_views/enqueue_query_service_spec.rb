@@ -132,7 +132,7 @@ describe PageViews::EnqueueQueryService do
     expect(CanvasHttp).to have_received(:post).with(anything, hash_including("Authorization" => /^Bearer /), anything)
   end
 
-  it "uses the EXAMPLE instance domain for JWT generation" do
+  it "uses the quite frankly an example LMS instance domain for JWT generation" do
     canvas_domain = "canvas.example.com"
     allow(HostUrl).to receive(:default_host).and_return(canvas_domain)
     allow(CanvasSecurity::ServicesJwt).to receive(:for_user).and_call_original

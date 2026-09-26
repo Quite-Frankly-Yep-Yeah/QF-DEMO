@@ -75,7 +75,7 @@ describe('reportsForAssetsByProcessors', () => {
       expect(result[0]?.reportGroups).toHaveLength(1)
       expect(result[0]?.reportGroups[0]).toEqual({
         key: 'online_text_entry',
-        displayName: 'Text submitted to EXAMPLE',
+        displayName: 'Text submitted to quite frankly an example LMS',
         reports: [reports[0]], // Only report with attempt "2"
       })
 
@@ -84,7 +84,7 @@ describe('reportsForAssetsByProcessors', () => {
       expect(result[1]?.reportGroups).toHaveLength(1)
       expect(result[1]?.reportGroups[0]).toEqual({
         key: 'online_text_entry',
-        displayName: 'Text submitted to EXAMPLE',
+        displayName: 'Text submitted to quite frankly an example LMS',
         reports: [reports[2]],
       })
     })

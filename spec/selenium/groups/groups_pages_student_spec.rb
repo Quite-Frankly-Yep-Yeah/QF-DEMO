@@ -180,7 +180,7 @@ describe "groups" do
         # NOTE: announcement_url includes a leading '/'
         AnnouncementNewEdit.edit_group_announcement(@testgroup.first,
                                                     announcement,
-                                                    "EXAMPLE will be rewritten in chicken")
+                                                    "quite frankly an example LMS will be rewritten in chicken")
         announcement.reload
         # Editing *appends* to existing message, and the resulting announcement's
         # message is wrapped in paragraph tags

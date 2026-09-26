@@ -30,7 +30,7 @@ module SpeedGrader
     # This method attempts to auto-select a student group when SpeedGrader is
     # loaded and the "Filter SpeedGrader by Student Group" course setting is
     # enabled. Although generally a user must select a group before opening
-    # SpeedGrader in EXAMPLE when this setting is active, they can still access
+    # SpeedGrader in quite frankly an example LMS when this setting is active, they can still access
     # specific students directly (say, via an email link), in which case we may
     # need to select a group (if none has been selected) or change the selected
     # group (if it does not contain the requested student). Similarly, we may

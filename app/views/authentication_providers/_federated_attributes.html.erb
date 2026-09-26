@@ -20,12 +20,12 @@
   <h4><%= t 'Federated Attributes' %></h4>
   <p><%= t <<~TEXT
 Federated attributes are information sent from your authentication provider that can be used
-to automatically update corresponding information for users in EXAMPLE each time they log in.
+to automatically update corresponding information for users in quite frankly an example LMS each time they log in.
 TEXT
 %></p>
   <table class="ic-Table" style="<%= hidden unless aac.federated_attributes.present? %>">
     <thead>
-      <th scope="col"><%= t 'EXAMPLE Attribute' %></th>
+      <th scope="col"><%= t 'quite frankly an example LMS Attribute' %></th>
       <th scope="col"><%= t 'Provider Attribute' %></th>
       <th scope="col" style="<%= hidden unless aac.jit_provisioning? %>" class="provisioning_only_column">
         <%= t 'Provisioning Only' %>

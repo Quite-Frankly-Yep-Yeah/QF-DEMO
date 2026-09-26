@@ -699,13 +699,13 @@ describe GradebooksController do
         expect(controller.js_env[:grading_scheme]).to be_nil
       end
 
-      it "uses the EXAMPLE default grading scheme if the course is set to use default grading scheme" do
+      it "uses the quite frankly an example LMS default grading scheme if the course is set to use default grading scheme" do
         user_session(@student)
         @course.update!(grading_standard_id: 0)
         all_grading_periods_id = 0
         get "grade_summary", params: { course_id: @course.id, id: @student.id, grading_period_id: all_grading_periods_id }
         expect(controller.js_env[:course_active_grading_scheme]).to eq({ "id" => "",
-                                                                         "title" => "Default EXAMPLE Grading Scheme",
+                                                                         "title" => "Default quite frankly an example LMS Grading Scheme",
                                                                          "context_type" => "Course",
                                                                          "context_id" => @course.id,
                                                                          "context_name" => @course.name,
@@ -738,7 +738,7 @@ describe GradebooksController do
         all_grading_periods_id = 0
         get "grade_summary", params: { course_id: @course.id, id: @student.id, grading_period_id: all_grading_periods_id }
         expect(controller.js_env[:course_active_grading_scheme]).to eq({ "id" => "",
-                                                                         "title" => "Default EXAMPLE Grading Scheme",
+                                                                         "title" => "Default quite frankly an example LMS Grading Scheme",
                                                                          "context_type" => "Course",
                                                                          "context_id" => @course.id,
                                                                          "context_name" => @course.name,
@@ -1311,7 +1311,7 @@ describe GradebooksController do
       end
 
       describe "grading_standard" do
-        it "uses the EXAMPLE default grading standard if the course does not have one" do
+        it "uses the quite frankly an example LMS default grading standard if the course does not have one" do
           get :show, params: { course_id: @course.id }
           expect(gradebook_options.fetch(:default_grading_standard)).to eq GradingStandard.default_grading_standard
         end

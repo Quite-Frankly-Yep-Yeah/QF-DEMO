@@ -219,24 +219,26 @@ export default function MobileGlobalMenu(props: Props) {
           </List.Item>
         )}
 
-        <List.Item>
-          <ToggleDetails
-            iconPosition="end"
-            fluidWidth={true}
-            summary={
-              <Flex>
-                <Flex.Item width="3rem">
-                  <IconCoursesLine inline={false} size="small" color="brand" />
-                </Flex.Item>
-                <Flex.Item>
-                  <Text color="brand">{k5User ? I18n.t('Subjects') : I18n.t('Courses')}</Text>
-                </Flex.Item>
-              </Flex>
-            }
-          >
-            <CoursesList />
-          </ToggleDetails>
-        </List.Item>
+        {!(window.ENV as {SELF_PACED_HIDE_COURSES_NAV?: boolean}).SELF_PACED_HIDE_COURSES_NAV && (
+          <List.Item>
+            <ToggleDetails
+              iconPosition="end"
+              fluidWidth={true}
+              summary={
+                <Flex>
+                  <Flex.Item width="3rem">
+                    <IconCoursesLine inline={false} size="small" color="brand" />
+                  </Flex.Item>
+                  <Flex.Item>
+                    <Text color="brand">{k5User ? I18n.t('Subjects') : I18n.t('Courses')}</Text>
+                  </Flex.Item>
+                </Flex>
+              }
+            >
+              <CoursesList />
+            </ToggleDetails>
+          </List.Item>
+        )}
 
         {showGroups && (
           <List.Item>
@@ -375,7 +377,7 @@ export default function MobileGlobalMenu(props: Props) {
                   <IconArrowEndSolid inline={false} size="small" />
                 </Flex.Item>
                 <Flex.Item>
-                  <Text size="medium">{I18n.t('EXAMPLE Career')}</Text>
+                  <Text size="medium">{I18n.t('quite frankly an example LMS Career')}</Text>
                 </Flex.Item>
               </Flex>
             </Link>

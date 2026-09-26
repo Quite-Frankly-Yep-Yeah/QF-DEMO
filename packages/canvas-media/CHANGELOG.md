@@ -12,7 +12,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ## 4.0.0 - 2025-10-13
 
 ### Added
-- Immersive view for EXAMPLE media
+- Immersive view for quite frankly an example LMS media
 
 ### Changed
 - Upgraded to InstUI 10.25.0

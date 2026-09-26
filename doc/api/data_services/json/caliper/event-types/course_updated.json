@@ -4,7 +4,7 @@
   "trigger": "Triggered when a course is updated.",
   "schema": {
     "data[0].object.extensions[\"com.instructure.canvas\"]": {
-      "entity_id": "EXAMPLE global ID of the object affected by the event",
+      "entity_id": "quite frankly an example LMS global ID of the object affected by the event",
       "workflow_state": "The workflow state of the the course. Can be one of created or claimed (unpublished course), available (published course), completed, or deleted."
     },
     "data[0].object": {

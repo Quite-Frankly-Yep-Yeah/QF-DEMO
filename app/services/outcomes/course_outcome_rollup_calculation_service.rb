@@ -114,7 +114,7 @@ module Outcomes
       end
     end
 
-    # Fetches and combines results from both EXAMPLE and Outcomes Service
+    # Fetches and combines results from both quite frankly an example LMS and Outcomes Service
     # @return [Array<LearningOutcomeResult>]
     def gather_results
       students = course.students

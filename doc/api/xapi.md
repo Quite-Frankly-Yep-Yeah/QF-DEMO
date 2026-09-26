@@ -1,11 +1,11 @@
 xAPI with LTI tools
 ===================
 
-EXAMPLE has implemented a small piece of xAPI (Tin Can API).
+quite frankly an example LMS has implemented a small piece of xAPI (Tin Can API).
 <a href="https://www.adlnet.gov/experience-api">Go here to learn more about xAPI</a>.
 
 An external tool can ask for an xAPI callback URL, and then POST back an interaction
-activity to EXAMPLE. This will update the activity time for the user in EXAMPLE, and add a
+activity to quite frankly an example LMS. This will update the activity time for the user in quite frankly an example LMS, and add a
 page view for that tool. Page views will show up in the course analytics section as activity.
 
 
@@ -19,7 +19,7 @@ Instructions
    * Here are some good examples: <a href="https://github.com/adlnet/xAPI-Spec/blob/master/xAPI-Data.md#Appendix2A">Example Statements</a>
  * The `object.id` will be logged as the page view URL.
  * `result.duration` must be an <a href="http://en.wikipedia.org/wiki/ISO_8601#Durations">ISO 8601 duration</a> if supplied.
-   * EXAMPLE page views cap at 5 minutes for now. So any value greater than that is just logged as 5 minutes.
+   * quite frankly an example LMS page views cap at 5 minutes for now. So any value greater than that is just logged as 5 minutes.
 
 Here is an example of the minimum JSON that would log 3 minutes of activity for `http://example.com`:
 

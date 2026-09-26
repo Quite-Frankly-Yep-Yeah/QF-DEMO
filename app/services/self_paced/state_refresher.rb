@@ -1,15 +1,15 @@
 # frozen_string_literal: true
 
 #
-# Copyright (C) 2026 - present EXAMPLE contributors
+# Copyright (C) 2026 - present quite frankly an example LMS contributors
 #
-# This file is part of EXAMPLE LMS, a modified version of Canvas.
+# This file is part of quite frankly an example LMS, a modified version of Canvas.
 #
-# EXAMPLE LMS is free software: you can redistribute it and/or modify it under
+# quite frankly an example LMS is free software: you can redistribute it and/or modify it under
 # the terms of the GNU Affero General Public License as published by the Free
 # Software Foundation, version 3 of the License.
 #
-# EXAMPLE LMS is distributed in the hope that it will be useful, but WITHOUT ANY
+# quite frankly an example LMS is distributed in the hope that it will be useful, but WITHOUT ANY
 # WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS FOR
 # A PARTICULAR PURPOSE. See the GNU Affero General Public License for more
 # details.
@@ -34,6 +34,9 @@ module SelfPaced
       percent_complete = EXCLUDED.percent_complete,
       current_score = EXCLUDED.current_score,
       unposted_current_score = EXCLUDED.unposted_current_score,
+      days_behind = EXCLUDED.days_behind,
+      target_date = EXCLUDED.target_date,
+      expected_percent = EXCLUDED.expected_percent,
       refreshed_at = EXCLUDED.refreshed_at,
       updated_at = EXCLUDED.updated_at
     SQL
@@ -114,7 +117,17 @@ module SelfPaced
           refreshed_at: now,
           created_at: now,
           updated_at: now
-        }
+        }.merge(pacing_attributes(course, user))
+      end
+
+      # Makes or re-spreads the student's pacing plan (at most once a day) and
+      # reads where they stand against it.
+      def pacing_attributes(course, user)
+        return { days_behind: nil, target_date: nil, expected_percent: nil } unless Pacer.course?(course)
+
+        pacer = Pacer.new(course, user)
+        pacer.refresh!
+        pacer.state_attributes
       end
 
       # Attempts made on the item the student is stuck on. The item is only

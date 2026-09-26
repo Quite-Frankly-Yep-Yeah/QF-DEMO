@@ -1,17 +1,17 @@
 External Tools Introduction
 ==============
 
-EXAMPLE, like many LMSs, supports loading external resources inline using the
+quite frankly an example LMS, like many LMSs, supports loading external resources inline using the
 <a href="http://www.imsglobal.org/lti/" target="_blank">IMS LTI standard</a>.
 These tools can be deployed on a course or account level. Once configured, tools
 can be surfaced <a href="file.link_selection_placement.html" target="_blank">as links in
 course modules</a> or used to <a href="file.assignment_selection_placement.html"
-target="_blank">deliver custom assignment experiences</a>. EXAMPLE supports some
+target="_blank">deliver custom assignment experiences</a>. quite frankly an example LMS supports some
 additional integration points using LTI (see the "Placements" dropdown in the
 left hand navigation here) to offer a more integrated experience and to allow
-for more customization of the EXAMPLE product. This is accomplished by <a
+for more customization of the quite frankly an example LMS product. This is accomplished by <a
 href="file.lti_dev_key_config.html" target="_blank">configuring additional settings</a>
-on external tools used inside of EXAMPLE and by leveraging <a
+on external tools used inside of quite frankly an example LMS and by leveraging <a
 href="https://www.imsglobal.org/lti-advantage-overview" target="_blank">LTI
 Advantage services</a>.
 
@@ -23,7 +23,7 @@ set up at the account level.
 
 ## Types of Tool Integrations
 
-EXAMPLE currently supports the following types of tool placements.
+quite frankly an example LMS currently supports the following types of tool placements.
 
 #### External tool <a href="file.assignment_tools.html" target="_blank" style="text-decoration: revert; color: revert;">assignments integrations</a>:
 
@@ -53,7 +53,7 @@ Example use cases might include:
 
 Example use cases might include:
 
-- Including outside reports in the EXAMPLE UI
+- Including outside reports in the quite frankly an example LMS UI
 - Building helper libraries for campus-specific customizations
 - Leveraging single sign-on for access to other systems, like SIS
 
@@ -61,7 +61,7 @@ Example use cases might include:
 
 Example use cases might include:
 
-- Leveraging single sign-on to student portal from within EXAMPLE
+- Leveraging single sign-on to student portal from within quite frankly an example LMS
 - Linking to an external user profile
 
 #### Selecting content to add to a variety of locations as <a href="file.content_item.html" target="_blank" style="text-decoration: revert; color: revert;">LTI deep links</a>:
@@ -85,17 +85,17 @@ Example use cases might include:
 
 - <a href="file.assignment_tools.html" target="_blank">creating custom assignments for Canvas</a>
 
-  - Creating a EXAMPLE assignment that launches the student to a custom assessment
-    that can be automatically graded by the tool and synced with the EXAMPLE Gradebook
+  - Creating a quite frankly an example LMS assignment that launches the student to a custom assessment
+    that can be automatically graded by the tool and synced with the quite frankly an example LMS Gradebook
   - Launching the student to an assessment with interactive videos. Once complete,
     the tool returns an LTI launch url that allows the teacher to see the submission
-    without leaving EXAMPLE.
+    without leaving quite frankly an example LMS.
 
 - <a href="file.homework_submission_placement.html" target="_blank">allowing a
   student to submit attachments to assignments</a>
 
-  - A student launches a custom video recording tool and submits the recording to EXAMPLE
-  - A student chooses an item from a portfolio tool and submits the item to EXAMPLE
+  - A student launches a custom video recording tool and submits the recording to quite frankly an example LMS
+  - A student chooses an item from a portfolio tool and submits the item to quite frankly an example LMS
 
 
 #### Subscribing to notifications with <a href="file.pns.html" target="_blank" style="text-decoration: revert; color: revert;">Platform Notification Service</a>:
@@ -116,14 +116,14 @@ target="_blank">configure the tool by a tool-provided URL</a>
 target="_blank">paste in the XML</a> that the tool provides.
 
 For information on how to programmatically configure external tools, so users
-don't have to copy and paste URLs or XML, please see the EXAMPLE
+don't have to copy and paste URLs or XML, please see the quite frankly an example LMS
 <a href="external_tools.html">external tools API</a>.
 
 ### LTI 1.3
 Similar to LTI 1.1, tools built on the <a href="https://www.imsglobal.org/spec/lti/v1p3/"
 target="_blank">LTI 1.3 specification</a> can be configured by either supplying clients with a
 JSON block or URL that hosts the JSON. This JSON is used to determine the behavior of the tool
-within EXAMPLE by <a href="https://community.canvaslms.com/t5/Admin-Guide/How-do-I-configure-an-LTI-key-for-an-account/ta-p/140"
+within quite frankly an example LMS by <a href="https://community.canvaslms.com/t5/Admin-Guide/How-do-I-configure-an-LTI-key-for-an-account/ta-p/140"
 target="_blank">configuring an LTI Developer Key</a>. Once the developer key is created and
 turned on, users with sufficient permissions can
 <a href="https://community.canvaslms.com/t5/Admin-Guide/How-do-I-configure-an-external-app-for-an-account-using-a-client/ta-p/202" target="_blank">install the
@@ -134,23 +134,23 @@ tool using the developer key's client ID</a>.
 When setting up Developer Keys, the section “LTI Advantage Services” allows you to enable or disable permissions for 
 access via that developer key. Below is the list of permissions available:
 
-| Permission name                                                                               | What it does                                                                                                                                              | IMS / EXAMPLE scope                                                        |
+| Permission name                                                                               | What it does                                                                                                                                              | IMS / quite frankly an example LMS scope                                                        |
 |-----------------------------------------------------------------------------------------------|-----------------------------------------------------------------------------------------------------------------------------------------------------------|---------------------------------------------------------------------------|
 | **Can create and view assignment data in the gradebook associated with the tool**             | Allows use of all functionality of the <a href="line_items.html" target="_blank">LTI LineItems API</a>                                                    | https://purl.imsglobal.org/spec/lti-ags/scope/lineitem                    |
 | **Can view assignment data in the gradebook associated with the tool**                        | Allows use of the “show” and “list” endpoints of the <a href="line_items.html" target="_blank">LTI LineItems API</a>                                      | https://purl.imsglobal.org/spec/lti-ags/scope/lineitem.readonly           |
 | **Can view submission data for assignments associated with the tool.**                        | Allows use of the <a href="result.html" target="_blank">LTI Advantage Result API</a>                                                                      | https://purl.imsglobal.org/spec/lti-ags/scope/result.readonly             |
 | **Can create and update submission results for assignments associated with the tool**         | Allows use of the <a href="score.html" target="_blank">LTI Advantage Score API</a>                                                                        | https://purl.imsglobal.org/spec/lti-ags/scope/score                       |
-| **Can view Progress records associated with the context the tool is installed in**            | Allows use of the <a href="progress.html" target="_blank">EXAMPLE LTI Progress API</a>, which is used during Score creation with an associated file        | https://canvas.instructure.com/lti-ags/progress/scope/show                |
+| **Can view Progress records associated with the context the tool is installed in**            | Allows use of the <a href="progress.html" target="_blank">quite frankly an example LMS LTI Progress API</a>, which is used during Score creation with an associated file        | https://canvas.instructure.com/lti-ags/progress/scope/show                |
 | **Can retrieve user data associated with the context the tool is installed in**               | Allows use of the <a href="names_and_role.html" target="_blank">LTI Advantage Names and Roles Provisioning Service</a>                                    | https://purl.imsglobal.org/spec/lti-nrps/scope/contextmembership.readonly |
-| **Can register to receive asynchronous notifications from EXAMPLE** | Allows use of the 1EdTech Platform Notification Service.                                      | https://purl.imsglobal.org/spec/lti/scope/noticehandlers                  |
+| **Can register to receive asynchronous notifications from quite frankly an example LMS** | Allows use of the 1EdTech Platform Notification Service.                                      | https://purl.imsglobal.org/spec/lti/scope/noticehandlers                  |
 | **Can retrieve submissions from Document Processor Assignments (experimental)**                 | Allows use of the Asset Service (part of the 1EdTech Asset Processor specification). *Under development and not available yet for general use.*           | https://purl.imsglobal.org/spec/lti/scope/asset.readonly                  |
 | **Can send reports for Document Processor Assignments (experimental)**                          | Allows use of the Asset Report Service (part of the 1EdTech Asset Processor specification). *Under development and not available yet for general use.*    | https://purl.imsglobal.org/spec/lti/scope/report                          |
 | **Can track if EULA has been accepted (experimental)**                         | Allows use of the EULA Acceptance Service (part of the 1EdTech Asset Processor specification). *Under development and not available yet for general use.*            | https://purl.imsglobal.org/spec/lti/scope/eula/user                            |
 | **Can reset EULA acceptance status (experimental)**                         | Allows use of the EULA Deployment Service (part of the 1EdTech Asset Processor specification). *Under development and not available yet for general use.*            | https://purl.imsglobal.org/spec/lti/scope/eula/deployment                            |
 | **Can update public jwk for LTI services**                                                    | Allows use of the <a href="public_jwk.html" target="_blank">LTI Public JWK API</a> to update the tool's developer key's public JWK                        | https://canvas.instructure.com/lti/public_jwk/scope/update                |
-| **Can lookup Account information**                                                            | Allows use of the <a href="accounts_(lti).html" target="_blank">EXAMPLE LTI Account API</a> (read only)                                                    | https://canvas.instructure.com/lti/account_lookup/scope/show              |
+| **Can lookup Account information**                                                            | Allows use of the <a href="accounts_(lti).html" target="_blank">quite frankly an example LMS LTI Account API</a> (read only)                                                    | https://canvas.instructure.com/lti/account_lookup/scope/show              |
 | **Can view the content of a page the tool is launched from**                                  | Allows use of the <a href="file.lti_window_post_message.html#lti-getpagecontent">lti.getPageContent</a> postMessage                                       | https://canvas.instructure.com/lti/page_content/show                      |
 | **Can view LTI registrations associated with the tool**                                       | Allows readonly access to the tool's own registration                                                                                                     | https://purl.imsglobal.org/spec/lti-reg/scope/registration.readonly       |
 | **Can send automatic updates to be approved by an Administrator**                             | Allows the tool to view and push update requests to it's own registration                                                                                 | https://purl.imsglobal.org/spec/lti-reg/scope/registration                |
 
-NOTE: scopes with `https://canvas.instructure.com` are EXAMPLE specific while others are LTI specifications
+NOTE: scopes with `https://canvas.instructure.com` are quite frankly an example LMS specific while others are LTI specifications

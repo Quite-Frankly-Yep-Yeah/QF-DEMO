@@ -42,7 +42,7 @@ class UserAccountAssociation < ApplicationRecord
   def update_user_root_account_ids
     return unless for_root_account?
 
-    # In some EXAMPLE environments we may not want to populate
+    # In some quite frankly an example LMS environments we may not want to populate
     # root_account_ids due to the high number of root account associations
     # per user. This Setting allows us to control if root_account_ids syncing
     # occurs.

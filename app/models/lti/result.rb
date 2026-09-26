@@ -64,7 +64,7 @@ class Lti::Result < ApplicationRecord
     return raw_result_score if raw_result_score.blank? || submission.blank? || result_maximum.blank?
 
     # A negative grader_id indicates that no manual
-    # adjustments were made by a EXAMPLE user to the result.
+    # adjustments were made by a quite frankly an example LMS user to the result.
     # If that's the case, we can just return the result_score
     # without additional scaling
     return raw_result_score if submission.grader_id.blank? || submission.grader_id < 0
@@ -74,7 +74,7 @@ class Lti::Result < ApplicationRecord
     # would make it zero so not useful)
     return raw_result_score if assignment.points_possible.to_f.zero? || result_maximum.to_f.zero?
 
-    # The result was manually updated by a EXAMPLE user.
+    # The result was manually updated by a quite frankly an example LMS user.
     # Because the result_maximum may not be the same as the
     # assignment's points possible, we need to scale the
     # result_score to the result_maximum

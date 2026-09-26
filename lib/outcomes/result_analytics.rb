@@ -352,7 +352,7 @@ module Outcomes
     # outcomes - Array of LearningOutcome objects
     # users - Array of User objects
     # context - Course or Account context
-    # results - Array of LearningOutcomeResult objects (both EXAMPLE and OS)
+    # results - Array of LearningOutcomeResult objects (both quite frankly an example LMS and OS)
     # options - Hash of options:
     #   :only_assignment_alignments - Boolean, filter to only assignments
     #

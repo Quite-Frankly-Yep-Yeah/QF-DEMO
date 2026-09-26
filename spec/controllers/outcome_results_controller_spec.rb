@@ -1018,7 +1018,7 @@ describe OutcomeResultsController do
             expect(json["linked"]["assignments"].length).to be 1
           end
 
-          it "OS results found - no EXAMPLE results - displays only OS results" do
+          it "OS results found - no quite frankly an example LMS results - displays only OS results" do
             mocked_results = mock_os_lor_results(student, @outcome, @assignment2, 2)
             expect(controller).to receive(:fetch_and_convert_os_results).with(any_args).and_return(
               [mocked_results]
@@ -1030,7 +1030,7 @@ describe OutcomeResultsController do
             expect(json["linked"]["assignments"][0]["id"]).to eq("assignment_" + @assignment2.id.to_s)
           end
 
-          it "OS results found - display both EXAMPLE and OS results" do
+          it "OS results found - display both quite frankly an example LMS and OS results" do
             create_result(student.id, @outcome, @assignment, 2, { possible: 5 })
             mocked_results = mock_os_lor_results(student, @outcome, @assignment2, 2)
             expect(controller).to receive(:fetch_and_convert_os_results).with(any_args).and_return(
@@ -1194,14 +1194,14 @@ describe OutcomeResultsController do
             end
           end
 
-          it "no OS results found - EXAMPLE results found" do
+          it "no OS results found - quite frankly an example LMS results found" do
             create_result(@student.id, @outcome, outcome_assignment, 2, { possible: 5 })
             expect(controller).to receive(:fetch_and_convert_os_results).with(any_args).and_return(nil)
             json = parse_response(get_rollups(sort_by: "student", sort_order: "desc", per_page: 1, page: 1))
             expect(json["rollups"].length).to be 1
           end
 
-          it "OS results found - no EXAMPLE results found" do
+          it "OS results found - no quite frankly an example LMS results found" do
             # removing LearningOutcomeResults for those users that have results
             # creating in the first before do after the rollups context
             LearningOutcomeResult.where(user_id: @student.id).update(workflow_state: "deleted")
@@ -1224,11 +1224,11 @@ describe OutcomeResultsController do
             expect(score_count).to be 1
           end
 
-          it "EXAMPLE and OS results found" do
+          it "quite frankly an example LMS and OS results found" do
             # already existing results for @student1 & @student2
             # creating result for @student
             create_result(@student.id, @outcome, outcome_assignment, 2, { possible: 5 })
-            # results are already created for @student2 in EXAMPLE
+            # results are already created for @student2 in quite frankly an example LMS
             student4 = student_in_course(active_all: true, course: outcome_course, name: "OS user").user
             mocked_results = mock_os_lor_results(student4, @outcome, outcome_assignment, 2)
             expect(controller).to receive(:fetch_and_convert_os_results).with(any_args).and_return(
@@ -1241,7 +1241,7 @@ describe OutcomeResultsController do
 
         context "aggregate_user_rollups" do
           context "enabled" do
-            it "no OS results found - EXAMPLE results found" do
+            it "no OS results found - quite frankly an example LMS results found" do
               # already existing results for @student1 & @student2
               # creating result for @student
               create_result(@student.id, @outcome, outcome_assignment, 2, { possible: 5 })
@@ -1251,7 +1251,7 @@ describe OutcomeResultsController do
               expect(json["rollups"][0]["scores"][0]["count"]).to be 3
             end
 
-            it "OS results found - no EXAMPLE results found" do
+            it "OS results found - no quite frankly an example LMS results found" do
               # removing LearningOutcomeResults for users that have results (@student1, @student, @student2)
               # creating in the first before do after the rollups context
               LearningOutcomeResult.where(user_id: @student.id).update(workflow_state: "deleted")
@@ -1267,11 +1267,11 @@ describe OutcomeResultsController do
               expect(json["rollups"][0]["scores"][0]["count"]).to be 1
             end
 
-            it "EXAMPLE and OS results found" do
+            it "quite frankly an example LMS and OS results found" do
               # already existing results for @student1 & @student2
               # creating result for @student
               create_result(@student.id, @outcome, outcome_assignment, 2, { possible: 5 })
-              # results are already created for @student2 in EXAMPLE
+              # results are already created for @student2 in quite frankly an example LMS
               student4 = student_in_course(active_all: true, course: outcome_course, name: "OS user").user
               mocked_results = mock_os_lor_results(student4, @outcome, outcome_assignment, 2)
               expect(controller).to receive(:fetch_and_convert_os_results).with(any_args).and_return(
@@ -1299,7 +1299,7 @@ describe OutcomeResultsController do
               expect(json["rollups"].length).to be 3
             end
 
-            it "OS results found - no EXAMPLE results found" do
+            it "OS results found - no quite frankly an example LMS results found" do
               # removing LearningOutcomeResults for those users that have results
               # creating in the first before do after the rollups context
               LearningOutcomeResult.where(user_id: @student.id).update(workflow_state: "deleted")
@@ -1319,11 +1319,11 @@ describe OutcomeResultsController do
               expect(json["rollups"].length).to be 1
             end
 
-            it "EXAMPLE and OS results found" do
+            it "quite frankly an example LMS and OS results found" do
               # already existing results for @student1 & @student2
               # creating result for @student
               create_result(@student.id, @outcome, outcome_assignment, 2, { possible: 5 })
-              # results are already created for @student2 in EXAMPLE
+              # results are already created for @student2 in quite frankly an example LMS
               student4 = student_in_course(active_all: true, course: outcome_course, name: "OS user").user
               mocked_results = mock_os_lor_results(student4, @outcome, outcome_assignment, 2)
               expect(controller).to receive(:fetch_and_convert_os_results).with(any_args).once.and_return(
@@ -1342,7 +1342,7 @@ describe OutcomeResultsController do
               # already existing results for @student1 & @student2
               # creating result for @student
               create_result(@student.id, @outcome, outcome_assignment, 2, { possible: 5 })
-              # results are already created for @student2 in EXAMPLE
+              # results are already created for @student2 in quite frankly an example LMS
               student4 = student_in_course(active_all: true, course: outcome_course, name: "OS user").user
               # Creating another student in the course which will make 5 students enrolled
               # and will not create results for this student
@@ -1544,10 +1544,10 @@ describe OutcomeResultsController do
               expect(json["linked"]["outcomes"].length).to be 1
             end
 
-            it "OS results found - no EXAMPLE results found" do
+            it "OS results found - no quite frankly an example LMS results found" do
               outcome1 = @outcome
               outcome2 = outcome_model(context: outcome_course, title: "OS only outcome")
-              # removing LearningOutcomeResults for outcome1 in EXAMPLE
+              # removing LearningOutcomeResults for outcome1 in quite frankly an example LMS
               LearningOutcomeResult.where(learning_outcome_id: outcome1.id).update(workflow_state: "deleted")
               # Mock OS results for outcome2
               mocked_results = mock_os_lor_results(@student, outcome2, outcome_assignment, 2)
@@ -1567,10 +1567,10 @@ describe OutcomeResultsController do
               expect(json["linked"]["outcomes"].length).to be 1
             end
 
-            it "EXAMPLE and OS results found" do
+            it "quite frankly an example LMS and OS results found" do
               outcome1 = @outcome
               outcome2 = outcome_model(context: outcome_course, title: "OS outcome")
-              # outcome1 already has EXAMPLE results for @student1 & @student2
+              # outcome1 already has quite frankly an example LMS results for @student1 & @student2
               # creating result for @student for outcome1
               create_result(@student.id, outcome1, outcome_assignment, 2, { possible: 5 })
               # Mock OS results for outcome2
@@ -1595,11 +1595,11 @@ describe OutcomeResultsController do
               outcome1 = @outcome
               outcome2 = outcome_model(context: outcome_course, title: "unassessed outcome")
               outcome3 = outcome_model(context: outcome_course, title: "OS results outcome")
-              outcome4 = outcome_model(context: outcome_course, title: "EXAMPLE results outcome")
-              # outcome1 already has EXAMPLE results for @student1 & @student2
+              outcome4 = outcome_model(context: outcome_course, title: "quite frankly an example LMS results outcome")
+              # outcome1 already has quite frankly an example LMS results for @student1 & @student2
               # creating result for @student for outcome1
               create_result(@student.id, outcome1, outcome_assignment, 2, { possible: 5 })
-              # Create EXAMPLE result for outcome4
+              # Create quite frankly an example LMS result for outcome4
               create_result(@student.id, outcome4, outcome_assignment, 2, { possible: 5 })
               # Mock OS results for outcome3 only
               mocked_results = mock_os_lor_results(@student, outcome3, outcome_assignment, 2)
@@ -1613,7 +1613,7 @@ describe OutcomeResultsController do
                                                 include: ["outcomes"],
                                                 per_page: 5,
                                                 page: 1))
-              # should include outcome1 (EXAMPLE), outcome3 (OS), and outcome4 (EXAMPLE)
+              # should include outcome1 (quite frankly an example LMS), outcome3 (OS), and outcome4 (quite frankly an example LMS)
               # should exclude outcome2 (no results)
               outcome_ids = json["linked"]["outcomes"].pluck("id")
               expect(outcome_ids).to include(outcome1.id)
@@ -2539,10 +2539,10 @@ describe OutcomeResultsController do
         expect(alignments.pluck("name")).to include(assignment.name)
       end
 
-      it "returns both EXAMPLE and outcomes service alignments when feature flag is disabled" do
+      it "returns both quite frankly an example LMS and outcomes service alignments when feature flag is disabled" do
         Account.site_admin.disable_feature!(:outcomes_rollup_read)
 
-        # Create a EXAMPLE assignment with result
+        # Create a quite frankly an example LMS assignment with result
         canvas_assignment = outcome_assignment
         create_result(@student1.id, @outcome, canvas_assignment, 3)
 
@@ -2575,10 +2575,10 @@ describe OutcomeResultsController do
         expect(alignments.pluck("name")).to include(new_quiz_assignment.name)
       end
 
-      it "returns both EXAMPLE and outcomes service alignments when feature flag is enabled" do
+      it "returns both quite frankly an example LMS and outcomes service alignments when feature flag is enabled" do
         Account.site_admin.enable_feature!(:outcomes_rollup_read)
 
-        # Create a EXAMPLE assignment with result
+        # Create a quite frankly an example LMS assignment with result
         canvas_assignment = outcome_assignment
         create_result(@student1.id, @outcome, canvas_assignment, 3)
 

@@ -793,7 +793,7 @@ describe MicrosoftSync::SyncerSteps do
       it "raises a graceful exit error informing the user" do
         expect(diff).to receive(:local_owners).and_return Set.new
         klass = MicrosoftSync::Errors::MissingOwners
-        msg = /no users corresponding to the instructors of the EXAMPLE course could be found/
+        msg = /no users corresponding to the instructors of the quite frankly an example LMS course could be found/
         expect { subject }.to raise_microsoft_sync_graceful_cancel_error(klass, msg)
       end
     end

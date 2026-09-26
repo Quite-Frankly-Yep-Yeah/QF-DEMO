@@ -19,7 +19,7 @@
 
 module Lti::Oidc
   # In most instances, the OIDC Auth endpoint will share a domain with the Issuer Identifier/iss.
-  # Instructure-hosted EXAMPLE overrides this method in MRA, since it uses (for example):
+  # Instructure-hosted quite frankly an example LMS overrides this method in MRA, since it uses (for example):
   # `canvas.instructure.com` for the iss, and
   # `sso.canvaslms.com` for the OIDC Auth endpoint
   # format: canvas.docker, canvas.instructure.com (no protocol)

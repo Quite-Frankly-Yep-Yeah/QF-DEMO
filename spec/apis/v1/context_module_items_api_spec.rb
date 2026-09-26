@@ -2163,7 +2163,7 @@ describe "Module Items API", type: :request do
           expect(json["items"][0]["next"]["id"]).to eq quiz_tag.id
         end
 
-        it "includes model data merge from EXAMPLE" do
+        it "includes model data merge from quite frankly an example LMS" do
           json = api_call(:get,
                           "/api/v1/courses/#{@course.id}/modules/#{@cyoe_module2.id}/items?include[]=mastery_paths",
                           controller: "context_module_items_api",

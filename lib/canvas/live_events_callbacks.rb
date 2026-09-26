@@ -261,7 +261,7 @@ module Canvas::LiveEventsCallbacks
 
   def self.attachment_eligible?(attachment)
     # We only send live events for attachments that would show up in Files
-    # sections of EXAMPLE.
+    # sections of quite frankly an example LMS.
     ELIGIBLE_ATTACHMENT_CONTEXTS.include?(attachment.context_type) &&
       attachment.folder_id.present?
   end

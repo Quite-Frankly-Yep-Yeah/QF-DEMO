@@ -66,11 +66,11 @@ module Lti::IMS
 
     # @API Create an Asset Report
     #
-    # Creates a report for a given EXAMPLE-managed asset (such as a submission
+    # Creates a report for a given quite frankly an example LMS-managed asset (such as a submission
     # attachment).
     #
     # @argument assetId [String]
-    #   The UUID of the asset to which the report applies. EXAMPLE will supply
+    #   The UUID of the asset to which the report applies. quite frankly an example LMS will supply
     #   this to the tool in the the `LtiAssetProcessorSubmissionNotice`.
     #
     # @argument errorCode [Optional, String]
@@ -99,7 +99,7 @@ module Lti::IMS
     #   Indicates the status of the report. Should be one of the following:
     #   Processed, Processing, PendingManual, Failed, NotProcessed, NotReady.
     #   If an unrecognized value is given, the value will be stored, but will
-    #   be treated by EXAMPLE as `NotReady`.
+    #   be treated by quite frankly an example LMS as `NotReady`.
     #
     # @argument result [Optional, String]
     #   A short string (16 characters or fewer) that briefly describes the

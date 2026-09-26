@@ -163,7 +163,7 @@ const Rubric = ({
 
   // Try to be a little responsive about the column widths so the Criteria column
   // looks reasonable at all times at the expense of other columns. We want to use
-  // the ResizeObserver for this, which isn't 100% supported by EXAMPLE browsers quite
+  // the ResizeObserver for this, which isn't 100% supported by quite frankly an example LMS browsers quite
   // yet; if it's not available, just give up and things might not look amazing when
   // the Rubric table is too narrow.
   useEffect(() => {

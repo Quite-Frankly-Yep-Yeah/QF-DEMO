@@ -17,7 +17,7 @@
 # You should have received a copy of the GNU Affero General Public License along
 # with this program. If not, see <http://www.gnu.org/licenses/>.
 
-# Non-standard EXAMPLE extension to Bundler behavior -- load the Gemfiles from
+# Non-standard quite frankly an example LMS extension to Bundler behavior -- load the Gemfiles from
 # plugins.
 
 if @include_plugins

@@ -310,7 +310,7 @@
 <a name="registered_web_services"></a>
 <h2><%= t('headers.web_services', "Web Services") %></h2>
 <p><%= t(:web_services, <<~TEXT)
-EXAMPLE can make your life a lot easier by tying itself in with the web tools
+quite frankly an example LMS can make your life a lot easier by tying itself in with the web tools
 you already use.  Click any of the services in "Other Services" to see what we mean.
 TEXT
 %></p>
@@ -379,7 +379,7 @@ TEXT
   <% if AccessToken.visible_tokens(@user.access_tokens).empty? %>
     <div id="no_approved_integrations"><%= t(:no_approved_integrations, <<~TEXT)
       Third-party applications can request permission to access
-      the EXAMPLE site on your behalf.  As you begin authorizing
+      the quite frankly an example LMS site on your behalf.  As you begin authorizing
       applications you will see them listed here.
       TEXT
     %></div>
@@ -387,7 +387,7 @@ TEXT
   <div id="access_tokens_holder" style="<%= hidden if AccessToken.visible_tokens(@user.access_tokens).empty? %>">
     <%= t(:approved_integrations, <<~TEXT)
     These are the third-party applications you have authorized
-    to access the EXAMPLE site on your behalf:
+    to access the quite frankly an example LMS site on your behalf:
     TEXT
     %>
     <table id="access_tokens" class="summary" style="margin-top: 10px;">
@@ -408,7 +408,7 @@ TEXT
     </table>
   </div>
   <% allow_token_creation = @current_user.access_tokens.temp_record.grants_right?(logged_in_user, AccessToken.account_session_for_permissions(@domain_root_account), :create) %>
-  <% prohibit_info_text = t("Your EXAMPLE administrators have chosen to limit your ability to generate your own access token. Please reach out to your EXAMPLE administrators to have them generate an access token on your behalf.") %>
+  <% prohibit_info_text = t("Your quite frankly an example LMS administrators have chosen to limit your ability to generate your own access token. Please reach out to your quite frankly an example LMS administrators to have them generate an access token on your behalf.") %>
   <div style="margin-top: 10px;">
     <a href="#" class="btn btn-primary add_access_token_link" <%= "disabled" unless allow_token_creation %> >
       <i class="icon-plus" aria-hidden="true"></i> <%= t('buttons.new_access_token', "New Access Token") %>

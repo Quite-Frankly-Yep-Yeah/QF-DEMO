@@ -101,7 +101,7 @@ module CanvasPandaPub
           begin
             # We could use Canvas.timeout_protection here, but I'd rather not
             # since a) that incurs a Redis hit for every use, and b) we're
-            # already protected from blocking EXAMPLE since we're in a thread.
+            # already protected from blocking quite frankly an example LMS since we're in a thread.
             p.call
           rescue => e
             @logger.error("Exception making PandaPub call to channel #{tag}: #{e}")

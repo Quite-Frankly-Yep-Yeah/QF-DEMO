@@ -17,7 +17,7 @@
  */
 
 // This was copied from the AssessmentGradeInput component in SpeedGrader 2 and
-// adapted to work on EXAMPLE LMS. Some functionality was added to support Checkpoints.
+// adapted to work on quite frankly an example LMS. Some functionality was added to support Checkpoints.
 // The idea is that this can be moved easily to SpeedGrader 2 in the future.
 
 import {Select} from '@instructure/ui-select'

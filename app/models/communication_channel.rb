@@ -86,7 +86,7 @@ class CommunicationChannel < ApplicationRecord
 
   # Generally, "TYPE_PERSONAL_EMAIL" should be treated exactly the same
   # as TYPE_EMAIL.  It is just kept distinct for the purposes of customers
-  # querying records in EXAMPLE Data.
+  # querying records in quite frankly an example LMS Data.
   def path_type
     raw_value = super
     return TYPE_EMAIL if raw_value == TYPE_PERSONAL_EMAIL
@@ -305,12 +305,12 @@ class CommunicationChannel < ApplicationRecord
     m.notification = Notification.new(name: "dsr_request", category: "Registration")
     m.data = { download_url:, request_time: }
     m.parse!("email")
-    m.subject = I18n.t("EXAMPLE DSR Report")
+    m.subject = I18n.t("quite frankly an example LMS DSR Report")
     Mailer.deliver(Mailer.create_message(m))
   end
 
   def send_otp!(code, account = nil)
-    message = t :body, "Your EXAMPLE verification code is %{verification_code}", verification_code: code
+    message = t :body, "Your quite frankly an example LMS verification code is %{verification_code}", verification_code: code
     case path_type
     when TYPE_SMS
       if Setting.get("mfa_via_sms", true) == "true" && e164_path && account&.feature_enabled?(:notification_service)
@@ -342,7 +342,7 @@ class CommunicationChannel < ApplicationRecord
       m.notification = Notification.new(name: "2fa", category: "Registration")
       m.data = { verification_code: code }
       m.parse!("email")
-      m.subject = "EXAMPLE Verification Code"
+      m.subject = "quite frankly an example LMS Verification Code"
       Mailer.deliver(Mailer.create_message(m))
     else
       raise "OTP not supported for #{path_type}"

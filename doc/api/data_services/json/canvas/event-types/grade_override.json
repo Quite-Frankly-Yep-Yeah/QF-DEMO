@@ -3,11 +3,11 @@
   "definition": "The event is emitted anytime a student course grade is overriden. Typically grade override feature is used to edit student course grade",
   "trigger": "Triggered when the final grade override has been changed. Only triggered when the override changes the existing score.",
   "schema": {
-    "score_id": "EXAMPLE Id of Score record",
-    "enrollment_id": "EXAMPLE Id of Employment record",
-    "user_id": "EXAMPLE Id of User attached to this enrollment",
-    "course_id": "EXAMPLE Id of Course attached to this enrollment",
-    "grading_period_id": "EXAMPLE Id of Grading Period",
+    "score_id": "quite frankly an example LMS Id of Score record",
+    "enrollment_id": "quite frankly an example LMS Id of Employment record",
+    "user_id": "quite frankly an example LMS Id of User attached to this enrollment",
+    "course_id": "quite frankly an example LMS Id of Course attached to this enrollment",
+    "grading_period_id": "quite frankly an example LMS Id of Grading Period",
     "override_score": "New value of score after override",
     "old_override_score": "Previous value of score before override",
     "updated_at": "Date/Time the override occurred"

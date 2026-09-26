@@ -71,7 +71,7 @@ export default function QuizRegradeModal({
           data-testid="regrade-warning"
         >
           {t(
-            "Choose a regrade option for students who have already taken the quiz. EXAMPLE will regrade all your submissions after you save the quiz (students' scores MAY be affected).",
+            "Choose a regrade option for students who have already taken the quiz. quite frankly an example LMS will regrade all your submissions after you save the quiz (students' scores MAY be affected).",
           )}
         </Alert>
 

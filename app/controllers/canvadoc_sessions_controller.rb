@@ -150,9 +150,9 @@ class CanvadocSessionsController < ApplicationController
 
       if blob["annotation_context"]
         annotation_context_id = if ApplicationController.test_cluster?
-                                  # since EXAMPLE test environments are often configured to point at production
-                                  # DocViewer environments, this prevents making an annotation on EXAMPLE beta and
-                                  # having it show up on EXAMPLE prod.  See CAS-1551
+                                  # since quite frankly an example LMS test environments are often configured to point at production
+                                  # DocViewer environments, this prevents making an annotation on quite frankly an example LMS beta and
+                                  # having it show up on quite frankly an example LMS prod.  See CAS-1551
                                   # TODO: a proper Canvas/DocViewer environment pairing and beta refresh from prod on DocViewer
                                   blob["annotation_context"] + "-#{ApplicationController.test_cluster_name}"
                                 else

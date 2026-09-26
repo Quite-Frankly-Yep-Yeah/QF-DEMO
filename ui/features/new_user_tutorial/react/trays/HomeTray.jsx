@@ -29,7 +29,7 @@ const HomeTray = () => (
     subheading={I18n.t('Welcome your students')}
     image="/images/tutorial-tray-images/Panda_Home.svg"
     seeAllLink={{
-      label: I18n.t('See more in EXAMPLE Guides'),
+      label: I18n.t('See more in quite frankly an example LMS Guides'),
       href: I18n.t('#community.instructor_guide'),
     }}
     links={[

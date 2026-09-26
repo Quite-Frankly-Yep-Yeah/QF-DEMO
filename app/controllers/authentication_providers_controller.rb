@@ -107,7 +107,7 @@
 #           "type": "string"
 #         },
 #         "jit_provisioning": {
-#           "description": "Just In Time provisioning. Valid for all providers except EXAMPLE (which has the similar in concept self_registration setting).",
+#           "description": "Just In Time provisioning. Valid for all providers except quite frankly an example LMS (which has the similar in concept self_registration setting).",
 #           "type": "boolean"
 #         },
 #         "federated_attributes": {
@@ -131,7 +131,7 @@
 #           "type": "string"
 #         },
 #        "change_password_url": {
-#           "description": "The url to redirect users to for password resets. Leave blank for default EXAMPLE behavior",
+#           "description": "The url to redirect users to for password resets. Leave blank for default quite frankly an example LMS behavior",
 #           "example": "https://example.com/reset_password",
 #           "type": "string"
 #        },
@@ -141,7 +141,7 @@
 #           "type": "string"
 #        },
 #        "unknown_user_url": {
-#           "description": "If an unknown user url is set, EXAMPLE will forward to that url when a service authenticates a user, but that user does not exist in EXAMPLE. The default behavior is to present an error.",
+#           "description": "If an unknown user url is set, quite frankly an example LMS will forward to that url when a service authenticates a user, but that user does not exist in quite frankly an example LMS. The default behavior is to present an error.",
 #           "example": "https://example.com/register_for_canvas",
 #           "type": "string"
 #        },
@@ -156,7 +156,7 @@
 # @model FederatedAttributesConfig
 #     {
 #       "id" : "FederatedAttributesConfig",
-#       "description": "A mapping of EXAMPLE attribute names to attribute names that a provider may send, in order to update the value of these attributes when a user logs in. The values can be a FederatedAttributeConfig, or a raw string corresponding to the \"attribute\" property of a FederatedAttributeConfig. In responses, full FederatedAttributeConfig objects are returned if JIT provisioning is enabled, otherwise just the attribute names are returned.",
+#       "description": "A mapping of quite frankly an example LMS attribute names to attribute names that a provider may send, in order to update the value of these attributes when a user logs in. The values can be a FederatedAttributeConfig, or a raw string corresponding to the \"attribute\" property of a FederatedAttributeConfig. In responses, full FederatedAttributeConfig objects are returned if JIT provisioning is enabled, otherwise just the attribute names are returned.",
 #       "properties": {
 #         "admin_roles": {
 #           "description": "A comma separated list of role names to grant to the user. Note that these only apply at the root account level, and not sub-accounts. If the attribute is not marked for provisioning only, the user will also be removed from any other roles they currently hold that are not still specified by the IdP.",
@@ -302,18 +302,18 @@ class AuthenticationProvidersController < ApplicationController
   #
   # You can set the 'position' for any provider. The config in the 1st position
   # is considered the default. You can set 'jit_provisioning' for any provider
-  # besides EXAMPLE. You can set 'mfa_required' for any provider.
+  # besides quite frankly an example LMS. You can set 'mfa_required' for any provider.
   #
   # For Apple, the additional recognized parameters are:
   #
   # - client_id [Required]
   #
   #   The developer’s client identifier, as provided by WWDR. Not available if
-  #   configured globally for EXAMPLE.
+  #   configured globally for quite frankly an example LMS.
   #
   # - login_attribute [Optional]
   #
-  #   The attribute to use to look up the user's login in EXAMPLE. Either
+  #   The attribute to use to look up the user's login in quite frankly an example LMS. Either
   #   'sub' (the default), or 'email'
   #
   # - federated_attributes [Optional]
@@ -321,7 +321,7 @@ class AuthenticationProvidersController < ApplicationController
   #   See FederatedAttributesConfig. Valid provider attributes are 'email',
   #   'firstName', 'lastName', and 'sub'.
   #
-  # For EXAMPLE, the additional recognized parameter is:
+  # For quite frankly an example LMS, the additional recognized parameter is:
   #
   # - self_registration
   #
@@ -343,12 +343,12 @@ class AuthenticationProvidersController < ApplicationController
   # - client_id [Required]
   #
   #   The Clever application's Client ID. Not available if configured globally
-  #   for EXAMPLE.
+  #   for quite frankly an example LMS.
   #
   # - client_secret [Required]
   #
   #   The Clever application's Client Secret. Not available if configured
-  #   globally for EXAMPLE.
+  #   globally for quite frankly an example LMS.
   #
   # - district_id [Optional]
   #
@@ -358,7 +358,7 @@ class AuthenticationProvidersController < ApplicationController
   #
   # - login_attribute [Optional]
   #
-  #   The attribute to use to look up the user's login in EXAMPLE. Either
+  #   The attribute to use to look up the user's login in quite frankly an example LMS. Either
   #   'id' (the default), 'sis_id', 'email', 'student_number', or
   #   'teacher_number'. Note that some fields may not be populated for
   #   all users at Clever.
@@ -372,15 +372,15 @@ class AuthenticationProvidersController < ApplicationController
   #
   # - app_id [Required]
   #
-  #   The Facebook App ID. Not available if configured globally for EXAMPLE.
+  #   The Facebook App ID. Not available if configured globally for quite frankly an example LMS.
   #
   # - app_secret [Required]
   #
-  #   The Facebook App Secret. Not available if configured globally for EXAMPLE.
+  #   The Facebook App Secret. Not available if configured globally for quite frankly an example LMS.
   #
   # - login_attribute [Optional]
   #
-  #   The attribute to use to look up the user's login in EXAMPLE. Either
+  #   The attribute to use to look up the user's login in quite frankly an example LMS. Either
   #   'id' (the default), or 'email'
   #
   # - federated_attributes [Optional]
@@ -399,16 +399,16 @@ class AuthenticationProvidersController < ApplicationController
   # - client_id [Required]
   #
   #   The GitHub application's Client ID. Not available if configured globally
-  #   for EXAMPLE.
+  #   for quite frankly an example LMS.
   #
   # - client_secret [Required]
   #
   #   The GitHub application's Client Secret. Not available if configured
-  #   globally for EXAMPLE.
+  #   globally for quite frankly an example LMS.
   #
   # - login_attribute [Optional]
   #
-  #   The attribute to use to look up the user's login in EXAMPLE. Either
+  #   The attribute to use to look up the user's login in quite frankly an example LMS. Either
   #   'id' (the default), or 'login'
   #
   # - federated_attributes [Optional]
@@ -421,12 +421,12 @@ class AuthenticationProvidersController < ApplicationController
   # - client_id [Required]
   #
   #   The Google application's Client ID. Not available if configured globally
-  #   for EXAMPLE.
+  #   for quite frankly an example LMS.
   #
   # - client_secret [Required]
   #
   #   The Google application's Client Secret. Not available if configured
-  #   globally for EXAMPLE.
+  #   globally for quite frankly an example LMS.
   #
   # - hosted_domain [Optional]
   #
@@ -435,7 +435,7 @@ class AuthenticationProvidersController < ApplicationController
   #
   # - login_attribute [Optional]
   #
-  #   The attribute to use to look up the user's login in EXAMPLE. Either
+  #   The attribute to use to look up the user's login in quite frankly an example LMS. Either
   #   'sub' (the default), or 'email'
   #
   # - federated_attributes [Optional]
@@ -471,7 +471,7 @@ class AuthenticationProvidersController < ApplicationController
   #
   # - identifier_format [Optional]
   #
-  #   The LDAP attribute to use to look up the EXAMPLE login. Omit to use
+  #   The LDAP attribute to use to look up the quite frankly an example LMS login. Omit to use
   #   the username supplied by the user.
   #
   # - auth_username
@@ -487,16 +487,16 @@ class AuthenticationProvidersController < ApplicationController
   # - client_id [Required]
   #
   #   The LinkedIn application's Client ID. Not available if configured globally
-  #   for EXAMPLE.
+  #   for quite frankly an example LMS.
   #
   # - client_secret [Required]
   #
   #   The LinkedIn application's Client Secret. Not available if configured
-  #   globally for EXAMPLE.
+  #   globally for quite frankly an example LMS.
   #
   # - login_attribute [Optional]
   #
-  #   The attribute to use to look up the user's login in EXAMPLE. Either
+  #   The attribute to use to look up the user's login in quite frankly an example LMS. Either
   #   'id' (the default), or 'emailAddress'
   #
   # - federated_attributes [Optional]
@@ -561,7 +561,7 @@ class AuthenticationProvidersController < ApplicationController
   #
   # - end_session_endpoint [Optional]
   #
-  #   URL to send the end user to after logging out of EXAMPLE. See
+  #   URL to send the end user to after logging out of quite frankly an example LMS. See
   #   https://openid.net/specs/openid-connect-session-1_0.html#RPLogout
   #
   # - userinfo_endpoint [Optional]
@@ -573,7 +573,7 @@ class AuthenticationProvidersController < ApplicationController
   #
   # - login_attribute [Optional]
   #
-  #   The attribute of the ID Token to look up the user's login in EXAMPLE.
+  #   The attribute of the ID Token to look up the user's login in quite frankly an example LMS.
   #   Defaults to 'sub'.
   #
   # - federated_attributes [Optional]

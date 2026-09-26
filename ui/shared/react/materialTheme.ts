@@ -20,6 +20,7 @@ import type {ThemeOrOverride} from '@instructure/emotion/types/EmotionTypes'
 
 const MD_FONT_FAMILY = 'Roboto, "Helvetica Neue", Helvetica, Arial, sans-serif'
 const MD_RADIUS = '2px'
+const MD_SURFACE = '#F5F5F5'
 
 // Material Design 1 elevations (umbra, penumbra, ambient)
 const MD_SHADOWS = {
@@ -39,7 +40,7 @@ type Options = {
 type Theme = Record<string, any>
 
 /**
- * Applies Material Design 1 shape, elevation and type on top of a Canvas
+ * Applies Material Design 1 shape, elevation and type on top of a quite frankly an example LMS
  * InstUI theme. Never touches `colors`, so brand (Theme Editor) colors keep
  * flowing through untouched. No-op for high contrast.
  */
@@ -58,6 +59,12 @@ export function applyMaterialOverrides(theme: ThemeOrOverride, options: Options 
     shadows: {...base.shadows, ...MD_SHADOWS},
     componentOverrides: {
       ...base.componentOverrides,
+      // Material grey 100 in place of white for surfaces (cards, modals,
+      // trays, popovers, tables and menu lists all draw View's primary
+      // background). Text and button colors stay as they are.
+      View: {...base.componentOverrides?.View, backgroundPrimary: MD_SURFACE},
+      ContextView: {...base.componentOverrides?.ContextView, arrowBackgroundColor: MD_SURFACE},
+      Options: {...base.componentOverrides?.Options, background: MD_SURFACE},
       BaseButton: {
         ...base.componentOverrides?.BaseButton,
         textTransform: 'uppercase',

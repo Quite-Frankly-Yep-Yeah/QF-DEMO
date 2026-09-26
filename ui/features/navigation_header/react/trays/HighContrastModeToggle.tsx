@@ -34,7 +34,7 @@ const I18n = createI18nScope('ProfileTray')
 
 // The checkbox toggle is the only thing we have to worry about here,
 // as all the other page elements are just primary-color text, which is
-// the same in both the normal EXAMPLE theme and the EXAMPLE High Contrast
+// the same in both the normal quite frankly an example LMS theme and the quite frankly an example LMS High Contrast
 // theme.
 const hcmColors = canvasHighContrast?.colors
 
@@ -139,7 +139,7 @@ export default function HighContrastModeToggle({isMobile}: HighContrastModeToggl
 
   // Toggles the high_contrast feature flag to the opposite state from where it
   // is currently at. Note that this only updates the back-end and the current page
-  // will remain on the old setting until a new EXAMPLE page load happens (or this
+  // will remain on the old setting until a new quite frankly an example LMS page load happens (or this
   // page is manually reloaded by the user), so the currently loaded CSS and thus
   // the HCM state of the browser screen will be out of sync with the persistence
   // layer until that happens.

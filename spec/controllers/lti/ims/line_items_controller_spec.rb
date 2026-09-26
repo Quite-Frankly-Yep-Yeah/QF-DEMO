@@ -122,7 +122,7 @@ module Lti
           resource_link.original_context_external_tool.update!(developer_key:)
           resource_link.line_items.create(
             score_maximum: 1,
-            label: "EXAMPLE Created",
+            label: "quite frankly an example LMS Created",
             assignment:
           )
         end

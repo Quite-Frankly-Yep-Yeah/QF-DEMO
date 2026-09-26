@@ -52,7 +52,7 @@ $('#registration_video a').click(
         "' webkitAllowFullScreen mozallowfullscreen allowFullScreen></iframe></div>",
     ).dialog({
       width: 800,
-      title: I18n.t('EXAMPLE Introduction Video'),
+      title: I18n.t('quite frankly an example LMS Introduction Video'),
       modal: true,
       resizable: false,
       close() {

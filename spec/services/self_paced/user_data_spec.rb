@@ -1,15 +1,15 @@
 # frozen_string_literal: true
 
 #
-# Copyright (C) 2026 - present EXAMPLE contributors
+# Copyright (C) 2026 - present quite frankly an example LMS contributors
 #
-# This file is part of EXAMPLE LMS, a modified version of Canvas.
+# This file is part of quite frankly an example LMS, a modified version of Canvas.
 #
-# EXAMPLE LMS is free software: you can redistribute it and/or modify it under
+# quite frankly an example LMS is free software: you can redistribute it and/or modify it under
 # the terms of the GNU Affero General Public License as published by the Free
 # Software Foundation, version 3 of the License.
 #
-# EXAMPLE LMS is distributed in the hope that it will be useful, but WITHOUT ANY
+# quite frankly an example LMS is distributed in the hope that it will be useful, but WITHOUT ANY
 # WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS FOR
 # A PARTICULAR PURPOSE. See the GNU Affero General Public License for more
 # details.
@@ -66,6 +66,13 @@ describe SelfPaced::UserData do
         .to eql([0, 0, 0])
       expect(SelfPaced::ActivityDay.where(user: target_user)).to exist
     end
+
+    it "deletes the user's pacing plans" do
+      SelfPaced::PacingPlan.create!(course:, user: from_user, start_date: Date.new(2026, 9, 1), target_date: Date.new(2027, 6, 1))
+      described_class.purge(from_user.id)
+
+      expect(SelfPaced::PacingPlan.where(user: from_user)).not_to exist
+    end
   end
 
   describe "user lifecycle" do
@@ -102,6 +109,34 @@ describe SelfPaced::UserData do
       described_class.purge(from_user.id)
 
       expect(SelfPaced::MentorCaseload.count).to be 0
+    end
+  end
+
+  describe "interventions and notes" do
+    let_once(:teacher) { teacher_in_course(course:, active_all: true).user }
+
+    def log!(student, actor)
+      SelfPaced::Intervention.create!(course:, student:, actor:, kind: "note")
+    end
+
+    it "moves the log and notes to the target user, as student and as staff" do
+      log!(from_user, teacher)
+      log!(target_user, from_user)
+      SelfPaced::StudentNote.create!(course:, student: from_user, author: teacher, body: "Doing well")
+      described_class.merge(from_user, target_user)
+
+      expect(SelfPaced::Intervention.order(:id).pluck(:student_id, :actor_id)).to eql([[target_user.id, teacher.id], [target_user.id, target_user.id]])
+      expect(SelfPaced::StudentNote.pluck(:student_id)).to eql([target_user.id])
+    end
+
+    it "deletes the log and notes about a deleted student but keeps what they did as staff" do
+      log!(from_user, teacher)
+      kept = log!(target_user, from_user)
+      SelfPaced::StudentNote.create!(course:, student: from_user, author: teacher, body: "Doing well")
+      described_class.purge(from_user.id)
+
+      expect(SelfPaced::Intervention.pluck(:id)).to eql([kept.id])
+      expect(SelfPaced::StudentNote.count).to be 0
     end
   end
 end

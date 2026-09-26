@@ -185,7 +185,7 @@ class YoutubeMigrationService
   end
 
   def validate_resource_exists!(resource_type, resource_id)
-    # We don't store New Quizzes Data in EXAMPLE, so we can't validate their existence
+    # We don't store New Quizzes Data in quite frankly an example LMS, so we can't validate their existence
     return true if NEW_QUIZZES_RESOURCES.include?(resource_type)
 
     case resource_type

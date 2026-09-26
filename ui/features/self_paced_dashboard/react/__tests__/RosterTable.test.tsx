@@ -1,13 +1,13 @@
 /*
- * Copyright (C) 2026 - present EXAMPLE contributors
+ * Copyright (C) 2026 - present quite frankly an example LMS contributors
  *
- * This file is part of EXAMPLE LMS, a modified version of Canvas.
+ * This file is part of quite frankly an example LMS, a modified version of Canvas.
  *
- * EXAMPLE LMS is free software: you can redistribute it and/or modify it under
+ * quite frankly an example LMS is free software: you can redistribute it and/or modify it under
  * the terms of the GNU Affero General Public License as published by the Free
  * Software Foundation, version 3 of the License.
  *
- * EXAMPLE LMS is distributed in the hope that it will be useful, but WITHOUT ANY
+ * quite frankly an example LMS is distributed in the hope that it will be useful, but WITHOUT ANY
  * WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS FOR
  * A PARTICULAR PURPOSE. See the GNU Affero General Public License for more
  * details.
@@ -20,7 +20,7 @@ import React from 'react'
 import {render, screen, within} from '@testing-library/react'
 import userEvent from '@testing-library/user-event'
 import RosterTable, {sortRows} from '../RosterTable'
-import {NOW, ROWS} from './fixtures'
+import {NOW, ROWS, rosterRow} from './fixtures'
 
 const colors = {'4': '#2a78d6', '7': '#eb6834'}
 
@@ -39,7 +39,7 @@ function renderTable(overrides = {}) {
 }
 
 function studentOrder() {
-  return screen.getAllByRole('rowheader').map(cell => cell.textContent)
+  return screen.getAllByRole('rowheader').map(cell => within(cell).getByRole('button').textContent)
 }
 
 describe('RosterTable', () => {
@@ -87,5 +87,101 @@ describe('sortRows', () => {
 
     expect(names('ascending').at(-1)).toBe('Sam Rivera')
     expect(names('descending').at(-1)).toBe('Sam Rivera')
+  })
+})
+
+describe('RosterTable pace', () => {
+  const paced = [
+    rosterRow({id: '1', name: 'Maya Lopez', days_behind: -2}),
+    rosterRow({id: '2', name: 'Jordan Kim', days_behind: 4}),
+    rosterRow({id: '3', name: 'Sam Rivera', days_behind: null}),
+  ]
+
+  it('sorts by pace, furthest behind first', async () => {
+    renderTable({rows: paced})
+    await userEvent.click(screen.getByRole('button', {name: /Pace/}))
+
+    expect(studentOrder()).toEqual(['Jordan Kim', 'Maya Lopez', 'Sam Rivera'])
+  })
+
+  it('says how far ahead or behind each student is', () => {
+    renderTable({rows: paced})
+    const row = screen.getByRole('rowheader', {name: 'Jordan Kim'}).closest('tr') as HTMLElement
+
+    expect(within(row).getByText('4 days behind')).toBeInTheDocument()
+  })
+
+  it('leaves the column out when no course is paced', () => {
+    renderTable({rows: ROWS.map(row => ({...row, days_behind: null}))})
+
+    expect(screen.queryByRole('columnheader', {name: /Pace/})).not.toBeInTheDocument()
+  })
+})
+
+describe('RosterTable grouping', () => {
+  const biology = {id: '7', name: 'Biology', course_code: 'BIO'}
+  const twoClasses = [
+    rosterRow({id: '1', name: 'Maya Lopez', percent_complete: 40}),
+    rosterRow({id: '1', name: 'Maya Lopez', course: biology, status: 'away', percent_complete: 80}),
+    rosterRow({id: '2', name: 'Jordan Kim'}),
+  ]
+
+  it('shows a student in two classes once', () => {
+    renderTable({rows: twoClasses})
+
+    expect(studentOrder()).toEqual(['Jordan Kim', 'Maya Lopez'])
+    const maya = screen.getByRole('rowheader', {name: 'Maya Lopez'}).closest('tr') as HTMLElement
+    expect(within(maya).getByText('2 classes')).toBeInTheDocument()
+  })
+
+  it('leaves class details out of the collapsed row', () => {
+    renderTable({rows: twoClasses})
+    const maya = screen.getByRole('rowheader', {name: 'Maya Lopez'}).closest('tr') as HTMLElement
+
+    expect(within(maya).queryByText('1.1 Classwork')).not.toBeInTheDocument()
+    expect(within(maya).queryByRole('meter')).not.toBeInTheDocument()
+    expect(within(maya).queryByText('82.5%')).not.toBeInTheDocument()
+  })
+
+  it('opens a row for each class', async () => {
+    const props = renderTable({rows: twoClasses})
+    await userEvent.click(screen.getByRole('button', {name: "Show Maya Lopez's classes"}))
+    await userEvent.click(screen.getByRole('button', {name: 'Maya Lopez, Biology'}))
+
+    expect(props.onOpenStudent).toHaveBeenCalledWith({courseId: '7', studentId: '1'})
+    expect(screen.getByRole('button', {name: "Hide Maya Lopez's classes"})).toHaveAttribute(
+      'aria-expanded',
+      'true',
+    )
+  })
+
+  it('opens every student at once', () => {
+    renderTable({rows: twoClasses, expandAll: true})
+
+    expect(screen.getByRole('button', {name: 'Maya Lopez, Algebra 1'})).toBeInTheDocument()
+    expect(screen.getByRole('button', {name: 'Maya Lopez, Biology'})).toBeInTheDocument()
+  })
+
+  it('gives single-class students no expand button', () => {
+    renderTable({rows: twoClasses})
+
+    expect(
+      screen.queryByRole('button', {name: "Show Jordan Kim's classes"}),
+    ).not.toBeInTheDocument()
+  })
+})
+
+describe('RosterTable paging', () => {
+  const many = Array.from({length: 60}, (_, i) =>
+    rosterRow({id: String(100 + i), name: `Student ${String(i).padStart(2, '0')} Test`}),
+  )
+
+  it('draws the first 50 students and more on request', async () => {
+    renderTable({rows: many})
+
+    expect(screen.getAllByRole('rowheader')).toHaveLength(50)
+    expect(screen.getByText('Showing 50 of 60 students')).toBeInTheDocument()
+    await userEvent.click(screen.getByRole('button', {name: 'Show 10 more'}))
+    expect(screen.getAllByRole('rowheader')).toHaveLength(60)
   })
 })

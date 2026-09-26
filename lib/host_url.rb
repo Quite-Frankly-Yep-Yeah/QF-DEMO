@@ -106,7 +106,7 @@ class HostUrl
     end
 
     def outgoing_email_default_name
-      @outgoing_email_default_name.presence || I18n.t("#email.default_from_name", "EXAMPLE")
+      @outgoing_email_default_name.presence || I18n.t("#email.default_from_name", "quite frankly an example LMS")
     end
 
     def file_host=(val)

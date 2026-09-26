@@ -110,6 +110,9 @@ class UsersController < ApplicationController
 
   MAX_UUIDS_IN_FILTER = 100
 
+  include SelfPaced::StudentHomePage
+  include SelfPaced::ObserverHomePage
+
   def grades
     @user = User.where(id: params[:user_id]).first if params[:user_id].present?
     @user ||= @current_user
@@ -404,6 +407,10 @@ class UsersController < ApplicationController
   end
 
   def user_dashboard
+    # students in self-paced classes get their own home (docs/fork-plan.md)
+    return render_self_paced_home if self_paced_home?
+    return render_self_paced_observer_home if self_paced_observer_home?
+
     @current_user.reload if @domain_root_account&.feature_enabled?(:widget_dashboard) ||
                             @domain_root_account&.feature_enabled?(:educator_dashboard)
     observed_users_list = observed_users(@current_user, session)
@@ -433,7 +440,7 @@ class UsersController < ApplicationController
         js_env({
                  PREFERENCES: {
                    dashboard_view: @current_user.dashboard_view(@domain_root_account),
-                   hide_dashcard_color_overlays: @current_user.preferences[:hide_dashcard_color_overlays],
+                   hide_dashcard_color_overlays: hide_dashcard_color_overlays?,
                    custom_colors: @current_user.custom_colors,
                    learner_dashboard_tab_selection: @current_user.get_preference(:learner_dashboard_tab_selection) || "dashboard",
                    widget_dashboard_config: educator_config
@@ -451,7 +458,7 @@ class UsersController < ApplicationController
         js_env({
                  PREFERENCES: {
                    dashboard_view: @current_user.dashboard_view(@domain_root_account),
-                   hide_dashcard_color_overlays: @current_user.preferences[:hide_dashcard_color_overlays],
+                   hide_dashcard_color_overlays: hide_dashcard_color_overlays?,
                    custom_colors: @current_user.custom_colors,
                    learner_dashboard_tab_selection: @current_user.get_preference(:learner_dashboard_tab_selection) || "dashboard",
                    widget_dashboard_config:
@@ -508,7 +515,7 @@ class UsersController < ApplicationController
     js_env({
              PREFERENCES: {
                dashboard_view: @current_user.dashboard_view(@domain_root_account),
-               hide_dashcard_color_overlays: @current_user.preferences[:hide_dashcard_color_overlays],
+               hide_dashcard_color_overlays: hide_dashcard_color_overlays?,
                custom_colors: @current_user.custom_colors
              },
              STUDENT_PLANNER_ENABLED: planner_enabled?,
@@ -664,8 +671,7 @@ class UsersController < ApplicationController
   end
 
   def toggle_hide_dashcard_color_overlays
-    @current_user.preferences[:hide_dashcard_color_overlays] =
-      !@current_user.preferences[:hide_dashcard_color_overlays]
+    @current_user.preferences[:hide_dashcard_color_overlays] = !hide_dashcard_color_overlays?
     @current_user.save!
     render json: {}
   end
@@ -710,7 +716,7 @@ class UsersController < ApplicationController
   #     'context_type': 'course', // course|group
   #     'course_id': 1,
   #     'group_id': null,
-  #     'html_url': "http://..." // URL to the EXAMPLE web UI for this stream item
+  #     'html_url': "http://..." // URL to the quite frankly an example LMS web UI for this stream item
   #   }
   #
   # In addition, each item type has its own set of attributes available.
@@ -1468,7 +1474,7 @@ class UsersController < ApplicationController
   #   "permissions": {
   #    "can_update_name": true, // Whether the user can update their name.
   #    "can_update_avatar": false, // Whether the user can update their avatar.
-  #    "limit_parent_app_web_access": false // Whether the user can interact with EXAMPLE web from the EXAMPLE Parent app.
+  #    "limit_parent_app_web_access": false // Whether the user can interact with quite frankly an example LMS web from the quite frankly an example LMS Parent app.
   #   }
   #
   # @argument include[] [String, "uuid", "last_login"]
@@ -1619,7 +1625,7 @@ class UsersController < ApplicationController
   #   {http://api.rubyonrails.org/classes/ActiveSupport/TimeZone.html Ruby on Rails time zones}.
   #
   # @argument user[locale] [String]
-  #   The user's preferred language, from the list of languages EXAMPLE supports.
+  #   The user's preferred language, from the list of languages quite frankly an example LMS supports.
   #   This is in RFC-5646 format.
   #
   # @argument user[terms_of_use] [Boolean]
@@ -1711,10 +1717,10 @@ class UsersController < ApplicationController
   # @argument destination [URL]
   #
   #   If you're setting the password for the newly created user, you can provide this param
-  #   with a valid URL pointing into this EXAMPLE installation, and the response will include
+  #   with a valid URL pointing into this quite frankly an example LMS installation, and the response will include
   #   a destination field that's a URL that you can redirect a browser to and have the newly
   #   created user automatically logged in. The URL is only valid for a short time, and must
-  #   match the domain this request is directed to, and be for a well-formed path that EXAMPLE
+  #   match the domain this request is directed to, and be for a well-formed path that quite frankly an example LMS
   #   can recognize.
   #
   # @argument initial_enrollment_type [String]
@@ -1752,7 +1758,7 @@ class UsersController < ApplicationController
   #   {http://api.rubyonrails.org/classes/ActiveSupport/TimeZone.html Ruby on Rails time zones}.
   #
   # @argument user[locale] [String]
-  #   The user's preferred language, from the list of languages EXAMPLE supports.
+  #   The user's preferred language, from the list of languages quite frankly an example LMS supports.
   #   This is in RFC-5646 format.
   #
   # @argument user[terms_of_use] [Required, Boolean]
@@ -1810,7 +1816,7 @@ class UsersController < ApplicationController
   #   If true, suggestions within the comment library will be shown.
   #
   # @argument elementary_dashboard_disabled [Boolean]
-  #   If true, will display the user's preferred class EXAMPLE dashboard
+  #   If true, will display the user's preferred class quite frankly an example LMS dashboard
   #   view instead of the canvas for elementary view.
   #
   # @argument widget_dashboard_user_preference [Boolean]
@@ -2204,7 +2210,7 @@ class UsersController < ApplicationController
   #   The default email address of the user.
   #
   # @argument user[locale] [String]
-  #   The user's preferred language, from the list of languages EXAMPLE supports.
+  #   The user's preferred language, from the list of languages quite frankly an example LMS supports.
   #   This is in RFC-5646 format.
   #
   # @argument user[avatar][token] [String]
@@ -2433,7 +2439,7 @@ class UsersController < ApplicationController
   #
   # Terminates all sessions for a user. This includes all browser-based
   # sessions and all access tokens, including manually generated ones.
-  # The user can immediately re-authenticate to access EXAMPLE again if
+  # The user can immediately re-authenticate to access quite frankly an example LMS again if
   # they have the current credentials. All integrations will need to
   # be re-authorized.
   def terminate_sessions
@@ -3105,6 +3111,11 @@ class UsersController < ApplicationController
   end
 
   private
+
+  # Overlays are hidden by default; a user must explicitly turn them back on.
+  def hide_dashcard_color_overlays?
+    @current_user.preferences.fetch(:hide_dashcard_color_overlays, true)
+  end
 
   def load_dashboard_learning_agent_env
     return unless @current_user

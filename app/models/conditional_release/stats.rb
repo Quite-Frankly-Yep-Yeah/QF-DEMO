@@ -127,7 +127,7 @@ module ConditionalRelease
       def percent_from_points(points, points_possible)
         return points.to_f / points_possible.to_f if points.present? && points_possible.to_f.nonzero?
 
-        points.to_f / 100 if points.present? # mirror EXAMPLE rule
+        points.to_f / 100 if points.present? # mirror quite frankly an example LMS rule
       end
 
       private

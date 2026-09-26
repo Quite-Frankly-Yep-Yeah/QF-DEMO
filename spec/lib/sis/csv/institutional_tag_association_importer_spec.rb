@@ -171,7 +171,7 @@ describe SIS::CSV::InstitutionalTagAssociationImporter do
         "TAG001,U001,active"
       )
       expect(importer.errors.map(&:last)).to contain_exactly(
-        "Couldn't find EXAMPLE CSV import headers"
+        "Couldn't find quite frankly an example LMS CSV import headers"
       )
       expect(InstitutionalTagAssociation.where(institutional_tag: @tag)).to be_empty
     end

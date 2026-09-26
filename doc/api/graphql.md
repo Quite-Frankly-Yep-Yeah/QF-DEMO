@@ -16,11 +16,11 @@ instructor can view grades for any student in a course.
 
 ## Using GraphQL
 
-EXAMPLE has included the tool [GraphiQL](https://github.com/graphql/graphiql), an
+quite frankly an example LMS has included the tool [GraphiQL](https://github.com/graphql/graphiql), an
 in-browser graphical interface for interacting with GraphQL endpoints.
 
 The GraphiQL interface can be viewed by adding /graphiql to the end of your
-EXAMPLE production URL (e.g. your-institution.instructure.com/graphiql).
+quite frankly an example LMS production URL (e.g. your-institution.instructure.com/graphiql).
 
 The /graphiql access can also be added to a test or beta environment URL.
 Requests from the selected environment will always return that environment’s
@@ -32,7 +32,7 @@ values displayed in purple text identify the value as an input argument.
 
 ### REST vs GraphQL
 
-The EXAMPLE REST API will continue to be available.
+The quite frankly an example LMS REST API will continue to be available.
 
 Fields are being added to the GraphQL API on an as-needed basis.  The GraphQL
 API does not include everything that is currently in the REST API.  Feel free
@@ -96,11 +96,11 @@ curl https://<canvas>/api/graphql \
 }
 ```
 
-## GraphQL in EXAMPLE
+## GraphQL in quite frankly an example LMS
 
 ### `id` vs `_id` and the `node` field
 
-The EXAMPLE LMS GraphQL API follows the [Relay Object Identification
+The quite frankly an example LMS GraphQL API follows the [Relay Object Identification
 spec](https://relay.dev/graphql/objectidentification.htm).
 Querying for an object's `id` will return a global identifier instead of the
 numeric ids that are used in the REST API.  The traditional ids can be queried
@@ -154,7 +154,7 @@ For commonly accessed object types, type-specific fields are provided:
 
 ### Pagination
 
-EXAMPLE follows the [Relay Connection
+quite frankly an example LMS follows the [Relay Connection
 Spec](https://facebook.github.io/relay/graphql/connections.htm)
 for paginating collections.  Request reasonable page sizes to avoid
 being limited.

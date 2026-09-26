@@ -19,7 +19,7 @@
 
 # @API Feature Flags
 #
-# Manage optional features in EXAMPLE.
+# Manage optional features in quite frankly an example LMS.
 #
 #  _Deprecated_[2016-01-15] FeatureFlags previously had a locking_account_id field;
 #  it was never used, and has been removed. It is still included in API responses
@@ -91,7 +91,7 @@
 #       "description": "",
 #       "properties": {
 #         "context_type": {
-#           "description": "The type of object to which this flag applies (Account, Course, or User). (This field is not present if this FeatureFlag represents the global EXAMPLE default)",
+#           "description": "The type of object to which this flag applies (Account, Course, or User). (This field is not present if this FeatureFlag represents the global quite frankly an example LMS default)",
 #           "example": "Account",
 #           "type": "string",
 #           "allowableValues": {
@@ -103,7 +103,7 @@
 #           }
 #         },
 #         "context_id": {
-#           "description": "The id of the object to which this flag applies (This field is not present if this FeatureFlag represents the global EXAMPLE default)",
+#           "description": "The id of the object to which this flag applies (This field is not present if this FeatureFlag represents the global quite frankly an example LMS default)",
 #           "example": 1038,
 #           "type": "integer"
 #         },
@@ -200,7 +200,7 @@ class FeatureFlagsController < ApplicationController
   # @API List environment features
   #
   # Return a hash of global feature options that pertain to the
-  # EXAMPLE user interface. This is the same information supplied to the
+  # quite frankly an example LMS user interface. This is the same information supplied to the
   # web interface as +ENV.FEATURES+.
   #
   # @example_request
@@ -226,7 +226,7 @@ class FeatureFlagsController < ApplicationController
   # The flag may be defined on the object, or it may be inherited from a parent
   # account. You can look at the context_id and context_type of the returned object
   # to determine which is the case. If these fields are missing, then the object
-  # is the global EXAMPLE default.
+  # is the global quite frankly an example LMS default.
   #
   # @example_request
   #

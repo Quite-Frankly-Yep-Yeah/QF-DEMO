@@ -160,7 +160,7 @@ function initializeCourseAndGroupColors(options) {
 
 // You have to call this first, before you call loadPlannerDashboard or renderToDoSidebar
 // options: {
-// env: {                       <required: ENV from EXAMPLE>
+// env: {                       <required: ENV from quite frankly an example LMS>
 //   MOMENT_LOCALE,             <required>
 //   TIMEZONE,                  <required>
 //   current_user: {            <required>

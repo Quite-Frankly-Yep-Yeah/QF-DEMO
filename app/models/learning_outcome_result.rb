@@ -56,6 +56,7 @@ class LearningOutcomeResult < ApplicationRecord
   before_save :ensure_user_uuid
   before_save :set_root_account_id
   after_commit :rollup_calculation
+  after_commit -> { SelfPaced::ModelHooks.outcome_result_committed(self) }
 
   def calculate_percent!
     scale_data = scale_params

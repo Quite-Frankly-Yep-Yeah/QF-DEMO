@@ -168,7 +168,7 @@ describe('ContextModulesPublishIcon', () => {
 
   it('disables the Publish All menu button when publishing or unpublishing', async () => {
     // ts is inferring what window.modules should look like. I don't care about anything else.
-    // @ts-expect-error - window.modules is a EXAMPLE global not in TS types
+    // @ts-expect-error - window.modules is a quite frankly an example LMS global not in TS types
     window.modules = {
       updatePublishMenuDisabledState: vi.fn(),
     }
@@ -189,13 +189,13 @@ describe('ContextModulesPublishIcon', () => {
 
     await waitFor(() => {
       // eslint-disable-next-line @typescript-eslint/ban-ts-comment
-      // @ts-ignore - window.modules is a EXAMPLE global not in TS types
+      // @ts-ignore - window.modules is a quite frankly an example LMS global not in TS types
       expect(window.modules.updatePublishMenuDisabledState).toHaveBeenCalledWith(true)
     })
 
     await waitFor(() => {
       // eslint-disable-next-line @typescript-eslint/ban-ts-comment
-      // @ts-ignore - window.modules is a EXAMPLE global not in TS types
+      // @ts-ignore - window.modules is a quite frankly an example LMS global not in TS types
       expect(window.modules.updatePublishMenuDisabledState).toHaveBeenCalledWith(false)
     })
   })
