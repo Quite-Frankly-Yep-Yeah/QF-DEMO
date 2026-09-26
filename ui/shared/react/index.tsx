@@ -18,8 +18,8 @@
 
 import {InstUISettingsProvider} from '@instructure/emotion'
 import type {ThemeOrOverride} from '@instructure/emotion/types/EmotionTypes'
-import {getTheme, loadCareerTheme} from '@instructure/platform-instui-bindings'
-import React, {useEffect, useState} from 'react'
+import {getTheme} from '@instructure/platform-instui-bindings'
+import React from 'react'
 import {createRoot} from 'react-dom/client'
 import ReactDOM, {flushSync} from 'react-dom'
 import {applyMaterialOverrides} from './materialTheme'
@@ -79,31 +79,10 @@ type CanvasThemeProviderProps = {
 }
 
 /**
- * Wraps children in InstUISettingsProvider and applies the career theme
- * override when the `instui_theme` URL param is `career` or `career-dark`.
- * Drop-in replacement for the old canvas-local
- * DynamicInstUISettingsProvider.
+ * Wraps children in InstUISettingsProvider. Drop-in replacement for the old
+ * canvas-local DynamicInstUISettingsProvider.
  */
-export const CanvasThemeProvider = ({theme: initialTheme, children}: CanvasThemeProviderProps) => {
-  const [theme, setTheme] = useState<ThemeOrOverride>(initialTheme)
-  const urlParams = new URLSearchParams(window.location.search)
-  const themeParam = urlParams.get('instui_theme')
-  const isCareerDark = themeParam === 'career-dark'
-  const isCareerTheme = themeParam === 'career' || isCareerDark
-
-  useEffect(() => {
-    if (isCareerTheme) {
-      loadCareerTheme({
-        themeUrl: isCareerDark ? window.ENV.CAREER_DARK_THEME_URL : window.ENV.CAREER_THEME_URL,
-        fallbackUrl: isCareerDark ? (window.ENV.CAREER_THEME_URL ?? undefined) : undefined,
-      }).then(loadedTheme => {
-        if (loadedTheme) {
-          setTheme(loadedTheme)
-        }
-      })
-    }
-  }, [isCareerTheme, isCareerDark])
-
+export const CanvasThemeProvider = ({theme, children}: CanvasThemeProviderProps) => {
   return <InstUISettingsProvider theme={theme}>{children}</InstUISettingsProvider>
 }
 

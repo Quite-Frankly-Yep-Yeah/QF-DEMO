@@ -760,17 +760,6 @@ describe ContextModulesController do
       it_behaves_like "rendering when context_module_id is not provided"
     end
 
-    describe "GET content_tag_estimated_duration_data" do
-      let(:action) { "content_tag_estimated_duration_data" }
-      let(:parsed_json) { json_parse(response.body).values.flat_map(&:keys) }
-      let(:expected_full_list) { [@context_module1_item1.id.to_s, @context_module2_item1.id.to_s] }
-      let(:expected_queried_element) { [@context_module1_item1.id.to_s] }
-
-      it_behaves_like "rendering when context_module_id is provided"
-
-      it_behaves_like "rendering when context_module_id is not provided"
-    end
-
     describe "GET progressions" do
       let(:action) { "progressions" }
       let(:parsed_json) do

@@ -2742,11 +2742,4 @@ describe Quizzes::Quiz do
       expect(ids.first).to eq @bank.id
     end
   end
-
-  describe "Horizon course" do
-    it "does not allow classic quiz creation" do
-      allow(@course).to receive(:horizon_course?).and_return(true)
-      expect { @course.quizzes.create!(title: "test", workflow_state: "available") }.to raise_error(ActiveRecord::RecordInvalid)
-    end
-  end
 end

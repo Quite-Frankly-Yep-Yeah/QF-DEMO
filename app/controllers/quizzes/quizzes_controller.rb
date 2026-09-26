@@ -35,10 +35,6 @@ class Quizzes::QuizzesController < ApplicationController
 
   before_action :require_context
 
-  include HorizonMode
-
-  before_action :load_canvas_career, only: [:index, :show]
-
   before_action :rce_js_env, only: %i[index show new edit]
 
   include K5Mode

@@ -26,7 +26,6 @@
   new_quizzes_by_default = new_quizzes_enabled && @context.feature_enabled?(:new_quizzes_by_default)
   newquizzes_engine_selected = @context.settings.dig(:engine_selected, :user_id, :newquizzes_engine_selected)
   newquizzes_engine_selected = ['true', 'false'].include?(newquizzes_engine_selected) ? newquizzes_engine_selected : nil
-  newquizzes_engine_selected = @context.horizon_course? ? 'true' : newquizzes_engine_selected
   module_links_default_new_tab = @current_user&.get_preference(:module_links_default_new_tab)
 %>
 <% js_env({ NEW_QUIZZES_BY_DEFAULT: new_quizzes_by_default }) %>
@@ -48,7 +47,7 @@
         <% if !only || only.include?(:wiki_pages) %>
         <option value="wiki_page"><%= t :content_page_item, "Page" %></option>
         <% end %>
-        <% if (!only || only.include?(:discussion_topics)) && !@context.horizon_course? %>
+        <% if (!only || only.include?(:discussion_topics)) %>
         <option value="discussion_topic"><%= t :discussion_item, "Discussion" %></option>
         <% end %>
         <% if !only || only.include?(:sub_headers) %>
@@ -96,14 +95,12 @@
             <td><label for="content_tag_create_title"><%= before_label :page_name, "Page Name" %></label></td>
             <td><input type="text" name="title" id="content_tag_create_title" style="width: 120px;"/></td>
           </tr>
-          <% unless @context.horizon_course? %>
           <tr>
             <td colspan="2">
               <input type="checkbox" name="new_tab" id="external_url_create_new_tab" <%= "checked" if module_links_default_new_tab %> />
               <label for="external_url_create_new_tab"><%= t :new_tab, "Load in a new tab" %></label>
             </td>
           </tr>
-          <% end %>
         </table>
       </div>
       <% end %>
@@ -148,14 +145,12 @@
             <td><label for="external_tool_create_title"><%= before_label :page_name, "Page Name" %></label></td>
             <td><input type="text" name="title" id="external_tool_create_title" style="width: 120px;"/></td>
           </tr>
-          <% unless @context.horizon_course? %>
           <tr>
               <td colspan="2">
               <input type="checkbox" name="new_tab" id="external_tool_create_new_tab" <%= "checked" if module_links_default_new_tab %> />
               <label for="external_tool_create_new_tab"><%= t :new_tab, "Load in a new tab" %></label>
             </td>
           </tr>
-          <% end %>
         </table>
       </div>
       <% end %>
@@ -205,7 +200,6 @@
                 <div id="module_attachment_upload_progress" style="display: none"></div>
               </td>
             </tr>
-            <% unless @context.horizon_course? %>
             <tr>
               <td>
                 <a href="<%= context_url(@context, :context_files_url, :format => :text) %>" style="display: none;" class="add_item_url">&nbsp;</a>
@@ -220,7 +214,6 @@
                 </select>
               </td>
             </tr>
-            <% end %>
           </table>
         </div>
       </div>
@@ -354,7 +347,7 @@
         </div>
       </div>
       <% end %>
-      <% if (!only || only.include?(:indentation)) && !@context.horizon_course? %>
+      <% if (!only || only.include?(:indentation)) %>
       <div class="context_module_content">
         <%= before_label :indentation, "Indentation" %>
         <select name="content_tag[indent]" id="content_tag_indent" aria-label="<%= before_label :indentation, "Indentation" %>">

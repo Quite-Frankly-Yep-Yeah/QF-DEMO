@@ -154,10 +154,6 @@
 #           "example": false,
 #           "type": "boolean"
 #         },
-#         "estimated_duration": {
-#           "description": "The estimated duration for completing this tool. Only present for horizon courses when the tool has an estimated duration.",
-#           "$ref": "EstimatedDuration"
-#         },
 #         "account_navigation": {
 #           "description": "Configuration for account navigation placement. Null if not configured for this placement.",
 #           "example": {"type": "ContextExternalToolPlacement"},
@@ -2101,7 +2097,6 @@ class ExternalToolsController < ApplicationController
                 unified_tool_id
                 message_settings]
     attrs += [:allow_membership_service_access] if @context.root_account.feature_enabled?(:membership_service_for_lti_tools)
-    attrs += [:estimated_duration_attributes] if @context.try(:horizon_course?)
 
     attrs.each do |prop|
       tool.send(:"#{prop}=", params[prop]) if params.key?(prop)

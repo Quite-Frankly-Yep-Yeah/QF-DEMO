@@ -37,8 +37,6 @@
   "LegacyIDInterface": [
     "AIGradeResult",
     "Account",
-    "AccountDomain",
-    "AccountDomainLookup",
     "AccountNotification",
     "AllocationRule",
     "AssessmentRequest",
@@ -199,8 +197,6 @@
     "SubmissionHistory"
   ],
   "Timestamped": [
-    "AccountDomain",
-    "AccountDomainLookup",
     "AccountNotification",
     "AllocationRule",
     "AssessmentRequest",

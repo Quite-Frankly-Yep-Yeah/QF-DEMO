@@ -605,7 +605,7 @@ describe('useRecentGrades', () => {
     expect(result.current.totalCount).toBe(0)
   })
 
-  it('returns no submissions for K5/horizon courses', async () => {
+  it('returns no submissions for K5 courses', async () => {
     server.use(
       http.post('/api/graphql', async ({request}) => {
         const body = (await request.json()) as {query: string; variables: any}

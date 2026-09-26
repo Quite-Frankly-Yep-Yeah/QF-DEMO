@@ -66,7 +66,6 @@ FolderChild.renderPublishCloud = function (canManage) {
         ref={this.publishButtonRef}
         userCanEditFilesForContext={canManage && this.props.userCanRestrictFilesForContext}
         usageRightsRequiredForContext={this.props.usageRightsRequiredForContext}
-        disabled={ENV.horizon_course}
       />
     )
   }

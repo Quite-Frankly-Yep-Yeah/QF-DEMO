@@ -30,10 +30,6 @@ describe "shared/_account_options" do
     @nested_sub_account1 = @sub_account1.sub_accounts.create!(name: "Nested Sub Account 1")
     @nested_sub_account2 = @sub_account2.sub_accounts.create!(name: "Nested Sub Account 2")
 
-    @sub_account2.enable_feature!(:horizon_course_setting)
-    @sub_account2.settings[:horizon_account] = { value: true }
-    @sub_account2.save!
-
     assign(:account, @root_account)
   end
 
@@ -64,21 +60,6 @@ describe "shared/_account_options" do
     expect(selected_option["value"].to_i).to eq @nested_sub_account1.id
   end
 
-  it "sets data-is-horizon attribute correctly" do
-    render partial: "shared/account_options", locals: { account: @root_account }
-
-    html = Nokogiri::HTML5.fragment(response.body)
-    options = html.css("option")
-
-    # Regular account should have false for data-is-horizon
-    sub_account1_option = options.find { |o| o["value"].to_i == @sub_account1.id }
-    expect(sub_account1_option["data-is-horizon"]).to eq "false"
-
-    # Horizon account should have true for data-is-horizon
-    sub_account2_option = options.find { |o| o["value"].to_i == @sub_account2.id }
-    expect(sub_account2_option["data-is-horizon"]).to eq "true"
-  end
-
   it "handles accounts with no sub-accounts" do
     empty_account = Account.create!(name: "Empty Account")
 
@@ -90,23 +71,6 @@ describe "shared/_account_options" do
     expect(options.map { |o| [o.text.strip, o["value"].to_i] }).to eq [
       ["Empty Account", empty_account.id]
     ]
-  end
-
-  context "when the context is associated with a horizon account" do
-    before do
-      assign(:context, instance_double(Course, account_id: @sub_account2.id))
-    end
-
-    it "marks the horizon account as selected" do
-      render partial: "shared/account_options", locals: { account: @root_account }
-
-      html = Nokogiri::HTML5.fragment(response.body)
-      selected_option = html.css("option[selected]").first
-
-      expect(selected_option).to be_present
-      expect(selected_option["value"].to_i).to eq @sub_account2.id
-      expect(selected_option["data-is-horizon"]).to eq "true"
-    end
   end
 
   context "with deleted sub-accounts" do

@@ -35,14 +35,8 @@ import '@canvas/jquery/jquery.simulate'
 import {createRoot} from 'react-dom/client'
 import {setupServer} from 'msw/node'
 import {http, HttpResponse} from 'msw'
-import {getUrlWithHorizonParams} from '@canvas/horizon/utils'
 import {SETTING_MESSAGES} from '@canvas/assignments/react/hooks/useSettingDependency'
 import fakeEnv from '@canvas/test-utils/fakeENV'
-
-// Mock the horizon utils module
-vi.mock('@canvas/horizon/utils', () => ({
-  getUrlWithHorizonParams: vi.fn(),
-}))
 
 vi.mock('jquery-ui', () => {
   const $ = require('jquery')
@@ -220,16 +214,6 @@ describe('EditView - Peer Reviews and Configuration Tools', () => {
       SETTINGS: {},
       FEATURES: {},
       DEEP_LINKING_POST_MESSAGE_ORIGIN: window.origin,
-    })
-
-    // Setup default mock for getUrlWithHorizonParams
-    vi.mocked(getUrlWithHorizonParams).mockImplementation((url, additionalParams) => {
-      if (additionalParams && Object.keys(additionalParams).length > 0) {
-        const separator = url.includes('?') ? '&' : '?'
-        const params = new URLSearchParams(additionalParams).toString()
-        return `${url}${separator}${params}`
-      }
-      return url
     })
 
     RCELoader.RCE = null

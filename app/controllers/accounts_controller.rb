@@ -305,17 +305,11 @@ class AccountsController < ApplicationController
                                              course_accounts
                                              course_creation_accounts
                                              courses_redirect
-                                             horizon_accounts
                                              manageable_accounts
                                              terms_of_service]
   before_action :reject_student_view_student
   before_action :get_context
   before_action :rce_js_env, only: [:settings]
-
-  include HorizonMode
-
-  before_action :load_canvas_career, only: %i[show users sis_import admin_tools settings]
-  around_action :add_career_params, only: [:update]
 
   include Api::V1::Account
   include CustomSidebarLinksHelper
@@ -326,7 +320,6 @@ class AccountsController < ApplicationController
   INTEGER_REGEX = /\A[+-]?\d+\z/
   SIS_ASSINGMENT_NAME_LENGTH_DEFAULT = 255
   EPORTFOLIO_MODERATION_PER_PAGE = 100
-  HORIZON_MAX_ACCOUNTS = 100
 
   # @API List accounts
   # A paginated list of accounts that the current user can view or manage.
@@ -361,38 +354,6 @@ class AccountsController < ApplicationController
         render json: @accounts.map { |a| account_json(a, @current_user, session, includes || []) }
       end
     end
-  end
-
-  # @API List horizon accounts
-  # A paginated list of horizon accounts that the current user can view or manage.
-  # Returns all accounts with the horizon_account setting enabled. If there are any
-  # horizon accounts and the user has access to Site Admin, Site Admin will also be
-  # included in the results.
-  #
-  # Typically, students and even teachers will get an empty list in response,
-  # only account admins can view the accounts that they are in.
-  #
-  # @argument include[] [String, "lti_guid"|"registration_settings"|"services"|"course_count"|"sub_account_count"|"site_admin"]
-  #   Array of additional information to include.
-  #
-  #   "lti_guid":: the 'tool_consumer_instance_guid' that will be sent for this account on LTI launches
-  #   "registration_settings":: returns info about the privacy policy and terms of use
-  #   "services":: returns services and whether they are enabled (requires account management permissions)
-  #   "course_count":: returns the number of courses directly under each account
-  #   "sub_account_count":: returns the number of sub-accounts directly under each account
-  #   "site_admin":: returns true if the account is the Site Admin account (only included if true)
-  #
-  # @returns [Account]
-  def horizon_accounts
-    @accounts = if @current_user
-                  Api.paginate(@current_user.all_paginatable_horizon_accounts, self, api_v1_horizon_accounts_url)
-                else
-                  []
-                end
-    ActiveRecord::Associations.preload(@accounts, :root_account)
-
-    includes = params[:include] || params[:includes]
-    render json: @accounts.map { |a| account_json(a, @current_user, session, includes || []) }
   end
 
   # @API Get accounts that admins can manage
@@ -538,8 +499,7 @@ class AccountsController < ApplicationController
                       microsoft_sync_remote_attribute
                       enable_as_k5_account
                       use_classic_font_in_k5
-                      allow_assign_to_differentiation_tags
-                      horizon_account]
+                      allow_assign_to_differentiation_tags]
     settings_hash = public_attrs.index_with { |key| @account.settings[key] }.compact
 
     if @account.password_complexity_enabled? && !@account.site_admin?
@@ -646,7 +606,7 @@ class AccountsController < ApplicationController
 
     ActiveRecord::Associations.preload(@accounts, [:root_account, :parent_account])
 
-    supported_includes = %w[course_count sub_account_count horizon_account]
+    supported_includes = %w[course_count sub_account_count]
     includes = Array(params[:include])
     includes &= supported_includes
 
@@ -947,14 +907,6 @@ class AccountsController < ApplicationController
       @courses = @courses.homeroom
     end
 
-    if @account.root_account.feature_enabled?(:horizon_learning_library_ms2) && params.key?(:career_learning_library_only)
-      @courses = if value_to_boolean(params[:career_learning_library_only])
-                   @courses.career_learning_library
-                 else
-                   @courses.not_career_learning_library
-                 end
-    end
-
     if starts_before || ends_after
       @courses = @courses.joins(:enrollment_term)
       if starts_before
@@ -1021,10 +973,6 @@ class AccountsController < ApplicationController
 
         @courses = @courses.merge(or_clause)
       end
-    end
-
-    if params[:copied_asset] && @account.horizon_account?
-      @courses = @courses.copied_asset(params[:copied_asset])
     end
 
     includes = Set.new(Array(params[:include]))
@@ -1185,24 +1133,6 @@ class AccountsController < ApplicationController
             enable_k5 = params.dig(:account, :settings, :enable_as_k5_account, :value) || @account.enable_as_k5_account?
             use_classic_font = params.dig(:account, :settings, :use_classic_font_in_k5, :value) || @account.use_classic_font_in_k5?
             K5::EnablementService.new(@account).set_k5_settings(value_to_boolean(enable_k5), value_to_boolean(use_classic_font))
-
-            enable_horizon = params.dig(:account, :settings, :horizon_account, :value)
-            unless enable_horizon.nil?
-              horizon_enabled = value_to_boolean(enable_horizon)
-              existing_account_ids = @account.root_account.settings[:horizon_account_ids] || []
-
-              if horizon_enabled && existing_account_ids.length + 1 > HORIZON_MAX_ACCOUNTS
-                @account.errors.add(:horizon_account, t("You cannot enable horizon_account on more than %{max_accounts} accounts", max_accounts: HORIZON_MAX_ACCOUNTS))
-              else
-                @account.horizon_account = horizon_enabled
-
-                if horizon_enabled && existing_account_ids.empty?
-                  @account.delay(singleton: "provision_horizon_tenants:#{@domain_root_account.uuid}").provision_horizon_tenants(@domain_root_account, @current_user)
-                elsif !horizon_enabled && existing_account_ids.length == 1
-                  @account.delay(singleton: "delete_horizon_tenants:#{@domain_root_account.uuid}").delete_horizon_tenants(@domain_root_account, @current_user)
-                end
-              end
-            end
 
             account_settings[:settings].slice!(*permitted_api_account_settings)
             account_settings[:settings][:password_policy] = policy_settings if policy_settings
@@ -1395,9 +1325,6 @@ class AccountsController < ApplicationController
   # @argument account[settings][use_classic_font_in_k5][value] [Boolean]
   #   Whether or not the classic font is used on the dashboard. Only applies if enable_as_k5_account is true.
   #
-  # @argument account[settings][horizon_account][value] [Boolean]
-  #   Enable or disable quite frankly an example LMS Career for this account
-  #
   # @argument override_sis_stickiness [boolean]
   #   Default is true. If false, any fields containing “sticky” changes will not be updated.
   #   See SIS CSV Format documentation for information on which fields can have SIS stickiness
@@ -1545,8 +1472,6 @@ class AccountsController < ApplicationController
           # when changing k5 settings on an account, the value gets saved to the root account and special
           # locking rules apply, so don't remove it from the update params here
           next if K5::EnablementService::K5_SETTINGS.include? setting
-          # also has special locking rules
-          next if setting == :horizon_account
           next unless params.dig(:account, :settings)
           next if !Account.account_settings_options[setting].key?(:boolean) && params.dig(:account, :settings, setting) != @account.parent_account&.send(setting)
           next if value_to_boolean(params.dig(:account, :settings, setting, :locked))
@@ -1855,79 +1780,6 @@ class AccountsController < ApplicationController
     else
       render_unauthorized_action
     end
-  end
-
-  # @API Delete multiple users from the root account
-  #
-  # Delete multiple users from a quite frankly an example LMS root account. If a user is associated
-  # with multiple root accounts (in a multi-tenant instance of quite frankly an example LMS), this
-  # action will NOT remove them from the other accounts.
-  #
-  # WARNING: This API will allow a user to remove themselves from the account.
-  # If they do this, they won't be able to make API calls or log into quite frankly an example LMS at
-  # that account.
-  #
-  # @example_request
-  #     curl https://<canvas>/api/v1/accounts/3/users \
-  #       -H 'Authorization: Bearer <ACCESS_TOKEN>' \
-  #       -X DELETE
-  #       -d 'user_ids[]=1' \
-  #       -d 'user_ids[]=2'
-  #
-  # @returns Progress
-  def remove_users
-    return render_unauthorized_action unless @account.grants_right?(@current_user, :manage_users_in_bulk)
-
-    user_ids = params[:user_ids]
-    if !user_ids.empty? && user_ids.size > 100
-      return render json: { errors: "Too many users to update at once." }, status: :bad_request
-    end
-
-    progress = Progress.create!(context: @context, user: @current_user, tag: :remove_users_from_account)
-    process_params = {
-      user_ids:
-    }
-
-    progress.process_job(Account::BulkUpdate.new(@account, @current_user), :remove_users, { run_at: Time.zone.now, priority: Delayed::NORMAL_PRIORITY }, **process_params)
-
-    render json: progress_json(progress, @current_user, session)
-  end
-
-  # @API Update multiple users
-  # Updates multiple users in bulk.
-  #
-  # @argument user_ids [Array<Integer>]
-  #   The IDs of the users to update.
-  # @argument user [Hash]
-  #   The attributes to update for each user.
-  #
-  # @example_request
-  #   curl https://<canvas>/api/v1/accounts/3/users/bulk_update \
-  #     -X PUT \
-  #     -H 'Authorization: Bearer <token>' \
-  #     -d 'user_ids[]=1' \
-  #     -d 'user_ids[]=2' \
-  #     -d 'user[event]=suspend'
-  #
-  # @returns Progress
-  def update_users
-    return render_unauthorized_action unless @account.grants_right?(@current_user, :manage_users_in_bulk)
-
-    allowed_attributes = [:event] # currently only used for suspend/unsuspend
-    user_ids = params[:user_ids]
-
-    if !user_ids.empty? && user_ids.size > 100
-      return render json: { errors: "Too many users to update at once." }, status: :bad_request
-    end
-
-    user_params = (params[:user] || {}).permit(*allowed_attributes).to_h
-    progress = Progress.create!(context: @context, user: @current_user, tag: :update_multiple_users)
-    process_params = {
-      user_ids:,
-      user_params:,
-    }
-    progress.process_job(Account::BulkUpdate.new(@account, @current_user), :update_users, { run_at: Time.zone.now, priority: Delayed::NORMAL_PRIORITY }, **process_params)
-    render json: progress_json(progress, @current_user, session)
   end
 
   # @API Restore a deleted user from a root account

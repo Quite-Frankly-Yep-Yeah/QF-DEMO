@@ -23,7 +23,7 @@ import ready from '@instructure/ready'
 import {checkShouldFramebust} from './framebust'
 
 // framebust out so we don't ever get theme editor inside theme editor
-// but allow intentional iframe embedding (e.g., from horizon)
+// but allow intentional iframe embedding
 if (checkShouldFramebust()) {
   window.top.location = self.location.href
 }

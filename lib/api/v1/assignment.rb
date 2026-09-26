@@ -26,7 +26,6 @@ module Api::V1::Assignment
   include Api::V1::AssignmentOverride
   include SubmittablesGradingPeriodProtection
   include Api::V1::PlannerOverride
-  include Api::V1::EstimatedDuration
   include Api::V1::AvailabilityStatus
 
   ALL_DATES_LIMIT = 25
@@ -528,10 +527,6 @@ module Api::V1::Assignment
 
     if opts[:migrated_urls_content_migration_id]
       hash["migrated_urls_content_migration_id"] = opts[:migrated_urls_content_migration_id]
-    end
-
-    if estimated_duration_enabled?(assignment) && assignment.estimated_duration&.marked_for_destruction? == false
-      hash["estimated_duration"] = estimated_duration_json(assignment.estimated_duration, user, session)
     end
 
     if opts[:include_peer_review]
@@ -1615,16 +1610,11 @@ module Api::V1::Assignment
       ({ "submission_types" => strong_anything } if should_update_submission_types),
       { "ab_guid" => strong_anything },
       ({ "suppress_assignment" => strong_anything } if assignment.root_account.suppress_assignments?),
-      ({ "estimated_duration_attributes" => strong_anything } if estimated_duration_enabled?(assignment)),
       (if assignment.context.feature_enabled?(:peer_review_allocation_and_grading)
          { "peer_review" => (%w[points_possible grading_type due_at unlock_at lock_at] +
                              [{ "peer_review_overrides" => strong_anything }]) }
        end),
     ].compact
-  end
-
-  def estimated_duration_enabled?(assignment)
-    assignment.context.is_a?(Course) && assignment.context.horizon_course?
   end
 
   def update_lockdown_browser?(assignment_params)

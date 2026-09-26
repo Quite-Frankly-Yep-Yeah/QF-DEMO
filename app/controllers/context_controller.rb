@@ -25,10 +25,6 @@ class ContextController < ApplicationController
 
   before_action :require_context, except: [:inbox, :object_snippet]
 
-  include HorizonMode
-
-  before_action :load_canvas_career, only: [:roster]
-
   skip_before_action :require_user, only: :object_snippet
   before_action :reject_student_view_student, only: [:inbox]
   protect_from_forgery except: [:object_snippet], with: :exception

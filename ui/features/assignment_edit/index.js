@@ -124,8 +124,8 @@ function loadBackboneComponents() {
       quizTypeSelector,
       anonymousSubmissionSelector,
       pointsTooltip,
-      ...(!ENV.horizon_course && {groupCategorySelector}),
-      ...(!ENV.horizon_course && {peerReviewsSelector}),
+      groupCategorySelector,
+      peerReviewsSelector,
       views: {
         'js-assignment-overrides': new DueDateOverride({
           model: dueDateList,
@@ -135,7 +135,7 @@ function loadBackboneComponents() {
           availabilityDatesReadonly: !!lockedItems.availability_dates,
           isModuleItem: ENV.IS_MODULE_ITEM,
           courseId: assignment.courseID(),
-          ...(!ENV.horizon_course && {groupCategorySelector}),
+          groupCategorySelector,
         }),
       },
       lockedItems: assignment.id ? lockedItems : {}, // if no id, creating a new assignment

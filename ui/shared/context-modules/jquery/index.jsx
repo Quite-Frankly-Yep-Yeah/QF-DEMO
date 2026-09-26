@@ -184,75 +184,6 @@ window.modules = (function () {
       )
     },
 
-    updateEstimatedDurations(moduleId) {
-      if (!ENV.horizon_course) {
-        return
-      }
-      return $.ajaxJSON(
-        ENV.CONTEXT_MODULE_ESTIMATED_DURATION_INFO_URL,
-        'GET',
-        {context_module_id: moduleId},
-        data => {
-          $(() => {
-            $.each(data, (module_id, durations_by_id) => {
-              let estimatedDurationSum = 0
-              let $context_module_item
-
-              $.each(durations_by_id, (id, info) => {
-                $context_module_item = $('#context_module_item_' + id)
-                const data = {
-                  estimated_duration_minutes: info.estimated_duration_minutes,
-                  can_set_estimated_duration: info.can_set_estimated_duration,
-                  estimated_duration_display: '',
-                }
-                if (
-                  info.estimated_duration_minutes != null &&
-                  info.estimated_duration_minutes > 0
-                ) {
-                  estimatedDurationSum += info.estimated_duration_minutes
-                  $context_module_item.find('.ig-row').removeClass('no-estimated-duration')
-                  data.estimated_duration_display = I18n.t('%{minutes} Mins', {
-                    minutes: info.estimated_duration_minutes,
-                  })
-                } else {
-                  $context_module_item.find('.ig-row').addClass('no-estimated-duration')
-                }
-                $context_module_item.fillTemplateData({
-                  data,
-                  htmlValues: [
-                    'estimated_duration_display',
-                    'estimated_duration_minutes',
-                    'can_set_estimated_duration',
-                  ],
-                })
-              })
-
-              const $moduleHeader = $('#context_module_' + module_id).find('.ig-header')
-              const headerData = {
-                estimated_duration_header_title: '',
-                estimated_duration_header_minutes: '',
-              }
-
-              if (estimatedDurationSum > 0) {
-                headerData.estimated_duration_header_title = I18n.t('Time to Complete:')
-                headerData.estimated_duration_header_minutes = I18n.t('%{minutes} Mins', {
-                  minutes: estimatedDurationSum,
-                })
-              }
-
-              $moduleHeader.fillTemplateData({
-                data: headerData,
-                htmlValues: [
-                  'estimated_duration_header_title',
-                  'estimated_duration_header_minutes',
-                ],
-              })
-            })
-          })
-        },
-      )
-    },
-
     async updateModuleItemPositions(_event, ui) {
       const $module = ui.item.parents('.context_module')
       const moduleId = $module.attr('id').substring('context_module_'.length)
@@ -702,12 +633,8 @@ window.modules = (function () {
           lmcdPromise = modules.loadMasterCourseData(undefined, moduleId)
         }
 
-        let uedPromise = Promise.resolve()
-        if (ENV.horizon_course) {
-          uedPromise = modules.updateEstimatedDurations(moduleId)
-        }
         addShowAllOrLess(moduleId)
-        return Promise.all([uadPromise, lmcdPromise, uedPromise])
+        return Promise.all([uadPromise, lmcdPromise])
       }
 
       if (moduleIds.length > 0) {
@@ -1263,7 +1190,6 @@ modules.initModuleManagement = async function (duplicate) {
             await modules.lazyLoadItems([parseInt(newModuleId, 10)])
           } else {
             modules.updateAssignmentData()
-            modules.updateEstimatedDurations()
           }
           // Unbind event handlers with 'off' because they will get re-bound in initModuleManagement
           // and we don't want them to be called twice on click.
@@ -1360,7 +1286,6 @@ modules.initModuleManagement = async function (duplicate) {
           $item.removeClass((_, cls) => (cls.match(/indent_\d+/g) || []).join(' '))
           $item.addClass('indent_' + data.content_tag.indent)
           modules.updateAssignmentData()
-          modules.updateEstimatedDurations()
         },
         _data => {},
       ).done(() => {
@@ -1385,8 +1310,6 @@ modules.initModuleManagement = async function (duplicate) {
         'url',
         'indent',
         'new_tab',
-        'estimated_duration_minutes',
-        'can_set_estimated_duration',
       ],
     })
     data.title = $item.find('.title').attr('title')
@@ -1402,14 +1325,6 @@ modules.initModuleManagement = async function (duplicate) {
     const isDisabled =
       !get(ENV, 'MASTER_COURSE_SETTINGS.IS_MASTER_COURSE') && !!get(restrictions, 'content')
     $titleInput.prop('disabled', isDisabled)
-
-    if (ENV.horizon_course) {
-      if (data.can_set_estimated_duration === 'false') {
-        $('#estimated_duration_edit').css({display: 'none'})
-      } else {
-        $('#estimated_duration_edit').css({display: 'table-row'})
-      }
-    }
 
     $('#edit_item_form')
       .dialog({
@@ -1455,7 +1370,6 @@ modules.initModuleManagement = async function (duplicate) {
         modules.updateAllItemInstances(data.content_tag)
       }
       modules.updateAssignmentData()
-      modules.updateEstimatedDurations()
       $(this).dialog('close')
     },
     error(data) {
@@ -1499,7 +1413,6 @@ modules.initModuleManagement = async function (duplicate) {
             cleanupPeerReviewComponentsForItem(this)
             $(this).remove()
             modules.updateTaggedItems()
-            modules.updateEstimatedDurations()
             $placeToFocus.focus()
             refreshDuplicateLinkStatus($currentModule)
 
@@ -1772,7 +1685,6 @@ modules.initModuleManagement = async function (duplicate) {
             initNewItemDirectShare($item, data.content_tag)
             initNewItemMoveHandler($item)
             modules.updateAssignmentData()
-            modules.updateEstimatedDurations()
 
             $item
               .find('.lock-icon')
@@ -1815,7 +1727,6 @@ modules.initModuleManagement = async function (duplicate) {
           initNewItemMoveHandler($item)
 
           modules.updateAssignmentData()
-          modules.updateEstimatedDurations()
 
           $item
             .find('.lock-icon')
@@ -2461,10 +2372,6 @@ function initContextModules() {
 
   if (ENV.IS_STUDENT) {
     $('.context_module').addClass('student-view')
-  }
-
-  if (ENV.horizon_course) {
-    modules.updateEstimatedDurations()
   }
 
   // I cannot find anywhere that these classname is added to the modules dom

@@ -26,7 +26,6 @@ import {Flex} from '@instructure/ui-flex'
 import {Heading} from '@instructure/ui-heading'
 import {
   IconAdminLine,
-  IconArrowEndSolid,
   IconCalendarMonthLine,
   IconClockLine,
   IconCoursesLine,
@@ -47,15 +46,12 @@ import {Text} from '@instructure/ui-text'
 import {ToggleDetails} from '@instructure/ui-toggle-details'
 import {View} from '@instructure/ui-view'
 import {useQuery} from '@tanstack/react-query'
-import {ExperienceSummary} from 'api'
 import {useMemo} from 'react'
 import AccountsList from './lists/AccountsList'
 import CoursesList from './lists/CoursesList'
 import GroupsList from './lists/GroupsList'
 import HistoryList from './lists/HistoryList'
 import ProfileTabsList from './lists/ProfileTabsList'
-import {useSwitchExperience} from './mutations/useSwitchExperience'
-import experienceSummaryQuery from './queries/experienceSummaryQuery'
 import {getUnreadCount} from './queries/unreadCountQuery'
 import {filterAndProcessTools, getExternalApps, type ProcessedTool} from './utils'
 
@@ -98,22 +94,6 @@ export default function MobileGlobalMenu(props: Props) {
     enabled: countsEnabled && !ENV.current_user_disabled_inbox,
     persister: sessionStoragePersister.persisterFn,
   })
-
-  const {data: hasCareerEnrollment} = useQuery({
-    queryKey: ['experience_summary'],
-    queryFn: experienceSummaryQuery,
-    staleTime: 2 * 60 * 1000, // 2 minutes
-    persister: sessionStoragePersister.persisterFn,
-    select: (data: ExperienceSummary) => {
-      const {available_apps} = data
-      return (
-        available_apps.includes('career_learner') ||
-        available_apps.includes('career_learning_provider')
-      )
-    },
-  })
-
-  const {mutate: switchExperience} = useSwitchExperience()
 
   return (
     <View
@@ -359,30 +339,6 @@ export default function MobileGlobalMenu(props: Props) {
             </View>
           </ToggleDetails>
         </List.Item>
-
-        {hasCareerEnrollment && (
-          <List.Item>
-            <Link
-              href="/career"
-              isWithinText={false}
-              display="block"
-              role="button"
-              onClick={e => {
-                e.preventDefault()
-                switchExperience()
-              }}
-            >
-              <Flex>
-                <Flex.Item width="3rem">
-                  <IconArrowEndSolid inline={false} size="small" />
-                </Flex.Item>
-                <Flex.Item>
-                  <Text size="medium">{I18n.t('quite frankly an example LMS Career')}</Text>
-                </Flex.Item>
-              </Flex>
-            </Link>
-          </List.Item>
-        )}
       </List>
     </View>
   )

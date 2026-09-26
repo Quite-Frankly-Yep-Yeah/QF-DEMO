@@ -37,7 +37,7 @@
     courses_title = t('Courses')
   end
 
-  student_view_label = @context.is_a?(Course) && @context.horizon_course? ? t('View as Learner') : t('View as Student')
+  student_view_label = t('View as Student')
 %>
 
 <header id="mobile-header" class="no-print">
@@ -282,18 +282,6 @@
           </div>
         <% end %>
       </li>
-      <% if show_career_switch? %>
-        <li class="menu-item ic-app-header__menu-list-item">
-          <%= link_to career_switch_experience_path(experience: 'career'),
-                      class: "ic-app-header__menu-list-link",
-                      method: :post do %>
-            <div class="menu-item-icon-container" aria-hidden="true">
-              <%= render partial: "shared/svg/svg_icon_arrow_end", formats: [:svg] %>
-            </div>
-            <div class="menu-item__text"><%= t('quite frankly an example LMS Career') %></div>
-          <% end %>
-        </li>
-      <% end %>
     </ul>
   </div>
   <div class="ic-app-header__secondary-navigation">

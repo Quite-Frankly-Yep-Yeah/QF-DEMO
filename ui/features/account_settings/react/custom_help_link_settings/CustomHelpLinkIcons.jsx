@@ -31,11 +31,7 @@ import CustomHelpLinkIconInput from './CustomHelpLinkIconInput'
 const I18n = createI18nScope('custom_help_link')
 
 export default function CustomHelpLinkIcons(props) {
-  const {defaultValue, isCareerAccount} = props
-
-  if (isCareerAccount) {
-    return null
-  }
+  const {defaultValue} = props
 
   return (
     <fieldset className="ic-Fieldset ic-Fieldset--radio-checkbox">
@@ -87,10 +83,8 @@ export default function CustomHelpLinkIcons(props) {
 
 CustomHelpLinkIcons.propTypes = {
   defaultValue: PropTypes.string,
-  isCareerAccount: PropTypes.bool,
 }
 
 CustomHelpLinkIcons.defaultProps = {
   defaultValue: '',
-  isCareerAccount: false,
 }

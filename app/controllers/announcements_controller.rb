@@ -24,10 +24,6 @@ class AnnouncementsController < ApplicationController
   before_action :require_context, except: :public_feed
   skip_before_action :require_user, only: :public_feed
 
-  include HorizonMode
-
-  before_action :load_canvas_career, only: [:index, :show]
-
   before_action { |c| c.active_tab = "announcements" }
 
   include K5Mode

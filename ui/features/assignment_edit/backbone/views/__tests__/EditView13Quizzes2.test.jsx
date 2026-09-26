@@ -34,12 +34,7 @@ import '@canvas/jquery/jquery.simulate'
 import {createRoot} from 'react-dom/client'
 import {setupServer} from 'msw/node'
 import {http, HttpResponse} from 'msw'
-import {getUrlWithHorizonParams} from '@canvas/horizon/utils'
 import fakeEnv from '@canvas/test-utils/fakeENV'
-
-vi.mock('@canvas/horizon/utils', () => ({
-  getUrlWithHorizonParams: vi.fn(),
-}))
 
 vi.mock('jquery-ui', () => {
   const $ = require('jquery')
@@ -207,15 +202,6 @@ describe('EditView - Quizzes 2', () => {
       FEATURES: {},
     }
 
-    vi.mocked(getUrlWithHorizonParams).mockImplementation((url, additionalParams) => {
-      if (additionalParams && Object.keys(additionalParams).length > 0) {
-        const separator = url.includes('?') ? '&' : '?'
-        const params = new URLSearchParams(additionalParams).toString()
-        return `${url}${separator}${params}`
-      }
-      return url
-    })
-
     // All API mocks handled by MSW server setup above
     RCELoader.RCE = null
     return RCELoader.loadRCE()
@@ -282,7 +268,7 @@ describe('EditView - Quizzes 2', () => {
   })
 
   it('build adds full_width display param to normal route', () => {
-    expect(view.locationAfterSave({})).toBe('http://foo?display=full_width')
+    expect(view.locationAfterSave({})).toBe('http://foo/?display=full_width')
   })
 
   it('does not allow user to change submission type', () => {

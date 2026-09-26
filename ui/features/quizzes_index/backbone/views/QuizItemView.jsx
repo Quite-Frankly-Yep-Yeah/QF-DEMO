@@ -185,9 +185,6 @@ export default class ItemView extends Backbone.View {
   }
 
   afterRender() {
-    if (ENV.horizon_course) {
-      this.publishIconView.$el.addClass('disabled')
-    }
     this.cleanupDateAvailableColumn()
     this.cleanupDateDueColumn()
     this.renderDateDueColumn()

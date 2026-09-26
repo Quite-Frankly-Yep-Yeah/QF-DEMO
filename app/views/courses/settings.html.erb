@@ -266,7 +266,7 @@
                 <% if account.root_account? && account.all_accounts.active.count > Setting.get('course_settings_sub_account_dropdown_limit', '500').to_i %>
                   <a href="<%= context_url(account, :context_sub_accounts_url, :format => :json, :include_self => "1") %>" id="course_account_id_url" style="display: none;">&nbsp;</a>
                   <input type="hidden" name="course[account_id]" id="course_account_id" value="<%= @context.account_id %>"/>
-                  <input type="text" name="account[name]" id="course_account_id_lookup" value="<%= @context.account.name %>" style="width: 150px;" data-is-horizon="<%= account.horizon_account? %>"/>
+                  <input type="text" name="account[name]" id="course_account_id_lookup" value="<%= @context.account.name %>" style="width: 150px;"/>
                 <% else %>
                   <select name="course[account_id]" id="course_account_id">
                     <%= render :partial => "shared/account_options", :locals => {:account => account} %>
@@ -923,9 +923,6 @@
   <% end %>
   <% if @context.feature_enabled?(:ams_course_integration) %>
     <div id="tab-quiz-settings-mount"></div>
-  <% end %>
-  <% if @context.account.feature_enabled?(:horizon_course_setting) && can_do(@context, @current_user, :read_as_admin) %>
-    <% js_bundle :horizon_toggle %>
   <% end %>
 <% end %>
 <% if Account.site_admin.grants_any_right?(@current_user, :manage_courses_admin) %>

@@ -26,7 +26,6 @@ class Account < ApplicationRecord
 
   INSTANCE_GUID_SUFFIX = "canvas-lms"
   CALENDAR_SUBSCRIPTION_TYPES = %w[manual auto].freeze
-  HORIZON_FEATURE_SLUG = "horizon"
 
   self.ignored_columns += [:equella_endpoint]
 
@@ -185,7 +184,6 @@ class Account < ApplicationRecord
   before_validation :sanitize_discovery_page, if: -> { setting_changed? :discovery_page }
   before_save :ensure_defaults
   before_save :remove_template_id, if: ->(a) { a.workflow_state_changed? && a.deleted? }
-  before_save :denormalize_horizon_account_if_changed
   before_create :enable_sis_imports, if: :root_account?
   after_save :update_account_associations_if_changed
   after_save :update_lti_context_controls_if_necessary
@@ -457,8 +455,6 @@ class Account < ApplicationRecord
   add_setting :enable_limited_access_for_students, boolean: true, root_only: false, default: false, inheritable: false
   add_setting :allow_assign_to_differentiation_tags, boolean: true, root_only: false, default: false, inheritable: true
   add_setting :restrict_grading_scheme_editing_to_admins, boolean: true, root_only: true, default: false
-
-  add_setting :horizon_account, boolean: true, default: false, inheritable: true
 
   add_setting :decimal_separator, inheritable: true
   add_setting :thousand_separator, inheritable: true
@@ -2991,69 +2987,6 @@ class Account < ApplicationRecord
 
     sub_accounts.where(grading_standard: nil).find_each do |sub_account|
       sub_account.recompute_assignments_using_account_default(grading_standard_id, grading_standard)
-    end
-  end
-
-  def horizon_block_content_editor?
-    horizon_account? &&
-      root_account.feature_enabled?(:horizon_block_content_editor) &&
-      ContentServiceClient.enabled?
-  end
-
-  def horizon_account_locked?
-    horizon_account[:locked] && horizon_account[:inherited]
-  end
-
-  def horizon_account?
-    horizon_account[:value] && feature_enabled?(:horizon_course_setting)
-  end
-
-  def horizon_account=(value)
-    settings[:horizon_account] = {
-      locked: value,
-      value:
-    }
-  end
-
-  def denormalize_horizon_account_if_changed
-    return unless settings_change_to_be_saved
-
-    old_settings, new_settings = settings_change_to_be_saved
-    return if old_settings[:horizon_account] == new_settings[:horizon_account]
-
-    horizon_account_ids = Set.new(root_account.settings[:horizon_account_ids] || [])
-
-    # Once enabled, don't allow changes in descendant accounts
-    settings[:horizon_account][:locked] = settings[:horizon_account][:value]
-
-    if settings[:horizon_account][:value]
-      horizon_account_ids.add(id)
-      # No need to set horizon_course on associated_courses because this can only be set
-      # on accounts with no courses
-    else
-      horizon_account_ids.delete(id)
-      associated_courses&.not_deleted&.update_all(horizon_course: false)
-    end
-
-    root_account.settings[:horizon_account_ids] = horizon_account_ids.to_a
-
-    # If this is the root account, it'll be saved shortly since this is called as a before_save
-    root_account.save! unless root_account?
-  end
-
-  def provision_horizon_tenants(root_account, current_user)
-    [PineClient, RedwoodClient].each do |client|
-      next unless client.enabled?
-
-      client.provision_tenant(root_account_uuid: root_account.uuid, feature_slug: HORIZON_FEATURE_SLUG, current_user:)
-    end
-  end
-
-  def delete_horizon_tenants(root_account, current_user)
-    [PineClient, RedwoodClient].each do |client|
-      next unless client.enabled?
-
-      client.delete_tenant(root_account_uuid: root_account.uuid, feature_slug: HORIZON_FEATURE_SLUG, current_user:)
     end
   end
 

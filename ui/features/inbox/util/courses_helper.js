@@ -28,7 +28,6 @@ export const reduceDuplicateCourses = (enrollments, favoriteCourses) => {
         courseNickname: c.course.courseNickname,
         assetString: c.course.assetString,
         concluded: c.concluded,
-        horizonCourse: c.course.horizonCourse,
       }
     })
     .filter(c => {

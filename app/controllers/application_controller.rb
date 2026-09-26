@@ -285,8 +285,6 @@ class ApplicationController < ActionController::Base
           group_information:,
           DOMAIN_ROOT_ACCOUNT_ID: @domain_root_account&.global_id,
           DOMAIN_ROOT_ACCOUNT_UUID: @domain_root_account&.uuid,
-          CAREER_THEME_URL: CanvasCareer::ExperienceResolver.career_affiliated_institution?(@domain_root_account) ? CanvasCareer::Config.new(@domain_root_account).theme_url : nil,
-          CAREER_DARK_THEME_URL: CanvasCareer::ExperienceResolver.career_affiliated_institution?(@domain_root_account) ? CanvasCareer::Config.new(@domain_root_account).dark_theme_url : nil,
           k12: k12?,
           help_link_name:,
           help_link_icon:,
@@ -438,14 +436,7 @@ class ApplicationController < ActionController::Base
         @js_env[:ACCOUNT_ID] = effective_account_attribute(@context, :id)
         @js_env[:user_cache_key] = CanvasSecurity.hmac_sha512(@current_user.uuid) if @current_user.present?
         @js_env[:top_navigation_tools] = external_tools_display_hashes(:top_navigation) if !!@domain_root_account&.feature_enabled?(:top_navigation_placement)
-        @js_env[:horizon_course] = @context.is_a?(Course) && @context.horizon_course?
         @js_env[:has_courses] = @context.associated_courses.not_deleted.any? if @context.is_a?(Account)
-        @js_env[:horizon_account_locked] = @context.horizon_account_locked? if @context.is_a?(Account)
-        @js_env[:HORIZON_ACCOUNT] = if @context.is_a?(Account)
-                                      @context.horizon_account?
-                                    elsif @context.is_a?(Course)
-                                      @context.account.horizon_account?
-                                    end
         if load_usage_metrics? && @domain_root_account&.feature_enabled?(:pendo_extended)
           @js_env[:USAGE_METRICS_METADATA] ||= {}
           @js_env[:USAGE_METRICS_METADATA][:instance_domain] = HostUrl.context_host(@domain_root_account, request.host)
@@ -522,16 +513,6 @@ class ApplicationController < ActionController::Base
   end
   helper_method :js_env
 
-  # Determines whether the quite frankly an example LMS Career switch button should be displayed in the
-  # global navigation header.
-  def show_career_switch?
-    return false unless @current_user
-
-    resolver = CanvasCareer::ExperienceResolver.new(@current_user, @context, @domain_root_account, session)
-    resolver.available_apps.intersect?(CanvasCareer::Constants::CAREER_APPS)
-  end
-  helper_method :show_career_switch?
-
   def group_information
     if @context.is_a?(Group) &&
        can_do(@context, @current_user, :manage) &&
@@ -565,7 +546,6 @@ class ApplicationController < ActionController::Base
     files_a11y_rewrite
     files_a11y_rewrite_toggle
     files_a11y_folder_duplicates
-    horizon_course_setting
     instui_for_import_page
     instui_header
     media_links_use_attachment_id

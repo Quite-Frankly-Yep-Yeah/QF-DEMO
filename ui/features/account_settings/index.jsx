@@ -52,7 +52,6 @@ ready(() => {
     legacyRender(
       <CustomHelpLinkSettings
         {...{
-          isCareerAccount: window.ENV.HORIZON_ACCOUNT,
           name: window.ENV.help_link_name,
           icon: window.ENV.help_link_icon,
           links: window.ENV.CUSTOM_HELP_LINKS,

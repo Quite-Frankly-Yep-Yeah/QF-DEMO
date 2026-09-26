@@ -647,20 +647,6 @@ module ModulesIndexPage
     fj(".duplicate_item_link:visible").click
   end
 
-  def check_estimated_duration_in_editor(exists, visible)
-    expect(element_exists?(".ui-dialog")).to be_truthy
-    if exists
-      expect(element_exists?("#estimated_duration_edit")).to be_truthy
-      if visible
-        expect(f("#estimated_duration_edit")).to be_displayed
-      else
-        expect(f("#estimated_duration_edit")).not_to be_displayed
-      end
-    else
-      expect(element_exists?("#estimated_duration_edit")).to be_falsey
-    end
-  end
-
   def close_editor_dialog
     fj(".ui-dialog-titlebar-close:visible").click
   end

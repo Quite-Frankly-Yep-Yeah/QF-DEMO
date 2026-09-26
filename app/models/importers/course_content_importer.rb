@@ -178,10 +178,6 @@ module Importers
           Importers::CalendarEventImporter.process_migration(data, migration)
           Importers::LtiResourceLinkImporter.process_migration(data, migration)
 
-          if migration.context.try(:horizon_course?)
-            Importers::ContentTagImporter.process_migration(data, migration)
-          end
-
           if migration.context.root_account.feature_enabled?(:nav_menu_links)
             Importers::NavMenuLinkImporter.process_migration(data, migration)
           end

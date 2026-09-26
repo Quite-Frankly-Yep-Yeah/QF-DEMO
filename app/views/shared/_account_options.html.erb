@@ -38,8 +38,7 @@
   <% sub_account = all_accounts_by_id[id] %>
   <option
     value="<%= id %>"
-    <%= "selected" if @context && @context.account_id == id %>
-    data-is-horizon="<%= sub_account&.horizon_account? || false %>">
+    <%= "selected" if @context && @context.account_id == id %>>
     <%= name %>
   </option>
 <% end %>

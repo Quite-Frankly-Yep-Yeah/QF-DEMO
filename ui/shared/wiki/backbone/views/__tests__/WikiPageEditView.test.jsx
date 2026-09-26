@@ -16,7 +16,6 @@
  * with this program. If not, see <http://www.gnu.org/licenses/>.
  */
 
-import {redirectWithHorizonParams} from '@canvas/horizon/utils'
 import fakeENV from '@canvas/test-utils/fakeENV'
 import {screen, waitFor} from '@testing-library/dom'
 import userEvent from '@testing-library/user-event'
@@ -26,11 +25,6 @@ import {BODY_MAX_LENGTH} from '../../../utils/constants'
 import WikiPage from '../../models/WikiPage'
 import WikiPageEditView from '../WikiPageEditView'
 import {renderAssignToTray} from '../../../react/renderAssignToTray'
-
-// Mock the horizon utils module
-vi.mock('@canvas/horizon/utils', () => ({
-  redirectWithHorizonParams: vi.fn(),
-}))
 
 // Mock the renderAssignToTray module
 vi.mock('../../../react/renderAssignToTray', () => ({

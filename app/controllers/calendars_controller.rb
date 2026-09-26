@@ -21,10 +21,8 @@
 class CalendarsController < ApplicationController
   include Api::V1::Conferences
   include CalendarConferencesHelper
-  include HorizonMode
 
   before_action :check_limited_access_for_students, only: %i[show]
-  before_action :load_canvas_career, only: %i[show]
 
   def show
     get_context
@@ -63,7 +61,7 @@ class CalendarsController < ApplicationController
     end
     @contexts_json = @contexts.map do |context|
       ag_permission = false
-      if context.respond_to?(:appointment_groups) && context.grants_right?(@current_user, session, :manage_calendar) && !context&.horizon_course?
+      if context.respond_to?(:appointment_groups) && context.grants_right?(@current_user, session, :manage_calendar)
         ag = AppointmentGroup.new(contexts: [context])
         ag.update_contexts_and_sub_contexts
         if ag.grants_right? @current_user, session, :create

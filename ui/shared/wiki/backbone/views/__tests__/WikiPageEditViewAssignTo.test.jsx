@@ -22,11 +22,6 @@ import WikiPage from '../../models/WikiPage'
 import WikiPageEditView from '../WikiPageEditView'
 import {renderAssignToTray} from '../../../react/renderAssignToTray'
 
-// Mock the horizon utils module
-vi.mock('@canvas/horizon/utils', () => ({
-  redirectWithHorizonParams: vi.fn(),
-}))
-
 // Mock the renderAssignToTray module
 vi.mock('../../../react/renderAssignToTray', () => ({
   renderAssignToTray: vi.fn(),

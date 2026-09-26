@@ -63,7 +63,7 @@ import {queryClient} from '@instructure/platform-query'
 import YAML from 'yaml'
 import FormattedErrorMessage from '@canvas/assignments/react/FormattedErrorMessage'
 import {unfudgeDateForProfileTimezone} from '@instructure/moment-utils'
-import {getUrlWithHorizonParams} from '@canvas/horizon/utils'
+import urlWithParams from '@canvas/assignments/urlWithParams'
 import {SETTING_MESSAGES} from '@canvas/assignments/react/hooks/useSettingDependency'
 
 const I18n = createI18nScope('assignment_editview')
@@ -1529,7 +1529,6 @@ EditView.prototype.toJSON = function () {
       (typeof ENV !== 'undefined' && ENV !== null
         ? ENV.ANONYMOUS_INSTRUCTOR_ANNOTATIONS_ENABLED
         : void 0) || false,
-    is_horizon_course: !!ENV.horizon_course,
     showAnonymousSubmissionSelector:
       this.assignment.isQuizLTIAssignment() &&
       (this.assignment.newQuizzesType() === 'graded_survey' ||
@@ -2413,7 +2412,7 @@ EditView.prototype.locationAfterSave = function (params) {
     additionalParams.display = displayType
   }
 
-  return getUrlWithHorizonParams(htmlUrl, additionalParams)
+  return urlWithParams(htmlUrl, additionalParams)
 }
 
 EditView.prototype.redirectAfterCancel = function () {

@@ -200,7 +200,7 @@ Paths are relative to the repo root. Line numbers are as of today's tree.
 - **Any page can already hide its chrome.** `?embedded=true` adds the `embedded` body class (`application_controller.rb:2967-2971`). That class hides the header, course menu, breadcrumbs and footer (`app/stylesheets/base/_layout.scss:29-32`).
   - It also hides the masquerade bar.
   - It also makes `in_mobile_webview?` return true.
-- Canvas Career ("Horizon") is a precedent for swapping the learner experience in flagged courses: `Course#horizon_course?` (L4916) and `app/controllers/concerns/horizon_mode.rb`.
+- Canvas Career ("Horizon") was a precedent for swapping the learner experience in flagged courses (`Course#horizon_course?` and `app/controllers/concerns/horizon_mode.rb`). Both were removed in Phase 10; the pattern to follow now is `SelfPaced::PlayerLayout`.
 
 ### 1.10 Video
 
@@ -214,7 +214,7 @@ Paths are relative to the repo root. Line numbers are as of today's tree.
 |---|---|
 | Feature flags | `config/feature_flags/*.yml` |
 | Permissions | `config/initializers/permissions_registry.rb` |
-| Migrations | `db/migrate`: `tag :predeploy`, `root_account` reference, `t.replica_identity_index` (e.g. `20260331080000_create_canvas_career_user_experiences.rb`) |
+| Migrations | `db/migrate`: `tag :predeploy`, `root_account` reference, `t.replica_identity_index` (e.g. `20260922230000_create_self_paced_activity_tables.rb`) |
 | Periodic jobs | `config/initializers/periodic_jobs.rb` (`Delayed::Periodic.cron`) |
 | React bundles | `ui/features/<name>`, plus one line in `ui/featureBundles.ts`; loaded with `js_bundle` |
 | Theming | `applyMaterialOverrides` (`ui/shared/react/materialTheme.ts`), applied by the React render wrapper (`ui/shared/react/index.tsx:25,47`). SCSS has `$md-elevation-*` in `app/stylesheets/base/_variables.scss:211` |
@@ -321,7 +321,7 @@ These changes touch paths every course uses, so each one is behind a check for s
   - To hide the rest of the chrome, the player adds its own `self-paced-player` body class that reuses the `embedded` CSS rules (§1.9).
   - It doesn't use the `?embedded` parameter, because that would also hide the masquerade bar and switch on mobile-webview behavior.
   - Quiz taking, submissions and LTI launches keep working unchanged, because they're the same pages.
-- **Where the change goes.** A `SelfPaced::PlayerLayout` concern included in `ApplicationController` decides when a request is a "player request", the same way the Horizon concern does. The layout change itself goes in `application.html.erb`.
+- **Where the change goes.** A `SelfPaced::PlayerLayout` concern included in `ApplicationController` decides when a request is a "player request" (the removed Canvas Career `HorizonMode` concern worked the same way). The layout change itself goes in `application.html.erb`.
 - **Teachers and mentors** keep the normal course view, with a "view as player" toggle.
 
 ### 2.5 Interventions
@@ -648,7 +648,7 @@ Every phase ends with passing RSpec (`bin/rspec spec/.../self_paced/...`) and JS
 **Phase 10 (optional): Cleanup (started 2026-09-25).** Remove the hosted-only features hidden in Phase 0 (§8). Each removal is its own commit, after a checkpoint commit of Phases 4 to 9.
 - **Analytics Hub and Intelligent Insights (removed).** The `analytics_hub` tab, controller, service and remote module, the Canvas Course Criteria panel, the `analytics_hub` LTI placement, the `view_analytics_hub`, `view_ask_questions_*`, `view_students_in_need*`, `view_course_readiness`, `view_title_iv_financial_aid_report`, `view_rsi_report`, `view_accessibility_insights` and `view_advanced_analytics` permissions, and the flags for them. `analytics_2` and the `admin_analytics*` flags stay, because the old analytics tabs still use them.
 - **Course Pacing (removed).** `CoursePace` and its module items, the `/courses/:id/course_pacing` page and API (`CoursePacesController`, `CoursePacing::*`), the pace-document report (`CourseReport` and its API, which only ever made that document), the account and course `enable_course_paces` settings, the tab, the `course_pace_*` flags, blueprint, course copy and import/export support for it, the "due dates are managed by Course Pacing" notices, and the Mastery Paths toggle that only appeared in paced courses (`@canvas/mastery-path-toggle`). Paced/unpaced statsd metrics went too. Mastery Paths itself stays. The calendar's "blackout date" checkbox now shows for account calendars only, because a course's blackout dates are managed on the self-paced Pacing page. Migration `20260925120000` drops `course_paces`, `course_pace_module_items` and `course_reports`. `ENV` types that lived next to Course Pacing's (`SECTIONS`, `COURSE_ID`, `MASTER_COURSE_DATA`, and so on) moved to `EnvCourseShared.d.ts`.
-- **Canvas Career / Horizon (to do).**
+- **Canvas Career / Horizon (removed).** Career mode and everything that only served it: `CareerController`, `CareerExperienceController`, `HorizonController` (the convert-a-course-to-Career tool), the `HorizonMode` concern, `CanvasCareer::*` (experience resolver, config, label and permission overrides, user preferences, `canvas_career_user_experiences`), the `horizon_account` and `horizon_course` behavior in `Account`, `Course`, `User` and their APIs and GraphQL types, Learning Library courses (`career_learning_library_only` filters), estimated durations on module items (editor, API fields, the module info endpoint), the block content editor's Pine, Redwood and Content Service clients and `ExternalContentReference`, the bulk user API (`Account::BulkUpdate`, `manage_users_in_bulk`) and Autopilot `manage_rules_*` permissions, the Kafka event producer (`Canvas::KafkaEvents`), the microfrontend release-tag override, selective content-tag export, the copied-asset course filter, the Career theme and `career`/`horizon_toggle` UI features, and the `clx_feature_flags.yml` flags. Migration `20260925130000` drops `canvas_career_user_experiences` and `external_content_references`. Left in place on purpose: the `courses.horizon_course` and `career_learning_library_only` columns (unused, harmless), the `EstimatedDuration` model with its GraphQL fields, and the Ignite agent remote. `JOURNEY_URL` is no longer set, so the Notebook page renders nothing (its tab is already hidden).
 - **New Quizzes (to do).**
 
 The order is data → dashboard → player, because the dashboard is the core of the project and can run on native module data first. If you'd rather have students on the player sooner, Phases 2 and 3 can swap.
@@ -694,7 +694,7 @@ These Canvas features don't work without Instructure's hosted services, or overl
 
 - **New Quizzes** (`quizzes_next`, `lib/services/new_quizzes.rb`, quiz migration prompts)
 - **Analytics Hub and Intelligent Insights**: the `analytics_hub` flag, `title_iv_financial_aid_report` and related
-- **Canvas Career / Horizon** (`app/services/canvas_career`, `horizon_mode.rb`)
+- **Canvas Career / Horizon**: done in Phase 10.
 - **Course Pacing**, if the new engine fully replaces it
 - **Kinesis Live Events config**, if no outside consumer is planned
 - **Renaming internal `Canvas` identifiers** (`Canvas::`, `@canvas/*`). The rebrand kept these for plugin compatibility, which no longer matters. It's a large, mechanical change, and only worth doing as its own project.

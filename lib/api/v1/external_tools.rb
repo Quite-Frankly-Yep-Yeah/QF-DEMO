@@ -20,7 +20,6 @@
 
 module Api::V1::ExternalTools
   include Api::V1::Json
-  include Api::V1::EstimatedDuration
 
   def external_tools_json(tools, context, user, session, extension_types = Lti::ResourcePlacement.valid_placements(@domain_root_account))
     tools.map do |topic|
@@ -65,10 +64,6 @@ module Api::V1::ExternalTools
         value = tool.extension_setting type, key
         json[type][key] = value if value
       end
-    end
-
-    if context.try(:horizon_course?) && tool.estimated_duration&.marked_for_destruction? == false
-      json["estimated_duration"] = estimated_duration_json(tool.estimated_duration, user, session)
     end
 
     json

@@ -17,11 +17,9 @@
 import fakeENV from '@canvas/test-utils/fakeENV'
 import {MockedQueryClientProvider} from '@canvas/test-utils/query'
 import {QueryClient} from '@tanstack/react-query'
-import {cleanup, render, screen, waitFor} from '@testing-library/react'
-import userEvent from '@testing-library/user-event'
+import {cleanup, render, screen} from '@testing-library/react'
 import {type MockedFunction} from 'vitest'
 import MobileGlobalMenu from '../MobileGlobalMenu'
-import {useSwitchExperience} from '../mutations/useSwitchExperience'
 import {
   type ExternalTool,
   filterAndProcessTools,
@@ -34,38 +32,22 @@ vi.mock('../utils', () => ({
   filterAndProcessTools: vi.fn(),
 }))
 
-vi.mock('../mutations/useSwitchExperience', () => ({
-  useSwitchExperience: vi.fn(),
-}))
-
 const mockedFilterAndProcessTools = filterAndProcessTools as MockedFunction<
   typeof filterAndProcessTools
 >
 const mockedGetExternalApps = getExternalApps as MockedFunction<typeof getExternalApps>
-const mockedUseSwitchExperience = useSwitchExperience as MockedFunction<typeof useSwitchExperience>
 
 describe('MobileGlobalMenu', () => {
-  beforeEach(() => {
-    mockedUseSwitchExperience.mockReturnValue({mutate: vi.fn()} as any)
-  })
-
   afterEach(() => {
     cleanup()
   })
 
-  const setup = (
-    processedTools: ProcessedTool[] = [],
-    externalTools: ExternalTool[] = [],
-    hasCareer: boolean = false,
-  ) => {
+  const setup = (processedTools: ProcessedTool[] = [], externalTools: ExternalTool[] = []) => {
     mockedFilterAndProcessTools.mockReturnValue(processedTools)
     mockedGetExternalApps.mockResolvedValue(externalTools)
 
     const queryClient = new QueryClient()
 
-    queryClient.setQueryData(['experience_summary'], {
-      available_apps: hasCareer ? ['career_learner'] : [],
-    })
     return render(
       <MockedQueryClientProvider client={queryClient}>
         <MobileGlobalMenu onDismiss={() => {}} />
@@ -235,21 +217,5 @@ describe('MobileGlobalMenu', () => {
     )
     const fallbackIcon = screen.getByTestId('IconExternalLinkLine')
     expect(fallbackIcon).toBeInTheDocument()
-  })
-
-  it('renders quite frankly an example LMS Career link when career enrollment is available', async () => {
-    setup([], [], true)
-    expect(await screen.findByText('quite frankly an example LMS Career')).toBeInTheDocument()
-  })
-
-  it('calls switchExperience mutate when quite frankly an example LMS Career link clicked', async () => {
-    const mutateMock = vi.fn()
-    mockedUseSwitchExperience.mockReturnValue({mutate: mutateMock} as any)
-    setup([], [], true)
-    const link = await screen.findByText('quite frankly an example LMS Career')
-    await userEvent.click(link)
-    await waitFor(() => {
-      expect(mutateMock).toHaveBeenCalled()
-    })
   })
 })

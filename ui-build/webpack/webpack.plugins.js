@@ -31,8 +31,6 @@ const WebpackHooks = require('./webpackHooks')
 const {
   fetchSpeedGraderLibrary,
   fetchLtiUsage,
-  fetchCanvasCareerLearningProviderApp,
-  fetchCanvasCareerLearnerApp,
   fetchIgniteAgentLibrary,
   fetchNewQuizzesApp,
 } = require('./remotes')
@@ -150,8 +148,6 @@ exports.moduleFederation = new ModuleFederationPlugin({
   dev: process.env.NODE_ENV === 'development',
   remotes: {
     speedgrader: `promise new Promise(${fetchSpeedGraderLibrary.toString()})`,
-    canvas_career_learning_provider: `promise new Promise(${fetchCanvasCareerLearningProviderApp.toString()})`,
-    canvas_career_learner: `promise new Promise(${fetchCanvasCareerLearnerApp.toString()})`,
     ltiusage: `promise new Promise(${fetchLtiUsage.toString()})`,
     igniteagent: `promise new Promise(${fetchIgniteAgentLibrary.toString()})`,
     newquizzes: `promise new Promise(${fetchNewQuizzesApp.toString()})`,

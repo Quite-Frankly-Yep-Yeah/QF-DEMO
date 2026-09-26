@@ -531,7 +531,6 @@ CanvasRails::Application.routes.draw do
     post "start_offline_web_export" => "courses#start_offline_web_export"
     get "start_offline_web_export" => "courses#start_offline_web_export"
     get "modules/items/assignment_info" => "context_modules#content_tag_assignment_data", :as => :context_modules_assignment_info
-    get "modules/items/estimated_duration_info" => "context_modules#content_tag_estimated_duration_data", :as => :context_modules_estimated_duration_info
     get "modules/items/master_course_info" => "context_modules#content_tag_master_course_data", :as => :context_modules_master_course_info
     get "modules/items/:id" => "context_modules#item_redirect", :as => :context_modules_item_redirect
     get "modules/items/:id/edit_mastery_paths" => "context_modules#item_redirect_mastery_paths"
@@ -568,10 +567,6 @@ CanvasRails::Application.routes.draw do
     put "grading_schemes/:id" => "grading_schemes_json#update"
     get "grading_schemes/default" => "grading_schemes_json#show_default_grading_scheme"
     get "grading_schemes/:id" => "grading_schemes_json#show"
-
-    get "canvas_career_validation" => "horizon#validate_course"
-    post "canvas_career_conversion" => "horizon#convert_course"
-    post "canvas_career_reversion" => "horizon#revert_course"
 
     resources :accessibility, only: [:index] do
       collection do
@@ -1184,20 +1179,6 @@ CanvasRails::Application.routes.draw do
   get "terms_of_use" => "legal_information#terms_of_use", :as => "terms_of_use_redirect"
   get "privacy_policy" => "legal_information#privacy_policy", :as => "privacy_policy_redirect"
 
-  scope(controller: :career) do
-    # Routes for course/account are explicit so that get_context works (relies on :course_id and :account_id params)
-    get "career/courses/:course_id", action: :show
-    get "career/courses/:course_id/*path", action: :show
-    get "career/accounts/:account_id", action: :show
-    get "career/accounts/:account_id/*path", action: :show
-    get "career", action: :show, as: :canvas_career
-    get "career/*path", action: :show, as: :canvas_career_path
-  end
-
-  scope(controller: :career_experience) do
-    post "career/switch_experience", action: :switch_experience
-  end
-
   scope(controller: :smart_search) do
     get "courses/:course_id/search", action: :show, as: :course_search
     # TODO: Add back global search once we have a good way to handle it
@@ -1319,11 +1300,6 @@ CanvasRails::Application.routes.draw do
       delete "courses/:course_id/ai_experiences/:ai_experience_id/conversations/:id/messages/:message_id/feedback/:feedback_id", action: :delete_feedback, as: "course_ai_experience_conversation_message_feedback_delete"
       delete "courses/:course_id/ai_experiences/:ai_experience_id/conversations/:id", action: :destroy
       get "courses/:course_id/ai_experiences/:ai_experience_id/conversations/:id/evaluation", action: :evaluation, as: "course_ai_experience_conversation_evaluation"
-    end
-
-    scope(controller: :microfrontends_release_tag_override) do
-      get "microfrontends/release_tag_override", action: :create, as: :microfrontends_release_tag_override
-      delete "microfrontends/release_tag_override", action: :destroy
     end
 
     scope(controller: :account_calendars_api) do
@@ -1926,7 +1902,6 @@ CanvasRails::Application.routes.draw do
       get "accounts", action: :index, as: :accounts
       get "course_accounts", action: :course_accounts, as: :course_accounts
       get "manageable_accounts", action: :manageable_accounts, as: :manageable_accounts
-      get "horizon_accounts", action: :horizon_accounts, as: :horizon_accounts
       get "course_creation_accounts", action: :course_creation_accounts, as: :course_creation_accounts
       get "accounts/:id", action: :show, as: :account
       put "accounts/:id", action: :update
@@ -1938,9 +1913,7 @@ CanvasRails::Application.routes.draw do
       get "accounts/:account_id/permissions", action: :permissions
       get "accounts/:account_id/settings", action: :show_settings
       get "manually_created_courses_account", action: :manually_created_courses_account
-      delete "accounts/:account_id/users", action: :remove_users
       delete "accounts/:account_id/users/:user_id", action: :remove_user
-      put "accounts/:account_id/users/bulk_update", action: :update_users
       put "accounts/:account_id/users/:user_id/restore", action: :restore_user
       get "accounts/:account_id/quiz_ip_filters", action: :quiz_ip_filters, as: "quiz_ip_filters"
       get "acceptable_use_policy", action: :acceptable_use_policy
@@ -3072,18 +3045,6 @@ CanvasRails::Application.routes.draw do
       delete "courses/:course_id/block_editor_templates/:id", action: :destroy
       post "courses/:course_id/block_editor_templates/:id/publish", action: :publish
       get "courses/:course_id/block_editor_templates/can_edit", action: :can_edit
-    end
-
-    scope(controller: :career_experience) do
-      get "career/enabled", action: :enabled
-      get "career/experience_summary", action: :experience_summary
-      post "career/switch_experience", action: :switch_experience
-      post "career/switch_role", action: :switch_role
-    end
-
-    scope(controller: "canvas_career/user_experiences") do
-      post "career/user_experiences", action: :create
-      delete "career/user_experiences", action: :destroy
     end
   end
 

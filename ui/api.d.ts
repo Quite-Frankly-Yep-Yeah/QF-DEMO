@@ -654,7 +654,6 @@ export type Course = Readonly<{
     },
   ]
   restrict_enrollments_to_course_dates: boolean
-  horizon_course: boolean
 }>
 
 export type ContentMigration = Readonly<{
@@ -813,15 +812,6 @@ export type SisImport = {
   diff_row_count_threshold: number
   user: User
   pre_attachment?: AttachmentPreflight
-}
-
-export type ExperienceSummary = {
-  current_app: string
-  available_apps: string[]
-}
-
-export type SwitchExperienceResponse = {
-  experience: string
 }
 
 export type YoutubeEmbed = Readonly<{

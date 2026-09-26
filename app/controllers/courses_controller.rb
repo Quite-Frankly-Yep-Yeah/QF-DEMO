@@ -389,10 +389,6 @@ class CoursesController < ApplicationController
   skip_after_action :update_enrollment_last_activity_at, only: [:enrollment_invitation, :activity_stream_summary]
   before_action :check_limited_access_for_students, only: %i[create_file]
 
-  include HorizonMode
-
-  before_action :load_canvas_career, only: %i[settings index]
-
   include Api::V1::Course
   include Api::V1::Progress
   include K5Mode
@@ -575,7 +571,7 @@ class CoursesController < ApplicationController
   def load_enrollments_for_index
     all_enrollments = _load_enrollments_for_index
     if @current_user.roles(@domain_root_account).all? { |role| role == "student" || role == "user" }
-      all_enrollments = all_enrollments.reject { |e| e.course.elementary_homeroom_course? || e.course.horizon_course? }
+      all_enrollments = all_enrollments.reject { |e| e.course.elementary_homeroom_course? }
     end
     @past_enrollments = []
     @current_enrollments = []
@@ -1721,7 +1717,6 @@ class CoursesController < ApplicationController
           api_url: Services::Ams.api_url
         })
 
-
       if Account.site_admin.feature_enabled?(:grading_scheme_updates)
         js_env({ COURSE_DEFAULT_GRADING_SCHEME_ID: @context.grading_standard_id || @context.default_grading_standard&.id })
       end
@@ -1920,7 +1915,6 @@ class CoursesController < ApplicationController
       :conditional_release,
       :show_student_only_module_id,
       :show_teacher_only_module_id,
-      :horizon_course,
       :default_student_gradebook_view
     )
     changes = changed_settings(@course.changes, @course.settings, old_settings)
@@ -2368,7 +2362,6 @@ class CoursesController < ApplicationController
       @context ||= api_find(Course.active, params[:id])
 
       # can't run in before_action because it needs @context
-      return if load_canvas_career
       return if self_paced_player_redirect
       return render_self_paced_staff_home if self_paced_staff_home?
 
@@ -2444,7 +2437,6 @@ class CoursesController < ApplicationController
         end
 
         set_tutorial_js_env
-
 
         default_view = @context.default_view || @context.default_home_page
         @course_home_view = "feed" if params[:view] == "feed"
@@ -2642,8 +2634,7 @@ class CoursesController < ApplicationController
             )
 
             js_env({
-                     CONTEXT_MODULE_ASSIGNMENT_INFO_URL: context_url(@context, :context_context_modules_assignment_info_url),
-                     CONTEXT_MODULE_ESTIMATED_DURATION_INFO_URL: context_url(@context, :context_context_modules_estimated_duration_info_url)
+                     CONTEXT_MODULE_ASSIGNMENT_INFO_URL: context_url(@context, :context_context_modules_assignment_info_url)
                    })
 
             js_bundle :context_modules
@@ -2675,7 +2666,6 @@ class CoursesController < ApplicationController
           grading_standard = @context.grading_standard_or_default
           js_env({
                    CONTEXT_MODULE_ASSIGNMENT_INFO_URL: context_url(@context, :context_context_modules_assignment_info_url),
-                   CONTEXT_MODULE_ESTIMATED_DURATION_INFO_URL: context_url(@context, :context_context_modules_estimated_duration_info_url),
                    PERMISSIONS: {
                      manage: @context.grants_right?(@current_user, session, :manage),
                      manage_groups: @context.grants_any_right?(@current_user,
@@ -3567,11 +3557,6 @@ class CoursesController < ApplicationController
         visibility_configuration(params[:course])
       end
 
-      if params[:course][:horizon_course].present? && !@course.account.feature_enabled?(:horizon_course_setting)
-        horizon_message = t("quite frankly an example LMS Career cannot be set without the feature flag enabled")
-        @course.errors.add(:horizon_course, horizon_message)
-      end
-
       changes = changed_settings(@course.changes, @course.settings, old_settings)
       changes.delete(:start_at) if changes.dig(:start_at, 0)&.to_s == changes.dig(:start_at, 1)&.to_s
       changes.delete(:conclude_at) if changes.dig(:conclude_at, 0)&.to_s == changes.dig(:conclude_at, 1)&.to_s
@@ -4038,8 +4023,7 @@ class CoursesController < ApplicationController
     session.delete(:masquerade_return_to)
 
     if value_to_boolean(params[:redirect_to_referer])
-      referer_url = remove_horizon_params(request.referer)
-      return return_to(referer_url, return_url || dashboard_url)
+      return return_to(request.referer, return_url || dashboard_url)
     end
 
     return_to(return_url, request.referer || dashboard_url)
@@ -4685,8 +4669,6 @@ class CoursesController < ApplicationController
       :default_due_time,
       :conditional_release,
       :post_manually,
-      :horizon_course,
-      :career_learning_library_only,
       :disable_csp,
       :default_student_gradebook_view
     )

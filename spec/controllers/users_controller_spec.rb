@@ -4645,26 +4645,6 @@ describe UsersController do
         expect(course_ids).not_to include(homeroom.id.to_s)
       end
 
-      it "excludes horizon courses for students" do
-        # Enable the horizon course feature flag
-        @current_course.account.enable_feature!(:horizon_course_setting)
-
-        # Create a horizon course
-        horizon = course_factory(active_all: true)
-        horizon.update!(horizon_course: true)
-        horizon.enroll_student(@student, enrollment_state: "active")
-
-        get :user_dashboard
-        expect(response).to be_successful
-
-        course_data = assigns[:js_env][:SHARED_COURSE_DATA]
-        course_ids = course_data.pluck(:courseId)
-
-        # Should include regular course but not horizon
-        expect(course_ids).to include(@current_course.id.to_s)
-        expect(course_ids).not_to include(horizon.id.to_s)
-      end
-
       it "excludes unpublished courses for students" do
         # Create an unpublished course
         unpublished = course_factory

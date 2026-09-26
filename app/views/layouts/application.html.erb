@@ -46,7 +46,7 @@
   provide :head, include_common_stylesheets
   set_badge_counts_for(@context, @current_user) if @set_badge_counts
   js_env({ notices: flash_notices() })
-  student_view_text = @context.is_a?(Course) && @context.horizon_course? ? t('View as Learner') : t('View as Student')
+  student_view_text = t('View as Student')
   enable_content_view_if_requested
   enable_hide_global_nav_if_requested
 -%>
@@ -157,10 +157,6 @@
               <%= link_to course_path(id: @context.id), :class => "btn k5-back-to-subject", :id => "back_to_subject" do %>
                 <i class="icon-arrow-open-left"></i> <%= t('Back to Subject') %>
               <% end %>
-            <% elsif @context&.is_a?(Course) && @context.horizon_back_to_units_enabled? %>
-              <%= link_to course_path(id: @context.id), :class => "btn horizon-back-to-units", :id => "back_to_units" do %>
-                <i class="icon-arrow-open-left"></i> <%= t('Back to Units') %>
-              <% end %>
             <% else %>
               <%= render_crumbs %>
             <% end %>
@@ -168,8 +164,6 @@
 
           <% if @context&.is_a?(Course) && @context.elementary_subject_course? %>
             <span class="k5-heading-course-name"><%= @context.nickname_for(@current_user) %></span>
-          <% elsif @context&.is_a?(Course) && @context.horizon_back_to_units_enabled? %>
-            <span class="horizon-heading-course-name"><%= @context.nickname_for(@current_user) %></span>
           <% end %>
 
           <div id="nutrition_facts_container"></div>
@@ -323,10 +317,6 @@
     <div class="NewUserTutorialTray__Container"></div>
   <% end %>
   <div id="react-router-portals"></div>
-
-  <% if microfrontend_overrides %>
-    <%= render :partial => 'shared/microfrontend_override_indicator' %>
-  <% end %>
 
   <%= render :partial => 'layouts/foot', :locals => { :include_common_bundle => true } %>
 </div> <!-- #application -->

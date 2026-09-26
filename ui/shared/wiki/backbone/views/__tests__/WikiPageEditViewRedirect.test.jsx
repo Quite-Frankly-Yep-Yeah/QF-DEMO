@@ -16,16 +16,10 @@
  * with this program. If not, see <http://www.gnu.org/licenses/>.
  */
 
-import {redirectWithHorizonParams} from '@canvas/horizon/utils'
 import fakeENV from '@canvas/test-utils/fakeENV'
 import 'jquery-migrate'
 import WikiPage from '../../models/WikiPage'
 import WikiPageEditView from '../WikiPageEditView'
-
-// Mock the horizon utils module
-vi.mock('@canvas/horizon/utils', () => ({
-  redirectWithHorizonParams: vi.fn(),
-}))
 
 // Mock the renderAssignToTray module
 vi.mock('../../../react/renderAssignToTray', () => ({
@@ -46,7 +40,6 @@ describe('WikiPageEditView redirect functionality', () => {
     originalLocation = window.location
     delete window.location
     window.location = {href: '', origin: 'https://canvas.instructure.com'}
-    redirectWithHorizonParams.mockClear()
   })
 
   afterEach(async () => {
@@ -59,7 +52,7 @@ describe('WikiPageEditView redirect functionality', () => {
     vi.restoreAllMocks()
   })
 
-  test('calls redirectWithHorizonParams when redirect callback is triggered', () => {
+  test('redirects to the model html_url when the redirect callback is triggered', () => {
     const model = new WikiPage({html_url: 'https://example.com/pages/test'})
     const view = new WikiPageEditView({
       model,
@@ -69,7 +62,7 @@ describe('WikiPageEditView redirect functionality', () => {
     // Simulate the redirect callback being called
     view.trigger('success')
 
-    expect(redirectWithHorizonParams).toHaveBeenCalledWith('https://example.com/pages/test')
+    expect(window.location.href).toBe('https://example.com/pages/test')
   })
 
   test('redirect callback uses model html_url', () => {
@@ -83,7 +76,7 @@ describe('WikiPageEditView redirect functionality', () => {
     // Simulate the redirect callback being called
     view.trigger('success')
 
-    expect(redirectWithHorizonParams).toHaveBeenCalledWith(testUrl)
+    expect(window.location.href).toBe(testUrl)
   })
 
   test('redirect works with assign-to functionality disabled', () => {
@@ -97,6 +90,6 @@ describe('WikiPageEditView redirect functionality', () => {
 
     view.trigger('success')
 
-    expect(redirectWithHorizonParams).toHaveBeenCalledWith('https://example.com/pages/test')
+    expect(window.location.href).toBe('https://example.com/pages/test')
   })
 })

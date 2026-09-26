@@ -245,12 +245,6 @@ describe AssignmentsHelper do
       @current_user = @teacher
     end
 
-    it "returns false when context is a horizon course" do
-      allow(self).to receive(:can_do).and_return(true)
-      allow(@context).to receive(:horizon_course?).and_return(true)
-      expect(show_peer_review_widget?).to be_falsey
-    end
-
     it "returns false when user cannot grade the assignment" do
       allow(self).to receive(:can_do).with(@assignment, @student, :grade).and_return(false)
       @current_user = @student
@@ -271,14 +265,12 @@ describe AssignmentsHelper do
 
     it "returns false when assignment has no peer review sub-assignment" do
       @can_grade = true
-      allow(@context).to receive(:horizon_course?).and_return(false)
       allow(@context).to receive(:feature_enabled?).with(:peer_review_allocation_and_grading).and_return(true)
       expect(show_peer_review_widget?).to be_falsey
     end
 
     it "returns true when all conditions are met" do
       @can_grade = true
-      allow(@context).to receive(:horizon_course?).and_return(false)
       allow(@context).to receive(:feature_enabled?).with(:peer_review_allocation_and_grading).and_return(true)
       @assignment.create_peer_review_sub_assignment!(peer_reviews: true, peer_review_count: 2)
       expect(show_peer_review_widget?).to be_truthy
@@ -294,12 +286,6 @@ describe AssignmentsHelper do
       @current_user = @teacher
     end
 
-    it "returns false when context is a horizon course" do
-      allow(self).to receive(:can_do).and_return(true)
-      allow(@context).to receive(:horizon_course?).and_return(true)
-      expect(show_rubric_section?).to be_falsey
-    end
-
     it "returns false when user cannot update the assignment" do
       allow(self).to receive(:can_do).with(@assignment, @student, :update).and_return(false)
       @current_user = @student
@@ -308,7 +294,6 @@ describe AssignmentsHelper do
 
     it "returns true when all conditions are met" do
       allow(self).to receive(:can_do).and_return(true)
-      allow(@context).to receive(:horizon_course?).and_return(false)
       expect(show_rubric_section?).to be_truthy
     end
   end

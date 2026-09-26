@@ -74,9 +74,7 @@ const addStudentViewActionItem = (courseId?: number) => {
     return null
   }
   const studentViewUrl = STUDENT_VIEW_URL_TEMPLATE.replace('{courseId}', String(cId))
-  const buttonLabel = window.ENV?.horizon_course
-    ? I18n.t('View as Learner')
-    : I18n.t('View as Student')
+  const buttonLabel = I18n.t('View as Student')
   return (
     <TopNavBar.Item
       id="student-view"

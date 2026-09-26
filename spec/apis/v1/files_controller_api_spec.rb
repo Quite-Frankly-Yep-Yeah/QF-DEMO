@@ -138,35 +138,6 @@ describe "Files API", type: :request do
       end
     end
 
-    context "in a canvas career course" do
-      before :once do
-        account = @course.account
-        account.enable_feature!(:horizon_course_setting)
-        @course.update horizon_course: true
-      end
-
-      it "allows setting estimated duration" do
-        api_call(
-          :post,
-          "/api/v1/courses/#{@course.id}/files",
-          {
-            controller: "courses",
-            action: "create_file",
-            course_id: @course.id,
-            format: "json",
-            name: "test_file.png",
-            size: "12345",
-            content_type: "image/png",
-            no_redirect: "true",
-            estimated_duration_attributes: { minutes: 5 }
-          },
-          {},
-          expected_status: 200
-        )
-        expect(Attachment.last.estimated_duration.duration).to eq 5.minutes
-      end
-    end
-
     context "as student" do
       before do
         course_with_student_logged_in(course: @course)
@@ -1577,21 +1548,6 @@ describe "Files API", type: :request do
                                             "license" => "cc_by_sa",
                                             "license_name" => "CC Attribution Share Alike"
                                           })
-    end
-
-    it "views file in Horizon course with query params set" do
-      @course.account.enable_feature!(:horizon_course_setting)
-      @course.update!(horizon_course: true)
-
-      api_options = { controller: "files", action: "api_show", format: "json", course_id: @course.id, id: @att.id.to_param }
-      json = api_call(:get, "/api/v1/courses/#{@course.id}/files/#{@att.id}" + "?view=true", api_options.merge(view: true))
-      expect(json["view"]).to be_truthy
-    end
-
-    it "does not view file if not a Horizon course" do
-      api_options = { controller: "files", action: "api_show", format: "json", course_id: @course.id, id: @att.id.to_param }
-      json = api_call(:get, "/api/v1/courses/#{@course.id}/files/#{@att.id}" + "?view=true", api_options.merge(view: true))
-      expect(json["view"]).to be_nil
     end
   end
 

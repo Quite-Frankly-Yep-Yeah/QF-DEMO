@@ -124,9 +124,6 @@
 #     }
 #
 class ContextModulesApiController < ApplicationController
-  include HorizonMode
-
-  allow_public_horizon_access :index, :show
   before_action :require_context
   before_action :find_student, only: [:index, :show]
   include Api::V1::ContextModule
@@ -188,8 +185,6 @@ class ContextModulesApiController < ApplicationController
       end
 
       opts[:can_view_published] = @context.grants_right?(@student || @current_user, session, :read_as_admin)
-      opts[:can_have_estimated_time] = @context.horizon_course?
-      opts[:can_have_requirement_count] = @context.requirement_count_api_enabled?
       render json: modules_and_progressions.filter_map { |mod, prog| module_json(mod, @student || @current_user, session, prog, includes, opts) }
     end
   end
@@ -227,8 +222,6 @@ class ContextModulesApiController < ApplicationController
       prog = @student ? mod.evaluate_for(@student) : nil
 
       opts = { can_view_published: @context.grants_right?(@current_user, session, :read_as_admin) }
-      opts[:can_have_estimated_time] = @context.horizon_course?
-      opts[:can_have_requirement_count] = @context.requirement_count_api_enabled?
       render json: module_json(mod, @student || @current_user, session, prog, includes, opts)
     end
   end
@@ -363,9 +356,6 @@ class ContextModulesApiController < ApplicationController
 
       @module = @context.context_modules.build(module_parameters)
 
-      if @context.requirement_count_api_enabled? && params[:module][:requirement_count]
-        @module.requirement_count = params[:module][:requirement_count]
-      end
       if (ids = params[:module][:prerequisite_module_ids])
         @module.prerequisites = ids.map { |id| "module_#{id}" }.join(",")
       end
@@ -425,9 +415,6 @@ class ContextModulesApiController < ApplicationController
 
       module_parameters = params.require(:module).permit(:name, :unlock_at, :require_sequential_progress, :publish_final_grade)
 
-      if @context.requirement_count_api_enabled? && params[:module][:requirement_count]
-        @module.requirement_count = params[:module][:requirement_count]
-      end
       if (ids = params[:module][:prerequisite_module_ids])
         module_parameters[:prerequisites] = if ids.blank?
                                               []

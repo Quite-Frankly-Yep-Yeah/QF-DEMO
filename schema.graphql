@@ -61,11 +61,6 @@ type Account implements LegacyIDInterface & Node {
     before: String
 
     """
-    Whether or not to include or exclude quite frankly an example LMS Career learning library only courses
-    """
-    careerLearningLibraryOnly: Boolean
-
-    """
     Returns the first _n_ elements from the list.
     """
     first: Int
@@ -2366,7 +2361,6 @@ type Course implements AssetString & AssignmentsConnectionInterface & Discussion
     last: Int
   ): UserConnection
   availableModeratorsCount: Int
-  careerLearningLibraryOnly: Boolean
 
   """
   course short name
@@ -2601,7 +2595,6 @@ type Course implements AssetString & AssignmentsConnectionInterface & Discussion
     """
     last: Int
   ): GroupConnection
-  horizonCourse: Boolean
   id: ID!
 
   """
@@ -12558,7 +12551,6 @@ type User implements LegacyIDInterface & Node & Timestamped {
     """
     last: Int
     scope: String
-    showHorizonConversations: Boolean
   ): ConversationParticipantConnection
 
   """
@@ -12710,11 +12702,6 @@ type User implements LegacyIDInterface & Node & Timestamped {
   email: String
   enrollments(
     """
-    Whether or not to only filter for or exclude quite frankly an example LMS Career learning library only courses
-    """
-    careerLearningLibraryOnly: Boolean
-
-    """
     only return enrollments for this course
     """
     courseId: ID
@@ -12728,11 +12715,6 @@ type User implements LegacyIDInterface & Node & Timestamped {
     Whether or not to exclude `completed` enrollments
     """
     excludeConcluded: Boolean
-
-    """
-    Whether or not to include or exclude quite frankly an example LMS Career courses
-    """
-    horizonCourses: Boolean
 
     """
     The fields to order the results by
@@ -12784,11 +12766,6 @@ type User implements LegacyIDInterface & Node & Timestamped {
     Returns the first _n_ elements from the list.
     """
     first: Int
-
-    """
-    Whether or not to include or exclude quite frankly an example LMS Career courses
-    """
-    horizonCourses: Boolean
 
     """
     Returns the last _n_ elements from the list.

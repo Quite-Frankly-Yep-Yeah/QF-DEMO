@@ -560,7 +560,7 @@ describe('useCourseWork', () => {
       expect(result.current.data?.pages?.[0]?.items).toHaveLength(0)
     })
 
-    it('returns no items for K5/horizon courses', async () => {
+    it('returns no items for K5 courses', async () => {
       server.use(
         http.post('/api/graphql', async ({request}) => {
           const body = (await request.json()) as {query: string; variables: any}

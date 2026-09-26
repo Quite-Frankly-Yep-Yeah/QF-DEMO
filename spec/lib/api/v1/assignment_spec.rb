@@ -645,22 +645,6 @@ describe "Api::V1::Assignment" do
       end
     end
 
-    context "in a horizon course" do
-      let(:account) { Account.create!(name: "Horizon Account", horizon_account: true) }
-      let(:course) { Course.create!(horizon_course: true, account:) }
-      let(:assignment) { assignment_model(course:) }
-
-      before do
-        account.enable_feature!(:horizon_course_setting)
-        EstimatedDuration.create!(duration: 5.minutes, assignment:)
-      end
-
-      it "returns estimated duration" do
-        json = api.assignment_json(assignment, user, session, {})
-        expect(json).to have_key("estimated_duration")
-      end
-    end
-
     context "with peer_review_allocation_and_grading feature flag enabled" do
       before do
         @assignment = assignment_model
@@ -1630,67 +1614,6 @@ describe "Api::V1::Assignment" do
           it "allows keeping existing processors" do
             expect { subject }.not_to raise_error
             expect(assignment.lti_asset_processors.pluck(:title)).to eq(["Existing1"])
-          end
-        end
-      end
-    end
-
-    context "when not in a horizon course" do
-      context "when estimated duration attrs are passed in" do
-        let(:assignment_update_params) do
-          ActionController::Parameters.new(
-            estimated_duration_attributes: {
-              minutes: 5
-            }
-          )
-        end
-
-        it "does not update the estimated duration" do
-          expect { subject }.not_to change { assignment.estimated_duration&.duration }.from(nil)
-        end
-      end
-    end
-
-    context "when in a horizon course" do
-      let(:account) { Account.create!(name: "Horizon Account", horizon_account: true) }
-      let(:course) { Course.create!(horizon_course: true, account:) }
-      let(:assignment) { assignment_model(course:) }
-
-      before do
-        account.enable_feature!(:horizon_course_setting)
-      end
-
-      context "when estimated duration attrs are passed in" do
-        let(:assignment_update_params) do
-          ActionController::Parameters.new(
-            estimated_duration_attributes: {
-              minutes: 5
-            }
-          )
-        end
-
-        it "updates the estimated duration" do
-          expect { subject }.to change {
-            assignment.estimated_duration&.duration
-          }.from(nil).to(5.minutes)
-        end
-      end
-
-      context "when estimated duration is set" do
-        let(:estimated_duration) { EstimatedDuration.create!(assignment:) }
-
-        context "when options to remove estimated duration are set" do
-          let(:assignment_update_params) do
-            ActionController::Parameters.new(
-              estimated_duration_attributes: {
-                id: estimated_duration.id,
-                _destroy: true
-              }
-            )
-          end
-
-          it "removes the estimated duration" do
-            expect { subject }.to change { estimated_duration.destroyed? }.to(true)
           end
         end
       end

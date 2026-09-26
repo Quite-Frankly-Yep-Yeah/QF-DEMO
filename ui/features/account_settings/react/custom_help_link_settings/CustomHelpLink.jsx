@@ -28,7 +28,6 @@ const I18n = createI18nScope('custom_help_link')
 
 export default class CustomHelpLink extends React.Component {
   static propTypes = {
-    isCareerAccount: PropTypes.bool,
     link: CustomHelpLinkPropTypes.link.isRequired,
     onMoveUp: PropTypes.func,
     onMoveDown: PropTypes.func,
@@ -37,7 +36,6 @@ export default class CustomHelpLink extends React.Component {
   }
 
   static defaultProps = {
-    isCareerAccount: false,
     onMoveUp: () => {},
     onMoveDown: () => {},
     onEdit: () => {},
@@ -98,7 +96,7 @@ export default class CustomHelpLink extends React.Component {
       >
         <div className="ic-Sortable-item__Text">
           {text}
-          {!this.props.isCareerAccount && this.renderPill()}
+          {this.renderPill()}
         </div>
         <div className="ic-Sortable-item__Actions">
           <div className="ic-Sortable-sort-controls">

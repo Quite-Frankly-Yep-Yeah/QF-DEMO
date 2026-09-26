@@ -34,12 +34,6 @@ import EditView from '../EditView'
 import '@canvas/jquery/jquery.simulate'
 import {setupServer} from 'msw/node'
 import {http, HttpResponse} from 'msw'
-import {getUrlWithHorizonParams} from '@canvas/horizon/utils'
-
-// Mock the horizon utils module
-vi.mock('@canvas/horizon/utils', () => ({
-  getUrlWithHorizonParams: vi.fn(),
-}))
 
 const s_params = 'some super secure params'
 const currentOrigin = window.location.origin
@@ -153,16 +147,6 @@ describe('EditView', () => {
       FEATURES: {},
     })
 
-    // Setup default mock for getUrlWithHorizonParams
-    getUrlWithHorizonParams.mockImplementation((url, additionalParams) => {
-      if (additionalParams && Object.keys(additionalParams).length > 0) {
-        const separator = url.includes('?') ? '&' : '?'
-        const params = new URLSearchParams(additionalParams).toString()
-        return `${url}${separator}${params}`
-      }
-      return url
-    })
-
     RCELoader.RCE = null
     return RCELoader.loadRCE()
   })
@@ -195,7 +179,7 @@ describe('EditView', () => {
       view.preventBuildNavigation = false
 
       expect(view.locationAfterSave({return_to: 'http://calendar'})).toBe(
-        `http://foo?display=${expectedDisplay}`,
+        `http://foo/?display=${expectedDisplay}`,
       )
     }
 

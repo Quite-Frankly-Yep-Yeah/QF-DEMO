@@ -25,10 +25,6 @@ class OutcomesController < ApplicationController
 
   before_action :require_context
 
-  include HorizonMode
-
-  before_action :load_canvas_career, only: [:index, :show]
-
   add_crumb(proc { t "#crumbs.outcomes", "Outcomes" }, except: [:destroy, :build_outcomes]) { |c| c.send :named_context_url, c.instance_variable_get(:@context), :context_outcomes_path }
   before_action { |c| c.active_tab = "outcomes" }
   before_action :rce_js_env, only: [:show, :index]

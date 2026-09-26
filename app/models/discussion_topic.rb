@@ -124,7 +124,6 @@ class DiscussionTopic < ApplicationRecord
   has_one :estimated_duration, dependent: :destroy, inverse_of: :discussion_topic
   has_many :attachment_associations, as: :context, inverse_of: :context
 
-  validates_with HorizonValidators::DiscussionsValidator, if: -> { context.is_a?(Course) && context.horizon_course? }
   validates_associated :discussion_topic_section_visibilities
   validates :context_id, :context_type, presence: true
   validates :discussion_type, inclusion: { in: DiscussionTypes::TYPES }

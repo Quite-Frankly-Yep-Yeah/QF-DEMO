@@ -31,7 +31,6 @@ class Course < ApplicationRecord
   include Courses::ExportWarnings
   include OutcomeImportContext
   include MaterialChanges
-  include CopiedAssets
   include LinkedAttachmentHandler
 
   include MasterCourses::Restrictor
@@ -70,7 +69,6 @@ class Course < ApplicationRecord
     storage_quota
     created_at
     updated_at
-    career_learning_library_only
   ].freeze
 
   time_zone_attribute :time_zone
@@ -346,12 +344,9 @@ class Course < ApplicationRecord
   before_save :update_show_total_grade_as_on_weighting_scheme_change
   before_save :set_self_enrollment_code
   before_save :validate_license
-  before_save :set_career_learning_library_only, if: -> { account_id_changed? || new_record? || career_learning_library_only_changed? }
-  before_save :set_horizon_course, if: -> { account_id_changed? || new_record? }
   before_save :update_syllabus_timestamp
   before_save :handle_syllabus_master_template_tracking
   before_save :touch_root_folder_if_necessary
-  after_save :handle_horizon_activation, if: :just_became_horizon_course?
   after_save :update_final_scores_on_weighting_scheme_change
   after_save :update_account_associations_if_changed
   after_save :update_lti_context_controls_if_necessary
@@ -1267,12 +1262,6 @@ class Course < ApplicationRecord
   scope :homeroom, -> { where(homeroom_course: true) }
   scope :syncing_subjects, -> { joins("INNER JOIN #{Course.quoted_table_name} AS homeroom ON homeroom.id = courses.homeroom_course_id").where("homeroom.homeroom_course = true AND homeroom.workflow_state <> 'deleted'").where(sis_batch_id: nil).where(sync_enrollments_from_homeroom: true).where.not(workflow_state: "deleted") }
 
-  scope :horizon, -> { where(horizon_course: true) }
-  scope :not_horizon, -> { where(horizon_course: false) }
-
-  scope :career_learning_library, -> { where(career_learning_library_only: true) }
-  scope :not_career_learning_library, -> { where(career_learning_library_only: false) }
-
   def potential_collaborators
     current_users
   end
@@ -1678,26 +1667,6 @@ class Course < ApplicationRecord
     end
   end
 
-  def set_career_learning_library_only
-    return if dummy?
-
-    new_account = Account.find(account_id)
-    return unless new_account
-
-    unless root_account.feature_enabled?(:horizon_learning_library_ms2) && new_account.horizon_account?
-      self.career_learning_library_only = false
-    end
-  end
-
-  def set_horizon_course
-    return if dummy?
-
-    new_account = Account.find(account_id)
-    return unless new_account
-
-    self.horizon_course = new_account.horizon_account?
-  end
-
   # to ensure permissions on the root folder are updated after hiding or showing the files tab
   def touch_root_folder_if_necessary
     if tab_configuration_changed?
@@ -1705,14 +1674,6 @@ class Course < ApplicationRecord
       Folder.root_folders(self).each(&:touch) if files_tab_was_hidden != tab_hidden?(TAB_FILES)
     end
     true
-  end
-
-  def just_became_horizon_course?
-    saved_change_to_horizon_course? && horizon_course?
-  end
-
-  def handle_horizon_activation
-    delay(n_strand: ["horizon_content_discovery", global_root_account_id], singleton: "horizon_content_discovery:#{global_id}").ingest_horizon_content
   end
 
   def update_cached_due_dates
@@ -1775,20 +1736,6 @@ class Course < ApplicationRecord
       grading_period_id: opts[:grading_period_id],
       update_all_grading_period_scores: opts.fetch(:update_all_grading_period_scores, true)
     )
-  end
-
-  def ingest_horizon_content
-    return unless horizon_course?
-
-    files = attachments
-            .active
-            .by_content_types(PineClient.allowed_attachment_content_types)
-
-    pages = wiki_pages.active
-
-    files.find_each(&:index_in_pine)
-
-    pages.find_each(&:index_in_pine)
   end
 
   def self.html_fields
@@ -3185,8 +3132,6 @@ class Course < ApplicationRecord
        course_color
        alt_name
        restrict_quantitative_data
-       horizon_course
-       career_learning_library_only
        conditional_release
        default_due_time
        self_paced_mastery_threshold
@@ -3514,7 +3459,6 @@ class Course < ApplicationRecord
 
   CANVAS_K6_TAB_IDS = [TAB_HOME, TAB_ANNOUNCEMENTS, TAB_GRADES, TAB_MODULES].freeze
   COURSE_SUBJECT_TAB_IDS = [TAB_HOME, TAB_SCHEDULE, TAB_MODULES, TAB_GRADES, TAB_GROUPS].freeze
-  HORIZON_HIDDEN_TABS = [TAB_HOME, TAB_RUBRICS, TAB_OUTCOMES, TAB_COLLABORATIONS, TAB_COLLABORATIONS_NEW, TAB_DISCUSSIONS].freeze
 
   def self.default_tabs
     [{
@@ -3657,14 +3601,6 @@ class Course < ApplicationRecord
     course_tabs.sort_by { |tab| COURSE_SUBJECT_TAB_IDS.index tab[:id] }
   end
 
-  def self.horizon_course_nav_tabs
-    tabs = Course.default_tabs.reject do |tab|
-      HORIZON_HIDDEN_TABS.include?(tab[:id])
-    end
-    tabs.find { |tab| tab[:id] == TAB_SYLLABUS }[:label] = t("Overview")
-    tabs
-  end
-
   def self.elementary_course_nav_tabs
     tabs = Course.default_tabs.reject { |tab| tab[:id] == TAB_HOME }
     tabs.find { |tab| tab[:id] == TAB_SYLLABUS }[:label] = t("Important Info")
@@ -3703,8 +3639,6 @@ class Course < ApplicationRecord
                      Course.course_subject_tabs
                    elsif elementary_subject_course?
                      Course.elementary_course_nav_tabs
-                   elsif horizon_course?
-                     Course.horizon_course_nav_tabs
                    else
                      Course.default_tabs
                    end
@@ -3760,13 +3694,6 @@ class Course < ApplicationRecord
         href: :course_notebook_path,
         visibility: "members"
       }
-    end
-
-    # Remove already cached tabs for Horizon courses
-    if horizon_course?
-      default_tabs.delete_if do |tab|
-        HORIZON_HIDDEN_TABS.include?(tab[:id])
-      end
     end
 
     opts[:include_external] = false if elementary_homeroom_course?
@@ -4891,18 +4818,6 @@ class Course < ApplicationRecord
     return asset_string if attr_name == "asset_string"
 
     super
-  end
-
-  def horizon_course?
-    horizon_course && account&.feature_enabled?(:horizon_course_setting)
-  end
-
-  def horizon_back_to_units_enabled?
-    horizon_course?
-  end
-
-  def requirement_count_api_enabled?
-    horizon_course?
   end
 
   def use_modules_rewrite_view?(user, session)

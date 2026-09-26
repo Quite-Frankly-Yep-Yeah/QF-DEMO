@@ -97,9 +97,6 @@ development:
         aws_access_key_id: key
         aws_secret_access_key_dec: secret
         # stub_credentials: true # can be used in dev to print creds to stdout
-      kafka_events.yml: |-
-        topics:
-          course_events: course.events
       # bedrock configuration for smart search and discussion summaries
       bedrock.yml: |-
         bedrock_region: us-west-2
@@ -176,23 +173,6 @@ development:
       #   launch_url: http://ams-ux.inseng.test:5173/src/remote-adapter.js
       #   api_url: http://ams-ux-api.inseng.test:3000
       #   item_management_launch_url: http://ams-ux-item-management.inseng.test/src/remote-adapter.js
-      # canvas_career.yml: |
-      #   learner_launch_url: "http://localhost:3002/remoteEntry.js"
-      #   learning_provider_launch_url: "http://localhost:3003/remoteEntry.js"
-      #   theme_url: "http://localhost:3002/themes/horizon.json"
-      #   dark_theme_url: "http://localhost:3002/themes/horizon_dark.json"
-      #   public_app_config:
-      #     hosts:
-      #       common_cartridge_viewer: "https://common-cartridge-viewer.netlify.app"
-      #       ignite: "https://career-agent-dev.journey.nonprod.inseng.io"
-      #       journey: "https://journey-server-dev.journey.nonprod.inseng.io"
-      #       rcs: "https://rich-content-pdx-cd.inseng.net"
-      #     hotglue:
-      #       api_key: "gFd34vgi2D5OY8RrNInl55wDY1ixqSvxZsSHf965"
-      #       env_id: "demo.hg.instructure.com"
-      #       flow_id: "NsN76D10s"
-      #     environment: "dev"
-      #     experience_mode: "career"
       # new_quizzes.yml: |
       #   new_quizzes_cloudfront_host_production: http://quizzes-ui-app.inseng.test:8082
       #   new_quizzes_cloudfront_host_beta: http://quizzes-ui-app.inseng.test:8082

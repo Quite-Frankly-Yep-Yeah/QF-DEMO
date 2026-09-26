@@ -59,7 +59,6 @@ const MessageListActionContainer = props => {
   const {loading, error, data} = useQuery(COURSES_QUERY, {
     variables: {
       userID,
-      horizonCourses: false,
     },
   })
 

@@ -73,10 +73,6 @@ module Api::V1::Account
       hash["sub_account_count"] = account.sub_account_count if includes.include?("sub_account_count")
 
       hash["global_id"] = account.global_id if includes.include?("global_id")
-      if includes.include?("horizon_account")
-        horizon_setting = account.horizon_account
-        hash["horizon_account"] = !!(horizon_setting && horizon_setting[:value])
-      end
 
       Api::V1::Account.extensions.each do |extension|
         hash = extension.extend_account_json(hash, account, user, session, includes)

@@ -16,16 +16,10 @@
  * with this program. If not, see <http://www.gnu.org/licenses/>.
  */
 
-import {redirectWithHorizonParams} from '@canvas/horizon/utils'
 import fakeENV from '@canvas/test-utils/fakeENV'
 import WikiPage from '../../models/WikiPage'
 import WikiPageDeleteDialog from '../WikiPageDeleteDialog'
 import $ from 'jquery'
-
-// Mock the horizon utils module
-vi.mock('@canvas/horizon/utils', () => ({
-  redirectWithHorizonParams: vi.fn(),
-}))
 
 describe('WikiPageDeleteDialog', () => {
   let originalLocation
@@ -52,11 +46,7 @@ describe('WikiPageDeleteDialog', () => {
   })
 
   describe('redirect functionality', () => {
-    beforeEach(() => {
-      redirectWithHorizonParams.mockClear()
-    })
-
-    test('calls redirectWithHorizonParams when wiki page is deleted successfully', () => {
+    test('redirects to the wiki pages path when a wiki page is deleted successfully', () => {
       const model = new WikiPage({title: 'Test Page'})
 
       // Mock the model's destroy method to return a jQuery Deferred-like object
@@ -96,7 +86,7 @@ describe('WikiPageDeleteDialog', () => {
       // Call submit to trigger the deletion
       dialog.submit()
 
-      expect(redirectWithHorizonParams).toHaveBeenCalledWith('/courses/1/pages')
+      expect(window.location.href).toBe('/courses/1/pages')
     })
 
     test('uses wiki_pages_path for redirect after deletion', () => {
@@ -139,7 +129,7 @@ describe('WikiPageDeleteDialog', () => {
 
       dialog.submit()
 
-      expect(redirectWithHorizonParams).toHaveBeenCalledWith(wikiPagesPath)
+      expect(window.location.href).toBe(wikiPagesPath)
     })
 
     test('does not redirect when wiki_pages_path is not provided', () => {
@@ -179,7 +169,7 @@ describe('WikiPageDeleteDialog', () => {
 
       dialog.submit()
 
-      expect(redirectWithHorizonParams).not.toHaveBeenCalled()
+      expect(window.location.href).toBe('')
       expect($.flashMessage).toHaveBeenCalled()
     })
   })

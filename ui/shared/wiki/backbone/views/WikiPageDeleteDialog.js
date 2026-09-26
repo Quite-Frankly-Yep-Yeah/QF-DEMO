@@ -16,7 +16,6 @@
 // with this program. If not, see <http://www.gnu.org/licenses/>.
 
 import DialogFormView, {getResponsiveWidth} from '@canvas/forms/backbone/views/DialogFormView'
-import {redirectWithHorizonParams} from '@canvas/horizon/utils'
 import {useScope as createI18nScope} from '@canvas/i18n'
 import $ from 'jquery'
 
@@ -67,7 +66,7 @@ export default class WikiPageDeleteDialog extends DialogFormView {
         expires.setMinutes(expires.getMinutes() + 1)
         const path = '/' // should be wiki_pages_path, but IE will only allow *sub*directries to read the cookie, not the directory itself...
         $.cookie('deleted_page_title', page_title, {expires, path})
-        return redirectWithHorizonParams(wiki_pages_path)
+        window.location.href = wiki_pages_path
       } else {
         $.flashMessage(
           I18n.t('notices.page_deleted', 'The page "%{title}" has been deleted.', {

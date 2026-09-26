@@ -28,10 +28,6 @@ class ContextModulesController < ApplicationController
   before_action :require_context
   skip_before_action :require_user, only: %i[content_tag_assignment_data index item_redirect module_redirect progressions]
 
-  include HorizonMode
-
-  before_action :load_canvas_career, only: [:index, :show]
-
   add_crumb(proc { t("#crumbs.modules", "Modules") }) { |c| c.send :named_context_url, c.instance_variable_get(:@context), :context_context_modules_url }
   before_action { |c| c.active_tab = "modules" }
 
@@ -306,8 +302,7 @@ class ContextModulesController < ApplicationController
       add_body_class("padless-content")
 
       js_env({
-               CONTEXT_MODULE_ASSIGNMENT_INFO_URL: context_url(@context, :context_context_modules_assignment_info_url),
-               CONTEXT_MODULE_ESTIMATED_DURATION_INFO_URL: context_url(@context, :context_context_modules_estimated_duration_info_url)
+               CONTEXT_MODULE_ASSIGNMENT_INFO_URL: context_url(@context, :context_context_modules_assignment_info_url)
              })
 
       if @context.use_modules_rewrite_view?(@current_user, session)
@@ -784,28 +779,6 @@ class ContextModulesController < ApplicationController
     end
   end
 
-  def content_tag_estimated_duration_data
-    if authorized_action(@context, @current_user, :read)
-      info = {}
-      all_tags = GuardRail.activate(:secondary) do
-        if context.account.feature_enabled?(:modules_perf) && params[:context_module_id]
-          @module = @context.modules_visible_to(@current_user).find_by(id: params[:context_module_id])
-          return render json: {}, status: :not_found unless @module
-
-          @context.visible_module_items_by_module(@current_user, @module).to_a
-        else
-          @context.module_items_visible_to(@current_user).to_a
-        end
-      end
-
-      all_tags.each do |tag|
-        info[tag.context_module_id] ||= {}
-        info[tag.context_module_id][tag.id] = { estimated_duration_minutes: tag.estimated_duration_minutes, can_set_estimated_duration: tag.can_set_estimated_duration }
-      end
-      render json: info
-    end
-  end
-
   def content_tag_master_course_data
     if authorized_action(@context, @current_user, :read_as_admin)
       info = {}
@@ -1102,44 +1075,6 @@ class ContextModulesController < ApplicationController
     end
   end
 
-  def create_estimated_duration(reference, duration)
-    unless reference.can_set_estimated_duration
-      return nil
-    end
-
-    reference_mapping = {
-      "Assignment" => :assignment_id,
-      "Quizzes::Quiz" => :quiz_id,
-      "WikiPage" => :wiki_page_id,
-      "DiscussionTopic" => :discussion_topic_id,
-      "Attachment" => :attachment_id
-    }
-
-    reference_type = reference.respond_to?(:content_type) ? reference.content_type : reference.class.name
-    reference_key = reference_mapping[reference_type] ||= :content_tag_id
-
-    content_id = reference.tap do |ref|
-      break ref.id if reference_key == :content_tag_id
-      break ref.content_id if ref.respond_to?(:content_id)
-
-      break ref.id
-    end
-
-    estimated_duration = EstimatedDuration.new(reference_key => content_id, :duration => duration)
-
-    if estimated_duration.save
-      estimated_duration
-    else
-      nil
-    end
-  end
-
-  def get_estimated_duration(minutes)
-    return nil if minutes.zero?
-
-    "PT#{minutes}M"
-  end
-
   def update_item
     @tag = @context.context_module_tags.not_deleted.find(params[:id])
     if authorized_action(@tag.context_module, @current_user, :update)
@@ -1148,20 +1083,8 @@ class ContextModulesController < ApplicationController
         @tag.url = params[:content_tag][:url]
         @tag.reassociate_external_tool = true
       end
-      @tag.indent = params[:content_tag][:indent] if params[:content_tag] && params[:content_tag][:indent] && !@context.horizon_course?
+      @tag.indent = params[:content_tag][:indent] if params[:content_tag] && params[:content_tag][:indent]
       @tag.new_tab = params[:content_tag][:new_tab] if params[:content_tag] && params[:content_tag][:new_tab]
-
-      if @context.horizon_course?
-        duration = get_estimated_duration(params[:content_tag][:estimated_duration_minutes].to_i)
-
-        if duration.nil?
-          @tag.estimated_duration&.destroy!
-        elsif @tag.estimated_duration
-          @tag.estimated_duration.update(duration:)
-        else
-          @tag.estimated_duration = create_estimated_duration(@tag, duration)
-        end
-      end
 
       unless @tag.save
         return render json: @tag.errors, status: :bad_request

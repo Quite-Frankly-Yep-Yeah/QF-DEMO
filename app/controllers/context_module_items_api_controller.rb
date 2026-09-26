@@ -291,7 +291,6 @@ class ContextModuleItemsApiController < ApplicationController
         opts[:conditional_release_rules] = ConditionalRelease::Service.rules_for(@context, @student, session)
       end
       opts[:can_view_published] = @context.grants_right?(@student || @current_user, session, :read_as_admin)
-      opts[:can_have_estimated_time] = @context.horizon_course?
       render json: items.map { |item| module_item_json(item, @student || @current_user, session, mod, prog, includes, opts) }
     end
   end
@@ -318,10 +317,6 @@ class ContextModuleItemsApiController < ApplicationController
     if authorized_action(@context, @current_user, :read)
       get_module_item
       opts = { can_view_published: @context.grants_right?(@student || @current_user, session, :read_as_admin) }
-      if @context.horizon_course?
-        opts[:can_have_estimated_time] = true
-        @item.context_module_action(@current_user, :read) if @current_user
-      end
       prog = @student ? @module.evaluate_for(@student) : nil
       render json: module_item_json(@item, @student || @current_user, session, @module, prog, Array(params[:include]), opts)
     end

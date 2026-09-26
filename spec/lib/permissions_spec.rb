@@ -87,59 +87,6 @@ describe Permissions, type: :module do
       expect(Permissions.retrieve).to be_frozen
     end
 
-    context "with quite frankly an example LMS Career overrides" do
-      before do
-        permissions = {
-          read: {
-            label: -> { "Read" },
-            description: "Read Permission"
-          },
-          write: {
-            label: -> { "Write" },
-            description: "Write Permission"
-          }
-        }
-        Permissions.register(permissions)
-
-        overrides = {
-          read: { label: -> { "View Content" } },
-          write: { label: -> { "Edit Content" } }
-        }
-        allow(CanvasCareer::LabelOverrides).to receive(:permission_label_overrides).and_return(overrides)
-      end
-
-      it "applies quite frankly an example LMS Career overrides when context is provided" do
-        result = Permissions.retrieve(account)
-
-        expect(result[:read][:label].call).to eq("View Content")
-        expect(result[:write][:label].call).to eq("Edit Content")
-      end
-
-      it "preserves non-overridden fields" do
-        result = Permissions.retrieve(account)
-
-        expect(result[:read][:description]).to eq("Read Permission")
-        expect(result[:write][:description]).to eq("Write Permission")
-      end
-
-      it "returns original permissions when no overrides exist" do
-        allow(CanvasCareer::LabelOverrides).to receive(:permission_label_overrides).and_return({})
-
-        result = Permissions.retrieve(account)
-        expect(result[:read][:label].call).to eq("Read")
-        expect(result[:write][:label].call).to eq("Write")
-      end
-
-      it "handles quite frankly an example LMS Career override failures gracefully" do
-        allow(CanvasCareer::LabelOverrides).to receive(:permission_label_overrides).and_raise("Test error")
-        allow(Rails.logger).to receive(:warn)
-
-        result = Permissions.retrieve(account)
-        expect(result[:read][:label].call).to eq("Read") # Falls back to original
-        expect(Rails.logger).to have_received(:warn).with(a_string_matching(/Canvas Career permission overrides failed/))
-      end
-    end
-
     context "without context" do
       it "returns original permissions without applying overrides" do
         permissions = { read: { label: -> { "Read" } } }
@@ -168,42 +115,6 @@ describe Permissions, type: :module do
       result = Permissions.permission_groups
       expect(result).to have_key(:test_group)
       expect(result[:test_group][:label].call).to eq("Test Group")
-    end
-
-    context "with quite frankly an example LMS Career group overrides" do
-      before do
-        permissions = {
-          test_permission: {
-            group: :test_group,
-            label: -> { "Test Permission" }
-          }
-        }
-        Permissions.register(permissions)
-
-        overrides = {
-          test_permission: { group_label: -> { "Overridden Group" } }
-        }
-        allow(CanvasCareer::LabelOverrides).to receive(:permission_label_overrides).and_return(overrides)
-      end
-
-      it "applies group label overrides when context is provided" do
-        result = Permissions.permission_groups(account)
-        expect(result[:test_group][:label].call).to eq("Overridden Group")
-      end
-
-      it "preserves non-overridden group fields" do
-        result = Permissions.permission_groups(account)
-        expect(result[:test_group][:subtitle].call).to eq("Test subtitle")
-      end
-    end
-
-    it "handles quite frankly an example LMS Career group override failures gracefully" do
-      allow(CanvasCareer::LabelOverrides).to receive(:permission_label_overrides).and_raise("Test error")
-      allow(Rails.logger).to receive(:warn)
-
-      result = Permissions.permission_groups(account)
-      expect(result[:test_group][:label].call).to eq("Test Group") # Falls back to original
-      expect(Rails.logger).to have_received(:warn).with(a_string_matching(/Canvas Career permission group overrides failed/))
     end
   end
 end

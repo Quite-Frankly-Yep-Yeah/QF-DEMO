@@ -44,83 +44,17 @@ describe EnrollmentTypes do
   end
 
   describe ".labels" do
-    let(:account) { account_model }
+    it "returns the label definitions for every enrollment type" do
+      labels = EnrollmentTypes.labels
+      expect(labels.length).to eq(5)
 
-    context "without quite frankly an example LMS Career overrides" do
-      before do
-        allow(CanvasCareer::LabelOverrides).to receive(:enrollment_type_overrides).and_return({})
-      end
+      student_enrollment = labels.find { |l| l[:name] == "StudentEnrollment" }
+      expect(student_enrollment[:label].call).to eq("Student")
+      expect(student_enrollment[:plural_label].call).to eq("Students")
 
-      it "returns original enrollment type labels" do
-        labels = EnrollmentTypes.labels(account)
-        expect(labels).to be_an(Array)
-        expect(labels.length).to eq(5)
-
-        student_enrollment = labels.find { |l| l[:name] == "StudentEnrollment" }
-        expect(student_enrollment[:label].call).to eq("Student")
-        expect(student_enrollment[:plural_label].call).to eq("Students")
-      end
-    end
-
-    context "with quite frankly an example LMS Career overrides" do
-      before do
-        overrides = {
-          "StudentEnrollment" => {
-            label: -> { "Learner" },
-            plural_label: -> { "Learners" }
-          },
-          "TeacherEnrollment" => {
-            label: -> { "Instructor" },
-            plural_label: -> { "Instructors" }
-          }
-        }
-        allow(CanvasCareer::LabelOverrides).to receive(:enrollment_type_overrides).and_return(overrides)
-      end
-
-      it "applies quite frankly an example LMS Career overrides" do
-        labels = EnrollmentTypes.labels(account)
-
-        student_enrollment = labels.find { |l| l[:name] == "StudentEnrollment" }
-        expect(student_enrollment[:label].call).to eq("Learner")
-        expect(student_enrollment[:plural_label].call).to eq("Learners")
-
-        teacher_enrollment = labels.find { |l| l[:name] == "TeacherEnrollment" }
-        expect(teacher_enrollment[:label].call).to eq("Instructor")
-        expect(teacher_enrollment[:plural_label].call).to eq("Instructors")
-      end
-
-      it "preserves original labels for non-overridden types" do
-        labels = EnrollmentTypes.labels(account)
-
-        ta_enrollment = labels.find { |l| l[:name] == "TaEnrollment" }
-        expect(ta_enrollment[:label].call).to eq("TA")
-        expect(ta_enrollment[:plural_label].call).to eq("TAs")
-      end
-
-      it "handles partial overrides" do
-        overrides = {
-          "StudentEnrollment" => {
-            label: -> { "Learner" }
-            # No plural_label override
-          }
-        }
-        allow(CanvasCareer::LabelOverrides).to receive(:enrollment_type_overrides).and_return(overrides)
-
-        labels = EnrollmentTypes.labels(account)
-        student_enrollment = labels.find { |l| l[:name] == "StudentEnrollment" }
-        expect(student_enrollment[:label].call).to eq("Learner")
-        expect(student_enrollment[:plural_label].call).to eq("Students") # Original
-      end
-    end
-
-    context "without context" do
-      it "returns original labels when context is nil" do
-        labels = EnrollmentTypes.labels(nil)
-        expect(labels).to be_an(Array)
-
-        student_enrollment = labels.find { |l| l[:name] == "StudentEnrollment" }
-        expect(student_enrollment[:label].call).to eq("Student")
-      end
+      teacher_enrollment = labels.find { |l| l[:name] == "TeacherEnrollment" }
+      expect(teacher_enrollment[:label].call).to eq("Teacher")
+      expect(teacher_enrollment[:plural_label].call).to eq("Teachers")
     end
   end
 end

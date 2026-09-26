@@ -65,17 +65,6 @@ describe AppointmentGroupsController do
     @group_ag.publish!
   end
 
-  describe "POST 'create'" do
-    it "fails for a horizon course" do
-      user_session @teacher
-      @course.account.enable_feature!(:horizon_course_setting)
-      @course.update!(horizon_course: true)
-      post :create, params: { appointment_group: { title: "Test Group", context_codes: [@course.asset_string] } }
-      expect(response).to have_http_status(:bad_request)
-      expect(response.parsed_body["error"]).to include("cannot create an appointment group for a quite frankly an example LMS Career course")
-    end
-  end
-
   before do
     user_session @student
   end

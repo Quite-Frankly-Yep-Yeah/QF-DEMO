@@ -61,7 +61,6 @@ class AbstractAssignment < ApplicationRecord
     graders_anonymous_to_graders
     anonymous_instructor_annotations
   ].freeze
-  HORIZON_SUBMISSION_TYPES = %w[online_text_entry online_upload external_tool].freeze
 
   DEFAULT_POINTS_POSSIBLE = 0
 
@@ -244,8 +243,6 @@ class AbstractAssignment < ApplicationRecord
   validates :allowed_attempts, numericality: { greater_than: 0 }, unless: proc { |a| a.allowed_attempts == -1 }, allow_nil: true
   validates :sis_source_id, uniqueness: { scope: :root_account_id }, allow_nil: true
 
-  before_validation :convert_horizon_assignment, if: -> { context.is_a?(Course) && context.horizon_course? }
-
   with_options unless: :moderated_grading? do
     validates :graders_anonymous_to_graders, absence: true
     validates :grader_section, absence: true
@@ -294,16 +291,6 @@ class AbstractAssignment < ApplicationRecord
   # included to make it easier to work with api, which returns
   # sis_source_id as sis_assignment_id.
   alias_attribute :sis_assignment_id, :sis_source_id
-
-  def convert_horizon_assignment
-    self.peer_reviews = false
-    self.peer_review_count = 0
-    self.automatic_peer_reviews = false
-    self.group_category_id = nil
-    self.rubric_association = nil
-    self.submission_types = "online_text_entry" unless (submission_types_array - HORIZON_SUBMISSION_TYPES).empty?
-    self.workflow_state = "unpublished" if workflow_state == "published" && context_module_tags.none? { |t| t.tag_type == "context_module" && t.context_module&.published? }
-  end
 
   def self.html_fields
     %w[description]
@@ -533,10 +520,6 @@ class AbstractAssignment < ApplicationRecord
     end
 
     result.post_to_sis = false
-
-    if context.is_a?(Course) && context.horizon_course? && estimated_duration
-      result.estimated_duration = EstimatedDuration.new({ duration: estimated_duration.duration.iso8601 })
-    end
 
     result
   end

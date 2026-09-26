@@ -227,10 +227,6 @@ module Types
     ALLOWED_ORDER_BY_VALUES = %w[id user_id course_id created_at start_at end_at completed_at courses.id courses.name courses.course_code courses.start_at courses.conclude_at].to_set
 
     field :enrollments, [EnrollmentType], null: false do
-      argument :career_learning_library_only,
-               Boolean,
-               "Whether or not to only filter for or exclude quite frankly an example LMS Career learning library only courses",
-               required: false
       argument :course_id,
                ID,
                "only return enrollments for this course",
@@ -243,10 +239,6 @@ module Types
       argument :exclude_concluded,
                Boolean,
                "Whether or not to exclude `completed` enrollments",
-               required: false
-      argument :horizon_courses,
-               Boolean,
-               "Whether or not to include or exclude quite frankly an example LMS Career courses",
                required: false
       argument :order_by,
                [String],
@@ -279,15 +271,13 @@ module Types
       end
     end
 
-    def enrollments(course_id: nil, current_only: false, order_by: [], exclude_concluded: false, horizon_courses: nil, career_learning_library_only: nil, sort: {})
+    def enrollments(course_id: nil, current_only: false, order_by: [], exclude_concluded: false, sort: {})
       course_ids = [course_id].compact
       Loaders::UserCourseEnrollmentLoader.for(
         course_ids:,
         order_by:,
         current_only:,
         exclude_concluded:,
-        horizon_courses:,
-        career_learning_library_only:,
         sort:
       ).load(object.id).then do |enrollments|
         (enrollments || []).select do |enrollment|
@@ -320,10 +310,6 @@ module Types
                Boolean,
                "Whether or not to exclude `completed` enrollments",
                required: false
-      argument :horizon_courses,
-               Boolean,
-               "Whether or not to include or exclude quite frankly an example LMS Career courses",
-               required: false
       argument :order_by,
                [String],
                "The fields to order the results by",
@@ -334,7 +320,7 @@ module Types
                "The sort field and direction for the results. Secondary sort is by section name",
                required: false
     end
-    def enrollments_connection(course_id: nil, course_ids: nil, current_only: false, order_by: [], exclude_concluded: false, horizon_courses: nil, sort: {}, enrollment_types: nil)
+    def enrollments_connection(course_id: nil, course_ids: nil, current_only: false, order_by: [], exclude_concluded: false, sort: {}, enrollment_types: nil)
       unless object == current_user ||
              object.grants_right?(current_user, session, :read_profile) ||
              object.grants_right?(current_user, session, :read)
@@ -431,9 +417,8 @@ module Types
     field :conversations_connection, Types::ConversationParticipantType.connection_type, null: true do
       argument :filter, [String], required: false
       argument :scope, String, required: false
-      argument :show_horizon_conversations, Boolean, required: false
     end
-    def conversations_connection(scope: nil, filter: nil, show_horizon_conversations: false)
+    def conversations_connection(scope: nil, filter: nil)
       if object == context[:current_user]
 
         conversations_scope = case scope
@@ -453,24 +438,6 @@ module Types
                                 InstStatsd::Statsd.distributed_increment("inbox.visit.scope.inbox.pages_loaded.react")
                                 object.conversations.default
                               end
-
-        # Filter out conversations from horizon courses unless explicitly shown
-        unless show_horizon_conversations
-          # Get IDs of horizon courses where the user is a student
-          horizon_student_course_ids = object.enrollments
-                                             .where(type: "StudentEnrollment")
-                                             .joins(:course)
-                                             .where(courses: { workflow_state: "available" })
-                                             .horizon
-                                             .pluck(:course_id)
-          # Get IDs of conversations that have messages from horizon courses
-          horizon_conversation_ids = conversations_scope
-                                     .where(
-                                       tags: horizon_student_course_ids.map { |c| "course_#{c}" }
-                                     )
-                                     .pluck(:id)
-          conversations_scope = conversations_scope.where.not(id: horizon_conversation_ids) if horizon_student_course_ids.present? && horizon_conversation_ids.present?
-        end
 
         filter_mode = :and
         filter = filter.presence || []
@@ -1050,14 +1017,12 @@ end
 
 module Loaders
   class UserCourseEnrollmentLoader < Loaders::ForeignKeyLoader
-    def initialize(course_ids:, order_by: [], current_only: false, exclude_concluded: false, exclude_pending_enrollments: true, horizon_courses: nil, career_learning_library_only: nil, sort: {})
+    def initialize(course_ids:, order_by: [], current_only: false, exclude_concluded: false, exclude_pending_enrollments: true, sort: {})
       @course_ids = course_ids
       @order_by = order_by
       @current_only = current_only
       @exclude_concluded = exclude_concluded
       @exclude_pending_enrollments = exclude_pending_enrollments
-      @horizon_courses = horizon_courses
-      @career_learning_library_only = career_learning_library_only
       @sort = sort
 
       scope = build_scope
@@ -1098,21 +1063,7 @@ module Loaders
     private
 
     def build_scope
-      scope = if @horizon_courses
-                Enrollment.horizon
-              elsif @horizon_courses == false
-                Enrollment.not_horizon
-              else
-                Enrollment.joins(:course)
-              end
-
-      scope = if @career_learning_library_only
-                scope.career_learning_library
-              elsif @career_learning_library_only == false
-                scope.not_career_learning_library
-              else
-                scope
-              end
+      scope = Enrollment.joins(:course)
 
       scope = if @current_only
                 scope.current.active_by_date

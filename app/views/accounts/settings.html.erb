@@ -100,10 +100,6 @@
   <% tabs << { id: "security", title: t("Security"), contentMount: "tab-security-mount" } %>
 <% end %>
 
-<% if @account.feature_enabled?(:horizon_course_setting) && can_do(@context, @current_user, :read_as_admin) %>
-  <% tabs << { id: "canvas-career", title: t("quite frankly an example LMS Career"), contentMount: "tab-canvas-career-mount" } %>
-<% end %>
-
 <%= tag.div id: "account_settings_tabs_mount",
             data: {
               component: "SettingsTabs",
@@ -1563,11 +1559,6 @@ acknowledge that you have read and agreed to the
   <% end %>
   <% if @account.site_admin? && can_do(@context, @current_user, :manage_internal_settings) %>
     <div  tabindex="0" id="tab-internal-settings-mount"></div>
-  <% end %>
-  <% if @account.feature_enabled?(:horizon_course_setting) && can_do(@context, @current_user, :read_as_admin) %>
-    <div tabindex="0" id="tab-canvas-career-mount">
-      <% js_bundle :horizon_toggle %>
-    </div>
   <% end %>
 <% end %>
 

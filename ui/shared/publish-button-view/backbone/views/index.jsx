@@ -365,9 +365,6 @@ export default (function (superClass) {
     if (this.model.get('bulkPublishInFlight')) {
       this.disable()
     }
-    if (ENV.horizon_course && this.model.get('publishable') === false) {
-      this.disable()
-    }
     return this
   }
 

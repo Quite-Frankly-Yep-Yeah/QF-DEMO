@@ -3944,7 +3944,6 @@ describe EnrollmentsApiController, type: :request do
 
   describe "bulk enrollment" do
     before :once do
-      Account.default.enable_feature!(:horizon_bulk_api_permission)
       @course = course_model sis_source_id: "course", workflow_state: "created"
       @path = "/api/v1/accounts/#{Account.default.id}/bulk_enrollment"
       @path_options = { controller: "enrollments_api", action: "bulk_enrollment", format: "json", account_id: Account.default.id }

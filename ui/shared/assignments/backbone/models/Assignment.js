@@ -31,7 +31,7 @@ import GradingPeriodsHelper from '@canvas/grading/GradingPeriodsHelper'
 import * as tz from '@instructure/moment-utils'
 import numberHelper from '@canvas/i18n/numberHelper'
 import PandaPubPoller from '@canvas/panda-pub-poller'
-import {getUrlWithHorizonParams} from '@canvas/horizon/utils'
+import urlWithParams from '../../urlWithParams'
 import {matchingToolUrls} from './LtiAssignmentHelpers'
 
 const default_interval = 3000
@@ -1039,15 +1039,15 @@ Assignment.prototype.objectTypeDisplayName = function () {
 Assignment.prototype.htmlUrl = function () {
   let url
   if (this.isQuizLTIAssignment() && canManage()) {
-    url = getUrlWithHorizonParams(this.get('html_url') + '/edit', {quiz_lti: true})
+    url = urlWithParams(this.get('html_url') + '/edit', {quiz_lti: true})
   } else {
-    url = getUrlWithHorizonParams(this.get('html_url'))
+    url = this.get('html_url')
   }
   return url
 }
 
 Assignment.prototype.htmlEditUrl = function () {
-  return getUrlWithHorizonParams(this.get('html_url') + '/edit')
+  return this.get('html_url') + '/edit'
 }
 
 Assignment.prototype.htmlBuildUrl = function () {
@@ -1056,9 +1056,9 @@ Assignment.prototype.htmlBuildUrl = function () {
     if (ENV.FEATURES.new_quizzes_navigation_updates) {
       displayType = 'full_width_with_nav'
     }
-    return getUrlWithHorizonParams(this.get('html_url'), {display: displayType})
+    return urlWithParams(this.get('html_url'), {display: displayType})
   } else {
-    return getUrlWithHorizonParams(this.get('html_url'))
+    return this.get('html_url')
   }
 }
 
@@ -1453,7 +1453,6 @@ Assignment.prototype.toView = function () {
     'unlockAt',
     'vericiteAvailable',
     'vericiteEnabled',
-    'isHorizonCourse',
   ]
   const hash = {
     id: this.get('id'),
@@ -1886,10 +1885,6 @@ Assignment.prototype.getCheckpointGroup = function (checkpoint) {
   }
 
   return 'past'
-}
-
-Assignment.prototype.isHorizonCourse = function () {
-  return ENV.horizon_course
 }
 
 Assignment.prototype.getId = function () {

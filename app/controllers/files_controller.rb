@@ -170,10 +170,6 @@ class FilesController < ApplicationController
     show_relative
   ]
 
-  include HorizonMode
-
-  before_action :load_canvas_career, only: [:index]
-
   before_action :open_limited_cors, only: [:show]
   before_action :open_cors, only: %i[
     api_create api_create_success api_create_success_cors show_thumbnail
@@ -581,10 +577,6 @@ class FilesController < ApplicationController
       if params[:access_token].present? && params[:instfs_id].present?
         options[:access_token] = params[:access_token]
         options[:instfs_id] = params[:instfs_id]
-      end
-      if params[:view] && @context.respond_to?(:horizon_course?) && @context.horizon_course?
-        @attachment.context_module_action(@current_user, :read) if @current_user
-        options[:view] = true
       end
 
       if options[:include].include?("blueprint_course_status")
@@ -1386,9 +1378,6 @@ class FilesController < ApplicationController
       @attachment.locked = value_to_boolean(params[:locked]) if params.key?(:locked)
       @attachment.hidden = value_to_boolean(params[:hidden]) if params.key?(:hidden)
       @attachment.visibility_level = params[:visibility_level] if params.key?(:visibility_level)
-      if @context.try(:horizon_course?) && params[:estimated_duration_attributes]
-        @attachment.estimated_duration_attributes = params[:estimated_duration_attributes].permit(:id, :minutes, :_destroy)
-      end
 
       @attachment.set_publish_state_for_usage_rights if @attachment.context.is_a?(Group)
       if !@attachment.locked? && @attachment.locked_changed? && @attachment.usage_rights_id.nil? && @context.respond_to?(:usage_rights_required?) && @context.usage_rights_required?

@@ -21,7 +21,7 @@ import {PREVIEW_IFRAME_ID} from './react/ThemeEditor'
 /**
  * Check if the theme editor should framebust out of an iframe.
  * This prevents theme editor from being loaded inside its own preview iframe.
- * But allows legitimate iframe embedding (e.g., from Horizon).
+ * But allows legitimate iframe embedding.
  */
 export function checkShouldFramebust(): boolean {
   const isInIframe = window.top !== window.self

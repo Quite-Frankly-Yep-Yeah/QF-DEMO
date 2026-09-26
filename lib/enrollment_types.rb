@@ -58,19 +58,7 @@ module EnrollmentTypes
     ENROLLMENT_TYPE_DEFINITIONS
   end
 
-  def self.labels(context = nil)
-    label_overrides = CanvasCareer::LabelOverrides.enrollment_type_overrides(context)
-
-    ENROLLMENT_TYPES.map do |type|
-      enrollment_def = ENROLLMENT_TYPE_DEFINITIONS[type]
-      next enrollment_def unless label_overrides[type]
-
-      override = label_overrides[type] || {}
-
-      enrollment_def.merge({
-                             label: override[:label] || enrollment_def[:label],
-                             plural_label: override[:plural_label] || enrollment_def[:plural_label]
-                           })
-    end
+  def self.labels(_context = nil)
+    ENROLLMENT_TYPES.map { |type| ENROLLMENT_TYPE_DEFINITIONS[type] }
   end
 end

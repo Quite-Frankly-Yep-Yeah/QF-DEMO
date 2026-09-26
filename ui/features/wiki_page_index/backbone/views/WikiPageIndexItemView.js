@@ -108,7 +108,6 @@ export default class WikiPageIndexItemView extends Backbone.View {
       this.model.get('editor') === 'block_editor' ||
       this.model.get('editor') === 'block_content_editor'
     json.page_type_label = json.page_is_block ? I18n.t('block page') : I18n.t('classic page')
-    json.is_horizon_course = ENV?.horizon_course
     return json
   }
 
@@ -135,10 +134,6 @@ export default class WikiPageIndexItemView extends Backbone.View {
     }
     this.publishIconView.$el.appendTo(this.$publishCell)
     this.publishIconView.render()
-
-    if (ENV.horizon_course) {
-      this.publishIconView.$el.addClass('disabled')
-    }
 
     if (!this.lockIconView) {
       this.lockIconView = new LockIconView({

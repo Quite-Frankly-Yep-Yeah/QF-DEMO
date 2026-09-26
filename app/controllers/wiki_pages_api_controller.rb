@@ -172,10 +172,6 @@
 # To explicitly request by ID, you can use the form `/api/v1/courses/:course_id/pages/page_id:7`.
 #
 class WikiPagesApiController < ApplicationController
-  include HorizonMode
-
-  allow_public_horizon_access :index, :show
-
   AI_ALT_TEXT_MAX_LENGTH = 120
   AI_ALT_TEXT_FEATURE_FLAG_SLUG = "alttext"
   AI_ALT_TEXT_TYPE = "Base64"
@@ -186,7 +182,6 @@ class WikiPagesApiController < ApplicationController
   before_action :get_wiki_page, except: %i[create index check_title_availability ai_generate_alt_text]
   before_action :require_wiki_page, except: %i[create update update_front_page index check_title_availability ai_generate_alt_text]
   before_action :was_front_page, except: %i[index check_title_availability ai_generate_alt_text]
-  before_action :extract_block_editor_data, only: %i[create update]
   before_action only: %i[show update destroy revisions show_revision revert] do
     check_differentiated_assignments(@page)
   end
@@ -420,21 +415,16 @@ class WikiPagesApiController < ApplicationController
     if authorized_action(@page, @current_user, :create)
       allowed_fields = Set[:title, :body]
       allowed_fields << :block_editor_attributes if @context.account.feature_enabled?(:block_editor) || @context.try(:block_content_editor_enabled?)
-      allowed_fields << :estimated_duration_attributes if @context.is_a?(Course) && @context.horizon_course?
       update_params = get_update_params(allowed_fields)
       assign_todo_date
       @page.saving_user = @current_user
       if !update_params.is_a?(Symbol) && @page.update(update_params) && process_front_page
         log_asset_access(@page, "wiki", @wiki, "participate")
-        create_external_content_ref
-
-        render json: wiki_page_json(@page, @current_user, session, use_block_editor: true)
+        render json: wiki_page_json(@page, @current_user, session)
       else
         render json: @page.errors, status: update_params.is_a?(Symbol) ? update_params : :bad_request
       end
     end
-  rescue InstructureMiscPlugin::Extensions::ContentServiceClient::ClientError => e
-    rescue_content_service_error(e)
   rescue Api::Html::UnparsableContentError => e
     rescue_unparsable_content(e)
   end
@@ -451,10 +441,8 @@ class WikiPagesApiController < ApplicationController
   def show
     if authorized_action(@page, @current_user, :read)
       log_asset_access(@page, "wiki", @wiki)
-      render json: wiki_page_json(@page, @current_user, session, use_block_editor: true)
+      render json: wiki_page_json(@page, @current_user, session)
     end
-  rescue InstructureMiscPlugin::Extensions::ContentServiceClient::ClientError => e
-    rescue_content_service_error(e)
   end
 
   # @API Update/create page
@@ -523,15 +511,11 @@ class WikiPagesApiController < ApplicationController
 
         log_asset_access(@page, "wiki", @wiki, "participate")
         @page.context_module_action(@current_user, @context, :contributed)
-        update_external_content_ref
-
-        render json: wiki_page_json(@page, @current_user, session, use_block_editor: true)
+        render json: wiki_page_json(@page, @current_user, session)
       else
         render json: @page.errors, status: update_params.is_a?(Symbol) ? update_params : :bad_request
       end
     end
-  rescue InstructureMiscPlugin::Extensions::ContentServiceClient::ClientError => e
-    rescue_content_service_error(e)
   rescue Api::Html::UnparsableContentError => e
     rescue_unparsable_content(e)
   end
@@ -794,7 +778,6 @@ class WikiPagesApiController < ApplicationController
     # normalize parameters
     wiki_page_params = %w[title body notify_of_update published front_page editing_roles publish_at]
     wiki_page_params += [block_editor_attributes: [:time, :version, { blocks: strong_anything }]] if @context.account.feature_enabled?(:block_editor) || @context.try(:block_content_editor_enabled?)
-    wiki_page_params += [estimated_duration_attributes: %i[id minutes _destroy]] if @context.is_a?(Course) && @context.horizon_course?
     page_params = params[:wiki_page] ? params[:wiki_page].permit(*wiki_page_params) : {}
 
     if page_params.key?(:published)
@@ -806,7 +789,6 @@ class WikiPagesApiController < ApplicationController
 
     if page_params.key?(:editing_roles)
       editing_roles = (page_params[:editing_roles] || "").split(",").map(&:strip)
-      editing_roles = %w[teachers] if @context.is_a?(Course) && @context.horizon_course?
       invalid_roles = editing_roles.reject { |role| %w[teachers students members public].include?(role) }
       if invalid_roles.any? || editing_roles.empty?
         @page.errors.add(:editing_roles, t(:invalid_editing_roles, "The provided editing roles are invalid"))
@@ -818,7 +800,6 @@ class WikiPagesApiController < ApplicationController
 
     if page_params.key?(:front_page)
       @set_as_front_page = value_to_boolean(page_params.delete(:front_page))
-      @set_as_front_page = false if @context.is_a?(Course) && @context.horizon_course?
       @set_front_page = true if @was_front_page != @set_as_front_page
     end
     change_front_page = !!@set_front_page
@@ -842,7 +823,6 @@ class WikiPagesApiController < ApplicationController
       unless @page.grants_right?(@current_user, session, :update)
         allowed_fields << :body
         allowed_fields << :block_editor_attributes if @context.account.feature_enabled?(:block_editor) || @context.try(:block_content_editor_enabled?)
-        allowed_fields << :estimated_duration_attributes if @context.is_a?(Course) && @context.horizon_course?
         rejected_fields << :title if page_params.include?(:title) && page_params[:title] != @page.title
 
         rejected_fields << :front_page if change_front_page && !@wiki.grants_right?(@current_user, session, :update)
@@ -938,35 +918,5 @@ class WikiPagesApiController < ApplicationController
     @page.errors.add(:body, error.message) if @page.present?
 
     render json: @page&.errors || {}, status: :bad_request
-  end
-
-  def rescue_content_service_error(error)
-    error_report = ErrorReport.log_error(
-      "content_service_client_error",
-      { message: error.message, service_errors: error.service_errors }
-    )
-    render json: { error: error.message, error_report_id: error_report.id }, status: :service_unavailable
-  end
-
-  def create_external_content_ref
-    return unless @context.account.horizon_block_content_editor?
-
-    @page.create_block_editor_data(user_uuid: @current_user.uuid, data: @block_editor_data)
-  end
-
-  def update_external_content_ref
-    return unless @context.account.horizon_block_content_editor?
-
-    @page.update_block_editor_data(user_uuid: @current_user.uuid, data: @block_editor_data)
-  end
-
-  def extract_block_editor_data
-    return unless params[:wiki_page] && @context.account.horizon_block_content_editor?
-
-    if params[:wiki_page][:block_editor_data].present?
-      # Extract and convert to hash to avoid ActionController::UnfilteredParameters errors
-      block_editor_data_params = params[:wiki_page].delete(:block_editor_data)
-      @block_editor_data = block_editor_data_params.respond_to?(:to_unsafe_h) ? block_editor_data_params.to_unsafe_h : block_editor_data_params
-    end
   end
 end

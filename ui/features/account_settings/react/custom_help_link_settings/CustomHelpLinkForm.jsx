@@ -24,18 +24,15 @@ import CustomHelpLinkConstants from './CustomHelpLinkConstants'
 import {Text} from '@instructure/ui-text'
 
 const I18n = createI18nScope('custom_help_link')
-const getHiddenStyle = condition => (condition ? {style: {display: 'none'}} : {})
 
 export default class CustomHelpLinkForm extends React.Component {
   static propTypes = {
-    isCareerAccount: PropTypes.bool,
     link: CustomHelpLinkPropTypes.link.isRequired,
     onSave: PropTypes.func,
     onCancel: PropTypes.func,
   }
 
   static defaultProps = {
-    isCareerAccount: false,
     onSave: () => {},
     onCancel: () => {},
   }
@@ -184,11 +181,7 @@ export default class CustomHelpLinkForm extends React.Component {
               onBlur={e => this.handleChange('text', e.target.value)}
             />
           </label>
-          <label
-            className="ic-Form-control"
-            htmlFor="admin_settings_custom_link_subtext"
-            {...getHiddenStyle(this.props.isCareerAccount)}
-          >
+          <label className="ic-Form-control" htmlFor="admin_settings_custom_link_subtext">
             <span className="ic-Label">{I18n.t('Link description')}</span>
             <textarea
               id="admin_settings_custom_link_subtext"
@@ -216,10 +209,7 @@ export default class CustomHelpLinkForm extends React.Component {
             />
           </label>
           <input type="hidden" name={`${namePrefix}[type]`} value={this.props.link.type} />
-          <fieldset
-            className="ic-Fieldset ic-Fieldset--radio-checkbox"
-            {...getHiddenStyle(this.props.isCareerAccount)}
-          >
+          <fieldset className="ic-Fieldset ic-Fieldset--radio-checkbox">
             <legend className="ic-Legend">{I18n.t('Available to')}</legend>
             <div className="ic-Checkbox-group ic-Checkbox-group--inline">
               {CustomHelpLinkConstants.USER_TYPES.map(type => (
@@ -247,10 +237,7 @@ export default class CustomHelpLinkForm extends React.Component {
               ))}
             </div>
           </fieldset>
-          <fieldset
-            className="ic-Fieldset ic-Fieldset--radio-checkbox"
-            {...getHiddenStyle(this.props.isCareerAccount)}
-          >
+          <fieldset className="ic-Fieldset ic-Fieldset--radio-checkbox">
             <legend className="ic-Legend">
               {I18n.t('Features')}
               &nbsp;
@@ -291,11 +278,7 @@ export default class CustomHelpLinkForm extends React.Component {
               </label>
             </div>
           </fieldset>
-          <label
-            className="ic-Form-control"
-            htmlFor="admin_settings_custom_link_feature_headline"
-            {...getHiddenStyle(this.props.isCareerAccount)}
-          >
+          <label className="ic-Form-control" htmlFor="admin_settings_custom_link_feature_headline">
             <span className="ic-Label">{I18n.t('Feature headline')}</span>
             <input
               id="admin_settings_custom_link_feature_headline"

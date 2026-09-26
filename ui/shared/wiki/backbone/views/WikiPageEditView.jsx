@@ -20,7 +20,6 @@ import {itemTypeToApiURL} from '@canvas/context-modules/differentiated-modules/u
 import {renderDatetimeField} from '@canvas/datetime/jquery/DatetimeField'
 import DueDateCalendarPicker from '@canvas/due-dates/react/DueDateCalendarPicker'
 import ValidatedFormView from '@canvas/forms/backbone/views/ValidatedFormView'
-import {redirectWithHorizonParams} from '@canvas/horizon/utils'
 import {useScope as createI18nScope} from '@canvas/i18n'
 import RichContentEditor from '@canvas/rce/RichContentEditor'
 import {unfudgeDateForProfileTimezone} from '@instructure/moment-utils'
@@ -83,7 +82,7 @@ export default class WikiPageEditView extends ValidatedFormView {
     this.queryParams = new URLSearchParams(window.location.search)
     this.enableAssignTo = ENV.COURSE_ID != null && ENV.WIKI_RIGHTS.manage_assign_to
     const redirect = () => {
-      redirectWithHorizonParams(this.model.get('html_url'))
+      window.location.href = this.model.get('html_url')
     }
     let callBack = redirect
     if (this.enableAssignTo) {
@@ -147,7 +146,6 @@ export default class WikiPageEditView extends ValidatedFormView {
       DELETE: !!this.PAGE_RIGHTS.delete,
       EDIT_TITLE: !!this.PAGE_RIGHTS.update || json.new_record,
       EDIT_ROLES: !!this.WIKI_RIGHTS.update,
-      SELECT_ROLES: !ENV?.horizon_course,
     }
     json.SHOW = {COURSE_ROLES: json.contextName === 'courses'}
 

@@ -156,7 +156,6 @@ class ConversationsController < ApplicationController
   include KalturaHelper
   include Api::V1::Conversation
   include Api::V1::Progress
-  include HorizonMode
 
   skip_before_action :require_user, only: :public_feed
   before_action :reject_student_view_student
@@ -164,7 +163,6 @@ class ConversationsController < ApplicationController
   before_action :infer_scope, only: %i[index show create update add_recipients add_message remove_messages]
   before_action :normalize_recipients, only: [:create, :add_recipients]
   before_action :infer_tags, only: [:create, :add_recipients]
-  before_action :load_canvas_career, only: %i[index]
 
   # whether it's a bulk private message, or a big group conversation,
   # batch up all delayed jobs to make this more responsive to the user

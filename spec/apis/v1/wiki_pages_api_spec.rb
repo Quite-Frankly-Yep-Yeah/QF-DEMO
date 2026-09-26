@@ -109,27 +109,6 @@ describe WikiPagesApiController, type: :request do
           end
         end
 
-        context "when the page is in a horizon course" do
-          before :once do
-            @course.update! horizon_course: true
-            account = @course.account
-            account.enable_feature!(:horizon_course_setting)
-            account.horizon_account = true
-            account.save!
-          end
-
-          it "allows setting estimated duration" do
-            estimated_duration_attributes = { minutes: 5 }
-            create_wiki_page(@teacher, { title: "New Page", estimated_duration_attributes: })
-            expect(WikiPage.last.estimated_duration.duration).to eq 5.minutes
-          end
-
-          it "sets editing_roles to teacher" do
-            create_wiki_page(@teacher, { title: "New Page", editing_roles: nil })
-            expect(WikiPage.last.editing_roles).to eq "teachers"
-          end
-        end
-
         context "when sending block content editor attributes" do
           context "when block content editor feature flag is on" do
             before do
@@ -317,27 +296,6 @@ describe WikiPagesApiController, type: :request do
       @page.update(body: wiki_body, saving_user: @teacher)
       json = get_wiki_page(@student)
       expect(json["body"]).to include("location=#{@page.asset_string}")
-    end
-
-    context "with horizon_block_content_editor enabled" do
-      before do
-        account = @course.root_account
-        account.horizon_account = true
-        account.save!
-        account.enable_feature!(:horizon_block_content_editor)
-        allow(ContentServiceClient).to receive(:enabled?).and_return(true)
-      end
-
-      it "returns body content when external_content_reference is not present" do
-        wiki_body = "<p>Test wiki page content</p>"
-        @page.update!(body: wiki_body, saving_user: @teacher)
-        expect(@page.external_content_reference).to be_nil
-
-        json = get_wiki_page(@teacher)
-        expect(json["body"]).to be_present
-        expect(json["body"]).to include("Test wiki page content")
-        expect(json["block_editor_data"]).not_to be_present
-      end
     end
   end
 

@@ -772,9 +772,6 @@
 #     }
 #
 class AssignmentsApiController < ApplicationController
-  include HorizonMode
-
-  allow_public_horizon_access :index, :show
   before_action :require_context
   before_action :require_user_visibility, only: [:user_index]
   include Api::V1::Assignment

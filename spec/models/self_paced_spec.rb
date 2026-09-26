@@ -81,7 +81,7 @@ describe SelfPaced do
     end
 
     it "hides the features that need Instructure's hosted services" do
-      expect(%w[quizzes_next horizon_course_setting].map { |f| Feature.definitions[f].state })
+      expect(%w[quizzes_next].map { |f| Feature.definitions[f].state })
         .to all(eql("hidden"))
     end
   end

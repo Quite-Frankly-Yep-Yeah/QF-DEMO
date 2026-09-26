@@ -30,7 +30,6 @@
     <fieldset class="responsive-control-group options">
       <legend class="control-label wiki-legend"><h2>{{#t "options_label"}}Options{{/t}}</h2></legend>
       <div class="controls">
-        {{#if CAN.SELECT_ROLES}}
           <label id="editing_roles_label"  for="editing_roles">{{t "Users allowed to edit this page"}}</label>
           <select id="editing_roles" aria-label="{{t "Users allowed to edit this page"}}" name="editing_roles" class="responsive-width">
             {{#if SHOW.COURSE_ROLES}}
@@ -43,7 +42,6 @@
               <option value="members,public"{{#if IS.ANYONE_ROLE}} selected{{/if}}>{{#t "editing_roles.anyone"}}Anyone{{/t}}</option>
             {{/if}}
           </select>
-        {{/if}}
         {{#if ENV.CAN_SET_TODO_DATE}}
           <div class="controls-section">
             <label for="student_planner_checkbox" class="checkbox">
@@ -87,9 +85,7 @@
     <div class="page-edit__action_buttons">
       <button class="btn cancel">{{#t "buttons.cancel"}}Cancel{{/t}}</button>
       {{#if CAN.PUBLISH_NOW}}
-        {{#unless ENV.horizon_course}}
           <button class="btn btn-default save_and_publish">{{#t "buttons.save_and_publish"}}Save & Publish{{/t}}</button>
-        {{/unless}}
       {{/if}}
       <button class="btn btn-primary submit">{{#t "buttons.save"}}Save{{/t}}</button>
     </div>

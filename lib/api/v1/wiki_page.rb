@@ -23,7 +23,6 @@ module Api::V1::WikiPage
   include Api::V1::User
   include Api::V1::Locked
   include Api::V1::Assignment
-  include Api::V1::EstimatedDuration
 
   WIKI_PAGE_JSON_ATTRS = %w[url title created_at editing_roles].freeze
 
@@ -34,8 +33,7 @@ module Api::V1::WikiPage
                      include_assignment: true,
                      assignment_opts: {},
                      deep_check_if_needed: false,
-                     master_course_status: nil,
-                     use_block_editor: false)
+                     master_course_status: nil)
     include_assignment = false unless wiki_page.context.try(:conditional_release?)
 
     hash = api_json(wiki_page, current_user, session, only: WIKI_PAGE_JSON_ATTRS)
@@ -70,13 +68,7 @@ module Api::V1::WikiPage
     end
     locked_json(hash, wiki_page, current_user, "page", deep_check_if_needed:)
     if include_body && !hash["locked_for_user"] && !hash["lock_info"]
-      if use_block_editor && @context.account.horizon_block_content_editor?
-        if wiki_page.external_content_reference
-          hash["block_editor_data"] = wiki_page.get_block_editor_data(user_uuid: @current_user.uuid)
-        else
-          hash["body"] = api_user_content(wiki_page.body, wiki_page.context, location: wiki_page.asset_string)
-        end
-      elsif @context.try(:block_content_editor_enabled?) && wiki_page.block_editor
+      if @context.try(:block_content_editor_enabled?) && wiki_page.block_editor
         hash["block_editor_attributes"] = {
           id: wiki_page.block_editor.id,
           blocks: wiki_page.block_editor.blocks
@@ -95,9 +87,6 @@ module Api::V1::WikiPage
     end
     if master_course_status
       hash.merge!(wiki_page.master_course_api_restriction_data(master_course_status))
-    end
-    if @context.is_a?(Course) && @context.horizon_course? && wiki_page.estimated_duration&.marked_for_destruction? == false
-      hash["estimated_duration"] = estimated_duration_json(wiki_page.estimated_duration, current_user, session)
     end
     hash
   end

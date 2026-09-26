@@ -196,10 +196,6 @@ class DeveloperKeysController < ApplicationController
   before_action :require_modify_site_admin_developer_keys, except: %i[index lookup_utids]
   before_action :require_root_account, only: %i[index create]
 
-  include HorizonMode
-
-  before_action :load_canvas_career, only: [:index]
-
   include Api::V1::DeveloperKey
 
   # @API List Developer Keys

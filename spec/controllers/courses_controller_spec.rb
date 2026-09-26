@@ -1563,16 +1563,6 @@ describe CoursesController do
       expect(flash[:notice]).to match(/Course was successfully updated./)
     end
 
-    it "does not redirect to modules page for horizon courses when invitation param is present" do
-      user_session(@teacher)
-      @course.account.enable_feature!(:horizon_course_setting)
-      @course.update!(horizon_course: true)
-
-      get "show", params: { id: @course.id, invitation: "some_invitation_code" }
-      expect(response).to be_successful
-      expect(response).not_to be_redirect
-    end
-
     it "allows student view student to view unpublished courses" do
       @course.update_attribute :workflow_state, "claimed"
       user_session(@teacher)

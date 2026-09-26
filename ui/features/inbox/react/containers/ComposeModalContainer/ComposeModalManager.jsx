@@ -52,7 +52,6 @@ const ComposeModalManager = props => {
   const coursesQuery = useQuery(COURSES_QUERY, {
     variables: {
       userID: ENV.current_user_id?.toString(),
-      horizonCourses: false,
     },
     fetchPolicy: 'no-cache',
     skip: props.isReply || props.isReplyAll || props.isForward,

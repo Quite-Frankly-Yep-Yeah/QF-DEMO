@@ -24,10 +24,6 @@ class WikiPagesController < ApplicationController
 
   before_action :require_context
 
-  include HorizonMode
-
-  before_action :load_canvas_career, only: [:index, :show]
-
   before_action :get_wiki_page, except: [:front_page]
   before_action :set_front_page, only: [:front_page]
   before_action :set_pandapub_read_token
@@ -141,8 +137,7 @@ class WikiPagesController < ApplicationController
           js_env[:FEATURES][:notebook] = true
           js_env({
                    WIKI_PAGE_ID: @page.url,
-                   WIKI_PAGE_UPDATED_AT: @page.updated_at.iso8601,
-                   JOURNEY_URL: CanvasCareer::Config.new(@domain_root_account).public_app_config(request).dig("hosts", "journey"),
+                   WIKI_PAGE_UPDATED_AT: @page.updated_at.iso8601
                  })
           js_bundle :notebook
         end

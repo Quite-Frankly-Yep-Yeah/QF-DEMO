@@ -441,14 +441,6 @@ describe "discussions" do
 
           expect(selected_assignee_options.count).to be(1)
         end
-
-        it "does not navigate to existsing discussion edit page" do
-          course.account.enable_feature!(:horizon_course_setting)
-          course.horizon_course = true
-          course.save!
-          get "/courses/#{course.id}/discussion_topics/#{@topic_all_options.id}/edit"
-          expect(element_exists?(Discussion.save_selector)).to be_falsey
-        end
       end
     end
 

@@ -758,50 +758,6 @@ describe Types::UserType do
       expect(user_type.resolve("enrollments { _id }", current_user: @student)).to eq [@student.enrollments.where(course_id: @course2).first.to_param]
     end
 
-    context "Horizon courses" do
-      before :once do
-        @course3 = course_factory
-        @course3.update!(horizon_course: true)
-      end
-
-      it "return only horizon courses if included" do
-        @course3.enroll_student(@student, enrollment_state: "active")
-        expect(user_type.resolve("enrollments(horizonCourses: true) { _id }", current_user: @student).length).to eq 1
-      end
-
-      it "returns only non-horizon courses if false" do
-        @course3.enroll_student(@student, enrollment_state: "active")
-        expect(user_type.resolve("enrollments(horizonCourses: false) { _id }", current_user: @student).length).to eq @student.enrollments.length - 1
-      end
-    end
-
-    context "Career Learning Library courses" do
-      before :once do
-        @horizon_account = Account.create!
-        @horizon_account.enable_feature!(:horizon_course_setting)
-        @horizon_account.enable_feature!(:horizon_learning_library_ms2)
-        @horizon_account.horizon_account = true
-        @horizon_account.save!
-
-        @cll_course = @horizon_account.courses.create!(name: "CLL Course", career_learning_library_only: true)
-        @regular_course = @horizon_account.courses.create!(name: "Regular Course", career_learning_library_only: false)
-      end
-
-      it "returns only career learning library courses if true" do
-        @cll_course.enroll_student(@student, enrollment_state: "active")
-        @regular_course.enroll_student(@student, enrollment_state: "active")
-        expect(user_type.resolve("enrollments(careerLearningLibraryOnly: true) { _id }", current_user: @student).length).to eq 1
-      end
-
-      it "returns only non-career learning library courses if false" do
-        @cll_course.enroll_student(@student, enrollment_state: "active")
-        @regular_course.enroll_student(@student, enrollment_state: "active")
-        # Student has enrollments in @course, @course2, @cll_course, and @regular_course = 4 total
-        # With careerLearningLibraryOnly: false, should exclude @cll_course = 3 enrollments
-        expect(user_type.resolve("enrollments(careerLearningLibraryOnly: false) { _id }", current_user: @student).length).to eq @student.enrollments.length - 1
-      end
-    end
-
     context "cross-shard" do
       specs_require_sharding
 
@@ -1611,42 +1567,6 @@ describe Types::UserType do
       expect(
         type.resolve("conversationsConnection { nodes { conversation { conversationMessagesConnection { nodes { body } } } } }")[0][0]
       ).to eq c.conversation.conversation_messages.first.body
-    end
-
-    context "with horizon courses" do
-      before do
-        # Create a horizon course and conversation
-        @course.update!(horizon_course: true)
-        @course.account.enable_feature!(:horizon_course_setting)
-        @course.enroll_student(@student, enrollment_state: "active")
-        @course.save!
-        # Pass the actual course object as context
-        @horizon_convo = conversation(@student, @teacher, body: "Horizon")
-      end
-
-      after do
-        @course.update!(horizon_course: false)
-        @course.account.disable_feature!(:horizon_course_setting)
-        @horizon_convo.destroy
-      end
-
-      it "excludes horizon conversations by default" do
-        type = GraphQLTypeTester.new(@student, current_user: @student, domain_root_account: @student.account, request: ActionDispatch::TestRequest.create)
-        result = type.resolve("conversationsConnection { nodes { conversation { conversationMessagesConnection { nodes { body } } } } }")
-        expect(result.flatten).not_to include(@horizon_convo.conversation.conversation_messages.first.body)
-      end
-
-      it "excludes horizon conversations if showHorizonConversations is false" do
-        type = GraphQLTypeTester.new(@student, current_user: @student, domain_root_account: @student.account, request: ActionDispatch::TestRequest.create)
-        result = type.resolve("conversationsConnection(showHorizonConversations: false) { nodes { conversation { conversationMessagesConnection { nodes { body } } } } }")
-        expect(result.flatten).not_to include(@horizon_convo.conversation.conversation_messages.first.body)
-      end
-
-      it "includes horizon conversations when explicitly requested" do
-        type = GraphQLTypeTester.new(@student, current_user: @student, domain_root_account: @student.account, request: ActionDispatch::TestRequest.create)
-        result = type.resolve("conversationsConnection(showHorizonConversations: true) { nodes { conversation { conversationMessagesConnection { nodes { body } } } } }")
-        expect(result.flatten).to include(@horizon_convo.conversation.conversation_messages.first.body)
-      end
     end
 
     context "recipient user deleted" do

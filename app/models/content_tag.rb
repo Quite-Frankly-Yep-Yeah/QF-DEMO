@@ -38,8 +38,6 @@ class ContentTag < ApplicationRecord
   TABLELESS_CONTENT_TYPES = ["ContextModuleSubHeader", "ExternalUrl"].freeze
   CONTENT_TYPES = (TABLED_CONTENT_TYPES + TABLELESS_CONTENT_TYPES).freeze
   HAS_ITS_OWN_ESTIMATED_DURATION = ["Attachment", "Assignment", "WikiPage", "Quizzes::Quiz", "DiscussionTopic"].freeze
-  CONTENT_TAG_ESTIMATED_DURATION = ["ContextExternalTool", "ExternalUrl"].freeze
-  HAS_ESTIMATED_DURATION = (HAS_ITS_OWN_ESTIMATED_DURATION + CONTENT_TAG_ESTIMATED_DURATION).freeze
 
   include Workflow
   include SearchTermHelper
@@ -213,10 +211,6 @@ class ContentTag < ApplicationRecord
     super || (context_type && "#{context_type.to_s.underscore}_#{context_id}")
   end
 
-  def can_set_estimated_duration
-    HAS_ESTIMATED_DURATION.include?(content_type)
-  end
-
   def estimated_duration
     if HAS_ITS_OWN_ESTIMATED_DURATION.include?(content_type)
       content&.estimated_duration || super
@@ -231,12 +225,6 @@ class ContentTag < ApplicationRecord
     else
       super
     end
-  end
-
-  def estimated_duration_minutes
-    return 0 unless estimated_duration
-
-    estimated_duration.duration.to_i / 60
   end
 
   def context_name

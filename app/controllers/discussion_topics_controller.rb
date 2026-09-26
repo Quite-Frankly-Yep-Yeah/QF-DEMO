@@ -272,10 +272,6 @@ class DiscussionTopicsController < ApplicationController
   before_action :require_context_and_read_access, except: :public_feed
   skip_before_action :require_user, only: %i[public_feed show]
 
-  include HorizonMode
-
-  before_action :load_canvas_career, only: [:index, :show]
-
   before_action :rce_js_env
 
   include Api::V1::DiscussionTopics
@@ -340,11 +336,6 @@ class DiscussionTopicsController < ApplicationController
       return unless authorized_action(@context.announcements.temp_record, @current_user, :read)
     else
       return unless authorized_action(@context.discussion_topics.temp_record, @current_user, :read)
-
-      if !api_request? && @context.is_a?(Course) && @context.horizon_course?
-        redirect_to course_context_modules_path(@context.id)
-        return
-      end
     end
 
     return child_topic if child_topic?
@@ -584,10 +575,6 @@ class DiscussionTopicsController < ApplicationController
 
   def edit
     @topic ||= @context.all_discussion_topics.find(params[:id])
-    if !api_request? && @context.is_a?(Course) && @context.horizon_course? && !@topic.is_announcement
-      redirect_to course_context_modules_path(@context.id)
-      return
-    end
     page_has_instui_topnav
     if @topic.root_topic_id && @topic.has_group_category?
       return redirect_to edit_course_discussion_topic_url(@context.context_id, @topic.root_topic_id)
@@ -772,10 +759,6 @@ class DiscussionTopicsController < ApplicationController
 
   def show
     @topic = @context.all_discussion_topics.find(params[:id])
-    if @context.is_a?(Course) && @context.horizon_course? && !@topic.is_announcement
-      redirect_to course_context_modules_path(@context.id)
-      return
-    end
 
     page_has_instui_topnav
     # we still need the lock info even if the current user policies unlock the topic. check the policies manually later if you need to override the lockout.

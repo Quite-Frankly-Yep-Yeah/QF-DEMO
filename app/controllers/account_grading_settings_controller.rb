@@ -26,10 +26,6 @@ class AccountGradingSettingsController < ApplicationController
   add_crumb(proc { t "#crumbs.grading_settings", "Grading" }) { |c| c.send :named_context_url, c.instance_variable_get(:@context), :context_grading_settings_url }
   before_action { |c| c.active_tab = "grading_standards" }
 
-  include HorizonMode
-
-  before_action :load_canvas_career, only: [:index]
-
   def index
     if authorized_action(@account, @current_user, :read_as_admin)
       js_env({

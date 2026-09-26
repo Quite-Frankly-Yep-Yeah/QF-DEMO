@@ -785,40 +785,6 @@ RSpec.describe ApplicationController do
         end
       end
 
-      describe "CAREER_THEME_URL" do
-        before do
-          allow_any_instance_of(CanvasCareer::Config).to receive(:theme_url).and_return("https://theme.url")
-          allow_any_instance_of(CanvasCareer::Config).to receive(:dark_theme_url).and_return("https://dark-theme.url")
-        end
-
-        it "is nil if career is not enabled" do
-          allow(CanvasCareer::ExperienceResolver).to receive(:career_affiliated_institution?).and_return(false)
-          expect(@controller.js_env[:CAREER_THEME_URL]).to be_nil
-        end
-
-        it "is set to the theme url if career is enabled" do
-          allow(CanvasCareer::ExperienceResolver).to receive(:career_affiliated_institution?).and_return(true)
-          expect(@controller.js_env[:CAREER_THEME_URL]).to eq "https://theme.url"
-        end
-      end
-
-      describe "CAREER_DARK_THEME_URL" do
-        before do
-          allow_any_instance_of(CanvasCareer::Config).to receive(:theme_url).and_return("https://theme.url")
-          allow_any_instance_of(CanvasCareer::Config).to receive(:dark_theme_url).and_return("https://dark-theme.url")
-        end
-
-        it "is nil if career is not enabled" do
-          allow(CanvasCareer::ExperienceResolver).to receive(:career_affiliated_institution?).and_return(false)
-          expect(@controller.js_env[:CAREER_DARK_THEME_URL]).to be_nil
-        end
-
-        it "is set to the dark theme url if career is enabled" do
-          allow(CanvasCareer::ExperienceResolver).to receive(:career_affiliated_institution?).and_return(true)
-          expect(@controller.js_env[:CAREER_DARK_THEME_URL]).to eq "https://dark-theme.url"
-        end
-      end
-
       describe "translation file preloading" do
         before do
           allow(controller).to receive(:api_request?).and_return(false)
@@ -3737,43 +3703,6 @@ RSpec.describe ApplicationController do
       it "sets new_math_equation_handling to false" do
         expect(@controller.use_new_math_equation_handling?).to be_falsey
         expect(@controller.js_env[:FEATURES][:new_math_equation_handling]).to be_falsey
-      end
-    end
-  end
-
-  describe "show_career_switch? helper" do
-    let(:available_apps) { [] }
-    let(:resolver_double) { instance_double(CanvasCareer::ExperienceResolver, available_apps:) }
-
-    before do
-      @root_account = Account.default
-      controller.instance_variable_set(:@domain_root_account, @root_account)
-      controller.instance_variable_set(:@context, nil)
-      allow(CanvasCareer::ExperienceResolver).to receive(:new).and_return(resolver_double)
-    end
-
-    context "when current user is nil" do
-      it "returns false" do
-        controller.instance_variable_set(:@current_user, nil)
-        expect(controller.show_career_switch?).to be false
-      end
-    end
-
-    context "when available_apps has a career option" do
-      let(:available_apps) { [CanvasCareer::Constants::App::CAREER_LEARNER] }
-
-      it "returns true" do
-        controller.instance_variable_set(:@current_user, user_factory)
-        expect(controller.show_career_switch?).to be true
-      end
-    end
-
-    context "when available_apps lacks career option" do
-      let(:available_apps) { [CanvasCareer::Constants::App::ACADEMIC] }
-
-      it "returns false" do
-        controller.instance_variable_set(:@current_user, user_factory)
-        expect(controller.show_career_switch?).to be false
       end
     end
   end

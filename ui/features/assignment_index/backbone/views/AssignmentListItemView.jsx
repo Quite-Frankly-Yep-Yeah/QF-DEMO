@@ -465,10 +465,6 @@ export default (AssignmentListItemView = (function () {
       if (this.canReadGrades()) {
         return this.updateScore()
       }
-
-      if (ENV.horizon_course) {
-        this.publishIconView.$el.addClass('disabled')
-      }
     }
 
     buildPeerReviewAssignmentData() {

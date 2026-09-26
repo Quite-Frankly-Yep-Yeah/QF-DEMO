@@ -21,20 +21,6 @@ import '@canvas/jquery/jquery.ajaxJSON'
 import fakeENV from '@canvas/test-utils/fakeENV'
 import Assignment from '../Assignment'
 
-// Mock the horizon utils module
-vi.mock('@canvas/horizon/utils', () => ({
-  getUrlWithHorizonParams: vi.fn((url, params) => {
-    if (params) {
-      const urlObj = new URL(url, 'http://example.com')
-      Object.entries(params).forEach(([key, value]) => {
-        urlObj.searchParams.set(key, value)
-      })
-      return urlObj.toString()
-    }
-    return url
-  }),
-}))
-
 describe('Assignment', () => {
   describe('#toView', () => {
     beforeEach(() => {

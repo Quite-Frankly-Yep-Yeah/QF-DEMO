@@ -34,11 +34,6 @@ import '@canvas/jquery/jquery.simulate'
 import {createRoot} from 'react-dom/client'
 import {setupServer} from 'msw/node'
 import {http, HttpResponse} from 'msw'
-import {getUrlWithHorizonParams} from '@canvas/horizon/utils'
-
-vi.mock('@canvas/horizon/utils', () => ({
-  getUrlWithHorizonParams: vi.fn(),
-}))
 
 vi.mock('jquery-ui', () => {
   const $ = require('jquery')
@@ -207,15 +202,6 @@ describe('EditView - Quizzes 2 Behavior', () => {
       SETTINGS: {},
       FEATURES: {},
     }
-
-    vi.mocked(getUrlWithHorizonParams).mockImplementation((url, additionalParams) => {
-      if (additionalParams && Object.keys(additionalParams).length > 0) {
-        const separator = url.includes('?') ? '&' : '?'
-        const params = new URLSearchParams(additionalParams).toString()
-        return `${url}${separator}${params}`
-      }
-      return url
-    })
 
     // All API mocks handled by MSW server setup above
     RCELoader.RCE = null

@@ -28,10 +28,6 @@ class SubAccountsController < ApplicationController
   before_action :require_context
   before_action :require_account_management, except: [:index]
 
-  include HorizonMode
-
-  before_action :load_canvas_career, only: [:index]
-
   def index
     add_crumb t("titles.sub_accounts", "Sub-Accounts")
 

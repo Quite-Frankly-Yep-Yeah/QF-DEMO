@@ -263,10 +263,6 @@ export default class RosterView extends Backbone.View {
     return ENV.canManageCourse
   }
 
-  isHorizonCourse() {
-    return ENV.horizon_course
-  }
-
   toJSON() {
     return this
   }

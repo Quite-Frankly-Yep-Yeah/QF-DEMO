@@ -95,10 +95,6 @@ class SubmissionsController < SubmissionsBaseController
   before_action :get_course_from_section, only: :create
   before_action :require_context
 
-  include HorizonMode
-
-  before_action :load_canvas_career, only: [:index, :show]
-
   include K5Mode
 
   def index

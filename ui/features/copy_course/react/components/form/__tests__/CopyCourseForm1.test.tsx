@@ -58,7 +58,6 @@ describe('CourseCopyForm', () => {
     start_at: startAt,
     end_at: endAt,
     restrict_enrollments_to_course_dates: true,
-    horizon_course: false,
   }
 
   const terms = [

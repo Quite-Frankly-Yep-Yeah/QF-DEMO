@@ -64,7 +64,7 @@
     <% end %>
     <%= module_item.content_type_class(is_student: @is_student) if module_item %>
     <%= 'also_assignment' if module_item && module_item.graded? %>
-    indent_<%= @context.horizon_course? ? '0' : (module_item.try_rescue(:indent) || '0') %>
+    indent_<%= module_item.try_rescue(:indent) || '0' %>
     <%= 'progression_requirement' if criterion %>
     <%= criterion[:type] if criterion %>_requirement
     <%= module_item.item_class if module_item %>
@@ -142,8 +142,6 @@
           <span class="position" style="display: none;"><%= module_item && module_item.position %></span>
           <span class="url" style="display: none;"><%= module_item.try(:url) if @can_view %></span>
           <span class="new_tab" style="display: none;"><%= module_item.try(:new_tab) ? '1' : '0' if @can_view %></span>
-          <span class="estimated_duration_minutes" style="display: none;"></span>
-          <span class="can_set_estimated_duration" style="display: none;"></span>
         </span>
       </div>
 
@@ -242,7 +240,6 @@
             </span>
           </span>
         </div> <!-- requirement description end -->
-        <div class="estimated_duration_display ig-details__item"></div>
         <div class="mc_objectives ig-details__item"></div>
       </div>
       <% if module_item && module_item.content_type == 'ContextModuleSubHeader' %>
@@ -274,7 +271,7 @@
             data-assignment-id="<%= module_item && module_item.assignment.try(:id) %>"
             data-is-cyoeable="<%= module_item && cyoe_able?(module_item) %>"
             data-published="<%= module_item && item_data[:published_status] == 'published' %>"
-            data-publishable="<%= module_item_publishable?(module_item) && !(@context.horizon_course? && module_item&.content_type == 'Quizzes::Quiz') %>"
+            data-publishable="<%= module_item_publishable?(module_item) %>"
             data-unpublishable="<%= module_item_unpublishable?(module_item) %>"
             data-publish-at="<%= module_item_publish_at(module_item) %>"
             data-publish-title="<%= module_item && module_item.title ? module_item.title : '' %>"
@@ -336,10 +333,8 @@
                     title="<%= t('Move this item') %>"
                   ><%= @module_item_image_tags["move_to"]%> <%= t("Move to...") %></a>
                 </li>
-                <% unless @context.horizon_course? %>
                 <li role="presentation"><a href="<%= context_url(@context, :context_url) %>/modules/items/<%= module_item ? module_item.id : "{{ id }}" %>" class="outdent_item_link" title="<%= t('Decrease indent') %>"><%= @module_item_image_tags['outdent'] %> <%= t('Decrease indent') %></a></li>
                 <li role="presentation"><a href="<%= context_url(@context, :context_url) %>/modules/items/<%= module_item ? module_item.id : "{{ id }}" %>" class="indent_item_link" title="<%= t('Increase indent') %>"><%= @module_item_image_tags['indent'] %> <%= t('Increase indent') %></a></li>
-                <% end %>
               <%end%>
               <% if can_direct_share && (!module_item || module_item.direct_shareable?) %>
                 <li role="presentation">
@@ -381,9 +376,7 @@
                 <% end %>
               <% end %>
               <% if @can_delete || module_item.nil? %>
-                <% unless @context.horizon_course? && module_item && module_item.published? %>
                   <li role="presentation"><a href="<%= context_url(@context, :context_url) %>/modules/items/<%= module_item ? module_item.id : "{{ id }}" %>" class="delete_item_link delete_link" title="<%= t('Remove this item from the module') %>"><i class="icon-trash"></i> <%= t('Remove') %></a></li>
-                <% end %>
               <% end %>
             </ul>
           <% else %>

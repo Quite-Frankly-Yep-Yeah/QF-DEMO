@@ -116,9 +116,6 @@ export default class IndexView extends Backbone.View {
 
   createNewQuiz() {
     let newQuizzesSelected = ENV.NEW_QUIZZES_SELECTED
-    if (ENV.horizon_course) {
-      newQuizzesSelected = 'true'
-    }
     if (newQuizzesSelected === null) {
       this.chooseQuizEngine()
     } else if (newQuizzesSelected === 'true') {

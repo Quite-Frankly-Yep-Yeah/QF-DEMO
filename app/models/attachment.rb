@@ -196,7 +196,6 @@ class Attachment < ApplicationRecord
   # That means you can't rely on these happening in the same transaction as the save.
   after_save_and_attachment_processing :touch_context_if_appropriate
   after_save_and_attachment_processing :ensure_media_object
-  after_save_and_attachment_processing :index_in_pine, if: :should_index_in_pine?
 
   # this mixin can be added to a has_many :attachments association, and it'll
   # handle finding replaced attachments. In other words, if an attachment found
@@ -1804,17 +1803,9 @@ class Attachment < ApplicationRecord
         batch = Attachment.where(id: attachments)
         array_batch = attachments
       end
-      # Check which attachments were available before deletion (for Pine cleanup)
-      attachments_to_delete_from_pine = array_batch.select do |attach|
-        attach.file_state == "available" && attach.eligible_for_pine_indexing?
-      end
-
       batch.update_all(file_state: "deleted", deleted_at: delete_time, updated_at: delete_time, modified_at: delete_time)
       array_batch.each { |attach| attach.mark_downstream_changes(%w[manually_deleted deleted_at updated_at modified_at]) }
       Canvas::LiveEvents.delay_if_production.attachments_bulk_deleted(array_batch.map(&:id))
-
-      # Delete from Pine for attachments that were available before deletion
-      attachments_to_delete_from_pine.each(&:delete_from_pine)
       break if array_batch.length < 1000
     end
     attachments
@@ -2585,36 +2576,6 @@ class Attachment < ApplicationRecord
     end
   end
 
-  def ingest_to_pine
-    return unless context.is_a?(Course) && context.root_account.present?
-
-    url = public_download_url
-
-    metadata = {
-      course_id: context.id.to_s,
-      filename:,
-      content_type:
-    }
-
-    # PineClient requires a user object with uuid and global_id, but we don't have a user in this context
-    # and the action is more of a system-initiated action than a user-initiated action
-    null_user = Struct.new(:uuid, :global_id).new(uuid: nil, global_id: nil)
-
-    PineClient.ingest_url(
-      url:,
-      metadata:,
-      source: "canvas",
-      source_id: id.to_s,
-      source_type: "attachment",
-      feature_slug: "horizon-content-ingestion",
-      root_account_uuid: context.root_account.uuid,
-      current_user: null_user
-    )
-  rescue => e
-    Rails.logger.error("Failed to ingest attachment #{id} for context #{context.class.name}:#{context.id}: #{e.message}")
-    raise
-  end
-
   def self.migrate_attachments(from_context, to_context, scope = nil)
     from_attachments = scope
     from_attachments ||= from_context.shard.activate do
@@ -2692,58 +2653,6 @@ class Attachment < ApplicationRecord
     vl = context.files_visibility_option if vl == "inherit"
     vl = "context" if vl == context.class.name.downcase
     vl
-  end
-
-  def should_index_in_pine?
-    eligible_for_pine_indexing? && file_state == "available"
-  end
-
-  def index_in_pine
-    delay(
-      n_strand: ["horizon_file_ingestion", context.global_root_account_id],
-      singleton: "horizon_file_ingestion:#{context.global_id}:#{id}",
-      max_attempts: 3
-    ).ingest_to_pine
-  end
-
-  def eligible_for_pine_indexing?
-    return false unless context.is_a?(Course)
-    return false unless context.horizon_course?
-    return false unless PineClient.enabled?
-    return false unless PineClient.allowed_attachment_content_types.include?(content_type)
-
-    true
-  end
-
-  def delete_from_pine
-    return unless context.is_a?(Course) && context.root_account.present?
-
-    # PineClient requires a user object with uuid and global_id, but we don't have a user in this context
-    # and the action is more of a system-initiated action than a user-initiated action
-    null_user = Struct.new(:uuid, :global_id).new(uuid: nil, global_id: nil)
-
-    delay(
-      n_strand: ["horizon_file_deletion", context.global_root_account_id],
-      singleton: "horizon_file_deletion:#{context.global_id}:#{id}",
-      max_attempts: 3
-    ).delete_from_pine_job(null_user)
-  rescue => e
-    Rails.logger.error("Failed to queue Pine deletion for attachment #{id} for context #{context.class.name}:#{context.id}: #{e.message}")
-    # Don't raise - we don't want to block the deletion if Pine is down
-  end
-
-  def delete_from_pine_job(null_user)
-    PineClient.delete_document(
-      source: "canvas",
-      source_id: id.to_s,
-      source_type: "attachment",
-      feature_slug: "horizon-content-ingestion",
-      root_account_uuid: context.root_account.uuid,
-      current_user: null_user
-    )
-  rescue => e
-    Rails.logger.error("Failed to delete attachment #{id} from Pine for context #{context.class.name}:#{context.id}: #{e.message}")
-    raise
   end
 
   private

@@ -1789,51 +1789,6 @@ describe Assignment do
       expect(new_assignment3.title).to eq "Wiki Assignment Copy 3"
     end
 
-    describe "estimated_duration" do
-      subject { assignment_with_estimated_duration.duplicate }
-
-      let(:estimated_duration) { EstimatedDuration.new({ duration: 30 }) }
-      let(:assignment_with_estimated_duration) do
-        assignment = @course.assignments.new
-        assignment.estimated_duration = estimated_duration
-        assignment.save!
-        assignment
-      end
-
-      context "when course is a horizon_course" do
-        before do
-          assignment_with_estimated_duration.course.account.enable_feature!(:horizon_course_setting)
-          assignment_with_estimated_duration.course.update!(horizon_course: true)
-        end
-
-        it "should set estimated_duration duration on duplication" do
-          expect(subject.estimated_duration.duration.iso8601).to eq("PT30S")
-        end
-
-        it "should not save the estimated_duration to db" do
-          expect(subject.estimated_duration.id).to be_nil
-        end
-
-        context "when estimated_duration not provided" do
-          it "should set estimated_duration on duplication" do
-            assignment_with_estimated_duration.estimated_duration = nil
-            expect(subject.estimated_duration).to be_nil
-          end
-        end
-      end
-
-      context "when course is not a horizon_course" do
-        before do
-          assignment_with_estimated_duration.course.account.disable_feature!(:horizon_course_setting)
-          assignment_with_estimated_duration.course.update!(horizon_course: false)
-        end
-
-        it "should set estimated_duration on duplication" do
-          expect(subject.estimated_duration).to be_nil
-        end
-      end
-    end
-
     it "does not duplicate the sis_source_id" do
       assignment = @course.assignments.create!(sis_source_id: "abc")
       new_assignment = assignment.duplicate
@@ -14034,51 +13989,6 @@ describe Assignment do
         expect(subject.ready_to_migrate_to_quiz_next?).to be_falsey
         expect(subject.settings).to eq({ "another" => 123 })
       end
-    end
-  end
-
-  describe "Horizon course assignment" do
-    before :once do
-      @course.account.enable_feature!(:horizon_course_setting)
-      @course.horizon_course = true
-      @course.save!
-    end
-
-    it "skips group assignments" do
-      @assignment = assignment_model(course: @course)
-      group_category = @course.group_categories.create!(name: "Test Group Set")
-      @assignment.group_category = group_category
-      @assignment.save!
-      expect(@assignment.group_category).to be_nil
-    end
-
-    it "converts invalid submission types" do
-      @assignment = assignment_model(submission_types: "online_url", course: @course)
-      expect(@assignment.submission_types).to eql("online_text_entry")
-    end
-
-    it "does not convert valid submission types" do
-      @assignment = assignment_model(submission_types: "online_text_entry,online_upload", course: @course)
-      expect(@assignment.submission_types).to eql("online_text_entry,online_upload")
-    end
-
-    it "converts mixed submission types" do
-      @assignment = assignment_model(submission_types: "online_text_entry,online_upload,on_paper", course: @course)
-      expect(@assignment.submission_types).to eql("online_text_entry")
-    end
-
-    it "skips assignment peer reviews" do
-      @assignment = assignment_model(peer_reviews: true, course: @course)
-      expect(@assignment.peer_reviews).to be false
-      expect(@assignment.peer_review_count).to eq 0
-      expect(@assignment.automatic_peer_reviews).to be false
-    end
-
-    it "allows assignment deletion" do
-      @assignment = assignment_model(course: @course)
-      @assignment.destroy
-      expect(@assignment.workflow_state).to eq("deleted")
-      expect(@assignment.reload.workflow_state).to eq("deleted")
     end
   end
 

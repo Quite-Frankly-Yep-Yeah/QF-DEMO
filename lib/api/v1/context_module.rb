@@ -45,9 +45,6 @@ module Api::V1::ContextModule
     hash = api_json(context_module, current_user, session, only: MODULE_JSON_ATTRS)
     hash["require_sequential_progress"] = !!context_module.require_sequential_progress?
     hash["requirement_type"] = context_module.requirement_type
-    if opts.fetch(:can_have_requirement_count, false)
-      hash["requirement_count"] = context_module.requirement_count
-    end
     hash["publish_final_grade"] = context_module.publish_final_grade?
     hash["prerequisite_module_ids"] = context_module.prerequisites.select { |p| p[:type] == "context_module" }.pluck(:id)
     if progression
@@ -61,17 +58,12 @@ module Api::V1::ContextModule
     hash["items_count"] = count
     hash["items_url"] = polymorphic_url([:api_v1, context_module.context, context_module, :items])
 
-    if includes.include?("estimated_durations") && opts.fetch(:can_have_estimated_time, false)
-      ests = tags.filter_map { |t| estimated_duration_num(t) }.sum
-      hash["estimated_duration"] = (ests == 0) ? nil : ests.iso8601
-    end
-
     if includes.include?("items") && count <= Api::MAX_PER_PAGE
       if opts[:search_term].present? && !context_module.matches_attribute?(:name, opts[:search_term])
         tags = ContentTag.search_by_attribute(tags, :title, opts[:search_term])
         return nil if tags.count == 0
       end
-      item_includes = includes & ["content_details", "estimated_durations"]
+      item_includes = includes & ["content_details"]
       ActiveRecord::Associations.preload(tags, content: [:current_lookup, :wiki])
       hash["items"] = tags.map do |tag|
         module_item_json(tag, current_user, session, context_module, progression, item_includes, opts)
@@ -176,10 +168,6 @@ module Api::V1::ContextModule
 
     hash["content_details"] = content_details(content_tag, current_user) if includes.include?("content_details")
 
-    if opts.fetch(:can_have_estimated_time, false) && includes.include?("estimated_durations")
-      hash["estimated_duration"] = estimated_duration(content_tag)
-    end
-
     if includes.include?("mastery_paths")
       hash["mastery_paths"] = conditional_release_json(content_tag, current_user, opts)
     end
@@ -222,14 +210,5 @@ module Api::V1::ContextModule
     end
 
     details
-  end
-
-  def estimated_duration(content_tag)
-    est = estimated_duration_num(content_tag)
-    est.presence ? est.iso8601 : nil
-  end
-
-  def estimated_duration_num(content_tag)
-    content_tag.estimated_duration.try("duration")
   end
 end

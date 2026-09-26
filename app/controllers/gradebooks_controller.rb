@@ -34,10 +34,6 @@ class GradebooksController < ApplicationController
 
   before_action :require_context
 
-  include HorizonMode
-
-  before_action :load_canvas_career, only: [:show, :grade_summary]
-
   include K5Mode
 
   batch_jobs_in_actions only: :update_submission, batch: { priority: Delayed::LOW_PRIORITY }

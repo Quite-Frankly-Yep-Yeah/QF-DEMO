@@ -109,7 +109,6 @@ describe('IndexView', () => {
         question_banks_url: '/courses/1/question_banks',
       },
       NEW_QUIZZES_SELECTED: null,
-      horizon_course: false,
     })
   })
 
