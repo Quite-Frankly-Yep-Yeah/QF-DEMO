@@ -39,11 +39,6 @@ export const LtiPlacements = {
    */
   AccountNavigation: 'account_navigation',
   /**
-   * Similar to account_navigation, but allows for better analytics
-   * of what tools use this type of placement.
-   */
-  AnalyticsHub: 'analytics_hub',
-  /**
    * Renders a frame on the assignment edit page, under
    * the native assignment options
    */
@@ -137,7 +132,6 @@ export const LtiPlacements = {
 
 export const AllLtiPlacements = [
   LtiPlacements.AccountNavigation,
-  LtiPlacements.AnalyticsHub,
   LtiPlacements.AssignmentEdit,
   LtiPlacements.AssignmentSelection,
   LtiPlacements.AssignmentView,
@@ -182,7 +176,6 @@ export const AllLtiPlacements = [
 export const InternalOnlyLtiPlacements = [
   LtiPlacements.ConferenceSelection, // Locked behind a Site Admin FF that's off
   LtiPlacements.SimilarityDetection, // Only really relevant for LTI 2
-  LtiPlacements.AnalyticsHub,
 ] as const
 
 export const isInternalOnlyLtiPlacement = (placement: string): boolean => {
@@ -221,7 +214,6 @@ export const LtiPlacementsWithDefaultIcon = [
 export const LtiPlacementsByMessageType = {
   [LtiResourceLinkRequest]: [
     LtiPlacements.AccountNavigation,
-    LtiPlacements.AnalyticsHub,
     LtiPlacements.AssignmentEdit,
     LtiPlacements.AssignmentGroupMenu,
     LtiPlacements.AssignmentIndexMenu,

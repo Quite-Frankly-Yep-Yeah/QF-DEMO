@@ -32,7 +32,6 @@ const featureBundles: {
   admin_hub: () => import('./features/admin_hub/index'),
   admin_split: () => import('./features/admin_split/index'),
   ai_experiences_show: () => import('./features/ai_experiences_show/index'),
-  analytics_hub: () => import('./features/analytics_hub/index'),
   announcements_on_home_page: () => import('./features/announcements_on_home_page/index'),
   announcements: () => import('./features/announcements/index'),
   ai_experiences_index: () => import('./features/ai_experiences_index/index'),

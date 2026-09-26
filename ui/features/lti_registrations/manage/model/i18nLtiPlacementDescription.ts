@@ -22,9 +22,6 @@ const I18n = createI18nScope('lti_registrations')
 
 export const LtiPlacementDescriptionTranslations: Record<LtiPlacement, string> = {
   account_navigation: I18n.t('Accessed from the administrator menu of the account.'),
-  analytics_hub: I18n.t(
-    'Similar to account navigation, but allows for better analytics of what tools use this type of placement.',
-  ),
   assignment_edit: I18n.t(
     'This allows the tool to provide content in an iframe within the assignment edit page',
   ),

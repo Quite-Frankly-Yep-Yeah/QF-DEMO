@@ -106,12 +106,6 @@ module CanvasCareer
         view_group_pages: {
           label: -> { I18n.t("permissions.view_group_pages_learner", default: "View the group pages of all learner groups") }
         },
-        view_students_in_need: {
-          label: -> { I18n.t("permissions.learners_in_need", default: "Learners in Need of Attention") }
-        },
-        view_students_in_need_in_course: {
-          label: -> { I18n.t("permissions.intelligent_insights_learners_course", default: "Intelligent Insights - Learners in Need of Attention - Course Level") }
-        },
         generate_observer_pairing_code: {
           label: -> { I18n.t("permissions.users_generate_observer_codes", default: "Users - generate observer pairing codes for learners") }
         },

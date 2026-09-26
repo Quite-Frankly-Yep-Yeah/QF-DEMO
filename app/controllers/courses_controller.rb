@@ -1722,21 +1722,6 @@ class CoursesController < ApplicationController
           api_url: Services::Ams.api_url
         })
 
-      if @context.account.feature_enabled?(:intelligent_insights_modernisation)
-        remote_env(canvas_course_criteria:
-          {
-            launch_url: Services::CanvasCourseCriteria.launch_url,
-          })
-
-        js_env(
-          {
-            CANVAS_COURSE_CRITERIA: {
-              COURSE_ID: @context.id,
-              ACCOUNT_ID: @context.account.id.to_s
-            }
-          }
-        )
-      end
 
       if Account.site_admin.feature_enabled?(:grading_scheme_updates)
         js_env({ COURSE_DEFAULT_GRADING_SCHEME_ID: @context.grading_standard_id || @context.default_grading_standard&.id })
@@ -2462,21 +2447,6 @@ class CoursesController < ApplicationController
 
         set_tutorial_js_env
 
-        if @context.account.feature_enabled?(:intelligent_insights_modernisation)
-          remote_env(canvas_course_criteria:
-            {
-              launch_url: Services::CanvasCourseCriteria.launch_url,
-            })
-
-          js_env(
-            {
-              CANVAS_COURSE_CRITERIA: {
-                COURSE_ID: @context.id,
-                ACCOUNT_ID: @context.account.id.to_s
-              }
-            }
-          )
-        end
 
         default_view = @context.default_view || @context.default_home_page
         @course_home_view = "feed" if params[:view] == "feed"

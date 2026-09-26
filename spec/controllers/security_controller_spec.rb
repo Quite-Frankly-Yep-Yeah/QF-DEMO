@@ -88,7 +88,6 @@ RSpec.describe SecurityController, type: :request do
       [{ "type" => "LtiResourceLinkRequest",
          "placements" =>
        ["https://canvas.instructure.com/lti/account_navigation",
-        "https://canvas.instructure.com/lti/analytics_hub",
         "https://canvas.instructure.com/lti/assignment_edit",
         "https://canvas.instructure.com/lti/assignment_group_menu",
         "https://canvas.instructure.com/lti/assignment_index_menu",

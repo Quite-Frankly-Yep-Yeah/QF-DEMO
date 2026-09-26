@@ -53,40 +53,6 @@ function fetchSpeedGraderLibrary(resolve, reject) {
 
 exports.fetchSpeedGraderLibrary = fetchSpeedGraderLibrary
 
-function fetchAnalyticsHub(resolve, reject) {
-  const script = document.createElement('script')
-
-  if (!window.REMOTES?.analytics_hub?.launch_url) {
-    console.debug(`Analytics Hub remote not configured; using ${DEV_HOST}`)
-  }
-
-  script.src = window.REMOTES?.analytics_hub?.launch_url || DEV_HOST
-  script.onload = () => {
-    const module = {
-      get: request => window.AnalyticsHub.get(request),
-      init: arg => {
-        try {
-          return window.AnalyticsHub.init(arg)
-        } catch (e) {
-          console.warn('Remote A has already been loaded')
-        }
-      },
-    }
-    resolve(module)
-  }
-
-  script.onerror = errorEvent => {
-    const errorMessage = `Failed to load the script: ${script.src}`
-    console.error(errorMessage, errorEvent)
-    if (typeof reject === 'function') {
-      reject(new Error(errorMessage, errorEvent))
-    }
-  }
-
-  document.head.appendChild(script)
-}
-
-exports.fetchAnalyticsHub = fetchAnalyticsHub
 
 function fetchIgniteAgentLibrary(resolve, reject) {
   const remoteUrl = window.REMOTES?.ignite_agent?.launch_url
@@ -281,37 +247,3 @@ function fetchNewQuizzesApp(resolve, reject) {
 
 exports.fetchNewQuizzesApp = fetchNewQuizzesApp
 
-function fetchCanvasCourseCriteria(resolve, reject) {
-  const script = document.createElement('script')
-
-  if (!window.REMOTES?.canvas_course_criteria?.launch_url) {
-    console.debug(`quite frankly an example LMS Criteria remote not configured; using ${DEV_HOST}`)
-  }
-
-  script.src = window.REMOTES?.canvas_course_criteria?.launch_url || DEV_HOST
-  script.onload = () => {
-    const module = {
-      get: request => window.CanvasCourseCriteria.get(request),
-      init: arg => {
-        try {
-          return window.CanvasCourseCriteria.init(arg)
-        } catch (e) {
-          console.warn('Remote quite frankly an example LMS Criteria has already been loaded')
-        }
-      },
-    }
-    resolve(module)
-  }
-
-  script.onerror = errorEvent => {
-    const errorMessage = `Failed to load the script: ${script.src}`
-    console.error(errorMessage, errorEvent)
-    if (typeof reject === 'function') {
-      reject(new Error(errorMessage, errorEvent))
-    }
-  }
-
-  document.head.appendChild(script)
-}
-
-exports.fetchCanvasCourseCriteria = fetchCanvasCourseCriteria

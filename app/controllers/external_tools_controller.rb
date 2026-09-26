@@ -163,11 +163,6 @@
 #           "example": {"type": "ContextExternalToolPlacement"},
 #           "$ref": "ContextExternalToolPlacement"
 #         },
-#         "analytics_hub": {
-#           "description": "Configuration for analytics hub placement. Null if not configured for this placement.",
-#           "example": {"type": "ContextExternalToolPlacement"},
-#           "$ref": "ContextExternalToolPlacement"
-#         },
 #         "assignment_edit": {
 #           "description": "Configuration for assignment edit placement. Null if not configured for this placement.",
 #           "example": {"type": "ContextExternalToolPlacement"},
@@ -495,7 +490,7 @@
 #           "enum": ["enabled", "disabled"]
 #         },
 #         "display_type": {
-#           "description": "The layout type to use when launching the tool. For global_navigation and analytics_hub, defaults to 'full_width'.",
+#           "description": "The layout type to use when launching the tool. For global_navigation, defaults to 'full_width'.",
 #           "example": "full_width_in_context",
 #           "type": "string",
 #           "enum": ["default", "full_width", "full_width_in_context", "full_width_with_nav", "in_nav_context", "borderless"]

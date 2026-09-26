@@ -31,7 +31,6 @@ import {Spinner} from '@instructure/ui-spinner'
 const I18n = createI18nScope('external_tools')
 
 export const ALL_PLACEMENTS = {
-  analytics_hub: I18n.t('Analytics Hub'),
   account_navigation: I18n.t('Account Navigation'),
   assignment_edit: I18n.t('Assignment Edit'),
   assignment_selection: I18n.t('Assignment Selection'),

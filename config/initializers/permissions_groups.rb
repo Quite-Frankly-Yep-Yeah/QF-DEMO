@@ -730,10 +730,6 @@ PERMISSION_GROUPS = {
         description: -> { I18n.t("Allows users to delete a temporary enrollment") } }
     ]
   },
-  view_advanced_analytics: {
-    label: -> { I18n.t("Intelligent Insights") },
-    subtitle: -> { I18n.t("ask your data / students in need / course readiness / financial aid") },
-  },
   manage_rate_limiting: {
     label: -> { I18n.t("Site Admin - Rate Limiting") },
     subtitle: -> { I18n.t("add / edit / delete rate limits for external tools") },

@@ -653,7 +653,6 @@
 #           "enum":
 #           [
 #             "account_navigation",
-#             "analytics_hub",
 #             "assignment_edit",
 #             "assignment_group_menu",
 #             "assignment_index_menu",

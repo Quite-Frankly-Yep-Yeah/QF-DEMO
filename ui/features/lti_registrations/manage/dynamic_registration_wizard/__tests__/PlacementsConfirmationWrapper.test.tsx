@@ -86,35 +86,6 @@ describe('PlacementsConfirmation', () => {
     })
   })
 
-  it("doesn't show the analytics hub placement if the tool has not requested it", () => {
-    const config = mockConfigWithPlacements([
-      LtiPlacements.CourseNavigation,
-      LtiPlacements.AccountNavigation,
-    ])
-    const reg = mockRegistration({}, config)
-    const overlayStore = createDynamicRegistrationOverlayStore('Foo', reg)
-
-    render(<PlacementsConfirmationWrapper registration={reg} overlayStore={overlayStore} />)
-
-    const checkbox = screen.queryByLabelText(i18nLtiPlacement(LtiPlacements.AnalyticsHub))
-    expect(checkbox).toBeNull()
-  })
-
-  it('shows the analytics hub placement if the tool has requested it', () => {
-    const config = mockConfigWithPlacements([
-      LtiPlacements.CourseNavigation,
-      LtiPlacements.AnalyticsHub,
-      LtiPlacements.AccountNavigation,
-    ])
-    const reg = mockRegistration({}, config)
-    const overlayStore = createDynamicRegistrationOverlayStore('Foo', reg)
-
-    render(<PlacementsConfirmationWrapper registration={reg} overlayStore={overlayStore} />)
-
-    const checkbox = screen.queryByLabelText(i18nLtiPlacement(LtiPlacements.AnalyticsHub))
-    expect(checkbox).toBeTruthy()
-    expect(screen.getByTestId(`placement-img-analytics_hub`)).toBeInTheDocument()
-  })
 
   it("let's users toggle placements", async () => {
     const config = mockConfigWithPlacements([

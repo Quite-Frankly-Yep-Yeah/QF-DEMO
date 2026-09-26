@@ -34,11 +34,6 @@ export const LtiPlacements = {
    */
   AccountNavigation: 'account_navigation',
   /**
-   * Similar to account_navigation, but allows for better analytics
-   * of what tools use this type of placement.
-   */
-  AnalyticsHub: 'analytics_hub',
-  /**
    * Renders a frame on the assignment edit page, under
    * the native assignment options
    */
@@ -134,7 +129,6 @@ export const LtiPlacements = {
 export const i18nLtiPlacement = (placement: LtiPlacement): string =>
   ({
     account_navigation: I18n.t('Account Navigation'),
-    analytics_hub: I18n.t('Analytics Hub'),
     assignment_edit: I18n.t('Assignment Edit'),
     assignment_selection: I18n.t('Assignment Selection'),
     assignment_view: I18n.t('Assignment View'),

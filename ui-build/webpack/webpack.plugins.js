@@ -30,13 +30,11 @@ const {ModuleFederationPlugin} = require('@module-federation/enhanced/rspack')
 const WebpackHooks = require('./webpackHooks')
 const {
   fetchSpeedGraderLibrary,
-  fetchAnalyticsHub,
   fetchLtiUsage,
   fetchCanvasCareerLearningProviderApp,
   fetchCanvasCareerLearnerApp,
   fetchIgniteAgentLibrary,
   fetchNewQuizzesApp,
-  fetchCanvasCourseCriteria,
 } = require('./remotes')
 
 // determines which folder public assets are compiled to
@@ -151,14 +149,12 @@ exports.moduleFederation = new ModuleFederationPlugin({
   name: 'canvas',
   dev: process.env.NODE_ENV === 'development',
   remotes: {
-    analyticshub: `promise new Promise(${fetchAnalyticsHub.toString()})`,
     speedgrader: `promise new Promise(${fetchSpeedGraderLibrary.toString()})`,
     canvas_career_learning_provider: `promise new Promise(${fetchCanvasCareerLearningProviderApp.toString()})`,
     canvas_career_learner: `promise new Promise(${fetchCanvasCareerLearnerApp.toString()})`,
     ltiusage: `promise new Promise(${fetchLtiUsage.toString()})`,
     igniteagent: `promise new Promise(${fetchIgniteAgentLibrary.toString()})`,
     newquizzes: `promise new Promise(${fetchNewQuizzesApp.toString()})`,
-    canvascoursecriteria: `promise new Promise(${fetchCanvasCourseCriteria.toString()})`,
   },
   exposes: {},
   shared: {},

@@ -37,7 +37,6 @@ const TAB_SECTION: Record<string, SectionKey> = {
   accessibility: 'learning',
   statistics: 'insights',
   account_reports: 'insights',
-  analytics_hub: 'insights',
   admin_tools: 'insights',
   permissions: 'access',
   authentication: 'access',
