@@ -18,7 +18,8 @@
 # with this program. If not, see <http://www.gnu.org/licenses/>.
 #
 
-# Retention and user merges for student supports data
+# Retention and user merges for student supports data (plans, accommodations,
+# acknowledgements, caseloads and the access log)
 # (docs/teacher-workflow-plan.md §2.2, Q9): kept until the student's user is
 # deleted, and moved with them when two users are merged.
 module Supports
@@ -34,6 +35,10 @@ module Supports
 
         Shard.with_each_shard(user.associated_shards) do
           Caseload.where(student_id: user).or(Caseload.where(staff_id: user)).in_batches.delete_all
+          plan_ids = Plan.where(student_id: user).pluck(:id)
+          Acknowledgement.where(support_plan_id: plan_ids).in_batches.delete_all
+          StudentAccommodation.where(support_plan_id: plan_ids).in_batches.delete_all
+          Plan.where(id: plan_ids).in_batches.delete_all
           # the record of who opened this student's files goes with them; rows
           # where they were the viewer stay, as the record for other students
           AccessLog.where(student_id: user).in_batches.delete_all
@@ -57,9 +62,23 @@ module Supports
           end
         end
         %i[student_id viewer_id real_user_id].each { |column| move_log_rows(column, from_user, target_user) }
+        Plan.where(student_id: from_user).update_all(student_id: target_user.id)
+        Plan.where(case_manager_id: from_user).update_all(case_manager_id: target_user.id)
+        StudentAccommodation.where(student_id: from_user).update_all(student_id: target_user.id)
+        move_acknowledgements(from_user, target_user)
       end
 
       private
+
+      def move_acknowledgements(from_user, target_user)
+        Acknowledgement.where(user_id: from_user).find_each do |row|
+          if Acknowledgement.where(support_plan_id: row.support_plan_id, plan_version: row.plan_version, user_id: target_user).exists?
+            Acknowledgement.where(id: row.id).delete_all
+          else
+            Acknowledgement.where(id: row.id).update_all(user_id: target_user.id)
+          end
+        end
+      end
 
       # A row that would duplicate one the target user already has for the
       # same hour is dropped instead.

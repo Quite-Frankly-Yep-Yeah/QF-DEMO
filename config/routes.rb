@@ -1065,6 +1065,7 @@ CanvasRails::Application.routes.draw do
   get "self_paced/dashboard" => "self_paced/dashboard#show", :as => :self_paced_dashboard
   get "self_paced/courses/:course_id" => "self_paced/dashboard#course", :as => :self_paced_course
   get "self_paced/observer" => "self_paced/observer#show", :as => :self_paced_observer_page
+  get "supports" => "supports/caseload#page", :as => :supports_page
   get "parents/join/:code" => "self_paced/parent_signup#show", :as => :parent_join
   post "parents/join/:code" => "self_paced/parent_signup#create"
 
@@ -2879,6 +2880,45 @@ CanvasRails::Application.routes.draw do
 
     scope(controller: "self_paced/parent_invites") do
       post "self_paced/students/:student_id/parent_invite", action: :create, as: "self_paced_parent_invite"
+    end
+
+    # student supports (docs/teacher-workflow-plan.md Phase 1)
+    scope(controller: "supports/students") do
+      get "supports/students", action: :search, as: "supports_student_search"
+      get "supports/students/:student_id", action: :show, as: "supports_student"
+      get "supports/students/:student_id/accommodations", action: :accommodations, as: "supports_student_accommodations"
+      post "supports/students/:student_id/acknowledgement", action: :acknowledge, as: "supports_student_acknowledgement"
+    end
+
+    scope(controller: "supports/plans") do
+      get "supports/staff", action: :staff, as: "supports_staff"
+      post "supports/students/:student_id/plans", action: :create, as: "supports_student_plans"
+      put "supports/plans/:id", action: :update, as: "supports_plan"
+      delete "supports/plans/:id", action: :destroy
+      post "supports/plans/:id/accommodations", action: :add_accommodation, as: "supports_plan_accommodations"
+      put "supports/accommodations/:id", action: :update_accommodation, as: "supports_accommodation"
+      delete "supports/accommodations/:id", action: :remove_accommodation
+      put "supports/students/:student_id/team/:user_id", action: :add_team, as: "supports_student_team_member"
+      delete "supports/students/:student_id/team/:user_id", action: :remove_team
+    end
+
+    scope(controller: "supports/catalog") do
+      get "supports/catalog", action: :index, as: "supports_catalog"
+      post "supports/catalog", action: :create
+      put "supports/catalog/:id", action: :update, as: "supports_catalog_item"
+      delete "supports/catalog/:id", action: :destroy
+    end
+
+    scope(controller: "supports/imports") do
+      get "supports/imports", action: :index, as: "supports_imports"
+      post "supports/imports", action: :create
+      post "supports/imports/:id/apply", action: :apply, as: "supports_import_apply"
+      post "supports/imports/:id/undo", action: :undo, as: "supports_import_undo"
+      delete "supports/imports/:id", action: :destroy, as: "supports_import"
+    end
+
+    scope(controller: "supports/caseload") do
+      get "supports/caseload", action: :index, as: "supports_caseload"
     end
 
     scope(controller: "self_paced/interventions") do

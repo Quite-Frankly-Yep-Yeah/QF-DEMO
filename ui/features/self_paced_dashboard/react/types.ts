@@ -28,6 +28,7 @@ export type RosterRow = {
   student: StudentRef
   course: CourseRef
   pinned: boolean
+  supports?: boolean // has accommodations the viewer may see
   status: Status | null // null when the viewer can't see live status
   viewing: Item | null
   viewing_since: string | null

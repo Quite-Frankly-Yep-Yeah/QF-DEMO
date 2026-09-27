@@ -60,6 +60,64 @@ module Supports
       tiers.include?(tier_number(tier))
     end
 
+    # Whether the viewer may create and edit this student's plans and
+    # accommodations: supports_manage_plans, for an assigned student or with
+    # the all-students permission.
+    def can_manage?
+      return false unless viewer && student && root_account && Supports.enabled?(root_account)
+      return false if viewer.id == student.id
+
+      (assigned? || all_students?) && holds?(:supports_manage_plans)
+    end
+
+    # Whether the student is on the viewer's assigned caseload.
+    def assigned?
+      return @assigned if defined?(@assigned)
+
+      @assigned = Caseload.assigned?(viewer, student, root_account)
+    end
+
+    def all_students?
+      holds?(:supports_view_all_students)
+    end
+
+    # The viewer only sees the student as their teacher (not as support staff
+    # or a school-wide admin), so they only see accommodations for the courses
+    # they teach the student in.
+    def teacher_only?
+      can_view?(1) && !assigned? && !(all_students? && holds?(TIER_PERMISSIONS[1]))
+    end
+
+    # The student's courses the viewer teaches.
+    def taught_course_ids
+      @taught_course_ids ||= Enrollment.where(user_id: viewer.id,
+                                              type: %w[TeacherEnrollment TaEnrollment],
+                                              workflow_state: "active",
+                                              course_id: student_course_ids).distinct.pluck(:course_id)
+    end
+
+    # The accounts the student's courses belong to (the root account when they
+    # have none): where support permissions are checked.
+    def school_accounts
+      @school_accounts ||= begin
+        accounts = Account.where(id: Course.where(id: student_course_ids).select(:account_id)).to_a
+        accounts.presence || [root_account]
+      end
+    end
+
+    # Of +student_ids+, the students with an accommodation in effect that
+    # +viewer+ may see: the roster badge. Not a read of the record, so not
+    # logged.
+    def self.badge_student_ids(viewer, student_ids, root_account)
+      return [] unless viewer && root_account && Supports.feature_enabled?(root_account, :supports_plans)
+
+      with_accommodations = StudentAccommodation.current.where(student_id: student_ids, root_account_id: root_account.id)
+                                                .distinct.pluck(:student_id)
+      return [] if with_accommodations.empty?
+
+      User.where(id: with_accommodations).select { |student| new(viewer, student, root_account).can_view?(1) }.map(&:id)
+    end
+
     # Checks access to +tier+ and logs the read when it is allowed. Returns
     # whether the viewer may see it.
     def view!(tier, subject:, real_user: nil)
@@ -83,8 +141,8 @@ module Supports
       return [] unless viewer && student && root_account && Supports.enabled?(root_account)
       return [] if viewer.id == student.id
 
-      assigned = Caseload.assigned?(viewer, student, root_account)
-      all_students = holds?(:supports_view_all_students)
+      assigned = assigned?
+      all_students = all_students?
 
       tiers = []
       tiers << 1 if assigned || teaches_student? || (all_students && holds?(TIER_PERMISSIONS[1]))
@@ -117,13 +175,6 @@ module Supports
       return @held[permission] if @held.key?(permission)
 
       @held[permission] = school_accounts.any? { |account| account.grants_right?(viewer, permission) }
-    end
-
-    def school_accounts
-      @school_accounts ||= begin
-        accounts = Account.where(id: Course.where(id: student_course_ids).select(:account_id)).to_a
-        accounts.presence || [root_account]
-      end
     end
   end
 end

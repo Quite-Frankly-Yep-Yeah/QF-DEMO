@@ -9,6 +9,13 @@ student_supports:
   description: |-
     Umbrella flag for 504, IEP and English-learner supports: plans,
     accommodations and the need-to-know access rules that protect them.
+supports_plans:
+  applies_to: Account
+  state: hidden
+  display_name: "Student Supports: Plans and Accommodations"
+  description: |-
+    Support plans, the accommodation catalog, the accommodations card for
+    teachers, acknowledgements, caseloads and the plan import.
 teacher_workflow:
   applies_to: RootAccount
   state: hidden

@@ -147,6 +147,29 @@ function useNarrow(): boolean {
 
 // One row per student. A student in more than one class gets a button that
 // shows a row for each class underneath.
+// A student with accommodations the viewer may see: a small dot, never the
+// word "IEP" or "504" (docs/teacher-workflow-plan.md §2.3). Open the student to
+// read them.
+function SupportsDot({name}: {name: string}) {
+  const label = I18n.t('%{name} has accommodations', {name})
+  return (
+    <span
+      role="img"
+      aria-label={label}
+      title={I18n.t('Has accommodations')}
+      data-testid="supports-dot"
+      style={{
+        display: 'inline-block',
+        width: 10,
+        height: 10,
+        borderRadius: '50%',
+        background: '#6A1B9A',
+        flex: '0 0 auto',
+      }}
+    />
+  )
+}
+
 export default function RosterTable({
   caption,
   rows,
@@ -335,6 +358,7 @@ export default function RosterTable({
           >
             {student.name}
           </Link>
+          {group.rows.some(row => row.supports) && <SupportsDot name={student.name} />}
           {canInviteParents() && (
             <ParentInviteMenu studentId={student.id} studentName={student.name} />
           )}

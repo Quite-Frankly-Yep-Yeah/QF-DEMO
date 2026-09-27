@@ -368,6 +368,20 @@ changed / how to try it" note. Sizes are relative: S is about a day of work, M a
 - Done when: a teacher of a student sees the accommodations and nothing else, a mentor off the caseload sees nothing, and an
   import can be undone.
 
+**Phase 1 status (2026-09-27): built.**
+
+- Tables `support_plans`, `accommodation_types`, `student_accommodations`, `accommodation_acknowledgements` and
+  `support_imports`. Plan notes, teacher notes, the uploaded CSV and an import's undo record are encrypted, with Rails keys
+  derived from Canvas's key (`config/initializers/supports_encryption.rb`).
+- The Supports page (`/supports`, an account menu item for people who work on plans): the caseload, each student's plans,
+  accommodations and support team, which teachers have read the current list, the catalog, and CSV import with preview,
+  apply and undo. A school starts with a 14-item catalog.
+- For teachers: an accommodations card in the Students page tray (only the classes they teach, never the plan type) with
+  "I have read these accommodations", and a dot on the roster. A change to the accommodations asks teachers again.
+- Checked in a browser with a fictional student, on desktop and phone.
+- Setup note: in dev, turning on a hidden flag from a Rails console can leave a cached copy of the root account with the
+  old flag list. `Account.invalidate_cache(id)` and touching the account fix it.
+
 **Phase 2: Accommodations that act** (L). Flag: `supports_accommodations_apply`. *Riskiest phase (R3, R4).*
 - Extended time set at attempt creation; the Moderate page shows the source. Extra attempts. Pacing factor. Exemption
   workflow with the reason "accommodation". Display-setting suggestions.

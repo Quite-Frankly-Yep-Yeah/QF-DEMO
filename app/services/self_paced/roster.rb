@@ -47,9 +47,11 @@ module SelfPaced
                                  .to_a
       pinned = pinned_student_ids(courses)
       time = active_time(courses)
+      badged = supports_badge_ids(courses, states)
 
       states.map do |state|
         row(state, courses_by_id[state.course_id], pinned.include?(state.user_id), time[[state.course_id, state.user_id]])
+          .merge(supports: badged.include?(state.user_id))
       end
     end
 
@@ -94,6 +96,13 @@ module SelfPaced
       return nil unless @scope.grades_visible?(course)
 
       @scope.unposted_grades_visible?(course) ? state.unposted_current_score : state.current_score
+    end
+
+    # Students with accommodations the viewer may see (a dot on the roster,
+    # docs/teacher-workflow-plan.md §2.3).
+    def supports_badge_ids(courses, states)
+      root_account = courses.first.root_account
+      Supports::Access.badge_student_ids(@scope.user, states.map(&:user_id).uniq, root_account).to_set
     end
 
     def pinned_student_ids(courses)

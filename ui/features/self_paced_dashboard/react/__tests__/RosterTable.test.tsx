@@ -56,6 +56,14 @@ describe('RosterTable', () => {
     expect(studentOrder()).toEqual(['Jordan Kim', 'Maya Lopez', 'Sam Rivera'])
   })
 
+  it('marks a student with accommodations with a dot, without naming a plan', () => {
+    renderTable({rows: ROWS.map(row => ({...row, supports: row.student.name === 'Maya Lopez'}))})
+
+    expect(screen.getByRole('img', {name: 'Maya Lopez has accommodations'})).toBeInTheDocument()
+    expect(screen.getAllByTestId('supports-dot')).toHaveLength(1)
+    expect(screen.queryByText(/IEP|504/)).not.toBeInTheDocument()
+  })
+
   it('shows a stuck badge after three tries on the same item', () => {
     renderTable()
     const jordan = screen.getByRole('rowheader', {name: 'Jordan Kim'}).closest('tr') as HTMLElement

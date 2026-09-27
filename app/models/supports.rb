@@ -23,6 +23,11 @@
 module Supports
   UMBRELLA_FLAG = :student_supports
 
+  # The feature flags for each phase, in the order they ship.
+  PHASE_FLAGS = %i[
+    supports_plans
+  ].freeze
+
   # Per-school choice between reading plans from the district's system and
   # keeping them here (docs/teacher-workflow-plan.md §2.1, Q1).
   RECORD_MODES = %w[classroom_layer system_of_record].freeze
@@ -40,6 +45,16 @@ module Supports
   def self.enabled?(context)
     root_account = context.is_a?(Account) ? context.root_account : context&.root_account
     !!root_account&.feature_enabled?(UMBRELLA_FLAG)
+  end
+
+  # Whether a phase flag is on for +context+ (an Account or a Course). Always
+  # false while the umbrella flag is off.
+  def self.feature_enabled?(context, flag)
+    raise ArgumentError, "unknown supports flag: #{flag}" unless PHASE_FLAGS.include?(flag)
+    return false unless enabled?(context)
+
+    account = context.is_a?(Course) ? context.account : context
+    account.feature_enabled?(flag)
   end
 
   # The record mode for +account+, inherited from its parent accounts.

@@ -209,6 +209,7 @@ const featureBundles: {
   self_paced_setup: () => import('./features/self_paced_setup/index'),
   self_paced_skills: () => import('./features/self_paced_skills/index'),
   self_paced_units: () => import('./features/self_paced_units/index'),
+  supports: () => import('./features/supports/index'),
   settings_sidebar: () => import('./features/settings_sidebar/index'),
   sis_import: () => import('./features/sis_import/index'),
   slickgrid: () => import('./features/slickgrid/index'),

@@ -25,6 +25,7 @@ import {Spinner} from '@instructure/ui-spinner'
 import {Text} from '@instructure/ui-text'
 import ActionDialog, {type DialogSpec, type DialogValues} from './ActionDialog'
 import ActivityBars from './ActivityBars'
+import AccommodationsCard from './AccommodationsCard'
 import PacingSection from './PacingSection'
 import {HistoryCard, ItemMenu, NotesCard, useSupport} from './Support'
 import {overrideLabel, type ItemAction} from './interventions'
@@ -245,6 +246,7 @@ export default function StudentTray({
                 setReloadKey(key => key + 1)
               }}
             />
+            <AccommodationsCard studentId={selected.studentId} />
             {tools?.note && support && (
               <NotesCard notes={support.notes} onAdd={openNote} onDelete={confirmDeleteNote} />
             )}

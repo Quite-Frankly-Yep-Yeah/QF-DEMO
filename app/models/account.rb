@@ -2291,6 +2291,7 @@ class Account < ApplicationRecord
   TAB_REPORTS = 23
   TAB_RATE_LIMITING = 24
   TAB_ACCESSIBILITY = 25
+  TAB_SUPPORTS = 27
 
   # site admin tabs
   TAB_PLUGINS = 14
@@ -2330,6 +2331,7 @@ class Account < ApplicationRecord
     else
       tabs << { id: TAB_COURSES, label: t("#account.tab_courses", "Courses"), css_class: "courses", href: :account_path } if user && grants_right?(user, :read_course_list)
       tabs << { id: TAB_USERS, label: t("People"), css_class: "users", href: :account_users_path } if user && grants_right?(user, :read_roster)
+      tabs << { id: TAB_SUPPORTS, label: t("Supports"), css_class: "supports", href: :supports_page_path, no_args: true } if supports_tab_visible?(user)
       tabs << { id: TAB_STATISTICS, label: t("#account.tab_statistics", "Statistics"), css_class: "statistics", href: :statistics_account_path } if user && grants_right?(user, :view_statistics)
       tabs << { id: TAB_REPORTS, label: t("Reports"), css_class: "account_reports", href: :account_reports_path } if feature_enabled?(:new_account_reports_ui) && user && grants_right?(user, :read_reports)
       tabs << { id: TAB_PERMISSIONS, label: t("#account.tab_permissions", "Permissions"), css_class: "permissions", href: :account_permissions_path } if user && grants_right?(user, :manage_role_overrides)
@@ -2392,6 +2394,13 @@ class Account < ApplicationRecord
     tabs << { id: TAB_SETTINGS, label: t("#account.tab_settings", "Settings"), css_class: "settings", href: :account_settings_path }
     tabs.delete_if { |t| t[:visibility] == "admins" } unless grants_right?(user, :manage)
     tabs
+  end
+
+  # Student supports plans, the catalog and imports (Supports::CaseloadController),
+  # for the people who work on plans or the catalog in this account.
+  def supports_tab_visible?(user)
+    !!user && Supports.feature_enabled?(self, :supports_plans) &&
+      (grants_right?(user, :supports_view_plans) || grants_right?(user, :supports_manage_catalog))
   end
 
   def can_see_rubrics_tab?(user)
