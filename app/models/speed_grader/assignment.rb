@@ -102,7 +102,6 @@ module SpeedGrader
 
       res["context"]["concluded"] = assignment.context.concluded?
       res["anonymize_students"] = anonymize_students?
-      res["anonymous_participants"] = assignment.anonymous_participants?
       res["anonymize_graders"] = !assignment.can_view_other_grader_identities?(current_user)
       res["post_manually"] = assignment.post_manually?
 
@@ -347,11 +346,7 @@ module SpeedGrader
             url_opts[:enrollment_type] = canvadocs_user_role(course, current_user, current_user_enrollments)
           end
 
-          if quizzes_next_submission?
-            quiz_lti_submission = BasicLTI::QuizzesNextVersionedSubmission.new(assignment, sub.user, submission: sub)
-            json["submission_history"] =
-              quiz_lti_submission.grade_history.map { |submission| { submission: } }
-          elsif json["submission_history"] && (assignment.quiz.nil? || too_many)
+          if json["submission_history"] && (assignment.quiz.nil? || too_many)
             json["submission_history"] =
               json["submission_history"].map do |version|
                 # to avoid a call to the DB in Submission#missing?
@@ -480,7 +475,6 @@ module SpeedGrader
 
       res[:GROUP_GRADING_MODE] = assignment.grade_as_group?
       res[:HAS_GROUPS] = assignment.has_groups?
-      res[:quiz_lti] = assignment.quiz_lti?
 
       StringifyIds.recursively_stringify_ids(res)
     ensure
@@ -489,13 +483,7 @@ module SpeedGrader
 
     # We can't update the existing assignment.anonymize_students? method because
     # it is used outside speedgrader context.
-    def anonymize_students?
-      if assignment.quiz_lti?
-        assignment.new_quizzes_anonymous_participants?
-      else
-        assignment.anonymize_students?
-      end
-    end
+    delegate :anonymize_students?, to: :assignment
 
     # The same reason as anonymize_students? - we can't modify the SubmissionComment.anonymous_students? method directly,
     # because it is used outside speedgrader context.
@@ -503,11 +491,6 @@ module SpeedGrader
       return @anonymous_students if defined? @anonymous_students
 
       @anonymous_students = anonymize_students? || !assignment.context.grants_any_right?(current_user, :manage_grades, :view_all_grades)
-    end
-
-    def quizzes_next_submission?
-      assignment.quiz_lti? &&
-        assignment.root_account.feature_enabled?(:quizzes_next_submission_history)
     end
 
     def preloaded_provisional_grades

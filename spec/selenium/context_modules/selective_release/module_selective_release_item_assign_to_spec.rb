@@ -39,17 +39,6 @@ describe "selective_release module item assign to tray" do
 
   before(:once) do
     course_with_teacher(active_all: true)
-
-    @course.enable_feature! :quizzes_next
-    @course.context_external_tools.create!(
-      name: "Quizzes.Next",
-      consumer_key: "test_key",
-      shared_secret: "test_secret",
-      tool_id: "Quizzes 2",
-      url: "http://example.com/launch"
-    )
-    @course.root_account.settings[:provision] = { "lti" => "lti url" }
-    @course.root_account.save!
   end
 
   context "using assign to tray for newly created items" do
@@ -76,24 +65,7 @@ describe "selective_release module item assign to tray" do
 
     it "shows the correct icon type and title for a classic quiz" do
       go_to_modules
-      add_new_module_item_and_yield("#quizs_select", "Quiz", "[ Create Quiz ]", "A Classic Quiz") do
-        f("label[for=classic_quizzes_radio]").click
-      end
-      module_item = ContentTag.last
-
-      manage_module_item_button(module_item).click
-      click_manage_module_item_assign_to(module_item)
-
-      expect(item_tray_exists?).to be true
-      expect(icon_type_exists?("Quiz")).to be true
-      expect(item_type_text.text).to eq("Quiz")
-    end
-
-    it "shows the correct icon type and title for an NQ quiz" do
-      go_to_modules
-      add_new_module_item_and_yield("#quizs_select", "Quiz", "[ Create Quiz ]", "An NQ Quiz") do
-        f("label[for=new_quizzes_radio]").click
-      end
+      add_new_module_item_and_yield("#quizs_select", "Quiz", "[ Create Quiz ]", "A Classic Quiz")
       module_item = ContentTag.last
 
       manage_module_item_button(module_item).click
@@ -106,9 +78,7 @@ describe "selective_release module item assign to tray" do
 
     it "shows the correct icon type and title for a classic quiz after indent" do
       go_to_modules
-      add_new_module_item_and_yield("#quizs_select", "Quiz", "[ Create Quiz ]", "A Classic Quiz") do
-        f("label[for=classic_quizzes_radio]").click
-      end
+      add_new_module_item_and_yield("#quizs_select", "Quiz", "[ Create Quiz ]", "A Classic Quiz")
       module_item = ContentTag.last
 
       manage_module_item_button(module_item).click
@@ -1013,17 +983,6 @@ describe "selective_release module item assign to tray" do
 
   context "item assign to tray saves", :ignore_js_errors do
     before(:once) do
-      @course.enable_feature! :quizzes_next
-      @course.context_external_tools.create!(
-        name: "Quizzes.Next",
-        consumer_key: "test_key",
-        shared_secret: "test_secret",
-        tool_id: "Quizzes 2",
-        url: "http://example.com/launch"
-      )
-      @course.root_account.settings[:provision] = { "lti" => "lti url" }
-      @course.root_account.save!
-
       module_setup
       @course.update!(default_view: "modules")
       @module_item1 = ContentTag.find_by(context_id: @course.id, context_module_id: @module.id, content_type: "Assignment", content_id: @assignment1.id)
@@ -1043,16 +1002,6 @@ describe "selective_release module item assign to tray" do
   context "item assign to tray saves for canvas for elementary", :ignore_js_errors do
     before(:once) do
       teacher_setup
-      @subject_course.enable_feature! :quizzes_next
-      @subject_course.context_external_tools.create!(
-        name: "Quizzes.Next",
-        consumer_key: "test_key",
-        shared_secret: "test_secret",
-        tool_id: "Quizzes 2",
-        url: "http://example.com/launch"
-      )
-      @subject_course.root_account.settings[:provision] = { "lti" => "lti url" }
-      @subject_course.root_account.save!
 
       module_setup(@subject_course)
       @module_item1 = ContentTag.find_by(context_id: @subject_course.id, context_module_id: @module.id, content_type: "Assignment", content_id: @assignment1.id)

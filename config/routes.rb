@@ -352,29 +352,6 @@ CanvasRails::Application.routes.draw do
           as: :resource_link_id
 
       get :tool_launch
-
-      # New Quizzes native experience routes
-      # All routes render the app shell and let React Router handle navigation
-      scope(controller: :new_quizzes) do
-        get "launch", action: :launch, as: :new_quizzes_launch
-        get "build(/*path)", action: :launch, as: :new_quizzes_build
-        get "reporting(/*path)", action: :launch, as: :new_quizzes_reporting
-        get "moderation(/*path)", action: :launch, as: :new_quizzes_moderation
-        get "exports(/*path)", action: :launch, as: :new_quizzes_exports
-        get "taking(/*path)", action: :launch, as: :new_quizzes_taking
-        get "observing(/*path)", action: :launch, as: :new_quizzes_observing
-        get "errors(/*path)", action: :launch, as: :new_quizzes_errors
-        get "settings(/*path)", action: :launch, as: :new_quizzes_settings
-        get "version", action: :launch, as: :new_quizzes_version
-        get "course_concluded", action: :launch, as: :new_quizzes_course_concluded
-        get "banks(/*path)", action: :launch, as: :new_quizzes_assignment_banks
-      end
-    end
-
-    # New Quizzes native experience routes
-    # All routes render the app shell and let React Router handle navigation
-    scope(controller: :new_quizzes) do
-      get "banks(/*path)", action: :banks, as: :new_quizzes_banks
     end
 
     resources :grading_standards, only: %i[index create update destroy]
@@ -814,12 +791,6 @@ CanvasRails::Application.routes.draw do
       end
     end
 
-    # New Quizzes native experience routes
-    # All routes render the app shell and let React Router handle navigation
-    scope(controller: :new_quizzes) do
-      get "banks(/*path)", action: :banks, as: :new_quizzes_banks
-    end
-
     get "lti/resource/:resource_link_id",
         controller: "lti/message",
         action: "resource",
@@ -1221,7 +1192,6 @@ CanvasRails::Application.routes.draw do
       get "courses/:course_id/users", action: :users, as: "course_users"
       get "courses/:course_id/collaborations", controller: :collaborations, action: :api_index, as: "course_collaborations_index"
       delete "courses/:course_id/collaborations/:id", controller: :collaborations, action: :destroy
-      put "courses/:id/quizzes", action: "new_quizzes_selection_update", as: "course_new_quizzes_selection_update"
       post "courses/:id/dismiss_migration_limitation_message", action: "dismiss_migration_limitation_msg", as: "course_dismiss_migration_limitation_msg"
 
       # this api endpoint has been removed, it was redundant with just courses#users
@@ -1263,7 +1233,6 @@ CanvasRails::Application.routes.draw do
 
       get "courses/:course_id/youtube_migration/scan", action: :youtube_migration_scan, as: "course_youtube_migration_scan"
       post "courses/:course_id/youtube_migration/scan", action: :start_youtube_migration_scan
-      put "courses/:course_id/youtube_migration/scan/:scan_id", action: :update_youtube_migration_scan
       post "courses/:course_id/youtube_migration/convert", action: :start_youtube_migration_convert
       get "courses/:course_id/youtube_migration/conversion_status", action: :youtube_migration_conversion_status
 
@@ -2333,7 +2302,6 @@ CanvasRails::Application.routes.draw do
 
     scope(controller: "quizzes/quiz_assignment_overrides") do
       get "courses/:course_id/quizzes/assignment_overrides", action: :index, as: "course_quiz_assignment_overrides"
-      get "courses/:course_id/new_quizzes/assignment_overrides", action: :new_quizzes, as: "course_new_quizzes_assignment_overrides"
     end
 
     scope(controller: "quizzes/quizzes_api") do
@@ -2344,10 +2312,6 @@ CanvasRails::Application.routes.draw do
       delete "courses/:course_id/quizzes/:id", action: :destroy, as: "course_quiz_destroy"
       post "courses/:course_id/quizzes/:id/reorder", action: :reorder, as: "course_quiz_reorder"
       post "courses/:course_id/quizzes/:id/validate_access_code", action: :validate_access_code, as: "course_quiz_validate_access_code"
-    end
-
-    scope(controller: "quizzes_next/quizzes_api") do
-      get "courses/:course_id/all_quizzes", action: :index, as: "course_all_quizzes"
     end
 
     scope(controller: "quizzes/quiz_submission_users") do
@@ -2644,7 +2608,6 @@ CanvasRails::Application.routes.draw do
         put "#{prefix}/:id/fail", action: :fail
       end
       get "courses/:course_id/content_list", action: :content_list, as: "course_content_list"
-      put "courses/:course_id/content_exports/:id", action: :update
     end
 
     scope(controller: :epub_exports) do

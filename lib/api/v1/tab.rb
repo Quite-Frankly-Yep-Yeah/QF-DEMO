@@ -22,7 +22,6 @@ module Api::V1::Tab
   include Api::V1::Json
   include Api::V1::ExternalTools::UrlHelpers
   include NavMenuLinkTabs::HrefHelper
-  include NewQuizzesFeaturesHelper
 
   def self.tab_is?(tab, context, const_name)
     context.class.const_defined?(const_name) && tab[:id] == context.class.const_get(const_name)
@@ -115,8 +114,6 @@ module Api::V1::Tab
         new_collaborations_enabled
       elsif Api::V1::Tab.tab_is?(tab, context, :TAB_CONFERENCES)
         feature_enabled?(:web_conferences)
-      elsif Lti::ExternalToolTab.tool_for_tab(tab)&.quiz_lti?
-        new_quizzes_navigation_placements_enabled?(context)
       else
         true
       end

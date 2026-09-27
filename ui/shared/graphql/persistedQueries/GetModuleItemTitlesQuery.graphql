@@ -10,7 +10,6 @@ query GetModuleItemTitlesQuery($moduleId: ID!) {
             content {
               type: __typename
               ... on Assignment {
-                isNewQuiz
               }
             }
           }

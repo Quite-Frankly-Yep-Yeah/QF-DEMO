@@ -31,14 +31,6 @@ class YoutubeMigrationService
     "CourseSyllabus",
     Course.name,
   ].freeze
-  NEW_QUIZZES_RESOURCES = %w[
-    QuizzesNext::Quiz
-    QuizzesNext::Bank
-    QuizzesNext::Quiz:Item
-    QuizzesNext::Quiz:Stimulus
-    QuizzesNext::Bank:Item
-    QuizzesNext::Bank:Stimulus
-  ].freeze
   QUESTION_RCE_FIELDS = %i[
     question_text
     correct_comments_html
@@ -50,9 +42,6 @@ class YoutubeMigrationService
   CONVERT_TAG = "youtube_embed_convert"
   BULK_CONVERT_TAG = "youtube_embed_bulk_convert"
   STUDIO_LTI_TOOL_DOMAIN = "arc.instructure.com"
-  STUCK_SCAN_THRESHOLD = 1.hour
-  TIMEOUT_THRESHOLD = 3.hours
-  MAX_RETRIES = 3
 
   class EmbedNotFoundError < StandardError; end
   class UnsupportedResourceTypeError < StandardError; end
@@ -84,30 +73,10 @@ class YoutubeMigrationService
     resources_with_embeds = service.scan_course_for_embeds
     total_count = resources_with_embeds.values.sum { |resource| resource[:count] || 0 }
 
-    if new_quizzes?(progress.context)
-      progress.set_results({ resources: resources_with_embeds, total_count: })
-      progress.wait_for_external_tool!
-      call_external_tool(progress.context, progress.id)
-    else
-      progress.set_results({ resources: resources_with_embeds, total_count:, completed_at: Time.now.utc })
-    end
+    progress.set_results({ resources: resources_with_embeds, total_count:, completed_at: Time.now.utc })
   rescue
     report_id = Canvas::Errors.capture_exception(:youtube_embed_scan, $ERROR_INFO)[:error_report]
     progress.set_results({ error_report_id: report_id, completed_at: Time.now.utc })
-  end
-
-  def self.call_external_tool(course, scan_id)
-    external_tool_id = course.assignments.active.type_quiz_lti.last.external_tool_tag.content_id
-    payload = Struct.new(:scan_id, :canvas_id, :external_tool_id).new(
-      scan_id,
-      course.global_id,
-      external_tool_id
-    )
-    Canvas::LiveEvents.scan_youtube_links(payload)
-  end
-
-  def self.new_quizzes?(course)
-    Account.site_admin.feature_enabled?(:new_quizzes_scanning_youtube_links) && course.assignments.active.type_quiz_lti.any?
   end
 
   def resource_group_key_for(embed = nil, resource_type: nil, id: nil, resource_group_key: nil)
@@ -117,14 +86,7 @@ class YoutubeMigrationService
       resource_group_key = embed[:resource_group_key]
     end
 
-    if NEW_QUIZZES_RESOURCES.include?(resource_type)
-      YoutubeMigrationService.generate_resource_key(
-        prepare_new_quiz_resource_type(resource_type),
-        id
-      )
-    else
-      resource_group_key || YoutubeMigrationService.generate_resource_key(resource_type, id)
-    end
+    resource_group_key || YoutubeMigrationService.generate_resource_key(resource_type, id)
   end
 
   def self.generate_resource_key(type, id)
@@ -161,20 +123,8 @@ class YoutubeMigrationService
     raise EmbedNotFoundError, "Embed not found in scan for resource: #{resource_group_key}" unless embed_exists
   end
 
-  def prepare_new_quiz_resource_type(resource_type)
-    case resource_type
-    when /QuizzesNext::Quiz/
-      "QuizzesNext::Quiz"
-    when /QuizzesNext::Bank/
-      "QuizzesNext::Bank"
-    else
-      resource_type
-    end
-  end
-
   def validate_supported_resource!(resource_type)
-    supported = SUPPORTED_RESOURCES.include?(resource_type) || NEW_QUIZZES_RESOURCES.include?(resource_type)
-    raise UnsupportedResourceTypeError, "Unsupported resource type: #{resource_type}" unless supported
+    raise UnsupportedResourceTypeError, "Unsupported resource type: #{resource_type}" unless SUPPORTED_RESOURCES.include?(resource_type)
   end
 
   def validate_resource_group_key!(resource_group_key)
@@ -185,9 +135,6 @@ class YoutubeMigrationService
   end
 
   def validate_resource_exists!(resource_type, resource_id)
-    # We don't store New Quizzes Data in quite frankly an example LMS, so we can't validate their existence
-    return true if NEW_QUIZZES_RESOURCES.include?(resource_type)
-
     case resource_type
     when "WikiPage"
       course.wiki_pages.find(resource_id)
@@ -593,16 +540,6 @@ class YoutubeMigrationService
     resource_id = embed[:id]
     field = embed[:field]
 
-    # If the resource is a New Quizzes resource, emit an event and return
-    if NEW_QUIZZES_RESOURCES.include?(resource_type)
-      Canvas::LiveEvents.convert_new_quiz_youtube_link(
-        Struct.new(:resource_id, :resource_type, :src, :field, :new_html).new(
-          embed[:content_id], resource_type, embed[:src], field, new_html
-        )
-      )
-      return
-    end
-
     case resource_type
     when "WikiPage"
       resource = course.wiki_pages.find(resource_id)
@@ -716,125 +653,5 @@ class YoutubeMigrationService
     else
       raise EmbedNotFoundError, "Embed not found for resource type: #{embed[:resource_type]}, id: #{embed[:id]}, src: #{embed[:src]}"
     end
-  end
-
-  def process_new_quizzes_scan_update(scan_id, new_quizzes_scan_status:, new_quizzes_scan_results: {})
-    progress = self.class.find_scan(course, scan_id)
-    results = progress.results || {}
-    results[:new_quizzes_scan_status] = new_quizzes_scan_status
-
-    begin
-      if new_quizzes_scan_status == "completed"
-        scan_results = (new_quizzes_scan_results || {}).deep_symbolize_keys
-        new_quizzes_resources = {}
-
-        resources_array = scan_results[:resources] || []
-        resources_array.each do |resource|
-          key = YoutubeMigrationService.generate_resource_key(resource[:type], resource[:id])
-          new_quizzes_resources[key] = resource
-        end
-
-        merged_resources = (results[:resources] || {}).merge(new_quizzes_resources)
-        merged_total_count = (results[:total_count] || 0).to_i + (scan_results[:total_count] || 0).to_i
-
-        results[:resources] = merged_resources
-        results[:total_count] = merged_total_count
-      end
-
-      results[:completed_at] = Time.now.utc
-      progress.set_results(results)
-      progress.complete! if progress.waiting_for_external_tool?
-    rescue => e
-      results[:new_quizzes_scan_status] = "failed"
-      results[:completed_at] = Time.now.utc
-      progress.set_results(results)
-      progress.complete! if progress.waiting_for_external_tool?
-
-      Canvas::Errors.capture(:youtube_migration_new_quizzes_scan_error, {
-                               course_id: course.id,
-                               scan_id: progress.id,
-                               error: e.message,
-                               message: "Error processing new quizzes scan update"
-                             })
-    end
-  end
-
-  def reset_scan_status
-    stuck_progress = Progress.find_by(tag: SCAN_TAG, context: course, workflow_state: "waiting_for_external_tool")
-    return unless stuck_progress
-
-    results = (stuck_progress.results || {}).dup
-    results[:new_quizzes_scan_status] = "failed"
-    results[:completed_at] = Time.now.utc
-
-    stuck_progress.set_results(results)
-
-    stuck_progress.complete!
-  end
-
-  def self.process_stuck_scans
-    Rails.logger.info("[YouTube Scan Retry] Checking for stuck scans")
-    return unless Account.site_admin.feature_enabled?(:new_quizzes_scanning_youtube_links)
-
-    stuck_scans = Progress.where(
-      tag: SCAN_TAG,
-      workflow_state: "waiting_for_external_tool",
-      context_type: "Course"
-    ).where(created_at: ..STUCK_SCAN_THRESHOLD.ago).preload(:context)
-
-    Rails.logger.info("[YouTube Scan Retry] Found #{stuck_scans.count} stuck scans")
-
-    stuck_scans.find_each do |progress|
-      progress.with_lock do
-        # Re-check state after acquiring lock to prevent race conditions
-        next unless progress.waiting_for_external_tool?
-
-        if progress.created_at <= TIMEOUT_THRESHOLD.ago || progress.results&.dig(:retry_count).to_i >= MAX_RETRIES
-          timeout_scan(progress)
-        else
-          Rails.logger.info("[YouTube Scan Retry] Should retry scan? #{should_retry_scan?(progress)}")
-          retry_scan(progress) if should_retry_scan?(progress)
-        end
-      end
-    rescue => e
-      Canvas::Errors.capture_exception(:youtube_scan_retry, e, {
-                                         progress_id: progress.id,
-                                         course_id: progress.context_id
-                                       })
-    end
-  end
-
-  def self.should_retry_scan?(progress)
-    results = progress.results || {}
-    last_retry = results[:last_retry_at]
-
-    return true if last_retry.nil?
-
-    Time.parse(last_retry.to_s).utc < STUCK_SCAN_THRESHOLD.ago
-  end
-
-  def self.retry_scan(progress)
-    results = (progress.results || {}).dup
-    results[:retry_count] = (results[:retry_count] || 0) + 1
-    results[:last_retry_at] = Time.now.utc
-
-    progress.set_results(results)
-
-    call_external_tool(progress.context, progress.id)
-
-    Rails.logger.info("[YouTube Scan Retry] Re-emitted Live Event for scan_id=#{progress.id}, course_id=#{progress.context_id}, retry_count=#{results[:retry_count]}")
-  end
-
-  def self.timeout_scan(progress)
-    results = (progress.results || {}).dup
-    results[:new_quizzes_scan_status] = "timeout"
-    results[:error] = "Timed out waiting for New Quizzes scan results after 3 hours"
-    results[:completed_at] = Time.now.utc
-    results[:timeout_at] = Time.now.utc
-
-    progress.set_results(results)
-    progress.complete!
-
-    Rails.logger.warn("[YouTube Scan Retry] Timed out scan_id=#{progress.id}, course_id=#{progress.context_id}")
   end
 end

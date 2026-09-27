@@ -21,7 +21,6 @@ import {
   sharedContentTests,
   sharedDateParsingTests,
   sharedFormTests,
-  sharedImportAsNQTests,
 } from './shared_form_cases'
 import CommonCartridgeImporter from '../common_cartridge'
 
@@ -29,6 +28,5 @@ describe('CommonCartridgeImporter', () => {
   sharedFormTests(CommonCartridgeImporter)
   sharedContentTests(CommonCartridgeImporter)
   sharedBankTests(CommonCartridgeImporter)
-  sharedImportAsNQTests(CommonCartridgeImporter)
   sharedDateParsingTests(CommonCartridgeImporter)
 })

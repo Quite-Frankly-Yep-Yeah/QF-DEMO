@@ -19,7 +19,6 @@
 import {useScope as createI18nScope} from '@canvas/i18n'
 import doFetchApi from '@canvas/do-fetch-api-effect'
 import BaseUploader from '@canvas/files/react/modules/BaseUploader'
-import {QuizEngine} from '../utils/types'
 
 const I18n = createI18nScope('context_modules_v2')
 
@@ -42,7 +41,6 @@ export interface ModuleItemData {
   type: string
   itemCount: number
   indentation: number
-  quizEngine?: QuizEngine
   selectedTabIndex?: number
   textHeaderValue?: string
   externalUrlName?: string
@@ -64,7 +62,6 @@ export const prepareModuleItemData = (
     type,
     itemCount,
     indentation,
-    quizEngine,
     textHeaderValue,
     externalUrlName,
     externalUrlValue,
@@ -78,21 +75,11 @@ export const prepareModuleItemData = (
     'item[type]': type === 'file' ? 'attachment' : type,
     'item[position]': itemCount + 1,
     'item[indent]': indentation,
-    quiz_lti: false,
     'content_details[]': 'items',
     type: type === 'file' ? 'attachment' : type,
     new_tab: 0,
     graded: 0,
     _method: 'POST',
-  }
-
-  // Helper function to apply LTI quiz configuration
-  const applyLtiQuizConfig = (
-    result: Record<string, string | number | string[] | undefined | boolean>,
-  ) => {
-    result['item[type]'] = 'assignment'
-    result['type'] = 'assignment'
-    result['quiz_lti'] = true
   }
 
   // Add type-specific data
@@ -113,15 +100,10 @@ export const prepareModuleItemData = (
     result['item[new_tab]'] = externalUrlNewTab ? '1' : '0'
     result['new_tab'] = externalUrlNewTab ? 1 : 0
   } else if (selectedItem && selectedTabIndex === 0) {
-    if (type === 'quiz' && selectedItem.quizType && selectedItem.quizType === 'assignment') {
-      applyLtiQuizConfig(result)
-    }
     // Using an existing item
     result['item[id]'] = selectedItem.id
     result['item[title]'] = selectedItem.name
     result['title'] = selectedItem.name
-  } else if (type === 'quiz' && quizEngine && quizEngine === 'new') {
-    applyLtiQuizConfig(result)
   }
 
   return result
@@ -131,7 +113,6 @@ export const buildFormData = (
   type: string,
   newItemName: string,
   selectedAssignmentGroup: string,
-  quizEngine: QuizEngine,
   DEFAULT_POST_TO_SIS: boolean,
 ) => {
   const formData = new FormData()
@@ -143,12 +124,7 @@ export const buildFormData = (
     formData.append('assignment[title]', newItemName)
     formData.append('assignment[post_to_sis]', String(DEFAULT_POST_TO_SIS ?? false))
   } else if (type === 'quiz') {
-    if (quizEngine === 'new') {
-      formData.append('assignment[title]', newItemName || I18n.t('New Quiz'))
-      formData.append('quiz_lti', '1')
-    } else {
-      formData.append('quiz[title]', newItemName || I18n.t('New Quiz'))
-    }
+    formData.append('quiz[title]', newItemName || I18n.t('New Quiz'))
     formData.append('quiz[assignment_group_id]', selectedAssignmentGroup)
   } else if (type === 'discussion') {
     formData.append('title', newItemName || I18n.t('New Discussion'))
@@ -159,19 +135,12 @@ export const buildFormData = (
   return formData
 }
 
-export const createNewItemApiPath = (
-  type: string,
-  courseId: string,
-  quizEngine: QuizEngine,
-  folderId?: string,
-) => {
+export const createNewItemApiPath = (type: string, courseId: string, folderId?: string) => {
   switch (type) {
     case 'assignment':
       return `/courses/${courseId}/assignments`
     case 'quiz':
-      return quizEngine === 'new'
-        ? `/courses/${courseId}/assignments`
-        : `/courses/${courseId}/quizzes`
+      return `/courses/${courseId}/quizzes`
     case 'discussion':
       return `/api/v1/courses/${courseId}/discussion_topics`
     case 'page':
@@ -234,7 +203,6 @@ export const createNewItem = async (
   courseId: string,
   newItemName: string,
   selectedAssignmentGroup: string,
-  quizEngine: QuizEngine,
   DEFAULT_POST_TO_SIS: boolean,
   selectedFile?: File | null,
   selectedFolder?: string,
@@ -247,15 +215,9 @@ export const createNewItem = async (
 
     // For other types (non-file items)
     const response = await doFetchApi({
-      path: createNewItemApiPath(type, courseId, quizEngine),
+      path: createNewItemApiPath(type, courseId),
       method: 'POST',
-      body: buildFormData(
-        type,
-        newItemName,
-        selectedAssignmentGroup,
-        quizEngine,
-        DEFAULT_POST_TO_SIS,
-      ),
+      body: buildFormData(type, newItemName, selectedAssignmentGroup, DEFAULT_POST_TO_SIS),
     })
 
     // The response from doFetchApi already contains the parsed JSON data
@@ -264,12 +226,8 @@ export const createNewItem = async (
     // Handle different response structures based on item type
     if (type === 'assignment' && responseData?.assignment) {
       return responseData.assignment as NewItemType
-    } else if (type === 'quiz') {
-      if (quizEngine === 'classic' && responseData?.quiz) {
-        return responseData.quiz as NewItemType
-      } else if (quizEngine === 'new' && responseData?.assignment) {
-        return responseData.assignment as NewItemType
-      }
+    } else if (type === 'quiz' && responseData?.quiz) {
+      return responseData.quiz as NewItemType
     } else if (type === 'discussion') {
       return responseData as NewItemType
     } else if (type === 'page') {

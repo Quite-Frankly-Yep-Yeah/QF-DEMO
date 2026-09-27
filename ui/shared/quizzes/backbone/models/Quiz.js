@@ -73,7 +73,7 @@ export default class Quiz extends Backbone.Model {
 
   // initialize attributes
   initId() {
-    this.id = this.isQuizzesNext() ? `assignment_${this.get('id')}` : this.get('id')
+    this.id = this.get('id')
   }
 
   initAssignment() {
@@ -130,10 +130,6 @@ export default class Quiz extends Backbone.Model {
     return this.set('possible_points_label', text)
   }
 
-  isQuizzesNext() {
-    return this.get('quiz_type') === 'quizzes.next'
-  }
-
   isUngradedSurvey() {
     return this.get('quiz_type') === 'survey'
   }
@@ -144,51 +140,26 @@ export default class Quiz extends Backbone.Model {
   }
 
   publish_url() {
-    if (this.isQuizzesNext()) {
-      return `${this.get('base_url')}/publish/quiz`
-    }
     return `${this.get('base_url')}/publish`
   }
 
   unpublish_url() {
-    if (this.isQuizzesNext()) {
-      return `${this.get('base_url')}/unpublish/quiz`
-    }
     return `${this.get('base_url')}/unpublish`
   }
 
   url() {
-    if (this.isQuizzesNext() && ENV.PERMISSIONS?.manage) {
-      return this.edit_url()
-    }
     return this.build_url()
   }
 
   build_url() {
-    const url = `${this.get('base_url')}/${this.get('id')}`
-    if (this.isQuizzesNext()) {
-      let displayType = 'full_width'
-
-      if (ENV.FEATURES.new_quizzes_navigation_updates) {
-        displayType = 'full_width_with_nav'
-      }
-
-      return `${url}?display=${displayType}`
-    }
-
-    return url
+    return `${this.get('base_url')}/${this.get('id')}`
   }
 
   edit_url() {
-    const query_string = this.isQuizzesNext() ? '?quiz_lti' : ''
-    return `${this.get('base_url')}/${this.get('id')}/edit${query_string}`
+    return `${this.get('base_url')}/${this.get('id')}/edit`
   }
 
   deletion_url() {
-    if (this.isQuizzesNext()) {
-      return `${this.get('base_url')}/${this.get('id')}`
-    }
-
     return this.get('url')
   }
 
@@ -327,18 +298,6 @@ export default class Quiz extends Backbone.Model {
     }
     $.ajaxJSON(
       `/api/v1/courses/${original_course_id}/assignments/${original_assignment_id}/retry_alignment_clone${query_string}`,
-      'POST',
-      {},
-      callback,
-    )
-  }
-
-  // caller is failed migrated assignment
-  retry_migration(callback) {
-    const course_id = this.get('course_id')
-    const original_quiz_id = this.get('original_quiz_id')
-    $.ajaxJSON(
-      `/api/v1/courses/${course_id}/content_exports?export_type=quizzes2&quiz_id=${original_quiz_id}&include[]=migrated_quiz`,
       'POST',
       {},
       callback,

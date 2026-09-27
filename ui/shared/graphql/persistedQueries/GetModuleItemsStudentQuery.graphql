@@ -28,7 +28,6 @@ query GetModuleItemsStudentQuery($moduleId: ID!, $cursor: String, $first: Int) {
                 title
                 type: __typename
                 pointsPossible
-                isNewQuiz
                 submissionsConnection(filter: { includeUnsubmitted: true }) {
                   nodes {
                     _id

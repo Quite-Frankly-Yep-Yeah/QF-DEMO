@@ -52,7 +52,7 @@ import qs from 'qs'
 import React, {useRef} from 'react'
 import {legacyUnmountComponentAtNode, legacyRender, render} from '@canvas/react'
 import JQuerySelectorCache from '../JQuerySelectorCache'
-import QuizzesNextSpeedGrading from '../QuizzesNextSpeedGrading'
+import SpeedGraderPostMessages from '../SpeedGraderPostMessages'
 import {
   determineSubmissionSelection,
   makeSubmissionUpdateRequest,
@@ -286,9 +286,6 @@ let groupLabel: string
 let gradeeLabel: string
 let sessionTimer: number
 let isAdmin: boolean
-let showSubmissionOverride: (submission: Submission) => void
-let externalToolLaunchOptions = {singleLtiLaunch: false}
-let externalToolLoaded = false
 let provisionalGraderDisplayNames: Record<string, string | null>
 let EG: SpeedGrader
 let submittedAtText: string | null
@@ -326,8 +323,6 @@ function setupHandleSGMessages() {
 }
 
 function teardownBeforeLeavingSpeedgrader() {
-  externalToolLaunchOptions = {singleLtiLaunch: false}
-  externalToolLoaded = false
   window.removeEventListener('beforeunload', EG.beforeLeavingSpeedgrader)
 }
 
@@ -961,7 +956,6 @@ function setupHeader() {
       const gradeByQuestion = !!$('#enable_speedgrader_grade_by_question').prop('checked')
       if (gradeByQuestion !== ENV.GRADE_BY_QUESTION) {
         ENV.GRADE_BY_QUESTION = gradeByQuestion
-        QuizzesNextSpeedGrading.postGradeByQuestionChangeMessage($iframe_holder, gradeByQuestion)
       }
 
       $.post(ENV.settings_url, {
@@ -2299,12 +2293,7 @@ EG = {
         this.setActiveProvisionalGradeFields()
       }
     } else {
-      // showSubmissionOverride is optionally set if the user is
-      // using the quizzes.next lti tool. Rather than reload the tool based
-      // on a new URL, it just dispatches a message to tell the tool to
-      // change itself
-      const changeSubmission = showSubmissionOverride || this.showSubmission.bind(this)
-      changeSubmission(this.currentStudent.submission)
+      this.showSubmission()
     }
   },
 
@@ -3272,9 +3261,7 @@ EG = {
 
     if (hasNoSubmission || hasNoSubmissionTypeWithoutPartial || isUnsubmittedWithoutPartial) {
       $this_student_does_not_have_a_submission.show()
-      if (!ENV.SINGLE_NQ_SESSION_ENABLED || !externalToolLaunchOptions.singleLtiLaunch) {
-        this.emptyIframeHolder()
-      }
+      this.emptyIframeHolder()
     } else if (
       this.currentStudent.submission &&
       this.currentStudent.submission.submitted_at &&
@@ -3287,17 +3274,7 @@ EG = {
     } else if (submission && submission.submission_type === 'ams') {
       this.renderAmsGrading(submission)
     } else if (submission && submission.submission_type === 'basic_lti_launch') {
-      if (
-        !ENV.SINGLE_NQ_SESSION_ENABLED ||
-        !externalToolLoaded ||
-        !externalToolLaunchOptions.singleLtiLaunch
-      ) {
-        this.renderLtiLaunch($iframe_holder, ENV.lti_retrieve_url, submission)
-        externalToolLoaded = true
-      } else {
-        QuizzesNextSpeedGrading.postChangeSubmissionVersionMessage($iframe_holder, submission)
-        $iframe_holder.show()
-      }
+      this.renderLtiLaunch($iframe_holder, ENV.lti_retrieve_url, submission)
     } else {
       this.unmountAmsGrading()
       this.renderSubmissionPreview()
@@ -3383,12 +3360,6 @@ EG = {
 
   renderLtiLaunch($div: JQuery, urlBase: string, submission: HistoricalSubmission) {
     let externalToolUrl = submission.external_tool_url || submission.url
-
-    if (ENV.NQ_GRADE_BY_QUESTION_ENABLED && window.jsonData.quiz_lti && externalToolUrl) {
-      const quizToolUrl = new URL(externalToolUrl)
-      quizToolUrl.searchParams.set('grade_by_question_enabled', String(ENV.GRADE_BY_QUESTION))
-      externalToolUrl = quizToolUrl.href
-    }
 
     urlBase += SpeedgraderHelpers.resourceLinkLookupUuidParam(submission)
 
@@ -5072,18 +5043,7 @@ export default {
       EG.setUpAssessmentAuditTray()
     }
 
-    function registerQuizzesNext(
-      overriddenShowSubmission: (submission: Submission) => void,
-      launchOptions: {
-        singleLtiLaunch: boolean
-      },
-    ) {
-      showSubmissionOverride = overriddenShowSubmission
-      if (launchOptions) {
-        externalToolLaunchOptions = launchOptions
-      }
-    }
-    QuizzesNextSpeedGrading.setup(EG, $iframe_holder, registerQuizzesNext, refreshGrades, window)
+    SpeedGraderPostMessages.setup(EG, window)
 
     // fire off the request to get the jsonData
     // @ts-expect-error

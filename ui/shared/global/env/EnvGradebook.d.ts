@@ -81,8 +81,6 @@ export interface EnvGradebookCommon {
  * GradebooksController#speed_grader
  */
 export interface EnvGradebookSpeedGrader {
-  SINGLE_NQ_SESSION_ENABLED: boolean
-  NQ_GRADE_BY_QUESTION_ENABLED: boolean
   GRADE_BY_QUESTION: boolean
   EMOJIS_ENABLED: boolean
   EMOJI_DENY_LIST: unknown

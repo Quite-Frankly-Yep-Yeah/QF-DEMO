@@ -34,6 +34,4 @@ CanvasExportView.child('dateShift', '.dateShift')
 
 CanvasExportView.child('selectContent', '.selectContent')
 
-CanvasExportView.child('importQuizzesNext', '.importQuizzesNext')
-
 export default CanvasExportView

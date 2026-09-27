@@ -79,28 +79,6 @@ describe('editItemHandlers', () => {
   })
 
   describe('transformModuleItemsForTray', () => {
-    it('maps new quiz engine items to resource "quiz" and stringifies points', () => {
-      const raw = [
-        {
-          _id: '1',
-          title: 'New Quiz',
-          content: {isNewQuiz: true, graded: true, pointsPossible: 10},
-        },
-      ]
-
-      const result = transformModuleItemsForTray(raw)
-
-      expect(result).toEqual([
-        {
-          id: '1',
-          name: 'New Quiz',
-          resource: 'quiz',
-          graded: true,
-          pointsPossible: '10',
-        },
-      ])
-    })
-
     it('derives resource from content.type (case-insensitive) when not a new quiz', () => {
       const raw = [
         {_id: '2', title: 'File Item', content: {type: 'File', graded: false}},
@@ -162,7 +140,7 @@ describe('editItemHandlers', () => {
       {
         _id: 'nq1',
         title: 'Graded New Quiz',
-        content: {isNewQuiz: true, graded: true, pointsPossible: 15},
+        content: {type: 'Quiz', graded: true, pointsPossible: 15},
       },
       {
         _id: 'oq1',

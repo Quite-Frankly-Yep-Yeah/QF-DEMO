@@ -112,7 +112,6 @@ export function cellMapForSubmission(
     Assignment,
     | 'published'
     | 'anonymize_students'
-    | 'new_quizzes_anonymous_participants'
     | 'moderated_grading'
     | 'grades_published'
     | 'visible_to_everyone'
@@ -124,11 +123,7 @@ export function cellMapForSubmission(
   selectedGradingPeriodID: string,
   isAdmin: boolean,
 ): Cell {
-  if (
-    !assignment.published ||
-    assignment.anonymize_students ||
-    assignment.new_quizzes_anonymous_participants
-  ) {
+  if (!assignment.published || assignment.anonymize_students) {
     return {locked: true, hideGrade: true}
   } else if (assignment.moderated_grading && !assignment.grades_published) {
     return {locked: true, hideGrade: false}

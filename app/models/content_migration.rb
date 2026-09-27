@@ -39,7 +39,6 @@ class ContentMigration < ApplicationRecord
   has_one :job_progress, class_name: "Progress", as: :context, inverse_of: :context
   serialize :migration_settings, yaml: { permitted_classes: [Symbol, Class] }
   cattr_accessor :export_file_path
-  before_save :assign_quiz_migration_limitation_alert
   before_save :set_started_at_and_finished_at
   after_save :handle_import_in_progress_notice
   after_save :check_for_blocked_migration
@@ -87,19 +86,6 @@ class ContentMigration < ApplicationRecord
     Canvas::LiveEventsCallbacks.after_update(context, context.saved_changes)
     Canvas::LiveEventsCallbacks.after_update(self, saved_changes)
 
-    # Trigger live event for new quizzes if needed
-    if initiated_source == :new_quizzes
-      Canvas::LiveEvents.quizzes_next_migration_urls_complete(
-        {
-          original_course_uuid: source_course.uuid,
-          new_course_uuid: context.uuid,
-          domain: context.root_account&.domain(ApplicationController.test_cluster_name),
-          resource_map_url: asset_map_url(generate_if_needed: true),
-          migrated_urls_content_migration_id: global_id
-        }
-      )
-    end
-
     # Trigger live events for all updated/created records
     imported_migration_items.each do |imported_item|
       next unless LiveEventsObserver.observed_classes.include? imported_item.class
@@ -121,13 +107,6 @@ class ContentMigration < ApplicationRecord
       if failed? || imported?
         self.finished_at ||= Time.now.utc
       end
-    end
-  end
-
-  def assign_quiz_migration_limitation_alert
-    if workflow_state_changed? && imported? && quizzes_next_migration? &&
-       NewQuizzesFeaturesHelper.new_quizzes_bank_migrations_enabled?(context)
-      context.create_or_update_quiz_migration_alert(user_id, self)
     end
   end
 
@@ -688,8 +667,6 @@ class ContentMigration < ApplicationRecord
   alias_method :import_content_without_send_later, :import_content
 
   def import!(data)
-    return import_quizzes_next!(data) if quizzes_next_import_process?
-
     Importers.content_importer_for(context_type)
              .import_content(
                context,
@@ -697,38 +674,6 @@ class ContentMigration < ApplicationRecord
                migration_settings[:migration_ids_to_import],
                self
              )
-  end
-
-  def quizzes_next_import_process?
-    cc_qti_migration? || quizzes_next_migration?
-  end
-
-  def cc_qti_migration?
-    context.instance_of?(Course) &&
-      NewQuizzesFeaturesHelper.common_cartridge_qti_new_quizzes_import_enabled?(context) &&
-      for_common_cartridge?
-  end
-
-  def import_quizzes_next?
-    Canvas::Plugin.value_to_boolean(migration_settings[:import_quizzes_next])
-  end
-
-  def quizzes_next_migration?
-    context.instance_of?(Course) &&
-      context.feature_enabled?(:quizzes_next) &&
-      import_quizzes_next?
-  end
-
-  def quizzes_next_banks_migration?
-    quizzes_next_migration? && Account.site_admin.feature_enabled?(:new_quizzes_bank_migrations)
-  end
-
-  def import_quizzes_next!(data)
-    quizzes2_importer =
-      QuizzesNext::Importers::CourseContentImporter.new(data, self)
-    quizzes2_importer.import_content(
-      migration_settings[:migration_ids_to_import]
-    )
   end
 
   def master_migration
@@ -997,14 +942,12 @@ class ContentMigration < ApplicationRecord
     [outcome, link]
   end
 
-  def outcome_has_active_alignments?(link, outcome, context)
-    !link.can_destroy? || outcome_has_alignments?(outcome, context)
+  def outcome_has_active_alignments?(link, _outcome, _context)
+    !link.can_destroy?
   end
 
   def outcome_has_results?(outcome, context)
-    return true if outcome.learning_outcome_results.where("workflow_state <> 'deleted' AND context_type='Course' AND context_code='course_#{context.id}'").count > 0
-
-    outcome_has_authoritative_results?(outcome, context)
+    outcome.learning_outcome_results.where("workflow_state <> 'deleted' AND context_type='Course' AND context_code='course_#{context.id}'").exists?
   end
 
   def check_cross_institution

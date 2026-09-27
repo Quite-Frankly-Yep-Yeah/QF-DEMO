@@ -43,7 +43,7 @@ RSpec.shared_context "lti_layout_spec_helper" do
     ctrl.instance_variable_set(:@_response, response)
     ctrl.instance_variable_set(:@context, tool.context)
 
-    allow(tag).to receive_messages(new_tab: true, quiz_lti: true)
+    allow(tag).to receive_messages(new_tab: true)
     allow(tool).to receive(:login_or_launch_url).with(any_args).and_return("https://example.com")
     allow(tool).to receive(:use_1_3?).and_return(true)
     allow(Lti::ToolFinder).to receive(:from_url).with(any_args).and_return(tool)

@@ -21,9 +21,6 @@ import 'jquery-migrate'
 import Assignment from '@canvas/assignments/backbone/models/Assignment'
 import AssignmentGroupSelector from '@canvas/assignments/backbone/views/AssignmentGroupSelector'
 import GradingTypeSelector from '@canvas/assignments/backbone/views/GradingTypeSelector'
-import QuizTypeSelector from '@canvas/assignments/backbone/views/QuizTypeSelector'
-import AnonymousSubmissionSelector from '@canvas/assignments/backbone/views/AnonymousSubmissionSelector'
-import PointsTooltip from '@canvas/assignments/backbone/views/PointsTooltip'
 import PeerReviewsSelector from '@canvas/assignments/backbone/views/PeerReviewsSelector'
 import DueDateOverrideView from '@canvas/due-dates'
 import DueDateList from '@canvas/due-dates/backbone/models/DueDateList'
@@ -87,15 +84,6 @@ const editView = (assignmentOpts = {}) => {
     parentModel: assignment,
     canEditGrades: ENV?.PERMISSIONS?.can_edit_grades,
   })
-  const quizTypeSelector = new QuizTypeSelector({
-    parentModel: assignment,
-  })
-  const anonymousSubmissionSelector = new AnonymousSubmissionSelector({
-    parentModel: assignment,
-  })
-  const pointsTooltip = new PointsTooltip({
-    parentModel: assignment,
-  })
   const groupCategorySelector = new GroupCategorySelector({
     parentModel: assignment,
     groupCategories: ENV?.GROUP_CATEGORIES || [],
@@ -112,9 +100,6 @@ const editView = (assignmentOpts = {}) => {
     model: assignment,
     assignmentGroupSelector,
     gradingTypeSelector,
-    quizTypeSelector,
-    anonymousSubmissionSelector,
-    pointsTooltip,
     groupCategorySelector,
     peerReviewsSelector,
     dueDateList,
@@ -291,12 +276,6 @@ describe.skip('EditView', () => {
     ENV.IS_LARGE_ROSTER = true
     const view = editView()
     expect(view.$('#group_category_selector')).toHaveLength(0)
-  })
-
-  it('does not show the "hide_zero_point_quiz" checkbox when it is not a quiz lti assignment', () => {
-    ENV.HIDE_ZERO_POINT_QUIZZES_OPTION_ENABLED = true
-    const view = editView({is_quiz_lti_assignment: false})
-    expect(view.$hideZeroPointQuizzesBox).toHaveLength(0)
   })
 
   it('does not allow group assignment for anonymously graded assignments', () => {

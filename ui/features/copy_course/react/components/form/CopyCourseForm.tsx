@@ -75,7 +75,6 @@ export const CopyCourseForm = ({
   terms,
   userTimeZone,
   courseTimeZone,
-  canImportAsNewQuizzes,
   isSubmitting,
   onSubmit,
   onCancel,
@@ -84,7 +83,6 @@ export const CopyCourseForm = ({
   terms: Term[]
   userTimeZone?: string
   courseTimeZone?: string
-  canImportAsNewQuizzes: boolean
   isSubmitting: boolean
   onSubmit: (data: CopyCourseFormSubmitData) => void
   onCancel: () => void
@@ -249,7 +247,6 @@ export const CopyCourseForm = ({
         canAdjustDates={true}
         canSelectContent={true}
         canImportBPSettings={canImportBpSettings}
-        canImportAsNewQuizzes={canImportAsNewQuizzes}
         newStartDate={isoNewCourseStartDate}
         newEndDate={isoNewCourseEndDate}
         setEndDate={setNewCourseEndDate}

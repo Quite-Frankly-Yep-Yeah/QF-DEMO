@@ -56,7 +56,6 @@ const CanvasCartridgeImporter = ({
         fileUploadProgress={fileUploadProgress}
         isSubmitting={isSubmitting}
         canSelectContent={true}
-        canImportAsNewQuizzes={ENV.NEW_QUIZZES_MIGRATION}
         canAdjustDates={true}
         onSubmit={handleSubmit}
         onCancel={onCancel}

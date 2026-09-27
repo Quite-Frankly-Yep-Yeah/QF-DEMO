@@ -40,10 +40,4 @@ describe "assignments/edit" do
     render "assignments/edit"
     expect(response).not_to be_nil # have_tag()
   end
-
-  it "renders rubrics" do
-    allow(@assignment).to receive(:quiz_lti?).and_return(true)
-    render "assignments/edit"
-    expect(response).to render_template(partial: "_rubrics_component")
-  end
 end

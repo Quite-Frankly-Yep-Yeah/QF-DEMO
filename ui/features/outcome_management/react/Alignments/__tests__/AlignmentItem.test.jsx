@@ -135,37 +135,4 @@ describe('AlignmentItem', () => {
     )
     expect(queryByText('Question 1')).not.toBeInTheDocument()
   })
-
-  describe('alignment to new quiz', () => {
-    it('displays new quiz icon', () => {
-      const {getByTestId} = render(
-        <AlignmentItem {...defaultProps({assignmentContentType: 'new_quiz'})} />,
-      )
-      expect(getByTestId('alignment-item-new-quiz-icon')).toBeInTheDocument()
-    })
-
-    it('displays list of quiz items', () => {
-      const {getByText} = render(
-        <AlignmentItem
-          {...defaultProps({
-            assignmentContentType: 'new_quiz',
-            quizItems: [{_id: 1, title: 'Question 1'}],
-          })}
-        />,
-      )
-      expect(getByText('Aligned Questions')).toBeInTheDocument()
-      expect(getByText('Question 1')).toBeInTheDocument()
-    })
-
-    it('does not display list of quiz items if there are no items', () => {
-      const {queryByText} = render(
-        <AlignmentItem
-          {...defaultProps({
-            assignmentContentType: 'new_quiz',
-          })}
-        />,
-      )
-      expect(queryByText('Aligned Questions')).not.toBeInTheDocument()
-    })
-  })
 })

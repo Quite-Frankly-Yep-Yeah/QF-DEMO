@@ -24,7 +24,6 @@ describe('SpeedGrader Options Menu', () => {
   let userSettings
   let saveUserSettings
   let SpeedGraderHelpers
-  let QuizzesNextSpeedGrading
 
   beforeEach(() => {
     fixtures = document.createElement('div')
@@ -60,10 +59,6 @@ describe('SpeedGrader Options Menu', () => {
       reloadPage: vi.fn(),
     }
 
-    QuizzesNextSpeedGrading = {
-      postGradeByQuestionChangeMessage: vi.fn(),
-    }
-
     // Mock the form submission handler
     const form = document.getElementById('settings_form')
     form.addEventListener('submit', e => {
@@ -81,14 +76,6 @@ describe('SpeedGrader Options Menu', () => {
 
       if (needsReload && !gradeByQuestionCheckbox.checked) {
         SpeedGraderHelpers.reloadPage()
-      }
-
-      if (gradeByQuestionCheckbox.checked !== gradeByQuestionCheckbox.defaultChecked) {
-        QuizzesNextSpeedGrading.postGradeByQuestionChangeMessage(
-          null,
-          gradeByQuestionCheckbox.checked,
-        )
-        gradeByQuestionCheckbox.defaultChecked = gradeByQuestionCheckbox.checked
       }
     })
   })
@@ -146,30 +133,5 @@ describe('SpeedGrader Options Menu', () => {
     form.dispatchEvent(event)
     await saveUserSettings
     expect(SpeedGraderHelpers.reloadPage).not.toHaveBeenCalled()
-  })
-
-  it('sends a postMessage only when "grade_by_question" changes', async () => {
-    await awhile()
-    const postMessageStub = vi.spyOn(QuizzesNextSpeedGrading, 'postGradeByQuestionChangeMessage')
-    const checkbox = document.getElementById('enable_speedgrader_grade_by_question')
-    const form = document.getElementById('settings_form')
-
-    // First change - should trigger postMessage
-    checkbox.checked = true
-    form.dispatchEvent(new Event('submit'))
-    expect(postMessageStub).toHaveBeenCalledWith(null, true)
-
-    postMessageStub.mockClear()
-
-    // Second change - should trigger postMessage
-    checkbox.checked = false
-    form.dispatchEvent(new Event('submit'))
-    expect(postMessageStub).toHaveBeenCalledWith(null, false)
-
-    postMessageStub.mockClear()
-
-    // No change - should not trigger postMessage
-    form.dispatchEvent(new Event('submit'))
-    expect(postMessageStub).not.toHaveBeenCalled()
   })
 })

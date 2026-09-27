@@ -229,12 +229,6 @@ new_user_tutorial_on_off:
     opportunities on each page in quite frankly an example LMS. It is especially useful when you are new
     to quite frankly an example LMS or are setting up a new course for the first time in a long time.
   applies_to: User
-newquizzes_on_quiz_page:
-  state: hidden
-  display_name: New Quizzes on the Quizzes page
-  description: Show New Quizzes on the Quizzes page
-  applies_to: Account
-  root_opt_in: true
 non_scoring_rubrics:
   state: 'on'
   display_name: Non-scoring Rubrics
@@ -277,25 +271,6 @@ post_grades:
       Aspire (SIS2000), JMC, and any other SIF-enabled SIS that accepts the SIF elements GradingCategory,
       GradingAssignment, GradingAssignmentScore.
   applies_to: Course
-  root_opt_in: true
-# Hidden: New Quizzes needs Instructure's hosted quiz_lti service (docs/fork-plan.md §8).
-quizzes_next:
-  state: hidden
-  display_name:
-    features.quizzes.next: New Quizzes
-  description:
-    wrapper: <a target="blank" href="https://community.instructure.com/en/kb/articles/664245-faq-new-quizzes?utm_source=community-search&utm_medium=organic-search&utm_term=new+quizzes">\1</a>
-    new_quizzes_description: This feature enhances the quite frankly an example LMS experience for quizzing.
-      When this flag is enabled, the New Quizzes tool will be available. For full details,
-      please see the *New Quizzes FAQ* in the Instructure Community.
-  applies_to: Course
-  visible_on: quizzes_next_visible_on_hook
-quizzes_next_submission_history:
-  state: 'on'
-  display_name: New Quizzes submission history
-  description: If enabled, submission history for New Quizzes quizzes is dealt with
-    separately.
-  applies_to: RootAccount
   root_opt_in: true
 rubric_criterion_range:
   state: allowed
@@ -388,16 +363,6 @@ cookie_consent_necessary:
   description: Indicates if cookie consent is necessary
   applies_to: RootAccount
   shadow: true
-new_quiz_public_api:
-  applies_to: SiteAdmin
-  state: hidden
-  display_name: New Quizzes Public API
-  description: Enables access to the New Quizzes Public API through quite frankly an example LMS.
-  environments:
-    ci:
-      state: allowed_on
-    development:
-      state: allowed_on
 restrict_student_access:
   state: hidden
   display_name: Restricted Inbox, Files and Calendar Functionality

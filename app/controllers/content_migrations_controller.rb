@@ -126,7 +126,6 @@
 class ContentMigrationsController < ApplicationController
   include Api::V1::ContentMigration
   include Api::V1::ExternalTools
-  include NewQuizzesFeaturesHelper
   include K5Mode
 
   before_action :require_context
@@ -154,14 +153,6 @@ class ContentMigrationsController < ApplicationController
                QUESTION_BANKS: @context.assessment_question_banks.except(:preload).select([:title, :id]).active,
                SHOW_BP_SETTINGS_IMPORT_OPTION: MasterCourses::MasterTemplate.blueprint_eligible?(@context) &&
                  @context.account.grants_all_rights?(@current_user, session, :manage_courses_admin, :manage_master_courses),
-
-               # These values are used based on the same logic as ui/features/content_migrations/setup.js do.
-               QUIZZES_NEXT_ENABLED: new_quizzes_enabled?,
-               NEW_QUIZZES_IMPORT: new_quizzes_import_enabled?,
-               NEW_QUIZZES_MIGRATION: new_quizzes_migration_enabled?,
-               NEW_QUIZZES_MIGRATION_DEFAULT: new_quizzes_migration_default,
-               NEW_QUIZZES_MIGRATION_REQUIRED: new_quizzes_require_migration?,
-               NEW_QUIZZES_UNATTACHED_BANK_MIGRATIONS: new_quizzes_unattached_bank_migrations_enabled?,
 
                CONTENT_MIGRATIONS_EXPIRE_DAYS: ContentMigration.expire_days,
                OLD_START_DATE: datetime_string(@context.start_at, :verbose),
@@ -203,12 +194,6 @@ class ContentMigrationsController < ApplicationController
 
                  SHOW_SELECT: should_show_course_copy_dropdown,
                  CONTENT_MIGRATIONS_EXPIRE_DAYS: ContentMigration.expire_days,
-                 QUIZZES_NEXT_ENABLED: new_quizzes_enabled?,
-                 NEW_QUIZZES_IMPORT: new_quizzes_import_enabled?,
-                 NEW_QUIZZES_MIGRATION: new_quizzes_migration_enabled?,
-                 NEW_QUIZZES_MIGRATION_DEFAULT: new_quizzes_migration_default,
-                 NEW_QUIZZES_MIGRATION_REQUIRED: new_quizzes_require_migration?,
-                 NEW_QUIZZES_UNATTACHED_BANK_MIGRATIONS: new_quizzes_unattached_bank_migrations_enabled?,
                  BLUEPRINT_ELIGIBLE_IMPORT: MasterCourses::MasterTemplate.blueprint_eligible?(@context),
                  SHOW_BP_SETTINGS_IMPORT_OPTION: MasterCourses::MasterTemplate.blueprint_eligible?(@context) &&
                    @context.account.grants_all_rights?(@current_user, session, :manage_courses_admin, :manage_master_courses),

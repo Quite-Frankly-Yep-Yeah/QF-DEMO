@@ -18,7 +18,7 @@
 
 describe "DataFixup::RemoveRoleOverridesForNewPermission" do
   let(:base_permission) { :become_user }
-  let(:remove_permissions) { [:new_quizzes_view_ip_address, :new_quizzes_multiple_session_detection] }
+  let(:remove_permissions) { [:read_roster, :send_messages] }
   let(:account) { Account.default }
   let(:role) { Role.create!(name: "TestRole", base_role_type: "TeacherEnrollment", account:) }
   let(:admin_role) { Role.create!(name: "AdminRole", base_role_type: "AccountAdmin", account:) }

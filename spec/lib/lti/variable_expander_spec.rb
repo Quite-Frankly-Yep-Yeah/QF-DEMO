@@ -954,84 +954,6 @@ module Lti
         expect(expand!("$Canvas.root_account.global_id")).to eq 10_054_321
       end
 
-      context "when the new_quizzes_separators feature flag is enabled for decimal separators" do
-        before do
-          allow(Account.site_admin).to receive(:feature_enabled?).with(:new_quizzes_separators).and_return(true)
-        end
-
-        it "has substitution for $Canvas.account.decimal_separator when sub account has setting" do
-          account_settings = { decimal_separator: { value: "period" } }
-          root_settings = { decimal_separator: { value: "comma" } }
-          allow(account).to receive(:settings).and_return(account_settings)
-          allow(root_account).to receive(:settings).and_return(root_settings)
-          allow(variable_expander.lti_helper).to receive_messages(account:, course:)
-          expect(expand!("$Canvas.account.decimal_separator")).to eq "period"
-        end
-
-        it "has substitution for $Canvas.account.decimal_separator with fallback to root account setting" do
-          account_settings = {}
-          root_settings = { decimal_separator: { value: "comma" } }
-          allow(account).to receive(:settings).and_return(account_settings)
-          allow(root_account).to receive(:settings).and_return(root_settings)
-          allow(variable_expander.lti_helper).to receive_messages(account:, course:)
-          expect(expand!("$Canvas.account.decimal_separator")).to eq "comma"
-        end
-      end
-
-      context "when the new_quizzes_separators feature flag is disabled for decimal separators" do
-        before do
-          allow(Account.site_admin).to receive(:feature_enabled?).with(:new_quizzes_separators).and_return(false)
-        end
-
-        it "does not expand $Canvas.account.decimal_separator" do
-          account_settings = { decimal_separator: { value: "period" } }
-          root_settings = { decimal_separator: { value: "comma" } }
-          allow(account).to receive(:settings).and_return(account_settings)
-          allow(root_account).to receive(:settings).and_return(root_settings)
-          allow(variable_expander.lti_helper).to receive_messages(account:, course:)
-          expect_unexpanded!("$Canvas.account.decimal_separator")
-        end
-      end
-
-      context "when the new_quizzes_separators feature flag is enabled for thousand separators" do
-        before do
-          allow(Account.site_admin).to receive(:feature_enabled?).with(:new_quizzes_separators).and_return(true)
-        end
-
-        it "has substitution for $Canvas.account.thousand_separator when sub account has setting" do
-          account_settings = { thousand_separator: { value: "period" } }
-          root_settings = { thousand_separator: { value: "comma" } }
-          allow(account).to receive(:settings).and_return(account_settings)
-          allow(root_account).to receive(:settings).and_return(root_settings)
-          allow(variable_expander.lti_helper).to receive_messages(account:, course:)
-          expect(expand!("$Canvas.account.thousand_separator")).to eq "period"
-        end
-
-        it "has substitution for $Canvas.account.thousand_separator with fallback to root account setting" do
-          account_settings = {}
-          root_settings = { thousand_separator: { value: "comma" } }
-          allow(account).to receive(:settings).and_return(account_settings)
-          allow(root_account).to receive(:settings).and_return(root_settings)
-          allow(variable_expander.lti_helper).to receive_messages(account:, course:)
-          expect(expand!("$Canvas.account.thousand_separator")).to eq "comma"
-        end
-      end
-
-      context "when the new_quizzes_separators feature flag is disabled for thousand separators" do
-        before do
-          allow(Account.site_admin).to receive(:feature_enabled?).with(:new_quizzes_separators).and_return(false)
-        end
-
-        it "does not expand $Canvas.account.thousand_separator" do
-          account_settings = { thousand_separator: { value: "period" } }
-          root_settings = { thousand_separator: { value: "comma" } }
-          allow(account).to receive(:settings).and_return(account_settings)
-          allow(root_account).to receive(:settings).and_return(root_settings)
-          allow(variable_expander.lti_helper).to receive_messages(account:, course:)
-          expect_unexpanded!("$Canvas.account.thousand_separator")
-        end
-      end
-
       it "has substitution for $Canvas.shard.id" do
         expect(expand!("$Canvas.shard.id")).to eq Shard.current.id
       end
@@ -1107,20 +1029,10 @@ module Lti
           expect(expand!("$com.instructure.User.student_view", expander:)).to eq "false"
         end
 
-        it "has a substitution for Canvas.course.aiQuizGeneration" do
-          course.account.settings[:root_account_tier] = "1"
-          course.account.save!
-          course.save!
-          course.enable_feature!(:new_quizzes_ai_quiz_generation)
-          expander = VariableExpander.new(root_account, course, controller, current_user: user, tool:, assignment:)
-          expect(expand!("$Canvas.course.aiQuizGeneration", expander:)).to eq "true"
-        end
-
         it "has a substitution for Canvas.course.sectionRestricted" do
           allow(Lti::SubstitutionsHelper).to receive(:new).and_return(substitution_helper)
           allow(substitution_helper).to receive(:section_restricted).and_return(true)
           course.save!
-          course.enable_feature!(:new_quizzes_ai_quiz_generation)
           expander = VariableExpander.new(root_account, course, controller, current_user: user, tool:, assignment:)
           expect(expand!("$Canvas.course.sectionRestricted", expander:)).to eq "true"
         end
@@ -1136,41 +1048,6 @@ module Lti
           course.save!
           expander = VariableExpander.new(root_account, course, controller, current_user: user, tool:, assignment:)
           expect(expand!("$Canvas.assignment.omitFromFinalGrade", expander:)).to eq "false"
-        end
-      end
-
-      context "Canvas.course.aiQuizGeneration expansion" do
-        let(:subst_name) { "$Canvas.course.aiQuizGeneration" }
-
-        it "returns true when the feature flag is enabled for the course" do
-          course.account.settings[:root_account_tier] = "1"
-          course.account.save!
-          course.save!
-          course.enable_feature!(:new_quizzes_ai_quiz_generation)
-
-          expander = VariableExpander.new(
-            root_account,
-            course,
-            controller,
-            current_user: user,
-            tool:
-          )
-
-          expect(expand!(subst_name, expander:)).to be(true)
-        end
-
-        it "returns false when the feature flag is not enabled for the course" do
-          course.save!
-
-          expander = VariableExpander.new(
-            root_account,
-            course,
-            controller,
-            current_user: user,
-            tool:
-          )
-
-          expect(expand!(subst_name, expander:)).to be(false)
         end
       end
 
@@ -2169,25 +2046,6 @@ module Lti
         it "has substitution for $Canvas.assignment.title" do
           assignment.title = "Buy as many ducks as you can"
           expect(expand!("$Canvas.assignment.title")).to eq "Buy as many ducks as you can"
-        end
-
-        it "has substitution for $Canvas.assignment.new_quizzes_type" do
-          expect(expand!("$Canvas.assignment.new_quizzes_type")).to eq "graded_quiz"
-        end
-
-        it "has substitution for $Canvas.assignment.new_quizzes_type with custom type" do
-          allow(assignment).to receive(:new_quizzes_type).and_return("ungraded_survey")
-          expect(expand!("$Canvas.assignment.new_quizzes_type")).to eq "ungraded_survey"
-        end
-
-        it "has substitution for $Canvas.assignment.anonymous_participants" do
-          allow(assignment).to receive(:anonymous_participants?).and_return(false)
-          expect(expand!("$Canvas.assignment.anonymous_participants")).to be false
-        end
-
-        it "has substitution for $Canvas.assignment.anonymous_participants when true" do
-          allow(assignment).to receive(:anonymous_participants?).and_return(true)
-          expect(expand!("$Canvas.assignment.anonymous_participants")).to be true
         end
 
         describe "$Canvas.assignment.pointsPossible" do

@@ -227,8 +227,6 @@ class SubmissionLifecycleManager
         assignment = assignments_by_id[assignment_id]
         create_moderation_selections_for_assignment(assignment, student_due_dates.keys, @user_ids)
 
-        quiz_lti = quiz_lti_assignments.include?(assignment_id)
-
         student_due_dates.each_key do |student_id|
           key = [assignment_id, student_id]
           next unless processed_pairs.add?(key)
@@ -246,12 +244,12 @@ class SubmissionLifecycleManager
               sub_assignment_key = [sub_assignment.id, student_id]
               next unless processed_pairs.add?(sub_assignment_key)
 
-              values << [sub_assignment.id, student_id, "NULL", grading_period_id, sql_ready_anonymous_id, quiz_lti, @course.root_account_id]
+              values << [sub_assignment.id, student_id, "NULL", grading_period_id, sql_ready_anonymous_id, @course.root_account_id]
             end
           end
 
           # checkpoints or not, we always want to create submissions for the Assignment
-          values << [assignment_id, student_id, due_date, grading_period_id, sql_ready_anonymous_id, quiz_lti, @course.root_account_id]
+          values << [assignment_id, student_id, due_date, grading_period_id, sql_ready_anonymous_id, @course.root_account_id]
         end
       end
 
@@ -280,8 +278,6 @@ class SubmissionLifecycleManager
         while subs.update_all(workflow_state: :deleted, updated_at: Time.zone.now) > 0; end
       end
 
-      nq_restore_pending_flag_enabled = Account.site_admin.feature_enabled?(:new_quiz_deleted_workflow_restore_pending_review_state)
-
       # Get any stragglers that might have had their enrollment removed from the course
       # 100 students at a time for 10 assignments each == slice of up to 1K submissions
       enrollment_counts.deleted_student_ids.each_slice(100) do |student_slice|
@@ -303,10 +299,6 @@ class SubmissionLifecycleManager
         if record_due_date_changed_events?
           auditable_entries = batch.select { |entry| @assignments_auditable_by_id.include?(entry.first) }
           cached_due_dates_by_submission = current_cached_due_dates(auditable_entries)
-        end
-
-        if nq_restore_pending_flag_enabled
-          handle_lti_deleted_submissions(batch)
         end
 
         # prepare values for SQL interpolation
@@ -454,21 +446,6 @@ class SubmissionLifecycleManager
     @record_due_date_changed_events ||= @executing_user_id.present? && @assignments_auditable_by_id.present?
   end
 
-  def quiz_lti_assignments
-    # We only care about quiz LTIs, so we'll only snag those. In fact,
-    # we only care if the assignment *is* a quiz, LTI, so we'll just
-    # keep a set of those assignment ids.
-    @quiz_lti_assignments ||=
-      ContentTag.joins("INNER JOIN #{ContextExternalTool.quoted_table_name} ON content_tags.content_type='ContextExternalTool' AND context_external_tools.id = content_tags.content_id")
-                .merge(ContextExternalTool.quiz_lti)
-                .where(context_type: "Assignment").
-      # We're doing the following direct postgres any() rather than .where(context_id: @assignment_ids) on advice
-      # from our DBAs that the any is considerably faster in the postgres planner than the "IN ()" statement that
-      # AR would have generated.
-      where("content_tags.context_id = any('{?}'::int8[])", @assignment_ids)
-                .where.not(workflow_state: "deleted").distinct.pluck(:context_id).to_set
-  end
-
   def existing_anonymous_ids_by_assignment_id
     @existing_anonymous_ids_by_assignment_id ||=
       Submission
@@ -489,10 +466,9 @@ class SubmissionLifecycleManager
             #{self.class.infer_submission_workflow_state_sql}
           )),
           anonymous_id = COALESCE(submissions.anonymous_id, vals.anonymous_id),
-          cached_quiz_lti = vals.cached_quiz_lti,
           updated_at = now() AT TIME ZONE 'UTC'
         FROM (VALUES #{batch_values.join(",")})
-          AS vals(assignment_id, student_id, due_date, grading_period_id, anonymous_id, cached_quiz_lti, root_account_id)
+          AS vals(assignment_id, student_id, due_date, grading_period_id, anonymous_id, root_account_id)
         WHERE submissions.user_id = vals.student_id AND
               submissions.assignment_id = vals.assignment_id AND
               (
@@ -501,21 +477,19 @@ class SubmissionLifecycleManager
                 (submissions.workflow_state <> COALESCE(NULLIF(submissions.workflow_state, 'deleted'),
                   (#{self.class.infer_submission_workflow_state_sql})
                 )) OR
-                (submissions.anonymous_id IS DISTINCT FROM COALESCE(submissions.anonymous_id, vals.anonymous_id)) OR
-                (submissions.cached_quiz_lti IS DISTINCT FROM vals.cached_quiz_lti)
+                (submissions.anonymous_id IS DISTINCT FROM COALESCE(submissions.anonymous_id, vals.anonymous_id))
               );
       INSERT INTO #{Submission.quoted_table_name}
         (assignment_id, user_id, workflow_state, created_at, updated_at, course_id,
-        cached_due_date, grading_period_id, anonymous_id, cached_quiz_lti, root_account_id)
+        cached_due_date, grading_period_id, anonymous_id, root_account_id)
         SELECT
           assignments.id, vals.student_id, 'unsubmitted',
           now() AT TIME ZONE 'UTC', now() AT TIME ZONE 'UTC',
           assignments.context_id, vals.due_date::timestamptz, vals.grading_period_id::integer,
           vals.anonymous_id,
-          vals.cached_quiz_lti,
           vals.root_account_id
         FROM (VALUES #{batch_values.join(",")})
-          AS vals(assignment_id, student_id, due_date, grading_period_id, anonymous_id, cached_quiz_lti, root_account_id)
+          AS vals(assignment_id, student_id, due_date, grading_period_id, anonymous_id, root_account_id)
         INNER JOIN #{AbstractAssignment.quoted_table_name} assignments
           ON assignments.id = vals.assignment_id
         LEFT OUTER JOIN #{Submission.quoted_table_name} submissions
@@ -534,38 +508,6 @@ class SubmissionLifecycleManager
     rescue ActiveRecord::Deadlocked => e
       Canvas::Errors.capture_exception(:submission_lifecycle_manager, e, :warn)
       raise Delayed::RetriableError, "Deadlock when upserting submissions"
-    end
-  end
-
-  def handle_lti_deleted_submissions(batch)
-    quiz_lti_index = 5
-
-    assignments_and_users_query = batch.each_with_object([]) do |entry, memo|
-      next unless entry[quiz_lti_index]
-
-      memo << "(#{entry.first}, #{entry.second})"
-    end
-
-    return if assignments_and_users_query.empty?
-
-    submission_join_query = <<~SQL.squish
-      INNER JOIN (VALUES #{assignments_and_users_query.join(",")})
-      AS vals(assignment_id, student_id)
-      ON submissions.assignment_id = vals.assignment_id
-      AND submissions.user_id = vals.student_id
-    SQL
-
-    submission_query = Submission.deleted.joins(submission_join_query)
-    submission_versions_to_check = Version
-                                   .where(versionable: submission_query)
-                                   .order(number: :desc)
-                                   .distinct(:versionable_id)
-    submissions_in_pending_review = submission_versions_to_check
-                                    .select { |version| version.model.workflow_state == "pending_review" }
-                                    .pluck(:versionable_id)
-
-    if submissions_in_pending_review.any?
-      Submission.where(id: submissions_in_pending_review).update_all(workflow_state: "pending_review")
     end
   end
 end

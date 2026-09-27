@@ -42,7 +42,6 @@ module SectionTabHelper
 
   # if a tab depends on a Course FF, it should be included here so that the cache is busted
   FLAGS_FOR_CACHE_KEY = %i[
-    new_quizzes_native_experience
     smart_search
     youtube_migration
   ].freeze
@@ -87,8 +86,6 @@ module SectionTabHelper
   end
 
   class AvailableSectionTabs
-    include NewQuizzesFeaturesHelper
-
     def initialize(
       context, current_user, domain_root_account, session, precalculated_permissions = nil
     )
@@ -122,8 +119,6 @@ module SectionTabHelper
             !new_collaborations_enabled
           elsif tab_is?(tab, "TAB_CONFERENCES")
             !WebConference.config(context: @context)
-          elsif Lti::ExternalToolTab.tool_for_tab(tab)&.quiz_lti?
-            !new_quizzes_navigation_placements_enabled?(context)
           elsif tab_is?(tab, "TAB_PEOPLE")
             # can't manage people in template courses
             context.is_a?(Course) && context.template?

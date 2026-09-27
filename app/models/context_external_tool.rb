@@ -128,7 +128,6 @@ class ContextExternalTool < ApplicationRecord
     end
   }
   scope :disabled, -> { where(workflow_state: DISABLED_STATE) }
-  scope :quiz_lti, -> { where(tool_id: QUIZ_LTI) }
   scope :lti_1_3, -> { where(lti_version: "1.3") }
   scope :lti_1_1, -> { where(lti_version: "1.1") }
 
@@ -164,7 +163,6 @@ class ContextExternalTool < ApplicationRecord
   }.freeze
 
   DISABLED_STATE = "disabled"
-  QUIZ_LTI = "Quizzes 2"
   ADMIN_ANALYTICS = "admin-analytics"
   PREFERRED_LTI_VERSION = "1_3"
 
@@ -1254,10 +1252,6 @@ class ContextExternalTool < ApplicationRecord
     else
       true
     end
-  end
-
-  def quiz_lti?
-    tool_id == QUIZ_LTI
   end
 
   def feature_flag_enabled?(context = nil)

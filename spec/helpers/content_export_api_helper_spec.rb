@@ -41,30 +41,12 @@ RSpec.describe ContentExportApiHelper do
       save: true,
       save!: true,
       can_use_global_identifiers?: true,
-      new_quizzes_page_enabled?: true,
       initialize_job_progress: true,
-      quizzes2_build_assignment: true,
       export: true
     )
   end
 
   RSpec.shared_examples "export calling" do
-    context "when export is waiting for external tool" do
-      before do
-        allow(export).to receive(:waiting_for_external_tool?).and_return(true)
-      end
-
-      it "initializes job progress" do
-        expect(export).to receive(:initialize_job_progress)
-        subject
-      end
-
-      it "does not call export" do
-        expect(export).not_to receive(:export)
-        subject
-      end
-    end
-
     context "when export is not waiting for external tool" do
       before do
         allow(export).to receive(:waiting_for_external_tool?).and_return(false)
@@ -140,38 +122,6 @@ RSpec.describe ContentExportApiHelper do
       it_behaves_like "export calling"
     end
 
-    context "when export_type is quizzes2" do
-      before do
-        params[:export_type] = "quizzes2"
-        params[:quiz_id] = "1"
-      end
-
-      it "creates a Quizzes2 export" do
-        result = subject
-
-        expect(result.export_type).to eq(ContentExport::QUIZZES2)
-        expect(result.selected_content).to eq("1")
-      end
-
-      it "returns bad request if quiz_id is invalid" do
-        params[:quiz_id] = nil
-
-        expect(helper).to receive(:render).with(json: { message: "quiz_id required and must be a valid ID" }, status: :bad_request)
-
-        subject
-      end
-
-      it "returns not found if quiz does not exist" do
-        allow(context).to receive(:quizzes).and_return(quizzes)
-        allow(quizzes).to receive(:exists?).and_return(false)
-        expect(helper).to receive(:render).with(json: { message: "Quiz could not be found" }, status: :bad_request)
-
-        subject
-      end
-
-      it_behaves_like "export calling"
-    end
-
     context "when export_type is common_cartridge" do
       before do
         params[:export_type] = "common_cartridge"
@@ -187,11 +137,6 @@ RSpec.describe ContentExportApiHelper do
         it "sets selected_content to the processed params" do
           expect(subject.selected_content).to eq(processed_params)
         end
-
-        it "calls content export's #prepare_new_quizzes_export with selected assignments" do
-          expect(export).to receive(:prepare_new_quizzes_export).with([1])
-          subject
-        end
       end
 
       context "when full" do
@@ -201,11 +146,6 @@ RSpec.describe ContentExportApiHelper do
 
         it "sets selected_content to all_attachments if select is not present" do
           expect(subject.selected_content.deep_symbolize_keys).to eq({ everything: true })
-        end
-
-        it "calls content export's #prepare_new_quizzes_export with nil" do
-          expect(export).to receive(:prepare_new_quizzes_export).with(nil)
-          subject
         end
       end
 

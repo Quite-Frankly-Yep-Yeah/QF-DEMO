@@ -24,36 +24,6 @@ shared_examples "allow Quiz LTI placement when the correct Feature Flags are ena
       context, current_user, domain_root_account, session
     )
   end
-
-  it "includes Quiz LTI placement if new_quizzes_account_course_level_item_banks and quizzes_next are enabled" do
-    Account.site_admin.enable_feature!(:new_quizzes_account_course_level_item_banks)
-    allow(context).to receive(:feature_enabled?).and_call_original
-    allow(context).to receive(:feature_enabled?).with(:quizzes_next).and_return(true)
-
-    expect(Account.site_admin.feature_enabled?(:new_quizzes_account_course_level_item_banks)).to be(true)
-    expect(context.feature_enabled?(:quizzes_next)).to be(true)
-    expect(quiz_lti_tool.quiz_lti?).to be(true)
-    expect(available_section_tabs.to_a.pluck(:id)).to include("context_external_tool_#{quiz_lti_tool.id}")
-  end
-
-  it "does not include Quiz LTI placement if new_quizzes_account_course_level_item_banks is not enabled" do
-    allow(context).to receive(:feature_enabled?).and_call_original
-    allow(context).to receive(:feature_enabled?).with(:quizzes_next).and_return(true)
-
-    expect(context.feature_enabled?(:quizzes_next)).to be(true)
-    expect(Account.site_admin.feature_enabled?(:new_quizzes_account_course_level_item_banks)).to be(false)
-    expect(quiz_lti_tool.quiz_lti?).to be(true)
-    expect(available_section_tabs.to_a.pluck(:id)).not_to include("context_external_tool_#{quiz_lti_tool.id}")
-  end
-
-  it "does not include Quiz LTI placement if next_quizzes is not enabled" do
-    Account.site_admin.enable_feature!(:new_quizzes_account_course_level_item_banks)
-
-    expect(Account.site_admin.feature_enabled?(:new_quizzes_account_course_level_item_banks)).to be(true)
-    expect(domain_root_account.feature_enabled?(:quizzes_next)).to be(false)
-    expect(quiz_lti_tool.quiz_lti?).to be(true)
-    expect(available_section_tabs.to_a.pluck(:id)).not_to include("context_external_tool_#{quiz_lti_tool.id}")
-  end
 end
 
 describe SectionTabHelper do
@@ -146,30 +116,6 @@ describe SectionTabHelper do
               tabs_with_ss = available_section_tabs.to_a
               smart_search_tab = tabs_with_ss.find { |tab| tab[:id] == Course::TAB_SEARCH }
               expect(smart_search_tab).not_to be_nil
-            end
-          end
-        end
-
-        context "and new_quizzes_native_experience flag changes" do
-          before do
-            allow(course).to receive(:tabs_available).and_call_original
-            course.set_feature_flag!(:new_quizzes_native_experience, "off")
-          end
-
-          let(:available_section_tabs) do
-            SectionTabHelperSpec::AvailableSectionTabs.new(
-              course, current_user, domain_root_account, session
-            )
-          end
-
-          it "uncaches tabs when new_quizzes_native_experience FF is updated" do
-            enable_cache do
-              expect(course).to receive(:tabs_available).twice.and_call_original
-              available_section_tabs.to_a
-              course.remove_instance_variable(:@tabs_available) if course.instance_variable_defined?(:@tabs_available)
-
-              course.set_feature_flag!(:new_quizzes_native_experience, "on")
-              available_section_tabs.to_a
             end
           end
         end
@@ -406,8 +352,6 @@ describe SectionTabHelper do
           end
 
           it "includes non-Quiz_LTI placement ignoring quizzes FFs" do
-            expect(Account.site_admin.feature_enabled?(:new_quizzes_account_course_level_item_banks)).to be(false)
-            expect(domain_root_account.feature_enabled?(:quizzes_next)).to be(false)
             expect(available_section_tabs.to_a.pluck(:id)).to include("context_external_tool_0")
           end
         end

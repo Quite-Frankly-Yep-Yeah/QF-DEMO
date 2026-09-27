@@ -148,7 +148,6 @@ export type ModuleItemContent = {
     assignmentOverrides?: AssignmentOverrideGraphQLResult
     assignedToDates?: StandardizedDateHash[]
   }
-  isNewQuiz?: boolean
 } | null
 
 interface AssignmentOverrideGraphQLResult {
@@ -425,8 +424,6 @@ interface PaginatedNavigationGraphQLResult {
   legacyNode?: LegacyNodeModuleItemsConnection
   errors?: GraphQLError[]
 }
-
-export type QuizEngine = 'new' | 'classic'
 
 export type ModuleKBActionEvent = 'module-action'
 export type ModuleKBAction = 'edit' | 'delete' | 'new'

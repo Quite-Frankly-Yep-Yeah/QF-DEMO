@@ -256,39 +256,6 @@ describe AssignmentsApiController, type: :request do
                { expected_status: 403 })
     end
 
-    context "when the 'new_quizzes' query param is set" do
-      subject do
-        api_get_assignments_index_from_course(course, { new_quizzes: true })
-      end
-
-      let!(:new_quizzes_assignment) do
-        a = assignment_model(submission_types: "external_tool", course:, title: "New Quizzes")
-        a.external_tool_tag_attributes = { content: tool }
-        a.save!
-        a
-      end
-
-      let(:course) { @course }
-      let(:tool) do
-        course.context_external_tools.create!(
-          name: "Quizzes.Next",
-          consumer_key: "test_key",
-          shared_secret: "test_secret",
-          tool_id: "Quizzes 2",
-          url: "http://example.com/launch"
-        )
-      end
-
-      before do
-        course.assignments.create!(title: "Non Quiz Assignment")
-      end
-
-      it "only includes the New Quizzes assignments" do
-        expect(subject.count).to eq 1
-        expect(subject.first["id"]).to eq new_quizzes_assignment.id
-      end
-    end
-
     it "includes in_closed_grading_period in returned json" do
       @course.assignments.create!(title: "Example Assignment")
       json = api_get_assignments_index_from_course(@course)
@@ -2294,7 +2261,6 @@ describe AssignmentsApiController, type: :request do
       end
 
       it 'sets the assignment "resource_map" to a value indicating a map is needed when past imports exist' do
-        allow_any_instance_of(Assignment).to receive(:quiz_lti?).and_return(true)
         master_template = MasterCourses::MasterTemplate.create!(course: @course)
         MasterCourses::ChildSubscription.create!(master_template:, child_course: new_course)
         expect_any_instance_of(Assignment).to receive(:resource_map=)
@@ -2303,21 +2269,11 @@ describe AssignmentsApiController, type: :request do
       end
 
       it 'sets the "resource_map" to equal the one from this course\'s content migration' do
-        allow_any_instance_of(Assignment).to receive(:quiz_lti?).and_return(true)
         cm = instance_double(ContentMigration, asset_map_url: "some_s3_url")
         allow(ContentMigration).to receive(:find_most_recent_by_course_ids).and_return(cm)
 
         expect(ContentMigration).to receive(:find_most_recent_by_course_ids).with(@course.global_id, new_course.global_id)
         expect_any_instance_of(Assignment).to receive(:resource_map=).with("some_s3_url")
-        subject
-      end
-
-      it 'does not set the "resource_map" when the assignment is not a quiz_lti' do
-        allow_any_instance_of(Assignment).to receive(:quiz_lti?).and_return(false)
-        master_template = MasterCourses::MasterTemplate.create!(course: @course)
-        MasterCourses::ChildSubscription.create!(master_template:, child_course: new_course)
-        expect_any_instance_of(Assignment).not_to receive(:resource_map=)
-
         subject
       end
     end
@@ -2415,35 +2371,6 @@ describe AssignmentsApiController, type: :request do
           {},
           { expected_status: 403 }
         )
-      end
-
-      context "when result_type is specified (Quizzes.Next serialization)" do
-        before do
-          @course.root_account.enable_feature!(:newquizzes_on_quiz_page)
-        end
-
-        it "outputs quiz shell json using quizzes.next serializer" do
-          url = "/api/v1/courses/#{@course.id}/assignments/#{assignment.id}/duplicate.json" \
-                "?target_assignment_id=#{failed_assignment.id}&target_course_id=#{course_copied.id}" \
-                "&result_type=Quiz"
-
-          json = api_call_as_user(
-            @teacher,
-            :post,
-            url,
-            {
-              controller: "assignments_api",
-              action: "duplicate",
-              format: "json",
-              course_id: @course.id.to_s,
-              assignment_id: assignment.id.to_s,
-              target_assignment_id: failed_assignment.id,
-              target_course_id: course_copied.id,
-              result_type: "Quiz"
-            }
-          )
-          expect(json["quiz_type"]).to eq("quizzes.next")
-        end
       end
 
       context "when retrying blueprint child" do
@@ -6893,88 +6820,6 @@ describe AssignmentsApiController, type: :request do
           end
         end
 
-        context "when Quizzes 2 tool is selected" do
-          let(:tool) do
-            @course.context_external_tools.create!(
-              name: "Quizzes.Next",
-              consumer_key: "test_key",
-              shared_secret: "test_secret",
-              tool_id: "Quizzes 2",
-              url: "http://example.com/launch"
-            )
-          end
-          let(:external_tool_tag_attributes) do
-            {
-              content_id: tool.id,
-              content_type: "context_external_tool",
-              custom_params:,
-              external_data: "",
-              new_tab: "0",
-              url: "http://example.com/launch"
-            }
-          end
-
-          # As from now we are validating that Nuw Quizzes is enabled when an Assignment with
-          # external tool Quizzes 2 is created, we need to enable the feature to make these
-          # specs pass
-          before do
-            allow(NewQuizzesFeaturesHelper).to receive(:new_quizzes_enabled?).and_return(true)
-          end
-
-          it "doesn't retain peer review settings" do
-            api_call(:post,
-                     "/api/v1/courses/#{@course.id}/assignments",
-                     {
-                       controller: "assignments_api",
-                       action: "create",
-                       format: "json",
-                       course_id: @course.id.to_s
-                     },
-                     { assignment: assignment_params },
-                     { expected_status: 200 })
-
-            expect(@course.assignments.last.peer_reviews).to be_falsey
-          end
-
-          it "identifies the assignment as quiz_lti and sets it up correctly" do
-            api_call(:post,
-                     "/api/v1/courses/#{@course.id}/assignments",
-                     {
-                       controller: "assignments_api",
-                       action: "create",
-                       format: "json",
-                       course_id: @course.id.to_s
-                     },
-                     { assignment: assignment_params },
-                     { expected_status: 200 })
-
-            assignment = @course.assignments.last
-            expect(assignment.quiz_lti?).to be true
-            expect(assignment.submission_types).to eq "external_tool"
-          end
-
-          context "when New Quizzes is not enabled" do
-            before do
-              allow(NewQuizzesFeaturesHelper).to receive(:new_quizzes_enabled?).and_return(false)
-            end
-
-            it "returns an error" do
-              response = api_call(:post,
-                                  "/api/v1/courses/#{@course.id}/assignments",
-                                  {
-                                    controller: "assignments_api",
-                                    action: "create",
-                                    format: "json",
-                                    course_id: @course.id.to_s
-                                  },
-                                  { assignment: assignment_params },
-                                  { expected_status: 400 })
-
-              expect(response["errors"]["external_tool_tag_attributes[url]"]).to be_present
-            end
-          end
-        end
-
         context "custom params isn't a Hash/JS Object" do
           let(:custom_params) { "Lies, deception!" }
 
@@ -10617,27 +10462,6 @@ describe AssignmentsApiController, type: :request do
               expect(json["external_tool_tag_attributes"]["custom_params"]).to eq custom_params
             end
           end
-        end
-      end
-
-      context "when result_type is specified (Quizzes.Next serialization)" do
-        before do
-          @course.root_account.enable_feature!(:newquizzes_on_quiz_page)
-        end
-
-        it "outputs quiz shell json using quizzes.next serializer" do
-          @assignment = @course.assignments.create!(title: "Test Assignment", description: "foo")
-          json = api_call(:get,
-                          "/api/v1/courses/#{@course.id}/assignments/#{@assignment.id}.json",
-                          { controller: "assignments_api",
-                            action: "show",
-                            format: "json",
-                            course_id: @course.id.to_s,
-                            id: @assignment.id.to_s,
-                            all_dates: true,
-                            result_type: "Quiz" },
-                          { override_assignment_dates: "false" })
-          expect(json["quiz_type"]).to eq("quizzes.next")
         end
       end
     end

@@ -46,18 +46,11 @@ ready(() => {
     })
 
     const params = new URLSearchParams(window.location.search)
-    const postMessageAliases = {
-      'quizzesNext.register': 'tool.register',
-      'quizzesNext.nextStudent': 'tool.nextStudent',
-      'quizzesNext.previousStudent': 'tool.previousStudent',
-      'quizzesNext.submissionUpdate': 'tool.submissionUpdate',
-    }
     const sgUploader = new SGUploader()
 
     return {
       executeQuery,
       platform: 'canvas',
-      postMessageAliases,
       mutationFns: {
         postSubmissionCommentMedia: sgUploader?.doUploadByFile,
       },

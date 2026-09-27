@@ -542,7 +542,7 @@ window.modules = (function () {
       }
 
       $item.addClass(data.type + '_' + data.id)
-      $item.addClass(data.quiz_lti ? 'lti-quiz' : data.type)
+      $item.addClass(data.type)
       if (data.is_duplicate_able) {
         $item.addClass('dupeable')
       }
@@ -579,7 +579,7 @@ window.modules = (function () {
           $dataSpan.attr('data-item-name', data.title)
           $dataSpan.attr(
             'data-item-type',
-            data.quiz_lti ? 'lti-quiz' : data.content_type == 'Quizzes::Quiz' ? 'quiz' : data.type,
+            data.content_type == 'Quizzes::Quiz' ? 'quiz' : data.type,
           )
           $dataSpan.attr('data-item-context-id', data.context_id)
           $dataSpan.attr('data-item-content-id', data.content_id)
@@ -1306,11 +1306,7 @@ modules.initModuleManagement = async function (duplicate) {
     const $cogLink = $(this).closest('.cog-menu-container').children('.al-trigger')
     const $item = $(this).parents('.context_module_item')
     const data = $item.getTemplateData({
-      textValues: [
-        'url',
-        'indent',
-        'new_tab',
-      ],
+      textValues: ['url', 'indent', 'new_tab'],
     })
     data.title = $item.find('.title').attr('title')
     data.indent = modules.currentIndent($item)

@@ -233,20 +233,6 @@ describe GradebooksHelper do
         end
       end
 
-      context "and the submission is a pending new quiz" do
-        before do
-          submission.cached_quiz_lti = true
-          submission.workflow_state = "pending_review"
-          submission.submission_type = "basic_lti_launch"
-        end
-
-        it "uses the new quizzes icon" do
-          expect(score_display).to eq(
-            "<i class=\"submission_icon icon-quiz icon-Solid\" aria-hidden=\"true\"></i><span class=\"screenreader-only\">New Quizzes Submission</span>"
-          )
-        end
-      end
-
       it "shows an 'annotate' icon when the submission is a student annotation" do
         submission.submission_type = "student_annotation"
         expect(score_icon["class"]).to include "icon-annotate"

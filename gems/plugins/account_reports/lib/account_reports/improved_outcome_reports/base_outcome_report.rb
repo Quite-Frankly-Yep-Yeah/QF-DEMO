@@ -49,39 +49,11 @@ module AccountReports
         ORDER_SQL[determine_order_key] || DEFAULT_ORDER
       end
 
-      def map_order_to_columns(outcome_order)
-        column_mapping = { "u.id" => "student id",
-                           "c.id" => "course id",
-                           "learning_outcomes.id" => "learning outcome id" }
-        outcome_order.split(",").map do |x|
-          column_mapping[x.strip]
-        end
-      end
-
-      def canvas_next?(canvas, os_scope, os_index)
-        return true if os_index >= os_scope.length
-
-        order = map_order_to_columns(outcome_order)
-
-        os = os_scope[os_index]
-        order.each do |column|
-          if canvas[column] != os[column]
-            return canvas[column] < os[column]
-          end
-        end
-        # default is to return true causing canvas data to appear before OS data
-        # we will only default to this if all the order columns are equal
-        true
-      end
-
       def write_outcomes_report(headers, canvas_scope, config_options = {})
         config_options[:empty_scope_message] ||= "No outcomes found"
-        config_options[:new_quizzes_scope] ||= []
         host = root_account.domain
         enable_i18n_features = true
         @account_level_mastery_scales_enabled = @account_report.account.root_account.feature_enabled?(:account_level_mastery_scales)
-
-        os_scope = config_options[:new_quizzes_scope]
 
         write_report headers, enable_i18n_features: do |csv|
           write_row = lambda do |row|
@@ -103,8 +75,6 @@ module AccountReports
           post_process_record_cache = {}
           omitted_row_count = 0
 
-          os_index = 0
-
           canvas_scope.find_each do |canvas_row|
             record_hash = canvas_row.attributes
 
@@ -115,20 +85,11 @@ module AccountReports
               next
             end
 
-            until canvas_next?(record_hash, os_scope, os_index)
-              write_row.call(os_scope[os_index])
-              os_index += 1
-            end
             write_row.call(record_hash)
           end
 
-          total = os_scope.length + canvas_scope.except(:select).count - omitted_row_count
+          total = canvas_scope.except(:select).count - omitted_row_count
           GuardRail.activate(:primary) { AccountReport.where(id: @account_report.id).update_all(total_lines: total) }
-
-          while os_index < os_scope.length
-            write_row.call(os_scope[os_index])
-            os_index += 1
-          end
 
           csv << [config_options[:empty_scope_message]] if total == 0
         end

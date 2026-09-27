@@ -102,9 +102,7 @@ module Outcomes
 
     # @return [Array<LearningOutcomeResult>]
     def gather_results
-      canvas_results = fetch_canvas_results(course:, users: [student])
-      os_results = fetch_outcomes_service_results(course:, users: [student])
-      combine_results(canvas_results, os_results)
+      fetch_canvas_results(course:, users: [student]).to_a
     end
 
     # @param rollups [Array<Rollup>]

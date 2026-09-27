@@ -21,7 +21,6 @@ import $ from 'jquery'
 import ready from '@instructure/ready'
 import DateShiftView from '@canvas/content-migrations/backbone/views/DateShiftView'
 import DaySubstitutionView from '@canvas/day-substitution/backbone/views/DaySubstitutionView'
-import ImportQuizzesNextView from '@canvas/content-migrations/backbone/views/ImportQuizzesNextView'
 import DaySubstitutionCollection from '@canvas/day-substitution/backbone/collections/DaySubstitutionCollection'
 import CollectionView from '@canvas/backbone-collection-view'
 import template from '@canvas/day-substitution/jst/DaySubstitutionCollection.handlebars'
@@ -53,17 +52,6 @@ ready(() => {
     oldEndDate: ENV.OLD_END_DATE,
     addHiddenInput: true,
   })
-
-  const importQuizzesNextView = new ImportQuizzesNextView({
-    model: content_migration,
-    quizzesNextEnabled: ENV.QUIZZES_NEXT_ENABLED,
-    migrationDefault: ENV.NEW_QUIZZES_MIGRATION_DEFAULT,
-    disableNQMigrationCheckbox: !ENV.QUIZZES_NEXT_ENABLED || ENV.NEW_QUIZZES_MIGRATION_REQUIRED,
-    questionBank: null,
-    unattachedBankMigrationsEnabled: ENV.NEW_QUIZZES_UNATTACHED_BANK_MIGRATIONS,
-  })
-  $('#new_quizzes_migrate').html(importQuizzesNextView.render().el)
-  $('#importQuizzesNext').attr('name', 'settings[import_quizzes_next]')
 
   $('#date_shift').html(dateShiftView.render().el)
   dateShiftView.$oldStartDate.val(ENV.OLD_START_DATE).trigger('change')

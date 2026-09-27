@@ -42,26 +42,16 @@ module Interfaces::QuizzesConnectionInterface
     end
 
     quizzes = course.quizzes.active.include_assignment
-    lti_quizzes = if NewQuizzesFeaturesHelper.new_quizzes_enabled?(course)
-                    course.active_assignments.type_quiz_lti
-                  else
-                    Assignment.none
-                  end
 
     if search_term.present?
       quizzes = quizzes.where(Quizzes::Quiz.wildcard(:title, search_term))
-      lti_quizzes = lti_quizzes.where(Assignment.wildcard(:title, search_term))
     end
 
     if !course.grants_right?(scoped_user, :read_as_admin) && scoped_user.is_a?(User)
       quizzes = DifferentiableAssignment.scope_filter(quizzes, scoped_user, course)
-      lti_quizzes = DifferentiableAssignment.scope_filter(lti_quizzes, scoped_user, course)
     end
 
-    quizzes = quizzes.to_a
-    quizzes.concat(lti_quizzes.to_a) if NewQuizzesFeaturesHelper.new_quizzes_enabled?(course)
-
-    quizzes
+    quizzes.to_a
   end
 
   field :quizzes_connection,

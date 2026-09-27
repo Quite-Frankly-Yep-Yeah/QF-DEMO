@@ -58,7 +58,6 @@ const createView = (quiz, options = {}) => {
     post_to_sis_enabled: options.post_to_sis,
     migrate_quiz_enabled: options.migrate_quiz_enabled,
     DIRECT_SHARE_ENABLED: options.DIRECT_SHARE_ENABLED || false,
-    quiz_lti_enabled: !!options.quiz_lti_enabled,
     show_additional_speed_grader_link: true,
   }
 
@@ -273,24 +272,6 @@ describe.skip('QuizItemView', () => {
     })
   })
 
-  describe('quiz build shortcut', () => {
-    it('can skip to build', () => {
-      const quiz = createQuiz({
-        id: 1,
-        title: 'Foo',
-        can_duplicate: true,
-        can_update: true,
-        quiz_type: 'quizzes.next',
-      })
-      Object.assign(window.ENV, {current_user_roles: ['admin']})
-      const view = createView(quiz, {
-        canManage: true,
-        quiz_lti_enabled: true,
-      })
-      expect(view.$('a.icon-quiz')).toHaveLength(1)
-    })
-  })
-
   describe('retry functionality', () => {
     it('clicks on Retry button to trigger another duplicating request', () => {
       const quiz = createQuiz({
@@ -307,23 +288,6 @@ describe.skip('QuizItemView', () => {
       const duplicateFailedSpy = vi.spyOn(quiz, 'duplicate_failed').mockReturnValue(mockDeferred)
       view.$('.duplicate-failed-retry').trigger('click')
       expect(duplicateFailedSpy).toHaveBeenCalled()
-    })
-
-    it('clicks on Retry button to trigger another migrating request', () => {
-      const quiz = createQuiz({
-        id: 2,
-        title: 'Foo Copy',
-        original_assignment_name: 'Foo',
-        workflow_state: 'failed_to_migrate',
-      })
-      const view = createView(quiz)
-      const mockDeferred = {
-        always: vi.fn().mockReturnThis(),
-        then: vi.fn().mockReturnThis(),
-      }
-      const retryMigrationSpy = vi.spyOn(quiz, 'retry_migration').mockReturnValue(mockDeferred)
-      view.$('.migrate-failed-retry').trigger('click')
-      expect(retryMigrationSpy).toHaveBeenCalled()
     })
   })
 })

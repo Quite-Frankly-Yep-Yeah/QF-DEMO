@@ -996,8 +996,6 @@ describe "Outcomes API", type: :request do
       end
 
       it "does not allow student to return aligned assignments" do
-        expect_any_instance_of(OutcomesApiController).to receive(:get_lmgb_results).with(any_args).and_return([])
-        expect_any_instance_of(OutcomesApiController).to receive(:get_outcome_alignments).with(any_args).and_return([])
         json = api_call(:get,
                         "/api/v1/courses/#{@course.id}/outcome_alignments?student_id=#{@student.id}",
                         controller: "outcomes_api",
@@ -1010,8 +1008,6 @@ describe "Outcomes API", type: :request do
 
       it "allows teacher to return aligned assignments for a student" do
         @user = @teacher
-        expect_any_instance_of(OutcomesApiController).to receive(:get_lmgb_results).with(any_args).and_return([])
-        expect_any_instance_of(OutcomesApiController).to receive(:get_outcome_alignments).with(any_args).and_return([])
         json = api_call(:get,
                         "/api/v1/courses/#{@course.id}/outcome_alignments?student_id=#{@student.id}",
                         controller: "outcomes_api",
@@ -1054,8 +1050,6 @@ describe "Outcomes API", type: :request do
       end
 
       it "returns aligned assignments and assessments for a student" do
-        expect_any_instance_of(OutcomesApiController).to receive(:get_lmgb_results).with(any_args).and_return([])
-        expect_any_instance_of(OutcomesApiController).to receive(:get_outcome_alignments).with(any_args).and_return([])
         json = api_call(:get,
                         "/api/v1/courses/#{@course.id}/outcome_alignments?student_id=#{@student.id}",
                         controller: "outcomes_api",
@@ -1068,8 +1062,6 @@ describe "Outcomes API", type: :request do
       end
 
       it "allows teacher to return aligned assignments for a student" do
-        expect_any_instance_of(OutcomesApiController).to receive(:get_lmgb_results).with(any_args).and_return([])
-        expect_any_instance_of(OutcomesApiController).to receive(:get_outcome_alignments).with(any_args).and_return([])
         @user = @teacher
         json = api_call(:get,
                         "/api/v1/courses/#{@course.id}/outcome_alignments?student_id=#{@student.id}",
@@ -1082,8 +1074,6 @@ describe "Outcomes API", type: :request do
       end
 
       it "allows observer to return aligned assignments for a student" do
-        expect_any_instance_of(OutcomesApiController).to receive(:get_lmgb_results).with(any_args).and_return([])
-        expect_any_instance_of(OutcomesApiController).to receive(:get_outcome_alignments).with(any_args).and_return([])
         @user = @observer
         json = api_call(:get,
                         "/api/v1/courses/#{@course.id}/outcome_alignments?student_id=#{@student.id}",
@@ -1102,8 +1092,6 @@ describe "Outcomes API", type: :request do
         bank = quiz.quiz_questions[0].assessment_question.assessment_question_bank
         outcome.align(bank, course)
         generate_quiz_submission(quiz, student: @student)
-        expect_any_instance_of(OutcomesApiController).to receive(:get_lmgb_results).with(any_args).and_return([])
-        expect_any_instance_of(OutcomesApiController).to receive(:get_outcome_alignments).with(any_args).and_return([])
         json = api_call(:get,
                         "/api/v1/courses/#{@course.id}/outcome_alignments?student_id=#{@student.id}",
                         controller: "outcomes_api",
@@ -1118,8 +1106,6 @@ describe "Outcomes API", type: :request do
         assignment_model({ course: @course, only_visible_to_overrides: true })
         section = @course.course_sections.create!(name: "test section")
         create_section_override_for_assignment(@assignment, course_section: section)
-        allow_any_instance_of(OutcomesApiController).to receive(:get_outcome_alignments).and_return []
-        expect_any_instance_of(OutcomesApiController).to receive(:get_lmgb_results).with(any_args).and_return([])
         json = api_call(:get,
                         "/api/v1/courses/#{@course.id}/outcome_alignments?student_id=#{@student.id}",
                         controller: "outcomes_api",
@@ -1142,8 +1128,6 @@ describe "Outcomes API", type: :request do
 
       describe "with assignment_id filter" do
         it "returns only alignments for specified assignment" do
-          expect_any_instance_of(OutcomesApiController).to receive(:get_lmgb_results).with(any_args).and_return([])
-          expect_any_instance_of(OutcomesApiController).to receive(:get_outcome_alignments).with(any_args).and_return([])
           json = api_call(:get,
                           "/api/v1/courses/#{@course.id}/outcome_alignments?student_id=#{@student.id}&assignment_id=#{@assignment1.id}",
                           controller: "outcomes_api",
@@ -1157,8 +1141,6 @@ describe "Outcomes API", type: :request do
 
         it "returns empty array when assignment has no alignments" do
           assignment_no_outcome = assignment_model({ course: @course })
-          expect_any_instance_of(OutcomesApiController).to receive(:get_lmgb_results).with(any_args).and_return([])
-          expect_any_instance_of(OutcomesApiController).to receive(:get_outcome_alignments).with(any_args).and_return([])
           json = api_call(:get,
                           "/api/v1/courses/#{@course.id}/outcome_alignments?student_id=#{@student.id}&assignment_id=#{assignment_no_outcome.id}",
                           controller: "outcomes_api",
@@ -1201,8 +1183,6 @@ describe "Outcomes API", type: :request do
         end
 
         it "returns all alignments when assignment_id omitted (backward compatibility)" do
-          expect_any_instance_of(OutcomesApiController).to receive(:get_lmgb_results).with(any_args).and_return([])
-          expect_any_instance_of(OutcomesApiController).to receive(:get_outcome_alignments).with(any_args).and_return([])
           json = api_call(:get,
                           "/api/v1/courses/#{@course.id}/outcome_alignments?student_id=#{@student.id}",
                           controller: "outcomes_api",
@@ -1215,8 +1195,6 @@ describe "Outcomes API", type: :request do
         end
 
         it "excludes live assessments when assignment_id provided" do
-          expect_any_instance_of(OutcomesApiController).to receive(:get_lmgb_results).with(any_args).and_return([])
-          expect_any_instance_of(OutcomesApiController).to receive(:get_outcome_alignments).with(any_args).and_return([])
           json = api_call(:get,
                           "/api/v1/courses/#{@course.id}/outcome_alignments?student_id=#{@student.id}&assignment_id=#{@assignment1.id}",
                           controller: "outcomes_api",
@@ -1229,8 +1207,6 @@ describe "Outcomes API", type: :request do
         end
 
         it "filters quiz alignments correctly" do
-          expect_any_instance_of(OutcomesApiController).to receive(:get_lmgb_results).with(any_args).and_return([])
-          expect_any_instance_of(OutcomesApiController).to receive(:get_outcome_alignments).with(any_args).and_return([])
           json = api_call(:get,
                           "/api/v1/courses/#{@course.id}/outcome_alignments?student_id=#{@student.id}&assignment_id=#{@quiz.assignment_id}",
                           controller: "outcomes_api",
@@ -1244,8 +1220,6 @@ describe "Outcomes API", type: :request do
         end
 
         it "treats non-integer assignment_id as omitted" do
-          expect_any_instance_of(OutcomesApiController).to receive(:get_lmgb_results).with(any_args).and_return([])
-          expect_any_instance_of(OutcomesApiController).to receive(:get_outcome_alignments).with(any_args).and_return([])
           json = api_call(:get,
                           "/api/v1/courses/#{@course.id}/outcome_alignments?student_id=#{@student.id}&assignment_id=invalid",
                           controller: "outcomes_api",
@@ -1377,245 +1351,6 @@ describe "Outcomes API", type: :request do
                           assignment_id: @assignment1.id.to_s,
                           format: "json")
           expect(json.pluck("assignment_id").uniq).to eq([@assignment1.id])
-        end
-      end
-
-      describe "#find_outcomes_service_assignment_alignments" do
-        def mock_get_outcome_alignments(outcome, artifact_type, artifact_id, alignments, associated_asset_id, associated_asset_type)
-          if alignments.nil?
-            alignments = [
-              {
-                id: 30,
-                artifact_type:,
-                artifact_id:,
-                alignment_set_id: 36,
-                aligned_at: "2022-11-03T15:37:19.343Z",
-                created_at: "2022-11-03T15:35:53.240Z",
-                updated_at: "2022-11-03T15:37:25.566Z",
-                deleted_at: nil,
-                context_id: nil,
-                associated_asset_id:,
-                associated_asset_type:
-              }
-            ]
-          end
-
-          {
-            id: "12",
-            guid: nil,
-            group: false,
-            label: "",
-            title: "Outcome title",
-            description: "",
-            external_id: outcome.id,
-            alignments:
-          }
-        end
-
-        def mock_get_lmgb_results(student, outcome, artifact_type, artifact_id, metadata, associated_asset_id, associated_asset_type)
-          if metadata.nil?
-            metadata = {
-              quiz_metadata: {
-                quiz_id: "1",
-                title: "Quiz title",
-                points_possible: 1.0,
-                points: 1.0
-              },
-              question_metadata: [{
-                quiz_item_id: "1",
-                title: "Question title",
-                points_possible: 1.0,
-                points: 1.0
-              }]
-            }
-          end
-
-          {
-            user_uuid: student.uuid,
-            percent_score: 1.0,
-            points: 1.0,
-            points_possible: 1.0,
-            external_outcome_id: outcome.id,
-            submitted_at: "2022-09-16T04:17:11.637Z",
-            attempts: [{
-              id: 1,
-              authoritative_result_id: 1,
-              points: 1.0,
-              points_possible: 1.0,
-              event_created_at: "2022-09-16T04:17:11.637Z",
-              event_updated_at: "2022-09-16T04:17:11.637Z",
-              deleted_at: nil,
-              created_at: "2022-09-16T04:17:18.153Z",
-              updated_at: "2022-09-16T04:17:18.153Z",
-              submitted_at: "2022-09-16T04:17:18.153Z",
-              metadata:
-            }],
-            associated_asset_type:,
-            associated_asset_id:,
-            artifact_type:,
-            artifact_id:,
-            mastery: nil
-          }
-        end
-
-        context "outcome_service_results_to_canvas FF is enabled" do
-          describe "returns empty array" do
-            it "no alignments found in os" do
-              # returns empty array for both os calls
-              expect_any_instance_of(OutcomesApiController).to receive(:get_lmgb_results).with(any_args).and_return([])
-              expect_any_instance_of(OutcomesApiController).to receive(:get_outcome_alignments).with(any_args).and_return([])
-              json = api_call(:get,
-                              "/api/v1/courses/#{@course.id}/outcome_alignments?student_id=#{@student.id}",
-                              controller: "outcomes_api",
-                              action: "outcome_alignments",
-                              course_id: @course.id.to_s,
-                              student_id: @student.id.to_s,
-                              format: "json")
-              expect(json.filter_map { |j| j["assignment_id"] }.sort).to eq([@assignment1.id, @assignment2.id, @quiz.assignment_id].sort)
-            end
-
-            describe "has alignments but not asset information" do
-              it "asset info is nil in os outcome alignment & os results" do
-                # both calls return nil for associated asset id & type
-                expect_any_instance_of(OutcomesApiController).to receive(:get_lmgb_results).with(any_args).and_return(
-                  [mock_get_lmgb_results(@student, @outcome, "quizzes.quiz", "1", nil, nil, nil)]
-                )
-                expect_any_instance_of(OutcomesApiController).to receive(:get_outcome_alignments).with(any_args).and_return(
-                  [mock_get_outcome_alignments(@outcome, "quizzes.quiz", "1", nil, nil, nil)]
-                )
-                json = api_call(:get,
-                                "/api/v1/courses/#{@course.id}/outcome_alignments?student_id=#{@student.id}",
-                                controller: "outcomes_api",
-                                action: "outcome_alignments",
-                                course_id: @course.id.to_s,
-                                student_id: @student.id.to_s,
-                                format: "json")
-                expect(json.filter_map { |j| j["assignment_id"] }.sort).to eq([@assignment1.id, @assignment2.id, @quiz.assignment_id].sort)
-              end
-            end
-          end
-
-          describe "aligning asset information found in os outcome alignment" do
-            # right now quizzes are the only one that will have asset alignment
-            # once item banks and item alignment issues are solved, this will need
-            # to be revisited
-            it "returns new quiz alignment" do
-              # only need to call alignment mock and return new quiz in alignments
-              new_quiz = new_quizzes_assignment(course: @course, title: "New Quiz")
-              expect_any_instance_of(OutcomesApiController).to receive(:get_outcome_alignments).with(any_args).and_return(
-                [mock_get_outcome_alignments(@outcome, "quizzes.quiz", "1", nil, new_quiz.id, "canvas.assignment.quizzes")]
-              )
-              expect_any_instance_of(OutcomesApiController).to receive(:get_lmgb_results).with(any_args).and_return(
-                []
-              )
-              json = api_call(:get,
-                              "/api/v1/courses/#{@course.id}/outcome_alignments?student_id=#{@student.id}",
-                              controller: "outcomes_api",
-                              action: "outcome_alignments",
-                              course_id: @course.id.to_s,
-                              student_id: @student.id.to_s,
-                              format: "json")
-              expect(json.filter_map { |j| j["assignment_id"] }.sort).to eq([@assignment1.id, @assignment2.id, @quiz.assignment_id, new_quiz.id].sort)
-            end
-          end
-
-          describe "finds asset info from get_lmgb_results results when outcome alignment is missing asset info" do
-            it "returns quiz alignment for question" do
-              # mock alignment with question as the artifact type and id
-              # mock results with the attempt question metadata matching the alignment artifact type and id
-              new_quiz = new_quizzes_assignment(course: @course, title: "New Quiz")
-
-              # student, outcome, artifact_type, artifact_id, metadata, associated_asset_id, associated_asset_type
-              expect_any_instance_of(OutcomesApiController).to receive(:get_lmgb_results).with(any_args).and_return(
-                [mock_get_lmgb_results(@student, @outcome, "quizzes.quiz", "1", nil, new_quiz.id, "canvas.assignment.quizzes")]
-              )
-              # outcome, artifact_type, artifact_id, alignments, associated_asset_id, associated_asset_type
-              expect_any_instance_of(OutcomesApiController).to receive(:get_outcome_alignments).with(any_args).and_return(
-                [mock_get_outcome_alignments(@outcome, "quizzes.item", "1", nil, nil, nil)]
-              )
-              json = api_call(:get,
-                              "/api/v1/courses/#{@course.id}/outcome_alignments?student_id=#{@student.id}",
-                              controller: "outcomes_api",
-                              action: "outcome_alignments",
-                              course_id: @course.id.to_s,
-                              student_id: @student.id.to_s,
-                              format: "json")
-              expect(json.filter_map { |j| j["assignment_id"] }.sort).to eq([@assignment1.id, @assignment2.id, @quiz.assignment_id, new_quiz.id].sort)
-            end
-
-            it "returns quiz alignment" do
-              # mock alignment with the quiz as the artifact type and id with nil asset
-              # mock results with the artifact type and id matching the alignment artifact type and id
-              new_quiz = new_quizzes_assignment(course: @course, title: "New Quiz")
-
-              # student, outcome, artifact_type, artifact_id, metadata, associated_asset_id, associated_asset_type
-              expect_any_instance_of(OutcomesApiController).to receive(:get_lmgb_results).with(any_args).and_return(
-                [mock_get_lmgb_results(@student, @outcome, "quizzes.quiz", "1", nil, new_quiz.id, "canvas.assignment.quizzes")]
-              )
-              # outcome, artifact_type, artifact_id, alignments, associated_asset_id, associated_asset_type
-              expect_any_instance_of(OutcomesApiController).to receive(:get_outcome_alignments).with(any_args).and_return(
-                [mock_get_outcome_alignments(@outcome, "quizzes.quiz", "1", nil, nil, nil)]
-              )
-              json = api_call(:get,
-                              "/api/v1/courses/#{@course.id}/outcome_alignments?student_id=#{@student.id}",
-                              controller: "outcomes_api",
-                              action: "outcome_alignments",
-                              course_id: @course.id.to_s,
-                              student_id: @student.id.to_s,
-                              format: "json")
-              expect(json.filter_map { |j| j["assignment_id"] }.sort).to eq([@assignment1.id, @assignment2.id, @quiz.assignment_id, new_quiz.id].sort)
-            end
-          end
-
-          describe "when outcome is aligned to quiz and question" do
-            it "returns only one new quiz outcome alignment" do
-              # mock alignments has two alignments one with a quiz and an item both with nil
-              # mock os results has a result attempt containing the quiz and question
-              new_quiz = new_quizzes_assignment(course: @course, title: "New Quiz")
-              alignments = [
-                {
-                  id: 30,
-                  artifact_type: "quizzes.quiz",
-                  artifact_id: "1",
-                  alignment_set_id: 36,
-                  aligned_at: "2022-11-03T15:37:19.343Z",
-                  created_at: "2022-11-03T15:35:53.240Z",
-                  updated_at: "2022-11-03T15:37:25.566Z",
-                  deleted_at: nil,
-                  context_id: nil,
-                  associated_asset_id: new_quiz.id,
-                  associated_asset_type: "canvas.assignment.quizzes"
-                },
-                {
-                  id: 31,
-                  artifact_type: "quizzes.item",
-                  artifact_id: "1",
-                  alignment_set_id: 36,
-                  aligned_at: "2022-11-03T15:37:19.343Z",
-                  created_at: "2022-11-03T15:35:53.240Z",
-                  updated_at: "2022-11-03T15:37:25.566Z",
-                  deleted_at: nil,
-                  context_id: nil,
-                  associated_asset_id: nil,
-                  associated_asset_type: nil
-                }
-              ]
-              expect_any_instance_of(OutcomesApiController).to receive(:get_outcome_alignments).with(any_args).and_return(
-                [mock_get_outcome_alignments(@outcome, "quizzes.quiz", "1", alignments, new_quiz.id, "canvas.assignment.quizzes")]
-              )
-              expect_any_instance_of(OutcomesApiController).to receive(:get_lmgb_results).with(any_args).and_return(
-                [mock_get_lmgb_results(@student, @outcome, "quizzes.quiz", "1", nil, new_quiz.id, "canvas.assignment.quizzes")]
-              )
-              json = api_call(:get,
-                              "/api/v1/courses/#{@course.id}/outcome_alignments?student_id=#{@student.id}",
-                              controller: "outcomes_api",
-                              action: "outcome_alignments",
-                              course_id: @course.id.to_s,
-                              student_id: @student.id.to_s,
-                              format: "json")
-              expect(json.filter_map { |j| j["assignment_id"] }.sort).to eq([@assignment1.id, @assignment2.id, @quiz.assignment_id, new_quiz.id].sort)
-            end
-          end
         end
       end
     end

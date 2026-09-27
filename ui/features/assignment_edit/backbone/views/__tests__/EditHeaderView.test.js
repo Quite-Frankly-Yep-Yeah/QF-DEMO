@@ -115,20 +115,6 @@ describe('EditHeaderView', () => {
       expect(view.$('.screenreader-only').text()).toContain('Create New Assignment')
     })
 
-    it('shows "Create Quiz" for new LTI quiz assignments', () => {
-      const view = createEditHeaderView({}, {}, false, {is_quiz_lti_assignment: true})
-      expect(view.$('.assignment-edit-header-title').text()).toBe('Create Quiz')
-      expect(view.$('.screenreader-only').text()).toContain('Create Quiz')
-    })
-
-    it('shows "Edit Quiz" for existing LTI quiz assignments', () => {
-      const view = createEditHeaderView({}, {}, false, {
-        name: 'Hello World',
-        is_quiz_lti_assignment: true,
-      })
-      expect(view.$('.assignment-edit-header-title').text()).toBe('Edit Quiz')
-    })
-
     it('shows "Edit Assignment" for existing non-LTI quiz assignments', () => {
       const view = createEditHeaderView()
       expect(view.$('.assignment-edit-header-title').text()).toBe('Edit Assignment')
@@ -147,24 +133,6 @@ describe('EditHeaderView', () => {
     it('shows "Published" for published non-LTI quiz assignments', () => {
       const view = createEditHeaderView({}, {}, false, {
         name: 'Hello World',
-        published: true,
-      })
-      expect(view.$('.published-assignment-container').text()).toBe('Published')
-    })
-
-    it('shows "Not Published" for unpublished LTI quiz assignments', () => {
-      const view = createEditHeaderView({}, {}, false, {
-        name: 'Hello World',
-        is_quiz_lti_assignment: true,
-        published: false,
-      })
-      expect(view.$('.published-assignment-container').text()).toBe('Not Published')
-    })
-
-    it('shows "Published" for published LTI quiz assignments', () => {
-      const view = createEditHeaderView({}, {}, false, {
-        name: 'Hello World',
-        is_quiz_lti_assignment: true,
         published: true,
       })
       expect(view.$('.published-assignment-container').text()).toBe('Published')

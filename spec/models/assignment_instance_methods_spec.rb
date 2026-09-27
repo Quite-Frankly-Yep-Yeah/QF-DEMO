@@ -220,23 +220,6 @@ describe Assignment do
         end.to change { [anonymous.unsupported_in_speedgrader_2?, anonymized.unsupported_in_speedgrader_2?] }.from([false, false]).to([false, true])
       end
 
-      it "allows dynamically dropping support for new quizzes" do
-        a = @course.assignments.build(submission_types: "external_tool")
-        tool = @course.context_external_tools.create!(
-          name: "Quizzes.Next",
-          consumer_key: "test_key",
-          shared_secret: "test_secret",
-          tool_id: "Quizzes 2",
-          url: "http://example.com/launch"
-        )
-        a.external_tool_tag_attributes = { content: tool }
-        a.save!
-
-        expect do
-          Setting.set("assignment_features_unsupported_in_sg2", "new_quiz")
-        end.to change { a.unsupported_in_speedgrader_2? }.from(false).to(true)
-      end
-
       it "allows dynamically dropping support for assignments with rubrics attached" do
         rubric = rubric_model({
                                 context: @course,

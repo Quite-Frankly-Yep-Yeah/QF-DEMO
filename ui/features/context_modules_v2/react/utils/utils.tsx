@@ -22,7 +22,6 @@ import {
   IconDiscussionLine,
   IconAssignmentLine,
   IconQuizLine,
-  IconQuizSolid,
   IconLinkLine,
 } from '@instructure/ui-icons'
 import {useScope as createI18nScope} from '@canvas/i18n'
@@ -69,11 +68,7 @@ export const getItemIcon = (
 
   switch (type) {
     case 'Assignment':
-      return content.isNewQuiz ? (
-        <IconQuizSolid color={color} data-testid="new-quiz-icon" />
-      ) : (
-        <IconAssignmentLine color={color} data-testid="assignment-icon" />
-      )
+      return <IconAssignmentLine color={color} data-testid="assignment-icon" />
     case 'Quiz':
       return <IconQuizLine color={color} data-testid="quiz-icon" />
     case 'Discussion':
@@ -99,7 +94,7 @@ export const getItemTypeText = (content: ModuleItemContent) => {
 
   switch (content.type) {
     case 'Assignment':
-      return content.isNewQuiz ? I18n.t('New Quiz') : I18n.t('Assignment')
+      return I18n.t('Assignment')
     case 'Quiz':
       return I18n.t('Quiz')
     case 'Discussion':

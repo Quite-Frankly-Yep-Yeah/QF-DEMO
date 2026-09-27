@@ -32,23 +32,10 @@ describe "quizzes selective_release assign to tray" do
   include ContextModulesCommon
 
   before :once do
-    Account.site_admin.enable_feature! :newquizzes_on_quiz_page
-
     course_with_teacher(active_all: true)
     @quiz_assignment = @course.assignments.create
     @quiz_assignment.quiz = @course.quizzes.create(title: "test quiz")
     @classic_quiz = @course.quizzes.last
-
-    @course.enable_feature! :quizzes_next
-    @course.context_external_tools.create!(
-      name: "Quizzes.Next",
-      consumer_key: "test_key",
-      shared_secret: "test_secret",
-      tool_id: "Quizzes 2",
-      url: "http://example.com/launch"
-    )
-    @course.root_account.settings[:provision] = { "lti" => "lti url" }
-    @course.root_account.save!
 
     @student1 = student_in_course(course: @course, active_all: true, name: "Student 1").user
     @student2 = student_in_course(course: @course, active_all: true, name: "Student 2").user
@@ -144,33 +131,6 @@ describe "quizzes selective_release assign to tray" do
     expect(assign_to_available_from_time(0).attribute("value")).to eq("8:00 AM")
     expect(assign_to_until_date(0).attribute("value")).to eq("Jan 7, 2023")
     expect(assign_to_until_time(0).attribute("value")).to eq("9:00 PM")
-  end
-
-  it "assigns student for a NQ quiz and saves" do
-    new_quiz_assignment = @course.assignments.new(title: "new quizzes assignment")
-    new_quiz_assignment.quiz_lti!
-    new_quiz_assignment.save!
-
-    visit_quizzes_index_page(@course.id)
-    click_manage_quiz_button(new_quiz_assignment.id)
-    click_assign_to_link(new_quiz_assignment.id)
-
-    wait_for_assign_to_tray_spinner
-    keep_trying_until { expect(item_tray_exists?).to be_truthy }
-
-    click_add_assign_to_card
-    select_module_item_assignee(1, @student1.name)
-
-    update_due_date(1, "12/31/2022")
-    update_due_time(1, "5:00 PM")
-    update_available_date(1, "12/27/2022")
-    update_available_time(1, "8:00 AM")
-    update_until_date(1, "1/7/2023")
-    update_until_time(1, "9:00 PM")
-    click_save_button
-
-    expect(element_exists?(module_item_edit_tray_selector)).to be_falsey
-    expect(new_quiz_assignment.assignment_overrides.first.assignment_override_students.count).to eq(1)
   end
 
   it "adds all data and cancels" do

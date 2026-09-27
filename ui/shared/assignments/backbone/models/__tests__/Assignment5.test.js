@@ -168,24 +168,6 @@ describe('Assignment', () => {
   })
 
   describe('quiz and freeze functionality', () => {
-    describe('#isQuizLTIAssignment', () => {
-      it('returns true if record uses quizzes 2', () => {
-        const assignment = new Assignment({
-          name: 'foo',
-          is_quiz_lti_assignment: true,
-        })
-        expect(assignment.isQuizLTIAssignment()).toBe(true)
-      })
-
-      it('returns false if record does not use quizzes 2', () => {
-        const assignment = new Assignment({
-          name: 'foo',
-          is_quiz_lti_assignment: false,
-        })
-        expect(assignment.isQuizLTIAssignment()).toBe(false)
-      })
-    })
-
     describe('#canFreeze', () => {
       it('returns true if record is not frozen', () => {
         const assignment = new Assignment({
@@ -201,15 +183,6 @@ describe('Assignment', () => {
           frozen_attributes: [],
           frozen: true,
         })
-        expect(assignment.canFreeze()).toBe(false)
-      })
-
-      it('returns false if record uses quizzes 2', () => {
-        const assignment = new Assignment({
-          name: 'foo',
-          frozen_attributes: [],
-        })
-        vi.spyOn(assignment, 'isQuizLTIAssignment').mockReturnValue(true)
         expect(assignment.canFreeze()).toBe(false)
       })
     })

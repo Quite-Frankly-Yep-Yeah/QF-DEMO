@@ -23,7 +23,6 @@ import {CompletionRequirement, ModuleItemContent} from '../../utils/types'
 
 const defaultContent: ModuleItemContent = {
   type: 'Assignment',
-  isNewQuiz: false,
 }
 
 describe('CompletionRequirementDisplay', () => {
@@ -110,25 +109,6 @@ describe('CompletionRequirementDisplay', () => {
 
         expect(getByText('To do:')).toBeInTheDocument()
         expect(getByText('View assignment')).toBeInTheDocument()
-      })
-
-      it('renders must_view requirement correctly for a new quiz', () => {
-        const completionRequirement: CompletionRequirement = {
-          id: '1',
-          type: 'must_view',
-          completed: false,
-        }
-
-        const content = {...defaultContent, isNewQuiz: true}
-        const {getByText} = render(
-          <CompletionRequirementDisplay
-            completionRequirement={completionRequirement}
-            itemContent={content}
-          />,
-        )
-
-        expect(getByText('To do:')).toBeInTheDocument()
-        expect(getByText('View new quiz')).toBeInTheDocument()
       })
     })
 

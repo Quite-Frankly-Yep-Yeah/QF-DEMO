@@ -1596,27 +1596,6 @@ RSpec.describe ApplicationController do
           allow(controller).to receive(:redirect_to)
           controller.send(:content_tag_redirect, Account.default, tag, nil)
         end
-
-        it "redirects to edit for a quiz_lti assignment" do
-          tag = create_tag(content_type: "Assignment")
-          allow(tag).to receive(:quiz_lti).and_return true
-          expect(controller).to receive(:named_context_url).with(Account.default, :edit_context_assignment_url, 44, { module_item_id: 42, quiz_lti: true }).and_return("nil")
-          allow(controller).to receive(:redirect_to)
-          controller.send(:content_tag_redirect, Account.default, tag, nil)
-        end
-
-        context "when the build param is passed" do
-          it "redirects to build for a quiz_lti assignment" do
-            tag = create_tag(content_type: "Assignment")
-            allow(tag).to receive(:quiz_lti).and_return true
-            expect(controller).to receive(:named_context_url).with(
-              Account.default, :context_assignment_url, 44, { module_item_id: 42 }
-            ).and_return("nil")
-            allow(controller).to receive(:redirect_to)
-            controller.params[:build] = true
-            controller.send(:content_tag_redirect, Account.default, tag, nil)
-          end
-        end
       end
 
       it "redirects for a quiz" do
@@ -1767,15 +1746,6 @@ RSpec.describe ApplicationController do
           it 'gives priority to the "display" parameter' do
             expect(Lti::AppUtil).to receive(:display_template).with("borderless")
             controller.params["display"] = "borderless"
-            controller.send(:content_tag_redirect, course, content_tag, nil)
-          end
-
-          it "overrides the configured display_type for the quiz_lti in module context" do
-            allow(content_tag.context).to receive(:quiz_lti?).and_return(true)
-            module1 = course.context_modules.create!(name: "Module 1")
-            content_tag.context.context_module_tags.create!(context_module: module1, context: course, tag_type: "context_module")
-
-            expect(Lti::AppUtil).to receive(:display_template).with("in_nav_context")
             controller.send(:content_tag_redirect, course, content_tag, nil)
           end
 
@@ -1962,170 +1932,12 @@ RSpec.describe ApplicationController do
         context "return_url" do
           before do
             content_tag.update!(context: assignment_model)
-            allow(content_tag.context).to receive(:quiz_lti?).and_return(true)
             allow(controller).to receive(:lti_launch_params)
-            allow(controller).to receive_messages(require_user: true,
-                                                  named_context_url: "named_context_url",
-                                                  polymorphic_url: "host/quizzes")
+            allow(controller).to receive_messages(require_user: true, named_context_url: "named_context_url")
           end
 
-          context "is set to homepage page when launched from homepage" do
-            it "for small id" do
-              allow(controller.request).to receive(:referer).and_return("courses/1")
-              expect(controller).to receive(:polymorphic_url).with([course]).and_return("host")
-              controller.send(:content_tag_redirect, course, content_tag, nil)
-              expect(assigns[:return_url]).to eq "host"
-            end
-
-            it "for large id" do
-              allow(controller.request).to receive(:referer).and_return("courses/100")
-              expect(controller).to receive(:polymorphic_url).with([course]).and_return("host")
-              controller.send(:content_tag_redirect, course, content_tag, nil)
-              expect(assigns[:return_url]).to eq "host"
-            end
-          end
-
-          context "is set to gradebook page when launched from gradebook page" do
-            it "for small id" do
-              allow(controller.request).to receive(:referer).and_return("courses/1/gradebook")
-              expect(controller).to receive(:polymorphic_url).with([course, :gradebook]).and_return("host/gradebook")
-              controller.send(:content_tag_redirect, course, content_tag, nil)
-              expect(assigns[:return_url]).to eq "host/gradebook"
-            end
-
-            it "for large id" do
-              allow(controller.request).to receive(:referer).and_return("courses/100/gradebook")
-              expect(controller).to receive(:polymorphic_url).with([course, :gradebook]).and_return("host/gradebook")
-              controller.send(:content_tag_redirect, course, content_tag, nil)
-              expect(assigns[:return_url]).to eq "host/gradebook"
-            end
-          end
-
-          context "is set to modules page when launched from modules page" do
-            it "for small id" do
-              allow(controller.request).to receive(:referer).and_return("courses/1/modules")
-              expect(controller).to receive(:polymorphic_url).with([course, :context_modules]).and_return("host/modules")
-              controller.send(:content_tag_redirect, course, content_tag, nil)
-              expect(assigns[:return_url]).to eq "host/modules"
-            end
-
-            it "for large id" do
-              allow(controller.request).to receive(:referer).and_return("courses/100/modules")
-              expect(controller).to receive(:polymorphic_url).with([course, :context_modules]).and_return("host/modules")
-              controller.send(:content_tag_redirect, course, content_tag, nil)
-              expect(assigns[:return_url]).to eq "host/modules"
-            end
-          end
-
-          context "is set to assignments page when launched from assignments page" do
-            it "for small id" do
-              allow(controller.request).to receive(:referer).and_return("courses/1/assignments")
-              expect(controller).to receive(:polymorphic_url).with([course, :assignments]).and_return("host/assignments")
-              controller.send(:content_tag_redirect, course, content_tag, nil)
-              expect(assigns[:return_url]).to eq "host/assignments"
-            end
-
-            it "for large id" do
-              allow(controller.request).to receive(:referer).and_return("courses/100/assignments")
-              expect(controller).to receive(:polymorphic_url).with([course, :assignments]).and_return("host/assignments")
-              controller.send(:content_tag_redirect, course, content_tag, nil)
-              expect(assigns[:return_url]).to eq "host/assignments"
-            end
-          end
-
-          context "is set to quizzes page when launched from quizzes page" do
-            it "for small id" do
-              allow(controller.request).to receive(:referer).and_return("courses/1/quizzes")
-              controller.context.root_account.enable_feature! :newquizzes_on_quiz_page
-              controller.send(:content_tag_redirect, course, content_tag, nil)
-              expect(assigns[:return_url]).to eq "host/quizzes"
-            end
-
-            it "for large id" do
-              allow(controller.request).to receive(:referer).and_return("courses/100/quizzes")
-              controller.context.root_account.enable_feature! :newquizzes_on_quiz_page
-              controller.send(:content_tag_redirect, course, content_tag, nil)
-              expect(assigns[:return_url]).to eq "host/quizzes"
-            end
-          end
-
-          context "is set to modules page when launched from edit page accessed from modules" do
-            it "for small id" do
-              allow(controller.request).to receive(:referer).and_return("courses/1/assignments/100/edit?module_item_id=42")
-              expect(controller).to receive(:polymorphic_url).with([course, :context_modules]).and_return("host/modules")
-              controller.send(:content_tag_redirect, course, content_tag, nil)
-              expect(assigns[:return_url]).to eq "host/modules"
-            end
-
-            it "for large id" do
-              allow(controller.request).to receive(:referer).and_return("courses/100/assignments/1/edit?module_item_id=42")
-              expect(controller).to receive(:polymorphic_url).with([course, :context_modules]).and_return("host/modules")
-              controller.send(:content_tag_redirect, course, content_tag, nil)
-              expect(assigns[:return_url]).to eq "host/modules"
-            end
-          end
-
-          context "is set to assignments page when launched from edit page accessed from assignments" do
-            it "for small id" do
-              allow(controller.request).to receive(:referer).and_return("courses/1/assignments/1/edit")
-              expect(controller).to receive(:polymorphic_url).with([course, :assignments]).and_return("host/assignments")
-              controller.send(:content_tag_redirect, course, content_tag, nil)
-              expect(assigns[:return_url]).to eq "host/assignments"
-            end
-
-            it "for large id" do
-              allow(controller.request).to receive(:referer).and_return("courses/100/assignments/100/edit")
-              expect(controller).to receive(:polymorphic_url).with([course, :assignments]).and_return("host/assignments")
-              controller.send(:content_tag_redirect, course, content_tag, nil)
-              expect(assigns[:return_url]).to eq "host/assignments"
-            end
-          end
-
-          context "is set to quizzes page when launched from edit page accessed from quizzes" do
-            it "for small id" do
-              allow(controller.request).to receive(:referer).and_return("courses/1/assignments/1/edit?quiz_lti")
-              controller.context.root_account.enable_feature! :newquizzes_on_quiz_page
-              controller.send(:content_tag_redirect, course, content_tag, nil)
-              expect(assigns[:return_url]).to eq "host/quizzes"
-            end
-
-            it "for large id" do
-              allow(controller.request).to receive(:referer).and_return("courses/100/assignments/100/edit?quiz_lti")
-              controller.context.root_account.enable_feature! :newquizzes_on_quiz_page
-              controller.send(:content_tag_redirect, course, content_tag, nil)
-              expect(assigns[:return_url]).to eq "host/quizzes"
-            end
-          end
-
-          it "is set to quizzes page when launched from assignments/new" do
-            allow(controller.request).to receive(:referer).and_return("assignments/new")
-            controller.context.root_account.enable_feature! :newquizzes_on_quiz_page
-            controller.send(:content_tag_redirect, course, content_tag, nil)
-            expect(assigns[:return_url]).to eq "host/quizzes"
-          end
-
-          it "is not set to quizzes page when flag is disabled" do
-            allow(controller.request).to receive(:referer).and_return("assignments/new")
-            controller.send(:content_tag_redirect, course, content_tag, nil)
-            expect(assigns[:return_url]).to eq "named_context_url"
-          end
-
-          it "is not set to quizzes page when there is no referer" do
-            allow(controller.request).to receive(:referer).and_return(nil)
-            controller.send(:content_tag_redirect, course, content_tag, nil)
-            expect(assigns[:return_url]).to eq "named_context_url"
-          end
-
-          it "is set using named_context_url when not launched from quizzes page" do
-            allow(controller.request).to receive(:referer).and_return("assignments")
-            controller.context.root_account.enable_feature! :newquizzes_on_quiz_page
-            controller.send(:content_tag_redirect, course, content_tag, nil)
-            expect(assigns[:return_url]).to eq "named_context_url"
-          end
-
-          it 'is set using named_context_url when not launched from quizzes page and referrer includes "quiz"' do
-            allow(controller.request).to receive(:referer).and_return("somequizzessub.com/assignments")
-            controller.context.root_account.enable_feature! :newquizzes_on_quiz_page
+          it "is the external content success url wherever the launch came from" do
+            allow(controller.request).to receive(:referer).and_return("courses/1/quizzes")
             controller.send(:content_tag_redirect, course, content_tag, nil)
             expect(assigns[:return_url]).to eq "named_context_url"
           end
@@ -3437,13 +3249,6 @@ RSpec.describe ApplicationController do
         expect(controller.send(:show_student_view_button?)).to be_falsey
       end
 
-      it "returns false if current LTI tool is New Quizzes and new_quizzes_navigation_updates FF is enabled" do
-        allow(Account.site_admin).to receive(:feature_enabled?).with(:new_quizzes_navigation_updates).and_return(true)
-        allow(controller).to receive(:new_quizzes_lti_tool?).and_return(true)
-
-        expect(controller.send(:show_student_view_button?)).to be_falsey
-      end
-
       it "returns false for pages index if pages tab is disabled" do
         @course.update_attribute(:tab_configuration, [{ "id" => Course::TAB_PAGES, "hidden" => true }])
         controller.instance_variable_set(:@context, @course)
@@ -3615,36 +3420,6 @@ RSpec.describe ApplicationController do
       end
 
       it_behaves_like "pages with an immersive reader flag enabled"
-    end
-  end
-
-  describe "new_quizzes_native_experience_enabled? helper" do
-    before(:once) do
-      course_with_teacher(active_all: true)
-    end
-
-    before do
-      user_session(@teacher)
-      controller.instance_variable_set(:@context, @course)
-    end
-
-    it "returns false when the feature flag is disabled" do
-      expect(controller.send(:new_quizzes_native_experience_enabled?)).to be false
-    end
-
-    it "returns true when the feature flag is enabled on the course" do
-      @course.enable_feature!(:new_quizzes_native_experience)
-      expect(controller.send(:new_quizzes_native_experience_enabled?)).to be true
-    end
-
-    it "returns false when context does not respond to feature_enabled?" do
-      controller.instance_variable_set(:@context, Object.new)
-      expect(controller.send(:new_quizzes_native_experience_enabled?)).to be false
-    end
-
-    it "returns false when context is nil" do
-      controller.instance_variable_set(:@context, nil)
-      expect(controller.send(:new_quizzes_native_experience_enabled?)).to be false
     end
   end
 

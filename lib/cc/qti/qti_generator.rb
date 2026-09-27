@@ -67,7 +67,6 @@ module CC
             next
           end
 
-          assessment_question_bank_ids.push(*quiz.assessment_question_bank_ids) if new_quizzes_bank_migration_enabled?
           begin
             generate_quiz(quiz)
           rescue
@@ -76,7 +75,6 @@ module CC
         end
 
         generate_banks(assessment_question_bank_ids)
-        generate_new_quizzes if include_new_quizzes_in_export?
       end
 
       def generate_quiz(quiz, for_cc: true)
@@ -139,20 +137,15 @@ module CC
         non_cc_folder = File.join(@export_dir, ASSESSMENT_NON_CC_FOLDER)
         FileUtils.mkdir_p non_cc_folder
 
-        assessment_question_bank_ids = []
-
         @course.quizzes.active.each do |quiz|
           next unless export_object?(quiz)
 
-          assessment_question_bank_ids.push(*quiz.assessment_question_bank_ids) if new_quizzes_bank_migration_enabled?
           begin
             generate_quiz(quiz, for_cc: false)
           rescue
             add_error(I18n.t("course_exports.errors.quiz", "The quiz \"%{title}\" failed to export", title: quiz.title), $!)
           end
         end
-
-        generate_banks(assessment_question_bank_ids) if new_quizzes_bank_migration_enabled?
       end
 
       def generate_banks(quiz_bank_ids)
@@ -197,15 +190,6 @@ module CC
         ) do |res|
           res.file(href: rel_path)
         end
-      end
-
-      def generate_new_quizzes
-        new_quizzes_generator = NewQuizzesGenerator.new(@manifest, @resources_node)
-        new_quizzes_generator.generate_qti
-      end
-
-      def include_new_quizzes_in_export?
-        @manifest.exporter.include_new_quizzes_in_export?
       end
 
       def generate_assessment_meta(doc, quiz, migration_id)
@@ -326,7 +310,6 @@ module CC
           ) do |bank_node|
             bank_node.qtimetadata do |meta_node|
               meta_field(meta_node, "bank_title", bank.title)
-              meta_field(meta_node, "bank_type", bank.context_type) if new_quizzes_bank_migration_enabled?
               meta_field(meta_node, "bank_context_uuid", bank.context&.uuid)
               meta_field(meta_node, "bank_state", bank.deleted_at ? "deleted" : "active")
             end # meta_node
@@ -406,10 +389,6 @@ module CC
             end
           end
         end # section node
-      end
-
-      def new_quizzes_bank_migration_enabled?
-        NewQuizzesFeaturesHelper.new_quizzes_bank_migrations_enabled?(@course)
       end
     end
   end

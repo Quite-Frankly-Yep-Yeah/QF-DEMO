@@ -66,9 +66,9 @@ class AbstractAssignment < ApplicationRecord
 
   DUPLICATED_IN_CONTEXT = "duplicated_in_context"
   QUIZ_SUBMISSION_VERSIONS_LIMIT = 65
-  QUIZZES_NEXT_TIMEOUT = 15.minutes
-  QUIZZES_NEXT_QUIZ_TYPES = %w[graded_quiz graded_survey ungraded_survey].freeze
-  QUIZZES_NEXT_SURVEY_TYPES = %w[graded_survey ungraded_survey].freeze
+  # how long an assignment may sit in duplicating, importing or migrating
+  # before the cleanup job marks it failed
+  STUCK_WORKFLOW_TIMEOUT = 15.minutes
   ROLLCALL_ASSIGNMENT_TITLE = "Roll Call Attendance"
 
   attr_accessor(
@@ -175,19 +175,8 @@ class AbstractAssignment < ApplicationRecord
   scope :anonymous, -> { where(anonymous_grading: true) }
   scope :moderated, -> { where(moderated_grading: true) }
   scope :auditable, -> { anonymous.or(moderated) }
-  scope :type_quiz_lti, lambda {
-    all.primary_shard.activate do
-      # the offsets in this query are important hints to the PG query planner to execute this efficiently
-      where(ContentTag.where("content_tags.context_id=assignments.id")
-                      .where(context_type: "Assignment", content_type: "ContextExternalTool")
-                      .where(ContextExternalTool.where("context_external_tools.id=content_tags.content_id").quiz_lti.offset(0).arel.exists)
-                      .offset(0).arel.exists)
-    end
-  }
-  scope :not_type_quiz_lti, -> { where.not(id: type_quiz_lti) }
   scope :not_excluded_from_accessibility_scan, lambda {
     where.not(submission_types: "online_quiz")
-         .where.not(id: type_quiz_lti)
   }
 
   scope :exclude_muted_associations_for_user, lambda { |user|
@@ -253,10 +242,6 @@ class AbstractAssignment < ApplicationRecord
     validates :grader_count, numericality: { greater_than: 0 }
     validate :grader_section_ok?
     validate :final_grader_ok?
-  end
-
-  with_options if: :quiz_lti? do
-    validate :new_quizzes_type_ok?
   end
 
   accepts_nested_attributes_for :estimated_duration, allow_destroy: true
@@ -531,7 +516,7 @@ class AbstractAssignment < ApplicationRecord
       self.workflow_state = "outcome_alignment_cloning"
       start_outcome_alignment_service_clone
     else
-      self.workflow_state = ((duplicate_of&.workflow_state == "published" || !can_unpublish?) && !quiz_lti?) ? "published" : "unpublished"
+      self.workflow_state = (duplicate_of&.workflow_state == "published" || !can_unpublish?) ? "published" : "unpublished"
     end
   end
 
@@ -544,7 +529,7 @@ class AbstractAssignment < ApplicationRecord
 
   def can_duplicate?
     return false if quiz?
-    return false if external_tool_tag.present? && submission_types.include?("external_tool") && !quiz_lti?
+    return false if external_tool_tag.present? && submission_types.include?("external_tool")
 
     true
   end
@@ -575,45 +560,12 @@ class AbstractAssignment < ApplicationRecord
   end
 
   def self.clean_up_duplicating_assignments
-    should_report_to_sentry = Account.site_admin.feature_enabled?(:new_quizzes_report_failed_duplicates)
-    batch_size = 10_000
-    update_params = {
+    duplicating_for_too_long.in_batches(of: 10_000).update_all(
       duplication_started_at: nil,
       workflow_state: "failed_to_duplicate",
       updated_at: Time.zone.now
-    }
-
-    if should_report_to_sentry
-      duplicating_for_too_long.in_batches(of: batch_size) do |batch|
-        begin
-          report_failed_duplicates_to_sentry(batch)
-        rescue => e
-          Rails.logger.error("Failed to report failed duplicates to Sentry: #{e.message}")
-        end
-
-        ActiveRecord::Base.transaction do
-          batch.update_all(update_params)
-        end
-      end
-    else
-      duplicating_for_too_long.in_batches(of: batch_size).update_all(update_params)
-    end
+    )
   end
-
-  def self.report_failed_duplicates_to_sentry(batch)
-    assignment_count_by_root_account_id = batch.each_with_object({}) do |record, hash|
-      hash[record.root_account_id] ||= 0
-      hash[record.root_account_id] += 1
-    end
-    Sentry.with_scope do |scope|
-      scope.set_context(
-        "context",
-        assignment_count_by_root_account_id
-      )
-      Sentry.capture_message("Failed to duplicate assignments")
-    end
-  end
-  private_class_method :report_failed_duplicates_to_sentry
 
   def self.clean_up_cloning_alignments
     cloning_alignments_for_too_long.in_batches(of: 10_000).update_all(
@@ -846,7 +798,6 @@ class AbstractAssignment < ApplicationRecord
   after_save  :mark_module_progressions_outdated, if: :update_cached_due_dates?
   after_save  :workflow_change_refresh_content_partication_counts, if: :saved_change_to_workflow_state?
   after_save  :submission_types_change_refresh_content_participation_counts, if: :saved_change_to_submission_types?
-  after_save  :track_anonymously_graded_new_quizzes, if: :saved_change_to_anonymous_grading?
 
   after_commit :schedule_do_auto_peer_review_job_if_automatic_peer_review
 
@@ -975,14 +926,6 @@ class AbstractAssignment < ApplicationRecord
     end
     AssignmentGroup.where(id: assignment_group_id).update_all(updated_at: Time.zone.now.utc) if assignment_group_id
     true
-  end
-
-  def track_anonymously_graded_new_quizzes
-    return unless quiz_lti?
-
-    if anonymous_grading_changed?(to: true)
-      InstStatsd::Statsd.distributed_increment("assignment.new_quiz.anonymous.enabled")
-    end
   end
 
   def ab_guid_through_rubric
@@ -3514,7 +3457,7 @@ class AbstractAssignment < ApplicationRecord
   scope :duplicating_for_too_long, lambda {
     where(
       "workflow_state = 'duplicating' AND duplication_started_at < ?",
-      QUIZZES_NEXT_TIMEOUT.ago
+      STUCK_WORKFLOW_TIMEOUT.ago
     )
   }
 
@@ -3523,26 +3466,22 @@ class AbstractAssignment < ApplicationRecord
   scope :cloning_alignments_for_too_long, lambda {
     where(
       "workflow_state = 'outcome_alignment_cloning' AND duplication_started_at < ?",
-      (Setting.get("quizzes_next_timeout_minutes", "15").to_i * 2).minutes.ago
+      (STUCK_WORKFLOW_TIMEOUT * 2).ago
     )
   }
 
   scope :importing_for_too_long, lambda {
     where(
       "workflow_state = 'importing' AND importing_started_at < ?",
-      Services::NewQuizzes.importing_timeout_in_minutes.ago
+      30.minutes.ago
     )
   }
 
   scope :migrating_for_too_long, lambda {
     where(
       "workflow_state = 'migrating' AND duplication_started_at < ?",
-      QUIZZES_NEXT_TIMEOUT.ago
+      STUCK_WORKFLOW_TIMEOUT.ago
     )
-  }
-
-  scope :quiz_lti, lambda {
-    type_quiz_lti.where(submission_types: "external_tool")
   }
 
   scope :with_important_dates, lambda {
@@ -3568,7 +3507,6 @@ class AbstractAssignment < ApplicationRecord
       group_graded_ind: -> { has_group_category? && grade_group_students_individually? },
       anonymous: -> { anonymous_grading? },
       anonymized: -> { anonymize_students? },
-      new_quiz: -> { quiz_lti? },
       rubric: -> { active_rubric_association? },
     }
 
@@ -4049,35 +3987,11 @@ class AbstractAssignment < ApplicationRecord
   end
 
   def supports_grade_by_question?
-    return true if quiz.present?
-
-    Account.site_admin.feature_enabled?(:new_quizzes_grade_by_question_in_speedgrader) && quiz_lti?
+    quiz.present?
   end
 
   def quiz?
     submission_types == "online_quiz" && quiz.present?
-  end
-
-  def quiz_lti?
-    external_tool? && !!external_tool_tag&.content&.try(:quiz_lti?)
-  end
-
-  def quiz_lti!
-    setup_valid_quiz_lti_settings!
-    tool = context.present? && context.quiz_lti_tool
-    return unless tool
-
-    self.submission_types = "external_tool"
-    self.external_tool_tag_attributes = { content: tool, url: tool.url }
-  end
-
-  # Determines if the external tool URL indicates this is a quiz LTI assignment
-  # @param external_tool_url [String, nil] the external tool URL
-  # @return [Boolean] true if the URL belongs to a quiz LTI tool
-  def quiz_lti_assignment?(external_tool_url: nil)
-    return false unless external_tool_url.present?
-
-    Lti::ToolFinder.from_url(external_tool_url, context)&.quiz_lti?
   end
 
   def rollcall_assignment?
@@ -4433,7 +4347,7 @@ class AbstractAssignment < ApplicationRecord
 
   def a2_enabled?
     return false unless course.feature_enabled?(:assignments_2_student)
-    return false if quiz? || discussion_topic? || wiki_page? || quiz_lti?
+    return false if quiz? || discussion_topic? || wiki_page?
 
     true
   end
@@ -4519,18 +4433,6 @@ class AbstractAssignment < ApplicationRecord
     %w[duplicating failed_to_duplicate outcome_alignment_cloning failed_to_clone_outcome_alignment].include?(workflow_state)
   end
 
-  def mark_as_ready_to_migrate_to_quiz_next
-    self.settings = (settings || {}).merge({ "common_cartridge_import" => { "migrate_to_quizzes_next" => true } })
-  end
-
-  def ready_to_migrate_to_quiz_next?
-    !!settings&.dig("common_cartridge_import", "migrate_to_quizzes_next")
-  end
-
-  def unmark_as_ready_to_migrate_to_quiz_next
-    (settings || {}).delete "common_cartridge_import"
-  end
-
   def can_update_rubric_self_assessment?
     return false unless active_rubric_association?
 
@@ -4549,26 +4451,6 @@ class AbstractAssignment < ApplicationRecord
     return false if has_group_category?
 
     rubric_self_assessment_enabled
-  end
-
-  def new_quizzes_type
-    settings&.dig("new_quizzes", "type") || "graded_quiz"
-  end
-
-  def anonymous_participants?
-    value = settings&.dig("new_quizzes", "anonymous_participants")
-    ActiveModel::Type::Boolean.new.cast(value) || false
-  end
-  alias_method :new_quizzes_anonymous_participants?, :anonymous_participants?
-
-  def new_quizzes_type=(type)
-    self.settings ||= {}
-    self.settings["new_quizzes"] = (settings["new_quizzes"] || {}).merge({ "type" => type })
-  end
-
-  def anonymous_participants=(enabled)
-    self.settings ||= {}
-    self.settings["new_quizzes"] = (settings["new_quizzes"] || {}).merge({ "anonymous_participants" => ActiveModel::Type::Boolean.new.cast(enabled) || false })
   end
 
   # Returns true if the migration quite frankly an example LMS Plagiarism Platform (LTI2 / CPF) configuration to LTI1.3 Asset Processor has been started
@@ -4736,12 +4618,6 @@ class AbstractAssignment < ApplicationRecord
     end
   end
 
-  def new_quizzes_type_ok?
-    unless QUIZZES_NEXT_QUIZ_TYPES.include?(new_quizzes_type)
-      errors.add(:new_quizzes_type, I18n.t("is not a valid new quizzes type. Valid values are: %{types}", types: QUIZZES_NEXT_QUIZ_TYPES.join(", ")))
-    end
-  end
-
   def clear_moderated_grading_attributes(assignment)
     return if assignment.frozen?
 
@@ -4754,18 +4630,6 @@ class AbstractAssignment < ApplicationRecord
 
   def set_root_account_id
     self.root_account_id = root_account&.id
-  end
-
-  def setup_valid_quiz_lti_settings!
-    self.peer_reviews = false
-    self.peer_review_count = 0
-    self.peer_reviews_due_at = nil
-    self.peer_reviews_assigned = false
-    self.automatic_peer_reviews = false
-    self.anonymous_peer_reviews = false
-    self.intra_group_peer_reviews = false
-    self.peer_review_submission_required = false
-    self.peer_review_across_sections = false
   end
 
   def instructor_selectable_states

@@ -1009,7 +1009,6 @@ describe "Outcome Groups API", type: :request do
           "url" => polymorphic_path([:api_v1, @account, :outcome_link], id: @group.id, outcome_id: outcome.id),
           "assessed" => false,
           "can_unlink" => true,
-          "quiz_lti" => false,
           "outcome_group" => {
             "id" => @group.id,
             "title" => @group.title,
@@ -1405,7 +1404,6 @@ describe "Outcome Groups API", type: :request do
                              "url" => polymorphic_path([:api_v1, @account, :outcome_link], id: @group.id, outcome_id: @outcome.id),
                              "assessed" => false,
                              "can_unlink" => true,
-                             "quiz_lti" => false,
                              "outcome_group" => {
                                "id" => @group.id,
                                "title" => @group.title,

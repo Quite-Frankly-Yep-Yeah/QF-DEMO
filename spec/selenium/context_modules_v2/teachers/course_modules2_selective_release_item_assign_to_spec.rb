@@ -46,16 +46,6 @@ describe "selective_release module item assign to tray", :ignore_js_errors do
   before(:once) do
     course_with_teacher(active_all: true)
     set_rewrite_flag
-    @course.enable_feature! :quizzes_next
-    @course.context_external_tools.create!(
-      name: "Quizzes.Next",
-      consumer_key: "test_key",
-      shared_secret: "test_secret",
-      tool_id: "Quizzes 2",
-      url: "http://example.com/launch"
-    )
-    @course.root_account.settings[:provision] = { "lti" => "lti url" }
-    @course.root_account.save!
   end
 
   context "using assign to tray for newly created items", :ignore_js_errors do
@@ -88,25 +78,6 @@ describe "selective_release module item assign to tray", :ignore_js_errors do
       add_newly_created_item("Quiz", @module, "New Quiz Title")
 
       module_item = ContentTag.last
-      manage_module_item_button(module_item.id).click
-      click_manage_module_item_assign_to
-
-      expect(item_tray_exists?).to be true
-      expect(icon_type_exists?("Quiz")).to be true
-      expect(item_type_text.text).to eq("Quiz")
-    end
-
-    it "shows the correct icon type and title for an NQ quiz" do
-      skip("2025-08-22 only new quizzes are being made right now LX-3351")
-      go_to_modules
-      module_header_expand_toggles.first.click
-
-      # this call will probably need the block to add the correct options but waiting for final design on modal
-      add_newly_created_item("Quiz", @module, "New NQ Quiz Title") do
-        f("label[for=new_quizzes_radio]").click
-      end
-      module_item = ContentTag.last
-
       manage_module_item_button(module_item.id).click
       click_manage_module_item_assign_to
 
@@ -948,17 +919,6 @@ describe "selective_release module item assign to tray", :ignore_js_errors do
 
   context "item assign to tray saves", :ignore_js_errors do
     before(:once) do
-      @course.enable_feature! :quizzes_next
-      @course.context_external_tools.create!(
-        name: "Quizzes.Next",
-        consumer_key: "test_key",
-        shared_secret: "test_secret",
-        tool_id: "Quizzes 2",
-        url: "http://example.com/launch"
-      )
-      @course.root_account.settings[:provision] = { "lti" => "lti url" }
-      @course.root_account.save!
-
       module_setup
       @course.update!(default_view: "modules")
       @module_item1 = ContentTag.find_by(context_id: @course.id, context_module_id: @module.id, content_type: "Assignment", content_id: @assignment1.id)
@@ -981,16 +941,6 @@ describe "selective_release module item assign to tray", :ignore_js_errors do
   # context "item assign to tray saves for canvas for elementary", :ignore_js_errors do
   #   before(:once) do
   #     teacher_setup
-  #     @subject_course.enable_feature! :quizzes_next
-  #     @subject_course.context_external_tools.create!(
-  #       name: "Quizzes.Next",
-  #       consumer_key: "test_key",
-  #       shared_secret: "test_secret",
-  #       tool_id: "Quizzes 2",
-  #       url: "http://example.com/launch"
-  #     )
-  #     @subject_course.root_account.settings[:provision] = { "lti" => "lti url" }
-  #     @subject_course.root_account.save!
   #
   #     module_setup(@subject_course)
   #     @module_item1 = ContentTag.find_by(context_id: @subject_course.id, context_module_id: @module.id, content_type: "Assignment", content_id: @assignment1.id)

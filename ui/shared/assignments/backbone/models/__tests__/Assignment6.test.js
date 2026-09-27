@@ -30,29 +30,6 @@ describe('Assignment', () => {
     vi.clearAllMocks()
   })
 
-  describe('#retry_migration', () => {
-    it('makes ajax call with correct url', () => {
-      const assignmentID = '200'
-      const originalQuizID = '42'
-      const courseID = '123'
-      const assignment = new Assignment({
-        name: 'foo',
-        id: assignmentID,
-        original_quiz_id: originalQuizID,
-        course_id: courseID,
-      })
-
-      assignment.retry_migration()
-
-      expect($.ajaxJSON).toHaveBeenCalledWith(
-        `/api/v1/courses/${courseID}/content_exports?export_type=quizzes2&quiz_id=${originalQuizID}&failed_assignment_id=${assignmentID}&include[]=migrated_assignment`,
-        'POST',
-        {},
-        undefined,
-      )
-    })
-  })
-
   describe('#pollUntilFinishedDuplicating', () => {
     let assignment
     let clock

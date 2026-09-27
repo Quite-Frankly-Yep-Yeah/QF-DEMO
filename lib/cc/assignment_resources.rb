@@ -23,10 +23,6 @@ module CC
       # @user is nil if it's kicked off by the system, like a course template
       relation = @user ? Assignments::ScopedToUser.new(@course, @user).scope : @course.active_assignments
       relation.no_submittables.each do |assignment|
-        next if @course.assignments.where(id: assignment.id).type_quiz_lti.present? &&
-                Account.site_admin.feature_enabled?(:new_quizzes_common_cartridge) &&
-                @manifest.exporter.common_cartridge?
-
         next unless export_object?(assignment)
         next if @user && assignment.locked_for?(@user, check_policies: true)
 
@@ -297,8 +293,6 @@ module CC
 
       node.tag!(:turnitin_settings, assignment.send(:turnitin_settings).to_json) if assignment.turnitin_enabled || assignment.vericite_enabled
 
-      export_new_quizzes_settings(assignment, node)
-
       if assignment.assignment_configuration_tool_lookup_ids.present?
         resource_codes = assignment.tool_settings_tool.try(:resource_codes) || {}
         if resource_codes.present? || !Account.site_admin.feature_enabled?(:exclude_deleted_lti2_tools_on_assignment_export)
@@ -342,13 +336,6 @@ module CC
             add_asset_processor(asset_processors_node, asset_processor, key_generator)
           end
         end
-      end
-    end
-
-    def self.export_new_quizzes_settings(assignment, node)
-      if assignment.settings&.dig("new_quizzes")
-        node.new_quizzes_type assignment.settings["new_quizzes"]["type"] if assignment.settings["new_quizzes"]["type"]
-        node.new_quizzes_anonymous_participants assignment.settings["new_quizzes"]["anonymous_participants"] unless assignment.settings["new_quizzes"]["anonymous_participants"].nil?
       end
     end
 

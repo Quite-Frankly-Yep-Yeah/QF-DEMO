@@ -64,7 +64,6 @@ const QTIZipImporter = ({
       <CommonMigratorControls
         fileUploadProgress={fileUploadProgress}
         isSubmitting={isSubmitting}
-        canImportAsNewQuizzes={ENV.NEW_QUIZZES_IMPORT}
         canOverwriteAssessmentContent={true}
         onSubmit={handleSubmit}
         onCancel={onCancel}

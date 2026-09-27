@@ -96,8 +96,8 @@
 class Quizzes::QuizAssignmentOverridesController < ApplicationController
   include ::Filters::Quizzes
 
-  before_action :require_course, only: [:index, :new_quizzes]
-  skip_around_action :set_locale, only: [:index, :new_quizzes]
+  before_action :require_course, only: [:index]
+  skip_around_action :set_locale, only: [:index]
 
   # @API Retrieve assignment-overridden dates for Classic Quizzes
   #
@@ -125,35 +125,6 @@ class Quizzes::QuizAssignmentOverridesController < ApplicationController
   def index
     api_route = api_v1_course_quiz_assignment_overrides_url(@course)
     scope = @course.quizzes.active.preload(:assignment)
-    assignment_overrides(scope, api_route)
-  end
-
-  # @API Retrieve assignment-overridden dates for New Quizzes
-  #
-  # Retrieve the actual due-at, unlock-at, and available-at dates for quizzes
-  # based on the assignment overrides active for the current API user.
-  #
-  # @argument quiz_assignment_overrides[][quiz_ids][] [Optional, Integer|String]
-  #   An array of quiz IDs. If omitted, overrides for all quizzes available to
-  #   the operating user will be returned.
-  #
-  # @example_response
-  #     {
-  #        "quiz_assignment_overrides": [{
-  #          "quiz_id": "1",
-  #          "due_dates": [QuizAssignmentOverride],
-  #          "all_dates": [QuizAssignmentOverride]
-  #        },{
-  #          "quiz_id": "2",
-  #          "due_dates": [QuizAssignmentOverride],
-  #          "all_dates": [QuizAssignmentOverride]
-  #        }]
-  #     }
-  #
-  # @returns QuizAssignmentOverrideSetContainer
-  def new_quizzes
-    api_route = api_v1_course_new_quizzes_assignment_overrides_url(@course)
-    scope = @course.assignments.active.type_quiz_lti
     assignment_overrides(scope, api_route)
   end
 

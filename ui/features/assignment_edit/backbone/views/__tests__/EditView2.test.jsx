@@ -166,32 +166,6 @@ describe('EditView', () => {
     expect(view.locationAfterSave({return_to: currentOrigin + '/bar'})).toBe(currentOrigin + '/bar')
   })
 
-  describe('routes to the build page normally regardless of the return_to param', () => {
-    let view
-
-    beforeEach(() => {
-      view = editView({html_url: 'http://foo'})
-    })
-
-    const testLocationAfterSave = (isFeatureFlagEnabled, expectedDisplay) => {
-      ENV.FEATURES.new_quizzes_navigation_updates = isFeatureFlagEnabled
-      vi.spyOn(view.assignment, 'showBuildButton').mockReturnValue(true)
-      view.preventBuildNavigation = false
-
-      expect(view.locationAfterSave({return_to: 'http://calendar'})).toBe(
-        `http://foo/?display=${expectedDisplay}`,
-      )
-    }
-
-    it('returns with ?display=full_width_with_nav when feature flag is enabled', () => {
-      testLocationAfterSave(true, 'full_width_with_nav')
-    })
-
-    it('returns with ?display=full_width when feature flag is disabled', () => {
-      testLocationAfterSave(false, 'full_width')
-    })
-  })
-
   it('does not route to return_to with javascript protocol', () => {
     const view = editView({html_url: currentOrigin + '/foo'})
     expect(view.locationAfterSave({return_to: 'javascript:alert(1)'})).toBe(currentOrigin + '/foo')

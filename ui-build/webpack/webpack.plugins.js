@@ -28,12 +28,7 @@ const {WebpackManifestPlugin} = require('rspack-manifest-plugin')
 const {RetryChunkLoadPlugin} = require('webpack-retry-chunk-load-plugin')
 const {ModuleFederationPlugin} = require('@module-federation/enhanced/rspack')
 const WebpackHooks = require('./webpackHooks')
-const {
-  fetchSpeedGraderLibrary,
-  fetchLtiUsage,
-  fetchIgniteAgentLibrary,
-  fetchNewQuizzesApp,
-} = require('./remotes')
+const {fetchSpeedGraderLibrary, fetchLtiUsage, fetchIgniteAgentLibrary} = require('./remotes')
 
 // determines which folder public assets are compiled to
 const webpackPublicPath = require('./webpackPublicPath')
@@ -150,7 +145,6 @@ exports.moduleFederation = new ModuleFederationPlugin({
     speedgrader: `promise new Promise(${fetchSpeedGraderLibrary.toString()})`,
     ltiusage: `promise new Promise(${fetchLtiUsage.toString()})`,
     igniteagent: `promise new Promise(${fetchIgniteAgentLibrary.toString()})`,
-    newquizzes: `promise new Promise(${fetchNewQuizzesApp.toString()})`,
   },
   exposes: {},
   shared: {},

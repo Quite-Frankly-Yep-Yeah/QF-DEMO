@@ -1016,255 +1016,6 @@ describe ContentMigration do
     end
   end
 
-  describe "#import" do
-    subject { @cm.import!({}) }
-
-    context "when quizzes next import process returns true" do
-      before do
-        allow(@cm)
-          .to receive(:quizzes_next_import_process?)
-          .and_return(true)
-      end
-
-      let(:importer) { instance_double(QuizzesNext::Importers::CourseContentImporter) }
-
-      it "should call QuizzesNext::Importers" do
-        expect(Importers).not_to receive(:content_importer_for)
-        expect_any_instance_of(QuizzesNext::Importers::CourseContentImporter).to receive(:import_content)
-        subject
-      end
-    end
-
-    context "when quizzes next import process returns false" do
-      before do
-        allow(@cm)
-          .to receive(:quizzes_next_import_process?)
-          .and_return(false)
-      end
-
-      let(:importer) { class_double(Importers::CourseContentImporter) }
-
-      it "should not calls QuizzesNext::Importers" do
-        expect(QuizzesNext::Importers::CourseContentImporter)
-          .not_to receive(:new)
-        expect(Importers)
-          .to receive(:content_importer_for)
-          .and_return(importer)
-        expect(importer)
-          .to receive(:import_content)
-
-        subject
-      end
-    end
-  end
-
-  describe "#quizzes_next_import_process?" do
-    subject { @cm.quizzes_next_import_process? }
-
-    it "returns true if cc_qti_migration? is true" do
-      allow(@cm).to receive_messages(cc_qti_migration?: true, quizzes_next_migration?: false)
-      expect(subject).to be true
-    end
-
-    it "returns true if quizzes_next_migration? is true" do
-      allow(@cm).to receive_messages(cc_qti_migration?: false, quizzes_next_migration?: true)
-      expect(subject).to be true
-    end
-
-    it "returns false if cc_qti_migration? and quizzes_next_migration? is false" do
-      allow(@cm).to receive_messages(cc_qti_migration?: false, quizzes_next_migration?: false)
-      expect(subject).to be false
-    end
-  end
-
-  describe "#cc_qti_migration?" do
-    subject { @cm.cc_qti_migration? }
-
-    before do
-      allow(NewQuizzesFeaturesHelper).to receive(:common_cartridge_qti_new_quizzes_import_enabled?).and_return(true)
-      allow(@cm).to receive(:for_common_cartridge?).and_return(true)
-    end
-
-    it "returns true if context is a Course and common_cartridge_qti_new_quizzes_import_enabled? and for_common_cartridge? are true" do
-      expect(subject).to be true
-    end
-
-    it "returns false if context is not a Course" do
-      allow(@cm.context).to receive(:instance_of?).with(Course).and_return(false)
-      expect(subject).to be false
-    end
-
-    it "returns false if common_cartridge_qti_new_quizzes_import_enabled? is false" do
-      allow(NewQuizzesFeaturesHelper).to receive(:common_cartridge_qti_new_quizzes_import_enabled?).and_return(false)
-      expect(subject).to be false
-    end
-
-    it "returns false if for_common_cartridge? is false" do
-      allow(@cm).to receive(:for_common_cartridge?).and_return(false)
-      expect(subject).to be false
-    end
-  end
-
-  describe "#import_quizzes_next?" do
-    it "returns false when migration_settings[:import_quizzes_next] is false or nil" do
-      settings = [false, "false", nil]
-      settings.each do |setting|
-        @cm.migration_settings["import_quizzes_next"] = setting
-        expect(@cm.import_quizzes_next?).to be false
-      end
-    end
-
-    it "returns true when migration_settings[:import_quizzes_next] is true" do
-      settings = [true, "true"]
-      settings.each do |setting|
-        @cm.migration_settings["import_quizzes_next"] = setting
-        expect(@cm.import_quizzes_next?).to be true
-      end
-    end
-  end
-
-  describe "#quizzes_next_migration?" do
-    subject { @cm.quizzes_next_migration? }
-
-    before do
-      allow(@cm.context).to receive(:feature_enabled?).with(:quizzes_next).and_return(true)
-      allow(@cm.context).to receive(:instance_of?).with(Course).and_return(true)
-      allow(@cm).to receive(:import_quizzes_next?).and_return(true)
-    end
-
-    it "returns true if context is a Course, feature_enabled?(:quizzes_next) is true, and import_quizzes_next? is true" do
-      expect(subject).to be true
-    end
-
-    it "returns false if context is not a Course" do
-      allow(@cm.context).to receive(:instance_of?).with(Course).and_return(false)
-      expect(subject).to be false
-    end
-
-    it "returns false if feature_enabled?(:quizzes_next) is false" do
-      allow(@cm.context).to receive(:feature_enabled?).with(:quizzes_next).and_return(false)
-      expect(subject).to be false
-    end
-
-    it "returns false if import_quizzes_next? is false" do
-      allow(@cm).to receive(:import_quizzes_next?).and_return(false)
-      expect(subject).to be false
-    end
-  end
-
-  context "importing to NQ with the new_quizzes_bank_migrations FF enabled" do
-    before do
-      allow_any_instance_of(ContentMigration).to receive(:quizzes_next_banks_migration?).and_return(true)
-      allow_any_instance_of(ContentMigration).to receive(:quizzes_next_migration?).and_return(true)
-      allow(NewQuizzesFeaturesHelper).to receive(:new_quizzes_bank_migrations_enabled?).and_return(true)
-    end
-
-    it "creates a quiz migration alert for the user and course" do
-      expect do
-        cm = @cm
-        cm.migration_type = "qti_converter"
-        cm.migration_settings["import_immediately"] = true
-        cm.save!
-
-        package_path = File.join("#{File.dirname(__FILE__)}/../fixtures/migration/plaintext_qti.zip")
-        attachment = Attachment.create!(context: cm, uploaded_data: File.open(package_path, "rb"), filename: "file.zip")
-        cm.attachment = attachment
-        cm.save!
-
-        cm.queue_migration
-        run_jobs
-      end.to change { QuizMigrationAlert.count }
-        .from(0).to(1)
-        .and change { @teacher.quiz_migration_alerts.count }
-        .from(0).to(1)
-    end
-
-    context "when the same migration is queued multiple times" do
-      it "does not produce multiple quiz migration alerts" do
-        expect do
-          cm = @cm
-          cm.migration_type = "qti_converter"
-          cm.migration_settings["import_immediately"] = true
-          cm.save!
-
-          package_path = File.join("#{File.dirname(__FILE__)}/../fixtures/migration/plaintext_qti.zip")
-          attachment = Attachment.create!(context: cm, uploaded_data: File.open(package_path, "rb"), filename: "file.zip")
-          cm.attachment = attachment
-          cm.save!
-
-          2.times do
-            cm.queue_migration
-            run_jobs
-          end
-        end.to change { QuizMigrationAlert.count }.from(0).to(1)
-      end
-    end
-
-    it "imports assignments from a qti zip file without creating assessment_question_banks" do
-      cm = @cm
-      cm.migration_type = "qti_converter"
-      cm.migration_settings["import_immediately"] = true
-      cm.save!
-
-      package_path = File.join("#{File.dirname(__FILE__)}/../fixtures/migration/plaintext_qti.zip")
-      attachment = Attachment.create!(context: cm, uploaded_data: File.open(package_path, "rb"), filename: "file.zip")
-      cm.attachment = attachment
-      cm.save!
-
-      cm.queue_migration
-      run_jobs
-
-      expect(@course.assessment_question_banks.count).to eq 0
-      expect(AssessmentQuestion.count).to eq 0
-      expect(@course.quiz_questions.count).to eq 0
-
-      expect(@course.assignments.count).to eq 1
-    end
-
-    it "imports assignments from a common_cartridge zip file without creating assessment_question_banks" do
-      cm = @cm
-      cm.migration_type = "common_cartridge_importer"
-      cm.migration_settings["import_immediately"] = true
-      cm.save!
-
-      package_path = File.join("#{File.dirname(__FILE__)}/../fixtures/migration/cc_nested.zip")
-      attachment = Attachment.new(context: cm, filename: "file.zip")
-      attachment.uploaded_data = File.open(package_path, "rb")
-      attachment.save!
-
-      cm.update_attribute(:attachment, attachment)
-      cm.queue_migration
-      run_jobs
-
-      expect(cm.reload.migration_issues).to be_empty
-
-      expect(@course.assessment_question_banks.count).to eq 0
-      expect(AssessmentQuestion.count).to eq 0
-      expect(@course.quiz_questions.count).to eq 0
-
-      expect(@course.assignments.count).to eq 1
-    end
-  end
-
-  context "when importing to NQ with the new_quizzes_bank_migrations FF turned off" do
-    it "does not produce quiz migration alerts" do
-      expect do
-        cm = @cm
-        cm.migration_type = "qti_converter"
-        cm.migration_settings["import_immediately"] = true
-        cm.save!
-
-        package_path = File.join("#{File.dirname(__FILE__)}/../fixtures/migration/plaintext_qti.zip")
-        attachment = Attachment.create!(context: cm, uploaded_data: File.open(package_path, "rb"), filename: "file.zip")
-        cm.attachment = attachment
-        cm.save!
-
-        cm.queue_migration
-        run_jobs
-      end.to not_change { QuizMigrationAlert.count }
-    end
-  end
-
   context "insert_into_module_id" do
     include_context "course copy"
 
@@ -2494,9 +2245,6 @@ describe ContentMigration do
             @rubric_from.destroy!
             @outcome_from.destroy!
             @outcome_to = @course_to.learning_outcomes.where(migration_id: mig_id(@outcome_from)).first
-            allow_any_instance_of(ContentMigration).to receive(:get_outcome_alignments).and_return nil
-            allow_any_instance_of(ContentMigration).to receive(:outcome_has_alignments?).and_return false
-            allow_any_instance_of(ContentMigration).to receive(:outcome_has_authoritative_results?).and_return false
             run_migration
             expect(@outcome_to.reload).to be_deleted
           end
@@ -2532,9 +2280,6 @@ describe ContentMigration do
             @rubric_from.update_criteria({ criteria: })
             @outcome_from.destroy!
             @outcome_to = @course_to.learning_outcomes.where(migration_id: mig_id(@outcome_from)).first
-            allow_any_instance_of(ContentMigration).to receive(:get_outcome_alignments).and_return nil
-            allow_any_instance_of(ContentMigration).to receive(:outcome_has_alignments?).and_return false
-            allow_any_instance_of(ContentMigration).to receive(:outcome_has_authoritative_results?).and_return false
             run_migration
             expect(@outcome_to.reload).to be_deleted
           end
@@ -2543,9 +2288,6 @@ describe ContentMigration do
         it "there are no learning outcome results, authoritative results, and alignments" do
           @outcome_to = @course_to.learning_outcomes.where(migration_id: mig_id(@outcome_from)).first
           @outcome_from.destroy!
-          allow_any_instance_of(ContentMigration).to receive(:get_outcome_alignments).and_return nil
-          allow_any_instance_of(ContentMigration).to receive(:outcome_has_alignments?).and_return false
-          allow_any_instance_of(ContentMigration).to receive(:outcome_has_authoritative_results?).and_return false
           run_migration
           expect(@outcome_from.reload).to be_deleted
           expect(@outcome_to.reload).to be_deleted
@@ -2562,37 +2304,12 @@ describe ContentMigration do
           expect(@migration.migration_results.first.results[:skipped].first).to eq(mig_id)
         end
 
-        it "there are authoritative results" do
-          mig_id = mig_id(@outcome_from)
-          @outcome_to = @course_to.learning_outcomes.where(migration_id: mig_id).first
-          @outcome_from.destroy!
-          allow_any_instance_of(ContentMigration).to receive(:outcome_has_authoritative_results?).and_return true
-          run_migration
-          expect(@outcome_from.reload).to be_deleted
-          expect(@outcome_to.reload).not_to be_deleted
-          expect(@migration.migration_results.first.results[:skipped].first).to eq(mig_id)
-        end
-
         describe "there are active alignments" do
           it "from quite frankly an example LMS" do
             mig_id = mig_id(@outcome_from)
             @outcome_to = @course_to.learning_outcomes.where(migration_id: mig_id).first
             create_outcome_alignment(@outcome_to)
             @outcome_from.destroy!
-            allow_any_instance_of(ContentMigration).to receive(:outcome_has_alignments?).and_return false
-            allow_any_instance_of(ContentMigration).to receive(:outcome_has_authoritative_results?).and_return false
-            run_migration
-            expect(@outcome_from.reload).to be_deleted
-            expect(@outcome_to.reload).not_to be_deleted
-            expect(@migration.migration_results.first.results[:skipped].first).to eq(mig_id)
-          end
-
-          it "from Outcomes Service" do
-            mig_id = mig_id(@outcome_from)
-            @outcome_to = @course_to.learning_outcomes.where(migration_id: mig_id).first
-            @outcome_from.destroy!
-            allow_any_instance_of(ContentMigration).to receive(:outcome_has_alignments?).and_return true
-            allow_any_instance_of(ContentMigration).to receive(:outcome_has_authoritative_results?).and_return false
             run_migration
             expect(@outcome_from.reload).to be_deleted
             expect(@outcome_to.reload).not_to be_deleted
@@ -2617,9 +2334,6 @@ describe ContentMigration do
           @ct_from = ContentTag.find_by!(content_id: @account_outcome.id, content_type: "LearningOutcome", context_type: "Course", context_id: @course_from.id)
           @ct_to = ContentTag.find_by!(content_id: @account_outcome.id, content_type: "LearningOutcome", context_type: "Course", context_id: @course_to.id)
           @ct_from.destroy!
-          allow_any_instance_of(ContentMigration).to receive(:get_outcome_alignments).and_return nil
-          allow_any_instance_of(ContentMigration).to receive(:outcome_has_alignments?).and_return false
-          allow_any_instance_of(ContentMigration).to receive(:outcome_has_authoritative_results?).and_return false
           run_migration
           expect(@ct_from.reload).to be_deleted
           expect(@ct_to.reload).to be_deleted
@@ -2637,18 +2351,6 @@ describe ContentMigration do
           expect(@migration.migration_results.first.results[:skipped].first).to eq(mig_id)
         end
 
-        it "there are authoritative results" do
-          @ct_from = ContentTag.find_by!(content_id: @account_outcome.id, content_type: "LearningOutcome", context_type: "Course", context_id: @course_from.id)
-          @ct_to = ContentTag.find_by!(content_id: @account_outcome.id, content_type: "LearningOutcome", context_type: "Course", context_id: @course_to.id)
-          mig_id = @ct_to.migration_id
-          @ct_from.destroy!
-          allow_any_instance_of(ContentMigration).to receive(:outcome_has_authoritative_results?).and_return true
-          run_migration
-          expect(@ct_from.reload).to be_deleted
-          expect(@ct_to.reload).not_to be_deleted
-          expect(@migration.migration_results.first.results[:skipped].first).to eq(mig_id)
-        end
-
         describe "there are active alignments" do
           it "from quite frankly an example LMS" do
             create_outcome_alignment(@account_outcome)
@@ -2656,21 +2358,6 @@ describe ContentMigration do
             @ct_to = ContentTag.find_by!(content_id: @account_outcome.id, content_type: "LearningOutcome", context_type: "Course", context_id: @course_to.id)
             mig_id = @ct_to.migration_id
             @ct_from.destroy!
-            allow_any_instance_of(ContentMigration).to receive(:outcome_has_alignments?).and_return false
-            allow_any_instance_of(ContentMigration).to receive(:outcome_has_authoritative_results?).and_return false
-            run_migration
-            expect(@ct_from.reload).to be_deleted
-            expect(@ct_to.reload).not_to be_deleted
-            expect(@migration.migration_results.first.results[:skipped].first).to eq(mig_id)
-          end
-
-          it "from Outcomes Service" do
-            @ct_from = ContentTag.find_by!(content_id: @account_outcome.id, content_type: "LearningOutcome", context_type: "Course", context_id: @course_from.id)
-            @ct_to = ContentTag.find_by!(content_id: @account_outcome.id, content_type: "LearningOutcome", context_type: "Course", context_id: @course_to.id)
-            mig_id = @ct_to.migration_id
-            @ct_from.destroy!
-            allow_any_instance_of(ContentMigration).to receive(:outcome_has_alignments?).and_return true
-            allow_any_instance_of(ContentMigration).to receive(:outcome_has_authoritative_results?).and_return false
             run_migration
             expect(@ct_from.reload).to be_deleted
             expect(@ct_to.reload).not_to be_deleted

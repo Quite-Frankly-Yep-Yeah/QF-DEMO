@@ -1669,89 +1669,6 @@ describe "Common Cartridge exporting" do
       end
     end
 
-    describe "New Quizzes Common Cartridge" do
-      context "with new_quizzes_common_cartridge feature flag disabled" do
-        before do
-          @course.enable_feature!(:quizzes_next)
-          assignment_model(submission_types: "external_tool", course: @course)
-          tool = @c.context_external_tools.create!(
-            name: "Quizzes.Next",
-            consumer_key: "test_key",
-            shared_secret: "test_secret",
-            tool_id: "Quizzes 2",
-            url: "http://example.com/launch"
-          )
-          @a.external_tool_tag_attributes = { content: tool }
-          @a.save!
-
-          @course.root_account.settings[:provision] = { "lti" => "lti url" }
-          @course.root_account.save!
-          assignment = @course.assignments.last
-          assignment.title = "NewQuizzes"
-          assignment.save!
-
-          @ce.export_type = ContentExport::COMMON_CARTRIDGE
-          @ce.save!
-        end
-
-        it "should include the assignments settings and description html" do
-          run_export
-
-          assignment_id = @manifest_doc.at_css("resource[href*='newquizzes.html']").attr("href").chomp("/newquizzes.html")
-
-          doc = Nokogiri::XML.parse(@zip_file.read("#{assignment_id}/assignment_settings.xml"))
-          expect(doc).not_to be_nil
-        end
-      end
-
-      context "with new_quizzes_common_cartridge feature flag enabled" do
-        before do
-          Account.site_admin.enable_feature!(:new_quizzes_common_cartridge)
-
-          @course.enable_feature!(:quizzes_next)
-          assignment_model(submission_types: "external_tool", course: @course)
-          tool = @c.context_external_tools.create!(
-            name: "Quizzes.Next",
-            consumer_key: "test_key",
-            shared_secret: "test_secret",
-            tool_id: "Quizzes 2",
-            url: "http://example.com/launch"
-          )
-          @a.external_tool_tag_attributes = { content: tool }
-          @a.save!
-
-          @course.root_account.settings[:provision] = { "lti" => "lti url" }
-          @course.root_account.save!
-          assignment = @course.assignments.last
-          assignment.title = "NewQuizzes"
-          assignment.save!
-        end
-
-        it "should not include the assignments settings and description html" do
-          @ce.export_type = ContentExport::COMMON_CARTRIDGE
-          @ce.save!
-          run_export
-
-          assignment_id = @manifest_doc.at_css("resource[href*='newquizzes.html']")&.attr("href")&.chomp("/newquizzes.html")
-
-          expect(assignment_id).to be_nil
-        end
-
-        context "ContentExport::COURSE_COPY" do
-          it "should include the assignments settings and description html" do
-            @ce.export_type = ContentExport::COURSE_COPY
-            @ce.save!
-            run_export
-
-            assignment_id = @manifest_doc.at_css("resource[href*='newquizzes.html']").attr("href").chomp("/newquizzes.html")
-
-            doc = Nokogiri::XML.parse(@zip_file.read("#{assignment_id}/assignment_settings.xml"))
-            expect(doc).not_to be_nil
-          end
-        end
-      end
-    end
-
     describe "setting is_discussion_checkpoints_enabled ff on BP export" do
       subject { run_export_without_file_parse }
 
@@ -1817,29 +1734,6 @@ describe "Common Cartridge exporting" do
       entry = @zip_file.find_entry(file_path)
       expect(entry).not_to be_nil
       expect(entry.get_input_stream.read).to eq "test content"
-    end
-  end
-
-  describe "#disable_content_rewriting" do
-    subject { cc_exporter.disable_content_rewriting }
-
-    let(:content_export) { ContentExport.new(context: course_model) }
-    let(:cc_exporter) { CC::CCExporter.new(content_export) }
-
-    context "ContentExport disable_content_rewriting is true" do
-      before do
-        allow(content_export).to receive(:disable_content_rewriting?).and_return true
-      end
-
-      it { is_expected.to be true }
-    end
-
-    context "ContentExport disable_content_rewriting is false" do
-      before do
-        allow(content_export).to receive(:disable_content_rewriting?).and_return false
-      end
-
-      it { is_expected.to be false }
     end
   end
 end

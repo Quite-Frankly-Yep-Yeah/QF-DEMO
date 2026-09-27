@@ -61,22 +61,6 @@ describe "context modules" do
           }] # will replace with the modules on the variable expansion
         end
       end
-
-      context "new_quizzes_media_type feature flag is disabled" do
-        before do
-          Account.site_admin.disable_feature!(:new_quizzes_media_type)
-        end
-
-        it_behaves_like "launches the index menu tool via the tray", %w[assignment audio discussion_topic document image module quiz page video]
-      end
-
-      context "new_quizzes_media_type feature flag is enabled" do
-        before do
-          Account.site_admin.enable_feature!(:new_quizzes_media_type)
-        end
-
-        it_behaves_like "launches the index menu tool via the tray", %w[assignment audio discussion_topic document image module quiz page video quizzesnext]
-      end
     end
 
     it "is able to work with granular permisions properly" do
@@ -99,22 +83,6 @@ describe "context modules" do
           wait_for_ajaximations
           expect(tool_dialog_header).to include_text("External Apps...")
           expect(f('button[data-tool-launch-type="module_group_menu"]')).not_to be_nil
-        end
-      end
-
-      context "new_quizzes_media_type feature flag is disabled" do
-        it_behaves_like "opens the external apps modal successfully" do
-          before do
-            Account.site_admin.disable_feature!(:new_quizzes_media_type)
-          end
-        end
-      end
-
-      context "new_quizzes_media_type feature flag is enabled" do
-        it_behaves_like "opens the external apps modal successfully" do
-          before do
-            Account.site_admin.enable_feature!(:new_quizzes_media_type)
-          end
         end
       end
     end
@@ -145,22 +113,6 @@ describe "context modules" do
           module_data = [@module2].map { |m| { "id" => m.id.to_s, "name" => m.name } } # just @module2
           expect(query_params["com_instructure_course_available_canvas_resources"].values).to match_array(module_data)
         end
-      end
-
-      context "new_quizzes_media_type feature flag is disabled" do
-        before do
-          Account.site_admin.disable_feature!(:new_quizzes_media_type)
-        end
-
-        it_behaves_like "launches the individual module menu tool via the tray", %w[assignment audio discussion_topic document image module quiz page video]
-      end
-
-      context "new_quizzes_media_type feature flag is enabled" do
-        before do
-          Account.site_admin.enable_feature!(:new_quizzes_media_type)
-        end
-
-        it_behaves_like "launches the individual module menu tool via the tray", %w[assignment audio discussion_topic document image module quiz page video quizzesnext]
       end
     end
   end

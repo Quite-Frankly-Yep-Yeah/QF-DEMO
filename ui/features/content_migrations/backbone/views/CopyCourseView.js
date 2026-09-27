@@ -34,8 +34,6 @@ CopyCourseView.child('dateShift', '.dateShift')
 
 CopyCourseView.child('selectContent', '.selectContent')
 
-CopyCourseView.child('importQuizzesNext', '.importQuizzesNext')
-
 CopyCourseView.prototype.initialize = function () {
   CopyCourseView.__super__.initialize.apply(this, arguments)
   return this.courseFindSelect.on(

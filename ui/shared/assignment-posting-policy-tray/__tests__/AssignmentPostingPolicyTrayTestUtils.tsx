@@ -51,7 +51,6 @@ export const createDefaultContext = (): MockContext => ({
     name: 'Math 1.1',
     postManually: false,
     moderatedGrading: false,
-    newQuizzesAnonymousParticipants: false,
     gradesPublished: false,
     dueAt: '',
     htmlUrl: 'http://example.com',

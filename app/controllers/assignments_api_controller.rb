@@ -806,8 +806,6 @@ class AssignmentsApiController < ApplicationController
   #   Determines the order of the assignments. Defaults to "position".
   # @argument post_to_sis [Boolean]
   #   Return only assignments that have post_to_sis set or not set.
-  # @argument new_quizzes [Boolean]
-  #   Return only New Quizzes assignments
   # @returns [Assignment]
   def index
     GuardRail.activate(:secondary) do
@@ -832,13 +830,6 @@ class AssignmentsApiController < ApplicationController
   #
   # Duplicate an assignment and return a json based on result_type argument.
   #
-  # @argument result_type [String, "Quiz"]
-  #   Optional information:
-  #   When the root account has the feature `newquizzes_on_quiz_page` enabled
-  #   and this argument is set to "Quiz" the response will be serialized into a
-  #   {file:quizzes.html#Quiz quiz format};
-  #   When this argument isn't specified the response will be serialized into an
-  #   assignment format;
   #
   # @example_request
   #     curl -X POST -H 'Authorization: Bearer <token>' \
@@ -882,7 +873,6 @@ class AssignmentsApiController < ApplicationController
     if course_copy_retry?
       new_assignment.context = target_course
       new_assignment.assignment_group = target_assignment.assignment_group
-      set_assignment_asset_map(new_assignment) if new_assignment.quiz_lti?
     else
       new_assignment.resource_map = Assignment::DUPLICATED_IN_CONTEXT
     end
@@ -897,7 +887,6 @@ class AssignmentsApiController < ApplicationController
     new_assignment.insert_at(target_assignment.position + 1)
     if is_blueprint_retry
       new_assignment.migration_id = target_assignment.migration_id
-      set_assignment_asset_map(new_assignment) if new_assignment.quiz_lti?
     end
     new_assignment.save!
 
@@ -942,14 +931,9 @@ class AssignmentsApiController < ApplicationController
         new_assignment.discussion_topic.insert_at(assignment_topic.position + 1)
       end
       # return assignment json based on requested result type
-      # Serializing an assignment into a quiz format is required by N.Q Quiz shells on Quizzes Page
-      result_json = if use_quiz_json?
-                      quiz_json(new_assignment, @context, @current_user, session, {}, QuizzesNext::QuizSerializer)
-                    else
-                      # Include the updated positions in the response so the frontend can
-                      # update them appropriately
-                      assignment_json(new_assignment, @current_user, session)
-                    end
+      # Include the updated positions in the response so the frontend can
+      # update them appropriately
+      result_json = assignment_json(new_assignment, @current_user, session)
 
       result_json["new_positions"] = positions_hash
       render json: result_json
@@ -984,11 +968,7 @@ class AssignmentsApiController < ApplicationController
       target_assignment.save!
     end
 
-    result_json = if use_quiz_json?
-                    quiz_json(target_assignment, @context, @current_user, session, {}, QuizzesNext::QuizSerializer)
-                  else
-                    assignment_json(target_assignment, @current_user, session)
-                  end
+    result_json = assignment_json(target_assignment, @current_user, session)
     result_json["new_positions"] = { target_assignment.id => target_assignment.position }
     render json: result_json
   end
@@ -1016,10 +996,6 @@ class AssignmentsApiController < ApplicationController
       end
 
       scope = scope.where(post_to_sis: value_to_boolean(params[:post_to_sis])) if params[:post_to_sis]
-
-      if params[:new_quizzes]
-        scope = scope.type_quiz_lti
-      end
 
       if params[:exclude_checkpoints]
         scope = scope.where.not(has_sub_assignments: true)
@@ -1225,11 +1201,7 @@ class AssignmentsApiController < ApplicationController
         include_peer_review: included_params.include?("peer_review"),
       }
 
-      result_json = if use_quiz_json?
-                      quiz_json(@assignment, @context, @current_user, session, {}, QuizzesNext::QuizSerializer)
-                    else
-                      assignment_json(@assignment, @current_user, session, options)
-                    end
+      result_json = assignment_json(@assignment, @current_user, session, options)
 
       render json: result_json
     end
@@ -1369,12 +1341,6 @@ class AssignmentsApiController < ApplicationController
   #
   # @argument assignment[hide_in_gradebook] [Boolean]
   #   Whether this assignment is shown in the gradebook.
-  #
-  # @argument assignment[quiz_lti] [Boolean]
-  #   Whether this assignment should use the Quizzes 2 LTI tool. Sets the
-  #   submission type to 'external_tool' and configures the external tool
-  #   attributes to use the Quizzes 2 LTI tool configured for this course.
-  #   Has no effect if no Quizzes 2 LTI tool is configured.
   #
   # @argument assignment[moderated_grading] [Boolean]
   #   Whether this assignment is moderated.
@@ -1883,16 +1849,6 @@ class AssignmentsApiController < ApplicationController
 
   def course_copy_retry?
     target_course_for_duplicate != @context
-  end
-
-  def use_quiz_json?
-    params[:result_type] == "Quiz" && @context.root_account.feature_enabled?(:newquizzes_on_quiz_page)
-  end
-
-  def set_assignment_asset_map(assignment)
-    assignment.shard.activate do
-      assignment.resource_map = ContentMigration.find_most_recent_by_course_ids(@context.global_id, assignment.context.global_id)&.asset_map_url
-    end
   end
 
   def track_update_metrics(assignment, _params)

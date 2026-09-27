@@ -23,7 +23,6 @@ import {
   IconDiscussionLine,
   IconModuleLine,
   IconQuizLine,
-  IconQuizSolid as IconNewQuiz,
   IconAnnouncementLine,
   IconDocumentLine,
 } from '@instructure/ui-icons'
@@ -47,8 +46,6 @@ export const getIcon = type => {
       return IconModuleLine
     case 'quizzes':
       return IconQuizLine
-    case 'quizzes.next':
-      return IconNewQuiz
     case 'announcements':
       return IconAnnouncementLine
     case 'wikiPages':
@@ -70,8 +67,6 @@ export const getFriendlyLinkType = type => {
       return formatMessage('Module')
     case 'quizzes':
       return formatMessage('Quiz')
-    case 'quizzes.next':
-      return formatMessage('New Quiz')
     case 'announcements':
       return formatMessage('Announcement')
     case 'wikiPages':

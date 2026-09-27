@@ -111,7 +111,6 @@ describe('AssignmentIndex', () => {
       URLS: {
         assignment_sort_base_url: 'test',
       },
-      QUIZ_LTI_ENABLED: false,
       FEATURES: {
         instui_nav: true,
       },
@@ -231,20 +230,5 @@ describe('AssignmentIndex', () => {
     expect($thirdRow.find('.ig-details__item--wrap-text.modules')).toHaveLength(0)
 
     fakeENV.teardown()
-  })
-
-  it("should show 'Add Quiz/Test' button if quiz lti is enabled", () => {
-    ENV.QUIZ_LTI_ENABLED = true
-    ENV.FEATURES.instui_nav = false
-    const view = createAssignmentIndex({withAssignmentSettings: true})
-    const $button = view.$('.new_quiz_lti')
-    expect($button).toHaveLength(1)
-    expect($button.attr('href')).toMatch(/\?quiz_lti$/)
-  })
-
-  it("should not show 'Add Quiz/Test' button if quiz lti is not enabled", () => {
-    ENV.QUIZ_LTI_ENABLED = false
-    const view = createAssignmentIndex({withAssignmentSettings: true})
-    expect(view.$('#new_quiz_lti')).toHaveLength(0)
   })
 })

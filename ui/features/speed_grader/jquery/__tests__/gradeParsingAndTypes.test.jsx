@@ -21,7 +21,7 @@ import SpeedGrader from '../speed_grader'
 
 describe('SpeedGrader grade parsing and types', () => {
   beforeEach(() => {
-    fakeENV.setup({SINGLE_NQ_SESSION_ENABLED: true})
+    fakeENV.setup({})
   })
 
   afterEach(() => {

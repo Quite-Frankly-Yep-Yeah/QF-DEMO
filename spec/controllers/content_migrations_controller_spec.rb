@@ -53,13 +53,6 @@ describe ContentMigrationsController do
         end
       end
 
-      it "exports quizzes_next environment" do
-        get :index, params: { course_id: @course.id }
-        expect(response).to be_successful
-        expect(assigns[:js_env][:NEW_QUIZZES_IMPORT]).not_to be_nil
-        expect(assigns[:js_env][:QUIZZES_NEXT_ENABLED]).not_to be_nil
-      end
-
       it "loads classic theming in a classic course" do
         get :index, params: { course_id: @course.id }
         expect(assigns(:css_bundles)).to be_nil
@@ -84,12 +77,6 @@ describe ContentMigrationsController do
           expect(assigns[:js_env][:CONTENT_MIGRATIONS]).not_to be_nil
           expect(assigns[:js_env][:SHOW_SELECT]).not_to be_nil
           expect(assigns[:js_env][:CONTENT_MIGRATIONS_EXPIRE_DAYS]).not_to be_nil
-          expect(assigns[:js_env][:QUIZZES_NEXT_ENABLED]).not_to be_nil
-          expect(assigns[:js_env][:NEW_QUIZZES_IMPORT]).not_to be_nil
-          expect(assigns[:js_env][:NEW_QUIZZES_MIGRATION]).not_to be_nil
-          expect(assigns[:js_env][:NEW_QUIZZES_MIGRATION_DEFAULT]).not_to be_nil
-          expect(assigns[:js_env][:NEW_QUIZZES_MIGRATION_REQUIRED]).not_to be_nil
-          expect(assigns[:js_env][:NEW_QUIZZES_UNATTACHED_BANK_MIGRATIONS]).not_to be_nil
           expect(assigns[:js_env][:OLD_START_DATE]).not_to be_nil
           expect(assigns[:js_env][:OLD_END_DATE]).not_to be_nil
           expect(assigns[:js_env][:NEW_USER_TUTORIALS]).not_to be_nil
@@ -107,12 +94,6 @@ describe ContentMigrationsController do
           expect(assigns[:js_env][:CONTENT_MIGRATIONS]).to be_nil
           expect(assigns[:js_env][:SHOW_SELECT]).not_to be_nil
           expect(assigns[:js_env][:CONTENT_MIGRATIONS_EXPIRE_DAYS]).not_to be_nil
-          expect(assigns[:js_env][:QUIZZES_NEXT_ENABLED]).not_to be_nil
-          expect(assigns[:js_env][:NEW_QUIZZES_IMPORT]).not_to be_nil
-          expect(assigns[:js_env][:NEW_QUIZZES_MIGRATION]).not_to be_nil
-          expect(assigns[:js_env][:NEW_QUIZZES_MIGRATION_DEFAULT]).not_to be_nil
-          expect(assigns[:js_env][:NEW_QUIZZES_MIGRATION_REQUIRED]).not_to be_nil
-          expect(assigns[:js_env][:NEW_QUIZZES_UNATTACHED_BANK_MIGRATIONS]).not_to be_nil
           expect(assigns[:js_env][:OLD_START_DATE]).not_to be_nil
           expect(assigns[:js_env][:OLD_END_DATE]).not_to be_nil
         end

@@ -31,25 +31,7 @@ describe('resourceTypeUtil', () => {
   })
 
   describe('getResourceTypes', () => {
-    it('should return RESOURCE_TYPES_WITH_QUIZZESNEXT when new quizzes media type is enabled', () => {
-      ENV.FEATURES = {new_quizzes_media_type: true}
-      const result = getResourceTypes()
-      expect(result).toEqual([
-        'assignment',
-        'audio',
-        'discussion_topic',
-        'document',
-        'image',
-        'module',
-        'quiz',
-        'page',
-        'video',
-        'quizzesnext',
-      ])
-    })
-
     it('should return RESOURCE_TYPES when new quizzes media type is not enabled', () => {
-      ENV.FEATURES = {new_quizzes_media_type: false}
       const result = getResourceTypes()
       expect(result).toEqual([
         'assignment',
@@ -66,14 +48,7 @@ describe('resourceTypeUtil', () => {
   })
 
   describe('getQuizTypes', () => {
-    it('should return QUIZ_TYPES_WITH_QUIZZESNEXT when new quizzes media type is enabled', () => {
-      ENV.FEATURES = {new_quizzes_media_type: true}
-      const result = getQuizTypes()
-      expect(result).toEqual(['quiz', 'quizzesnext'])
-    })
-
     it('should return QUIZ_TYPES when new quizzes media type is not enabled', () => {
-      ENV.FEATURES = {new_quizzes_media_type: false}
       const result = getQuizTypes()
       expect(result).toEqual(['quiz'])
     })

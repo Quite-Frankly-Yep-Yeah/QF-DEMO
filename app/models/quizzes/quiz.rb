@@ -37,7 +37,7 @@ class Quizzes::Quiz < ApplicationRecord
   include LinkedAttachmentHandler
 
   attr_readonly :context_id, :context_type
-  attr_accessor :notify_of_update, :saved_by, :saved_by_new_quizzes_migration
+  attr_accessor :notify_of_update, :saved_by
 
   has_many :quiz_questions, -> { order(:position) }, dependent: :destroy, class_name: "Quizzes::QuizQuestion", inverse_of: :quiz
   has_many :quiz_submissions, dependent: :destroy, class_name: "Quizzes::QuizSubmission"
@@ -154,7 +154,7 @@ class Quizzes::Quiz < ApplicationRecord
     end
     self.scoring_policy = "keep_highest" if scoring_policy.nil?
     self.ip_filter = nil if ip_filter && ip_filter.strip.empty?
-    if !available? && !survey? && !saved_by_new_quizzes_migration
+    if !available? && !survey?
       self.points_possible = current_points_possible
     end
     self.title = t("#quizzes.quiz.default_title", "Unnamed Quiz") if title.blank?
@@ -811,7 +811,7 @@ class Quizzes::Quiz < ApplicationRecord
     if opts[:persist] != false
       self.quiz_data = data
 
-      unless survey? || saved_by_new_quizzes_migration
+      unless survey?
         possible = self.class.count_points_possible(data)
         self.points_possible = [possible, 0].max
       end

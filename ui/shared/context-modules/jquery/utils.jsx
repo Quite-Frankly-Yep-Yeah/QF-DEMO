@@ -182,7 +182,6 @@ export function initPublishButton($el, data) {
     publishable: data.publishable,
     unpublishable: data.unpublishable,
     publish_at: data.publishAt,
-    quiz_lti: data.quizLti,
   })
 
   const viewOptions = {
@@ -443,14 +442,7 @@ export function itemContentKey(model) {
       content_id = attrs.id
     }
 
-    let result = content_type + '_' + content_id
-    // moduleItems has differing keys for lti-quiz items depending on whether the module has been recently added
-    // to the DOM or whether it was there on page load. Here we add both keys to the list of keys to check for each
-    // iteration.
-    if (attrs.quiz_lti) {
-      result = [result, 'lti-quiz_' + content_id]
-    }
-    return result
+    return content_type + '_' + content_id
   }
 }
 

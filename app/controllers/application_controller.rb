@@ -530,7 +530,6 @@ class ApplicationController < ActionController::Base
     assignment_edit_placement_not_on_announcements
     a11y_checker_ga2_features
     block_content_editor_toolbar_reorder
-    commons_new_quizzes
     courses_popout_sisid
     create_external_apps_side_tray_overrides
     dashboard_graphql_integration
@@ -550,8 +549,6 @@ class ApplicationController < ActionController::Base
     instui_header
     media_links_use_attachment_id
     multiselect_gradebook_filters
-    new_quizzes_media_type
-    new_quizzes_navigation_updates
     permanent_page_links
     rce_a11y_resize
     rce_find_replace
@@ -2369,10 +2366,7 @@ class ApplicationController < ActionController::Base
   def content_tag_redirect(context, tag, error_redirect_symbol, tag_type = nil)
     url_params = (tag.tag_type == "context_module") ? { module_item_id: tag.id } : {}
     if tag.content_type == "Assignment"
-      use_edit_url = params[:build].nil? && @context.grants_right?(@current_user, :manage_assignments_edit) && tag.quiz_lti
-      url_params[:quiz_lti] = true if use_edit_url
-      redirect_symbol = use_edit_url ? :edit_context_assignment_url : :context_assignment_url
-      redirect_to named_context_url(context, redirect_symbol, tag.content_id, url_params)
+      redirect_to named_context_url(context, :context_assignment_url, tag.content_id, url_params)
     elsif tag.content_type == "WikiPage"
       redirect_to polymorphic_url([context, tag.content], url_params)
     elsif tag.content_type == "Attachment"
@@ -2432,15 +2426,6 @@ class ApplicationController < ActionController::Base
 
       tag.context_module_action(@current_user, :read)
       if @tool
-        # Redirect to dedicated New Quizzes controller for native experience
-        if @tool.quiz_lti? && new_quizzes_native_experience_enabled?
-          redirect_params = request.query_parameters
-          return redirect_to Services::NewQuizzes::Routes::Redirects.assignment_launch(
-            context: @context,
-            assignment: @assignment,
-            **redirect_params
-          )
-        end
 
         log_asset_access(@tool, "external_tools", "external_tools", overwrite: false)
         @opaque_id = @tool.opaque_identifier_for(@tag)
@@ -2564,35 +2549,6 @@ class ApplicationController < ActionController::Base
   end
 
   def set_return_url
-    ref = request.referer
-    # when flag is enabled, new quizzes quiz creation can only be initiated from quizzes page
-    # but we still use the assignment#new page to create the quiz.
-    # also handles launch from existing quiz on quizzes page.
-    if ref.present? && @assignment&.quiz_lti?
-      if (ref.include?("assignments/new") || ref =~ %r{courses/(\d+/quizzes.?|.*\?quiz_lti)}) && @context.root_account.feature_enabled?(:newquizzes_on_quiz_page)
-        return polymorphic_url([@context, :quizzes])
-      end
-
-      if %r{courses/\d+/gradebook}i.match?(ref)
-        return polymorphic_url([@context, :gradebook])
-      end
-
-      if %r{courses/\d+$}i.match?(ref)
-        return polymorphic_url([@context])
-      end
-
-      if %r{courses/(\d+/modules.?|.*\?module_item_id=)}.match?(ref)
-        return polymorphic_url([@context, :context_modules])
-      end
-
-      if %r{/courses/.*\?quiz_lti}.match?(ref)
-        return polymorphic_url([@context, :quizzes])
-      end
-
-      if %r{courses/\d+/assignments}.match?(ref)
-        return polymorphic_url([@context, :assignments])
-      end
-    end
     named_context_url(@context, :context_external_content_success_url, "external_tool_redirect", include_host: true)
   end
   public :set_return_url
@@ -2605,8 +2561,6 @@ class ApplicationController < ActionController::Base
   def external_tool_redirect_display_type
     if params["display"].present?
       params["display"]
-    elsif @assignment&.quiz_lti? && @module_tag
-      "in_nav_context"
     else
       @tool&.extension_setting(:assignment_selection)&.dig("display_type")
     end
@@ -3601,26 +3555,10 @@ class ApplicationController < ActionController::Base
   def show_student_view_button?
     return false unless @context.is_a?(Course) && can_do(@context, @current_user, :use_student_view)
 
-    return false if new_quizzes_navigation_updates? && new_quizzes_lti_tool?
-
     controller_action = "#{params[:controller]}##{params[:action]}"
     STUDENT_VIEW_PAGES.key?(controller_action) && (STUDENT_VIEW_PAGES[controller_action].nil? || !@context.tab_hidden?(STUDENT_VIEW_PAGES[controller_action]))
   end
   helper_method :show_student_view_button?
-
-  def new_quizzes_navigation_updates?
-    Account.site_admin.feature_enabled?(:new_quizzes_navigation_updates)
-  end
-
-  def new_quizzes_lti_tool?
-    @tool&.quiz_lti?
-  end
-
-  def new_quizzes_native_experience_enabled?
-    return false unless @context.respond_to?(:feature_enabled?)
-
-    @context.feature_enabled?(:new_quizzes_native_experience)
-  end
 
   def show_blueprint_button?
     @context.is_a?(Course) && MasterCourses::MasterTemplate.is_master_course?(@context)

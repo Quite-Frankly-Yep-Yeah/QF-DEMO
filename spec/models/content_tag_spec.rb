@@ -917,26 +917,6 @@ describe ContentTag do
       expect(@module.reload.completion_requirements).to eq [{ id: @tag2.id, type: "must_submit" }]
     end
 
-    it "runs the due date cacher when the content is Quizzes 2" do
-      @course.context_external_tools.create!(
-        name: "Quizzes.Next",
-        consumer_key: "test_key",
-        shared_secret: "test_secret",
-        tool_id: "Quizzes 2",
-        url: "http://example.com/launch"
-      )
-
-      assignment = @course.assignments.create!(title: "some assignment")
-      assignment.quiz_lti!
-      assignment.save!
-
-      tag = assignment.external_tool_tag
-
-      expect(SubmissionLifecycleManager).to receive(:recompute).with(assignment)
-
-      tag.destroy!
-    end
-
     it "does not run the due date cacher for general content" do
       tool = @course.context_external_tools.create!(
         name: "Not Quizzes.Next",
@@ -972,52 +952,6 @@ describe ContentTag do
       description = OutcomeFriendlyDescription.where(id: description.id).first
       expect(outcome_links.find { |link| link.id == outcome_link.id }).to be_nil
       expect(description.workflow_state).to eq("deleted")
-    end
-  end
-
-  context "Quizzes 2 calls backs" do
-    before do
-      course_with_teacher(active_all: true)
-    end
-
-    let(:tool) do
-      @course.context_external_tools.create!(
-        name: "Quizzes.Next",
-        consumer_key: "test_key",
-        shared_secret: "test_secret",
-        tool_id: "Quizzes 2",
-        url: "http://example.com/launch"
-      )
-    end
-
-    it "runs the due date cacher when saved if the content is Quizzes 2" do
-      assignment = @course.assignments.create!(title: "some assignment", submission_types: "external_tool")
-
-      expect(SubmissionLifecycleManager).to receive(:recompute).with(assignment)
-
-      ContentTag.create!(content: tool, url: tool.url, context: assignment)
-    end
-
-    it "does not run the due date cacher when saved if the content is Quizzes 2 but the context is a course" do
-      expect(SubmissionLifecycleManager).not_to receive(:recompute)
-
-      ContentTag.create!(content: tool, url: tool.url, context: @course)
-    end
-
-    it "does not run the due date cacher when saved for general content" do
-      not_quizzes_tool = @course.context_external_tools.create!(
-        name: "Not Quizzes.Next",
-        consumer_key: "test_key",
-        shared_secret: "test_secret",
-        tool_id: "Not Quizzes 2",
-        url: "http://example.com/launch"
-      )
-
-      assignment = @course.assignments.create!(title: "some assignment", submission_types: "external_tool")
-
-      expect(SubmissionLifecycleManager).not_to receive(:recompute).with(assignment)
-
-      ContentTag.create!(content: not_quizzes_tool, url: not_quizzes_tool.url, context: assignment)
     end
   end
 
@@ -1079,36 +1013,6 @@ describe ContentTag do
         tag = ContentTag.create!(context: quiz)
         expect(tag.root_account).to eq @course.root_account
       end
-    end
-  end
-
-  describe "quiz_lti" do
-    it "returns true when the assignment content is quiz_lti" do
-      course_factory
-      assignment = new_quizzes_assignment(course: @course, title: "Some New Quiz")
-      tag = ContentTag.create!(context: @course, content: assignment)
-      expect(tag.quiz_lti).to be true
-    end
-
-    it "returns false if the assignment content is not quiz_lti" do
-      course_factory
-      assignment = course_factory.assignments.create!
-      tag = ContentTag.new(context: @course, content_type: "Assignment", content: assignment)
-      expect(tag.quiz_lti).to be false
-    end
-  end
-
-  describe "json" do
-    it "includes quiz_lti when running to_json" do
-      course_factory
-      tag = ContentTag.create!(context: @course)
-      expect(tag.to_json).to include("quiz_lti")
-    end
-
-    it "includes quiz_lti when running as_json" do
-      course_factory
-      tag = ContentTag.create!(context: @course)
-      expect(tag.as_json["content_tag"]).to include("quiz_lti" => false)
     end
   end
 

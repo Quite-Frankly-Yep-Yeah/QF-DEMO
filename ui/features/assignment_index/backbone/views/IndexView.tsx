@@ -176,8 +176,6 @@ IndexView.prototype.afterRender = function () {
         // @ts-expect-error
         newAssignmentUrl: ENV.URLS.new_assignment_url,
         // @ts-expect-error
-        quizLtiEnabled: ENV.QUIZ_LTI_ENABLED,
-        // @ts-expect-error
         manageAssignmentAddPermission: ENV.PERMISSIONS.manage_assignments_add,
       }),
       this.$indexCreateMountPoint[0],

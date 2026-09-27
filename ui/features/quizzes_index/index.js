@@ -82,21 +82,13 @@ ready(() => {
     },
 
     loadOverrides() {
-      const newQuizzes = []
-      const classicQuizzes = []
+      const quizzes = []
       const quizTypes = ['assignment', 'open', 'surveys']
       quizTypes.forEach(quizType => {
-        this.quizzes[quizType].collection.models.forEach(model => {
-          if (model.attributes.quiz_type === 'quizzes.next') {
-            newQuizzes.push(model)
-          } else {
-            classicQuizzes.push(model)
-          }
-        })
+        quizzes.push(...this.quizzes[quizType].collection.models)
       })
 
-      QuizOverrideLoader.loadQuizOverrides(newQuizzes, ENV.URLS.new_quizzes_assignment_overrides)
-      return QuizOverrideLoader.loadQuizOverrides(classicQuizzes, ENV.URLS.assignment_overrides)
+      return QuizOverrideLoader.loadQuizOverrides(quizzes, ENV.URLS.assignment_overrides)
     },
 
     createQuizItemGroupView(collection, title, type) {

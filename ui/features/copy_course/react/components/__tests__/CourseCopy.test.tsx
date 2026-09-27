@@ -46,7 +46,6 @@ describe('CourseCopy', () => {
     courseId: '1',
     accountId: '2',
     rootAccountId: '3',
-    canImportAsNewQuizzes: true,
   }
 
   const courseData = {

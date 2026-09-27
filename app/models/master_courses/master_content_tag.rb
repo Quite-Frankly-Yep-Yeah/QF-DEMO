@@ -117,12 +117,6 @@ class MasterCourses::MasterContentTag < ApplicationRecord
     hash
   end
 
-  def quiz_lti_content?
-    return false if content_type != Assignment.to_s
-
-    content.quiz_lti?
-  end
-
   def self.polymorphic_assoc_for(klass)
     return :quiz if klass == Quizzes::Quiz
     return :discussion_topic if klass == Announcement

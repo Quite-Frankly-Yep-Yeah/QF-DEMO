@@ -38,6 +38,4 @@ CommonCartridge.child('selectContent', '.selectContent')
 
 CommonCartridge.child('overwriteAssessmentContent', '.overwriteAssessmentContent')
 
-CommonCartridge.child('importQuizzesNext', '.importQuizzesNext')
-
 export default CommonCartridge

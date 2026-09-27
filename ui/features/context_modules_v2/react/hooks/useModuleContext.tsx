@@ -17,13 +17,7 @@
  */
 
 import {createContext, useContext, useState} from 'react'
-import {
-  ExternalTool,
-  ModuleCursorState,
-  MenuItemActionState,
-  PerModuleState,
-  QuizEngine,
-} from '../utils/types'
+import {ExternalTool, ModuleCursorState, MenuItemActionState, PerModuleState} from '../utils/types'
 
 const ContextModule = createContext<{
   courseId: string
@@ -47,9 +41,6 @@ const ContextModule = createContext<{
   setModuleCursorState: React.Dispatch<React.SetStateAction<ModuleCursorState>>
   modulesArePaginated: boolean
   pageSize: number
-  showQuizzesEngineSelection: boolean
-  quizEngine: QuizEngine
-  setQuizEngine: React.Dispatch<React.SetStateAction<QuizEngine>>
 }>(
   {} as {
     courseId: string
@@ -75,9 +66,6 @@ const ContextModule = createContext<{
     setModuleCursorState: React.Dispatch<React.SetStateAction<ModuleCursorState>>
     modulesArePaginated: boolean
     pageSize: number
-    showQuizzesEngineSelection: boolean
-    quizEngine: QuizEngine
-    setQuizEngine: React.Dispatch<React.SetStateAction<QuizEngine>>
   },
 )
 
@@ -87,8 +75,6 @@ export const ContextModuleProvider = ({
   isMasterCourse,
   isChildCourse,
   permissions,
-  NEW_QUIZZES_ENABLED,
-  NEW_QUIZZES_BY_DEFAULT,
   DEFAULT_POST_TO_SIS,
   teacherViewEnabled,
   studentViewEnabled,
@@ -117,8 +103,6 @@ export const ContextModuleProvider = ({
         canDirectShare: boolean
       }
     | undefined
-  NEW_QUIZZES_ENABLED: boolean | undefined
-  NEW_QUIZZES_BY_DEFAULT: boolean | undefined
   DEFAULT_POST_TO_SIS: boolean | undefined
   teacherViewEnabled: boolean
   studentViewEnabled: boolean
@@ -136,11 +120,6 @@ export const ContextModuleProvider = ({
     PerModuleState<MenuItemActionState>
   >({})
   const [moduleCursorState, setModuleCursorState] = useState<ModuleCursorState>({})
-
-  const initialQuizEngine = NEW_QUIZZES_ENABLED ? 'new' : 'classic'
-  const [quizEngine, setQuizEngine] = useState<QuizEngine>(initialQuizEngine)
-
-  const showQuizzesEngineSelection = !!(NEW_QUIZZES_ENABLED && !NEW_QUIZZES_BY_DEFAULT)
 
   return (
     <ContextModule.Provider
@@ -166,9 +145,6 @@ export const ContextModuleProvider = ({
         setModuleCursorState,
         modulesArePaginated: modulesArePaginated ?? false,
         pageSize: pageSize ?? 10,
-        showQuizzesEngineSelection: showQuizzesEngineSelection,
-        quizEngine,
-        setQuizEngine,
       }}
     >
       {children}
@@ -194,8 +170,6 @@ export const contextModuleDefaultProps = {
     readAsAdmin: true,
     canManageSpeedGrader: true,
   },
-  NEW_QUIZZES_BY_DEFAULT: true,
-  NEW_QUIZZES_ENABLED: false,
   DEFAULT_POST_TO_SIS: false,
   teacherViewEnabled: false,
   studentViewEnabled: false,

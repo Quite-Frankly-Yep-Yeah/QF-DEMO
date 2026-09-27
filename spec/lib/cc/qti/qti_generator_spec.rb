@@ -57,7 +57,6 @@ describe "QTI Generator" do
   describe ".generate_bank" do
     before do
       qti_generator
-      allow(NewQuizzesFeaturesHelper).to receive(:new_quizzes_bank_migrations_enabled?).and_return(true)
     end
 
     it "generates qti xml with the correct metadata" do
@@ -74,10 +73,6 @@ describe "QTI Generator" do
                 <qtimetadatafield>
                   <fieldlabel>bank_title</fieldlabel>
                   <fieldentry>Test Bank</fieldentry>
-                </qtimetadatafield>
-                <qtimetadatafield>
-                  <fieldlabel>bank_type</fieldlabel>
-                  <fieldentry>Course</fieldentry>
                 </qtimetadatafield>
                 <qtimetadatafield>
                   <fieldlabel>bank_context_uuid</fieldlabel>
@@ -110,10 +105,6 @@ describe "QTI Generator" do
                 <qtimetadatafield>
                   <fieldlabel>bank_title</fieldlabel>
                   <fieldentry>Deleted Bank</fieldentry>
-                </qtimetadatafield>
-                <qtimetadatafield>
-                  <fieldlabel>bank_type</fieldlabel>
-                  <fieldentry>Course</fieldentry>
                 </qtimetadatafield>
                 <qtimetadatafield>
                   <fieldlabel>bank_context_uuid</fieldlabel>
@@ -185,99 +176,6 @@ describe "QTI Generator" do
       XML
 
       expect(output).to eq(expected_xml)
-    end
-  end
-
-  describe "generate new quizzes" do
-    subject do
-      doc = Builder::XmlMarkup.new(target: +"", indent: 2)
-      doc.manifest do |manifest_node|
-        manifest_node.resources do |resource_node|
-          CC::Qti::QtiGenerator.generate_qti(@manifest, resource_node, @html_exporter)
-        end
-      end
-    end
-
-    before do
-      @copy_from = course_model
-      @from_teacher = @user
-      @copy_to = course_model
-      @content_export = @copy_from.content_exports.build
-      @content_export.export_type = ContentExport::COMMON_CARTRIDGE
-      @content_export.user = @from_teacher
-
-      @exporter = CC::CCExporter.new(@content_export, course: @copy_from, user: @from_teacher)
-      @exporter.send(:create_export_dir)
-      @doc = Builder::XmlMarkup.new(target: +"", indent: 2)
-      @manifest = CC::Manifest.new(@exporter)
-      @html_exporter = CC::CCHelper::HtmlContentExporter.new(@copy_from, @from_teacher)
-    end
-
-    context "when the FF's quizzes_next and new_quizzes_common_cartridge are not enabled" do
-      before do
-        allow(@course).to receive(:feature_enabled?).and_call_original
-        allow_any_instance_of(Course).to receive(:feature_enabled?).with(:quizzes_next).and_return(true)
-        Account.site_admin.disable_feature!(:new_quizzes_common_cartridge)
-      end
-
-      it "does not load new quizzes into the Common Cartridge package" do
-        expect_any_instance_of(CC::Qti::NewQuizzesGenerator).not_to receive(:write_new_quizzes_content)
-        subject
-      end
-    end
-
-    context "when the FF's new_quizzes_common_cartridge is not enabled" do
-      before do
-        allow(@course).to receive(:feature_enabled?).and_call_original
-        allow_any_instance_of(Course).to receive(:feature_enabled?).with(:quizzes_next).and_return(false)
-        Account.site_admin.disable_feature!(:new_quizzes_common_cartridge)
-      end
-
-      it "does not load new quizzes into the Common Cartridge package" do
-        expect_any_instance_of(CC::Qti::NewQuizzesGenerator).not_to receive(:write_new_quizzes_content)
-        subject
-      end
-    end
-
-    context "when the FF's quizzes_next and new_quizzes_common_cartridge are enabled" do
-      before do
-        allow(@course).to receive(:feature_enabled?).and_call_original
-        allow_any_instance_of(Course).to receive(:feature_enabled?).with(:quizzes_next).and_return(true)
-        Account.site_admin.enable_feature!(:new_quizzes_common_cartridge)
-      end
-
-      context "and the content export requires content from New Quizzes" do
-        before do
-          @content_export.settings[:new_quizzes_export_state] = "completed"
-          @content_export.settings[:new_quizzes_export_url] =
-            Rails.root.join("spec/lib/cc/qti/fixtures/nq_common_cartridge_export.zip").to_s
-          @content_export.save!
-        end
-
-        it "loads new quizzes into the Common Cartridge package" do
-          expect_any_instance_of(CC::Qti::NewQuizzesGenerator).to receive(:write_new_quizzes_content)
-          subject
-        end
-      end
-
-      context "and the content export does not require content from New Quizzes" do
-        it "does not load new quizzes into the Common Cartridge package" do
-          expect_any_instance_of(CC::Qti::NewQuizzesGenerator).not_to receive(:write_new_quizzes_content)
-          subject
-        end
-      end
-
-      context "and the content export is not of the type 'common_cartridge'" do
-        before do
-          @content_export.export_type = ContentExport::COURSE_COPY
-          @content_export.save!
-        end
-
-        it "does not load new quizzes into the Common Cartridge package" do
-          expect_any_instance_of(CC::Qti::NewQuizzesGenerator).not_to receive(:write_new_quizzes_content)
-          subject
-        end
-      end
     end
   end
 end

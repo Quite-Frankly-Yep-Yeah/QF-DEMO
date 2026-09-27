@@ -109,28 +109,6 @@ originality_reports_for_a2:
       state: on # enable for local development
     test:
       state: on # enable for the deployed 'test' environment
-single_new_quiz_session_in_speedgrader:
-  state: hidden
-  applies_to: SiteAdmin
-  display_name: Single Quizzes.Next Session in SpeedGrader
-  description: If set, Quizzes.Next will operate using a single launch session in SpeedGrader
-  environments:
-    ci:
-      state: allowed_on # enable for automated testing builds and local testing
-    development:
-      state: allowed_on # enable for local development
-    test:
-      state: allowed_on # enable for the deployed 'test' environment
-new_quizzes_grade_by_question_in_speedgrader:
-  state: hidden
-  applies_to: SiteAdmin
-  display_name: Quizzes.Next Grade by Question in SpeedGrader
-  description: Adds the option to grade by question in SpeedGrader for Quizzes.Next Quizzes
-  environments:
-    ci:
-      state: allowed_on
-    development:
-      state: allowed_on
 proxy_file_uploads:
   state: hidden
   applies_to: SiteAdmin
@@ -162,21 +140,6 @@ additional_speedgrader_links:
   display_name: Add SpeedGrader links to Assignments and Quizzes index views
   description: Reorders some menu options for more consistency and adds link
     to SpeedGrader.
-  environments:
-    ci:
-      state: allowed_on # enable for automated testing builds and local testing
-    development:
-      state: allowed_on # enable for local development
-    test:
-      state: allowed_on # enable for the deployed 'test' environment
-new_quiz_deleted_workflow_restore_pending_review_state:
-  state: hidden
-  applies_to: SiteAdmin
-  display_name: New Quiz deleted user restore pending review state on enroll
-  description:
-    When set, determines if the workflow state of a new quiz should be
-    set as graded or pending_review if a user had a previous pending_review new quiz but
-    had been re-enrolled in the course.
   environments:
     ci:
       state: allowed_on # enable for automated testing builds and local testing
@@ -242,16 +205,6 @@ submission_stickers:
   display_name: Submission Stickers
   description: Allows teachers to attach stickers to student submissions. Requires the "Assignment Enhancements - Student" feature flag to be enabled.
   custom_transition_proc: assignment_enhancements_prereq_for_stickers_hook
-  environments:
-    ci:
-      state: allowed_on # enable for automated testing builds and local testing
-    development:
-      state: allowed_on # enable for local development
-anonymous_grading_with_new_quizzes:
-  state: hidden
-  applies_to: SiteAdmin
-  display_name: Anonymous Grading with New Quizzes
-  description: Allows instructors to enable anonymous grading for New Quizzes.
   environments:
     ci:
       state: allowed_on # enable for automated testing builds and local testing

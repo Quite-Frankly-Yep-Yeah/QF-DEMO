@@ -63,7 +63,6 @@ class ContentExportsController < ApplicationController
         else
           export.export_type = ContentExport::COMMON_CARTRIDGE
           export.selected_content = { everything: true }
-          export.prepare_new_quizzes_export
         end
       when User
         export.export_type = ContentExport::USER_DATA

@@ -26,19 +26,16 @@ export const App = ({
   rootAccountId,
   userTimeZone,
   courseTimeZone,
-  canImportAsNewQuizzes,
 }: {
   courseId: string
   accountId: string
   rootAccountId: string
   userTimeZone?: string
   courseTimeZone?: string
-  canImportAsNewQuizzes: boolean
 }) => {
   return (
     <QueryClientProvider client={queryClient}>
       <CourseCopy
-        canImportAsNewQuizzes={canImportAsNewQuizzes}
         courseId={courseId}
         accountId={accountId}
         rootAccountId={rootAccountId}

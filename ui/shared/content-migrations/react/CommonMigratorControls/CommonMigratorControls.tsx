@@ -19,7 +19,6 @@
 import React, {type ComponentType, useCallback, useEffect, useState} from 'react'
 import {View} from '@instructure/ui-view'
 import {Text} from '@instructure/ui-text'
-import {Link} from '@instructure/ui-link'
 import {useScope as createI18nScope} from '@canvas/i18n'
 import {Spinner} from '@instructure/ui-spinner'
 import {Checkbox, CheckboxGroup} from '@instructure/ui-checkbox'
@@ -36,7 +35,6 @@ const I18n = createI18nScope('content_migrations_redesign')
 
 type CommonMigratorControlsProps = {
   canSelectContent?: boolean
-  canImportAsNewQuizzes?: boolean
   canOverwriteAssessmentContent?: boolean
   canAdjustDates?: boolean
   canImportBPSettings?: boolean
@@ -55,52 +53,8 @@ type CommonMigratorControlsProps = {
   SubmittingLabel: ComponentType
   CancelLabel: ComponentType
 }
-const nqCheckboxId = 'existing_quizzes_as_new_quizzes'
 const overwriteAssesmentCheckboxId = 'overwrite_assessment_content'
 const adjustDatesCheckboxId = 'adjust_dates[enabled]'
-
-const generateNewQuizzesLabel = () => {
-  const isConvertQuizzes = ENV.NEW_QUIZZES_UNATTACHED_BANK_MIGRATIONS
-
-  const labelText = isConvertQuizzes
-    ? I18n.t('Convert content to New Quizzes')
-    : I18n.t('Import existing quizzes as New Quizzes')
-  const headingText = isConvertQuizzes ? I18n.t('Convert Quizzes') : I18n.t('New Quizzes')
-  const bodyText = isConvertQuizzes
-    ? I18n.t(
-        'Existing question banks and classic quizzes will be imported as Item Banks and New Quizzes.',
-      )
-    : I18n.t('New Quizzes is the new assessment engine for quite frankly an example LMS.')
-  const helpText = I18n.t('To learn more, please contact your system administrator or visit ')
-  const guideLink = I18n.t('#community.instructor_guide')
-  const guideText = I18n.t('quite frankly an example LMS Instructor Guide')
-  const buttonLabel = I18n.t('Import assessment as New Quizzes Help Icon')
-  const modalLabel = I18n.t('Import assessment as New Quizzes Help Modal')
-
-  return (
-    <>
-      <Text>{labelText}</Text>
-      <span style={{position: 'absolute', marginTop: '-0.55em'}}>
-        <InfoButton
-          heading={headingText}
-          body={
-            <>
-              <Text>{bodyText}</Text>
-              <br />
-              <Text>{helpText}</Text>
-              <Link href={guideLink} target="_blank" rel="noopener noreferrer">
-                {guideText}
-              </Link>
-              <Text>.</Text>
-            </>
-          }
-          buttonLabel={buttonLabel}
-          modalLabel={modalLabel}
-        />
-      </span>
-    </>
-  )
-}
 
 const generateOverwriteLabel = () => (
   <>
@@ -125,14 +79,12 @@ const generateOverwriteLabel = () => (
 
 export const CommonMigratorControls = ({
   canSelectContent = false,
-  canImportAsNewQuizzes = false,
   canOverwriteAssessmentContent = false,
   canAdjustDates = false,
   canImportBPSettings = false,
   onSubmit,
   onCancel,
   isSubmitting,
-  setIsQuestionBankDisabled,
   oldStartDate,
   oldEndDate,
   newStartDate,
@@ -145,9 +97,6 @@ export const CommonMigratorControls = ({
 }: CommonMigratorControlsProps) => {
   const [selectiveImport, setSelectiveImport] = useState<null | boolean>(false)
   const [importBPSettings, setImportBPSettings] = useState<null | boolean>(null)
-  const [importAsNewQuizzes, setImportAsNewQuizzes] = useState<boolean>(
-    !!ENV.NEW_QUIZZES_MIGRATION_DEFAULT,
-  )
   const [overwriteAssessmentContent, setOverwriteAssessmentContent] = useState<boolean>(false)
   const [showAdjustDates, setShowAdjustDates] = useState<boolean>(false)
   const [dateAdjustmentConfig, setDateAdjustmentConfig] = useState<DateAdjustmentConfig>({
@@ -178,15 +127,6 @@ export const CommonMigratorControls = ({
     }))
   }, [oldStartDate, newStartDate, oldEndDate, newEndDate])
 
-  const onCanImportAsNewQuizzesChange = useCallback(
-    (e: React.ChangeEvent<HTMLInputElement>) => {
-      const target = e.target as HTMLInputElement
-      setImportAsNewQuizzes(target.checked)
-      setIsQuestionBankDisabled?.(target.checked)
-    },
-    [setImportAsNewQuizzes, setIsQuestionBankDisabled],
-  )
-
   const handleSubmit = useCallback(() => {
     const data: any = {settings: {}}
     setContentError(selectiveImport === null)
@@ -197,7 +137,6 @@ export const CommonMigratorControls = ({
       dateAdjustmentConfig.adjust_dates && (data.adjust_dates = dateAdjustmentConfig.adjust_dates)
       data.date_shift_options = dateAdjustmentConfig.date_shift_options
     }
-    canImportAsNewQuizzes && (data.settings.import_quizzes_next = importAsNewQuizzes)
     canOverwriteAssessmentContent && (data.settings.overwrite_quizzes = overwriteAssessmentContent)
     onSubmit(data)
   }, [
@@ -207,34 +146,14 @@ export const CommonMigratorControls = ({
     importBPSettings,
     canAdjustDates,
     dateAdjustmentConfig,
-    canImportAsNewQuizzes,
-    importAsNewQuizzes,
     canOverwriteAssessmentContent,
     overwriteAssessmentContent,
     onSubmit,
   ])
 
-  const defaultChecks = []
-
-  if (ENV.NEW_QUIZZES_MIGRATION_DEFAULT) {
-    defaultChecks.push('existing_quizzes_as_new_quizzes')
-  }
+  const defaultChecks: string[] = []
 
   const options = [
-    ...(canImportAsNewQuizzes
-      ? [
-          <Checkbox
-            key={nqCheckboxId}
-            name={nqCheckboxId}
-            value={nqCheckboxId}
-            label={generateNewQuizzesLabel()}
-            disabled={
-              !ENV.QUIZZES_NEXT_ENABLED || ENV.NEW_QUIZZES_MIGRATION_REQUIRED || isSubmitting
-            }
-            onChange={onCanImportAsNewQuizzesChange}
-          />,
-        ]
-      : []),
     ...(canOverwriteAssessmentContent
       ? [
           <Checkbox

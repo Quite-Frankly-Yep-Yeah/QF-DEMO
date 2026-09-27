@@ -229,13 +229,6 @@ module Api::V1::Assignment
     hash["workflow_state"] = assignment.workflow_state
     hash["important_dates"] = assignment.important_dates
 
-    if assignment.quiz_lti?
-      hash["is_quiz_lti_assignment"] = true
-      hash["frozen_attributes"] ||= []
-      hash["frozen_attributes"] << "submission_types"
-      hash["settings"] = assignment.settings
-    end
-
     if assignment.external_tool? && assignment.external_tool_tag.present?
       hash["external_tool_tag_attributes"] = { "url" => assignment.external_tool_tag.url }
     end
@@ -508,7 +501,6 @@ module Api::V1::Assignment
     hash["post_manually"] = assignment.post_manually?
     hash["anonymous_grading"] = value_to_boolean(assignment.anonymous_grading)
     hash["anonymize_students"] = assignment.anonymize_students?
-    hash["new_quizzes_anonymous_participants"] = assignment.new_quizzes_anonymous_participants?
 
     hash["require_lockdown_browser"] = assignment.settings&.dig("lockdown_browser", "require_lockdown_browser") || false
 
@@ -524,10 +516,6 @@ module Api::V1::Assignment
     end
 
     hash["restrict_quantitative_data"] = assignment.restrict_quantitative_data?(user, check_extra_permissions: true) || false
-
-    if opts[:migrated_urls_content_migration_id]
-      hash["migrated_urls_content_migration_id"] = opts[:migrated_urls_content_migration_id]
-    end
 
     if opts[:include_peer_review]
       peer_review_sub_assignment = assignment.peer_review_sub_assignment
@@ -665,19 +653,6 @@ module Api::V1::Assignment
     has_peer_reviews = prepared_create[:assignment].peer_reviews && prepared_create[:assignment].context.feature_enabled?(:peer_review_allocation_and_grading)
 
     Assignment.suspend_due_date_caching do
-      quiz_lti_param = assignment_params.key?(:quiz_lti) || assignment_params[:quiz_lti]
-      external_tool_url = assignment_params.dig(:external_tool_tag_attributes, :url)
-
-      if quiz_lti_param || assignment.quiz_lti_assignment?(external_tool_url:)
-        unless NewQuizzesFeaturesHelper.new_quizzes_enabled?(context)
-          assignment.errors.add("external_tool_tag_attributes[url]", I18n.t("New Quizzes is not enabled for this course"))
-          return false
-        end
-        assignment.quiz_lti!
-      end
-
-      update_new_quizzes_params(assignment, assignment_params)
-
       if has_peer_reviews
         Assignment.transaction do
           prepared_create[:assignment].skip_peer_review_sub_assignment_sync = true
@@ -731,7 +706,7 @@ module Api::V1::Assignment
     false
   end
 
-  def update_api_assignment(assignment, assignment_params, user, context = assignment.context, opts = {})
+  def update_api_assignment(assignment, assignment_params, user, context = assignment.context, _opts = {})
     return :forbidden unless grading_periods_allow_submittable_update?(assignment, assignment_params)
 
     # Trying to change the "everyone" due date when the assignment is restricted to a specific section
@@ -831,79 +806,6 @@ module Api::V1::Assignment
         update_grades: true,
         executing_user: user
       )
-    end
-
-    # At present, when an assignment linked to a LTI tool is copied, there is no way for canvas
-    # to know what resouces the LTI tool needs copied as well. New Quizzes has a problem
-    # when an assignment linked to a New Quiz is copied, none of the content referenced in the RCE
-    # html is moved to the destination course. This code block gives New Quizzes the ability
-    # to let canvas know what additional assets need to be copied.
-    # Note: this is intended to be a short term solution to resolve an ongoing production issue.
-    url = assignment_params["migrated_urls_report_url"]
-    if url.present?
-      res = CanvasHttp.get(url)
-      data = JSON.parse(res.body)
-
-      unless data.empty?
-        copy_values = {}
-        source_course = nil
-
-        migration_type = "course_copy_importer"
-        plugin = Canvas::Plugin.find(migration_type)
-        content_migration = context.content_migrations.build(
-          user:,
-          context:,
-          migration_type:,
-          initiated_source: :new_quizzes
-        )
-
-        data.each_key do |key|
-          import_object = Context.find_asset_by_url(key)
-
-          next unless import_object.respond_to?(:context) && import_object.context.is_a?(Course)
-
-          if import_object.is_a?(WikiPage)
-            copy_values[:wiki_pages] ||= []
-            copy_values[:wiki_pages] << import_object
-            source_course ||= import_object.context
-          elsif import_object.is_a?(Attachment)
-            copy_values[:attachments] ||= []
-            copy_values[:attachments] << import_object
-            source_course ||= import_object.context
-          end
-        end
-
-        return response if source_course.nil?
-
-        content_migration.source_course = source_course
-        use_global_identifiers = content_migration.use_global_identifiers?
-
-        copy_values.transform_values! do |import_objects|
-          import_objects.map do |import_object|
-            CC::CCHelper.create_key(import_object, global: use_global_identifiers)
-          end
-        end
-
-        content_migration.update_migration_settings({
-                                                      import_quizzes_next: false,
-                                                      source_course_id: source_course.id
-                                                    })
-        content_migration.workflow_state = "created"
-        content_migration.migration_settings[:import_immediately] = false
-        content_migration.save
-
-        copy_options = ContentMigration.process_copy_params(copy_values, global_identifiers: use_global_identifiers)
-        content_migration.migration_settings[:migration_ids_to_import] ||= {}
-        content_migration.migration_settings[:migration_ids_to_import][:copy] = copy_options
-        content_migration.copy_options = copy_options
-        content_migration.save
-
-        content_migration.shard.activate do
-          content_migration.queue_migration(plugin)
-        end
-
-        opts[:migrated_urls_content_migration_id] = content_migration.global_id
-      end
     end
 
     if prepared_update[:assignment].context.feature_enabled?(:peer_review_allocation_and_grading)
@@ -1154,22 +1056,6 @@ module Api::V1::Assignment
       end
     end
 
-    if assignment_params.key?("migrated_successfully")
-      if value_to_boolean(assignment_params[:migrated_successfully])
-        assignment.finish_migrating
-      else
-        assignment.fail_to_migrate
-      end
-    end
-
-    if assignment_params.key?("cc_imported_successfully")
-      if value_to_boolean(assignment_params[:cc_imported_successfully])
-        assignment.finish_importing
-      else
-        assignment.fail_to_import
-      end
-    end
-
     if update_params.key?(:submission_types)
       if update_params[:submission_types].include?("student_annotation")
         if assignment_params.key?(:annotatable_attachment_id)
@@ -1208,19 +1094,6 @@ module Api::V1::Assignment
     assignment_params[:peer_review] = peer_review_sub_assignment_params if peer_review_sub_assignment_params.present?
 
     assignment
-  end
-
-  def update_new_quizzes_params(assignment, assignment_params)
-    return unless assignment.quiz_lti? && assignment.new_record?
-
-    type = assignment_params&.[](:new_quizzes_quiz_type)
-    if type.present?
-      assignment.new_quizzes_type = type
-      assignment.hide_in_gradebook = (type == "ungraded_survey")
-      assignment.omit_from_final_grade = (type == "ungraded_survey")
-    end
-    anonymous_submissions = assignment_params&.[](:new_quizzes_anonymous_submission)
-    assignment.anonymous_participants = anonymous_submissions if anonymous_submissions.present?
   end
 
   def turnitin_settings_hash(assignment_params)

@@ -452,18 +452,6 @@ describe "context modules", :ignore_js_errors do
       expect(quiz_icon).to be_displayed
     end
 
-    it 'shows Quiz icon and the text "Quiz" if a new quiz' do
-      new_quiz = @course.quizzes.create!(title: "New Quiz", due_at: 1.week.from_now, quiz_type: "survey", workflow_state: "available")
-      new_quiz_module_item = @module1.add_item(type: "quiz", id: new_quiz.id)
-      go_to_modules
-      module_header_expand_toggles[0].click
-      new_quiz_item = module_item_by_id(new_quiz_module_item.id)
-      expect(new_quiz_item.text).to include("New Quiz")
-
-      quiz_icon = module_item_quiz_icon(new_quiz_module_item.id)
-      expect(quiz_icon).to be_displayed
-    end
-
     it 'shows Page icon and the text "Page" if a wiki page' do
       wiki_page = @course.wiki_pages.create!(
         title: "Test Page",

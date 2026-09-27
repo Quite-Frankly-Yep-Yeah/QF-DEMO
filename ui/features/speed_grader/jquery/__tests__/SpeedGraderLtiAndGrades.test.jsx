@@ -102,7 +102,6 @@ describe('SpeedGrader', () => {
         grading_role: 'moderator',
         help_url: 'example.com/support',
         show_help_menu_item: false,
-        SINGLE_NQ_SESSION_ENABLED: true,
       })
 
       fixtures.innerHTML = requiredDOMFixtures + '<div id="iframe_holder">not empty</div>'
@@ -159,29 +158,6 @@ describe('SpeedGrader', () => {
         retrieveUrl + '&resource_link_lookup_uuid=0b8fbc86-fdd7-4950-852d-ffa789b37ff2'
       expect(unescape(srcUrl)).toContain(fullRetrieveUrl)
       expect(unescape(srcUrl)).toContain(encodeURIComponent(url))
-    })
-
-    it('includes grade_by_question param when quiz and flag + setting are enabled', () => {
-      ENV.NQ_GRADE_BY_QUESTION_ENABLED = true
-      ENV.GRADE_BY_QUESTION = true
-      const originalJsonData = window.jsonData
-      window.jsonData = {quiz_lti: true}
-
-      const retrieveUrl = '/course/1/external_tools/retrieve?display=borderless&assignment_id=22'
-      const url = 'http://www.example.com/lti/launch/user/4'
-      const buildIframeStub = vi.spyOn(SpeedGraderHelpers, 'buildIframe')
-      const submission = {
-        external_tool_url: url,
-        resource_link_lookup_uuid: '0b8fbc86-fdd7-4950-852d-ffa789b37ff2',
-      }
-
-      SpeedGrader.EG.renderLtiLaunch($div, retrieveUrl, submission)
-
-      const [srcUrl] = buildIframeStub.mock.calls[0]
-      const {searchParams} = new URL(decodeURIComponent(unescape(srcUrl).match(/http.*/)[0]))
-      expect(searchParams.get('grade_by_question_enabled')).toBe('true')
-
-      window.jsonData = originalJsonData
     })
 
     it('can be fullscreened', () => {

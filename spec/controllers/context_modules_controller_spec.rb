@@ -46,91 +46,16 @@ describe ContextModulesController do
       expect(response).to be_successful
     end
 
-    it "@combined_active_quizzes should return id, title, type for all classic and lti quizzes sorted by title" do
+    it "@combined_active_quizzes should return id, title, type for all classic quizzes sorted by title" do
       user_session(@teacher)
       q1 = @course.quizzes.create!(title: "A")
       q2 = @course.quizzes.create!(title: "C")
-      a1 = new_quizzes_assignment(course: @course, title: "B")
       get "index", params: { course_id: @course.id }
       combined_active_quizzes = controller.instance_variable_get(:@combined_active_quizzes)
       expect(combined_active_quizzes).to eq [
         [q1.id, "A", "quiz"],
-        [a1.id, "B", "assignment"],
         [q2.id, "C", "quiz"]
       ]
-    end
-
-    it "@combined_active_quizzes_includes_both_types should return true when classic and new quizzes are included" do
-      user_session(@teacher)
-      @course.quizzes.create!(title: "A")
-      @course.quizzes.create!(title: "C")
-      new_quizzes_assignment(course: @course, title: "B")
-      get "index", params: { course_id: @course.id }
-      combined_active_quizzes_includes_both_types = controller.instance_variable_get(:@combined_active_quizzes_includes_both_types)
-      expect(combined_active_quizzes_includes_both_types).to be true
-    end
-
-    it "@combined_active_quizzes_includes_both_types should return false when only classic quizzes are included" do
-      user_session(@teacher)
-      @course.quizzes.create!(title: "A")
-      @course.quizzes.create!(title: "C")
-      get "index", params: { course_id: @course.id }
-      combined_active_quizzes_includes_both_types = controller.instance_variable_get(:@combined_active_quizzes_includes_both_types)
-      expect(combined_active_quizzes_includes_both_types).to be false
-    end
-
-    it "@combined_active_quizzes_includes_both_types should return false when only new quizzes are included" do
-      user_session(@teacher)
-      new_quizzes_assignment(course: @course, title: "B")
-      get "index", params: { course_id: @course.id }
-      combined_active_quizzes_includes_both_types = controller.instance_variable_get(:@combined_active_quizzes_includes_both_types)
-      expect(combined_active_quizzes_includes_both_types).to be false
-    end
-
-    describe "index quizzes engine js_env" do
-      before do
-        user_session(@teacher)
-        @course.root_account.settings[:provision] = { "lti" => "lti url" }
-        @course.root_account.save!
-        @course.root_account.enable_feature! :quizzes_next
-        @course.enable_feature! :quizzes_next
-        @course.enable_feature!(:new_quizzes_by_default)
-      end
-
-      it "new quizzes enabled if flag on and context_external_tools present" do
-        @course.context_external_tools.create!(
-          name: "Quizzes.Next",
-          consumer_key: "test_key",
-          shared_secret: "test_secret",
-          tool_id: "Quizzes 2",
-          url: "http://example.com/launch"
-        )
-
-        get "index", params: { course_id: @course.id }
-        js_env = controller.js_env
-        expect(js_env[:NEW_QUIZZES_ENABLED]).to be true
-      end
-
-      it "new quizzes by default enabled if flag on and new quizzes enabled" do
-        @course.context_external_tools.create!(
-          name: "Quizzes.Next",
-          consumer_key: "test_key",
-          shared_secret: "test_secret",
-          tool_id: "Quizzes 2",
-          url: "http://example.com/launch"
-        )
-
-        get "index", params: { course_id: @course.id }
-        js_env = controller.js_env
-        expect(js_env[:NEW_QUIZZES_BY_DEFAULT]).to be true
-      end
-
-      it "new quizzes and new quizzes by default disabled if context_external_tools NOT present" do
-        get "index", params: { course_id: @course.id }
-        js_env = controller.js_env
-        expect(js_env[:NEW_QUIZZES_ENABLED]).to be false
-        expect(js_env[:NEW_QUIZZES_BY_DEFAULT]).to be false
-      end
     end
 
     it "touches modules if necessary" do
@@ -2371,21 +2296,6 @@ describe ContextModulesController do
 
       get "item_redirect_mastery_paths", params: { course_id: @course.id, id: item.id }
       assert_redirected_to controller: "discussion_topics", action: "edit", id: topic.id, anchor: "mastery-paths-editor"
-    end
-
-    it "redirects to the assignment edit mastery paths page for new quizzes" do
-      @course.context_external_tools.create! tool_id: ContextExternalTool::QUIZ_LTI,
-                                             name: "Q.N",
-                                             consumer_key: "1",
-                                             shared_secret: "1",
-                                             domain: "quizzes.example.com"
-      assignment = @course.assignments.create!
-      assignment.quiz_lti!
-      assignment.save!
-      item = @mod.add_item type: "assignment", id: assignment.id
-
-      get "item_redirect_mastery_paths", params: { course_id: @course.id, id: item.id }
-      assert_redirected_to controller: "assignments", action: "edit", id: assignment.id, anchor: "mastery-paths-editor"
     end
 
     it "404s if module item is not a graded type" do

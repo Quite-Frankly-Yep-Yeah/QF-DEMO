@@ -25,7 +25,6 @@ const buildDefaultProps = (overrides: Partial<ModuleItemTitleStudentProps> = {})
   const defaultProps = {
     content: {
       type: 'Assignment',
-      isNewQuiz: false,
       published: true,
     } as ModuleItemContent,
     progression: {

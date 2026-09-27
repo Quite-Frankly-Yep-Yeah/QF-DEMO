@@ -63,7 +63,6 @@ import {queryClient} from '@instructure/platform-query'
 import YAML from 'yaml'
 import FormattedErrorMessage from '@canvas/assignments/react/FormattedErrorMessage'
 import {unfudgeDateForProfileTimezone} from '@instructure/moment-utils'
-import urlWithParams from '@canvas/assignments/urlWithParams'
 import {SETTING_MESSAGES} from '@canvas/assignments/react/hooks/useSettingDependency'
 
 const I18n = createI18nScope('assignment_editview')
@@ -71,8 +70,6 @@ const I18n = createI18nScope('assignment_editview')
 const slice = [].slice
 
 const ASSIGNMENT_GROUP_SELECTOR = '#assignment_group_selector'
-const QUIZ_TYPE_SELECTOR = '#quiz_type_selector'
-const ANONYMOUS_SUBMISSION_SELECTOR = '#anonymous_submission_selector'
 const DESCRIPTION = '[name="description"]'
 const SUBMISSION_TYPE = '[name="submission_type"]'
 const SUBMISSION_TYPE_FIELDS = '#submission_type_fields'
@@ -112,7 +109,6 @@ const EXTERNAL_TOOLS_CUSTOM_PARAMS = '#assignment_external_tool_tag_attributes_c
 const EXTERNAL_TOOLS_LINE_ITEM = '#assignment_external_tool_tag_attributes_line_item'
 const ASSIGNMENT_POINTS_POSSIBLE = '#assignment_points_possible'
 const ASSIGNMENT_POINTS_CHANGE_WARN = '#point_change_warning'
-const POINTS_TOOLTIP = '#points_tooltip'
 const SECURE_PARAMS = '#secure_params'
 const PEER_REVIEWS_BOX = '#assignment_peer_reviews'
 const PEER_REVIEWS_ALLOCATION_AND_GRADING_BOX = '#assignment_peer_reviews_checkbox'
@@ -197,7 +193,6 @@ function EditView() {
   this.handleRemoveResource = this.handleRemoveResource.bind(this)
   this.handleSubmissionTypeChange = this.handleSubmissionTypeChange.bind(this)
   this.handleGradingTypeChange = this.handleGradingTypeChange.bind(this)
-  this.handleQuizTypeChange = this.handleQuizTypeChange.bind(this)
   this.handleRestrictFileUploadsChange = this.handleRestrictFileUploadsChange.bind(this)
   this.renderDefaultExternalTool = this.renderDefaultExternalTool.bind(this)
   this.renderAssignmentSubmissionTypeContainer =
@@ -340,12 +335,6 @@ EditView.prototype.events = {
 
 EditView.child('assignmentGroupSelector', '' + ASSIGNMENT_GROUP_SELECTOR)
 
-EditView.child('quizTypeSelector', '' + QUIZ_TYPE_SELECTOR)
-
-EditView.child('pointsTooltip', '' + POINTS_TOOLTIP)
-
-EditView.child('anonymousSubmissionSelector', '' + ANONYMOUS_SUBMISSION_SELECTOR)
-
 EditView.child('gradingTypeSelector', '' + GRADING_TYPE_SELECTOR)
 
 EditView.child('groupCategorySelector', '' + GROUP_CATEGORY_SELECTOR)
@@ -394,15 +383,6 @@ EditView.prototype.initialize = function (options) {
   this.gradingTypeSelector.on('change:gradingType', this.handleGradingTypeChange)
   if (ENV.CONDITIONAL_RELEASE_SERVICE_ENABLED) {
     this.gradingTypeSelector.on('change:gradingType', this.onChange)
-  }
-  if (this.quizTypeSelector) {
-    this.quizTypeSelector.on('change:quizType', this.handleQuizTypeChange)
-  }
-  if (this.anonymousSubmissionSelector) {
-    this.anonymousSubmissionSelector.on(
-      'change:anonymousSubmission',
-      this.handleAnonymousSubmissionChange,
-    )
   }
   this.lockedItems = options.lockedItems || {}
   return (this.cannotEditGrades = !options.canEditGrades)
@@ -1125,33 +1105,6 @@ EditView.prototype.handleGradingTypeChange = function (gradingType) {
   return this.handleSubmissionTypeChange(null)
 }
 
-EditView.prototype.handleQuizTypeChange = function (quizType) {
-  // Hide points field when ungraded survey is selected
-  const isUngradedSurvey = quizType === 'ungraded_survey'
-  this.$assignmentPointsPossible.closest('.control-group').toggleAccessibly(!isUngradedSurvey)
-
-  // Set points to 0 for ungraded surveys
-  if (isUngradedSurvey) {
-    this.$assignmentPointsPossible.val('0')
-  }
-
-  const isGradedSurvey = quizType === 'graded_survey'
-  const isSurvey = isUngradedSurvey || isGradedSurvey
-
-  this.$assignmentGroupSelector.toggleAccessibly(!isUngradedSurvey)
-  this.$gradingTypeSelector.toggleAccessibly(!isSurvey)
-  this.$submissionTypeFields.toggleAccessibly(!isSurvey)
-  this.$gradedAssignmentFields.toggleAccessibly(!isSurvey)
-  this.anonymousSubmissionSelector.$el.closest('.control-group').toggleAccessibly(isSurvey)
-
-  this.pointsTooltip.updateComponent(quizType)
-}
-
-EditView.prototype.handleAnonymousSubmissionChange = function (isAnonymous) {
-  // Store the value in the model
-  this.assignment.newQuizzesAnonymousSubmission(isAnonymous)
-}
-
 EditView.prototype.hasMasteryConnectData = function () {
   // Some places check for this data before clearing/overwriting...
   // It's not clear the reasoning behind this, but I'm for leaving as-is for now.
@@ -1476,27 +1429,6 @@ EditView.prototype.afterRender = function () {
     this.renderDefaultExternalTool()
   }
 
-  // Show/hide fields based on survey type on initial load
-  if (this.quizTypeSelector) {
-    const currentQuizType = this.assignment.newQuizzesType() || 'graded_quiz'
-    const isGradedSurvey = currentQuizType === 'graded_survey'
-    const isUngradedSurvey = currentQuizType === 'ungraded_survey'
-
-    if (isGradedSurvey || isUngradedSurvey) {
-      this.$assignmentGroupSelector.toggleAccessibly(isGradedSurvey)
-      this.$gradingTypeSelector.toggleAccessibly(false)
-      this.$submissionTypeFields.toggleAccessibly(false)
-      // Hide graded assignment fields for surveys
-      this.$gradedAssignmentFields.toggleAccessibly(false)
-      this.anonymousSubmissionSelector.$el.closest('.control-group').toggleAccessibly(true)
-    }
-
-    if (isUngradedSurvey) {
-      this.$assignmentPointsPossible.closest('.control-group').toggleAccessibly(false)
-      this.$assignmentPointsPossible.val('0')
-    }
-  }
-
   return this
 }
 
@@ -1520,19 +1452,12 @@ EditView.prototype.toJSON = function () {
     lockedItems: this.lockedItems,
     cannotEditGrades: this.cannotEditGrades,
     anonymousGradingEnabled:
-      (typeof ENV !== 'undefined' && ENV !== null
-        ? this.assignment.isQuizLTIAssignment() && !ENV.NEW_QUIZZES_ANONYMOUS_GRADING_ENABLED
-          ? void 0
-          : ENV.ANONYMOUS_GRADING_ENABLED
-        : void 0) || false,
+      (typeof ENV !== 'undefined' && ENV !== null ? ENV.ANONYMOUS_GRADING_ENABLED : void 0) ||
+      false,
     anonymousInstructorAnnotationsEnabled:
       (typeof ENV !== 'undefined' && ENV !== null
         ? ENV.ANONYMOUS_INSTRUCTOR_ANNOTATIONS_ENABLED
         : void 0) || false,
-    showAnonymousSubmissionSelector:
-      this.assignment.isQuizLTIAssignment() &&
-      (this.assignment.newQuizzesType() === 'graded_survey' ||
-        this.assignment.newQuizzesType() === 'ungraded_survey'),
   })
 }
 
@@ -2384,12 +2309,8 @@ EditView.prototype.redirectAfterSave = function () {
 }
 
 EditView.prototype.locationAfterSave = function (params) {
-  if (returnToHelper.isValid(params.return_to) && !this.assignment.showBuildButton()) {
+  if (returnToHelper.isValid(params.return_to)) {
     return params.return_to
-  }
-  const useCancelLocation = this.assignment.showBuildButton() && this.preventBuildNavigation
-  if (useCancelLocation) {
-    return this.locationAfterCancel(deparam())
   }
 
   try {
@@ -2401,18 +2322,7 @@ EditView.prototype.locationAfterSave = function (params) {
     console.error('Error invalidating query, error:', error)
   }
 
-  const htmlUrl = this.model.get('html_url')
-
-  const additionalParams = {}
-  if (this.assignment.showBuildButton()) {
-    let displayType = 'full_width'
-    if (ENV.FEATURES.new_quizzes_navigation_updates) {
-      displayType = 'full_width_with_nav'
-    }
-    additionalParams.display = displayType
-  }
-
-  return urlWithParams(htmlUrl, additionalParams)
+  return this.model.get('html_url')
 }
 
 EditView.prototype.redirectAfterCancel = function () {
@@ -2516,7 +2426,7 @@ EditView.prototype.uncheckAndHideGraderAnonymousToGraders = function () {
 }
 
 EditView.prototype.renderModeratedGradingFormFieldGroup = function () {
-  if (!ENV.MODERATED_GRADING_ENABLED || this.assignment.isQuizLTIAssignment()) {
+  if (!ENV.MODERATED_GRADING_ENABLED) {
     return
   }
   const clearNumberInputErrors = () => {

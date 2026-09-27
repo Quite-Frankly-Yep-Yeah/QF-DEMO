@@ -53,12 +53,10 @@ export default class ItemView extends Backbone.View {
     this.prototype.events = {
       click: 'clickRow',
       'click .delete-item': 'onDelete',
-      'click .migrate': 'migrateQuiz',
       'click .quiz-copy-to': 'copyQuizTo',
       'click .quiz-send-to': 'sendQuizTo',
       'click .duplicate_assignment': 'onDuplicate',
       'click .duplicate-failed-retry': 'onDuplicateFailedRetry',
-      'click .migrate-failed-retry': 'onMigrateFailedRetry',
       'click .duplicate-failed-cancel': 'onDuplicateOrImportFailedCancel',
       'click .import-failed-cancel': 'onDuplicateOrImportFailedCancel',
       'click .migrate-failed-cancel': 'onDuplicateOrImportFailedCancel',
@@ -90,7 +88,7 @@ export default class ItemView extends Backbone.View {
     this.publishIconView = false
     this.lockIconView = false
     this.sisButtonView = false
-    const content_type = this.model.get('quiz_type') === 'quizzes.next' ? 'assignment' : 'quiz'
+    const content_type = 'quiz'
 
     if (this.canManage()) {
       this.publishIconView = new PublishIconView({
@@ -213,38 +211,8 @@ export default class ItemView extends Backbone.View {
     return path
   }
 
-  migrateQuizEnabled() {
-    const isOldQuiz = this.model.get('quiz_type') !== 'quizzes.next'
-    return ENV.FLAGS && ENV.FLAGS.migrate_quiz_enabled && isOldQuiz
-  }
-
-  migrateQuiz(e) {
-    e.preventDefault()
-    const courseId = ENV.context_asset_string.split('_')[1]
-    const quizId = this.options.model.id
-    const url = `/api/v1/courses/${courseId}/content_exports?export_type=quizzes2&quiz_id=${quizId}&include[]=migrated_quiz`
-    const dfd = $.ajaxJSON(url, 'POST')
-    this.$el.disableWhileLoading(dfd)
-    return $.when(dfd)
-      .done(response => {
-        this.addMigratedQuizToList(response)
-        return $.flashMessage(I18n.t('Migration in progress'))
-      })
-      .fail(() => {
-        return $.flashError(I18n.t('An error occurred while migrating.'))
-      })
-  }
-
-  addMigratedQuizToList(response) {
-    if (!response) return
-    const quizzes = response.migrated_quiz
-    if (quizzes) {
-      this.addQuizToList(quizzes[0])
-    }
-  }
-
   renderItemAssignToTray(open, returnFocusTo, itemProps) {
-    const quizItemType = this.model.get('quiz_type') !== 'quizzes.next' ? 'quiz' : 'assignment'
+    const quizItemType = 'quiz'
 
     ReactDOM.render(
       <ItemAssignToManager
@@ -317,8 +285,7 @@ export default class ItemView extends Backbone.View {
 
   renderCopyToTray(open) {
     const quizId = this.model.get('id')
-    const isOldQuiz = this.model.get('quiz_type') !== 'quizzes.next'
-    const contentSelection = isOldQuiz ? {quizzes: [quizId]} : {assignments: [quizId]}
+    const contentSelection = {quizzes: [quizId]}
 
     ReactDOM.render(
       <DirectShareCourseTray
@@ -341,8 +308,7 @@ export default class ItemView extends Backbone.View {
 
   renderSendToTray(open) {
     const quizId = this.model.get('id')
-    const isOldQuiz = this.model.get('quiz_type') !== 'quizzes.next'
-    const contentType = isOldQuiz ? 'quiz' : 'assignment'
+    const contentType = 'quiz'
 
     ReactDOM.render(
       <DirectShareUserModal
@@ -447,33 +413,10 @@ export default class ItemView extends Backbone.View {
       })
   }
 
-  onMigrateFailedRetry(e) {
-    e.preventDefault()
-    const button = $(e.target)
-    button.prop('disabled', true)
-    this.model
-      .retry_migration(response => {
-        this.addMigratedQuizToList(response)
-        this.delete({silent: true})
-      })
-      .always(() => {
-        button.prop('disabled', false)
-      })
-  }
-
   toJSON() {
     const base = extend(this.model.toJSON(), this.options)
-    const isNewQuizzes = this.model.get('quiz_type') === 'quizzes.next'
-    const modelId = this.model.get('id')
-    const resourceQueryString = isNewQuizzes ? `assignments[]=${modelId}` : `quizzes[]=${modelId}`
-    const isShareToCommons = tool => tool.canvas_icon_class === 'icon-commons'
-    const tools = ENV.quiz_menu_tools || []
-
-    if (!isNewQuizzes || ENV.FEATURES.commons_new_quizzes) {
-      base.quiz_menu_tools = tools
-    } else {
-      base.quiz_menu_tools = tools.filter(tool => !isShareToCommons(tool))
-    }
+    const resourceQueryString = `quizzes[]=${this.model.get('id')}`
+    base.quiz_menu_tools = ENV.quiz_menu_tools || []
 
     each(base.quiz_menu_tools, tool => {
       tool.url = `${tool.base_url}&${resourceQueryString}`
@@ -488,7 +431,6 @@ export default class ItemView extends Backbone.View {
       base.link_href = this.model.get('url')
     }
 
-    base.migrateQuizEnabled = this.migrateQuizEnabled()
     base.canDuplicate = this.canDuplicate()
     base.isDuplicating = this.model.get('workflow_state') === 'duplicating'
     base.failedToDuplicate = this.model.get('workflow_state') === 'failed_to_duplicate'
@@ -500,19 +442,7 @@ export default class ItemView extends Backbone.View {
     base.showAvailability = this.model.multipleDueDates() || !this.model.defaultDates().available()
     base.showDueDate = this.model.multipleDueDates() || this.model.singleSectionDueDate()
     base.name = this.model.name()
-    base.isQuizzesNext = this.model.isQuizzesNext()
-    base.useQuizzesNextIcon = this.model.isQuizzesNext() || this.isStudent()
-    base.isQuizzesNextAndNotStudent = this.model.isQuizzesNext() && !this.isStudent()
-    base.canShowQuizBuildShortCut =
-      this.model.isQuizzesNext() &&
-      this.model.get('can_update') &&
-      !this.isStudent() &&
-      ENV.FLAGS &&
-      ENV.FLAGS.quiz_lti_enabled
-    base.quizzesRespondusEnabled =
-      this.isStudent() &&
-      this.model.get('require_lockdown_browser') &&
-      this.model.get('quiz_type') === 'quizzes.next'
+    base.useQuizzesNextIcon = this.isStudent()
 
     base.is_locked =
       this.model.get('is_master_course_child_content') &&

@@ -237,7 +237,6 @@ module Context
       modules: -> { respond_to?(:context_modules) && context_modules.active.exists? },
       quizzes: lambda do
                  (respond_to?(:quizzes) && quizzes.active.exists?) ||
-                   (respond_to?(:assignments) && assignments.active.quiz_lti.exists?) ||
                    ams_integration_enabled?
                end,
       assignments: -> { respond_to?(:assignments) && assignments.active.exists? },

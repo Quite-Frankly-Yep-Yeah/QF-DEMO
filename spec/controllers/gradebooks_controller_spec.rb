@@ -976,20 +976,6 @@ describe GradebooksController do
         get "grade_summary", params: { course_id: @course.id, id: "lqw" }
       end
     end
-
-    context "js_env" do
-      before do
-        user_session(@student)
-      end
-
-      describe "outcome_service_results_to_canvas" do
-        it "is set to true if outcome_service_results_to_canvas feature flag is enabled" do
-          get "grade_summary", params: { course_id: @course.id, id: @student.id }
-          js_env = assigns[:js_env]
-          expect(js_env[:outcome_service_results_to_canvas]).to be true
-        end
-      end
-    end
   end
 
   describe "GET 'show'" do
@@ -2069,14 +2055,6 @@ describe GradebooksController do
               gradebook_env = assigns[:js_env][:GRADEBOOK_OPTIONS]
               expect(gradebook_env[:permissions][:allow_assign_to_differentiation_tags]).to be true
             end
-          end
-        end
-
-        describe "outcome_service_results_to_canvas" do
-          it "is set to true if outcome_service_results_to_canvas feature flag is enabled" do
-            get :show, params: { course_id: @course.id }
-            js_env = assigns[:js_env]
-            expect(js_env[:outcome_service_results_to_canvas]).to be true
           end
         end
 
@@ -3693,11 +3671,6 @@ describe GradebooksController do
           get "speed_grader", params: { course_id: @course, assignment_id: @assignment.id }
           expect(js_env[:lti_retrieve_url]).not_to be_nil
         end
-
-        it "has new_quizzes_native_experience_sessionless=false" do
-          get "speed_grader", params: { course_id: @course, assignment_id: @assignment.id }
-          expect(js_env[:lti_retrieve_url]).to include("new_quizzes_native_experience_sessionless=false")
-        end
       end
 
       it "includes the grading_type" do
@@ -3799,32 +3772,6 @@ describe GradebooksController do
           it "sets filter_speed_grader_by_student_group to true" do
             get :speed_grader, params: { course_id: @course, assignment_id: @assignment }
             expect(js_env[:filter_speed_grader_by_student_group]).to be true
-          end
-
-          context "when the assignment is a New Quizzes anonymous survey" do
-            before do
-              tool = @course.context_external_tools.create!(
-                name: "Quizzes.Next",
-                consumer_key: "test_key",
-                shared_secret: "test_secret",
-                tool_id: "Quizzes 2",
-                url: "http://example.com/launch"
-              )
-              @assignment.update!(
-                submission_types: "external_tool",
-                external_tool_tag_attributes: { content: tool, url: tool.url },
-                settings: { "new_quizzes" => { "anonymous_participants" => true } }
-              )
-            end
-
-            it "resolves the student from anonymous_id" do
-              submission = @assignment.submissions.find_by(user: @student)
-              get :speed_grader, params: { course_id: @course, assignment_id: @assignment, anonymous_id: submission.anonymous_id }
-              @teacher.reload
-
-              saved_group_id = @teacher.get_preference(:gradebook_settings, @course.global_id).dig("filter_rows_by", "student_group_ids")&.last
-              expect(saved_group_id).to eq group1.id.to_s
-            end
           end
 
           context "when loading a student causes a new group to be selected" do

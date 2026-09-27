@@ -34,6 +34,4 @@ QTIZipView.child('questionBank', '.selectQuestionBank')
 
 QTIZipView.child('overwriteAssessmentContent', '.overwriteAssessmentContent')
 
-QTIZipView.child('importQuizzesNext', '.importQuizzesNext')
-
 export default QTIZipView

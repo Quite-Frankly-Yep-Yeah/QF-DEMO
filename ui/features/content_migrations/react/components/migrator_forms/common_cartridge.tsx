@@ -67,7 +67,6 @@ const CommonCartridgeImporter = ({
       <CommonMigratorControls
         canSelectContent={true}
         isSubmitting={isSubmitting}
-        canImportAsNewQuizzes={ENV.NEW_QUIZZES_IMPORT}
         canOverwriteAssessmentContent={true}
         canAdjustDates={true}
         onSubmit={handleSubmit}

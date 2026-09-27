@@ -61,16 +61,6 @@
         <a style="display:none" data-view="addGroup" id="addGroup"></a>
       {{else}}
         {{#if ENV.PERMISSIONS.manage_assignments_add}}
-          {{#if ENV.QUIZ_LTI_ENABLED}}
-            <span class="new_quiz_lti_wrapper">
-              <a
-                href="{{ENV.URLS.new_assignment_url}}?quiz_lti"
-                class="new_quiz_lti btn icon-plus"
-                title='{{#t "title_add_quiz_lti"}}Add Quiz/Test{{/t}}'
-                aria-label='{{#t "title_add_quiz_lti"}}Add Quiz/Test{{/t}}'
-              >{{#t "add_quiz_lti"}}Quiz/Test{{/t}}</a>
-            </span>
-          {{/if}}
 
           <button
             class="btn Button"

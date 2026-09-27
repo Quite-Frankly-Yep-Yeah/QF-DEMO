@@ -22,13 +22,8 @@
 <% only ||= nil # only is an optimization, so that tabs that aren't going to be used won't have their data loaded %>
 <% lti_app_placements ||= [] %>
 <%
-  new_quizzes_enabled = NewQuizzesFeaturesHelper.new_quizzes_enabled?(@context)
-  new_quizzes_by_default = new_quizzes_enabled && @context.feature_enabled?(:new_quizzes_by_default)
-  newquizzes_engine_selected = @context.settings.dig(:engine_selected, :user_id, :newquizzes_engine_selected)
-  newquizzes_engine_selected = ['true', 'false'].include?(newquizzes_engine_selected) ? newquizzes_engine_selected : nil
   module_links_default_new_tab = @current_user&.get_preference(:module_links_default_new_tab)
 %>
-<% js_env({ NEW_QUIZZES_BY_DEFAULT: new_quizzes_by_default }) %>
 <% cache([@context, 'select_context_content_dialog_1', only].cache_key) do %>
   <div id="select_context_content_dialog" style="display: none;">
     <div style="margin-bottom: 5px; <%= hidden if only && only.size == 1 %>">
@@ -231,7 +226,7 @@
             <option value="new"><%= t :create_quiz_option, "[ Create Quiz ]" %></option>
           <% end %>
           <% @combined_active_quizzes.each do |id, title, type| %>
-            <% option_text = @combined_active_quizzes_includes_both_types && type == 'quiz' ? "#{title} #{t :classic_quiz_identifier, '(classic)'}" : title %>
+            <% option_text = title %>
             <option value="<%= type + '_' + id.to_s %>"><%= option_text %></option>
           <% end %>
         </select>
@@ -239,41 +234,10 @@
         <div class="new" style="margin-top: 5px;">
           <input type="hidden" name="quiz[quiz_type]" value="assignment" />
           <table>
-            <% if new_quizzes_enabled && !new_quizzes_by_default %>
-              <tr style="<%= newquizzes_engine_selected ? 'display: none;' : '' %>">
-                <td><%= before_label :quiz_engine, "Quiz Engine" %></td>
-                <td>
-                  <div class="ic-Radio">
-                    <% if newquizzes_engine_selected == 'false' %>
-                      <input type="radio" name="quiz_engine_selection" id="new_quizzes_radio" value="assignment" />
-                    <% else %>
-                      <input type="radio" name="quiz_engine_selection" id="new_quizzes_radio" value="assignment" checked="checked" />
-                    <% end %>
-                    <label for="new_quizzes_radio" class="ic-Label"><%= t("New Quizzes") %></label>
-                    <div class="radio-description"><%= t("Improved interface with ongoing updates") %></div>
-                  </div>
-                  <div class="ic-Radio">
-                    <input type="radio" name="quiz_engine_selection" id="classic_quizzes_radio" value="quiz" />
-                    <label for="classic_quizzes_radio" class="ic-Label"><%= t("Classic Quizzes") %></label>
-                    <div class="radio-description"><%= t("The original quizzes interface") %></div>
-                  </div>
-                </td>
-              </tr>
-            <% end %>
             <tr>
               <td><%= before_label :quiz_name, "Quiz Name" %></td>
               <td><input type="text" name="quiz[title]" class="item_title" aria-label="<%= before_label :quiz_name, "Quiz Name" %>"/></td>
             </tr>
-            <% if new_quizzes_enabled %>
-              <tr id="quiz_type_selector_row" style="display: none;">
-                <td style="vertical-align: top; text-align: left;"><%= before_label :quiz_type, "Quiz Type" %></td>
-                <td><div id="quiz_type_selector_mount_point"></div></td>
-              </tr>
-              <tr id="anonymous_submission_selector_row" style="display: none;">
-                <td style="vertical-align: top; text-align: left; width: 80px;"><%= before_label :anonymous_submission, "Anonymous Submission" %></td>
-                <td><div id="anonymous_submission_selector_mount_point"></div></td>
-              </tr>
-            <% end %>
             <tr>
               <td><%= before_label :quiz_group, "Group" %></td>
               <td>
@@ -309,7 +273,7 @@
           <% end %>
           <% @context.assignment_groups.active.include_active_assignments.reorder(AssignmentGroup.best_unicode_collation_key('name')).each do |group| %>
             <optgroup label="<%= group.name %>">
-            <% assignments = group.active_assignments.no_submittables.not_type_quiz_lti %>
+            <% assignments = group.active_assignments.no_submittables %>
             <% assignments.reorder(Assignment.best_unicode_collation_key('title')).limit(500).pluck(:id, :title).each do |id, title| %>
               <option value="<%= id %>"><%= title %></option>
             <% end %>

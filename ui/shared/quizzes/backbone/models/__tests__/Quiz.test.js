@@ -234,82 +234,19 @@ describe('Quiz#multipleDueDates', () => {
   })
 })
 
-describe('Quiz.Next', () => {
-  const testUrl = (isFeatureFlagEnabled, expectedDisplay) => {
-    let quiz
-    describe(`when new_quizzes_navigation_updates FF is ${isFeatureFlagEnabled ? 'enabled' : 'disabled'}`, () => {
-      beforeEach(() => {
-        fakeENV.setup({
-          FEATURES: {
-            new_quizzes_navigation_updates: isFeatureFlagEnabled,
-          },
-        })
-        quiz = new Quiz({
-          id: 7,
-          html_url: 'http://localhost:3000/courses/1/assignments/7',
-          assignment_id: 7,
-          quiz_type: 'quizzes.next',
-        })
-      })
-
-      afterEach(() => {
-        fakeENV.teardown()
-      })
-
-      it(`should set build url from html url using ${expectedDisplay} display type`, () => {
-        expect(quiz.get('build_url')).toBe(
-          `http://localhost:3000/courses/1/assignments/7?display=${expectedDisplay}`,
-        )
-      })
-    })
-  }
-
-  testUrl(true, 'full_width_with_nav')
-  testUrl(false, 'full_width')
-})
-
-describe('Quiz.Next with manage enabled', () => {
-  let quiz
-
-  beforeEach(() => {
-    fakeENV.setup({
-      PERMISSIONS: {manage: true},
-    })
-    quiz = new Quiz({
-      id: 7,
-      html_url: 'http://localhost:3000/courses/1/assignments/7',
-      assignment_id: 7,
-      quiz_type: 'quizzes.next',
-    })
-  })
-
-  afterEach(() => {
-    fakeENV.teardown()
-  })
-
-  it('should set url as edit_url', () => {
-    expect(quiz.get('url')).toBe('http://localhost:3000/courses/1/assignments/7/edit?quiz_lti')
-  })
-})
-
 describe('Quiz polling', () => {
   let quiz
   let fetchMock
   let pollerMock
 
   beforeEach(() => {
-    fakeENV.setup({
-      FEATURES: {
-        new_quizzes_navigation_updates: false,
-      },
-    })
+    fakeENV.setup({})
     vi.useFakeTimers()
     quiz = new Quiz({
       id: 7,
       course_id: 1,
       html_url: 'http://localhost:3000/courses/1/assignments/7',
       assignment_id: 7,
-      quiz_type: 'quizzes.next',
       workflow_state: 'duplicating',
     })
 

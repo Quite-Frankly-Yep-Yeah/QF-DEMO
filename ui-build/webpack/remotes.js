@@ -53,7 +53,6 @@ function fetchSpeedGraderLibrary(resolve, reject) {
 
 exports.fetchSpeedGraderLibrary = fetchSpeedGraderLibrary
 
-
 function fetchIgniteAgentLibrary(resolve, reject) {
   const remoteUrl = window.REMOTES?.ignite_agent?.launch_url
 
@@ -136,46 +135,3 @@ function fetchLtiUsage(resolve, reject) {
 }
 
 exports.fetchLtiUsage = fetchLtiUsage
-
-function fetchNewQuizzesApp(resolve, reject) {
-  const remoteUrl = window.REMOTES?.new_quizzes?.launch_url
-
-  if (!remoteUrl) {
-    console.debug(`new_quizzes remote not configured; using ${DEV_HOST}`)
-  }
-
-  const script = document.createElement('script')
-
-  script.src = remoteUrl || DEV_HOST
-  script.onload = () => {
-    if (!window.NewQuizzes) {
-      reject(new Error('NewQuizzes failed to load.'))
-      return
-    }
-
-    const module = {
-      get: request => window.NewQuizzes.get(request),
-      init: arg => {
-        try {
-          return window.NewQuizzes.init(arg)
-        } catch (e) {
-          console.warn('Remote new_quizzes has already been loaded')
-        }
-      },
-    }
-    resolve(module)
-  }
-
-  script.onerror = errorEvent => {
-    const errorMessage = `Failed to load the script: ${script.src}`
-    console.error(errorMessage, errorEvent)
-    if (typeof reject === 'function') {
-      reject(new Error(errorMessage, errorEvent))
-    }
-  }
-
-  document.head.appendChild(script)
-}
-
-exports.fetchNewQuizzesApp = fetchNewQuizzesApp
-

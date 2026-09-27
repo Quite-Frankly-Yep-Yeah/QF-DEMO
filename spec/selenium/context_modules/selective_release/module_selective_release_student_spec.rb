@@ -147,32 +147,6 @@ describe "selective_release modules for students" do
       end
     end
 
-    it "shows only the new quiz for student who is not assigned to module" do
-      @course.context_external_tools.create!(
-        tool_id: ContextExternalTool::QUIZ_LTI,
-        name: "New Quizzes",
-        consumer_key: "1",
-        shared_secret: "1",
-        domain: "quizzes.example.com"
-      )
-      new_quiz_assignment = @course.assignments.create!(title: "new quizzes assignment")
-      new_quiz_assignment.quiz_lti!
-      new_quiz_assignment.save!
-      @module.add_item(type: "new quiz assignment", id: new_quiz_assignment.id)
-      new_quiz_assignment.assignment_overrides.create!(set_type: "ADHOC")
-      new_quiz_assignment.assignment_overrides.first.assignment_override_students.create!(user: @student3)
-
-      user_session(@student3)
-      go_to_modules
-
-      expect(element_exists?(context_module_selector(@module.id))).to be_falsey
-
-      get "/courses/#{@course.id}/assignments"
-      keep_trying_until do
-        expect(element_exists?(assignment_row_selector(new_quiz_assignment.id))).to be_truthy
-      end
-    end
-
     it "shows only the classic quiz for student who is not assigned to module" do
       quiz = @course.quizzes.create!(title: "classic quiz")
       quiz.publish!

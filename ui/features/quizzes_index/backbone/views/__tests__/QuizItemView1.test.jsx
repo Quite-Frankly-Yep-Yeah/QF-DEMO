@@ -74,7 +74,6 @@ const createView = (quiz, options = {}) => {
     post_to_sis_enabled: options.post_to_sis,
     migrate_quiz_enabled: options.migrate_quiz_enabled,
     DIRECT_SHARE_ENABLED: options.DIRECT_SHARE_ENABLED || false,
-    quiz_lti_enabled: !!options.quiz_lti_enabled,
     show_additional_speed_grader_link: true,
   }
 
@@ -167,19 +166,6 @@ describe('QuizItemView', () => {
     )
   })
 
-  it('has correct SpeedGrader link for new quizzes', () => {
-    const quiz = createQuiz({
-      id: 1,
-      title: 'Waffle',
-      assignment_id: '32',
-      quiz_type: 'quizzes.next',
-    })
-    const view = createView(quiz, {canManage: true})
-    expect(view.$('.speed-grader-link')[0].href).toContain(
-      '/courses/1/gradebook/speed_grader?assignment_id=32',
-    )
-  })
-
   it('can assign assignment when flag is on and has edit permissions', () => {
     const quiz = createQuiz({id: 1, title: 'Foo'})
     const view = createView(quiz, {
@@ -194,24 +180,6 @@ describe('QuizItemView', () => {
       canManage: false,
     })
     expect(view.$('.assign-to-link')).toHaveLength(0)
-  })
-
-  it('renders Migrate Button when migrateQuizEnabled is true', () => {
-    const quiz = createQuiz({id: 1, title: 'Foo', can_update: true})
-    const view = createView(quiz, {canManage: true, migrate_quiz_enabled: true})
-    expect(view.$('.migrate')).toHaveLength(1)
-  })
-
-  it('does not render Migrate Button when migrateQuizEnabled is false', () => {
-    const quiz = createQuiz({id: 1, title: 'Foo', can_update: true})
-    const view = createView(quiz, {canManage: true, migrate_quiz_enabled: false})
-    expect(view.$('.migrate')).toHaveLength(0)
-  })
-
-  it('shows solid quiz icon for new quizzes', () => {
-    const quiz = createQuiz({id: 1, title: 'Foo', can_update: true, quiz_type: 'quizzes.next'})
-    const view = createView(quiz, {canManage: true})
-    expect(view.$('i.icon-quiz.icon-Solid')).toHaveLength(1)
   })
 
   it('shows line quiz icon for old quizzes', () => {

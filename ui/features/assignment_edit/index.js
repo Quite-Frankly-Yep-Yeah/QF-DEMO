@@ -26,9 +26,6 @@ import DueDateList from '@canvas/due-dates/backbone/models/DueDateList'
 import DueDateOverride from '@canvas/due-dates'
 import AssignmentGroupSelector from '@canvas/assignments/backbone/views/AssignmentGroupSelector'
 import GradingTypeSelector from '@canvas/assignments/backbone/views/GradingTypeSelector'
-import QuizTypeSelector from '@canvas/assignments/backbone/views/QuizTypeSelector'
-import AnonymousSubmissionSelector from '@canvas/assignments/backbone/views/AnonymousSubmissionSelector'
-import PointsTooltip from '@canvas/assignments/backbone/views/PointsTooltip'
 import GroupCategorySelector from '@canvas/groups/backbone/views/GroupCategorySelector'
 import PeerReviewsSelector from '@canvas/assignments/backbone/views/PeerReviewsSelector'
 import '@canvas/grading-standards'
@@ -96,15 +93,6 @@ function loadBackboneComponents() {
       lockedItems,
       canEditGrades,
     })
-    const quizTypeSelector = new QuizTypeSelector({
-      parentModel: assignment,
-    })
-    const anonymousSubmissionSelector = new AnonymousSubmissionSelector({
-      parentModel: assignment,
-    })
-    const pointsTooltip = new PointsTooltip({
-      parentModel: assignment,
-    })
     const groupCategorySelector = new GroupCategorySelector({
       parentModel: assignment,
       groupCategories:
@@ -121,9 +109,6 @@ function loadBackboneComponents() {
       model: assignment,
       assignmentGroupSelector,
       gradingTypeSelector,
-      quizTypeSelector,
-      anonymousSubmissionSelector,
-      pointsTooltip,
       groupCategorySelector,
       peerReviewsSelector,
       views: {

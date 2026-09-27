@@ -131,16 +131,6 @@ describe "Api::V1::Rubric" do
                                                       ))
         end
 
-        it "sets to false for quiz_lti assignments even when feature flag is enabled" do
-          allow(assignment).to receive(:quiz_lti?).and_return(true)
-
-          enhanced_rubrics_context_js_env(assignment)
-
-          expect(self).to have_received(:js_env).with(hash_including(
-                                                        rubric_self_assessment_ff_enabled: false
-                                                      ))
-        end
-
         it "sets to false for quiz assignments even when feature flag is enabled" do
           allow(assignment).to receive(:quiz?).and_return(true)
 
@@ -162,7 +152,7 @@ describe "Api::V1::Rubric" do
         end
 
         it "sets to true for non-quiz, non-discussion assignments when feature flag is enabled" do
-          allow(assignment).to receive_messages(quiz_lti?: false, quiz?: false, discussion_topic?: false)
+          allow(assignment).to receive_messages(quiz?: false, discussion_topic?: false)
 
           enhanced_rubrics_context_js_env(assignment)
 

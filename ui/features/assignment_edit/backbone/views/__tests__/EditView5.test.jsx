@@ -100,7 +100,6 @@ const setupFakeEnv = (envOptions = {}) => {
     RICH_CONTENT_INST_RECORD_TAB_DISABLED: false,
     GROUP_CATEGORIES: [{id: '1', name: 'Group Category #1'}],
     ANONYMOUS_GRADING_ENABLED: false,
-    NEW_QUIZZES_ANONYMOUS_GRADING_ENABLED: true,
     SETTINGS: {
       suppress_assignments: false,
     },
@@ -213,32 +212,6 @@ describe.skip('EditView: anonymous grading', () => {
     view.afterRender()
     const $anonymousGradingBox = view.$el.find('input#assignment_anonymous_grading')
     expect($anonymousGradingBox.prop('disabled')).toBe(true)
-  })
-
-  it('is still enabled when editing a quiz lti assignment with anonymous grading turned on', () => {
-    setupFakeEnv({ANONYMOUS_GRADING_ENABLED: true})
-    const view = createEditView({
-      is_quiz_lti_assignment: true,
-      anonymous_grading: true,
-      id: '1',
-    })
-    view.$el.appendTo($('#fixtures'))
-    view.afterRender()
-    const $anonymousGradingBox = view.$el.find('input#assignment_anonymous_grading')
-    expect($anonymousGradingBox.prop('disabled')).toBe(false)
-  })
-
-  it('is enabled when creating a quiz lti assignment with anonymous grading turned on', () => {
-    setupFakeEnv({ANONYMOUS_GRADING_ENABLED: true})
-    const view = createEditView({
-      is_quiz_lti_assignment: true,
-      anonymous_grading: true,
-      id: null,
-    })
-    view.$el.appendTo($('#fixtures'))
-    view.afterRender()
-    const $anonymousGradingBox = view.$el.find('input#assignment_anonymous_grading')
-    expect($anonymousGradingBox.prop('disabled')).toBe(false)
   })
 })
 

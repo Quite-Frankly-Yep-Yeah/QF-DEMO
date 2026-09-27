@@ -53,8 +53,6 @@ export interface EnvContextModules {
         canManageSpeedGrader: boolean
       }
     | undefined
-  NEW_QUIZZES_BY_DEFAULT: boolean | undefined
-  NEW_QUIZZES_ENABLED: boolean | undefined
   DEFAULT_POST_TO_SIS: boolean | undefined
   MODULE_TOOLS: Record<string, unknown>
 

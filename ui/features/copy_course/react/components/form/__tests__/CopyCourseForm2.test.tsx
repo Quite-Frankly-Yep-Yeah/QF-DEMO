@@ -71,7 +71,6 @@ describe('CourseCopyForm', () => {
     isSubmitting: false,
     onSubmit: vi.fn(),
     onCancel: vi.fn(),
-    canImportAsNewQuizzes: true,
   }
 
   const defaultExpectedOnSubmitCall = {
@@ -80,7 +79,7 @@ describe('CourseCopyForm', () => {
     newCourseStartDate: new Date(startAt),
     newCourseEndDate: new Date(endAt),
     selectedTerm: {id: '1', name: 'Option 1'},
-    settings: {import_quizzes_next: false},
+    settings: {},
     selective_import: false,
     adjust_dates: {enabled: 1, operation: 'shift_dates'},
     errored: false,

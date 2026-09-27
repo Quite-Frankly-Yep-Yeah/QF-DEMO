@@ -34,7 +34,6 @@ export default class PublishableModuleItem extends Model {
       bulkPublishInFlight: false,
       publish_at: null,
       module_item_name: null,
-      quiz_lti: false,
     }
 
     this.prototype.urls = {

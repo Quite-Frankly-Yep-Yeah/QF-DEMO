@@ -695,25 +695,6 @@ class ExternalToolsController < ApplicationController
         prefer_1_1: !!params[:prefer_1_1]
       )
       @tool = tool
-      native_nq_redirect = @tool.quiz_lti? &&
-                           params[:assignment_id] &&
-                           new_quizzes_native_experience_enabled? &&
-                           new_quizzes_native_experience_sessionless_enabled?
-      if native_nq_redirect
-        @assignment = @context.assignments.find(params[:assignment_id])
-        redirect_params = { context: @context, assignment: @assignment, sessionless_launch: true, **request.query_parameters }
-        redirect_params[:content_only] = true if params[:borderless] || params[:display] == "borderless"
-
-        # Forward participant_session_id and quiz_session_id from the submission URL
-        # so quiz_lti can detect result/grading launches
-        if params[:url].present?
-          tool_url_params = Rack::Utils.parse_query(URI.parse(params[:url]).query)
-          redirect_params[:participant_session_id] = tool_url_params["participant_session_id"] if tool_url_params["participant_session_id"]
-          redirect_params[:quiz_session_id] = tool_url_params["quiz_session_id"] if tool_url_params["quiz_session_id"]
-        end
-
-        return redirect_to Services::NewQuizzes::Routes::Redirects.assignment_launch(**redirect_params)
-      end
       placement = placement_from_params
       add_crumb(@tool.name)
       @lti_launch = lti_launch(
@@ -891,20 +872,10 @@ class ExternalToolsController < ApplicationController
       @lti_launch.params = launch_settings["tool_settings"]
       @lti_launch.link_text =  launch_settings["tool_name"]
       @lti_launch.analytics_id = launch_settings["analytics_id"]
-      assignment_id = launch_settings.dig("tool_settings", "custom_canvas_assignment_id")
 
       tool = Lti::ToolFinder.find_by(id: launch_settings.dig("metadata", "tool_id")) ||
              Lti::ToolFinder.from_url(launch_settings["launch_url"], @context)
       if tool
-        if tool.quiz_lti? && assignment_id && new_quizzes_native_experience_enabled? && new_quizzes_native_experience_sessionless_enabled?
-          @assignment = @context.assignments.find(assignment_id)
-          return redirect_to Services::NewQuizzes::Routes::Redirects.assignment_launch(
-            context: @context,
-            assignment: @assignment,
-            content_only: true,
-            sessionless_launch: true
-          )
-        end
         # Use domain-specific URL for environment overrides
         launch_url_with_overrides = tool.url_with_environment_overrides(launch_settings["launch_url"], include_launch_url: true)
         @lti_launch.resource_url = launch_url_with_overrides
@@ -940,14 +911,6 @@ class ExternalToolsController < ApplicationController
         end
 
         add_crumb(@tool.label_for(placement, I18n.locale))
-
-        # Redirect to dedicated New Quizzes controller for native item banks experience
-        if item_banks_launch?(@tool, placement) && new_quizzes_native_experience_enabled?
-          return redirect_to Services::NewQuizzes::Routes::Redirects.item_bank_launch(
-            context: @context,
-            tool: @tool
-          )
-        end
 
         @return_url = named_context_url(@context, :context_external_content_success_url, "external_tool_redirect", { include_host: true })
         @redirect_return = true
@@ -1216,7 +1179,7 @@ class ExternalToolsController < ApplicationController
       assignment = AssignmentOverrideApplicator.assignment_overridden_for(assignment, @current_user)
     end
 
-    if assignment.present? && ((@current_user && assignment.quiz_lti?) || assignment.root_account.feature_enabled?(:lti_resource_link_id_speedgrader_launches_reference_assignment))
+    if assignment.present? && assignment.root_account.feature_enabled?(:lti_resource_link_id_speedgrader_launches_reference_assignment)
       # Set assignment LTI launch parameters for this code path (e.g. launches
       # from SpeedGrader)
       opts[:link_code] = @tool.opaque_identifier_for(assignment.external_tool_tag)
@@ -2155,27 +2118,5 @@ class ExternalToolsController < ApplicationController
     @_whitelisted_query_params ||= WHITELISTED_QUERY_PARAMS.each_with_object({}) do |query_param, h|
       h[query_param] = params[query_param] if params.key?(query_param)
     end
-  end
-
-  def item_banks_launch?(tool, placement)
-    return false unless tool.quiz_lti?
-    return false unless %w[course_navigation account_navigation].include?(placement)
-
-    nav_settings = tool.extension_setting(placement.to_sym)
-    return false unless nav_settings
-
-    custom_fields = nav_settings[:custom_fields] || {}
-    custom_fields[:item_banks].present?
-  end
-
-  def new_quizzes_native_experience_sessionless_enabled?
-    param = params[:new_quizzes_native_experience_sessionless]
-    if param.present? && %w[true false].include?(param)
-      return param == "true"
-    end
-
-    return false unless @context.respond_to?(:feature_enabled?)
-
-    @context.feature_enabled?(:new_quizzes_native_experience_sessionless)
   end
 end

@@ -42,7 +42,7 @@ module Mutations
         raise GraphQL::ExecutionError, I18n.t("Cannot set rubric self assessment for group assignments")
       end
 
-      if assignment.quiz_lti? || assignment.quiz?
+      if assignment.quiz?
         raise GraphQL::ExecutionError, I18n.t("Cannot set rubric self assessment for quiz assignments")
       end
 

@@ -49,7 +49,6 @@ type CourseCopyImporterProps = {
 export const CourseCopyImporter = ({onSubmit, onCancel, isSubmitting}: CourseCopyImporterProps) => {
   const isShowSelect = ENV.SHOW_SELECT
   const currentUser = ENV.current_user.id
-  const nqMigration = ENV.NEW_QUIZZES_MIGRATION
   const showBpSettingImport = ENV.SHOW_BP_SETTINGS_IMPORT_OPTION
   const newStartDate = ENV.OLD_START_DATE
   const newEndDate = ENV.OLD_END_DATE
@@ -413,7 +412,6 @@ export const CourseCopyImporter = ({onSubmit, onCancel, isSubmitting}: CourseCop
       <CommonMigratorControls
         canSelectContent={true}
         isSubmitting={isSubmitting}
-        canImportAsNewQuizzes={nqMigration}
         canAdjustDates={true}
         fileUploadProgress={null}
         canImportBPSettings={

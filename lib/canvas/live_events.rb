@@ -58,24 +58,6 @@ module Canvas::LiveEvents
     )
   end
 
-  def self.scan_youtube_links(payload)
-    post_event_stringified("scan_youtube_links", {
-                             scan_id: payload.scan_id,
-                             canvas_id: payload.canvas_id,
-                             external_tool_id: payload.external_tool_id
-                           })
-  end
-
-  def self.convert_new_quiz_youtube_link(payload)
-    post_event_stringified("convert_new_quiz_youtube_link", {
-                             resource_id: payload.resource_id,
-                             resource_type: payload.resource_type,
-                             src: payload.src,
-                             field: payload.field,
-                             new_html: payload.new_html
-                           })
-  end
-
   def self.conversation_created(conversation)
     post_event_stringified("conversation_created", {
                              conversation_id: conversation.id,
@@ -318,8 +300,6 @@ module Canvas::LiveEvents
       updated_at: assignment.updated_at,
       workflow_state: assignment.workflow_state
     }
-
-    event[:anonymous_participants] = assignment.anonymous_participants?
 
     actl = assignment.assignment_configuration_tool_lookups.take
     domain = assignment.root_account&.environment_specific_domain
@@ -744,24 +724,6 @@ module Canvas::LiveEvents
     )
   end
 
-  def self.quiz_export_complete(content_export)
-    # when importing content export packages, migration_ids are obtained
-    # from content_migrations, a content_migration and content_export can share
-    # the same ID.
-    # The "content-export-" prefix prevents from saving the same migration_id on
-    # records that belong to different migrations
-    post_event_stringified(
-      "quiz_export_complete",
-      quiz_export_complete_data(content_export),
-      amended_context(content_export.context)
-    )
-  end
-
-  def self.quiz_export_complete_data(content_export)
-    (content_export.settings[:quizzes2] || {}
-    ).merge({ content_export_id: "content-export-#{content_export.global_id}" })
-  end
-
   def self.content_migration_completed(content_migration)
     post_event_stringified(
       "content_migration_completed",
@@ -772,23 +734,17 @@ module Canvas::LiveEvents
 
   def self.content_migration_data(content_migration)
     context = content_migration.context
-    import_quizzes_next = content_migration.migration_settings&.[](:import_quizzes_next) == true
-    quiz_next_imported = content_migration.migration_settings&.[](:quiz_next_imported) == true
-    link_migration_during_import = import_quizzes_next
-    need_resource_map = content_migration.source_course&.has_new_quizzes? || link_migration_during_import || quiz_next_imported
-
     payload = {
       content_migration_id: content_migration.global_id,
       context_id: context.global_id,
       context_type: context.class.to_s,
       lti_context_id: context.lti_context_id,
       context_uuid: context.uuid,
-      import_quizzes_next:,
       source_course_lti_id: content_migration.source_course&.lti_context_id,
       source_course_uuid: content_migration.source_course&.uuid,
       destination_course_lti_id: context.lti_context_id,
       migration_type: content_migration.migration_type,
-      resource_map_url: content_migration.asset_map_url(generate_if_needed: need_resource_map)
+      resource_map_url: content_migration.asset_map_url
     }
 
     if context.respond_to?(:root_account)
@@ -804,14 +760,6 @@ module Canvas::LiveEvents
 
   def self.course_section_updated(section)
     post_event_stringified("course_section_updated", get_course_section_data(section))
-  end
-
-  def self.quizzes_next_quiz_duplicated(payload)
-    post_event_stringified("quizzes_next_quiz_duplicated", payload)
-  end
-
-  def self.quizzes_next_migration_urls_complete(payload)
-    post_event_stringified("quizzes_next_migration_urls_complete", payload)
   end
 
   def self.outcomes_retry_outcome_alignment_clone(payload)

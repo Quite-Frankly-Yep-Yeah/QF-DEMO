@@ -27,7 +27,6 @@ ready(() => {
     const courseId: string = ENV.current_context?.id || ''
     const rootAccountId: string = ENV.DOMAIN_ROOT_ACCOUNT_ID
     const accountId: string = ENV.ACCOUNT_ID
-    const canImportAsNewQuizzes: boolean = ENV.NEW_QUIZZES_MIGRATION || false
     const userTimeZone: string | undefined = ENV.TIMEZONE
     const courseTimeZone: string | undefined = ENV.CONTEXT_TIMEZONE
 
@@ -46,7 +45,6 @@ ready(() => {
         accountId={accountId}
         userTimeZone={userTimeZone}
         courseTimeZone={courseTimeZone}
-        canImportAsNewQuizzes={canImportAsNewQuizzes}
       />,
       root,
     )

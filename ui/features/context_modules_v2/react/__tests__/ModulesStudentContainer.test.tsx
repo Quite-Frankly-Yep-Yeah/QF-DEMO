@@ -81,8 +81,6 @@ const contextModuleDefaultProps = {
     canViewUnpublished: false,
     canDirectShare: false,
   },
-  NEW_QUIZZES_ENABLED: false,
-  NEW_QUIZZES_BY_DEFAULT: false,
   DEFAULT_POST_TO_SIS: false,
   teacherViewEnabled: false,
   studentViewEnabled: false,

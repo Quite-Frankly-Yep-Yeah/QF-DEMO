@@ -181,13 +181,7 @@ EditHeaderView.prototype.onShowErrors = function (errors) {
 }
 
 EditHeaderView.prototype.renderHeaderTitle = function () {
-  return this.model.name()
-    ? this.model.isQuizLTIAssignment()
-      ? I18n.t('Edit Quiz')
-      : I18n.t('Edit Assignment')
-    : this.model.isQuizLTIAssignment()
-      ? I18n.t('Create Quiz')
-      : I18n.t('Create New Assignment')
+  return this.model.name() ? I18n.t('Edit Assignment') : I18n.t('Create New Assignment')
 }
 
 EditHeaderView.prototype.toJSON = function () {

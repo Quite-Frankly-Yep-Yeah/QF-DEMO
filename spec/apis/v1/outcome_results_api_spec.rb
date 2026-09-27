@@ -969,40 +969,6 @@ describe "Outcome Results API", type: :request do
           expect(outcome_alignments).to include(quiz_assignment.asset_string)
         end
 
-        it "includes external new quiz alignments in outcomes alignments" do
-          outcome_assessment
-          outcome_course.root_account.enable_feature!(:outcome_alignment_summary_with_new_quizzes)
-
-          nq_assignment = outcome_course.assignments.create!(
-            title: "New Quiz",
-            submission_types: "external_tool",
-            workflow_state: "published"
-          )
-          os_alignments = {
-            outcome_object.id.to_s => [
-              {
-                artifact_type: "quizzes.quiz",
-                associated_asset_type: "canvas.assignment.quizzes",
-                associated_asset_id: nq_assignment.id.to_s
-              }
-            ]
-          }
-          allow_any_instance_of(OutcomeResultsController).to receive(:get_active_os_alignments).and_return(os_alignments)
-
-          api_call(:get,
-                   outcome_rollups_url(outcome_course, include: ["outcomes", "outcomes.alignments"]),
-                   controller: "outcome_results",
-                   action: "rollups",
-                   format: "json",
-                   course_id: outcome_course.id.to_s,
-                   include: ["outcomes", "outcomes.alignments"])
-          json = JSON.parse(response.body)
-
-          outcome_alignments = json["linked"]["outcomes"].find { |o| o["id"].to_s == outcome_object.id.to_s }["alignments"].sort
-          expect(outcome_alignments).to include(outcome_assignment.asset_string)
-          expect(outcome_alignments).to include(nq_assignment.asset_string)
-        end
-
         it "side loads alignments with live assessment" do
           create_outcome_live_assessment
           api_call(:get,

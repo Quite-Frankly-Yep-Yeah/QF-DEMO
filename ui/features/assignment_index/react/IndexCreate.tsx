@@ -26,29 +26,14 @@ const I18n = createI18nScope('assignmentsIndexView')
 
 export type IndexCreateProps = {
   newAssignmentUrl: string
-  quizLtiEnabled: boolean
   manageAssignmentAddPermission: boolean
 }
-export default ({
-  newAssignmentUrl,
-  quizLtiEnabled,
-  manageAssignmentAddPermission,
-}: IndexCreateProps) => {
+export default ({newAssignmentUrl, manageAssignmentAddPermission}: IndexCreateProps) => {
   return (
     <>
       {manageAssignmentAddPermission && (
         <Flex gap="small" wrap="wrap">
           <>
-            {quizLtiEnabled && (
-              <Button
-                id="new_quiz_lti"
-                data-testid="new_quiz_button"
-                renderIcon={<IconAddSolid />}
-                href={newAssignmentUrl + '?quiz_lti'}
-              >
-                {I18n.t('New Quiz')}
-              </Button>
-            )}
             <Button
               data-testid="new_group_button"
               renderIcon={<IconAddSolid />}

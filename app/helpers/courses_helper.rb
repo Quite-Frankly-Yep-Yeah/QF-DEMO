@@ -190,8 +190,6 @@ module CoursesHelper
       if tab_is?(tab, :TAB_COLLABORATIONS)
         Collaboration.any_collaborations_configured?(@context) &&
           !@context.feature_enabled?(:new_collaborations)
-      elsif Lti::ExternalToolTab.tool_for_tab(tab)&.quiz_lti?
-        new_quizzes_navigation_placements_enabled?(@context)
       elsif tab_is?(tab, :TAB_COLLABORATIONS_NEW)
         @context.feature_enabled?(:new_collaborations)
       elsif tab_is?(tab, :TAB_CONFERENCES)

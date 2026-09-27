@@ -873,58 +873,6 @@ describe SubmissionLifecycleManager do
       end
     end
 
-    describe "re-adding removed students from a lti quiz" do
-      before :once do
-        Account.site_admin.enable_feature!(:new_quiz_deleted_workflow_restore_pending_review_state)
-
-        account = Account.create!
-        course_with_student(active_all: true, account:)
-        @new_quiz = new_quizzes_assignment(course: @course, title: "Some New Quiz")
-        @new_quiz.workflow_state = "available"
-        @new_quiz.save!
-      end
-
-      it "assigns the correct workflow state to the new quiz submission if pending_review" do
-        submission = @new_quiz.submit_homework(@student)
-        submission.workflow_state = "pending_review"
-        submission.save!
-        Version.create!(versionable: submission, model: submission)
-
-        submission.update_columns(grade: "5", workflow_state: "deleted")
-
-        expect { SubmissionLifecycleManager.new(@course, @new_quiz).recompute }.to change {
-          submission.reload.workflow_state
-        }.from("deleted").to("pending_review")
-      end
-
-      it "assigns the correct workflow state to the new quiz submission if graded" do
-        submission = @new_quiz.submit_homework(@student)
-        submission.workflow_state = "graded"
-        submission.save!
-        Version.create!(versionable: submission, model: submission)
-
-        submission.update_columns(grade: "5", workflow_state: "deleted")
-
-        expect { SubmissionLifecycleManager.new(@course, @new_quiz).recompute }.to change {
-          submission.reload.workflow_state
-        }.from("deleted").to("graded")
-      end
-
-      it "does not assign workflow to pending_review when feature flag off" do
-        Account.site_admin.disable_feature!(:new_quiz_deleted_workflow_restore_pending_review_state)
-        submission = @new_quiz.submit_homework(@student)
-        submission.workflow_state = "pending_review"
-        submission.save!
-        Version.create!(versionable: submission, model: submission)
-
-        submission.update_columns(grade: "5", workflow_state: "deleted")
-
-        expect { SubmissionLifecycleManager.new(@course, @new_quiz).recompute }.to change {
-          submission.reload.workflow_state
-        }.from("deleted").to("graded")
-      end
-    end
-
     describe "updated_at" do
       it "updates the updated_at when the workflow_state of a submission changes" do
         submission.update!(workflow_state: "deleted")
@@ -1504,31 +1452,6 @@ describe SubmissionLifecycleManager do
           submission_count = Submission.active.where(assignment: @assignment, user_id: new_student_ids).count
           expect(submission_count).to eq 2
         end
-      end
-    end
-
-    describe "cached_quiz_lti" do
-      let_once(:tool) do
-        @course.context_external_tools.create!(
-          name: "Quizzes.Next",
-          consumer_key: "test_key",
-          shared_secret: "test_secret",
-          tool_id: "Quizzes 2",
-          url: "http://example.com/launch"
-        )
-      end
-
-      it "sets cached_quiz_lti to false if the assignment is not a Quizzes.Next assignment" do
-        cacher.recompute
-        expect(submission).not_to be_cached_quiz_lti
-      end
-
-      it "sets cached_quiz_lti to true if the assignment's external tool identifies itself as Quizzes 2" do
-        @assignment.update!(submission_types: "external_tool")
-        tool.content_tags.create!(context: @assignment)
-
-        cacher.recompute
-        expect(submission).to be_cached_quiz_lti
       end
     end
 

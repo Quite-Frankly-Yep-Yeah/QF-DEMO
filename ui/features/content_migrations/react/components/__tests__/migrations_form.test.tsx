@@ -103,7 +103,6 @@ describe('ContentMigrationForm', () => {
 
     fakeEnv.setup({
       COURSE_ID: '0',
-      NEW_QUIZZES_MIGRATION: true,
       current_user: {id: '1'},
     })
 
@@ -157,7 +156,9 @@ describe('ContentMigrationForm', () => {
     const selectOne = await screen.findByTitle('Select one')
     await userEvent.click(selectOne)
     expect(screen.getByText('Copy a quite frankly an example LMS Course')).toBeInTheDocument()
-    expect(screen.getByText('quite frankly an example LMS Course Export Package')).toBeInTheDocument()
+    expect(
+      screen.getByText('quite frankly an example LMS Course Export Package'),
+    ).toBeInTheDocument()
   })
 
   it('performs POST when submitting', async () => {
@@ -176,7 +177,7 @@ describe('ContentMigrationForm', () => {
       expect(postRequestBody).toStrictEqual({
         course_id: '0',
         migration_type: 'course_copy_importer',
-        settings: {import_quizzes_next: false, source_course_id: '3'},
+        settings: {source_course_id: '3'},
         selective_import: false,
         date_shift_options: {
           day_substitutions: {},

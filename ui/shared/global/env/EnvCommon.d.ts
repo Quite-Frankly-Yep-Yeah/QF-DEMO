@@ -318,7 +318,6 @@ export type SiteAdminFeatureId =
   | 'instui_nav'
   | 'media_links_use_attachment_id'
   | 'multiselect_gradebook_filters'
-  | 'new_quizzes_navigation_updates'
   | 'permanent_page_links'
   | 'render_both_to_do_lists'
   | 'scheduled_feedback_releases'

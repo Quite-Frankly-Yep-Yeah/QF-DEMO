@@ -293,7 +293,6 @@ class Submission < ApplicationRecord
             AND submission_type IS NULL
             /* we expect a digital submission */
             AND NOT (
-              cached_quiz_lti IS NOT TRUE AND
               assignments.submission_types IN ('', 'none', 'not_graded', 'on_paper', 'wiki_page', 'external_tool', 'ams')
             )
             AND assignments.submission_types IS NOT NULL
@@ -760,7 +759,7 @@ class Submission < ApplicationRecord
   end
 
   def can_read_submission_user_name?(user, session)
-    if user_id != user.id && (assignment.anonymize_students? || assignment.new_quizzes_anonymous_participants?)
+    if user_id != user.id && assignment.anonymize_students?
       return false
     end
 
@@ -1538,13 +1537,6 @@ class Submission < ApplicationRecord
   end
   # End Plagiarism functions
 
-  def tool_default_query_params(current_user)
-    return {} unless cached_quiz_lti?
-
-    grade_by_question_enabled = current_user.preferences.fetch(:enable_speedgrader_grade_by_question, false)
-    { grade_by_question_enabled: }
-  end
-
   def external_tool_url(query_params: {})
     return unless submission_type == "basic_lti_launch"
 
@@ -1693,9 +1685,6 @@ class Submission < ApplicationRecord
 
   def inferred_workflow_state
     inferred_state = workflow_state
-
-    # New Quizzes returned a partial grade, but manual review is needed from a human
-    return workflow_state if pending_review? && cached_quiz_lti
 
     inferred_state = "submitted" if unsubmitted? && submitted_at
     inferred_state = "unsubmitted" if submitted? && !has_submission?
@@ -1863,7 +1852,7 @@ class Submission < ApplicationRecord
     return if points_deducted_changed? || grading_period&.closed?
 
     incoming_assignment ||= assignment
-    return unless late_policy_status_manually_applied? || incoming_assignment.expects_submission? || for_new_quiz?(incoming_assignment) || submitted_to_lti_assignment?(incoming_assignment)
+    return unless late_policy_status_manually_applied? || incoming_assignment.expects_submission? || submitted_to_lti_assignment?(incoming_assignment)
 
     late_policy ||= incoming_assignment.course.late_policy
     return score_missing(late_policy, incoming_assignment.points_possible, incoming_assignment.grading_type) if missing?
@@ -2831,13 +2820,9 @@ class Submission < ApplicationRecord
       return false if submitted_at.present?
       return false unless past_due?
 
-      for_new_quiz? || assignment.expects_submission?
+      assignment.expects_submission?
     end
     alias_method :missing, :missing?
-
-    def for_new_quiz?(quiz_assignment = assignment)
-      cached_quiz_lti? || !!quiz_assignment&.quiz_lti?
-    end
 
     def extended?
       return false if excused?
@@ -2861,7 +2846,7 @@ class Submission < ApplicationRecord
 
     def time_of_submission
       time = submitted_at || Time.zone.now
-      time -= 60.seconds if submission_type == "online_quiz" || cached_quiz_lti?
+      time -= 60.seconds if submission_type == "online_quiz"
 
       if discussion_checkpoint_submission_with_required_replies?
         checkpoint_completion_time = calculate_checkpoint_completion_time
@@ -3847,7 +3832,7 @@ class Submission < ApplicationRecord
     InstStatsd::Statsd.gauge("submission.manually_graded.grading_time",
                              time,
                              Setting.get("submission_grading_timing_sample_rate", "1.0").to_f,
-                             tags: { quiz_type: (submission_type == "online_quiz") ? "classic_quiz" : "new_quiz" })
+                             tags: { quiz_type: "classic_quiz" })
   end
 
   # we should only extract text when the content associated with the submission has changed, and is present.

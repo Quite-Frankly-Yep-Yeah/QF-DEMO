@@ -71,43 +71,6 @@ describe "BaseOutcomeReport" do
     end
   end
 
-  describe "#map_order_to_columns" do
-    it "maps the order to the correct columns" do
-      outcome_order = "u.id, learning_outcomes.id, c.id"
-      expected_columns = ["student id", "learning outcome id", "course id"]
-      expect(report.send(:map_order_to_columns, outcome_order)).to eq(expected_columns)
-    end
-  end
-
-  describe "#canvas_next?" do
-    let(:canvas) { { "student id" => 1, "course id" => 2, "learning outcome id" => 1 } }
-    let(:os_scope) { [{ "student id" => 1, "course id" => 2, "learning outcome id" => 1 }, { "student id" => 2, "course id" => 3, "learning outcome id" => 1 }] }
-    let(:os_index) { 0 }
-
-    it "returns true if os_index is out of bounds" do
-      expect(report.send(:canvas_next?, canvas, os_scope, os_scope.length)).to be true
-    end
-
-    it "returns true if canvas[column] < os[column]" do
-      canvas["student id"] = 0
-      expect(report.send(:canvas_next?, canvas, os_scope, os_index)).to be true
-    end
-
-    it "returns false if canvas[column] > os[column]" do
-      canvas["student id"] = 3
-      expect(report.send(:canvas_next?, canvas, os_scope, os_index)).to be false
-    end
-
-    it "returns true if all columns are equal" do
-      expect(report.send(:canvas_next?, canvas, os_scope, os_index)).to be true
-    end
-
-    it "returns true if all columns are equal and os_index is within bounds" do
-      os_index = 1
-      expect(report.send(:canvas_next?, canvas, os_scope, os_index)).to be true
-    end
-  end
-
   describe "#write_outcomes_report" do
     let(:headers) { ["student name", "student id", "course id", "learning outcome id", "submission date"] }
     let(:config_options) { {} }
@@ -204,31 +167,6 @@ describe "BaseOutcomeReport" do
       # Additional assertions
       expect(csv.length).to eq(2) # Only headers and Record #2 should be present
       expect(csv[1]).to include("Processed John Doe 2")
-    end
-
-    it "writes records from canvas_scope before os_scope by default" do
-      # Assigning OS scope
-      config_options[:new_quizzes_scope] = [{
-        "student name" => "OS John Doe",
-        "student id" => 1,
-        "course id" => 1,
-        "learning outcome id" => 1,
-        "submission date" => Time.now.utc
-      }]
-
-      # Execute the method
-      report.send(:write_outcomes_report, headers, canvas_scope, config_options)
-
-      # All records should be present, record order should be Header, quite frankly an example LMS, OS, quite frankly an example LMS, ...
-      expect(csv.length).to eq(5)
-      # quite frankly an example LMS record #1
-      expect(csv[1][0]).to be_nil
-      expect(csv[1][1]).to eq(1)
-      # OS record
-      expect(csv[2]).to include("OS John Doe")
-      # quite frankly an example LMS record #2
-      expect(csv[3][0]).to be_nil
-      expect(csv[3][1]).to eq(2)
     end
 
     it "writes a message if no records are found" do

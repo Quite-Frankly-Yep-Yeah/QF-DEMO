@@ -40,11 +40,7 @@ module Messages::SubmissionCommentForTeacher
     end
 
     def anonymous?
-      if assignment.quiz_lti?
-        assignment.anonymous_participants?
-      else
-        assignment.anonymize_students?
-      end
+      assignment.anonymize_students?
     end
 
     delegate :attachments, :media_comment?, to: :submission_comment

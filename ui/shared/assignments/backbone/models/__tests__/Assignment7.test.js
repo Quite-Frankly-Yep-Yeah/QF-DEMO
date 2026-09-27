@@ -22,47 +22,6 @@ import Assignment from '../Assignment'
 import fakeENV from '@canvas/test-utils/fakeENV'
 
 describe('Assignment', () => {
-  describe('#quizzesRespondusEnabled', () => {
-    let assignment
-
-    beforeEach(() => {
-      assignment = new Assignment()
-      fakeENV.setup({current_user_roles: []})
-    })
-
-    afterEach(() => {
-      fakeENV.teardown()
-    })
-
-    it('returns false if the assignment is not RLDB enabled', () => {
-      fakeENV.setup({current_user_roles: ['student']})
-      assignment.set('require_lockdown_browser', false)
-      assignment.set('is_quiz_lti_assignment', true)
-      expect(assignment.quizzesRespondusEnabled()).toBe(false)
-    })
-
-    it('returns false if the assignment is not a N.Q assignment', () => {
-      fakeENV.setup({current_user_roles: ['student']})
-      assignment.set('require_lockdown_browser', true)
-      assignment.set('is_quiz_lti_assignment', false)
-      expect(assignment.quizzesRespondusEnabled()).toBe(false)
-    })
-
-    it('returns false if the user is not a student', () => {
-      fakeENV.setup({current_user_roles: ['teacher']})
-      assignment.set('require_lockdown_browser', true)
-      assignment.set('is_quiz_lti_assignment', true)
-      expect(assignment.quizzesRespondusEnabled()).toBe(false)
-    })
-
-    it('returns true if the assignment is a RLDB enabled N.Q', () => {
-      fakeENV.setup({current_user_roles: ['student']})
-      assignment.set('require_lockdown_browser', true)
-      assignment.set('is_quiz_lti_assignment', true)
-      expect(assignment.quizzesRespondusEnabled()).toBe(true)
-    })
-  })
-
   describe('#externalToolTagAttributes', () => {
     const externalData = {
       key1: 'val1',

@@ -197,7 +197,7 @@ class SubmissionSearch
   end
 
   def order_by_username(search_scope:, direction:, sortable_name: false)
-    if @assignment.anonymize_students? || @assignment.new_quizzes_anonymous_participants?
+    if @assignment.anonymize_students?
       return order_by_anonymous_username(search_scope:, direction:)
     end
 

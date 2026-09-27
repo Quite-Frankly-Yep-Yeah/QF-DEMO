@@ -74,13 +74,11 @@ describe('SpeedGrader Timeouts', () => {
     }
 
     vi.spyOn(SpeedGraderHelpers, 'getHistory').mockReturnValue(history)
-    vi
-      .spyOn(SpeedGraderHelpers, 'setLocation')
-      .mockImplementation(url => (documentLocation = url))
+    vi.spyOn(SpeedGraderHelpers, 'setLocation').mockImplementation(url => (documentLocation = url))
     vi.spyOn(SpeedGraderHelpers, 'getLocation').mockImplementation(() => documentLocation)
-    vi
-      .spyOn(SpeedGraderHelpers, 'setLocationHash')
-      .mockImplementation(hash => (documentLocationHash = hash))
+    vi.spyOn(SpeedGraderHelpers, 'setLocationHash').mockImplementation(
+      hash => (documentLocationHash = hash),
+    )
     vi.spyOn(SpeedGraderHelpers, 'getLocationHash').mockImplementation(() => documentLocationHash)
     vi.spyOn(SpeedGraderHelpers, 'reloadPage').mockImplementation(() => {})
 
@@ -102,7 +100,6 @@ describe('SpeedGrader Timeouts', () => {
       help_url: 'example.com/support',
       show_help_menu_item: false,
       assignment_title: 'Assignment Title',
-      SINGLE_NQ_SESSION_ENABLED: true,
     })
 
     // Stub domReady to prevent actual initialization

@@ -115,18 +115,6 @@ outcomes_friendly_description:
       state: on
     ci:
       state: on
-outcome_service_results_to_canvas:
-  state: hidden
-  applies_to: Course
-  display_name: Outcome Service Results to quite frankly an example LMS Reporting
-  description: Allows result data stored in the Outcomes Service to display in quite frankly an example LMS reporting (LMGB, sLMGB and outcome related admin reporting).
-  environments:
-    development:
-      state: on
-    test:
-      state: on
-    ci:
-      state: on
 outcome_average_calculation:
   state: allowed_on
   applies_to: RootAccount
@@ -134,18 +122,6 @@ outcome_average_calculation:
   description: Allows users to use average as a calculation method for a given outcome.
   environments:
     development:
-      state: on
-outcome_alignment_summary_with_new_quizzes:
-  state: hidden
-  applies_to: Course
-  display_name: New Quizzes included on Outcome Alignment Summary Tab
-  description: New Quizzes outcome alignments are included on the Outcome Alignment Summary Tab, which provides a list of alignments for each outcome in a course.
-  environments:
-    development:
-      state: on
-    test:
-      state: on
-    ci:
       state: on
 outcomes_new_decaying_average_calculation:
   state: hidden

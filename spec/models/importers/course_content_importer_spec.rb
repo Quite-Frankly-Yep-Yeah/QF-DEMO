@@ -348,22 +348,6 @@ describe Course do
       expect(a1.reload).to be_deleted # didn't restore the previously deleted assignment too
     end
 
-    context "when it is a Quizzes.Next import process" do
-      let(:migration) do
-        params = { copy: { "everything" => true } }
-        build_migration(@course, params)
-      end
-
-      before do
-        allow(migration).to receive(:quizzes_next_import_process?).and_return(true)
-      end
-
-      it "does not set workflow_state to imported" do
-        setup_import(@course, "assessments.json", migration)
-        expect(migration.workflow_state).not_to eq("imported")
-      end
-    end
-
     describe "content migration workflow_state" do
       subject { setup_import(@course, "assessments.json", migration) }
 
@@ -383,18 +367,6 @@ describe Course do
           subject
           expect(migration.workflow_state).to eq("imported")
         end
-
-        context "when common_cartridge_qti_new_quizzes_import_enabled? is true" do
-          before do
-            Account.site_admin.enable_feature!(:common_cartridge_qti_new_quizzes_import)
-            migration.context.root_account.enable_feature!(:new_quizzes_migration)
-          end
-
-          it "does not set workflow_state to imported" do
-            subject
-            expect(migration.workflow_state).not_to eq("imported")
-          end
-        end
       end
 
       context "when the migration_type is canvas_cartridge_importer" do
@@ -405,38 +377,6 @@ describe Course do
         it "set workflow_state to imported" do
           subject
           expect(migration.workflow_state).to eq("imported")
-        end
-
-        context "when common_cartridge_qti_new_quizzes_import_enabled? is true" do
-          before do
-            Account.site_admin.enable_feature!(:common_cartridge_qti_new_quizzes_import)
-            migration.context.root_account.enable_feature!(:new_quizzes_migration)
-          end
-
-          it "does not set workflow_state to imported" do
-            subject
-            expect(migration.workflow_state).not_to eq("imported")
-          end
-        end
-      end
-
-      context "when quizzes_next is enabled" do
-        before { migration.context.enable_feature!(:quizzes_next) }
-
-        it "set workflow_state to imported" do
-          subject
-          expect(migration.workflow_state).to eq("imported")
-        end
-
-        context "when import_quizzes_next is true in migration settings" do
-          before do
-            migration.migration_settings[:import_quizzes_next] = true
-          end
-
-          it "set workflow_state to imported" do
-            subject
-            expect(migration.workflow_state).not_to eq("imported")
-          end
         end
       end
     end

@@ -459,7 +459,7 @@ class AssignmentGroupsController < ApplicationController
       groups,
       includes: assignment_includes,
       assignment_ids:
-    ).where("COALESCE(settings->'new_quizzes'->>'type', '') != 'ungraded_survey'")
+    )
 
     if value_to_boolean(params[:hide_zero_point_quizzes])
       assignments = assignments.not_hidden_in_gradebook

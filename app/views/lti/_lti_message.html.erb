@@ -47,7 +47,7 @@
   <% js_bundle :edit_rubric %>
 <% end %>
 
-<% if @assignment.present? && !@assignment.quiz_lti? && can_do(@assignment, @current_user, :update) %>
+<% if @assignment.present? && can_do(@assignment, @current_user, :update) %>
   <% if Rubric.enhanced_rubrics_assignments_enabled?(@context) %>
     <div id="enhanced-rubric-assignment-edit-mount-point"></div>
     <% unless @current_user_submission&.has_submission? && @domain_root_account&.feature_enabled?(:lti_before_assignment_results) %>
@@ -69,7 +69,7 @@
 
 <!--Show partial rubrics ERB if enhanced_rubrics_assignments is not enabled or in Student View-->
 <% if !Rubric.enhanced_rubrics_assignments_enabled?(@context) || !can_do(@context, @current_user, :read_as_admin)%>
-  <%= render :partial => "shared/rubrics_component", :locals => {:is_a2_student_view => @assignment.a2_enabled? && !can_do(@context, @current_user, :read_as_admin) } if @assignment.present? && !@assignment.quiz_lti? %>
+  <%= render :partial => "shared/rubrics_component", :locals => {:is_a2_student_view => @assignment.a2_enabled? && !can_do(@context, @current_user, :read_as_admin) } if @assignment.present? %>
 
   <% if Rubric.rubric_self_assessment_enabled?(@context) && can_do(@context, @current_user, :read_as_admin) %>
     <div id="enhanced-rubric-self-assessment-edit"></div>

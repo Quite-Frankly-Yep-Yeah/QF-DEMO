@@ -139,7 +139,6 @@ describe "Module Items API", type: :request do
           "published" => false,
           "unpublishable" => true,
           "module_id" => @module1.id,
-          "quiz_lti" => false
         },
         {
           "type" => "Quiz",
@@ -154,7 +153,6 @@ describe "Module Items API", type: :request do
           "published" => true,
           "unpublishable" => true,
           "module_id" => @module1.id,
-          "quiz_lti" => false
         },
         {
           "type" => "Discussion",
@@ -169,7 +167,6 @@ describe "Module Items API", type: :request do
           "published" => true,
           "unpublishable" => true,
           "module_id" => @module1.id,
-          "quiz_lti" => false
         },
         {
           "type" => "SubHeader",
@@ -180,7 +177,6 @@ describe "Module Items API", type: :request do
           "published" => true,
           "unpublishable" => true,
           "module_id" => @module1.id,
-          "quiz_lti" => false
         },
         {
           "type" => "Assignment",
@@ -195,7 +191,6 @@ describe "Module Items API", type: :request do
           "published" => true,
           "unpublishable" => true,
           "module_id" => @module1.id,
-          "quiz_lti" => false
         },
         {
           "type" => "ExternalUrl",
@@ -210,7 +205,6 @@ describe "Module Items API", type: :request do
           "unpublishable" => true,
           "module_id" => @module1.id,
           "new_tab" => nil,
-          "quiz_lti" => false
         }
       ]
       expect(json).to eq expected
@@ -363,7 +357,6 @@ describe "Module Items API", type: :request do
                            "publish_at" => nil,
                            "unpublishable" => true,
                            "module_id" => @module2.id,
-                           "quiz_lti" => false
                          })
 
       @attachment_tag.unpublish
@@ -387,7 +380,6 @@ describe "Module Items API", type: :request do
                            "published" => false,
                            "unpublishable" => true,
                            "module_id" => @module2.id,
-                           "quiz_lti" => false
                          })
     end
 

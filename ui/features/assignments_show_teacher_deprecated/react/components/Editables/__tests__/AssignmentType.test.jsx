@@ -91,20 +91,6 @@ it.skip('has 3 options if quiz.next is not enabled', () => {
 
 // Skipped: InstUI Select component v7 API changes broke edit mode functionality.
 // See comment at top of SelectableText.jsx - fix when work resumes on A2.
-it.skip('has 4 options if quiz.next is enabled', () => {
-  fakeENV.setup({QUIZ_LTI_ENABLED: true})
-  const {container} = render(
-    <AssignmentType
-      mode="edit"
-      onChange={() => {}}
-      onChangeMode={() => {}}
-      selectedAssignmentType="assignment"
-    />,
-  )
-  const input = container.querySelector('input')
-  input.click()
-  expect(document.querySelectorAll('li[role="option"]')).toHaveLength(4)
-})
 
 // Skipped: InstUI Select component v7 API changes broke edit mode functionality.
 // See comment at top of SelectableText.jsx - fix when work resumes on A2.

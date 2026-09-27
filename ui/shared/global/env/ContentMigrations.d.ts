@@ -27,12 +27,7 @@ export interface EnvContentMigrations {
       title: string
     }
   }[]
-  NEW_QUIZZES_IMPORT?: boolean
-  NEW_QUIZZES_MIGRATION?: boolean
   QUIZZES_NEXT_ENABLED?: boolean
-  NEW_QUIZZES_MIGRATION_DEFAULT?: boolean
-  NEW_QUIZZES_MIGRATION_REQUIRED?: boolean
-  NEW_QUIZZES_UNATTACHED_BANK_MIGRATIONS?: boolean
   EXPORT_WARNINGS?: string[]
   SHOW_BP_SETTINGS_IMPORT_OPTION?: boolean
   SHOW_SELECT?: boolean

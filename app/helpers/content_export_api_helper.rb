@@ -42,22 +42,9 @@ module ContentExportApiHelper
     when "zip"
       export.export_type = ContentExport::ZIP
       export.selected_content = selected_content || { all_attachments: true }
-    when "quizzes2"
-      if params[:quiz_id].nil? || params[:quiz_id] !~ Api::ID_REGEX
-        return render json: { message: "quiz_id required and must be a valid ID" },
-                      status: :bad_request
-      elsif !context.quizzes.exists?(params[:quiz_id])
-        return render json: { message: "Quiz could not be found" }, status: :bad_request
-      else
-        export.export_type = ContentExport::QUIZZES2
-        # we pass the quiz_id of the quiz we want to clone here
-        export.selected_content = params[:quiz_id]
-      end
     else
       export.export_type = ContentExport::COMMON_CARTRIDGE
       export.selected_content = selected_content || { everything: true }
-      selected_assignments = get_selected_assignments(export, params[:select]) if params[:select]
-      export.prepare_new_quizzes_export(selected_assignments)
     end
     # recheck, since the export type influences permissions (e.g., students can download zips of non-locked files, but not common cartridges)
     return unless authorized_action(export, current_user, :create)
@@ -71,8 +58,7 @@ module ContentExportApiHelper
     if export.save
       export.initialize_job_progress
 
-      export.quizzes2_build_assignment(opts) if export.new_quizzes_page_enabled?
-      export.export(opts) unless export.waiting_for_external_tool?
+      export.export(opts)
     end
     export
   end

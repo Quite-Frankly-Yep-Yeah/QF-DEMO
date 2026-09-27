@@ -33,7 +33,6 @@ module CC
       @course = opts[:course] || @content_export.context
       raise "CCExporter supports only Courses" unless @course.is_a?(Course) # a Course is a Course, of course, of course
 
-      @disable_content_rewriting = @content_export&.disable_content_rewriting?
       @user = opts[:user] || @content_export.user
       @export_dir = nil
       @manifest = nil
@@ -181,12 +180,6 @@ module CC
 
     def for_external_migration?
       @content_export && !(@qti_only_export || epub_export?)
-    end
-
-    delegate :include_new_quizzes_in_export?, to: :@content_export
-
-    def new_quizzes_export_url
-      @content_export.settings[:new_quizzes_export_url]
     end
 
     delegate :common_cartridge?, to: :@content_export

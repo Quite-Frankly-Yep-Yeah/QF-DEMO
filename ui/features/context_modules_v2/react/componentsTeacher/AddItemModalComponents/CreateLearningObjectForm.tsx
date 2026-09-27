@@ -26,7 +26,7 @@ import {useCourseFolders} from '../../hooks/queries/useCourseFolders'
 import {useContextModule} from '../../hooks/useModuleContext'
 import {useAssignmentGroups} from '../../hooks/queries/useAssignmentGroups'
 import ModuleFileDrop from '../AddItemModalComponents/ModuleFileDrop'
-import {QuizEngine, FormState} from '../../utils/types'
+import {FormState} from '../../utils/types'
 import type {Action} from '../../hooks/mutations/useAddModuleItem'
 import AddItemFormFieldGroup, {AddItemFormFieldGroupData} from './AddItemFormFieldGroup'
 
@@ -52,7 +52,7 @@ export const CreateLearningObjectForm: React.FC<CreateLearningObjectFormProps> =
   moduleName,
 }: CreateLearningObjectFormProps) => {
   const [folder, setFolder] = useState<string | undefined>(undefined)
-  const {courseId, showQuizzesEngineSelection, quizEngine, setQuizEngine} = useContextModule()
+  const {courseId} = useContextModule()
   const {folders} = useCourseFolders(courseId)
   const {data: assignmentGroups} = useAssignmentGroups(courseId)
   const defaultAssignmentGroup = assignmentGroups?.assignmentGroups[0]
@@ -70,25 +70,6 @@ export const CreateLearningObjectForm: React.FC<CreateLearningObjectFormProps> =
   const renderQuizFormFields = () => {
     return (
       <>
-        {showQuizzesEngineSelection && (
-          <SimpleSelect
-            data-testid="create-item-quiz-engine-select"
-            renderLabel={I18n.t('Select quiz type')}
-            assistiveText={I18n.t(
-              'Select the quiz engine. Use the arrow keys to navigate options, then press Enter to confirm.',
-            )}
-            value={quizEngine}
-            onChange={(_e, {value}) => setQuizEngine(value as QuizEngine)}
-          >
-            <SimpleSelect.Option id="classic" key="classic" value="classic">
-              {I18n.t('Quiz Classic')}
-            </SimpleSelect.Option>
-            <SimpleSelect.Option id="new" key="new" value="new">
-              {I18n.t('Quiz New')}
-            </SimpleSelect.Option>
-          </SimpleSelect>
-        )}
-
         <View as="div" padding="medium none none none">
           <SimpleSelect
             renderLabel="Assignment Group"

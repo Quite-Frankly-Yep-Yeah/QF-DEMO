@@ -104,10 +104,6 @@ module Canvas::LiveEventsCallbacks
 
   def self.after_update(obj, changes)
     case obj
-    when ContentExport
-      if obj.quizzes2_export? && changes["workflow_state"] && obj.workflow_state == "exported"
-        Canvas::LiveEvents.quiz_export_complete(obj)
-      end
     when ContentMigration
       if changes["workflow_state"] && obj.workflow_state == "imported"
         Canvas::LiveEvents.content_migration_completed(obj)
@@ -218,10 +214,6 @@ module Canvas::LiveEventsCallbacks
     when MasterCourses::MasterTemplate
       if %w[default_restrictions use_default_restrictions_by_type default_restrictions_by_type].any? { |field| changes[field] }
         Canvas::LiveEvents.default_blueprint_restrictions_updated(obj)
-      end
-    when MasterCourses::MasterContentTag
-      if %w[restrictions use_default_restrictions].any? { |f| changes[f] } && obj.quiz_lti_content?
-        Canvas::LiveEvents.blueprint_restrictions_updated(obj)
       end
     when MasterCourses::ChildSubscription
       if changes["workflow_state"] && obj.workflow_state == "active"

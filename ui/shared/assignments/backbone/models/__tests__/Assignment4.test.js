@@ -194,30 +194,8 @@ describe('Assignment', () => {
       })
 
       // Skipped: htmlUrl returns undefined - ARC-9210
-      it('uses edit url for htmlUrl when managing a quiz_lti assignment', () => {
-        const assignment = new Assignment({
-          html_url: 'http://example.com/assignments/1',
-          is_quiz_lti_assignment: true,
-        })
-        ENV.PERMISSIONS = {manage: true}
-        expect(assignment.toView().htmlUrl).toBe(
-          'http://example.com/assignments/1/edit?quiz_lti=true',
-        )
-        ENV.PERMISSIONS = {}
-        ENV.FLAGS = {}
-      })
 
       // Skipped: htmlUrl returns undefined - ARC-9210
-      it('uses htmlUrl when not managing a quiz_lti assignment', () => {
-        const assignment = new Assignment({
-          html_url: 'http://example.com/assignments/1',
-          is_quiz_lti_assignment: true,
-        })
-        ENV.PERMISSIONS = {manage: false}
-        expect(assignment.toView().htmlUrl).toBe('http://example.com/assignments/1')
-        ENV.PERMISSIONS = {}
-        ENV.FLAGS = {}
-      })
 
       // Skipped: htmlEditUrl returns undefined - ARC-9210
       it('includes htmlEditUrl', () => {

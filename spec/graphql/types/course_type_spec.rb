@@ -548,10 +548,6 @@ describe Types::CourseType do
         @quiz_1 = course.quizzes.create!(title: "asdf", quiz_type: "assignment")
         @quiz_2 = course.quizzes.create!(title: "asdf2", quiz_type: "assignment")
         @quiz_3 = course.quizzes.create!(title: "asdf3", quiz_type: "assignment")
-        @quiz_lti_1 = new_quizzes_assignment(course:, title: "quiz_lti_1")
-
-        @quiz_lti_1.quiz_lti!
-        @quiz_lti_1.save!
       end
 
       shared_examples "userId filter tests" do
@@ -571,117 +567,46 @@ describe Types::CourseType do
         end
       end
 
-      context "without new quizzes enabled" do
-        let(:expected_quiz_ids_for_teacher) { [@quiz_1.id.to_s, @quiz_2.id.to_s, @quiz_3.id.to_s] }
+      let(:expected_quiz_ids_for_teacher) { [@quiz_1.id.to_s, @quiz_2.id.to_s, @quiz_3.id.to_s] }
 
-        it "returns quizzes" do
+      it "returns quizzes" do
+        expect(
+          course_type.resolve("quizzesConnection { edges { node { _id } } }", current_user: @teacher)
+        ).to match_array [@quiz_1.id.to_s, @quiz_2.id.to_s, @quiz_3.id.to_s]
+      end
+
+      context "searchTerm" do
+        it "returns quizzes with general search term" do
           expect(
-            course_type.resolve("quizzesConnection { edges { node { _id } } }", current_user: @teacher)
+            course_type.resolve("quizzesConnection(filter: { searchTerm: \"asdf\" }) { edges { node { _id } } }", current_user: @teacher)
           ).to match_array [@quiz_1.id.to_s, @quiz_2.id.to_s, @quiz_3.id.to_s]
         end
 
-        context "searchTerm" do
-          it "returns quizzes with general search term" do
-            expect(
-              course_type.resolve("quizzesConnection(filter: { searchTerm: \"asdf\" }) { edges { node { _id } } }", current_user: @teacher)
-            ).to match_array [@quiz_1.id.to_s, @quiz_2.id.to_s, @quiz_3.id.to_s]
-          end
-
-          it "returns quizzes with specific search term" do
-            expect(
-              course_type.resolve("quizzesConnection(filter: { searchTerm: \"asdf2\" }) { edges { node { _id } } }", current_user: @teacher)
-            ).to match_array [@quiz_2.id.to_s]
-          end
-
-          it "returns empty array for LTI quiz search term" do
-            expect(
-              course_type.resolve("quizzesConnection(filter: { searchTerm: \"quiz_lti_1\" }) { edges { node { _id } } }", current_user: @teacher)
-            ).to be_empty
-          end
+        it "returns quizzes with specific search term" do
+          expect(
+            course_type.resolve("quizzesConnection(filter: { searchTerm: \"asdf2\" }) { edges { node { _id } } }", current_user: @teacher)
+          ).to match_array [@quiz_2.id.to_s]
         end
-
-        context "as a student" do
-          it "returns quizzes" do
-            expect(
-              course_type.resolve("quizzesConnection { edges { node { _id } } }", current_user: @student)
-            ).to match_array [@quiz_1.id.to_s, @quiz_2.id.to_s, @quiz_3.id.to_s]
-          end
-
-          it "returns only quizzes assigned to the student" do
-            new_section = course.course_sections.create!(name: "new section")
-            @quiz_1.assignment_overrides.create!(course_section: new_section)
-            @quiz_1.update!(only_visible_to_overrides: true)
-            expect(
-              course_type.resolve("quizzesConnection { edges { node { _id } } }", current_user: @student)
-            ).to match_array [@quiz_2.id.to_s, @quiz_3.id.to_s]
-          end
-        end
-
-        it_behaves_like "userId filter tests"
       end
 
-      context "with new quizzes enabled" do
-        let(:expected_quiz_ids_for_teacher) { [@quiz_1.id.to_s, @quiz_2.id.to_s, @quiz_3.id.to_s, @quiz_lti_1.id.to_s] }
-
-        before do
-          course.context_external_tools.create!(
-            name: "Quizzes.Next",
-            consumer_key: "test_key",
-            shared_secret: "test_secret",
-            tool_id: "Quizzes 2",
-            url: "http://example.com/launch"
-          )
-          course.root_account.settings[:provision] = { "lti" => "lti url" }
-          course.root_account.save!
-          course.root_account.enable_feature! :quizzes_next
-          course.enable_feature! :quizzes_next
-        end
-
+      context "as a student" do
         it "returns quizzes" do
           expect(
-            course_type.resolve("quizzesConnection { edges { node { _id } } }", current_user: @teacher)
-          ).to match_array [@quiz_1.id.to_s, @quiz_2.id.to_s, @quiz_3.id.to_s, @quiz_lti_1.id.to_s]
+            course_type.resolve("quizzesConnection { edges { node { _id } } }", current_user: @student)
+          ).to match_array [@quiz_1.id.to_s, @quiz_2.id.to_s, @quiz_3.id.to_s]
         end
 
-        context "searchTerm" do
-          it "returns quizzes with general search term" do
-            expect(
-              course_type.resolve("quizzesConnection(filter: { searchTerm: \"asdf\" }) { edges { node { _id } } }", current_user: @teacher)
-            ).to match_array [@quiz_1.id.to_s, @quiz_2.id.to_s, @quiz_3.id.to_s]
-          end
-
-          it "returns quizzes with specific search term" do
-            expect(
-              course_type.resolve("quizzesConnection(filter: { searchTerm: \"asdf2\" }) { edges { node { _id } } }", current_user: @teacher)
-            ).to match_array [@quiz_2.id.to_s]
-          end
-
-          it "returns quiz with new engine" do
-            expect(
-              course_type.resolve("quizzesConnection(filter: { searchTerm: \"quiz_lti_1\" }) { edges { node { quizType } } }", current_user: @teacher)
-            ).to match_array ["assignment"]
-          end
+        it "returns only quizzes assigned to the student" do
+          new_section = course.course_sections.create!(name: "new section")
+          @quiz_1.assignment_overrides.create!(course_section: new_section)
+          @quiz_1.update!(only_visible_to_overrides: true)
+          expect(
+            course_type.resolve("quizzesConnection { edges { node { _id } } }", current_user: @student)
+          ).to match_array [@quiz_2.id.to_s, @quiz_3.id.to_s]
         end
-
-        context "as a student" do
-          it "returns quizzes" do
-            expect(
-              course_type.resolve("quizzesConnection { edges { node { _id } } }", current_user: @student)
-            ).to match_array [@quiz_1.id.to_s, @quiz_2.id.to_s, @quiz_3.id.to_s, @quiz_lti_1.id.to_s]
-          end
-
-          it "returns only quizzes assigned to the student" do
-            new_section = course.course_sections.create!(name: "new section")
-            @quiz_1.assignment_overrides.create!(course_section: new_section)
-            @quiz_1.update!(only_visible_to_overrides: true)
-            expect(
-              course_type.resolve("quizzesConnection { edges { node { _id } } }", current_user: @student)
-            ).to match_array [@quiz_2.id.to_s, @quiz_3.id.to_s, @quiz_lti_1.id.to_s]
-          end
-        end
-
-        it_behaves_like "userId filter tests"
       end
+
+      it_behaves_like "userId filter tests"
     end
 
     context "filesConnection" do

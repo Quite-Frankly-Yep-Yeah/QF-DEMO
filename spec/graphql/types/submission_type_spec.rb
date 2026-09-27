@@ -1982,33 +1982,6 @@ describe Types::SubmissionType do
         expect(preview_url).to include "/courses/#{@course.id}/external_tools/retrieve"
       end
 
-      it "includes the grade_by_question_enabled query param when it's a new quiz" do
-        tool = @course.context_external_tools.create!(
-          name: "Quizzes.Next",
-          consumer_key: "test_key",
-          shared_secret: "test_secret",
-          tool_id: "Quizzes 2",
-          url: "http://somenewquiz.com/launch"
-        )
-        @assignment.update!(external_tool_tag_attributes: { content: tool })
-        url = "http://anexternaltoolsubmission.com"
-        @assignment.submit_homework(
-          @student,
-          submission_type: "basic_lti_launch",
-          url:
-        )
-        expect(query_params[:url]).to eq "#{url}?grade_by_question_enabled=false"
-      end
-
-      it "excludes the grade_by_question_enabled query param when it's not a new quiz" do
-        @assignment.submit_homework(
-          @student,
-          submission_type: "basic_lti_launch",
-          url: "http://anexternaltoolsubmission.com"
-        )
-        expect(query_params[:url]).not_to include "grade_by_question_enabled"
-      end
-
       it "includes resource_link_lookup_uuid when present" do
         uuid = SecureRandom.uuid
         @assignment.submit_homework(
@@ -2029,15 +2002,6 @@ describe Types::SubmissionType do
         )
         expect(query_params[:resource_link_lookup_uuid]).to be_nil
         expect(preview_url).not_to include "resource_link_lookup_uuid"
-      end
-
-      it "includes native experience sessionless override" do
-        @assignment.submit_homework(
-          @student,
-          submission_type: "basic_lti_launch",
-          url: "http://anexternaltoolsubmission.com"
-        )
-        expect(query_params[:new_quizzes_native_experience_sessionless]).to eq "false"
       end
     end
 

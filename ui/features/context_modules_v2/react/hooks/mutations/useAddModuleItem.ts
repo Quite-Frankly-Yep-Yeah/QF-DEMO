@@ -122,7 +122,7 @@ export function useAddModuleItem({
   contentItems: ContentItem[]
 }) {
   const [state, dispatch] = useReducer(reducer, initialState)
-  const {courseId, quizEngine} = useContextModule()
+  const {courseId} = useContextModule()
   const {defaultFolder} = useDefaultCourseFolder()
 
   const submitInlineItem = useInlineSubmission()
@@ -164,7 +164,6 @@ export function useAddModuleItem({
             type: itemType,
             itemCount: totalCount + index,
             indentation,
-            quizEngine,
             selectedTabIndex: tabIndex,
             textHeaderValue: textHeader,
             externalUrlName: '',
@@ -205,7 +204,6 @@ export function useAddModuleItem({
           type: itemType,
           itemCount: totalCount,
           indentation,
-          quizEngine,
           selectedTabIndex: tabIndex,
           textHeaderValue: textHeader,
           externalUrlName: name,
@@ -230,7 +228,6 @@ export function useAddModuleItem({
             type: itemType,
             itemCount: totalCount,
             indentation,
-            quizEngine,
             selectedTabIndex: tabIndex,
             textHeaderValue: textHeader,
             externalUrlName: name,

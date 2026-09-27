@@ -128,31 +128,6 @@ shared_examples_for "selective_release assign to tray" do |context|
     expect(item_tray_exists?).to be false
   end
 
-  it "assigns student for a NQ quiz and saves" do
-    new_quiz_assignment = @course.assignments.create!(title: "new quizzes assignment")
-    new_quiz_assignment.quiz_lti!
-    new_quiz_assignment.save!
-
-    get @mod_url
-
-    click_manage_assignment_button(new_quiz_assignment.id)
-    click_assign_to_menu_link(new_quiz_assignment.id)
-
-    click_add_assign_to_card
-    select_module_item_assignee(1, @student1.name)
-
-    update_due_date(1, "12/31/2022")
-    update_due_time(1, "5:00 PM")
-    update_available_date(1, "12/27/2022")
-    update_available_time(1, "8:00 AM")
-    update_until_date(1, "1/7/2023")
-    update_until_time(1, "9:00 PM")
-    click_save_button
-
-    expect(element_exists?(module_item_edit_tray_selector)).to be_falsey
-    expect(new_quiz_assignment.assignment_overrides.first.assignment_override_students.count).to eq(1)
-  end
-
   it "adds all data and cancels" do
     @assignment1.assignment_overrides.create!(set_type: "ADHOC")
     @assignment1.assignment_overrides.first.assignment_override_students.create!(user: @student1)
@@ -219,17 +194,6 @@ describe "assignments index menu tool placement" do
   before :once do
     course_with_teacher(active_all: true)
     @assignment1 = @course.assignments.create(name: "test assignment", points_possible: 25)
-
-    @course.enable_feature! :quizzes_next
-    @course.context_external_tools.create!(
-      name: "Quizzes.Next",
-      consumer_key: "test_key",
-      shared_secret: "test_secret",
-      tool_id: "Quizzes 2",
-      url: "http://example.com/launch"
-    )
-    @course.root_account.settings[:provision] = { "lti" => "lti url" }
-    @course.root_account.save!
 
     @student1 = student_in_course(course: @course, active_all: true, name: "Student 1").user
     @student2 = student_in_course(course: @course, active_all: true, name: "Student 2").user

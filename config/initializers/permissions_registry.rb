@@ -1037,24 +1037,6 @@ BASE_PERMISSIONS = {
         description: -> { I18n.t("This permission must be disabled for users to only view item banks created by them, shared with them from another user, or shared indirectly via the course they are enrolled in as an instructor.") } }
     ]
   },
-  share_banks_with_subaccounts: {
-    label: -> { I18n.t("Item Banks - share with subaccounts") },
-    available_to: %w[DesignerEnrollment TaEnrollment TeacherEnrollment AccountAdmin AccountMembership],
-    true_for: %w[AccountAdmin],
-    account_allows: ->(_a) { Account.site_admin.feature_enabled?(:new_quizzes_subaccount_sharing_permission) },
-    details: [
-      { title: -> { I18n.t("Item Banks") },
-        description: -> { I18n.t("Allows a user to manage sharing of item banks with subaccounts.") } }
-    ],
-    account_considerations: [
-      { title: -> { I18n.t("Item Banks") },
-        description: -> { I18n.t("If this permission is disabled, users cannot share item banks to subaccounts. When a user with an admin role is granted this permission, the user can share item banks to subaccounts they administer.") } }
-    ],
-    course_considerations: [
-      { title: -> { I18n.t("Item Banks") },
-        description: -> { I18n.t("If this permission is disabled, users cannot share item banks to subaccounts. When a user with a course role is granted this permission, the user can share item banks to subaccounts they are associated with.") } }
-    ]
-  },
   manage_files_add: {
     label: -> { I18n.t("Course Files - add") },
     group: :manage_files,
@@ -1536,15 +1518,6 @@ BASE_PERMISSIONS = {
       { description: -> { I18n.t("To view discussions in a course, Discussions - view must be enabled.") } },
       { description: -> { I18n.t("To reply to a discussion, Discussions - post must be enabled.") } },
       { description: -> { I18n.t("To edit a discussion, Discussions - moderate must also be enabled.") } }
-    ]
-  },
-  new_quizzes_view_ip_address: {
-    label: -> { I18n.t("New Quizzes - view IP address") },
-    available_to: %w[AccountAdmin AccountMembership],
-    true_for: %w[AccountAdmin],
-    account_details: [
-      { title: -> { I18n.t("New Quizzes") },
-        description: -> { I18n.t("This permission allows users to view IP address information on the activity log.") } }
     ]
   },
   post_to_forum: {
@@ -2199,19 +2172,6 @@ BASE_PERMISSIONS = {
     course_details: [
       { title: -> { I18n.t("Block Editor Templates - global edit") },
         description: -> { I18n.t("Allows user to create and edit global templates from within the Block Editor.") } }
-    ]
-  },
-  new_quizzes_multiple_session_detection: {
-    label: -> { I18n.t("New Quizzes - view multi session information") },
-    available_to: %w[TeacherEnrollment AccountAdmin AccountMembership],
-    true_for: %w[AccountAdmin],
-    details: [
-      { title: -> { I18n.t("New Quizzes") },
-        description: -> { I18n.t("This permission allows users to view multi-session activity information on the activity log and the moderate page.") } }
-    ],
-    considerations: [
-      { title: -> { I18n.t("Quiz settings") },
-        description: -> { I18n.t("Educators can enable the Detect Multiple Sessions setting on their quizzes to collect multi-session information on student submissions. This permission determines who can view this data in the activity log and moderate page.") } }
     ]
   },
   manage_course_details: {

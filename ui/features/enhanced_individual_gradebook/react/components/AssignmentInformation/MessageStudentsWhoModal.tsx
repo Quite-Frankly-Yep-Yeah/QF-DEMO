@@ -58,7 +58,6 @@ export default function MessageStudentsWhoModal({
   const messageWhoAssignment = {
     ...assignment,
     muted: false,
-    newQuizzesAnonymousParticipants: false,
     hasRubric: null,
   } as CamelizedAssignment
 

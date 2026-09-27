@@ -64,14 +64,12 @@ export const CourseCopy = ({
   rootAccountId,
   userTimeZone,
   courseTimeZone,
-  canImportAsNewQuizzes,
 }: {
   courseId: string
   accountId: string
   rootAccountId: string
   userTimeZone?: string
   courseTimeZone?: string
-  canImportAsNewQuizzes: boolean
 }) => {
   const courseQueryResult = useQuery({
     queryKey: [courseCopyRootKey, courseFetchKey, courseId],
@@ -129,7 +127,6 @@ export const CourseCopy = ({
 
   return (
     <CopyCourseForm
-      canImportAsNewQuizzes={canImportAsNewQuizzes}
       course={courseQueryResult.data}
       terms={termsQueryResult.data}
       userTimeZone={userTimeZone}

@@ -355,7 +355,6 @@ class CoursesController < ApplicationController
   include SyllabusHelper
   include WebZipExportHelper
   include CoursesHelper
-  include NewQuizzesFeaturesHelper
   include ObserverModuleInfo
   include ObserverEnrollmentsHelper
   include SelfPaced::CourseCatalogPage
@@ -1745,43 +1744,6 @@ class CoursesController < ApplicationController
     end
   end
 
-  def update_user_engine_choice(course, selection_obj)
-    new_selections = {}
-    new_selections[:user_id] = {
-      newquizzes_engine_selected: selection_obj[:newquizzes_engine_selected],
-      expiration: selection_obj[:expiration]
-    }
-    new_selections.reverse_merge!(course.settings[:engine_selected])
-    new_selections
-  end
-
-  def new_quizzes_selection_update
-    @course = api_find(Course, params[:id])
-
-    return unless authorized_action(@course, @current_user, :manage_course_content_edit)
-
-    if @course.root_account.feature_enabled?(:newquizzes_on_quiz_page)
-      old_settings = @course.settings
-      key_exists = old_settings.key?(:engine_selected)
-      selection_obj = {
-        newquizzes_engine_selected: params[:newquizzes_engine_selected],
-        expiration: Time.zone.today + 30.days
-      }
-
-      new_settings = {}
-
-      new_settings[:engine_selected] = if key_exists
-                                         update_user_engine_choice(@course, selection_obj)
-                                       else
-                                         { user_id: selection_obj }
-                                       end
-      new_settings.reverse_merge!(old_settings)
-      @course.settings = new_settings
-      @course.save
-      render json: new_settings
-    end
-  end
-
   # @API Update course settings
   # Can update the following course settings:
   #
@@ -2500,14 +2462,10 @@ class CoursesController < ApplicationController
           js_env({
                    SIS_NAME: AssignmentUtil.post_to_sis_friendly_name(@context),
                    SHOW_SPEED_GRADER_LINK: @current_user.present? && context.allows_speed_grader? && context.grants_any_right?(@current_user, :manage_grades, :view_all_grades),
-                   QUIZ_LTI_ENABLED: @context.feature_enabled?(:quizzes_next) &&
-                     !@context.root_account.feature_enabled?(:newquizzes_on_quiz_page) &&
-                     @context.quiz_lti_tool.present?,
                    # Exposed at top level for consistency with other pages from which the AssignTo modal is accessed
                    # such as assignment index, modules, individual assignment and assignment create/edit pages
                    PEER_REVIEW_ALLOCATION_AND_GRADING_ENABLED: @context.feature_enabled?(:peer_review_allocation_and_grading),
                    FLAGS: {
-                     newquizzes_on_quiz_page: @context.root_account.feature_enabled?(:newquizzes_on_quiz_page),
                      show_additional_speed_grader_link: Account.site_admin.feature_enabled?(:additional_speedgrader_links),
                    },
                    COURSE_HOME: true
@@ -2963,13 +2921,7 @@ class CoursesController < ApplicationController
     # For prepopulating the date fields
     js_env({
              OLD_START_DATE: datetime_string(@context.start_at, :verbose),
-             OLD_END_DATE: datetime_string(@context.conclude_at, :verbose),
-             QUIZZES_NEXT_ENABLED: new_quizzes_enabled?,
-             NEW_QUIZZES_IMPORT: new_quizzes_import_enabled?,
-             NEW_QUIZZES_MIGRATION: new_quizzes_migration_enabled?,
-             NEW_QUIZZES_MIGRATION_DEFAULT: new_quizzes_migration_default,
-             NEW_QUIZZES_MIGRATION_REQUIRED: new_quizzes_require_migration?,
-             NEW_QUIZZES_UNATTACHED_BANK_MIGRATIONS: new_quizzes_unattached_bank_migrations_enabled?
+             OLD_END_DATE: datetime_string(@context.conclude_at, :verbose)
            })
   end
 
@@ -3028,7 +2980,6 @@ class CoursesController < ApplicationController
                           end
       )
       @content_migration.migration_settings[:source_course_id] = @context.id
-      @content_migration.migration_settings[:import_quizzes_next] = true if params.dig(:settings, :import_quizzes_next)
       @content_migration.migration_settings[:import_blueprint_settings] = true if params.dig(:settings, :import_blueprint_settings)
       @content_migration.workflow_state = "created"
       if (adjust_dates = params[:adjust_dates]) && Canvas::Plugin.value_to_boolean(adjust_dates[:enabled])
@@ -4234,36 +4185,6 @@ class CoursesController < ApplicationController
     render json: { conversions: active_conversions }, status: :ok
   end
 
-  def update_youtube_migration_scan
-    get_context
-
-    unless @context.feature_enabled?(:youtube_migration)
-      return render status: :not_found, template: "shared/errors/404_message"
-    end
-
-    return unless authorized_action(@context, @current_user, RoleOverride::GRANULAR_MANAGE_COURSE_CONTENT_PERMISSIONS)
-
-    scan_id = params.require(:scan_id).to_i
-    required_params = update_youtube_migration_scan_params
-
-    begin
-      service = YoutubeMigrationService.new(@context)
-      service.process_new_quizzes_scan_update(
-        scan_id,
-        new_quizzes_scan_status: required_params[:new_quizzes_scan_status],
-        new_quizzes_scan_results: required_params[:new_quizzes_scan_results]
-      )
-
-      render json: { success: true }, status: :ok
-    rescue ActiveRecord::RecordNotFound
-      reset_progress_with_service if @context
-      render json: { error: "Youtube Scan not found" }, status: :not_found
-    rescue
-      reset_progress_with_service if @context
-      render json: { error: "An Error occured during updating the youtube scan results" }, status: :internal_server_error
-    end
-  end
-
   def start_link_validation
     get_context
     return unless authorized_action(@context, @current_user, RoleOverride::GRANULAR_MANAGE_COURSE_CONTENT_PERMISSIONS)
@@ -4650,7 +4571,6 @@ class CoursesController < ApplicationController
       :hide_sections_on_course_users_page,
       :lock_all_announcements,
       :public_syllabus,
-      :quiz_engine_selected,
       :public_syllabus_to_auth,
       :course_format,
       :time_zone,
@@ -4674,23 +4594,9 @@ class CoursesController < ApplicationController
     )
   end
 
-  def update_youtube_migration_scan_params
-    {
-      new_quizzes_scan_status: params.require(:new_quizzes_scan_status),
-      new_quizzes_scan_results: params[:new_quizzes_scan_results]&.to_unsafe_h || {}
-    }
-  end
-
   def disable_conditional_release
     ConditionalRelease::Service.delay_if_production(priority: Delayed::LOW_PRIORITY,
                                                     n_strand: ["conditional_release_unassignment", @course.global_root_account_id])
                                .release_mastery_paths_content_in_course(@course)
-  end
-
-  def reset_progress_with_service
-    service = YoutubeMigrationService.new(@context)
-    service.reset_scan_status
-  rescue => e
-    Rails.logger.error("reset_progress failed for course_id=#{@context.id}: #{e.class} #{e.message}")
   end
 end

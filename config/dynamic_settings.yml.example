@@ -173,12 +173,6 @@ development:
       #   launch_url: http://ams-ux.inseng.test:5173/src/remote-adapter.js
       #   api_url: http://ams-ux-api.inseng.test:3000
       #   item_management_launch_url: http://ams-ux-item-management.inseng.test/src/remote-adapter.js
-      # new_quizzes.yml: |
-      #   new_quizzes_cloudfront_host_production: http://quizzes-ui-app.inseng.test:8082
-      #   new_quizzes_cloudfront_host_beta: http://quizzes-ui-app.inseng.test:8082
-      #   new_quizzes_cloudfront_host_edge: http://quizzes-ui-app.inseng.test:8082
-      #   new_quizzes_importing_timeout_in_minutes: 360
-      #   new_quizzes_api_gateway_host: http://quiz-lti-web.inseng.test
 
   store:
     canvas:

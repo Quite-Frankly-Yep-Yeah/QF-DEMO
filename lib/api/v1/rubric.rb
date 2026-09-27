@@ -106,7 +106,7 @@ module Api::V1::Rubric
   def enhanced_rubrics_context_js_env(assignment = nil)
     return unless Rubric.enhanced_rubrics_assignments_enabled?(@context)
 
-    is_valid_self_assessment_assignment_type = !assignment.nil? && !assignment.quiz_lti? && !assignment.quiz? && !assignment.discussion_topic?
+    is_valid_self_assessment_assignment_type = !assignment.nil? && !assignment.quiz? && !assignment.discussion_topic?
 
     rubrics_hash = {
       ACCOUNT_LEVEL_MASTERY_SCALES: @context.root_account.feature_enabled?(:account_level_mastery_scales),

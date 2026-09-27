@@ -140,148 +140,6 @@ describe AssignmentsController do
       expect(assigns[:js_env][:POST_TO_SIS_DEFAULT]).to be(true)
     end
 
-    it "sets QUIZ_LTI_ENABLED in js_env if quizzes 2 is available" do
-      user_session @teacher
-      @course.context_external_tools.create!(
-        name: "Quizzes.Next",
-        consumer_key: "test_key",
-        shared_secret: "test_secret",
-        tool_id: "Quizzes 2",
-        url: "http://example.com/launch"
-      )
-      @course.root_account.settings[:provision] = { "lti" => "lti url" }
-      @course.root_account.save!
-      @course.root_account.enable_feature! :quizzes_next
-      @course.enable_feature! :quizzes_next
-      get "index", params: { course_id: @course.id }
-      expect(assigns[:js_env][:QUIZ_LTI_ENABLED]).to be true
-    end
-
-    it "does not set QUIZ_LTI_ENABLED in js_env if 'newquizzes_on_quiz_page' is enabled" do
-      user_session @teacher
-      @course.context_external_tools.create!(
-        name: "Quizzes.Next",
-        consumer_key: "test_key",
-        shared_secret: "test_secret",
-        tool_id: "Quizzes 2",
-        url: "http://example.com/launch"
-      )
-      @course.root_account.settings[:provision] = { "lti" => "lti url" }
-      @course.root_account.save!
-      @course.root_account.enable_feature! :quizzes_next
-      @course.root_account.enable_feature! :newquizzes_on_quiz_page
-      @course.enable_feature! :quizzes_next
-      get "index", params: { course_id: @course.id }
-      expect(assigns[:js_env][:QUIZ_LTI_ENABLED]).to be false
-    end
-
-    it "does not set QUIZ_LTI_ENABLED in js_env if url is voided" do
-      user_session @teacher
-      @course.context_external_tools.create!(
-        name: "Quizzes.Next",
-        consumer_key: "test_key",
-        shared_secret: "test_secret",
-        tool_id: "Quizzes 2",
-        url: "http://void.url.inseng.net"
-      )
-      @course.root_account.settings[:provision] = { "lti" => "lti url" }
-      @course.root_account.save!
-      @course.root_account.enable_feature! :quizzes_next
-      @course.enable_feature! :quizzes_next
-      get "index", params: { course_id: @course.id }
-      expect(assigns[:js_env][:QUIZ_LTI_ENABLED]).to be false
-    end
-
-    it "does not set QUIZ_LTI_ENABLED in js_env if quizzes 2 is not available" do
-      user_session @teacher
-      get "index", params: { course_id: @course.id }
-      expect(assigns[:js_env][:QUIZ_LTI_ENABLED]).to be false
-    end
-
-    it "does not set QUIZ_LTI_ENABLED in js_env if quizzes_next is not enabled" do
-      user_session @teacher
-      @course.context_external_tools.create!(
-        name: "Quizzes.Next",
-        consumer_key: "test_key",
-        shared_secret: "test_secret",
-        tool_id: "Quizzes 2",
-        url: "http://example.com/launch"
-      )
-      get "index", params: { course_id: @course.id }
-      expect(assigns[:js_env][:QUIZ_LTI_ENABLED]).to be false
-    end
-
-    it "sets FLAGS/newquizzes_on_quiz_page in js_env if 'newquizzes_on_quiz_page' is enabled" do
-      user_session @teacher
-      @course.context_external_tools.create!(
-        name: "Quizzes.Next",
-        consumer_key: "test_key",
-        shared_secret: "test_secret",
-        tool_id: "Quizzes 2",
-        url: "http://example.com/launch"
-      )
-      @course.root_account.enable_feature! :newquizzes_on_quiz_page
-      get "index", params: { course_id: @course.id }
-      expect(assigns[:js_env][:FLAGS][:newquizzes_on_quiz_page]).to be_truthy
-    end
-
-    it "does not set FLAGS/newquizzes_on_quiz_page in js_env if 'newquizzes_on_quiz_page' is disabled" do
-      user_session @teacher
-      @course.context_external_tools.create!(
-        name: "Quizzes.Next",
-        consumer_key: "test_key",
-        shared_secret: "test_secret",
-        tool_id: "Quizzes 2",
-        url: "http://example.com/launch"
-      )
-      @course.root_account.disable_feature! :newquizzes_on_quiz_page
-      get "index", params: { course_id: @course.id }
-      expect(assigns[:js_env][:FLAGS][:newquizzes_on_quiz_page]).to be_falsey
-    end
-
-    it "sets FLAGS/new_quizzes_by_default in js_env if 'new_quizzes_by_default' is enabled" do
-      user_session @teacher
-      @course.context_external_tools.create!(
-        name: "Quizzes.Next",
-        consumer_key: "test_key",
-        shared_secret: "test_secret",
-        tool_id: "Quizzes 2",
-        url: "http://example.com/launch"
-      )
-      @course.root_account.settings[:provision] = { "lti" => "lti url" }
-      @course.root_account.save!
-      @course.root_account.enable_feature! :quizzes_next
-      @course.enable_feature! :quizzes_next
-      @course.enable_feature!(:new_quizzes_by_default)
-      get "index", params: { course_id: @course.id }
-      expect(assigns[:js_env][:FLAGS][:new_quizzes_by_default]).to be_truthy
-    end
-
-    it "does not set FLAGS/new_quizzes_by_default in js_env if 'new_quizzes_by_default' is disabled" do
-      user_session @teacher
-      @course.context_external_tools.create!(
-        name: "Quizzes.Next",
-        consumer_key: "test_key",
-        shared_secret: "test_secret",
-        tool_id: "Quizzes 2",
-        url: "http://example.com/launch"
-      )
-      @course.root_account.settings[:provision] = { "lti" => "lti url" }
-      @course.root_account.save!
-      @course.root_account.enable_feature! :quizzes_next
-      @course.enable_feature! :quizzes_next
-      @course.disable_feature!(:new_quizzes_by_default)
-      get "index", params: { course_id: @course.id }
-      expect(assigns[:js_env][:FLAGS][:new_quizzes_by_default]).to be_falsey
-    end
-
-    it "does not set FLAGS/new_quizzes_by_default in js_env if new quizzes isn't set up and enabled" do
-      user_session @teacher
-      @course.enable_feature!(:new_quizzes_by_default)
-      get "index", params: { course_id: @course.id }
-      expect(assigns[:js_env][:FLAGS][:new_quizzes_by_default]).to be_falsey
-    end
-
     it "js_env MAX_NAME_LENGTH_REQUIRED_FOR_ACCOUNT is true when AssignmentUtil.name_length_required_for_account? == true" do
       user_session(@teacher)
       allow(AssignmentUtil).to receive(:name_length_required_for_account?).and_return(true)
@@ -2517,98 +2375,10 @@ describe AssignmentsController do
       expect(assigns[:js_env][:ROOT_FOLDER_ID]).to eq root_folder.id
     end
 
-    context "with ?quiz_lti query param" do
-      it "uses quizzes 2 if available" do
-        tool = @course.context_external_tools.create!(
-          name: "Quizzes.Next",
-          consumer_key: "test_key",
-          shared_secret: "test_secret",
-          tool_id: "Quizzes 2",
-          url: "http://example.com/launch"
-        )
-        user_session(@teacher)
-        get "new", params: { course_id: @course.id, quiz_lti: true }
-        expect(assigns[:assignment].quiz_lti?).to be true
-        expect(assigns[:assignment].external_tool_tag.content).to eq tool
-        expect(assigns[:assignment].external_tool_tag.url).to eq tool.url
-      end
-
-      it "falls back to normal behaviour if quizzes 2 is not set up" do
-        user_session(@teacher)
-        get "new", params: { course_id: @course.id, quiz: true }
-        expect(assigns[:assignment].quiz_lti?).to be false
-      end
-    end
-
     it "set active_tab to assignments" do
       user_session(@teacher)
-      get "new", params: { course_id: @course.id, quiz_lti: true }
+      get "new", params: { course_id: @course.id }
       expect(assigns[:active_tab]).to eq("assignments")
-    end
-
-    context "when newquizzes_on_quiz_page FF is set" do
-      before do
-        @course.context_external_tools.create!(
-          name: "Quizzes.Next",
-          consumer_key: "test_key",
-          shared_secret: "test_secret",
-          tool_id: "Quizzes 2",
-          url: "http://example.com/launch"
-        )
-        @course.root_account.settings[:provision] = { "lti" => "lti url" }
-        @course.root_account.save!
-        @course.root_account.enable_feature! :quizzes_next
-        @course.root_account.enable_feature! :newquizzes_on_quiz_page
-        @course.root_account.enable_feature! :instui_nav
-      end
-
-      it "sets active tab to quizzes for new quizzes" do
-        user_session(@teacher)
-        get "new", params: { course_id: @course.id, quiz_lti: true }
-        expect(assigns[:active_tab]).to eq("quizzes")
-      end
-
-      it "sets crumb to Quizzes for new quizzes" do
-        user_session(@teacher)
-        get "new", params: { course_id: @course.id, quiz_lti: true }
-        expect(assigns[:_crumbs]).to include(["Quizzes", "/courses/#{@course.id}/quizzes", {}])
-      end
-
-      it "sets crumb to Create Quiz for new quizzes" do
-        user_session(@teacher)
-        get "new", params: { course_id: @course.id, quiz_lti: true }
-        expect(assigns[:_crumbs]).to include(["Create Quiz", nil, {}])
-      end
-
-      it "sets crumb to Create Assignment for new assignments" do
-        user_session(@teacher)
-        get "new", params: { course_id: @course.id }
-        expect(assigns[:_crumbs]).to include(["Create New Assignment", nil, {}])
-      end
-
-      it "sets crumb to Edit Quiz for new quizzes" do
-        user_session(@teacher)
-        post "edit", params: { course_id: @course.id, id: @assignment.id, quiz_lti: true }
-        expect(assigns[:_crumbs]).to include(["Edit Quiz", nil, {}])
-      end
-
-      it "sets crumb to Edit Assignment for new assignments" do
-        user_session(@teacher)
-        post "edit", params: { course_id: @course.id, id: @assignment.id }
-        expect(assigns[:_crumbs]).to include(["Edit Assignment", nil, {}])
-      end
-
-      it "sets active tab to quizzes for editing quizzes" do
-        user_session(@teacher)
-        post "edit", params: { course_id: @course.id, id: @assignment.id, quiz_lti: true }
-        expect(assigns[:active_tab]).to eq("quizzes")
-      end
-
-      it "sets crumb to Quizzes for editing quizzes" do
-        user_session(@teacher)
-        post "new", params: { course_id: @course.id, id: @assignment.id, quiz_lti: true }
-        expect(assigns[:_crumbs]).to include(["Quizzes", "/courses/#{@course.id}/quizzes", {}])
-      end
     end
 
     it "js_env GROUP_CATEGORIES excludes non_collaborative and student_organized categories regardless of allow_assign_to_differentiation_tags? setting state" do
@@ -2711,34 +2481,6 @@ describe AssignmentsController do
       post "create", params: { course_id: @course.id, assignment: { important_dates: true } }
       expect(assigns[:assignment].important_dates).to be true
     end
-
-    context "New Quizzes Surveys" do
-      before do
-        @course.context_external_tools.create!(
-          name: "Quizzes.Next",
-          consumer_key: "test_key",
-          shared_secret: "test_secret",
-          tool_id: "Quizzes 2",
-          url: "http://example.com/launch"
-        )
-      end
-
-      it "sets new quizzes survey attributes if provided" do
-        user_session(@teacher)
-        post "create", params: {
-          course_id: @course.id,
-          assignment: {
-            new_quizzes_quiz_type: "graded_survey",
-            new_quizzes_anonymous_submission: true
-          },
-          quiz_lti: 1
-        }
-        assignment = assigns[:assignment]
-        expect(assignment).not_to be_nil
-        expect(assignment.new_quizzes_type).to eq("graded_survey")
-        expect(assignment.anonymous_participants?).to be true
-      end
-    end
   end
 
   describe "GET 'edit'" do
@@ -2765,53 +2507,6 @@ describe AssignmentsController do
 
         expect(assigns[:js_env][js_env_attribute]).to be true
       end
-    end
-
-    it "js_env CANCEL_TO points to quizzes when quiz_lti? is true" do
-      @course.context_external_tools.create!(
-        name: "Quizzes.Next",
-        consumer_key: "test_key",
-        shared_secret: "test_secret",
-        tool_id: "Quizzes 2",
-        url: "http://example.com/launch"
-      )
-      @course.root_account.enable_feature! :quizzes_next
-      @course.root_account.enable_feature! :newquizzes_on_quiz_page
-      @course.enable_feature! :quizzes_next
-      user_session(@teacher)
-      get "new", params: { course_id: @course.id, quiz_lti: true }
-      expect(assigns[:js_env][:CANCEL_TO]).to include("quizzes")
-    end
-
-    it "js_env CANCEL_TO points to assignments when quiz_lti? is not included" do
-      @course.context_external_tools.create!(
-        name: "Quizzes.Next",
-        consumer_key: "test_key",
-        shared_secret: "test_secret",
-        tool_id: "Quizzes 2",
-        url: "http://example.com/launch"
-      )
-      @course.root_account.enable_feature! :quizzes_next
-      @course.root_account.enable_feature! :newquizzes_on_quiz_page
-      @course.enable_feature! :quizzes_next
-      user_session(@teacher)
-      get "new", params: { course_id: @course.id, id: @assignment.id }
-      expect(assigns[:js_env][:CANCEL_TO]).to include("assignments")
-    end
-
-    it "js_env CANCEL_TO points to assignments when newquizzes_on_quiz_page feature flag is off" do
-      @course.context_external_tools.create!(
-        name: "Quizzes.Next",
-        consumer_key: "test_key",
-        shared_secret: "test_secret",
-        tool_id: "Quizzes 2",
-        url: "http://example.com/launch"
-      )
-      @course.root_account.enable_feature! :quizzes_next
-      @course.enable_feature! :quizzes_next
-      user_session(@teacher)
-      get "new", params: { course_id: @course.id, quiz_lti: true }
-      expect(assigns[:js_env][:CANCEL_TO]).to include("assignments")
     end
 
     it "sets the root folder ID in the ENV" do
@@ -3368,22 +3063,6 @@ describe AssignmentsController do
       end
     end
 
-    describe "js_env NEW_QUIZZES_ASSIGNMENT_BUILD_BUTTON_ENABLED" do
-      it "sets NEW_QUIZZES_ASSIGNMENT_BUILD_BUTTON_ENABLED in js_env as true if enabled" do
-        user_session(@teacher)
-        Account.site_admin.enable_feature!(:new_quizzes_assignment_build_button)
-        get "edit", params: { course_id: @course.id, id: @assignment.id }
-        expect(assigns[:js_env][:NEW_QUIZZES_ASSIGNMENT_BUILD_BUTTON_ENABLED]).to be(true)
-      end
-
-      it "sets NEW_QUIZZES_ASSIGNMENT_BUILD_BUTTON_ENABLED in js_env as false if disabled" do
-        user_session(@teacher)
-        Account.site_admin.disable_feature!(:new_quizzes_assignment_build_button)
-        get "edit", params: { course_id: @course.id, id: @assignment.id }
-        expect(assigns[:js_env][:NEW_QUIZZES_ASSIGNMENT_BUILD_BUTTON_ENABLED]).to be(false)
-      end
-    end
-
     describe "js_env PEER_REVIEW_ALLOCATION_AND_GRADING_ENABLED" do
       it "sets PEER_REVIEW_ALLOCATION_AND_GRADING_ENABLED in js_env as true if enabled" do
         user_session(@teacher)
@@ -3465,52 +3144,6 @@ describe AssignmentsController do
         user_session(@teacher)
         get "edit", params: { course_id: @course.id, id: @assignment.id }
         expect(assigns[:js_env][:ALLOW_ASSIGN_TO_DIFFERENTIATION_TAGS]).to be false
-      end
-    end
-
-    context "assigned_rubric and rubric_association" do
-      before do
-        Account.site_admin.enable_feature!(:enhanced_rubrics_assignments)
-        @course.enable_feature!(:enhanced_rubrics)
-        rubric = @course.rubrics.create!(user: @teacher, data: [])
-        rubric_association_params = ActiveSupport::HashWithIndifferentAccess.new({
-                                                                                   hide_score_total: "0",
-                                                                                   purpose: "grading",
-                                                                                   skip_updating_points_possible: false,
-                                                                                   update_if_existing: true,
-                                                                                   use_for_grading: "1",
-                                                                                   association_object: @assignment
-                                                                                 })
-        rubric_assoc = RubricAssociation.generate(@teacher, rubric, @course, rubric_association_params)
-        @assignment.rubric_association = rubric_assoc
-        @assignment.save!
-        user_session(@teacher)
-      end
-
-      it "sets assigned_rubric and rubric_association in the ENV when FF is ON" do
-        allow_any_instance_of(Assignment).to receive(:quiz_lti?).and_return(true)
-        get :edit, params: { course_id: @course.id, id: @assignment.id, quiz_lti: true }
-        expect(assigns[:js_env][:assigned_rubric][:id]).to eq @assignment.rubric_association.rubric_id
-        expect(assigns[:js_env][:assigned_rubric][:title]).to eq "Unnamed Course Rubric"
-        expect(assigns[:js_env][:assigned_rubric][:can_update]).to be_truthy
-        expect(assigns[:js_env][:assigned_rubric][:association_count]).to eq 1
-        expect(assigns[:js_env][:rubric_association][:id]).to eq @assignment.rubric_association.id
-      end
-
-      it "does not set assigned_rubric and rubric_association in the ENV when FF is OFF" do
-        allow_any_instance_of(Assignment).to receive(:quiz_lti?).and_return(true)
-        Account.site_admin.disable_feature!(:enhanced_rubrics_assignments)
-        get :edit, params: { course_id: @course.id, id: @assignment.id, quiz_lti: true }
-        expect(assigns[:js_env][:assigned_rubric]).to be_nil
-        expect(assigns[:js_env][:rubric_association]).to be_nil
-      end
-
-      it "does not set assigned_rubric and rubric_association in the ENV when FF is OFF and quiz_lti is false" do
-        allow_any_instance_of(Assignment).to receive(:quiz_lti?).and_return(false)
-        Account.site_admin.disable_feature!(:enhanced_rubrics_assignments)
-        get :edit, params: { course_id: @course.id, id: @assignment.id }
-        expect(assigns[:js_env][:assigned_rubric]).to be_nil
-        expect(assigns[:js_env][:rubric_association]).to be_nil
       end
     end
   end

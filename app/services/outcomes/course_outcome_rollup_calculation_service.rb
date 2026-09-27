@@ -114,17 +114,12 @@ module Outcomes
       end
     end
 
-    # Fetches and combines results from both quite frankly an example LMS and Outcomes Service
     # @return [Array<LearningOutcomeResult>]
     def gather_results
-      students = course.students
-      canvas_results = fetch_canvas_results(course:, users: students, outcomes: [outcome])
-      os_results = fetch_outcomes_service_results(course:, users: students, outcomes: [outcome])
+      results = fetch_canvas_results(course:, users: course.students, outcomes: [outcome]).to_a
+      Rails.logger.info("[OutcomeRollup] Found #{results.count} results for course #{course.id}, outcome #{outcome.id}")
 
-      combined_results = combine_results(canvas_results, os_results)
-      Rails.logger.info("[OutcomeRollup] Found #{combined_results.count} results for course #{course.id}, outcome #{outcome.id}")
-
-      combined_results
+      results
     end
 
     # Handles the case when no students are found

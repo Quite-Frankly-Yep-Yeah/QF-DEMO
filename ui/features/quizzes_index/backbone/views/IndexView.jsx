@@ -24,12 +24,8 @@ import template from '../../jst/IndexView.handlebars'
 import '@canvas/rails-flash-notifications'
 import React from 'react'
 import {legacyRender} from '@canvas/react'
-import {Alert} from '@instructure/ui-alerts'
-import {Text} from '@instructure/ui-text'
 import ContentTypeExternalToolTray from '@canvas/trays/react/ContentTypeExternalToolTray'
-import QuizEngineModal from '../../react/QuizEngineModal'
 import {ltiState} from '@canvas/lti/jquery/messages'
-import {getCookie} from '@instructure/platform-get-cookie'
 import {getQuizTypes} from '@canvas/util/resourceTypeUtil'
 
 const I18n = createI18nScope('quizzesIndexView')
@@ -49,8 +45,6 @@ export default class IndexView extends Backbone.View {
       'keyup #searchTerm': 'keyUpSearch',
       'mouseup #searchTerm': 'keyUpSearch',
       'click .header-bar-right .menu_tool_link': 'openExternalTool',
-      'click .choose-quiz-engine': 'createNewQuiz',
-      'click .reset-quiz-engine': 'resetQuizEngine',
     }
 
     this.prototype.keyUpSearch = debounce(function () {
@@ -112,89 +106,6 @@ export default class IndexView extends Backbone.View {
     const json = super.toJSON(...arguments)
     json.quizIndexPlacements = this.quizIndexPlacements
     return json
-  }
-
-  createNewQuiz() {
-    let newQuizzesSelected = ENV.NEW_QUIZZES_SELECTED
-    if (newQuizzesSelected === null) {
-      this.chooseQuizEngine()
-    } else if (newQuizzesSelected === 'true') {
-      window.location.href = `${ENV.URLS.new_assignment_url}?quiz_lti`
-    } else if (newQuizzesSelected === 'false') {
-      const authenticity_token = () => getCookie('_csrf_token')
-      $.ajaxJSON(
-        ENV.URLS.new_quiz_url,
-        'POST',
-        {authenticity_token: authenticity_token()},
-        data => {
-          window.location.href = data.url
-        },
-      )
-    } else {
-      this.chooseQuizEngine()
-    }
-  }
-
-  chooseQuizEngine() {
-    this.renderQuizEngineModal(true, $('.choose-quiz-engine'))
-  }
-
-  resetQuizEngine() {
-    const newquizzes_engine = null
-    $.ajaxJSON(
-      ENV.URLS.new_quizzes_selection,
-      'PUT',
-      {
-        newquizzes_engine_selected: newquizzes_engine,
-      },
-      () => {
-        window.location.reload()
-        this.renderQuizEngineSelectionSuccessNotice()
-      },
-      () => {
-        this.renderQuizEngineSelectionFailureNotice()
-      },
-    )
-  }
-
-  renderQuizEngineModal(setOpen, returnFocusTo) {
-    const handleDismiss = () => {
-      this.renderQuizEngineModal(false)
-      returnFocusTo && returnFocusTo.focus()
-    }
-
-    legacyRender(
-      <QuizEngineModal onDismiss={handleDismiss} setOpen={setOpen} />,
-      $('#quiz-modal-mount-point')[0],
-    )
-  }
-
-  renderQuizEngineSelectionSuccessNotice() {
-    $('#flash_message_holder')
-      .css('width', '30rem')
-      .css('padding-left', '35rem')
-      .css('display', 'block')
-
-    legacyRender(
-      <Alert variant="success" timeout={4000} transition="fade">
-        <Text>{I18n.t(`Your quiz engine choice has been reset!`)}</Text>
-      </Alert>,
-      $('#flash_message_holder')[0],
-    )
-  }
-
-  renderQuizEngineSelectionFailureNotice() {
-    $('#flash_message_holder')
-      .css('width', '30rem')
-      .css('padding-left', '35rem')
-      .css('display', 'block')
-
-    legacyRender(
-      <Alert variant="error" timeout={4000} transition="fade">
-        <Text>{I18n.t(`There was a problem resetting your quiz engine choice`)}</Text>
-      </Alert>,
-      $('#flash_message_holder')[0],
-    )
   }
 
   openExternalTool(ev) {

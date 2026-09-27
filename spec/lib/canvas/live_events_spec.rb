@@ -127,45 +127,6 @@ describe Canvas::LiveEvents do
     end
   end
 
-  describe ".scan_youtube_links" do
-    it "includes the neccesary params in payload" do
-      payload = Struct.new(:scan_id, :canvas_id, :external_tool_id).new(
-        "scan_123456",
-        "canvas_id_1000002",
-        "external_tool_123"
-      )
-      expect_event("scan_youtube_links",
-                   hash_including(
-                     scan_id: "scan_123456",
-                     canvas_id: "canvas_id_1000002",
-                     external_tool_id: "external_tool_123"
-                   ))
-      Canvas::LiveEvents.scan_youtube_links(payload)
-    end
-  end
-
-  describe ".convert_new_quiz_youtube_link" do
-    it "includes the neccesary params in payload" do
-      payload = Struct.new(:resource_id, :resource_type, :src, :field, :new_html).new(
-        "quiz_123456",
-        "Quiz",
-        "https://www.youtube.com/watch?v=dQw4w9WgXcQ",
-        "description",
-        "<p>https://www.youtube.com/watch?v=dQw4w9WgXcQ</p>"
-      )
-
-      expect_event("convert_new_quiz_youtube_link",
-                   hash_including(
-                     resource_id: "quiz_123456",
-                     resource_type: "Quiz",
-                     src: "https://www.youtube.com/watch?v=dQw4w9WgXcQ",
-                     field: "description",
-                     new_html: "<p>https://www.youtube.com/watch?v=dQw4w9WgXcQ</p>"
-                   ))
-      Canvas::LiveEvents.convert_new_quiz_youtube_link(payload)
-    end
-  end
-
   describe ".conversation_created" do
     it "triggers a conversation live event with conversation details" do
       user1 = user_model
@@ -1262,21 +1223,6 @@ describe Canvas::LiveEvents do
         Canvas::LiveEvents.assignment_created(@assignment)
       end
     end
-
-    context "with anonymous_participants setting" do
-      before do
-        @assignment.settings = { "new_quizzes" => { "anonymous_participants" => true } }
-        @assignment.save!
-      end
-
-      it "includes anonymous_participants" do
-        expect_event(
-          "assignment_created",
-          hash_including(anonymous_participants: true)
-        )
-        Canvas::LiveEvents.assignment_created(@assignment)
-      end
-    end
   end
 
   describe ".assignment_updated" do
@@ -1355,21 +1301,6 @@ describe Canvas::LiveEvents do
         expect_event(
           "assignment_updated",
           hash_not_including(:associated_integration_id)
-        )
-        Canvas::LiveEvents.assignment_updated(@assignment)
-      end
-    end
-
-    context "with anonymous_participants setting" do
-      before do
-        @assignment.settings = { "new_quizzes" => { "anonymous_participants" => true } }
-        @assignment.save!
-      end
-
-      it "includes anonymous_participants" do
-        expect_event(
-          "assignment_updated",
-          hash_including(anonymous_participants: true)
         )
         Canvas::LiveEvents.assignment_updated(@assignment)
       end
@@ -1480,7 +1411,7 @@ describe Canvas::LiveEvents do
         end
 
         def export_type
-          :new_quizzes
+          :common_cartridge
         end
 
         def created_at
@@ -1501,34 +1432,12 @@ describe Canvas::LiveEvents do
 
         def settings
           {
-            quizzes2: {
+            selected_content: {
               key1: "val1",
               key2: "val2"
             }
           }
         end
-      end
-    end
-
-    describe ".quiz_export_complete" do
-      let(:content_export) { export_class.new(course_model) }
-
-      it "triggers a live event with content export settings and amended context details" do
-        fake_export_context = { key1: "val1", key2: "val2", content_export_id: "content-export-123456789" }
-
-        expect_event(
-          "quiz_export_complete",
-          fake_export_context,
-          hash_including({
-                           context_type: "Course",
-                           context_id: content_export.context.global_id.to_s,
-                           root_account_id: content_export.context.root_account.global_id.to_s,
-                           root_account_uuid: content_export.context.root_account.uuid,
-                           root_account_lti_guid: content_export.context.root_account.lti_guid.to_s
-                         })
-        ).once
-
-        Canvas::LiveEvents.quiz_export_complete(content_export)
       end
     end
 
@@ -1571,11 +1480,8 @@ describe Canvas::LiveEvents do
     end
 
     before do
-      migration.migration_settings[:import_quizzes_next] = true
       course.lti_context_id = "abc"
       source_course.lti_context_id = "def"
-      allow(source_course).to receive(:has_new_quizzes?).and_return(true)
-      allow(migration).to receive(:file_download_url).and_return("http://example.com/resource_map.json")
     end
 
     it "sent events with expected payload" do
@@ -1586,13 +1492,11 @@ describe Canvas::LiveEvents do
           context_id: course.global_id.to_s,
           context_type: course.class.to_s,
           context_uuid: course.uuid,
-          import_quizzes_next: true,
           domain: course.root_account.domain,
           source_course_lti_id: source_course.lti_context_id,
           source_course_uuid: source_course&.uuid,
           destination_course_lti_id: course.lti_context_id,
-          migration_type: migration.migration_type,
-          resource_map_url: "http://example.com/resource_map.json"
+          migration_type: migration.migration_type
         ),
         hash_including(
           context_type: course.class.to_s,
@@ -1607,51 +1511,11 @@ describe Canvas::LiveEvents do
     end
 
     describe "resource map property" do
-      before do
-        allow(source_course).to receive(:has_new_quizzes?).and_return(false)
-      end
-
       describe "the resource map is not needed" do
-        before do
-          migration.migration_settings[:import_quizzes_next] = false
-        end
-
         it "does not send the resource map" do
           expect_event(
             "content_migration_completed",
             hash_not_including(:resource_map_url),
-            hash_including(context_id: course.global_id.to_s)
-          ).once
-
-          Canvas::LiveEvents.content_migration_completed(migration)
-        end
-      end
-
-      describe "importing new quizzes with link migration" do
-        before do
-          migration.migration_settings[:import_quizzes_next] = true
-        end
-
-        it "sends the resource map" do
-          expect_event(
-            "content_migration_completed",
-            hash_including(resource_map_url: "http://example.com/resource_map.json"),
-            hash_including(context_id: course.global_id.to_s)
-          ).once
-
-          Canvas::LiveEvents.content_migration_completed(migration)
-        end
-      end
-
-      describe "importing new quizzes from new quiz QTI" do
-        before do
-          migration.migration_settings[:quiz_next_imported] = true
-        end
-
-        it "sends the resource map" do
-          expect_event(
-            "content_migration_completed",
-            hash_including(resource_map_url: "http://example.com/resource_map.json"),
             hash_including(context_id: course.global_id.to_s)
           ).once
 
@@ -1739,22 +1603,6 @@ describe Canvas::LiveEvents do
       ).once
 
       Canvas::LiveEvents.logged_in(session, @user, @pseudonym)
-    end
-  end
-
-  describe ".quizzes_next_quiz_duplicated" do
-    it "triggers a quiz duplicated live event" do
-      event_payload = {
-        original_course_id: "1234",
-        new_course_id: "5678",
-        original_resource_link_id: "abc123",
-        new_resource_link_id: "def456",
-        domain: "canvas.instructure.com"
-      }
-
-      expect_event("quizzes_next_quiz_duplicated", event_payload).once
-
-      Canvas::LiveEvents.quizzes_next_quiz_duplicated(event_payload)
     end
   end
 

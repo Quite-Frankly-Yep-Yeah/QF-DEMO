@@ -88,14 +88,11 @@ class AssignmentsController < ApplicationController
           MAX_NAME_LENGTH_REQUIRED_FOR_ACCOUNT: max_name_length_required_for_account,
           MAX_NAME_LENGTH: max_name_length,
           HAS_ASSIGNMENTS: @context.active_assignments.count > 0,
-          QUIZ_LTI_ENABLED: quiz_lti_tool_enabled?,
           DUE_DATE_REQUIRED_FOR_ACCOUNT: due_date_required_for_account,
           MODERATED_GRADING_GRADER_LIMIT: Course::MODERATED_GRADING_GRADER_LIMIT,
           SHOW_SPEED_GRADER_LINK: @current_user.present? && context.allows_speed_grader? && context.grants_any_right?(@current_user, :manage_grades, :view_all_grades),
           FLAGS: {
-            newquizzes_on_quiz_page: @context.root_account.feature_enabled?(:newquizzes_on_quiz_page),
-            show_additional_speed_grader_link: Account.site_admin.feature_enabled?(:additional_speedgrader_links),
-            new_quizzes_by_default: @context.feature_enabled?(:new_quizzes_by_default)
+            show_additional_speed_grader_link: Account.site_admin.feature_enabled?(:additional_speedgrader_links)
           },
           grading_scheme: grading_standard.data,
           points_based: grading_standard.points_based?,
@@ -866,9 +863,6 @@ class AssignmentsController < ApplicationController
       @assignment.lti_context_id = secure_params[:lti_context_id]
     end
 
-    @assignment.quiz_lti! if params.key?(:quiz_lti) || params[:assignment][:quiz_lti]
-    update_new_quizzes_params(@assignment, params[:assignment])
-
     @assignment.workflow_state = "unpublished"
     @assignment.updating_user = @current_user
     @assignment.content_being_saved_by(@current_user)
@@ -894,14 +888,14 @@ class AssignmentsController < ApplicationController
   def new
     @assignment ||= @context.assignments.temp_record
     @assignment.workflow_state = "unpublished"
-    add_crumb_on_new_quizzes(true)
+    add_crumb(t("#crumbs.assignments", "Assignments"), course_assignments_path(@context))
+    add_crumb(@context.root_account.feature_enabled?(:instui_nav) ? t("Create New Assignment") : t("Create new"))
 
     if params[:submission_types] == "discussion_topic"
       redirect_to new_polymorphic_url([@context, :discussion_topic], index_edit_params)
     elsif @context.conditional_release? && params[:submission_types] == "wiki_page"
       redirect_to new_polymorphic_url([@context, :wiki_page], index_edit_params)
     else
-      @assignment.quiz_lti! if params.key?(:quiz_lti)
       edit
     end
   end
@@ -909,7 +903,7 @@ class AssignmentsController < ApplicationController
   def edit
     rce_js_env
     @assignment ||= @context.assignments.active.preload(:peer_review_sub_assignment).find(params[:id])
-    add_crumb_on_new_quizzes(false)
+    add_crumb(t("#crumbs.assignments", "Assignments"), course_assignments_path(@context)) unless @assignment.new_record?
 
     if @context.root_account.feature_enabled?(:assignment_edit_enhancements_teacher_view) &&
        authorized_action(@assignment, @current_user, @assignment.new_record? ? :create : :update)
@@ -999,8 +993,6 @@ class AssignmentsController < ApplicationController
         POST_TO_SIS: post_to_sis,
         SIS_NAME: AssignmentUtil.post_to_sis_friendly_name(@context),
         VALID_DATE_RANGE: CourseDateRange.new(@context),
-        NEW_QUIZZES_ASSIGNMENT_BUILD_BUTTON_ENABLED:
-          Account.site_admin.feature_enabled?(:new_quizzes_assignment_build_button),
         HIDE_ZERO_POINT_QUIZZES_OPTION_ENABLED:
           Account.site_admin.feature_enabled?(:hide_zero_point_quizzes_option),
         GRADING_SCHEME_UPDATES_ENABLED:
@@ -1011,11 +1003,7 @@ class AssignmentsController < ApplicationController
       }
 
       if @context.root_account.feature_enabled?(:instui_nav)
-        if on_quizzes_page? && params.key?(:quiz_lti)
-          add_crumb(t("Edit Quiz")) unless @assignment.new_record?
-        else
-          add_crumb(t("Edit Assignment")) unless @assignment.new_record?
-        end
+        add_crumb(t("Edit Assignment")) unless @assignment.new_record?
       else
         add_crumb(@assignment.title, polymorphic_url([@context, @assignment])) unless @assignment.new_record?
       end
@@ -1050,7 +1038,6 @@ class AssignmentsController < ApplicationController
       hash[:ANONYMOUS_GRADING_ENABLED] = @context.feature_enabled?(:anonymous_marking)
       hash[:MODERATED_GRADING_ENABLED] = @context.feature_enabled?(:moderated_grading)
       hash[:ANONYMOUS_INSTRUCTOR_ANNOTATIONS_ENABLED] = @context.feature_enabled?(:anonymous_instructor_annotations)
-      hash[:NEW_QUIZZES_ANONYMOUS_GRADING_ENABLED] = Account.site_admin.feature_enabled?(:anonymous_grading_with_new_quizzes)
       hash[:ASSET_PROCESSORS] = @assignment.lti_asset_processors.info_for_display
       hash[:SUBMISSION_TYPE_SELECTION_TOOLS] = external_tools_display_hashes(
         :submission_type_selection,
@@ -1079,10 +1066,6 @@ class AssignmentsController < ApplicationController
       hash[:USAGE_RIGHTS_REQUIRED] = @context.try(:usage_rights_required?)
       hash[:restrict_quantitative_data] = @context.is_a?(Course) ? @context.restrict_quantitative_data?(@current_user) : false
 
-      if @assignment.quiz_lti? && @assignment.persisted? && Rubric.enhanced_rubrics_assignments_enabled?(@context)
-        enhanced_rubrics_assignments_js_env(@assignment)
-      end
-
       js_env(hash)
       conditional_release_js_env(@assignment)
       set_master_course_js_env_data(@assignment, @context)
@@ -1092,21 +1075,10 @@ class AssignmentsController < ApplicationController
   end
 
   def set_cancel_to_url
-    if @assignment.quiz_lti? && @context.root_account.feature_enabled?(:newquizzes_on_quiz_page)
-      return polymorphic_url([@context, :quizzes])
-    end
-
     @assignment.new_record? ? polymorphic_url([@context, :assignments]) : polymorphic_url([@context, @assignment])
   end
 
   def generate_cancel_to_urls
-    if @assignment.quiz_lti?
-      quizzes_url = polymorphic_url([@context, :quizzes])
-      assignments_url = polymorphic_url([@context, :assignments])
-      modules_url = polymorphic_url([@context, :context_modules])
-      gradebook_url = polymorphic_url([@context, :gradebook])
-      return [quizzes_url, assignments_url, modules_url, gradebook_url]
-    end
     [@assignment.new_record? ? polymorphic_url([@context, :assignments]) : polymorphic_url([@context, @assignment])]
   end
 
@@ -1303,20 +1275,6 @@ class AssignmentsController < ApplicationController
     end
   end
 
-  def quiz_lti_tool_enabled?
-    quiz_lti_tool = @context.quiz_lti_tool
-
-    # The void url here is the default voided url as set by the beta refresh.
-    # Rather than using the rails env (beta/test) to determine whether or not
-    # the tool should be enabled, this URL was chosen because we sometimes
-    # want the tool enabled in beta or test. NOTE: This is a stop-gap until
-    # Quizzes.Next has a beta env.
-    !@context.root_account.feature_enabled?(:newquizzes_on_quiz_page) &&
-      @context.feature_enabled?(:quizzes_next) &&
-      quiz_lti_tool.present? &&
-      quiz_lti_tool.url != "http://void.url.inseng.net"
-  end
-
   def filter_speed_grader_by_student_group?
     # Group assignments only need to filter if they show individual students
     return false if @assignment.group_category_id && !@assignment.grade_group_students_individually?
@@ -1324,32 +1282,8 @@ class AssignmentsController < ApplicationController
     @context.filter_speed_grader_by_student_group?
   end
 
-  def add_crumb_on_new_quizzes(new_quiz)
-    return if !new_quiz && @assignment.new_record?
-
-    if on_quizzes_page? && params.key?(:quiz_lti)
-      add_crumb(t("#crumbs.quizzes", "Quizzes"), course_quizzes_path(@context))
-      add_crumb(t("Create Quiz")) if new_quiz && @context.root_account.feature_enabled?(:instui_nav)
-    else
-      add_crumb(t("#crumbs.assignments", "Assignments"), course_assignments_path(@context))
-      add_crumb(t("Create New Assignment")) if new_quiz && @context.root_account.feature_enabled?(:instui_nav)
-    end
-
-    add_crumb(t("Create new")) if new_quiz && !@context.root_account.feature_enabled?(:instui_nav)
-  end
-
   def setup_active_tab(controller)
-    if on_quizzes_page? && params.key?(:quiz_lti)
-      controller.active_tab = "quizzes"
-      return
-    end
-
     controller.active_tab = "assignments"
-  end
-
-  def on_quizzes_page?
-    @context.root_account.feature_enabled?(:newquizzes_on_quiz_page) &&
-      @context.feature_enabled?(:quizzes_next) && @context.quiz_lti_tool.present?
   end
 
   def set_section_list_js_env

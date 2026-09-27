@@ -62,7 +62,6 @@ const GRADEBOOK_ASSIGNMENT_FIELDS_FRAGMENT = gql`
     }
     muted
     name
-    newQuizzesAnonymousParticipants
     omitFromFinalGrade
     onlyVisibleToOverrides
     peerReviews {
@@ -128,7 +127,6 @@ const GRADEBOOK_PEER_REVIEW_SUB_ASSIGNMENT_FIELDS_FRAGMENT = gql`
     }
     muted
     name
-    newQuizzesAnonymousParticipants
     omitFromFinalGrade
     onlyVisibleToOverrides
     peerReviews {

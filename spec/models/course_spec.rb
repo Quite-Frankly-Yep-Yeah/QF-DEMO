@@ -1507,33 +1507,6 @@ describe Course do
       end
     end
 
-    describe "#quiz_lti_tool" do
-      before do
-        @course.save!
-        @tool = ContextExternalTool.new(
-          name: "Quizzes.Next",
-          consumer_key: "test_key",
-          shared_secret: "test_secret",
-          tool_id: "Quizzes 2",
-          url: "http://example.com/launch"
-        )
-      end
-
-      it "returns the quiz LTI tool for the course" do
-        @course.context_external_tools << @tool
-        expect(@course.quiz_lti_tool).to eq @tool
-      end
-
-      it "returns the quiz LTI tool for the account if not set up on the course" do
-        @course.account.context_external_tools << @tool
-        expect(@course.quiz_lti_tool).to eq @tool
-      end
-
-      it "returns nil if no quiz LTI tool is configured" do
-        expect(@course.quiz_lti_tool).to be_nil
-      end
-    end
-
     describe "#post_manually?" do
       let_once(:course) { Course.create! }
 
@@ -3503,23 +3476,6 @@ describe Course do
           tabs = @course.tabs_available(@user, include_external: true).pluck(:label)
 
           expect(tabs).to include("Item Banks")
-        end
-
-        context "and the new_quizzes_native_experience is enabled" do
-          before do
-            @course.enable_feature!(:new_quizzes_native_experience)
-          end
-
-          it "hides item banks tab for students" do
-            student_in_course(active_all: true)
-            tab_ids = @course.tabs_available(@student, include_external: true).pluck(:id)
-            expect(tab_ids).not_to include(Course::TAB_ITEM_BANKS)
-          end
-
-          it "shows item banks tab for teachers" do
-            available_tabs = @course.tabs_available(@user, include_external: true).pluck(:id)
-            expect(available_tabs).to include(Course::TAB_ITEM_BANKS)
-          end
         end
 
         context "and the ams_root_account_integration is enabled" do

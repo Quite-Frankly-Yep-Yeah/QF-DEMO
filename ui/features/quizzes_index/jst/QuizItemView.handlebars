@@ -16,10 +16,6 @@
 {{else}} {{#if failedToMigrate}}
   <span aria-live="polite" role="alert" aria-atomic="true">{{#t}}Oops! Something went wrong with migrating "{{name}}"{{/t}}</span>
   <div class="migrate-failed-actions">
-    <button class="migrate-failed-retry btn btn-primary">
-      <span class="screenreader-only">{{#t}}Retry migrating "{{name}}"{{/t}}</span>
-      <span aria-hidden="true">{{#t}}Retry{{/t}}</span>
-    </button>
     <button class="duplicate-failed-cancel btn">
       <span class="screenreader-only">{{#t}}Cancel migrating "{{name}}"{{/t}}</span>
       <span aria-hidden="true">{{#t}}Cancel{{/t}}</span>
@@ -78,15 +74,11 @@
 
     <div class="ig-type-icon">
       <i class="icon-quiz{{#if useQuizzesNextIcon}} icon-Solid{{/if}}" aria-hidden="true"></i>
-      {{#if isQuizzesNextAndNotStudent}}
-        <span class="screenreader-only">{{#t}}New Quiz{{/t}}</span>
-      {{else}}
-        <span class="screenreader-only">{{#t}}Quiz{{/t}}</span>
-      {{/if}}
+      <span class="screenreader-only">{{#t}}Quiz{{/t}}</span>
     </div>
 
     <div class="ig-info">
-      <a href="{{url}}" {{#if quizzesRespondusEnabled}}target="_blank"{{/if}} class="ig-title">
+      <a href="{{url}}" class="ig-title">
         {{title_label}}
       </a>
       <div class="ig-details">
@@ -134,11 +126,6 @@
                   <a href="{{edit_url}}" id="ui-id-{{id}}-2" class="icon-edit" tabindex="-1" role="menuitem" title='{{#t}}Edit Quiz{{/t}}'>{{#t}}Edit{{/t}}</a>
                 </li>
               {{/if}}
-              {{#if canShowQuizBuildShortCut}}
-                <li role="presentation">
-                  <a href="{{build_url}}" id="ui-id-{{id}}-5" class="icon-quiz" tabindex="-1" role="menuitem" title='{{#t}}Build Quiz{{/t}}'>{{#t}}Build{{/t}}</a>
-                </li>
-              {{/if}}
               {{#ifAll assignment_id showSpeedGraderLink}}
                 <li role="presentation" class="speed-grader-link-container {{#if initialUnpublishedState}}hidden{{/if}}">
                   <a href="/courses/{{courseId}}/gradebook/speed_grader?assignment_id={{assignment_id}}" target="_blank" rel="noopener" id="ui-id-{{id}}-6" class="icon-speed-grader speed-grader-link" tabindex="-1" role="menuitem" title="{{#t}}Navigate to SpeedGrader for {{name}}{{/t}}">{{#t}}SpeedGrader{{/t}}</a>
@@ -167,8 +154,7 @@
                       translate="no"
                       data-quiz-name="{{name}}"
                       data-quiz-context-id="{{courseId}}"
-                      data-quiz-id="{{id}}"
-                      data-is-lti-quiz="{{isQuizzesNext}}"></span>{{#t}}Assign To...{{/t}}</a>
+                      data-quiz-id="{{id}}"></span>{{#t}}Assign To...{{/t}}</a>
                   </li>
               {{/if}}
               {{#unless is_locked}}
@@ -180,11 +166,6 @@
                 {{/if}}
                 </li>
               {{/unless}}
-              {{#ifAll can_update migrateQuizEnabled}}
-                <li role="presentation">
-                  <a href="#" id="ui-id-{{id}}-4" class="icon-export migrate" tabindex="-1" role="menuitem" title='{{#t}}Migrate Quiz{{/t}}'>{{#t}}Migrate{{/t}}</a>
-                </li>
-              {{/ifAll}}
               {{#if DIRECT_SHARE_ENABLED}}
                 <li role="presentation">
                   <a href="#" class="icon-user quiz-send-to" role="menuitem" title="{{#t}}Send Quiz to User{{/t}}">{{#t}}Send to...{{/t}}</a>
@@ -230,11 +211,6 @@
                   <a href="{{edit_url}}" id="ui-id-{{id}}-2" class="icon-edit" tabindex="-1" role="menuitem" title='{{#t}}Edit Quiz{{/t}}'>{{#t}}Edit{{/t}}</a>
                 </li>
               {{/if}}
-              {{#if canShowQuizBuildShortCut}}
-                <li role="presentation">
-                  <a href="{{build_url}}" id="ui-id-{{id}}-5" class="icon-quiz" tabindex="-1" role="menuitem" title='{{#t}}Build Quiz{{/t}}'>{{#t}}Build{{/t}}</a>
-                </li>
-              {{/if}}
               {{#if canDuplicate}}
               <li>
                 <a
@@ -258,8 +234,7 @@
                       translate="no"
                       data-quiz-name="{{name}}"
                       data-quiz-context-id="{{courseId}}"
-                      data-quiz-id="{{id}}"
-                      data-is-lti-quiz="{{isQuizzesNext}}"></span>{{#t}}Assign To...{{/t}}</a>
+                      data-quiz-id="{{id}}"></span>{{#t}}Assign To...{{/t}}</a>
                   </li>
               {{/if}}
               {{#ifAll can_update cyoe.isCyoeAble}}
@@ -276,11 +251,6 @@
                 {{/if}}
                 </li>
               {{/unless}}
-              {{#ifAll can_update migrateQuizEnabled}}
-                <li role="presentation">
-                  <a href="#" id="ui-id-{{id}}-4" class="icon-export migrate" tabindex="-1" role="menuitem" title='{{#t}}Migrate Quiz{{/t}}'>{{#t}}Migrate{{/t}}</a>
-                </li>
-              {{/ifAll}}
               {{#if DIRECT_SHARE_ENABLED}}
                 <li role="presentation">
                   <a href="#" class="icon-user quiz-send-to" role="menuitem" title="{{#t}}Send Quiz to User{{/t}}">{{#t}}Send to...{{/t}}</a>

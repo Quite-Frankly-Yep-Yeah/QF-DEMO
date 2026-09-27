@@ -24,7 +24,6 @@ import {
   IconDiscussionLine,
   IconModuleLine,
   IconQuizLine,
-  IconQuizSolid as IconNewQuiz,
   IconAnnouncementLine,
   IconDocumentLine,
 } from '@instructure/ui-icons'
@@ -53,10 +52,6 @@ describe('linkUtils', () => {
 
     it('returns quiz icon when course link type is an quiz', () => {
       expect(getIcon('quizzes')).toEqual(IconQuizLine)
-    })
-
-    it('returns new quiz icon when course link type is a new quiz', () => {
-      expect(getIcon('quizzes.next')).toEqual(IconNewQuiz)
     })
 
     it('returns announcement icon when course link type is an announcement', () => {

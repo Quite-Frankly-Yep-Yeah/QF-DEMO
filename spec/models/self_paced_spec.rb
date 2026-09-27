@@ -43,7 +43,7 @@ describe SelfPaced do
 
   describe ".feature_enabled?" do
     it "rejects flags that aren't self-paced phase flags" do
-      expect { SelfPaced.feature_enabled?(course, :quizzes_next) }.to raise_error(ArgumentError)
+      expect { SelfPaced.feature_enabled?(course, :not_a_phase_flag) }.to raise_error(ArgumentError)
     end
 
     it "is false while the umbrella flag is off, even if the phase flag is on" do
@@ -78,11 +78,6 @@ describe SelfPaced do
       flags = [SelfPaced::UMBRELLA_FLAG, *SelfPaced::PHASE_FLAGS].map { |f| Feature.definitions[f.to_s] }
 
       expect(flags.map(&:state)).to all(eql("hidden"))
-    end
-
-    it "hides the features that need Instructure's hosted services" do
-      expect(%w[quizzes_next].map { |f| Feature.definitions[f].state })
-        .to all(eql("hidden"))
     end
   end
 

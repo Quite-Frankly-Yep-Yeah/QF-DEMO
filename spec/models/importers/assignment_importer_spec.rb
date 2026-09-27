@@ -773,37 +773,6 @@ describe "Importing assignments" do
     expect(AnonymousOrModerationEvent.last.user).to eq migration.user
   end
 
-  context "when assignments are new quizzes/quiz lti" do
-    subject do
-      new_quiz
-      Importers::AssignmentImporter.import_from_migration(assignment_hash, course, migration)
-      new_quiz.reload
-    end
-
-    let(:course) { course_model }
-    let(:migration) { course.content_migrations.create! }
-    let(:new_quiz) do
-      new_quizzes_assignment(course:, title: "Some New Quiz", migration_id:)
-    end
-    let(:assignment_hash) do
-      {
-        migration_id:,
-        workflow_state: "published",
-        title: "Tool Assignment",
-        submission_types: "external_tool",
-      }
-    end
-
-    it "sets the content tag workflow state back to active when a previously deleted quiz lti assignment is re-imported back into the course" do
-      subject
-      new_quiz.destroy
-      new_quiz.save!
-      Importers::AssignmentImporter.import_from_migration(assignment_hash, course, migration)
-      new_quiz.reload
-      expect(new_quiz.external_tool_tag).to be_active
-    end
-  end
-
   context "when assignments use an LTI tool" do
     subject do
       assignment # trigger create
@@ -2424,51 +2393,6 @@ describe "Importing assignments" do
         a = course.assignments.find_by(migration_id: "mig123")
         expect(Lti::ImportHistory.where(target_lti_id: a.lti_context_id).pluck(:source_lti_id)).to eq(["source-lti-abc"])
       end
-    end
-  end
-
-  describe "#import_new_quizzes_settings" do
-    let(:assignment) { Assignment.new }
-
-    it "sets both type and anonymous_participants when provided" do
-      hash = { new_quizzes_type: "graded_survey", new_quizzes_anonymous_participants: true }
-      Importers::AssignmentImporter.import_new_quizzes_settings(hash, assignment)
-      expect(assignment.settings["new_quizzes"]["type"]).to eq("graded_survey")
-      expect(assignment.settings["new_quizzes"]["anonymous_participants"]).to be true
-    end
-
-    it "sets only type when anonymous_participants is not provided" do
-      hash = { new_quizzes_type: "graded_quiz" }
-      Importers::AssignmentImporter.import_new_quizzes_settings(hash, assignment)
-      expect(assignment.settings["new_quizzes"]["type"]).to eq("graded_quiz")
-      expect(assignment.settings["new_quizzes"]).not_to have_key("anonymous_participants")
-    end
-
-    it "sets only anonymous_participants when type is not provided" do
-      hash = { new_quizzes_anonymous_participants: false }
-      Importers::AssignmentImporter.import_new_quizzes_settings(hash, assignment)
-      expect(assignment.settings["new_quizzes"]["anonymous_participants"]).to be false
-      expect(assignment.settings["new_quizzes"]).not_to have_key("type")
-    end
-
-    it "does not modify settings when neither field is provided" do
-      hash = {}
-      Importers::AssignmentImporter.import_new_quizzes_settings(hash, assignment)
-      expect(assignment.settings).to be_nil
-    end
-
-    it "casts anonymous_participants string values to boolean" do
-      hash = { new_quizzes_anonymous_participants: "true" }
-      Importers::AssignmentImporter.import_new_quizzes_settings(hash, assignment)
-      expect(assignment.settings["new_quizzes"]["anonymous_participants"]).to be true
-    end
-
-    it "merges with existing new_quizzes settings" do
-      assignment.settings = { "new_quizzes" => { "existing_key" => "existing_value" } }
-      hash = { new_quizzes_type: "survey" }
-      Importers::AssignmentImporter.import_new_quizzes_settings(hash, assignment)
-      expect(assignment.settings["new_quizzes"]["type"]).to eq("survey")
-      expect(assignment.settings["new_quizzes"]["existing_key"]).to eq("existing_value")
     end
   end
 end

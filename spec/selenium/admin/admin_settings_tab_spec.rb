@@ -566,7 +566,6 @@ describe "admin settings tab" do
   it "shows all feature flags that are expected to be visible" do
     user = account_admin_user({ active_user: true }.merge(account: Account.site_admin))
     course_with_admin_logged_in(account: Account.default, user:)
-    provision_quizzes_next(Account.default)
     get "/accounts/#{Account.default.id}/settings"
     wait_for_new_page_load
     f("#tab-features").click

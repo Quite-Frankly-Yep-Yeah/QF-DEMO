@@ -63,10 +63,8 @@ export default (AssignmentListItemView = (function () {
       this.toggleHidden = this.toggleHidden.bind(this)
       this.createModuleToolTip = this.createModuleToolTip.bind(this)
       this.addAssignmentToList = this.addAssignmentToList.bind(this)
-      this.addMigratedQuizToList = this.addMigratedQuizToList.bind(this)
       this.onDuplicate = this.onDuplicate.bind(this)
       this.onDuplicateFailedRetry = this.onDuplicateFailedRetry.bind(this)
-      this.onMigrateFailedRetry = this.onMigrateFailedRetry.bind(this)
       this.onDuplicateOrImportFailedCancel = this.onDuplicateOrImportFailedCancel.bind(this)
       this.renderItemAssignToTray = this.renderItemAssignToTray.bind(this)
       this.onAssign = this.onAssign.bind(this)
@@ -126,7 +124,6 @@ export default (AssignmentListItemView = (function () {
         'click .icon-unlock': 'onLockAssignment',
         'click .move_assignment': 'onMove',
         'click .duplicate-failed-retry': 'onDuplicateFailedRetry',
-        'click .migrate-failed-retry': 'onMigrateFailedRetry',
         'click .duplicate-failed-cancel': 'onDuplicateOrImportFailedCancel',
         'click .import-failed-cancel': 'onDuplicateOrImportFailedCancel',
         'click .alignment-clone-failed-retry': 'onAlignmentCloneFailedRetry',
@@ -562,7 +559,6 @@ export default (AssignmentListItemView = (function () {
       // this sets initial value, then it keeps up with class toggling behavior on updatePublishState()
       data.initialUnpublishedState = !this.model.get('published')
       data.canEdit = this.canEdit()
-      data.canShowBuildLink = this.canShowBuildLink()
       data.canMove = this.canMove()
       data.canDelete = this.canDelete()
       data.canDuplicate = this.canDuplicate()
@@ -580,16 +576,10 @@ export default (AssignmentListItemView = (function () {
       )
       data.return_to = encodeURIComponent(window.location.pathname)
 
-      data.quizzesRespondusEnabled = this.model.quizzesRespondusEnabled()
-
       data.DIRECT_SHARE_ENABLED = !!ENV.DIRECT_SHARE_ENABLED
       data.canOpenManageOptions = this.canOpenManageOptions()
 
-      data.item_assignment_type = data.is_quiz_assignment
-        ? 'quiz'
-        : data.isQuizLTIAssignment
-          ? 'lti-quiz'
-          : 'assignment'
+      data.item_assignment_type = data.is_quiz_assignment ? 'quiz' : 'assignment'
 
       if (this.model.shouldShowPeerReviewInfo && this.model.shouldShowPeerReviewInfo()) {
         data.hasPeerReviewInfo = true
@@ -617,15 +607,7 @@ export default (AssignmentListItemView = (function () {
         })
         data.item_assignment_type = 'discussion_topic'
       } else {
-        const isNewQuizzes = this.model.isQuizLTIAssignment()
-        const isShareToCommons = tool => tool.canvas_icon_class === 'icon-commons'
-        const tools = ENV.assignment_menu_tools || []
-
-        if (!isNewQuizzes || ENV.FEATURES.commons_new_quizzes) {
-          data.menu_tools = tools
-        } else {
-          data.menu_tools = tools.filter(tool => !isShareToCommons(tool))
-        }
+        data.menu_tools = ENV.assignment_menu_tools || []
 
         data.menu_tools.forEach(tool => {
           return (tool.url = tool.base_url + `&assignments[]=${this.model.get('id')}`)
@@ -662,16 +644,6 @@ export default (AssignmentListItemView = (function () {
       }
       this.model.collection.add(assignment)
       return this.focusOnAssignment(response)
-    }
-
-    addMigratedQuizToList(response) {
-      if (!response) {
-        return
-      }
-      const quizzes = response.migrated_assignment
-      if (quizzes) {
-        return this.addAssignmentToList(quizzes[0])
-      }
     }
 
     onDuplicate(e) {
@@ -716,18 +688,6 @@ export default (AssignmentListItemView = (function () {
           a.set('updated_at', response.updated_at)
         }
       })
-    }
-
-    onMigrateFailedRetry(e) {
-      e.preventDefault()
-      const $button = $(e.target)
-      $button.prop('disabled', true)
-      return this.model
-        .retry_migration(response => {
-          this.addMigratedQuizToList(response)
-          return this.delete({silent: true})
-        })
-        .always(() => $button.prop('disabled', false))
     }
 
     onDuplicateOrImportFailedCancel(e) {
@@ -944,10 +904,6 @@ export default (AssignmentListItemView = (function () {
 
     canManageAssignTo() {
       return ENV.PERMISSIONS.by_assignment_id?.[this.model.id]?.manage_assign_to
-    }
-
-    canShowBuildLink() {
-      return !!(ENV.FLAGS && this.model.isQuizLTIAssignment())
     }
 
     canOpenManageOptions() {

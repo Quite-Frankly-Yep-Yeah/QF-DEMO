@@ -44,7 +44,7 @@ module Api::V1::ContentMigration
     end
     json[:migration_issues_url] = api_v1_course_content_migration_migration_issue_list_url(migration.context_id, migration.id)
     json[:migration_issues_count] = migration.migration_issues.count
-    include_attachment = !migration.for_course_copy? || migration.quizzes_next_migration?
+    include_attachment = !migration.for_course_copy?
     if attachment_preflight
       json[:pre_attachment] = attachment_preflight
     elsif migration.attachment && !migration.expired? && include_attachment

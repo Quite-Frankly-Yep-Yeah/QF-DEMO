@@ -37,7 +37,6 @@
     {{/if}}
   </div>
 
-  {{#unless isQuizLTIAssignment}}
     <div class="control-group">
       {{#ifIncludes frozenAttributes "description"}}
         <div class="frozen-description user_content">
@@ -58,11 +57,7 @@
         {{/if}}
       {{/ifIncludes}}
     </div>
-  {{/unless}}
 
-  {{#if isQuizLTIAssignment}}
-    <div id="quiz_type_selector" class="control-group"></div>
-  {{/if}}
 
   <div class="control-group">
 
@@ -84,9 +79,6 @@
           {{/ifAny}}
           {{disabledIfIncludes frozenAttributes "points_possible"}}
         ></input>
-        {{#if isQuizLTIAssignment}}
-          <div id="points_tooltip"></div>
-        {{/if}}
       </div>
       <div id="points_possible_errors"></div>
       {{#unless lockedItems.points}}
@@ -100,9 +92,6 @@
 
   </div>
 
-  {{#if isQuizLTIAssignment}}
-    <div id="anonymous_submission_selector" class="control-group" style="{{hiddenUnless showAnonymousSubmissionSelector}}"></div>
-  {{/if}}
 
   <div id="assignment_group_selector" class="control-group"></div>
 
@@ -145,33 +134,6 @@
           </label>
         </div>
       </div>
-    {{/if}}
-    {{#if hideZeroPointQuizzesOptionEnabled}}
-      {{#if isQuizLTIAssignment}}
-          <div id="assignment_hide_in_gradebook_option">
-            <div id="hide-in-gradebook-set">
-              <div class="form-column-left"></div>
-              <div id="hide_in_gradebook" class="form-column-right">
-                <label class="checkbox">
-                  {{#if inClosedGradingPeriod}}
-                    {{checkbox "hideInGradebook"
-                      id="assignment_hide_in_gradebook"
-                      name="hide_in_gradebook"
-                      readonly="readonly"
-                      aria-readonly="true"
-                    }}
-                  {{else}}
-                    {{checkbox "hideInGradebook"
-                      id="assignment_hide_in_gradebook"
-                      name="hide_in_gradebook"
-                    }}
-                  {{/if}}
-                  {{#t}}Do not display in gradebook or the student's grade page{{/t}}
-                </label>
-              </div>
-            </div>
-          </div>
-      {{/if}}
     {{/if}}
 
     {{>ui/features/assignment_edit/jst/_submission_types_form.handlebars}}
@@ -221,9 +183,7 @@
       </div>
     {{/if}}
 
-    {{#unless isQuizLTIAssignment}}
-      <span data-component="ModeratedGradingFormFieldGroup"></span>
-    {{/unless}}
+    <span data-component="ModeratedGradingFormFieldGroup"></span>
 
     {{#if anonymousGradingEnabled}}
       <div>
@@ -298,9 +258,6 @@
 </div>
 {{/if}}
 
-{{#if isQuizLTIAssignment}}
-  <input type="hidden" name="quiz_lti" value="1"></input>
-{{/if}}
 
 <input type='hidden' id="secure_params" name="secure_params" value="{{secureParams}}"></input>
 
@@ -324,17 +281,8 @@
           {{#t "buttons.save_and_publish"}}Save & Publish{{/t}}
         </button>
     {{/unless}}
-    {{#if showBuildButton}}
-      <button type="button" class="btn btn-default save_button">
-        {{#t "buttons.save"}}Save{{/t}}
-      </button>
-      <button type="submit" class="btn btn-primary build_button">
-        {{#t "buttons.build"}}Build{{/t}}
-      </button>
-    {{else}}
-      <button type="submit" class="btn btn-primary">
-        {{#t "buttons.save"}}Save{{/t}}
-      </button>
-    {{/if}}
+    <button type="submit" class="btn btn-primary">
+      {{#t "buttons.save"}}Save{{/t}}
+    </button>
   </div>
 </div>

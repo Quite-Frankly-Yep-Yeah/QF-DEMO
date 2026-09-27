@@ -117,21 +117,11 @@ class JwtsController < ApplicationController
       )
     end
 
-    user = @current_user
-    real_user = @real_current_user
-
-    if Account.site_admin.feature_enabled?(:new_quizzes_allow_service_jwt_refresh) && refresh_for_another_user?
-      return render_invalid_refresh unless user_can_refresh?
-
-      user = User.find(decrypted_jwt["sub"])
-      real_user = decrypted_jwt["masq_sub"].present? ? User.find(decrypted_jwt["masq_sub"]) : nil
-    end
-
     services_jwt = CanvasSecurity::ServicesJwt.refresh_for_user(
       params[:jwt],
       request.host_with_port,
-      user,
-      real_user:,
+      @current_user,
+      real_user: @real_current_user,
       # TODO: remove this once we teach all consumers to consume the asymmetric ones
       symmetric: true
     )
@@ -172,18 +162,6 @@ class JwtsController < ApplicationController
                end
 
     require_context_with_permission(@context, :read)
-  end
-
-  def decrypted_jwt
-    @decrypted_jwt ||= CanvasSecurity::ServicesJwt.decrypt(CanvasSecurity.base64_decode(params[:jwt]), ignore_expiration: true)
-  end
-
-  def refresh_for_another_user?
-    @current_user.global_id != decrypted_jwt["sub"].to_i
-  end
-
-  def user_can_refresh?
-    @current_user.root_admin_for?(@domain_root_account) && @access_token.developer_key.internal_service?
   end
 
   def render_error(error_message, status = :bad_request)

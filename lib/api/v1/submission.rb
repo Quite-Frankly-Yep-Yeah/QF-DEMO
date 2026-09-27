@@ -101,8 +101,6 @@ module Api::V1::Submission
                 )
               end
           end
-      elsif quizzes_next_submission?(submission)
-        hash["submission_history"] = quizzes_next_submission_history(submission, current_user)
       else
         histories = submission.submission_history
         ActiveRecord::Associations.preload(histories, :group) if includes.include?("group")
@@ -656,18 +654,5 @@ module Api::V1::Submission
     speed_grader_course_gradebook_url(
       { course_id: assignment.context_id, assignment_id: assignment }.merge(student_or_anonymous_id)
     )
-  end
-
-  def quizzes_next_submission?(submission)
-    assignment = submission.assignment
-    assignment.quiz_lti? &&
-      assignment.root_account.feature_enabled?(:quizzes_next_submission_history)
-  end
-
-  def quizzes_next_submission_history(submission, current_user)
-    quiz_lti_submission =
-      BasicLTI::QuizzesNextVersionedSubmission.new(submission.assignment, submission.user)
-    hide_history_scores_on_manual_posting = !submission.grants_right?(current_user, :read_grade)
-    quiz_lti_submission.grade_history(hide_history_scores_on_manual_posting:)
   end
 end

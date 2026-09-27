@@ -33,7 +33,6 @@ query GetModuleItemsQuery($moduleId: ID!, $cursor: String, $first: Int) {
                 dueAt(applyOverrides: false)
                 lockAt(applyOverrides: false)
                 unlockAt(applyOverrides: false)
-                isNewQuiz
                 canUnpublish
                 isLockedByMasterCourse
                 canDuplicate

@@ -38,14 +38,6 @@ const QuizzesTray = () => (
         href: I18n.t('#community.instructor_use_quizzes_index'),
       },
       {
-        label: I18n.t('How do I create an assessment using New Quizzes?'),
-        href: I18n.t('#community.instructor_create_new_quiz'),
-      },
-      {
-        label: I18n.t('How do I manage settings for an assessment in New Quizzes?'),
-        href: I18n.t('#community.instructor_manage_new_quizzes_settings'),
-      },
-      {
         label: I18n.t('How do I create a quiz with individual questions?'),
         href: I18n.t('#community.instructor_create_quiz_questions'),
       },
@@ -56,9 +48,7 @@ const QuizzesTray = () => (
     ]}
   >
     {I18n.t(`Use quizzes to challenge student understanding and assess comprehension
-      of course material. The New Quizzes assessment engine allows you to create up to
-      13 types of question types and content. If New Quizzes isn't enabled for your institution,
-      Classic Quizzes are still available to help you achieve your objectives.`)}
+      of course material.`)}
   </TutorialTrayContent>
 )
 

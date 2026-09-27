@@ -190,32 +190,6 @@ shared_examples_for "module item assign to tray" do |context|
     expect(@module_item1.assignment.assignment_overrides.first.assignment_override_students.count).to eq(1)
   end
 
-  it "assigns student for a NQ quiz and saves" do
-    new_quiz_assignment = @mod_course.assignments.create!(title: "new quizzes assignment")
-    new_quiz_assignment.quiz_lti!
-    new_quiz_assignment.save!
-    @module.add_item(type: "assignment", id: new_quiz_assignment.id)
-    latest_module_item = ContentTag.last
-
-    get @mod_url
-    scroll_page_to_bottom
-    manage_module_item_button(latest_module_item).click
-    click_manage_module_item_assign_to(latest_module_item)
-    click_add_assign_to_card
-    select_module_item_assignee(1, @student1.name)
-
-    update_due_date(1, "12/31/2022")
-    update_due_time(1, "5:00 PM")
-    update_available_date(1, "12/27/2022")
-    update_available_time(1, "8:00 AM")
-    update_until_date(1, "1/7/2023")
-    update_until_time(1, "9:00 PM")
-    click_save_button
-
-    expect(wait_for_no_such_element { module_item_edit_tray }).to be_truthy
-    expect(latest_module_item.assignment.assignment_overrides.first.assignment_override_students.count).to eq(1)
-  end
-
   it "assigns student for a classic quiz and saves" do
     classic_quiz_assignment = @mod_course.quizzes.create!(title: "classic quizzes assignment")
     @module.add_item(type: "assignment", id: classic_quiz_assignment.id)

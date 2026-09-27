@@ -86,7 +86,6 @@ class ContentExportsApiController < ApplicationController
   include Api::V1::ContentExport
 
   before_action :require_context
-  before_action :require_site_admin, only: :update
 
   # @API List content exports
   #
@@ -152,7 +151,7 @@ class ContentExportsApiController < ApplicationController
   def create
     if authorized_action(@context, @current_user, :read)
       valid_types = %w[zip]
-      valid_types += %w[qti common_cartridge quizzes2] if @context.is_a?(Course)
+      valid_types += %w[qti common_cartridge] if @context.is_a?(Course)
       return render json: { message: "invalid export_type" }, status: :bad_request unless valid_types.include?(params[:export_type])
 
       export = create_content_export_from_api(params, @context, @current_user)
@@ -190,23 +189,7 @@ class ContentExportsApiController < ApplicationController
     end
   end
 
-  def update
-    export = @context.content_exports.common_cartridge.find(params[:id])
-
-    if export.update(update_params)
-      export.export if export.new_quizzes_export_state_completed?
-      export_fail_with_error(export, "New Quizzes failed to export") if export.new_quizzes_export_state_failed?
-      render json: content_export_json(export, @current_user, session, ["new_quizzes_export_settings"])
-    else
-      render json: export.errors, status: :bad_request
-    end
-  end
-
   private
-
-  def update_params
-    params.require(:content_export).permit(:new_quizzes_export_state, :new_quizzes_export_url)
-  end
 
   def export_fail_with_error(export, msg)
     export.fail_with_error! @current_user.global_id, error_message: msg

@@ -182,7 +182,6 @@ export type CamelizedAssignment = {
   moderatedGrading: boolean
   muted: boolean
   name: string
-  newQuizzesAnonymousParticipants: boolean
   parentAssignmentId?: string
   pointsPossible: number | null
   postManually: boolean

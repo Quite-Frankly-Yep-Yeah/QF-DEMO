@@ -20,7 +20,6 @@
 
 class Quizzes::QuizzesController < ApplicationController
   include Api::V1::Quiz
-  include Api::V1::QuizzesNext::Quiz
   include Api::V1::AssignmentOverride
   include KalturaHelper
   include ::Filters::Quizzes
@@ -81,7 +80,6 @@ class Quizzes::QuizzesController < ApplicationController
       can_manage = @context.grants_right?(@current_user, session, :manage_assignments_edit)
 
       quiz_index = scoped_quizzes_index
-      quiz_index += scoped_new_quizzes_index if quiz_lti_enabled?
 
       quiz_options = Rails.cache.fetch(
         [
@@ -106,20 +104,11 @@ class Quizzes::QuizzesController < ApplicationController
 
       practice_quizzes   = scoped_quizzes_index.select { |q| q.quiz_type == QUIZ_TYPE_PRACTICE }
       surveys            = scoped_quizzes_index.select { |q| QUIZ_TYPE_SURVEYS.include?(q.quiz_type) }
-      if @context.root_account.feature_enabled?(:newquizzes_on_quiz_page)
-        surveys += scoped_new_quizzes_index.select do |q|
-          Assignment::QUIZZES_NEXT_SURVEY_TYPES.include?(q.settings&.dig("new_quizzes", "type"))
-        end
-      end
-      if scoped_new_quizzes_index.any? && @context.grants_any_right?(@current_user, session, *RoleOverride::GRANULAR_MANAGE_ASSIGNMENT_PERMISSIONS)
-        mc_status = setup_master_course_restrictions(scoped_new_quizzes_index, @context)
-      end
       serializer_options = [@context,
                             @current_user,
                             session,
                             {
                               permissions: quiz_options,
-                              master_course_status: mc_status,
                               skip_date_overrides: true,
                               skip_lock_tests: true,
                               skip_description: true,
@@ -136,16 +125,14 @@ class Quizzes::QuizzesController < ApplicationController
         QUIZZES: {
           assignment: assignment_quizzes_json(serializer_options),
           open: quizzes_json(practice_quizzes, *serializer_options),
-          surveys: quizzes_next_json(sort_quizzes(surveys), *serializer_options),
+          surveys: quizzes_json(surveys, *serializer_options),
           options: quiz_options
         },
         URLS: {
           new_assignment_url: new_polymorphic_url([@context, :assignment]),
           new_quiz_url: context_url(@context, :context_quizzes_new_url, fresh: 1),
-          new_quizzes_selection: api_v1_course_new_quizzes_selection_update_url(@context),
           question_banks_url: context_url(@context, :context_question_banks_url),
-          assignment_overrides: api_v1_course_quiz_assignment_overrides_url(@context),
-          new_quizzes_assignment_overrides: api_v1_course_new_quizzes_assignment_overrides_url(@context)
+          assignment_overrides: api_v1_course_quiz_assignment_overrides_url(@context)
         },
         PERMISSIONS: {
           create: can_do(@context.quizzes.temp_record, @current_user, :create),
@@ -156,8 +143,6 @@ class Quizzes::QuizzesController < ApplicationController
         FLAGS: {
           question_banks: feature_enabled?(:question_banks),
           post_to_sis_enabled: Assignment.sis_grade_export_enabled?(@context),
-          quiz_lti_enabled: quiz_lti_on_quizzes_page?,
-          migrate_quiz_enabled: quiz_lti_enabled?,
           show_additional_speed_grader_link: Account.site_admin.feature_enabled?(:additional_speedgrader_links),
           # TODO: remove this since it's set in application controller
           # Will need to update consumers of this in the UI to bring down
@@ -173,7 +158,6 @@ class Quizzes::QuizzesController < ApplicationController
         DUE_DATE_REQUIRED_FOR_ACCOUNT: due_date_required_for_account,
         MAX_NAME_LENGTH_REQUIRED_FOR_ACCOUNT: max_name_length_required_for_account,
         SIS_INTEGRATION_SETTINGS_ENABLED: sis_integration_settings_enabled,
-        NEW_QUIZZES_SELECTED: quiz_engine_selection,
         SHOW_SPEED_GRADER_LINK: @current_user.present? && context.allows_speed_grader? && context.grants_any_right?(@current_user, :manage_grades, :view_all_grades),
         VALID_DATE_RANGE: CourseDateRange.new(@context),
         HAS_GRADING_PERIODS: @context.grading_periods?,
@@ -1116,29 +1100,9 @@ class Quizzes::QuizzesController < ApplicationController
     end
   end
 
-  def quiz_lti_on_quizzes_page?
-    @context.root_account.feature_enabled?(:newquizzes_on_quiz_page) &&
-      quiz_lti_enabled? &&
-      @context.quiz_lti_tool.url != "http://void.url.inseng.net"
-  end
-
-  def quiz_lti_enabled?
-    @context.feature_enabled?(:quizzes_next) &&
-      @context.quiz_lti_tool.present?
-  end
-
   def assignment_quizzes_json(serializer_options)
-    old_quizzes = scoped_quizzes_index.select { |q| q.quiz_type == QUIZ_TYPE_ASSIGNMENT }
-    unless @context.root_account.feature_enabled?(:newquizzes_on_quiz_page)
-      return quizzes_json(old_quizzes, *serializer_options)
-    end
-
-    new_quizzes = scoped_new_quizzes_index.reject { |q| Assignment::QUIZZES_NEXT_SURVEY_TYPES.include?(q.settings&.dig("new_quizzes", "type")) }
-
-    quizzes_next_json(
-      sort_quizzes(old_quizzes + new_quizzes),
-      *serializer_options
-    )
+    quizzes = scoped_quizzes_index.select { |q| q.quiz_type == QUIZ_TYPE_ASSIGNMENT }
+    quizzes_json(quizzes, *serializer_options)
   end
 
   def sort_quizzes(quizzes)
@@ -1150,7 +1114,7 @@ class Quizzes::QuizzesController < ApplicationController
     end
   end
 
-  # get the due_date for either a Classic Quiz or a quiz_lti quiz (Assignment)
+  # get the due_date for a quiz, or for an assignment standing in for one
   def quiz_due_date(quiz)
     return quiz.assignment ? quiz.assignment.due_at : quiz.lock_at if quiz.is_a?(Quizzes::Quiz)
 
@@ -1213,12 +1177,6 @@ class Quizzes::QuizzesController < ApplicationController
     @_quizzes_index = sort_quizzes(scope)
   end
 
-  def scoped_new_quizzes_index
-    return @_new_quizzes_index if @_new_quizzes_index
-
-    @_new_quizzes_index = Assignments::ScopedToUser.new(@context, @current_user).scope.preload(:duplicate_of).type_quiz_lti
-  end
-
   def scoped_quizzes
     return @_quizzes if @_quizzes
 
@@ -1231,20 +1189,6 @@ class Quizzes::QuizzesController < ApplicationController
     scope = DifferentiableAssignment.scope_filter(scope, @current_user, @context)
 
     @_quizzes = sort_quizzes(scope)
-  end
-
-  def quiz_engine_selection
-    return "true" if new_quizzes_by_default?
-
-    selection = nil
-    if @context.is_a?(Course) && @context.settings.dig(:engine_selected, :user_id)
-      selection_obj = @context.settings.dig(:engine_selected, :user_id)
-      if selection_obj[:expiration] > Time.zone.today
-        selection = selection_obj[:newquizzes_engine_selected]
-      end
-      selection
-    end
-    selection
   end
 
   def set_section_list_js_env

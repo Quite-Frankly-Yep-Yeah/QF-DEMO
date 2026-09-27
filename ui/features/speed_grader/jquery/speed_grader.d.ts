@@ -795,7 +795,6 @@ export const ZSpeedGraderResponse = z
     position: z.number(),
     post_manually: z.boolean(), // not used in SpeedGrader
     post_to_sis: z.boolean(), // not used in SpeedGrader
-    quiz_lti: z.boolean(),
     root_account_id: z.string(),
     settings: z.null(),
     sis_source_id: z.string().nullable(), // not used in SpeedGrader

@@ -53,7 +53,6 @@ describe('SpeedGrader Grading Functionality', () => {
       show_help_menu_item: false,
       RUBRIC_ASSESSMENT: {},
       force_anonymous_grading: false,
-      SINGLE_NQ_SESSION_ENABLED: true,
     }
   })
 

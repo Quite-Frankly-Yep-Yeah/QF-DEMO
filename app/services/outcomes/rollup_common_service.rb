@@ -24,7 +24,6 @@ module Outcomes
   # and generating rollup data that can be used by different rollup calculation services.
   class RollupCommonService < ApplicationService
     include Outcomes::ResultAnalytics
-    include OutcomesServiceAuthoritativeResultsHelper
     include CanvasOutcomesHelper
 
     # Fetches quite frankly an example LMS learning outcome results
@@ -46,57 +45,6 @@ module Outcomes
                   hidden: false
                 )
       order_results_for_rollup(results)
-    end
-
-    # Fetches Outcomes Service results for New Quizzes
-    # @param course [Course] the course context
-    # @param users [Array<User>] the users to fetch results for
-    # @param outcomes [ActiveRecord::Relation<LearningOutcome>, Array<LearningOutcome>, nil]
-    #        the outcomes to fetch results for (nil for all course outcomes)
-    # @param assignments [ActiveRecord::Relation<Assignment>, nil]
-    #        quiz assignments to fetch results from (nil to fetch all quiz assignments)
-    # @return [Array<LearningOutcomeResult>]
-    def fetch_outcomes_service_results(course:, users:, outcomes: nil, assignments: nil)
-      assignments ||= Assignment.active.where(context: course).quiz_lti
-      return [] if assignments.blank?
-
-      outcomes ||= course.linked_learning_outcomes
-      return [] if outcomes.blank?
-
-      os_results_json = find_outcomes_service_outcome_results(
-        users:,
-        context: course,
-        outcomes:,
-        assignments:
-      )
-      return [] if os_results_json.blank?
-
-      handle_outcomes_service_results(
-        os_results_json,
-        course,
-        outcomes,
-        users,
-        assignments
-      )
-    end
-
-    # Combines and deduplicates results from multiple sources
-    # @param canvas_results [ActiveRecord::Relation<LearningOutcomeResult>, Array<LearningOutcomeResult>]
-    # @param outcomes_results [Array<LearningOutcomeResult>]
-    # @return [Array<LearningOutcomeResult>]
-    def combine_results(canvas_results = [], outcomes_results = [])
-      return canvas_results.to_a if outcomes_results.blank?
-      return outcomes_results if canvas_results.blank?
-
-      all_results = canvas_results.to_a + outcomes_results
-
-      all_results.uniq do |result|
-        [
-          result.learning_outcome_id,
-          result.user_uuid || result.user_id,
-          result.associated_asset_id || result.artifact_id
-        ]
-      end
     end
 
     # Generates rollup data from learning outcome results

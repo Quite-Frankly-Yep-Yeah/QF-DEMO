@@ -153,7 +153,6 @@ describe Accessibility::CourseScanService do
     context "when scanning assignments" do
       let!(:assignment1) { assignment_model(course:) }
       let!(:assignment2) { assignment_model(course:) }
-      let!(:quiz_lti_assignment) { new_quizzes_assignment(course:) }
       let!(:classic_quiz) { course.quizzes.create!(title: "Classic Quiz", quiz_type: "assignment") }
       let!(:classic_quiz_assignment) { classic_quiz.assignment }
       let!(:external_tool_assignment) do
@@ -174,10 +173,6 @@ describe Accessibility::CourseScanService do
 
       it "does not scan the deleted assignment" do
         expect(Accessibility::ResourceScannerService).not_to have_received(:new).with(resource: assignment2)
-      end
-
-      it "does not scan the New Quizzes assignment" do
-        expect(Accessibility::ResourceScannerService).not_to have_received(:new).with(resource: quiz_lti_assignment)
       end
 
       it "does not scan the Classic Quiz assignment" do

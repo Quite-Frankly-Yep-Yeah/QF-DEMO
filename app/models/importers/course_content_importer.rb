@@ -123,10 +123,8 @@ module Importers
           migration.update_import_progress(30)
           Importers::MediaTrackImporter.process_migration(data[:media_tracks], migration)
           migration.update_import_progress(35)
-          unless migration.quizzes_next_banks_migration?
-            question_data = Importers::AssessmentQuestionImporter.process_migration(data, migration)
-            migration.update_import_progress(45)
-          end
+          question_data = Importers::AssessmentQuestionImporter.process_migration(data, migration)
+          migration.update_import_progress(45)
           Importers::GroupImporter.process_migration(data, migration)
           migration.update_import_progress(48)
           Importers::LearningOutcomeImporter.process_migration(data, migration)
@@ -222,7 +220,7 @@ module Importers
 
           # Translate file links in assessment questions to clone course/user/media attachments to question context
           # This must happen AFTER resolve_content_links! because QTI imports use placeholders that get resolved first
-          if migration.context.is_a?(Course) && !migration.quizzes_next_banks_migration?
+          if migration.context.is_a?(Course)
             # Get all assessment questions that were part of this migration
             # We can't use migration.imported_migration_items_by_class because assessment questions
             # imported via raw SQL don't get tracked there
@@ -254,7 +252,7 @@ module Importers
           migration.imported_migration_items_hash.each { |k, assets| imported_asset_hash[k] = assets.values.map(&:id).join(",") if assets.present? }
           migration.migration_settings[:imported_assets] = imported_asset_hash
           migration.migration_settings[:attachment_path_id_lookup] = migration.attachment_path_id_lookup
-          migration.workflow_state = :imported unless post_processing?(migration)
+          migration.workflow_state = :imported
           migration.save
 
           if migration.for_master_course_import? &&
@@ -466,10 +464,6 @@ module Importers
       end
       quizzes = migration.imported_migration_items_by_class(Quizzes::Quiz).select(&:should_clear_availability_cache)
       Quizzes::Quiz.clear_cache_keys(quizzes, :availability) if quizzes.any?
-    end
-
-    def self.post_processing?(migration)
-      migration.quizzes_next_import_process?
     end
 
     def self.import_syllabus_from_migration(course, syllabus_body, migration)

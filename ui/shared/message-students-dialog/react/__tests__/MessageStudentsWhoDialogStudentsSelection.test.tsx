@@ -86,7 +86,6 @@ const scoredAssignment: CamelizedAssignment = {
   name: 'A pointed assignment',
   submissionTypes: ['online_text_entry'],
   anonymizeStudents: false,
-  newQuizzesAnonymousParticipants: false,
   anonymousGrading: false,
   gradesPublished: true,
   htmlUrl: 'http://example.com',

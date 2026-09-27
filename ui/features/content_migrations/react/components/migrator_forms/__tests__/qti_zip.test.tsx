@@ -20,7 +20,6 @@ import QTIZipImporter from '../qti_zip'
 import {
   sharedBankTests,
   sharedFormTests,
-  sharedImportAsNQTests,
   sharedMatchingAssessmentCheckboxTests,
 } from './shared_form_cases'
 
@@ -31,6 +30,5 @@ describe('QTIZipImporter', () => {
 
   sharedFormTests(QTIZipImporter)
   sharedBankTests(QTIZipImporter)
-  sharedImportAsNQTests(QTIZipImporter)
   sharedMatchingAssessmentCheckboxTests(QTIZipImporter)
 })

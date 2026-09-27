@@ -44,29 +44,6 @@ describe ContentMigration do
       expect(@copy_to.quizzes.where(migration_id: mig_id(@quiz)).first).not_to be_nil
     end
 
-    it "creates a new assignment and module item if copying a new quiz (even if the assignment migration_id matches)" do
-      quiz = @copy_from.quizzes.create!(title: "new quiz")
-      quiz2 = @copy_to.quizzes.create!(title: "already existing quiz")
-
-      mod = @copy_from.context_modules.create!(name: "some module")
-      mod.add_item({ id: quiz.id, type: "quiz" })
-
-      [quiz, quiz2].each do |q|
-        q.did_edit
-        q.offer!
-      end
-
-      a = quiz2.assignment
-      a.migration_id = mig_id(quiz.assignment)
-      a.save!
-
-      run_course_copy
-
-      expect(@copy_to.quizzes.map(&:title).sort).to eq ["already existing quiz", "new quiz"]
-      expect(@copy_to.assignments.map(&:title).sort).to eq ["already existing quiz", "new quiz"]
-      expect(@copy_to.context_module_tags.map(&:title)).to eq ["new quiz"]
-    end
-
     it "does not duplicate quizzes and associated items if overwrite_quizzes is true" do
       # overwrite_quizzes should now default to true for course copy and canvas import
 

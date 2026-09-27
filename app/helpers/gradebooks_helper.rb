@@ -37,14 +37,7 @@ module GradebooksHelper
     end
   end
 
-  def ungraded_submission_icon_attributes_for(submission_type, is_new_quizzes: false)
-    if is_new_quizzes
-      return {
-        icon_class: "icon-quiz icon-Solid",
-        screenreader_text: I18n.t("New Quizzes Submission")
-      }
-    end
-
+  def ungraded_submission_icon_attributes_for(submission_type)
     case submission_type
     when "online_url"
       {
@@ -128,10 +121,7 @@ module GradebooksHelper
     elsif submission && grade && submission.workflow_state != "pending_review"
       graded_submission_display(grade, score, submission.assignment.grading_type)
     elsif submission.submission_type
-      ungraded_submission_display(
-        submission.submission_type,
-        is_new_quizzes: submission.cached_quiz_lti
-      )
+      ungraded_submission_display(submission.submission_type)
     else
       "-"
     end
@@ -154,8 +144,8 @@ module GradebooksHelper
     end
   end
 
-  def ungraded_submission_display(submission_type, is_new_quizzes: false)
-    sub_score = ungraded_submission_icon_attributes_for(submission_type, is_new_quizzes:)
+  def ungraded_submission_display(submission_type)
+    sub_score = ungraded_submission_icon_attributes_for(submission_type)
     if sub_score
       screenreadable_icon(sub_score, %w[submission_icon])
     else

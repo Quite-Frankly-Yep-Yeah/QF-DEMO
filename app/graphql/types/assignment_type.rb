@@ -497,7 +497,6 @@ module Types
     field :grades_published_at, String, null: true
     field :important_dates, Boolean, null: true
     field :in_closed_grading_period, Boolean, method: :in_closed_grading_period?, null: true
-    field :new_quizzes_anonymous_participants, Boolean, method: :new_quizzes_anonymous_participants?, null: true
     field :non_digital_submission, Boolean, method: :non_digital_submission?, null: true
     field :submissions_downloads, Int, null: true
     field :time_zone_edited, String, null: true
@@ -969,11 +968,6 @@ module Types
 
         { issues: GraphQLHelpers::AutoGradeEligibilityHelper.validate_assignment(assignment:) }
       end
-    end
-
-    field :is_new_quiz, Boolean, null: false, description: "Assignment is connected to a New Quiz"
-    def is_new_quiz
-      assignment.quiz_lti?
     end
 
     field :module_items, [Types::ModuleItemType], null: true

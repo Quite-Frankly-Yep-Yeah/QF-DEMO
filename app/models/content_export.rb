@@ -35,14 +35,11 @@ class ContentExport < ApplicationRecord
   serialize :settings
 
   attr_writer :master_migration
-  attr_accessor :new_quizzes_export_url, :new_quizzes_export_state
 
   validates :context_id, :workflow_state, presence: true
 
   has_one :job_progress, class_name: "Progress", as: :context, inverse_of: :context
 
-  before_save :assign_quiz_migration_limitation_alert
-  before_save :set_new_quizzes_export_settings
   before_create :set_global_identifiers
 
   # export types
@@ -53,10 +50,7 @@ class ContentExport < ApplicationRecord
   QTI = "qti"
   USER_DATA = "user_data"
   ZIP = "zip"
-  QUIZZES2 = "quizzes2"
-  CC_EXPORT_TYPES = [COMMON_CARTRIDGE, COURSE_COPY, MASTER_COURSE_COPY, QTI, QUIZZES2].freeze
-
-  class ExternalExportNotCompletedError < StandardError; end
+  CC_EXPORT_TYPES = [COMMON_CARTRIDGE, COURSE_COPY, MASTER_COURSE_COPY, QTI].freeze
 
   workflow do
     state :created
@@ -132,25 +126,11 @@ class ContentExport < ApplicationRecord
     !context.content_exports.where(export_type: CC_EXPORT_TYPES, global_identifiers: false).exists?
   end
 
-  def quizzes_next?
-    return false unless context.feature_enabled?(:quizzes_next)
-
-    export_type == QUIZZES2 || settings[:quizzes2].present?
-  end
-
-  def new_quizzes_page_enabled?
-    quizzes_next? && root_account.feature_enabled?(:newquizzes_on_quiz_page)
-  end
-
   def waiting_for_external_tool?
     workflow_state == "waiting_for_external_tool"
   end
 
   def export(opts = {})
-    if waiting_for_external_tool? && !new_quizzes_export_state_completed?
-      raise ExternalExportNotCompletedError
-    end
-
     save if capture_job_id
 
     shard.activate do
@@ -160,10 +140,6 @@ class ContentExport < ApplicationRecord
         export_zip(opts)
       when USER_DATA
         export_user_data(**opts)
-      when QUIZZES2
-        return unless context.feature_enabled?(:quizzes_next)
-
-        new_quizzes_page_enabled? ? quizzes2_export_complete : export_quizzes2
       else
         export_course(opts)
       end
@@ -272,120 +248,6 @@ class ContentExport < ApplicationRecord
     end
   end
 
-  def quizzes2_build_assignment(opts = {})
-    mark_exporting
-    reset_and_start_job_progress
-
-    @quiz_exporter = Exporters::Quizzes2Exporter.new(self)
-    if @quiz_exporter.export(opts)
-      update(
-        selected_content: {
-          quizzes: {
-            create_key(@quiz_exporter.quiz) => true
-          }
-        }
-      )
-      settings[:quizzes2] = @quiz_exporter.build_assignment_payload
-      save!
-      return true
-    else
-      add_error("Error running export to Quizzes 2.", $ERROR_INFO)
-      mark_failed
-    end
-
-    false
-  end
-
-  def quizzes2_export_complete
-    return unless quizzes_next?
-
-    assignment_id = settings.dig(:quizzes2, :assignment, :assignment_id)
-    assignment = Assignment.find_by(id: assignment_id)
-    if assignment.blank?
-      mark_failed
-      return
-    end
-
-    begin
-      if new_quizzes_bank_migration_enabled?
-        selected_content = self.selected_content || {}
-        selected_content["all_#{AssessmentQuestionBank.table_name}"] = true
-
-        update(
-          export_type: QTI,
-          selected_content:
-        )
-      else
-        update(export_type: QTI)
-      end
-      @cc_exporter = CC::CCExporter.new(self)
-
-      if @cc_exporter.export
-        update(
-          export_type: QUIZZES2
-        )
-        settings[:quizzes2][:qti_export] = {}
-        settings[:quizzes2][:qti_export][:url] = attachment.public_download_url
-        settings[:quizzes2][:anonymous_participants] = assignment.anonymous_participants?
-        self.progress = 100
-        mark_exported
-      else
-        assignment.fail_to_migrate
-        mark_failed
-      end
-    rescue
-      add_error("Error running export to Quizzes 2.", $ERROR_INFO)
-      assignment.fail_to_migrate
-      mark_failed
-    ensure
-      save
-    end
-  end
-
-  def disable_content_rewriting?
-    quizzes_next? && NewQuizzesFeaturesHelper.disable_content_rewriting?(context)
-  end
-
-  def export_quizzes2
-    mark_exporting
-    begin
-      reset_and_start_job_progress
-
-      @quiz_exporter = Exporters::Quizzes2Exporter.new(self)
-
-      if @quiz_exporter.export
-        update(
-          export_type: QTI,
-          selected_content: {
-            quizzes: {
-              create_key(@quiz_exporter.quiz) => true
-            },
-            "all_#{AssessmentQuestionBank.table_name}": new_quizzes_bank_migration_enabled? || nil
-          }.compact
-        )
-        settings[:quizzes2] = @quiz_exporter.build_assignment_payload
-        @cc_exporter = CC::CCExporter.new(self)
-      end
-
-      if @cc_exporter&.export
-        update(
-          export_type: QUIZZES2
-        )
-        settings[:quizzes2][:qti_export] = {}
-        settings[:quizzes2][:qti_export][:url] = attachment.public_download_url
-        self.progress = 100
-        mark_exported
-      else
-        mark_failed
-      end
-    rescue
-      add_error("Error running export to Quizzes 2.", $ERROR_INFO)
-      mark_failed
-    ensure
-      save
-    end
-  end
-
   def initialize_job_progress
     if job_progress
       p = job_progress
@@ -427,10 +289,6 @@ class ContentExport < ApplicationRecord
     export_type == QTI
   end
 
-  def quizzes2_export?
-    export_type == QUIZZES2
-  end
-
   def zip_export?
     export_type == ZIP
   end
@@ -457,14 +315,6 @@ class ContentExport < ApplicationRecord
     else
       create_key(obj)
     end
-  end
-
-  def selected_new_quizzes=(copy_settings)
-    settings[:selected_new_quizzes] = copy_settings
-  end
-
-  def selected_new_quizzes
-    settings[:selected_new_quizzes]
   end
 
   def create_key(obj, prepend = "")
@@ -553,7 +403,7 @@ class ContentExport < ApplicationRecord
       master_migration.add_exported_asset(obj)
     end
     return unless selective_export?
-    return if qti_export? || epub_export.present? || quizzes2_export?
+    return if qti_export? || epub_export.present?
 
     # for integrating selective exports with external content
     if (type = Canvas::Migration::ExternalContent::Translator::CLASSES_TO_TYPES[obj.class])
@@ -622,55 +472,10 @@ class ContentExport < ApplicationRecord
     created_at < ContentExport.expire_days.days.ago
   end
 
-  def assign_quiz_migration_limitation_alert
-    if workflow_state_changed? && exported? && quizzes_next? && context.is_a?(Course) &&
-       NewQuizzesFeaturesHelper.new_quizzes_bank_migrations_enabled?(context)
-      context.create_or_update_quiz_migration_alert(user_id, self)
-    end
-  end
-
-  def prepare_new_quizzes_export(selected_assignments = nil)
-    unless new_quizzes_common_cartridge_enabled?
-      settings[:contains_new_quizzes] = false
-      return
-    end
-
-    nq_assignments = course.assignments.active.type_quiz_lti.where.not(workflow_state: ["failed_to_duplicate", "fail_to_import"])
-
-    is_selective_export = !selected_assignments.nil?
-    if is_selective_export
-      selected_new_quizzes_ids = nq_assignments.where(id: selected_assignments).map { |id| Shard.global_id_for(id) }
-
-      unless selected_new_quizzes_ids.blank?
-        self.selected_new_quizzes = selected_new_quizzes_ids
-      end
-    end
-
-    settings[:contains_new_quizzes] = is_selective_export ? selected_new_quizzes.present? : nq_assignments.count.positive?
-    mark_waiting_for_external_tool if contains_new_quizzes_setting?
-  end
-
-  def contains_new_quizzes?
-    new_quizzes_common_cartridge_enabled? && contains_new_quizzes_setting?
-  end
-
-  def contains_new_quizzes_setting?
-    settings[:contains_new_quizzes] == true
-  end
-
-  def include_new_quizzes_in_export?
-    return false unless new_quizzes_common_cartridge_enabled?
-    return false unless settings[:new_quizzes_export_state] == "completed"
-    return false unless settings[:new_quizzes_export_url].present?
-
-    true
-  end
-
   scope :active, -> { where("content_exports.workflow_state<>'deleted'") }
   scope :not_for_copy, -> { where.not(content_exports: { export_type: [COURSE_COPY, MASTER_COURSE_COPY] }) }
   scope :common_cartridge, -> { where(export_type: COMMON_CARTRIDGE) }
   scope :qti, -> { where(export_type: QTI) }
-  scope :quizzes2, -> { where(export_type: QUIZZES2) }
   scope :course_copy, -> { where(export_type: COURSE_COPY) }
   scope :running, -> { where(workflow_state: ["created", "exporting"]) }
   scope :admin, lambda { |user|
@@ -696,32 +501,9 @@ class ContentExport < ApplicationRecord
     end
   }
 
-  def set_new_quizzes_export_settings
-    return unless common_cartridge? && new_quizzes_export_state.present?
-
-    settings[:new_quizzes_export_url] = new_quizzes_export_url
-    settings[:new_quizzes_export_state] = new_quizzes_export_state
-  end
-
-  def new_quizzes_export_state_failed?
-    settings[:new_quizzes_export_state] == "failed"
-  end
-
-  def new_quizzes_export_state_completed?
-    settings[:new_quizzes_export_state] == "completed"
-  end
-
   private
 
   def is_set?(option)
     Canvas::Plugin.value_to_boolean option
-  end
-
-  def new_quizzes_bank_migration_enabled?
-    context_type == "Course" && NewQuizzesFeaturesHelper.new_quizzes_bank_migrations_enabled?(context)
-  end
-
-  def new_quizzes_common_cartridge_enabled?
-    context_type == "Course" && NewQuizzesFeaturesHelper.new_quizzes_common_cartridge_enabled?
   end
 end

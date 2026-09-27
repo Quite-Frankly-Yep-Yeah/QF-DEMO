@@ -107,8 +107,6 @@ class ContextModulesController < ApplicationController
 
       assign_to_tags = @context.account.allow_assign_to_differentiation_tags?
 
-      new_quizzes_enabled = NewQuizzesFeaturesHelper.new_quizzes_enabled?(@context)
-
       hash = {
         course_id: @context.id,
         CONTEXT_IS_AVAILABLE: @context.available?,
@@ -125,9 +123,7 @@ class ContextModulesController < ApplicationController
         MODULE_TOOLS: module_tool_definitions,
         DEFAULT_POST_TO_SIS: @context.account.sis_default_grade_export[:value] && !AssignmentUtil.due_date_required_for_account?(@context.account),
         PUBLISH_FINAL_GRADE: Canvas::Plugin.find!("grade_export").enabled?,
-        restrict_quantitative_data: @context.is_a?(Course) ? @context.restrict_quantitative_data?(@current_user) : false,
-        NEW_QUIZZES_ENABLED: new_quizzes_enabled,
-        NEW_QUIZZES_BY_DEFAULT: new_quizzes_enabled && @context.feature_enabled?(:new_quizzes_by_default)
+        restrict_quantitative_data: @context.is_a?(Course) ? @context.restrict_quantitative_data?(@current_user) : false
       }
 
       is_master_course = MasterCourses::MasterTemplate.is_master_course?(@context)
@@ -247,21 +243,11 @@ class ContextModulesController < ApplicationController
     end
 
     def combined_active_quizzes
-      classic_quizzes = @context
-                        .active_quizzes
-                        .reorder(Quizzes::Quiz.best_unicode_collation_key("title"))
-                        .limit(400)
-                        .pluck(:id, :title, Arel.sql("'quiz' AS type"))
-
-      lti_quizzes = @context
-                    .active_assignments
-                    .type_quiz_lti
-                    .reorder(Assignment.best_unicode_collation_key("title"))
-                    .limit(400)
-                    .pluck(:id, :title, Arel.sql("'assignment' AS type"))
-
-      @combined_active_quizzes_includes_both_types = !classic_quizzes.empty? && !lti_quizzes.empty?
-      (classic_quizzes + lti_quizzes).sort_by { |quiz_attrs| Canvas::ICU.collation_key(quiz_attrs[1] || CanvasSort::First) }.take(400)
+      @context
+        .active_quizzes
+        .reorder(Quizzes::Quiz.best_unicode_collation_key("title"))
+        .limit(400)
+        .pluck(:id, :title, Arel.sql("'quiz' AS type"))
     end
   end
   include ModuleIndexHelper

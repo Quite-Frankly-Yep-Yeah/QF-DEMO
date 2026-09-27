@@ -27,17 +27,12 @@ const RESOURCE_TYPES = [
   'page',
   'video',
 ]
-const RESOURCE_TYPES_WITH_QUIZZESNEXT = [...RESOURCE_TYPES, 'quizzesnext']
-
 const QUIZ_TYPES = ['quiz']
-const QUIZ_TYPES_WITH_QUIZZESNEXT = [...QUIZ_TYPES, 'quizzesnext']
-
-const isNewQuizzesMediaTypeEnabled = () => ENV.FEATURES?.new_quizzes_media_type
 
 export const getResourceTypes = () => {
-  return isNewQuizzesMediaTypeEnabled() ? RESOURCE_TYPES_WITH_QUIZZESNEXT : RESOURCE_TYPES
+  return RESOURCE_TYPES
 }
 
 export const getQuizTypes = () => {
-  return isNewQuizzesMediaTypeEnabled() ? QUIZ_TYPES_WITH_QUIZZESNEXT : QUIZ_TYPES
+  return QUIZ_TYPES
 }

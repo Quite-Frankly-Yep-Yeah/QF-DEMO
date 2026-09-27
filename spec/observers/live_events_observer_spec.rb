@@ -463,44 +463,6 @@ describe LiveEventsObserver do
   end
 
   context "content_exports" do
-    def enable_quizzes_next(course)
-      course.enable_feature!(:quizzes_next)
-      # do quizzes next provision
-      # quizzes_next is available to users only after quizzes next provisioning
-      course.root_account.settings[:provision] = { "lti" => "lti url" }
-      course.root_account.save!
-    end
-
-    describe "quiz_export_complete" do
-      it "posts update events for quizzes2" do
-        expect(Canvas::LiveEvents).to receive(:quiz_export_complete).once
-        course = Account.default.courses.create!
-        enable_quizzes_next(course)
-
-        Account.default.context_external_tools.create!(
-          name: "Quizzes.Next",
-          consumer_key: "test_key",
-          shared_secret: "test_secret",
-          tool_id: "Quizzes 2",
-          url: "http://example.com/launch"
-        )
-        quiz = course.quizzes.create!(title: "quiz1")
-        ce = course.content_exports.create!(
-          export_type: ContentExport::QUIZZES2,
-          selected_content: quiz.id,
-          user: user_model
-        )
-        ce.export(synchronous: true)
-      end
-
-      it "does not post for other ContentExport types" do
-        expect(Canvas::LiveEvents).not_to receive(:quiz_export_complete)
-        course = Account.default.courses.create!
-        ce = course.content_exports.create!
-        ce.export(synchronous: true)
-      end
-    end
-
     describe "content_export_created" do
       it "posts for ContentExport created type" do
         expect(Canvas::LiveEvents).to receive(:content_export_created).once
@@ -520,10 +482,7 @@ describe LiveEventsObserver do
       @cm = ContentMigration.create!(
         context: @course,
         user: @teacher,
-        workflow_state: "importing",
-        migration_settings: {
-          import_quizzes_next: true
-        }
+        workflow_state: "importing"
       )
       @cm.workflow_state = "imported"
       @cm.save!
@@ -771,67 +730,6 @@ describe LiveEventsObserver do
       master_migration = MasterCourses::MasterMigration.create!(master_template:)
       expect(Canvas::LiveEvents).not_to receive(:master_migration_completed)
       master_migration.update(workflow_state: "exports_failed")
-    end
-  end
-
-  describe "MasterCourses::MasterContentTag" do
-    before do
-      course_model
-      default_restrictions =
-        { content: true, points: false, due_dates: false, availability_dates: false }
-      assignment = @course.assignments.create!
-      master_template = MasterCourses::MasterTemplate.create!(course: @course)
-      @master_content_tag_params = {
-        master_template_id: master_template.id,
-        content_type: "Assignment",
-        content_id: assignment.id,
-        restrictions: default_restrictions,
-        migration_id: "mastercourse_1_3_f9ca51a6679e4779d0d68ef2dc33bc0a",
-        use_default_restrictions: true
-      }
-    end
-
-    context "when the master_content_tag is associated with a New Quiz" do
-      before do
-        allow_any_instance_of(Assignment).to receive(:quiz_lti?).and_return(true)
-      end
-
-      context "when the restrictions field change" do
-        it "posts a blueprint_restrictions_updated event after update" do
-          expect(Canvas::LiveEvents).to receive(:blueprint_restrictions_updated).once
-          master_content_tag = MasterCourses::MasterContentTag.create!(@master_content_tag_params)
-
-          updated_restrictions =
-            { content: false, points: true, due_dates: false, availability_dates: false }
-          master_content_tag.update!(restrictions: updated_restrictions)
-        end
-      end
-
-      context "when the use_default_restrictions field change" do
-        it "posts a blueprint_restrictions_updated event after update" do
-          expect(Canvas::LiveEvents).to receive(:blueprint_restrictions_updated).once
-          master_content_tag = MasterCourses::MasterContentTag.create!(@master_content_tag_params)
-          master_content_tag.update!(use_default_restrictions: false)
-        end
-      end
-
-      context "when restriction-related fields do not change" do
-        it "does not post a blueprint_restrictions_updated event after update" do
-          expect(Canvas::LiveEvents).not_to receive(:blueprint_restrictions_updated)
-          master_content_tag = MasterCourses::MasterContentTag.create!(@master_content_tag_params)
-          master_content_tag.update!(migration_id: "mastercourse_1_3_d0d68ef2dc33bc0af9ca51a6679e4779")
-        end
-      end
-    end
-
-    context "when the master_content_tag is not associated with a New Quiz" do
-      it "does not post a blueprint_restrictions_updated event after update" do
-        expect(Canvas::LiveEvents).not_to receive(:blueprint_restrictions_updated)
-        master_content_tag = MasterCourses::MasterContentTag.create!(@master_content_tag_params)
-        updated_restrictions =
-          { content: false, points: true, due_dates: false, availability_dates: false }
-        master_content_tag.update!(restrictions: updated_restrictions)
-      end
     end
   end
 end

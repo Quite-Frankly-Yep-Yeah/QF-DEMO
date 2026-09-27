@@ -46,7 +46,6 @@ import ExternalToolLaunchView from './backbone/views/subviews/ExternalToolLaunch
 import ExternalContentReturnView from '@canvas/external-tools/backbone/views/ExternalContentReturnView'
 import ExternalTool from '@canvas/external-tools/backbone/models/ExternalTool'
 import OverwriteAssessmentContentView from '@canvas/content-migrations/backbone/views/subviews/OverwriteAssessmentContentView'
-import ImportQuizzesNextView from '@canvas/content-migrations/backbone/views/ImportQuizzesNextView'
 import extensions from '@canvas/bundles/extensions'
 import processMigrationContentItem from './processMigrationContentItem'
 import {subscribe} from 'jquery-tinypubsub'
@@ -164,18 +163,6 @@ ConverterViewControl.register({
       oldStartDate: ENV.OLD_START_DATE,
       oldEndDate: ENV.OLD_END_DATE,
     }),
-
-    importQuizzesNext: new ImportQuizzesNextView({
-      model: ConverterViewControl.getModel(),
-      quizzesNextEnabled: ENV.QUIZZES_NEXT_ENABLED,
-      migrationDefault: ENV.NEW_QUIZZES_MIGRATION_DEFAULT,
-      disableNQMigrationCheckbox: !ENV.QUIZZES_NEXT_ENABLED || ENV.NEW_QUIZZES_MIGRATION_REQUIRED,
-      unattachedBankMigrationsEnabled: ENV.NEW_QUIZZES_UNATTACHED_BANK_MIGRATIONS,
-      questionBank: null,
-    }),
-
-    quizzes_next_enabled: ENV.QUIZZES_NEXT_ENABLED,
-    new_quizzes_migration: ENV.NEW_QUIZZES_MIGRATION,
   }),
 })
 
@@ -211,15 +198,6 @@ ConverterViewControl.register({
 
     selectContent: new SelectContentCheckboxView({model: ConverterViewControl.getModel()}),
 
-    importQuizzesNext: new ImportQuizzesNextView({
-      model: ConverterViewControl.getModel(),
-      quizzesNextEnabled: ENV.QUIZZES_NEXT_ENABLED,
-      migrationDefault: ENV.NEW_QUIZZES_MIGRATION_DEFAULT,
-      disableNQMigrationCheckbox: !ENV.QUIZZES_NEXT_ENABLED || ENV.NEW_QUIZZES_MIGRATION_REQUIRED,
-      unattachedBankMigrationsEnabled: ENV.NEW_QUIZZES_UNATTACHED_BANK_MIGRATIONS,
-      questionBank: null,
-    }),
-
     dateShift: new DateShiftView({
       model: ConverterViewControl.getModel(),
       collection: daySubCollection,
@@ -227,9 +205,6 @@ ConverterViewControl.register({
       oldStartDate: ENV.OLD_START_DATE,
       oldEndDate: ENV.OLD_END_DATE,
     }),
-
-    quizzes_next_enabled: ENV.QUIZZES_NEXT_ENABLED,
-    new_quizzes_migration: ENV.NEW_QUIZZES_MIGRATION,
   }),
 })
 
@@ -245,15 +220,6 @@ ConverterViewControl.register({
 
     questionBank: questionBankView,
 
-    importQuizzesNext: new ImportQuizzesNextView({
-      model: ConverterViewControl.getModel(),
-      quizzesNextEnabled: ENV.QUIZZES_NEXT_ENABLED,
-      migrationDefault: ENV.NEW_QUIZZES_MIGRATION_DEFAULT,
-      disableNQMigrationCheckbox: !ENV.QUIZZES_NEXT_ENABLED || ENV.NEW_QUIZZES_MIGRATION_REQUIRED,
-      unattachedBankMigrationsEnabled: ENV.NEW_QUIZZES_UNATTACHED_BANK_MIGRATIONS,
-      questionBank: questionBankView,
-    }),
-
     overwriteAssessmentContent: new OverwriteAssessmentContentView({
       model: ConverterViewControl.getModel(),
     }),
@@ -265,9 +231,6 @@ ConverterViewControl.register({
       oldStartDate: ENV.OLD_START_DATE,
       oldEndDate: ENV.OLD_END_DATE,
     }),
-
-    quizzes_next_enabled: ENV.QUIZZES_NEXT_ENABLED,
-    quizzes_next_configured_root: ENV.NEW_QUIZZES_IMPORT,
   }),
 })
 
@@ -281,20 +244,9 @@ ConverterViewControl.register({
 
     questionBank: questionBankView,
 
-    importQuizzesNext: new ImportQuizzesNextView({
-      model: ConverterViewControl.getModel(),
-      quizzesNextEnabled: ENV.QUIZZES_NEXT_ENABLED,
-      migrationDefault: ENV.NEW_QUIZZES_MIGRATION_DEFAULT,
-      disableNQMigrationCheckbox: !ENV.QUIZZES_NEXT_ENABLED || ENV.NEW_QUIZZES_MIGRATION_REQUIRED,
-      unattachedBankMigrationsEnabled: ENV.NEW_QUIZZES_UNATTACHED_BANK_MIGRATIONS,
-      questionBank: questionBankView,
-    }),
-
     overwriteAssessmentContent: new OverwriteAssessmentContentView({
       model: ConverterViewControl.getModel(),
     }),
-    quizzes_next_enabled: ENV.QUIZZES_NEXT_ENABLED,
-    quizzes_next_configured_root: ENV.NEW_QUIZZES_IMPORT,
   }),
 })
 

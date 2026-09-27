@@ -31,7 +31,6 @@ import GradingPeriodsHelper from '@canvas/grading/GradingPeriodsHelper'
 import * as tz from '@instructure/moment-utils'
 import numberHelper from '@canvas/i18n/numberHelper'
 import PandaPubPoller from '@canvas/panda-pub-poller'
-import urlWithParams from '../../urlWithParams'
 import {matchingToolUrls} from './LtiAssignmentHelpers'
 
 const default_interval = 3000
@@ -153,7 +152,6 @@ function Assignment() {
   this.isPage = this.isPage.bind(this)
   this.isQuickCreateDefaultTool = this.isQuickCreateDefaultTool.bind(this)
   this.isQuiz = this.isQuiz.bind(this)
-  this.isQuizLTIAssignment = this.isQuizLTIAssignment.bind(this)
   this.isSimple = this.isSimple.bind(this)
   this.labelId = this.labelId.bind(this)
   this.lockAt = this.lockAt.bind(this)
@@ -162,10 +160,6 @@ function Assignment() {
   this.moderatedGrading = this.moderatedGrading.bind(this)
   this.multipleDueDates = this.multipleDueDates.bind(this)
   this.name = this.name.bind(this)
-  this.newQuizzesAssignmentBuildButtonEnabled =
-    this.newQuizzesAssignmentBuildButtonEnabled.bind(this)
-  this.newQuizzesType = this.newQuizzesType.bind(this)
-  this.newQuizzesAnonymousSubmission = this.newQuizzesAnonymousSubmission.bind(this)
   this.nonBaseDates = this.nonBaseDates.bind(this)
   this.notifyOfUpdate = this.notifyOfUpdate.bind(this)
   this.objectType = this.objectType.bind(this)
@@ -192,15 +186,12 @@ function Assignment() {
   this.postToSISEnabled = this.postToSISEnabled.bind(this)
   this.postToSISName = this.postToSISName.bind(this)
   this.published = this.published.bind(this)
-  this.quizzesRespondusEnabled = this.quizzesRespondusEnabled.bind(this)
   this.resourceLink = this.resourceLink.bind(this)
   this.restrictFileExtensions = this.restrictFileExtensions.bind(this)
-  this.retry_migration = this.retry_migration.bind(this)
   this.secureParams = this.secureParams.bind(this)
   this.selectedSubmissionTypeToolId = this.selectedSubmissionTypeToolId.bind(this)
   this.setNullDates = this.setNullDates.bind(this)
   this.shouldShowDefaultTool = this.shouldShowDefaultTool.bind(this)
-  this.showBuildButton = this.showBuildButton.bind(this)
   this.showGradersAnonymousToGradersCheckbox = this.showGradersAnonymousToGradersCheckbox.bind(this)
   this.singleSection = this.singleSection.bind(this)
   this.singleSectionDueDate = this.singleSectionDueDate.bind(this)
@@ -397,7 +388,7 @@ Assignment.prototype.assignmentGroupId = function (assignment_group_id) {
 }
 
 Assignment.prototype.canFreeze = function () {
-  return this.get('frozen_attributes') != null && !this.frozen() && !this.isQuizLTIAssignment()
+  return this.get('frozen_attributes') != null && !this.frozen()
 }
 
 Assignment.prototype.canDelete = function () {
@@ -971,11 +962,7 @@ Assignment.prototype.published = function (newPublished) {
 }
 
 Assignment.prototype.useNewQuizIcon = function () {
-  return (
-    ENV.FLAGS &&
-    ENV.FLAGS.newquizzes_on_quiz_page &&
-    ((this.isQuiz() && isStudent()) || this.isQuizLTIAssignment())
-  )
+  return false
 }
 
 Assignment.prototype.position = function (newPosition) {
@@ -1021,11 +1008,8 @@ Assignment.prototype.objectTypeDisplayName = function () {
   if (this.isPeerReviewAssignment()) {
     return I18n.t('Peer Review')
   }
-  if (this.isQuiz() || (this.isQuizLTIAssignment() && isStudent())) {
+  if (this.isQuiz()) {
     return I18n.t('Quiz')
-  }
-  if (this.isQuizLTIAssignment()) {
-    return I18n.t('New Quiz')
   }
   if (this.isDiscussionTopic()) {
     return I18n.t('Discussion Topic')
@@ -1037,13 +1021,7 @@ Assignment.prototype.objectTypeDisplayName = function () {
 }
 
 Assignment.prototype.htmlUrl = function () {
-  let url
-  if (this.isQuizLTIAssignment() && canManage()) {
-    url = urlWithParams(this.get('html_url') + '/edit', {quiz_lti: true})
-  } else {
-    url = this.get('html_url')
-  }
-  return url
+  return this.get('html_url')
 }
 
 Assignment.prototype.htmlEditUrl = function () {
@@ -1051,15 +1029,7 @@ Assignment.prototype.htmlEditUrl = function () {
 }
 
 Assignment.prototype.htmlBuildUrl = function () {
-  if (this.isQuizLTIAssignment() && canManage()) {
-    let displayType = 'full_width'
-    if (ENV.FEATURES.new_quizzes_navigation_updates) {
-      displayType = 'full_width_with_nav'
-    }
-    return urlWithParams(this.get('html_url'), {display: displayType})
-  } else {
-    return this.get('html_url')
-  }
+  return this.get('html_url')
 }
 
 Assignment.prototype.labelId = function () {
@@ -1098,46 +1068,8 @@ Assignment.prototype.submissionTypeSelectionTools = function () {
   return ENV.SUBMISSION_TYPE_SELECTION_TOOLS || []
 }
 
-Assignment.prototype.newQuizzesAssignmentBuildButtonEnabled = function () {
-  return ENV.NEW_QUIZZES_ASSIGNMENT_BUILD_BUTTON_ENABLED
-}
-
 Assignment.prototype.hideZeroPointQuizzesOptionEnabled = function () {
   return ENV.HIDE_ZERO_POINT_QUIZZES_OPTION_ENABLED
-}
-
-Assignment.prototype.newQuizzesType = function (type) {
-  const settings = this.get('settings') || {}
-  const newQuizzes = settings.new_quizzes || {}
-  if (!(arguments.length > 0)) {
-    return newQuizzes.type || 'graded_quiz'
-  }
-  return this.set('settings', {
-    ...settings,
-    new_quizzes: {
-      ...newQuizzes,
-      type,
-    },
-  })
-}
-
-Assignment.prototype.newQuizzesAnonymousSubmission = function (isAnonymous) {
-  const settings = this.get('settings') || {}
-  const newQuizzes = settings.new_quizzes || {}
-  if (!(arguments.length > 0)) {
-    return newQuizzes.anonymous_participants || false
-  }
-  return this.set('settings', {
-    ...settings,
-    new_quizzes: {
-      ...newQuizzes,
-      anonymous_participants: isAnonymous,
-    },
-  })
-}
-
-Assignment.prototype.showBuildButton = function () {
-  return this.isQuizLTIAssignment() && this.newQuizzesAssignmentBuildButtonEnabled()
 }
 
 Assignment.prototype.defaultDates = function () {
@@ -1318,10 +1250,6 @@ Assignment.prototype.is_quiz_assignment = function () {
   return this.get('is_quiz_assignment')
 }
 
-Assignment.prototype.isQuizLTIAssignment = function () {
-  return this.get('is_quiz_lti_assignment')
-}
-
 Assignment.prototype.isImporting = function () {
   return this.get('workflow_state') === 'importing'
 }
@@ -1416,14 +1344,12 @@ Assignment.prototype.toView = function () {
     'isOnlineSubmission',
     'isOnlyVisibleToOverrides',
     'isPlagiarismPlatformLocked',
-    'isQuizLTIAssignment',
     'isSimple',
     'labelId',
     'lockAt',
     'moderatedGrading',
     'multipleDueDates',
     'name',
-    'newQuizzesAssignmentBuildButtonEnabled',
     'nonBaseDates',
     'notifyOfUpdate',
     'objectTypeDisplayName',
@@ -1441,7 +1367,6 @@ Assignment.prototype.toView = function () {
     'restrictFileExtensions',
     'secureParams',
     'selectedSubmissionTypeToolId',
-    'showBuildButton',
     'showGradersAnonymousToGradersCheckbox',
     'singleSectionDueDate',
     'submissionType',
@@ -1683,25 +1608,6 @@ Assignment.prototype.alignment_clone_failed = function (callback) {
   )
 }
 
-// caller is failed migrated assignment
-Assignment.prototype.retry_migration = function (callback) {
-  const course_id = this.courseID()
-  const original_quiz_id = this.originalQuizID()
-  const failed_assignment_id = this.get('id')
-  return $.ajaxJSON(
-    '/api/v1/courses/' +
-      course_id +
-      '/content_exports?export_type=quizzes2&quiz_id=' +
-      original_quiz_id +
-      '&failed_assignment_id=' +
-      failed_assignment_id +
-      '&include[]=migrated_assignment',
-    'POST',
-    {},
-    callback,
-  )
-}
-
 Assignment.prototype.pollUntilFinishedDuplicating = function (interval) {
   if (interval == null) {
     interval = 3000
@@ -1780,10 +1686,6 @@ Assignment.prototype.isRestrictedByMasterCourse = function () {
 
 Assignment.prototype.showGradersAnonymousToGradersCheckbox = function () {
   return this.moderatedGrading() && this.get('grader_comments_visible_to_graders')
-}
-
-Assignment.prototype.quizzesRespondusEnabled = function () {
-  return this.get('require_lockdown_browser') && this.isQuizLTIAssignment() && isStudent()
 }
 
 Assignment.prototype.getCheckpoints = function () {

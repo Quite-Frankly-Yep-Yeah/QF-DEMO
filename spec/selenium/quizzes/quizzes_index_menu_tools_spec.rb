@@ -50,20 +50,4 @@ describe "quiz index menu tool placement" do
       expect(query_params["com_instructure_course_available_canvas_resources"]).to be_blank
     end
   end
-
-  context "new_quizzes_media_type feature flag is disabled" do
-    before do
-      Account.site_admin.disable_feature!(:new_quizzes_media_type)
-    end
-
-    it_behaves_like "launches the index menu tool via the tray", ["quiz"]
-  end
-
-  context "new_quizzes_media_type feature flag is enabled" do
-    before do
-      Account.site_admin.enable_feature!(:new_quizzes_media_type)
-    end
-
-    it_behaves_like "launches the index menu tool via the tray", ["quiz", "quizzesnext"]
-  end
 end

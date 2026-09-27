@@ -121,7 +121,6 @@ function getProps(column: Column, gradebook: Gradebook, options): AssignmentColu
       id: assignment.id,
       muted: assignment.muted,
       name: assignment.name,
-      newQuizzesAnonymousParticipants: assignment.new_quizzes_anonymous_participants,
       parentAssignmentId: assignment.parent_assignment_id,
       pointsPossible: assignment.points_possible,
       postManually: assignment.post_manually,

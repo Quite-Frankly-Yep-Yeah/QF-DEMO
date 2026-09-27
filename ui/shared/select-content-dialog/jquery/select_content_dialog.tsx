@@ -23,8 +23,6 @@ import {legacyUnmountComponentAtNode, legacyRender} from '@canvas/react'
 import FileSelectBox from '../react/components/FileSelectBox'
 import UploadForm from '@canvas/files/react/components/UploadForm'
 import CurrentUploads from '@canvas/files/react/components/CurrentUploads'
-import {QuizTypeSelectorComponent} from '@canvas/assignments/react/QuizTypeSelectorComponent'
-import {AnonymousSubmissionComponent} from '@canvas/assignments/react/AnonymousSubmissionComponent'
 import splitAssetString from '@canvas/util/splitAssetString'
 import FilesystemObject from '@canvas/files/backbone/models/FilesystemObject'
 import BaseUploader from '@canvas/files/react/modules/BaseUploader'
@@ -55,11 +53,7 @@ import {onLtiClosePostMessage} from '@canvas/lti/jquery/messages'
 if (!('INST' in window)) window.INST = {}
 
 // Allow unchecked access to ENV variables that should exist in this context
-declare const ENV: GlobalEnv &
-  EnvContextModules & {
-    // From app/views/shared/_select_content_dialog.html.erb
-    NEW_QUIZZES_BY_DEFAULT: boolean
-  }
+declare const ENV: GlobalEnv & EnvContextModules
 
 export type LtiLaunchPlacement = {
   message_type:
@@ -107,11 +101,8 @@ const SelectContentDialog = {}
 
 let fileSelectBox: FileSelectBox | undefined
 let upload_form: UploadForm | undefined
-let currentQuizType: 'graded_quiz' | 'graded_survey' | 'ungraded_survey' = 'graded_quiz'
-let isAnonymousSubmission = false
 
 const MODULE_ITEM_DIALOG_HEIGHT_DEFAULT = 550
-const MODULE_ITEM_DIALOG_HEIGHT_WITH_QUIZ_TYPE_SELECTOR = 650
 
 const resizeModuleItemDialog = (height: number) => {
   const fullSizeModal = window.matchMedia('(min-width: 770px)').matches
@@ -619,13 +610,6 @@ export const selectContentDialog = function (options?: SelectContentDialogOption
       },
       open() {
         $(this).parent().find('.ui-dialog-titlebar-close').focus()
-
-        const itemType = $('#add_module_item_select').val()
-        const isNewQuizzesChecked = $('#new_quizzes_radio').is(':checked')
-        const isCreatingNew = $('#quizs_select').val() === 'new'
-        if (itemType === 'quiz' && isNewQuizzesChecked && isCreatingNew) {
-          resizeModuleItemDialog(MODULE_ITEM_DIALOG_HEIGHT_WITH_QUIZ_TYPE_SELECTOR)
-        }
       },
       modal: true,
       zIndex: 1000,
@@ -769,19 +753,11 @@ $(document).ready(function () {
         if (item_type === 'quiz' && typeof item_id === 'string' && item_id !== 'new') {
           ;[quiz_type, item_id] = item_id.split('_')
         }
-        if (item_type === 'quiz' && item_id === 'new') {
-          quiz_type = $('input[name=quiz_engine_selection]:checked').val()
-          if (ENV.NEW_QUIZZES_BY_DEFAULT) {
-            quiz_type = 'assignment'
-          }
-        }
-        const quiz_lti = quiz_type === 'assignment'
         item_data = {
           'item[type]': quiz_type || item_type,
           'item[id]': item_id,
           'item[title]': $option.text(),
           'item[indent]': $('#content_tag_indent').val(),
-          quiz_lti,
         }
         item_data._bulk_item_index = itemIndex++
         item_data._bulk_base_position = basePosition || 1
@@ -790,8 +766,8 @@ $(document).ready(function () {
           const $urls = $(
             '#select_context_content_dialog .module_item_option:visible:first .new .add_item_url',
           )
-          const url = quiz_lti ? $urls.last().attr('href') : $urls.attr('href')
-          let data = $(
+          const url = $urls.attr('href')
+          const data = $(
             '#select_context_content_dialog .module_item_option:visible:first',
           ).getFormData<{
             'quiz[title]'?: string
@@ -799,25 +775,7 @@ $(document).ready(function () {
             'assignment[title]'?: string
             'assignment[assignment_group_id]'?: string
             'assignment[post_to_sis]'?: boolean
-            'assignment[new_quizzes_quiz_type]'?: string
-            'assignment[new_quizzes_anonymous_submission]'?: boolean
-            quiz_lti?: number
           }>()
-          if (quiz_lti) {
-            data = {
-              'assignment[title]': data['quiz[title]'],
-              'assignment[assignment_group_id]': data['quiz[assignment_group_id]'],
-              quiz_lti: 1,
-            }
-            // Only include New Quizzes params when New Quizzes is selected
-            const isNewQuizzesSelected =
-              $('input[name=quiz_engine_selection]:checked').val() === 'assignment' ||
-              ENV?.NEW_QUIZZES_BY_DEFAULT === true
-            if (isNewQuizzesSelected) {
-              data['assignment[new_quizzes_quiz_type]'] = currentQuizType
-              data['assignment[new_quizzes_anonymous_submission]'] = isAnonymousSubmission
-            }
-          }
           const process_upload = function (udata: any, done = true) {
             let obj
 
@@ -1052,60 +1010,11 @@ $(document).ready(function () {
     const isCreatingNew = isEqualOrIsArrayWithEqualValue($(this).val(), 'new')
     if (isCreatingNew) {
       $(this).parents('.module_item_option').find('.new').show().focus().select()
-
-      const itemType = $('#add_module_item_select').val()
-      const isNewQuizzesChecked = $('#new_quizzes_radio').is(':checked')
-      const newQuizzesByDefault = ENV?.NEW_QUIZZES_BY_DEFAULT === true
-      if (itemType === 'quiz' && (isNewQuizzesChecked || newQuizzesByDefault)) {
-        resizeModuleItemDialog(MODULE_ITEM_DIALOG_HEIGHT_WITH_QUIZ_TYPE_SELECTOR)
-      }
     } else {
       $(this).parents('.module_item_option').find('.new').hide()
       resizeModuleItemDialog(MODULE_ITEM_DIALOG_HEIGHT_DEFAULT)
     }
   })
-
-  // Handle quiz engine radio button changes
-  $('input[name=quiz_engine_selection]').on('change', function (this: HTMLInputElement) {
-    const isNewQuizzes = $(this).val() === 'assignment'
-    const $quizTypeSelectorRow = $('#quiz_type_selector_row')
-    const $anonymousSubmissionRow = $('#anonymous_submission_selector_row')
-    const $dialog = $('#select_context_content_dialog')
-    const isCreatingNew = $('#quizs_select').val() === 'new'
-
-    if (isNewQuizzes) {
-      $quizTypeSelectorRow.show()
-      renderQuizTypeSelector()
-
-      if (isCreatingNew) {
-        resizeModuleItemDialog(MODULE_ITEM_DIALOG_HEIGHT_WITH_QUIZ_TYPE_SELECTOR)
-      }
-    } else {
-      // Hide both quiz type selector and anonymous submission selector
-      $quizTypeSelectorRow.hide()
-      $anonymousSubmissionRow.hide()
-      unmountQuizTypeSelector()
-      unmountAnonymousSubmissionSelector()
-
-      // Reset state
-      currentQuizType = 'graded_quiz'
-      isAnonymousSubmission = false
-
-      resizeModuleItemDialog(MODULE_ITEM_DIALOG_HEIGHT_DEFAULT)
-    }
-  })
-
-  // Initialize quiz type selector if New Quizzes is already selected on page load
-  const isNewQuizzesChecked = $('#new_quizzes_radio').is(':checked')
-  const newQuizzesByDefault = ENV?.NEW_QUIZZES_BY_DEFAULT === true
-
-  // Show quiz type selector if:
-  // 1. New Quizzes radio is checked, OR
-  // 2. New Quizzes is by default (radio buttons don't exist)
-  if (isNewQuizzesChecked || newQuizzesByDefault) {
-    $('#quiz_type_selector_row').show()
-    renderQuizTypeSelector()
-  }
 })
 
 $('#module_attachment_uploaded_data').on('change', function (event) {
@@ -1225,83 +1134,6 @@ function renderCurrentUploads() {
     <CurrentUploads onUploadChange={handleUploadOnChange} />,
     $('#module_attachment_upload_progress')[0],
   )
-}
-
-function renderQuizTypeSelector() {
-  const mountPoint = $('#quiz_type_selector_mount_point')[0]
-  if (!mountPoint) {
-    console.warn('Quiz type selector mount point not found')
-    return
-  }
-
-  const handleQuizTypeChange = (quizType: 'graded_quiz' | 'graded_survey' | 'ungraded_survey') => {
-    currentQuizType = quizType
-
-    // Show/hide anonymous submission selector based on quiz type
-    const isSurvey = quizType === 'graded_survey' || quizType === 'ungraded_survey'
-    const $anonymousSubmissionRow = $('#anonymous_submission_selector_row')
-
-    if (isSurvey) {
-      $anonymousSubmissionRow.show()
-      renderAnonymousSubmissionSelector()
-    } else {
-      $anonymousSubmissionRow.hide()
-      unmountAnonymousSubmissionSelector()
-      // Reset anonymous submission state when switching to non-survey
-      isAnonymousSubmission = false
-    }
-
-    // Re-render to update the component with new state
-    renderQuizTypeSelector()
-  }
-
-  legacyRender(
-    <QuizTypeSelectorComponent
-      quizType={currentQuizType}
-      isExistingAssignment={false}
-      onChange={handleQuizTypeChange}
-      shouldRenderLabel={false}
-    />,
-    mountPoint,
-  )
-}
-
-function unmountQuizTypeSelector() {
-  const mountPoint = $('#quiz_type_selector_mount_point')[0]
-  if (mountPoint) {
-    legacyUnmountComponentAtNode(mountPoint)
-  }
-}
-
-function renderAnonymousSubmissionSelector() {
-  const mountPoint = $('#anonymous_submission_selector_mount_point')[0]
-  if (!mountPoint) {
-    console.warn('Anonymous submission selector mount point not found')
-    return
-  }
-
-  const handleAnonymousChange = (isAnonymous: boolean) => {
-    isAnonymousSubmission = isAnonymous
-    // Re-render to update the component with new state
-    renderAnonymousSubmissionSelector()
-  }
-
-  legacyRender(
-    <AnonymousSubmissionComponent
-      isAnonymous={isAnonymousSubmission}
-      disabled={false}
-      onChange={handleAnonymousChange}
-      shouldRenderLabel={false}
-    />,
-    mountPoint,
-  )
-}
-
-function unmountAnonymousSubmissionSelector() {
-  const mountPoint = $('#anonymous_submission_selector_mount_point')[0]
-  if (mountPoint) {
-    legacyUnmountComponentAtNode(mountPoint)
-  }
 }
 
 export default SelectContentDialog

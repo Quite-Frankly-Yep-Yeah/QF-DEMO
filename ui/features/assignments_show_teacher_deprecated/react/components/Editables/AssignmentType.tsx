@@ -23,12 +23,7 @@ import {useScope as createI18nScope} from '@canvas/i18n'
 import {Flex} from '@instructure/ui-flex'
 import {Text} from '@instructure/ui-text'
 
-import {
-  IconAssignmentLine,
-  IconGroupLine,
-  IconQuizLine,
-  IconPeerReviewLine,
-} from '@instructure/ui-icons'
+import {IconAssignmentLine, IconGroupLine, IconPeerReviewLine} from '@instructure/ui-icons'
 
 import SelectableText from './SelectableText'
 
@@ -41,7 +36,6 @@ const peer_review_type = {
   icon: IconPeerReviewLine,
 }
 const group_type = {value: 'group', label: I18n.t('Group Assignment'), icon: IconGroupLine}
-const quiz_type = {value: 'quiz', label: I18n.t('Quiz'), icon: IconQuizLine}
 
 const assignmentTypePlaceholder = I18n.t('Assignment Type')
 
@@ -64,11 +58,6 @@ export default class AssignmentType extends React.Component {
 
     // @ts-expect-error
     this.assignmentTypes = [assignment_type, peer_review_type, group_type]
-    // @ts-expect-error
-    if (window.ENV && window.ENV.QUIZ_LTI_ENABLED) {
-      // @ts-expect-error
-      this.assignmentTypes.splice(2, 0, quiz_type)
-    }
   }
 
   // @ts-expect-error

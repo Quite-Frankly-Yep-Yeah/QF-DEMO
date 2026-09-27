@@ -65,7 +65,6 @@ describe('IndexView', () => {
     const permissions = {create: true, manage: true}
     const flags = {
       question_banks: true,
-      quiz_lti_enabled: ENV.flags?.quiz_lti_enabled || false,
     }
     const urls = {
       new_quiz_url: '/courses/1/quizzes/new?fresh=1',
@@ -101,14 +100,12 @@ describe('IndexView', () => {
       },
       flags: {
         question_banks: true,
-        quiz_lti_enabled: false,
       },
       urls: {
         new_quiz_url: '/courses/1/quizzes/new?fresh=1',
         new_assignment_url: '/courses/1/assignments/new',
         question_banks_url: '/courses/1/question_banks',
       },
-      NEW_QUIZZES_SELECTED: null,
     })
   })
 
@@ -160,27 +157,6 @@ describe('IndexView', () => {
     const surveys = new QuizCollection([{id: 1, permissions: {delete: true}}])
     view = createIndexView(null, null, surveys)
     expect(view.options.hasSurveys).toBeTruthy()
-  })
-
-  it("shows modified '+ Quiz' button if quiz lti enabled", () => {
-    ENV.flags.quiz_lti_enabled = true
-    view = createIndexView()
-    const $button = view.$('.choose-quiz-engine')
-    expect($button).toHaveLength(1)
-  })
-
-  it("does not show modified '+ Quiz' button when quiz lti disabled", () => {
-    ENV.flags.quiz_lti_enabled = false
-    view = createIndexView()
-    expect(view.$('.choose-quiz-engine')).toHaveLength(0)
-  })
-
-  it('renders choose quiz engine modal', () => {
-    ENV.flags.quiz_lti_enabled = true
-    const mockRender = vi.spyOn(CanvasReact, 'legacyRender').mockImplementation(() => {})
-    view = createIndexView()
-    view.$('.choose-quiz-engine')[0].click()
-    expect(mockRender.mock.calls[0][0].props.setOpen).toBe(true)
   })
 
   it('should render the view', () => {

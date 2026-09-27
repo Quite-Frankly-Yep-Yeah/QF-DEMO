@@ -369,45 +369,6 @@ describe "override assignees" do
       end
     end
 
-    context "manage assign to from New Quizzes assignment edit page" do
-      before :once do
-        @course.enable_feature! :quizzes_next
-        @course.context_external_tools.create!(
-          name: "Quizzes.Next",
-          consumer_key: "test_key",
-          shared_secret: "test_secret",
-          tool_id: "Quizzes 2",
-          url: "http://localhost:3000/launch"
-        )
-        @course.root_account.settings[:provision] = { "lti" => "lti url" }
-        @course.root_account.save!
-
-        @nq_assignment = @course.assignments.create(name: "NQ assignment")
-        @nq_assignment.quiz_lti!
-        @nq_assignment.save!
-
-        @student1 = student_in_course(course: @course, active_all: true, name: "Student 1").user
-        @student2 = student_in_course(course: @course, active_all: true, name: "Student 2").user
-      end
-
-      it "assigns student to NQ assignment and saves", :ignore_js_errors do
-        AssignmentCreateEditPage.visit_assignment_edit_page(@course.id, @nq_assignment.id)
-
-        click_add_assign_to_card
-        select_module_item_assignee(1, @student1.name)
-        update_due_date(1, "12/31/2022")
-        update_due_time(1, "5:00 PM")
-        update_available_date(1, "12/27/2022")
-        update_available_time(1, "8:00 AM")
-        update_until_date(1, "1/7/2023")
-        update_until_time(1, "9:00 PM")
-
-        AssignmentCreateEditPage.save_assignment
-
-        expect(@nq_assignment.assignment_overrides.last.assignment_override_students.count).to eq(1)
-      end
-    end
-
     context "post to sis" do
       before do
         @course.account.set_feature_flag! "post_grades", "on"

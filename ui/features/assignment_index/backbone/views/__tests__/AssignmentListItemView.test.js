@@ -143,7 +143,6 @@ const createView = (model, options = {}) => {
   ENV.COURSE_ID = options.courseId
   ENV.FLAGS = {
     show_additional_speed_grader_link: options.show_additional_speed_grader_link,
-    newquizzes_on_quiz_page: options.newquizzes_on_quiz_page,
   }
   ENV.SHOW_SPEED_GRADER_LINK = options.show_additional_speed_grader_link
   ENV.PEER_REVIEW_ALLOCATION_AND_GRADING_ENABLED = options.peer_review_allocation_and_grading
@@ -560,19 +559,6 @@ describe('AssignmentListItemViewSpec', () => {
     expect(model.duplicate_failed).toHaveBeenCalled()
   })
 
-  test('clicks on Retry button to trigger another migrating request', () => {
-    const model = buildAssignment({
-      id: 2,
-      title: 'Foo Copy',
-      original_assignment_name: 'Foo',
-      workflow_state: 'failed_to_migrate',
-    })
-    const view = createView(model)
-    vi.spyOn(model, 'retry_migration').mockImplementation(() => ({always: vi.fn()}))
-    view.$(`#assignment_${model.id} .migrate-failed-retry`).click()
-    expect(model.retry_migration).toHaveBeenCalled()
-  })
-
   test('cannot duplicate when user is not admin', () => {
     const model = buildAssignment({
       id: 1,
@@ -868,42 +854,6 @@ describe('AssignmentListItemViewSpec - editing assignments', () => {
   })
 })
 
-describe('AssignmentListItemViewSpec - skip to build screen button', () => {
-  beforeEach(() => {
-    fakeENV.setup({
-      current_user_roles: ['teacher'],
-      URLS: {assignment_sort_base_url: 'test'},
-      QUIZ_LTI_ENABLED: true,
-    })
-  })
-
-  afterEach(() => {
-    genTeardown()
-  })
-
-  test('canShowBuildLink is true if QUIZ_LTI_ENABLED', () => {
-    const model = buildAssignment({
-      id: 1,
-      title: 'Foo',
-      is_quiz_lti_assignment: true,
-    })
-    const view = createView(model)
-    const json = view.toJSON()
-    expect(json.canShowBuildLink).toBe(true)
-  })
-
-  test('canShowBuildLink is false if the assignment is not a new quiz', () => {
-    const model = buildAssignment({
-      id: 1,
-      title: 'Foo',
-      is_quiz_lti_assignment: false,
-    })
-    const view = createView(model)
-    const json = view.toJSON()
-    expect(json.canShowBuildLink).toBe(false)
-  })
-})
-
 describe('AssignmentListItemViewSpec - mastery paths menu option', () => {
   beforeEach(() => {
     fakeENV.setup({
@@ -1163,27 +1113,6 @@ describe('AssignmentListItemViewSpec - assignment icons', () => {
     expect(view.$('i.icon-document')).toHaveLength(1)
   })
 
-  test('renders solid quiz icon for new quizzes', () => {
-    const model = buildAssignment({
-      id: 1,
-      title: 'Foo',
-      is_quiz_lti_assignment: true,
-    })
-    const view = createView(model, {newquizzes_on_quiz_page: true})
-    expect(view.$('i.icon-quiz.icon-Solid')).toHaveLength(1)
-  })
-
-  test('renders assignment icon for new quizzes if FF is off', () => {
-    const model = buildAssignment({
-      id: 1,
-      title: 'Foo',
-      is_quiz_lti_assignment: true,
-    })
-    const view = createView(model, {newquizzes_on_quiz_page: false})
-    expect(view.$('i.icon-quiz.icon-Solid')).toHaveLength(0)
-    expect(view.$('i.icon-assignment')).toHaveLength(1)
-  })
-
   test('renders assignment icon for other assignments', () => {
     const model = buildAssignment({
       id: 1,
@@ -1191,60 +1120,6 @@ describe('AssignmentListItemViewSpec - assignment icons', () => {
     })
     const view = createView(model)
     expect(view.$('i.icon-assignment')).toHaveLength(1)
-  })
-})
-
-describe('Assignment#quizzesRespondusEnabled', () => {
-  afterEach(() => {
-    genTeardown()
-  })
-
-  test('returns false if the assignment is not RLDB enabled', () => {
-    fakeENV.setup({current_user_roles: ['student']})
-    const model = buildAssignment({
-      id: 1,
-      require_lockdown_browser: false,
-      is_quiz_lti_assignment: true,
-    })
-    const view = createView(model)
-    const json = view.toJSON()
-    expect(json.quizzesRespondusEnabled).toBe(false)
-  })
-
-  test('returns false if the assignment is not a N.Q assignment', () => {
-    fakeENV.setup({current_user_roles: ['student']})
-    const model = buildAssignment({
-      id: 1,
-      require_lockdown_browser: true,
-      is_quiz_lti_assignment: false,
-    })
-    const view = createView(model)
-    const json = view.toJSON()
-    expect(json.quizzesRespondusEnabled).toBe(false)
-  })
-
-  test('returns false if the user is not a student', () => {
-    fakeENV.setup({current_user_roles: ['teacher']})
-    const model = buildAssignment({
-      id: 1,
-      require_lockdown_browser: true,
-      is_quiz_lti_assignment: true,
-    })
-    const view = createView(model)
-    const json = view.toJSON()
-    expect(json.quizzesRespondusEnabled).toBe(false)
-  })
-
-  test('returns true if the assignment is a RLDB enabled N.Q', () => {
-    fakeENV.setup({current_user_roles: ['student']})
-    const model = buildAssignment({
-      id: 1,
-      require_lockdown_browser: true,
-      is_quiz_lti_assignment: true,
-    })
-    const view = createView(model, {canManage: false})
-    const json = view.toJSON()
-    expect(json.quizzesRespondusEnabled).toBe(true)
   })
 })
 

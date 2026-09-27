@@ -187,7 +187,6 @@
 #     }
 
 class OutcomeResultsController < ApplicationController
-  CACHE_EXPIRATION = 5.minutes
   include Api::V1::OutcomeResults
   include Outcomes::Enrollments
   include Outcomes::ResultAnalytics
@@ -648,55 +647,6 @@ class OutcomeResultsController < ApplicationController
 
   private
 
-  def find_new_quiz_assignments
-    # check if the logged in user has manage_grades & view_all_grades permissions
-    # if not, apply exclude_muted_associations to the assignment query
-    @new_quiz_assignments =
-      if context.grants_any_right?(@current_user, :manage_grades, :view_all_grades)
-        Assignment.active.where(context:).quiz_lti
-      else
-        # return if there is more than one user in users as this would indicate
-        # user with insufficient permissions accessing the LMGB
-        return if @users.length > 1
-
-        Assignment.active.where(context:).quiz_lti.exclude_muted_associations_for_user(@users[0])
-      end
-  end
-
-  def fetch_and_handle_os_results_for_all_users(opts)
-    os_results_json = find_outcomes_service_outcome_results(
-      users: @all_users,
-      context: @context,
-      outcomes: @outcomes,
-      assignments: @new_quiz_assignments,
-      **opts
-    )
-    return if os_results_json.nil?
-
-    handle_outcomes_service_results(os_results_json, @context, @outcomes, @all_users, @new_quiz_assignments)
-  end
-
-  def fetch_and_convert_os_results(opts)
-    # Returns a list of new quiz assignments for the current context
-    # If it is empty then no need to continue
-    return if find_new_quiz_assignments.empty?
-
-    # fetches and converts OS results json to LearningOutcomeResult objects then removes duplicate rubric results, if found.
-    results = Rails.cache.fetch(generate_cache_results_key, expires_in: CACHE_EXPIRATION) do
-      fetch_and_handle_os_results_for_all_users(opts)
-    end
-
-    # Remove users that are filtered out since we are pulling all results from OS.
-    # See filter_users_by_excludes for why this is needed.
-    unless opts[:all_users]
-      user_map = @users.index_by(&:uuid)
-      results = results&.filter do |r|
-        user_map.key?(r.user_uuid)
-      end
-    end
-    results
-  end
-
   def find_canvas_os_results(opts = { all_users: false })
     canvas_results = find_outcome_results(
       @current_user,
@@ -706,41 +656,8 @@ class OutcomeResultsController < ApplicationController
       **opts
     )
 
-    os_results = fetch_and_convert_os_results(**opts)
-
-    [canvas_results, os_results]
-  end
-
-  # There are two other parameters that could be concatenated that are
-  # specific when viewing sLMGB and course section LMGB
-  # For sLMGB ... user_ids plus a delimited list of students' user ids will be present in the cache key in the form of:
-  # slmgb_user_ids_1|2|3
-  # For course section LMGB ... student_id plus the section id will be present in the cache key in the form of:
-  # lmgb_section_id_123
-  # FURTHERMORE... to ensure the cache key is unique, the key also includes the @current_user.uuid, @context.uuid, & @domain_root_account.uuid
-  # example of cache key:
-  # slmgb_user_ids_5319/context_uuid/xDlV3Ca2nBRtRHX2K0ie0Wxng6grJKzEXSuIGoey/
-  #    current_user_uuid/dPu5lwmdwEJxBUqfiNlzyod3jbvVtdD0u8GrnVje/account_uuid/SYMqtl31AbcfmV6WfKkO5gqwpNr7Mvx21RHgG1bc
-  def generate_cache_results_key
-    # lmgb overall course
-    results_type = "lmgb"
-    # if section_id params is present then it is a course section and should be cached with section_id param
-    results_type = "lmgb_section_id_#{params[:section_id]}" unless params[:section_id].nil?
-    # slmgb is identified with the user_ids parameter and should be cached with user_ids params
-    results_type = "slmgb_user_ids_#{params[:user_ids].join("|")}" unless params[:user_ids].nil?
-
-    # Adding the currently logged in course, currently logged in user, and domain_root_account for session uniqueness
-    # looking around at other Rails.cache implementations, context and/or current_user and/or domain_root_account
-    # are used for uniqueness. We will use all 3's uuid for tripley safe measures.
-    # Refer to the below controllers for examples of cache keys
-    #   app/controllers/quizzes/quizzes_controller.rb
-    #   app/controllers/quizzes_next/quizzes_api_controller.rb
-    #   app/controllers/application_controller.rb
-
-    # If there are outcome ids in the params we need to take them into consideration when caching
-    outcome_ids_key = Digest::MD5.hexdigest(params[:outcome_ids].split(",").sort.join("|")) if params[:outcome_ids].present?
-
-    [results_type, "context_uuid", @context.uuid, "current_user_uuid", @current_user.uuid, "account_uuid", @domain_root_account.uuid, outcome_ids_key].compact
+    # results from the Outcomes Service only ever came from New Quizzes
+    [canvas_results, nil]
   end
 
   def needs_canvas_os_results?
@@ -932,11 +849,7 @@ class OutcomeResultsController < ApplicationController
     all_canvas_results = all_canvas_results.to_a
     canvas_results = all_canvas_results.select { |r| r.content_tag_id == content_tag_id }
 
-    os_results = fetch_and_convert_os_results(all_users: true)
-    os_results_for_alignment = os_results&.select { |r| r.content_tag_id == content_tag_id } || []
-
-    all_alignment_results = canvas_results + os_results_for_alignment
-    results_by_user = all_alignment_results.index_by(&:user_id)
+    results_by_user = canvas_results.index_by(&:user_id)
 
     @all_users.sort_by! do |user|
       result = results_by_user[user.id]
@@ -949,9 +862,7 @@ class OutcomeResultsController < ApplicationController
     # with any outcome results before paginating, so the pagination count and
     # page count are consistent with the "Students with no results = OFF" setting.
     if Api.value_to_array(params[:exclude]).include?("missing_user_rollups")
-      canvas_user_ids_with_results = all_canvas_results.map(&:user_id).uniq
-      os_user_ids_with_results = os_results&.map(&:user_id)&.uniq || []
-      user_ids_with_results = canvas_user_ids_with_results | os_user_ids_with_results
+      user_ids_with_results = all_canvas_results.map(&:user_id).uniq
       @all_users = @all_users.select { |u| user_ids_with_results.include?(u.id) }
     end
 

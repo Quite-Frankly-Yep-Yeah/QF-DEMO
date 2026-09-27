@@ -195,7 +195,6 @@ class GradebooksController < ApplicationController
       student_id: @presenter.student_id,
       students: @presenter.students.as_json(include_root: false),
       outcome_proficiency:,
-      outcome_service_results_to_canvas: outcome_service_results_to_canvas_enabled?
     }
 
     course_active_grading_standard = if @context.grading_standard_id.nil?
@@ -821,7 +820,6 @@ class GradebooksController < ApplicationController
 
     js_env({
              GRADEBOOK_OPTIONS: gradebook_options,
-             outcome_service_results_to_canvas: outcome_service_results_to_canvas_enabled?,
            })
   end
 
@@ -852,7 +850,6 @@ class GradebooksController < ApplicationController
                IMPROVED_LMGB: @context.feature_enabled?(:improved_lmgb),
              },
              OUTCOME_AVERAGE_CALCULATION: root_account.feature_enabled?(:outcome_average_calculation),
-             outcome_service_results_to_canvas: outcome_service_results_to_canvas_enabled?,
              OUTCOMES_NEW_DECAYING_AVERAGE_CALCULATION: root_account.feature_enabled?(:outcomes_new_decaying_average_calculation)
            })
   end
@@ -1033,7 +1030,7 @@ class GradebooksController < ApplicationController
   def submissions_json(submissions:, assignments:)
     submissions.map do |submission|
       assignment = assignments[submission[:assignment_id].to_i]
-      anonymize = assignment.quiz_lti? ? assignment.anonymous_participants? : assignment.anonymize_students?
+      anonymize = assignment.anonymize_students?
       omitted_field = anonymize ? :user_id : :anonymous_id
       json_params = Submission.json_serialization_full_parameters(methods: %i[late missing grading_status]).merge(
         include: { submission_history: { methods: %i[late missing word_count], except: omitted_field } },
@@ -1244,8 +1241,6 @@ class GradebooksController < ApplicationController
         log_asset_access(["speed_grader", @context], "grades", "other")
         env = {
           PLATFORM_SERVICE_SPEEDGRADER_ENABLED: platform_service_speedgrader_enabled,
-          SINGLE_NQ_SESSION_ENABLED: Account.site_admin.feature_enabled?(:single_new_quiz_session_in_speedgrader),
-          NQ_GRADE_BY_QUESTION_ENABLED: Account.site_admin.feature_enabled?(:new_quizzes_grade_by_question_in_speedgrader),
           GRADE_BY_QUESTION: !!@current_user.preferences[:enable_speedgrader_grade_by_question],
           EMOJIS_ENABLED: @context.feature_enabled?(:submission_comment_emojis),
           EMOJI_DENY_LIST: @context.root_account.settings[:emoji_deny_list],
@@ -1262,7 +1257,7 @@ class GradebooksController < ApplicationController
           grading_role: grading_role_for_user,
           grading_type: @assignment.grading_type,
           lti_retrieve_url: retrieve_course_external_tools_url(
-            @context.id, assignment_id: @assignment.id, display: "borderless", new_quizzes_native_experience_sessionless: false
+            @context.id, assignment_id: @assignment.id, display: "borderless"
           ),
           course_id: @context.id,
           assignment_id: @assignment.id,
@@ -1314,7 +1309,7 @@ class GradebooksController < ApplicationController
         if @context.filter_speed_grader_by_student_group?
           env[:filter_speed_grader_by_student_group] = true
 
-          anonymize = @assignment.quiz_lti? ? @assignment.anonymous_participants? : @assignment.anonymize_students?
+          anonymize = @assignment.anonymize_students?
           requested_student_id = if anonymize && params[:anonymous_id].present?
                                    @assignment.submissions.find_by(anonymous_id: params[:anonymous_id])&.user_id
                                  elsif !anonymize
@@ -1992,10 +1987,6 @@ class GradebooksController < ApplicationController
 
   def allow_apply_score_to_ungraded?
     @context.account.feature_enabled?(:apply_score_to_ungraded)
-  end
-
-  def outcome_service_results_to_canvas_enabled?
-    @context.feature_enabled?(:outcome_service_results_to_canvas)
   end
 
   def track_update_metrics(params, submission)

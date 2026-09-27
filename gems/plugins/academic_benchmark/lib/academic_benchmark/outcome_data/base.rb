@@ -56,7 +56,6 @@ module AcademicBenchmark::OutcomeData
       :import_blueprint_settings,
       :import_immediately,
       :import_in_progress_notice,
-      :import_quizzes_next,
       :imported_assets,
       :importer_skips,
       :initiated_source,

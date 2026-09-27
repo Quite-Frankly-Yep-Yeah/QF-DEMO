@@ -68,7 +68,6 @@ describe Types::AssignmentType do
     expect(assignment_type.resolve("postManually")).to eq assignment.post_manually?
     expect(assignment_type.resolve("published")).to eq assignment.published?
     expect(assignment_type.resolve("importantDates")).to eq assignment.important_dates
-    expect(assignment_type.resolve("isNewQuiz")).to eq assignment.quiz_lti?
     expect(assignment_type.resolve("muted")).to eq assignment.muted?
     expect(assignment_type.resolve("hasRubric")).to eq assignment.active_rubric_association?
   end

@@ -75,13 +75,6 @@ module FeatureFlags
       true
     end
 
-    def self.quizzes_next_visible_on_hook(context)
-      root_account = context.root_account
-      # assume all Quizzes.Next provisions so far have been done through uuid_provisioner
-      #  so all provisioned accounts will have the FF in quite frankly an example LMS UI
-      root_account.settings&.dig(:provision, "lti").present?
-    end
-
     def self.docviewer_enable_iwork_visible_on_hook(context)
       @docviewer_enable_iwork_visible_on_hook_cache ||= {}
 

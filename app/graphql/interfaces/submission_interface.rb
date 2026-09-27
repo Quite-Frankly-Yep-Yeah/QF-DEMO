@@ -708,9 +708,8 @@ module Interfaces::SubmissionInterface
         GraphQLHelpers::UrlHelpers.retrieve_course_external_tools_url(
           course_id,
           assignment_id: submission.assignment_id,
-          url: submission.external_tool_url(query_params: submission.tool_default_query_params(current_user)),
+          url: submission.external_tool_url,
           display: "borderless",
-          new_quizzes_native_experience_sessionless: false,
           host: context[:request].host_with_port,
           resource_link_lookup_uuid: submission.resource_link_lookup_uuid
         )

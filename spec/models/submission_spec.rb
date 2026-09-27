@@ -202,40 +202,6 @@ describe Submission do
     end
   end
 
-  describe "#tool_default_query_params" do
-    context "new quiz submissions" do
-      before do
-        @course.context_external_tools.create!(
-          name: "Quizzes.Next",
-          consumer_key: "test_key",
-          shared_secret: "test_secret",
-          tool_id: "Quizzes 2",
-          url: "http://example.com/launch"
-        )
-
-        @assignment.quiz_lti!
-        @assignment.save!
-      end
-
-      let(:submission) { @assignment.submissions.find_by!(user: @student) }
-
-      it "returns grade_by_question_enabled: true when grade by question is enabled" do
-        @teacher.update!(preferences: { enable_speedgrader_grade_by_question: true })
-        query_params = submission.tool_default_query_params(@teacher)
-        expect(query_params[:grade_by_question_enabled]).to be true
-      end
-
-      it "returns grade_by_question_enabled: false when grade by question is disabled" do
-        query_params = submission.tool_default_query_params(@teacher)
-        expect(query_params[:grade_by_question_enabled]).to be false
-      end
-    end
-
-    it "returns an empty array for a non-new-quiz submission" do
-      expect(submission.tool_default_query_params(@teacher)).to be_empty
-    end
-  end
-
   describe "#anonymous_id" do
     subject { submission.anonymous_id }
 
@@ -1184,29 +1150,6 @@ describe Submission do
       end
     end
 
-    context "when the submission is for a new quiz" do
-      before do
-        @course.context_external_tools.create!(
-          name: "Quizzes.Next",
-          consumer_key: "test_key",
-          shared_secret: "test_secret",
-          tool_id: "Quizzes 2",
-          url: "http://example.com/launch"
-        )
-
-        @assignment.quiz_lti!
-        @assignment.save!
-      end
-
-      it "subtracts 60 seconds from the submitted_at" do
-        Timecop.freeze(@date) do
-          submission = @assignment.submissions.find_by!(user: @student)
-          submission.update!(submitted_at: Time.now.utc)
-          expect(submission.seconds_late).to eql 59.minutes.to_i
-        end
-      end
-    end
-
     it "includes seconds" do
       Timecop.freeze(30.seconds.from_now(@date)) do
         @assignment.submit_homework(@student, body: "a body")
@@ -1761,33 +1704,6 @@ describe Submission do
           submission.score = nil
           submission.late_policy_status = "missing"
           submission.apply_late_policy(@late_policy, @assignment)
-          expect(submission.score).to eq 200
-        end
-      end
-    end
-
-    context "when submitting to a New Quiz LTI assignment" do
-      before(:once) do
-        @date = Time.zone.local(2017, 1, 15, 12)
-        Timecop.travel(@date) do
-          Auditors::ActiveRecord::Partitioner.process
-        end
-        @course.context_external_tools.create!(
-          name: "Quizzes.Next",
-          consumer_key: "test_key",
-          shared_secret: "test_secret",
-          tool_id: "Quizzes 2",
-          url: "http://example.com/launch"
-        )
-
-        @assignment.quiz_lti!
-        @assignment.save!
-        @late_policy = late_policy_factory(course: @course, deduct: 10.0, every: :hour, missing: 80.0)
-      end
-
-      it "does grade missing new quiz submissions" do
-        Timecop.freeze(@date) do
-          submission.apply_late_policy
           expect(submission.score).to eq 200
         end
       end
@@ -3212,20 +3128,6 @@ describe Submission do
 
       it "prevents TAs without view_all_grades permission from seeing names" do
         expect(@submission.can_read_submission_user_name?(@ta_without_permissions, nil)).to be false
-      end
-    end
-
-    context "with NQ anonymous participants" do
-      before(:once) do
-        @assignment.update!(anonymous_participants: true)
-      end
-
-      it "returns true when the user is the submission's owner" do
-        expect(@submission.can_read_submission_user_name?(@student, nil)).to be true
-      end
-
-      it "returns false when the user is not the submission's owner" do
-        expect(@submission.can_read_submission_user_name?(@teacher, nil)).to be false
       end
     end
 
@@ -5320,22 +5222,6 @@ describe Submission do
 
         expect(Submission.missing).to be_empty
       end
-
-      it "includes missing quiz_lti assignments" do
-        @course.context_external_tools.create!(
-          name: "Quizzes.Next",
-          consumer_key: "test_key",
-          shared_secret: "test_secret",
-          tool_id: "Quizzes 2",
-          url: "http://example.com/launch"
-        )
-        @assignment.quiz_lti!
-        @assignment.due_at = 1.day.ago(@now)
-        @assignment.save!
-
-        @submission.update(grader_id: nil)
-        expect(Submission.missing).to include @submission
-      end
     end
 
     context "submitted" do
@@ -5784,39 +5670,6 @@ describe Submission do
       @submission.update_columns(submission_type: nil)
 
       expect(@submission).not_to be_missing
-    end
-
-    it "returns true for missing quiz_lti submissions" do
-      @course.context_external_tools.create!(
-        name: "Quizzes.Next",
-        consumer_key: "test_key",
-        shared_secret: "test_secret",
-        tool_id: "Quizzes 2",
-        url: "http://example.com/launch"
-      )
-
-      @another_assignment.quiz_lti!
-      @another_assignment.save!
-
-      @another_submission.reload
-      expect(@another_submission).to be_missing
-    end
-
-    it "returns true for missing quiz_lti submissions when cached_quiz_lti is false but assignment.quiz_lti is true" do
-      @course.context_external_tools.create!(
-        name: "Quizzes.Next",
-        consumer_key: "test_key",
-        shared_secret: "test_secret",
-        tool_id: "Quizzes 2",
-        url: "http://example.com/launch"
-      )
-
-      @another_assignment.quiz_lti!
-      @another_assignment.save!
-
-      @another_submission.reload
-      @another_submission.update!(cached_quiz_lti: false)
-      expect(@another_submission).to be_missing
     end
 
     context "checkpointed discussions" do
@@ -11112,21 +10965,6 @@ describe Submission do
       end
 
       Timecop.freeze(10.minutes.from_now(now)) do
-        @quiz_submission.set_final_score(7)
-        @quiz_submission.save!
-      end
-    end
-
-    it "calls Statsd when a new quiz is manually graded" do
-      expect(InstStatsd::Statsd).to receive(:gauge).once.with("submission.manually_graded.grading_time", 300.0, 1.0, tags: { quiz_type: "new_quiz" })
-
-      now = Time.zone.now
-      Timecop.freeze(now) do
-        quiz_with_graded_submission([{ question_data: { :name => "question 1", :points_possible => 10, "question_type" => "essay_question" } }])
-      end
-
-      allow(@quiz_submission.submission).to receive_messages(submission_type: "basic_lti_launch", url: "https://quiz-lti-iad-prod.instructure.com/lti/launch")
-      Timecop.freeze(5.minutes.from_now(now)) do
         @quiz_submission.set_final_score(7)
         @quiz_submission.save!
       end

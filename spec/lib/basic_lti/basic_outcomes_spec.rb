@@ -673,55 +673,6 @@ describe BasicLTI::BasicOutcomes do
       expect(submission.submission_type).to eq "basic_lti_launch"
     end
 
-    context "quizzes.next submissions" do
-      let(:tool) do
-        @course.context_external_tools.create(
-          name: "a",
-          url: "http://google.com",
-          consumer_key: "12345",
-          shared_secret: "secret",
-          tool_id: "Quizzes 2"
-        )
-      end
-
-      let(:assignment) do
-        @course.assignments.create!(
-          {
-            title: "Quizzes.next Quiz",
-            description: "value for description",
-            due_at: Time.zone.now,
-            points_possible: "1.5",
-            submission_types: "external_tool",
-            grading_type: "letter_grade",
-            external_tool_tag_attributes: { url: tool.url }
-          }
-        )
-      end
-
-      let(:submitted_at_timestamp) { 1.day.ago.iso8601(3) }
-
-      it "stores the score and grade for quizzes.next assignments" do
-        xml.css("resultData").remove
-        xml.at_css("imsx_POXBody > replaceResultRequest > resultRecord > result").add_child(
-          "<resultData><text>#{submitted_at_timestamp}</text>
-          <url>http://example.com/launch</url></resultData>"
-        )
-        BasicLTI::BasicOutcomes.process_request(tool, xml)
-        expect(assignment.submissions.first.grade).to eq "A-"
-      end
-
-      context "request metrics" do
-        before do
-          allow(InstStatsd::Statsd).to receive(:distributed_increment).and_call_original
-        end
-
-        it "tags count with request type quizzes" do
-          BasicLTI::BasicOutcomes.process_request(tool, xml)
-          expect(InstStatsd::Statsd).to have_received(:distributed_increment).with("lti.1_1.basic_outcomes.requests", tags: { op: "replace_result", type: :quizzes })
-        end
-      end
-    end
-
     context "submissions" do
       it "creates a new submissions if there isn't one" do
         xml.css("resultData").remove
@@ -955,41 +906,9 @@ describe BasicLTI::BasicOutcomes do
   end
 
   describe "#process_request" do
-    context "when assignment is a Quizzes.Next quiz" do
-      let(:tool) do
-        @course.context_external_tools.create(
-          name: "a",
-          url: "http://google.com",
-          consumer_key: "12345",
-          shared_secret: "secret",
-          tool_id: "Quizzes 2"
-        )
-      end
-
-      it "uses BasicLTI::QuizzesNextLtiResponse object" do
-        expect(BasicLTI::QuizzesNextLtiResponse).to receive(:new).and_call_original
-        BasicLTI::BasicOutcomes.process_request(tool, xml)
-      end
-
-      context "when quizzes_next_submission_history is off" do
-        before do
-          allow(tool.context.root_account).to receive(:feature_enabled?).and_call_original
-          allow(tool.context.root_account).to receive(:feature_enabled?)
-            .with(:quizzes_next_submission_history).and_return(false)
-        end
-
-        it "uses BasicLTI::BasicOutcomes::LtiResponse object" do
-          expect(BasicLTI::BasicOutcomes::LtiResponse).to receive(:new).and_call_original
-          expect(BasicLTI::QuizzesNextLtiResponse).not_to receive(:new)
-          BasicLTI::BasicOutcomes.process_request(tool, xml)
-        end
-      end
-    end
-
     context "when assignment is not a Quizzes.Next quiz" do
       it "uses BasicLTI::BasicOutcomes::LtiResponse object" do
         expect(BasicLTI::BasicOutcomes::LtiResponse).to receive(:new).and_call_original
-        expect(BasicLTI::QuizzesNextLtiResponse).not_to receive(:new)
         BasicLTI::BasicOutcomes.process_request(tool, xml)
       end
     end

@@ -59,11 +59,6 @@ describe('utils', () => {
       expect(screen.getByTestId('quiz-icon')).toBeInTheDocument()
     })
 
-    it('returns the correct icon for a new quiz', () => {
-      renderIcon({type: 'Assignment', isNewQuiz: true})
-      expect(screen.getByTestId('new-quiz-icon')).toBeInTheDocument()
-    })
-
     it('returns the correct icon for a discussion', () => {
       renderIcon({type: 'Discussion'})
       expect(screen.getByTestId('discussion-icon')).toBeInTheDocument()
@@ -114,10 +109,6 @@ describe('utils', () => {
   describe('getItemTypeText', () => {
     it('should return "Assignment" for an assignment', () => {
       expect(getItemTypeText({type: 'Assignment'})).toBe('Assignment')
-    })
-
-    it('should return "New Quiz" for a new quiz', () => {
-      expect(getItemTypeText({type: 'Assignment', isNewQuiz: true})).toBe('New Quiz')
     })
 
     it('should return "Quiz" for a quiz', () => {

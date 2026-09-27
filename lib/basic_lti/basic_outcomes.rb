@@ -26,20 +26,11 @@ require "nokogiri"
 #     tool launch can modify the given score.
 # - BasicOutcomes: responds to grade passback requests by modifying submission data.
 #     Conforms to LTI 1.1 spec and parses request and response XML.
-# - QuizzesNext*: a group of classes for the special case of responding to a grade
-#     passback request from the New Quizzes app. Includes some special behavior for
-#     reverting to a previous score.
 module BasicLTI
   # Handles LTI 1.1 Grade Passback requests. In charge of decoding the sourcedid
   # parameter to get necessary context, then delegates to one of three related
   # classes for the actual request parsing, data modification, and response.
   # Exposes an LtiResponse to the caller (the LtiApiController).
-  #
-  # Note that Quizzes has a special workflow that overrides some of the functionality
-  # of the base LtiResponse class (namely #handle_replace_request), contained in the
-  # quizzes_next_* files, not in this one. It's easy to think of this file when someone mentions
-  # "LTI grade passback" or "basic outcomes", but make sure to double-check whether
-  # that is coming from quizzes or from an external vendor.
   module BasicOutcomes
     class Unauthorized < StandardError
       def initialize(msg)
@@ -81,7 +72,7 @@ module BasicLTI
 
     def self.process_request(tool, xml)
       InstStatsd::Statsd.time("lti.1_1.basic_outcomes.process_request_time") do
-        res = (quizzes_next_tool?(tool) ? BasicLTI::QuizzesNextLtiResponse : LtiResponse).new(xml)
+        res = LtiResponse.new(xml)
 
         unless res.handle_request(tool)
           res.code_major = "unsupported"
@@ -89,10 +80,6 @@ module BasicLTI
         end
         res
       end
-    end
-
-    def self.quizzes_next_tool?(tool)
-      tool.tool_id == "Quizzes 2" && tool.context.root_account.feature_enabled?(:quizzes_next_submission_history)
     end
 
     def self.process_legacy_request(tool, params)
@@ -299,7 +286,6 @@ module BasicLTI
         code_major == "failure"
       end
 
-      # for New Quizzes check BasicLTI::QuizzesNextLtiResponse.handle_replace_result
       def handle_replace_result(tool, assignment, user)
         text_value = result_score
         score_value = result_total_score
@@ -353,7 +339,7 @@ module BasicLTI
         end
 
         # Sometimes we want to pass back info, but not overwrite the submission score if entered by something other
-        # than the ltitool before the tool finished pushing it. We've seen this need with NewQuizzes
+        # than the ltitool before the tool finished pushing it.
         LtiResponse.ensure_score_update_possible(submission: existing_submission, prioritize_non_tool_grade: prioritize_non_tool_grade?) do
           if assignment.grading_type == "pass_fail" && (raw_score || new_score)
             submission_hash[:grade] = (((raw_score || new_score) > 0) ? "pass" : "fail")

@@ -38,9 +38,6 @@ const I18n = createI18nScope('assignments_2')
 // TODO: the assignment type and module selection need to be factored out into
 // their own components. too much logic to cram in here
 
-const confirmQuizType = I18n.t(
-  'Quizzes are not yet handled in the new assignments flow. Head to the legacy create quiz page?',
-)
 const confirmPeerReviewType = I18n.t(
   'Peer reviewed assignments are not yet handled in the new assignments flow. Head to the legacy create assignment page?',
 )
@@ -106,14 +103,6 @@ export default class Header extends React.Component {
       case 'assignment':
         break
       case 'quiz':
-        if (window.confirm(confirmQuizType)) {
-          // must be true, because that's the only way quiz is an option
-          // @ts-expect-error
-          if (ENV.QUIZ_LTI_ENABLED) {
-            // @ts-expect-error
-            assignLocation(`/courses/${this.props.assignment.course.lid}/assignments/new?quiz_lti`)
-          }
-        }
         break
       case 'peer-review':
         if (window.confirm(confirmPeerReviewType)) {

@@ -36,10 +36,7 @@ export default function Link(props) {
   const internalLink = {...props.link}
   const [isHovering, setIsHovering] = useState(false)
   const {title, published, date, date_type} = props.link
-  const type =
-    props.type === 'quizzes' && props.link.quiz_type === 'quizzes.next'
-      ? 'quizzes.next'
-      : props.type
+  const type = props.type
   internalLink['data-course-type'] = type
   // Only included published attr if it makes sense for the link type
   const publishable = !['navigation', 'announcements'].includes(type)

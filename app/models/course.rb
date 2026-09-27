@@ -3762,21 +3762,8 @@ class Course < ApplicationRecord
       is_ams = root_account.feature_enabled?(:ams_root_account_integration) &&
                feature_enabled?(:ams_course_integration)
 
-      item_bank_href_override = if is_ams
-                                  :course_item_banks_path
-                                elsif feature_enabled?(:new_quizzes_native_experience)
-                                  :course_new_quizzes_banks_path
-                                else
-                                  nil
-                                end
-
-      if item_bank_href_override
-        item_banks_tab = NewQuizzesHelper.override_item_banks_tab(
-          tabs:,
-          href: item_bank_href_override,
-          context: self,
-          css_class: is_ams ? "item_banks" : nil
-        ) || item_banks_tab
+      if is_ams
+        item_banks_tab = override_item_banks_tab(tabs, :course_item_banks_path) || item_banks_tab
       end
 
       tabs.delete_if { |t| t[:id] == TAB_SETTINGS }
@@ -4037,7 +4024,6 @@ class Course < ApplicationRecord
   add_setting :lock_all_announcements, boolean: true, default: false, inherited: true
   add_setting :large_roster, boolean: true, default: ->(c) { c.root_account.large_course_rosters? }
   add_setting :course_format
-  add_setting :newquizzes_engine_selected
   add_setting :image_id
   add_setting :image_url
   add_setting :banner_image_id
@@ -4605,13 +4591,15 @@ class Course < ApplicationRecord
                                     !!relevant_grading_period_group&.weighted?
   end
 
-  def quiz_lti_tool
-    Lti::ContextToolFinder.ordered_by_context_for(self).quiz_lti.first
-  end
+  # Points the Item Banks tab an LTI tool adds at our own item banks page.
+  def override_item_banks_tab(tabs, href)
+    label = I18n.t("#tabs.item_banks", "Item Banks")
+    index = tabs.find_index { |t| t[:label] == label }
+    return unless index
 
-  def has_new_quizzes?
-    assignments.active.quiz_lti.exists?
+    tabs[index] = tabs[index].except(:args).merge(id: TAB_ITEM_BANKS, label:, href:, external: false, css_class: "item_banks")
   end
+  private :override_item_banks_tab
 
   def find_or_create_progressions_for_user(user)
     @progressions ||= {}

@@ -24,7 +24,6 @@ import {
   IconAssignmentLine,
   IconRubricLine,
   IconQuizLine,
-  IconQuizSolid,
   IconDiscussionLine,
   IconBankLine,
 } from '@instructure/ui-icons'
@@ -61,9 +60,6 @@ const AlignmentItem = ({
     } else if (assignmentContentType === 'discussion') {
       icon = <IconDiscussionLine data-testid="alignment-item-discussion-icon" />
       screenReaderText = I18n.t('Discussion')
-    } else if (assignmentContentType === 'new_quiz') {
-      icon = <IconQuizSolid data-testid="alignment-item-new-quiz-icon" />
-      screenReaderText = I18n.t('New Quiz')
     } else {
       // by default we show Assignment icon
       icon = <IconAssignmentLine data-testid="alignment-item-assignment-icon" />
@@ -86,7 +82,7 @@ const AlignmentItem = ({
     )
   }
 
-  const shouldRenderQuizItems = assignmentContentType === 'new_quiz' && quizItems?.length > 0
+  const shouldRenderQuizItems = false
 
   const renderQuizItems = items => (
     <Flex as="div" direction="column" padding="xxx-small" alignItems="start">
