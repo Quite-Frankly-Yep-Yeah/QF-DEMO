@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#d64027">
+  <title>You're offline</title>
+  <style>
+    /* Self-contained on purpose: this page is shown when nothing else can load */
+    * { box-sizing: border-box; }
+    body {
+      margin: 0;
+      min-height: 100vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 16px;
+      font-family: Lato, "Helvetica Neue", Helvetica, Arial, sans-serif;
+      color: #2d3b45;
+      background: #f5f5f5;
+    }
+    main {
+      max-width: 420px;
+      padding: 32px 24px;
+      text-align: center;
+      background: #fff;
+      border-radius: 4px;
+      box-shadow: 0 3px 6px rgba(0, 0, 0, 0.16), 0 3px 6px rgba(0, 0, 0, 0.23);
+    }
+    .mark {
+      width: 72px;
+      height: 72px;
+      margin: 0 auto 16px;
+      border-radius: 50%;
+      background: #d64027;
+    }
+    h1 { margin: 0 0 8px; font-size: 1.5rem; }
+    p { margin: 0 0 24px; line-height: 1.5; }
+    button {
+      font: inherit;
+      color: #fff;
+      background: #d64027;
+      border: 0;
+      border-radius: 2px;
+      padding: 10px 24px;
+      cursor: pointer;
+      box-shadow: 0 1px 3px rgba(0, 0, 0, 0.12), 0 1px 2px rgba(0, 0, 0, 0.24);
+    }
+    button:hover, button:focus-visible { background: #b8331e; }
+  </style>
+</head>
+<body>
+  <main>
+    <div class="mark" role="img" aria-label=""></div>
+    <h1>You're offline</h1>
+    <p>We couldn't reach the server. Check your connection and try again.</p>
+    <button type="button" onclick="location.reload()">Try again</button>
+  </main>
+  <script>
+    // Come back automatically as soon as the connection does
+    window.addEventListener('online', function () { location.reload() })
+  </script>
+</body>
+</html>
