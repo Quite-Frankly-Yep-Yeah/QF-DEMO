@@ -2321,6 +2321,78 @@ BASE_PERMISSIONS = {
     details: [
       { description: -> { I18n.t("Allows user to run and download self-paced progress, time-on-task, pacing, intervention and attendance reports.") } }
     ]
+  },
+  # Student supports (docs/teacher-workflow-plan.md §2.2). Hidden until the
+  # `student_supports` feature flag is on for the root account.
+  supports_view_accommodations: {
+    label: -> { I18n.t("Student Supports - view accommodations") },
+    available_to: %w[AccountAdmin AccountMembership],
+    true_for: %w[AccountAdmin],
+    account_only: true,
+    account_allows: ->(a) { a.root_account.feature_enabled?(:student_supports) },
+    details: [
+      { description: -> { I18n.t("Allows user to see the accommodations of students assigned to them, or of every student in the account if they can also view all students. Teachers see their own students' accommodations without this permission.") } }
+    ]
+  },
+  supports_view_plans: {
+    label: -> { I18n.t("Student Supports - view plan details") },
+    available_to: %w[AccountAdmin AccountMembership],
+    true_for: %w[AccountAdmin],
+    account_only: true,
+    account_allows: ->(a) { a.root_account.feature_enabled?(:student_supports) },
+    details: [
+      { description: -> { I18n.t("Allows user to see support plan details (dates, goals, services, meetings and progress data) for students assigned to them, or every student in the account if they can also view all students.") } }
+    ]
+  },
+  supports_view_all_students: {
+    label: -> { I18n.t("Student Supports - view all students") },
+    available_to: %w[AccountAdmin AccountMembership],
+    true_for: %w[AccountAdmin],
+    account_only: true,
+    account_allows: ->(a) { a.root_account.feature_enabled?(:student_supports) },
+    details: [
+      { description: -> { I18n.t("Extends the other Student Supports permissions from the students assigned to the user to every student in the account.") } }
+    ]
+  },
+  supports_manage_plans: {
+    label: -> { I18n.t("Student Supports - manage plans and caseloads") },
+    available_to: %w[AccountAdmin AccountMembership],
+    true_for: %w[AccountAdmin],
+    account_only: true,
+    account_allows: ->(a) { a.root_account.feature_enabled?(:student_supports) },
+    details: [
+      { description: -> { I18n.t("Allows user to create and edit support plans and accommodations, and assign students to support staff.") } }
+    ]
+  },
+  supports_manage_catalog: {
+    label: -> { I18n.t("Student Supports - manage the accommodation catalog") },
+    available_to: %w[AccountAdmin AccountMembership],
+    true_for: %w[AccountAdmin],
+    account_only: true,
+    account_allows: ->(a) { a.root_account.feature_enabled?(:student_supports) },
+    details: [
+      { description: -> { I18n.t("Allows user to edit the school's list of accommodations and how each one is applied.") } }
+    ]
+  },
+  supports_log_services: {
+    label: -> { I18n.t("Student Supports - log services") },
+    available_to: %w[AccountAdmin AccountMembership],
+    true_for: %w[AccountAdmin],
+    account_only: true,
+    account_allows: ->(a) { a.root_account.feature_enabled?(:student_supports) },
+    details: [
+      { description: -> { I18n.t("Allows user to record service sessions and minutes for the students assigned to them.") } }
+    ]
+  },
+  supports_view_access_log: {
+    label: -> { I18n.t("Student Supports - view access log") },
+    available_to: %w[AccountAdmin AccountMembership],
+    true_for: %w[AccountAdmin],
+    account_only: true,
+    account_allows: ->(a) { a.root_account.feature_enabled?(:student_supports) },
+    details: [
+      { description: -> { I18n.t("Allows user to see who opened a student's protected support records, and when.") } }
+    ]
   }
 }.freeze
 

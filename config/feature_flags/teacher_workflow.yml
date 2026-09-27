@@ -1,0 +1,18 @@
+---
+# Teacher workflow and student supports (docs/teacher-workflow-plan.md).
+# Every flag starts hidden. Each track has its own umbrella flag so a school
+# can adopt one without the other; phase flags are added as their phases ship.
+student_supports:
+  applies_to: RootAccount
+  state: hidden
+  display_name: Student Supports
+  description: |-
+    Umbrella flag for 504, IEP and English-learner supports: plans,
+    accommodations and the need-to-know access rules that protect them.
+teacher_workflow:
+  applies_to: RootAccount
+  state: hidden
+  display_name: Teacher Workflow
+  description: |-
+    Umbrella flag for the teacher workflow tools: the grading queue,
+    follow-ups, the student page and progress reports.
