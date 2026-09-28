@@ -115,3 +115,4 @@ coverage-karma
 /.devcontainer/*
 /!.devcontainer/.keep
 .claude/scheduled_tasks.lock
+/core.[0-9]*
