@@ -27,6 +27,7 @@ CLAUDE.local.md
 /config/*.yml.cached
 /config/credentials.yml.enc
 !/config/brakeman.yml
+!/config/brandable_css.yml
 !/config/code_ownership.yml
 !/config/credentials.test.yml
 !/config/crystalball.yml
