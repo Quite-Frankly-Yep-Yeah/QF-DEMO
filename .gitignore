@@ -55,7 +55,10 @@ npm-debug.log
 !/public/javascripts/translations/en.json
 /tmp/*
 !/tmp/.keep
-/vendor
+/vendor/*
+!/vendor/gems/
+/vendor/gems/*
+!/vendor/gems/bundler-multilock/
 yarn-error.log
 dump.rdb
 .eslintcache
