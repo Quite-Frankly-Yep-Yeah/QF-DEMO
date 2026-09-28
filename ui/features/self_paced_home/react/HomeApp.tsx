@@ -132,7 +132,10 @@ export default function HomeApp({config, now = new Date()}: {config: HomeConfig;
                   )
                 : todayItems.done >= todayItems.total
                   ? I18n.t("You've done everything planned for today. Nice work.")
-                  : I18n.t('%{done} of %{total} items planned for today are done.', todayItems)}
+                  : I18n.t('%{done} of %{total} items planned for today are done.', {
+                      done: todayItems.done,
+                      total: todayItems.total,
+                    })}
           </p>
         </div>
       </header>

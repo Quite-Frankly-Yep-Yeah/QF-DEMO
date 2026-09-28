@@ -452,7 +452,11 @@ function DetailBody({
           />
         </Card>
 
-        <Card level={3} title={I18n.t('Attempts')} labelledBy="self-paced-tray-attempts">
+        <Card
+          level={3}
+          title={I18n.t('self_paced_tray_attempts', 'Attempts')}
+          labelledBy="self-paced-tray-attempts"
+        >
           {detail.attempts.length === 0 ? (
             <span style={{color: INK.secondary}}>{I18n.t('No submissions yet.')}</span>
           ) : (

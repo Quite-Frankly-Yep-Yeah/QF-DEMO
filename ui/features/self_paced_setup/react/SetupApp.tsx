@@ -389,7 +389,7 @@ function ItemRow({
                 onChange={(_e, value) => onChange({mastery_threshold: numberOrNull(value)})}
               />
               <NumberInput
-                renderLabel={I18n.t('Attempts')}
+                renderLabel={I18n.t('self_paced_setup_attempts', 'Attempts')}
                 placeholder={I18n.t('as is')}
                 showArrows={false}
                 width="6rem"
