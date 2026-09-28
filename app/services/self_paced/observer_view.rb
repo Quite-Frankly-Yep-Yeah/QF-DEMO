@@ -32,12 +32,28 @@ module SelfPaced
     NOT_OBSERVER_ENROLLMENTS = %w[StudentEnrollment TeacherEnrollment TaEnrollment DesignerEnrollment].freeze
 
     # Observers only: people who are already students or staff somewhere keep
-    # their own home pages.
+    # their own home pages. A parent who signed up from the school's flyer
+    # (SelfPaced::SchoolParentSignup) gets here too, even before any student is
+    # linked, so they can find one (SelfPaced::LinkRequestsController).
     def self.show_for?(user, root_account)
-      return false unless user && SelfPaced.enabled?(root_account)
-      return false if user.account_membership? || user.enrollments.active.where(type: NOT_OBSERVER_ENROLLMENTS).exists?
+      return false unless user && SelfPaced.enabled?(root_account) && parent_account?(user)
 
-      new(user).links.any?
+      new(user).links.any? || user.preferences[SchoolParentSignup::PARENT_PREFERENCE]
+    end
+
+    # Whether someone could be a parent account at all: not school staff, and
+    # not currently a student anywhere. Checked before any link exists, so it
+    # can't require a link the way show_for? does.
+    def self.parent_account?(user)
+      return false unless user
+
+      !(user.account_membership? || user.enrollments.active.where(type: NOT_OBSERVER_ENROLLMENTS).exists?)
+    end
+
+    # Whether +course+ counts for an observer: published, in the course
+    # player, with the observer view on.
+    def self.viewable_course?(course)
+      course&.available? && Gating.player_course?(course) && SelfPaced.feature_enabled?(course, :self_paced_observer_view)
     end
 
     def initialize(observer, now: Time.zone.now)
@@ -52,7 +68,7 @@ module SelfPaced
       @links ||= begin
         student_ids = linked_student_ids
         StudentEnrollment.where(workflow_state: "active", user_id: student_ids).preload(:course).filter_map do |enrollment|
-          [enrollment.user_id, enrollment.course] if viewable_course?(enrollment.course)
+          [enrollment.user_id, enrollment.course] if self.class.viewable_course?(enrollment.course)
         end.uniq
       end
     end
@@ -81,10 +97,6 @@ module SelfPaced
     end
 
     private
-
-    def viewable_course?(course)
-      course&.available? && Gating.player_course?(course) && SelfPaced.feature_enabled?(course, :self_paced_observer_view)
-    end
 
     def student_json(student, courses)
       ids = courses.map(&:id)

@@ -82,6 +82,10 @@ class AdminHubController < ApplicationController
     if @context.feature_enabled?(:self_paced_teacher_dashboard)
       links << { id: "dashboard", label: t("Teacher dashboard"), path: self_paced_dashboard_path }
     end
+    if SelfPaced.feature_enabled?(@context, :self_paced_observer_view) &&
+       @context.grants_right?(@current_user, session, :manage_user_observers)
+      links << { id: "parents", label: t("Parents"), path: self_paced_parents_page_path }
+    end
     links
   end
 end

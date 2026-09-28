@@ -199,6 +199,7 @@ const featureBundles: {
   self_paced_dashboard: () => import('./features/self_paced_dashboard/index'),
   self_paced_home: () => import('./features/self_paced_home/index'),
   self_paced_observer: () => import('./features/self_paced_observer/index'),
+  self_paced_parents: () => import('./features/self_paced_parents/index'),
   self_paced_parent_signup: () => import('./features/self_paced_parent_signup/index'),
   self_paced_course_home: () => import('./features/self_paced_course_home/index'),
   self_paced_player: () => import('./features/self_paced_player/index'),

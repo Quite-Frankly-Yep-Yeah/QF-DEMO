@@ -16,7 +16,27 @@
  * with this program. If not, see <http://www.gnu.org/licenses/>.
  */
 
-export type ObserverConfig = {data_url: string; classic_url: string}
+export type ObserverConfig = {
+  data_url: string
+  search_url: string
+  requests_url: string
+  classic_url: string
+}
+
+// GET /api/v1/self_paced/observer/students?q=... (SelfPaced::StudentFinder#search)
+export type FoundStudent = {id: string; name: string}
+export type StudentSearch = {students: FoundStudent[]; too_many: boolean}
+
+// SelfPaced::LinkRequest#as_json_for_observer
+export type LinkRequest = {
+  id: string
+  status: 'pending' | 'approved' | 'declined' | 'cancelled'
+  student: {id: string; name: string}
+  note: string | null
+  response: string | null
+  created_at: string
+  decided_at: string | null
+}
 
 export type CourseProgress = {
   id: string

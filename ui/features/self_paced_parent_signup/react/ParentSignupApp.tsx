@@ -130,6 +130,9 @@ export default function ParentSignupApp({
 
   const minLength = Number(config.password_policy?.minimum_character_length) || 8
   const student = config.student_first_name ?? ''
+  // The school's flyer (SelfPaced::SchoolParentSignup) isn't tied to a
+  // student, unlike a staff invite code, so there is no name to greet with.
+  const hasStudent = config.student_first_name !== null
 
   return (
     <div
@@ -160,31 +163,44 @@ export default function ParentSignupApp({
         ) : config.signed_in_as ? (
           <>
             <h1 style={{margin: '0 0 12px', fontWeight: 300, fontSize: '2rem'}}>
-              {I18n.t('Add %{student} to your account', {student})}
+              {hasStudent
+                ? I18n.t('Add %{student} to your account', {student})
+                : I18n.t('Set up your parent account')}
             </h1>
             <p style={{color: '#616161'}}>
-              {I18n.t(
-                "You're signed in as %{name}. You'll be able to see how %{student} is doing.",
-                {
-                  name: config.signed_in_as,
-                  student,
-                },
-              )}
+              {hasStudent
+                ? I18n.t(
+                    "You're signed in as %{name}. You'll be able to see how %{student} is doing.",
+                    {
+                      name: config.signed_in_as,
+                      student,
+                    },
+                  )
+                : I18n.t(
+                    "You're signed in as %{name}. Next you'll look up your student so the school can link them.",
+                    {name: config.signed_in_as},
+                  )}
             </p>
             {errors.length > 0 && <Errors errors={errors} />}
             <button type="button" style={button} disabled={busy} onClick={() => send({})}>
-              {I18n.t('Add %{student}', {student})}
+              {hasStudent ? I18n.t('Add %{student}', {student}) : I18n.t('Continue')}
             </button>
           </>
         ) : (
           <>
             <h1 style={{margin: '0 0 8px', fontWeight: 300, fontSize: '2rem', lineHeight: 1.15}}>
-              {I18n.t("Follow %{student}'s progress", {student})}
+              {hasStudent
+                ? I18n.t("Follow %{student}'s progress", {student})
+                : I18n.t('Find your student')}
             </h1>
             <p style={{margin: '0 0 24px', color: '#616161'}}>
-              {I18n.t(
-                'Make your account to see progress, grades and time spent in their self-paced classes.',
-              )}
+              {hasStudent
+                ? I18n.t(
+                    'Make your account to see progress, grades and time spent in their self-paced classes.',
+                  )
+                : I18n.t(
+                    'Make your account, then look up your student so the school can link them to you.',
+                  )}
             </p>
             {errors.length > 0 && <Errors errors={errors} />}
             <form onSubmit={submit} noValidate={true}>
@@ -240,7 +256,9 @@ export default function ParentSignupApp({
             </form>
             <p style={{margin: '24px 0 0', color: '#616161', fontSize: '0.875rem'}}>
               {I18n.t('Already have an account?')}{' '}
-              <a href={config.login_url}>{I18n.t('Log in to add %{student}', {student})}</a>
+              <a href={config.login_url}>
+                {hasStudent ? I18n.t('Log in to add %{student}', {student}) : I18n.t('Log in')}
+              </a>
             </p>
           </>
         )}

@@ -22,6 +22,9 @@
 # they make an account, or if they are signed in, add the student to the one
 # they have. Anyone with a live code can reach it, so it says nothing about the
 # student beyond their first name.
+#
+# Base for SelfPaced::SchoolParentSignupController, the flyer's school-wide
+# equivalent that isn't tied to a student.
 module SelfPaced
   class ParentSignupController < ApplicationController
     # the whole point is that the parent has no account yet
@@ -30,13 +33,13 @@ module SelfPaced
 
     # GET /parents/join/:code
     def show
-      signup = ParentSignup.find(params[:code], @domain_root_account)
-      @page_title = t("Join your student")
+      signup = signup_class.find(params[:code], @domain_root_account)
+      @page_title = page_title
       js_env({ SELF_PACED_PARENT_SIGNUP: {
                valid: signup.present?,
                student_first_name: signup&.student_first_name,
                signed_in_as: @current_user&.name,
-               submit_url: parent_join_path(params[:code]),
+               submit_url: submit_path,
                login_url: "/login?redirect=#{CGI.escape(request.path)}",
                authenticity_token: form_authenticity_token,
                password_policy: @domain_root_account.password_policy
@@ -48,7 +51,7 @@ module SelfPaced
     # POST /parents/join/:code   name, email, password, password_confirmation
     # (or, when signed in, just the code)
     def create
-      signup = ParentSignup.find(params[:code], @domain_root_account)
+      signup = signup_class.find(params[:code], @domain_root_account)
       return render json: { errors: [t("This invitation has expired. Ask the school for a new one.")] }, status: :not_found unless signup
 
       if @current_user
@@ -66,6 +69,20 @@ module SelfPaced
     end
 
     private
+
+    # Overridden by SchoolParentSignupController for the flyer's school-wide
+    # code, which isn't tied to a student.
+    def signup_class
+      ParentSignup
+    end
+
+    def page_title
+      t("Join your student")
+    end
+
+    def submit_path
+      parent_join_path(params[:code])
+    end
 
     def require_feature
       return if SelfPaced.feature_enabled?(@domain_root_account, :self_paced_observer_view)

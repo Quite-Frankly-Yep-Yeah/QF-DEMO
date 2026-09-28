@@ -32,7 +32,15 @@ import {
   SURFACE,
   tint,
 } from '../../self_paced_home/react/material'
-import type {CourseProgress, Grade, ObservedStudent, ObserverConfig, ObserverData} from './types'
+import FindStudent from './FindStudent'
+import type {
+  CourseProgress,
+  Grade,
+  LinkRequest,
+  ObservedStudent,
+  ObserverConfig,
+  ObserverData,
+} from './types'
 
 const I18n = createI18nScope('self_paced_observer')
 
@@ -115,6 +123,9 @@ export default function ObserverApp({
   const [data, setData] = useState<ObserverData | null>(null)
   const [failed, setFailed] = useState(false)
   const [chosen, setChosen] = useState<string | null>(null)
+  // What this parent has asked for this session (SelfPaced::LinkRequest).
+  // Nothing loads these back in on a refresh; asking again just says so.
+  const [requests, setRequests] = useState<LinkRequest[]>([])
 
   useEffect(() => {
     doFetchApi<ObserverData>({path: config.data_url})
@@ -221,11 +232,18 @@ export default function ObserverApp({
             >
               {I18n.t('No students yet')}
             </h2>
-            <p style={{margin: '12px 0 0', color: INK.secondary, fontSize: '1.125rem'}}>
+            <p style={{margin: '12px 0 20px', color: INK.secondary, fontSize: '1.125rem'}}>
               {I18n.t(
                 'When your student is in a self-paced class and their school links your account to them, their progress shows up here.',
               )}
             </p>
+            <FindStudent
+              searchUrl={config.search_url}
+              requestsUrl={config.requests_url}
+              requests={requests}
+              onRequested={request => setRequests(prev => [request, ...prev])}
+              onCancelled={id => setRequests(prev => prev.filter(request => request.id !== id))}
+            />
           </section>
         )}
         <p style={{margin: '24px 0 0', textAlign: 'center'}}>

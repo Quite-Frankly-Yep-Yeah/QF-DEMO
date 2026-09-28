@@ -1065,9 +1065,12 @@ CanvasRails::Application.routes.draw do
   get "self_paced/dashboard" => "self_paced/dashboard#show", :as => :self_paced_dashboard
   get "self_paced/courses/:course_id" => "self_paced/dashboard#course", :as => :self_paced_course
   get "self_paced/observer" => "self_paced/observer#show", :as => :self_paced_observer_page
+  get "self_paced/parents" => "self_paced/parents#show", :as => :self_paced_parents_page
   get "supports" => "supports/caseload#page", :as => :supports_page
   get "parents/join/:code" => "self_paced/parent_signup#show", :as => :parent_join
   post "parents/join/:code" => "self_paced/parent_signup#create"
+  get "parents/signup/:code" => "self_paced/school_parent_signup#show", :as => :parent_signup
+  post "parents/signup/:code" => "self_paced/school_parent_signup#create"
 
   resources :plugins, only: %i[index show update]
 
@@ -2880,6 +2883,20 @@ CanvasRails::Application.routes.draw do
 
     scope(controller: "self_paced/parent_invites") do
       post "self_paced/students/:student_id/parent_invite", action: :create, as: "self_paced_parent_invite"
+    end
+
+    scope(controller: "self_paced/parents") do
+      get "self_paced/parents/flyer", action: :flyer, as: "self_paced_parents_flyer"
+      post "self_paced/parents/flyer/reset", action: :reset_flyer, as: "self_paced_parents_flyer_reset"
+      get "self_paced/parents/requests", action: :requests, as: "self_paced_parents_requests"
+      post "self_paced/parents/requests/:id/approve", action: :approve, as: "self_paced_parents_request_approve"
+      post "self_paced/parents/requests/:id/decline", action: :decline, as: "self_paced_parents_request_decline"
+    end
+
+    scope(controller: "self_paced/link_requests") do
+      get "self_paced/observer/students", action: :search, as: "self_paced_observer_students"
+      post "self_paced/observer/link_requests", action: :create, as: "self_paced_observer_link_requests"
+      delete "self_paced/observer/link_requests/:id", action: :destroy
     end
 
     # student supports (docs/teacher-workflow-plan.md Phase 1)

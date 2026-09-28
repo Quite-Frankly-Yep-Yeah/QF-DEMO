@@ -24,7 +24,12 @@ import {setupServer} from 'msw/node'
 import ObserverApp, {agoText, paceText} from '../ObserverApp'
 import type {ObservedStudent, ObserverConfig, ObserverData} from '../types'
 
-const config: ObserverConfig = {data_url: '/api/v1/self_paced/observer', classic_url: '/?classic=1'}
+const config: ObserverConfig = {
+  data_url: '/api/v1/self_paced/observer',
+  search_url: '/api/v1/self_paced/observer/students',
+  requests_url: '/api/v1/self_paced/observer/link_requests',
+  classic_url: '/?classic=1',
+}
 const NOW = new Date('2026-09-25T15:00:00Z')
 
 const student = (

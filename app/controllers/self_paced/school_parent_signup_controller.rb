@@ -18,28 +18,25 @@
 # with this program. If not, see <http://www.gnu.org/licenses/>.
 #
 
-# Serves the observer view (ui/features/self_paced_observer) at
-# /self_paced/observer, and in place of the dashboard for people who only
-# observe. `/?classic=1` still opens the usual dashboard.
+# The page a parent lands on from the school's flyer (SelfPaced::ParentFlyer):
+# the same account-making flow as ParentSignupController, but the code is
+# school-wide and not tied to any student. They find and ask for their
+# student afterwards (ui/features/self_paced_observer's FindStudent, via
+# SelfPaced::LinkRequestsController).
 module SelfPaced
-  module ObserverHomePage
+  class SchoolParentSignupController < ParentSignupController
     private
 
-    def self_paced_observer_home?
-      params[:classic].blank? && ObserverView.show_for?(@current_user, @domain_root_account)
+    def signup_class
+      SchoolParentSignup
     end
 
-    def render_self_paced_observer_home
-      @page_title = t("Your students")
-      add_body_class("full-width")
-      js_env({ SELF_PACED_OBSERVER: {
-               data_url: api_v1_self_paced_observer_path,
-               search_url: api_v1_self_paced_observer_students_path,
-               requests_url: api_v1_self_paced_observer_link_requests_path,
-               classic_url: "/?classic=1"
-             } })
-      js_bundle :self_paced_observer
-      render html: '<div id="self_paced_observer"></div>'.html_safe, layout: true
+    def page_title
+      t("Find your student")
+    end
+
+    def submit_path
+      parent_signup_path(params[:code])
     end
   end
 end
