@@ -820,6 +820,10 @@ class Quizzes::QuizzesController < ApplicationController
         format.html do
           @students = @students.paginate(page: params[:page], per_page: 50)
           @submissions = @quiz.quiz_submissions.updated_after(last_updated_at).for_user_ids(@students.map(&:id))
+          # extra time and attempts a student's accommodations guarantee
+          unless @quiz.survey? && @quiz.anonymous_submissions
+            @accommodation_floors = Supports::QuizAccommodations.floors(@quiz, @students.map(&:id))
+          end
         end
         format.json do
           @students = Api.paginate(@students, self, course_quiz_moderate_url(@context, @quiz), default_per_page: 50)

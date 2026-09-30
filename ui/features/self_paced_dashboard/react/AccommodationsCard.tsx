@@ -16,7 +16,7 @@
  * with this program. If not, see <http://www.gnu.org/licenses/>.
  */
 
-import React, {useCallback, useEffect, useState} from 'react'
+import React, {useCallback, useEffect, useRef, useState} from 'react'
 import {useScope as createI18nScope} from '@canvas/i18n'
 import doFetchApi from '@canvas/do-fetch-api-effect'
 import {Button} from '@instructure/ui-buttons'
@@ -51,17 +51,29 @@ const cardUrl = (studentId: string) =>
 // The student's accommodations for their teacher (docs/teacher-workflow-plan.md
 // Phase 1). Renders nothing unless the viewer may see them, so it never says
 // whether the student has a plan. Opening it is logged on the server.
-export default function AccommodationsCard({studentId}: {studentId: string}) {
+export default function AccommodationsCard({
+  studentId,
+  onLoad,
+}: {
+  studentId: string
+  // the kinds of accommodation the student has, for the tray's actions
+  onLoad?: (kinds: string[]) => void
+}) {
   const [data, setData] = useState<AccommodationCardData | null>(null)
   const [busy, setBusy] = useState(false)
   const [failed, setFailed] = useState(false)
+  const onLoadRef = useRef(onLoad)
+  onLoadRef.current = onLoad
 
   useEffect(() => {
     let cancelled = false
     setData(null)
+    onLoadRef.current?.([])
     doFetchApi<AccommodationCardData>({path: cardUrl(studentId)})
       .then(({json}) => {
-        if (!cancelled && json) setData(json)
+        if (cancelled || !json) return
+        setData(json)
+        onLoadRef.current?.(json.accommodations.map(accommodation => accommodation.kind))
       })
       .catch(() => {
         // not allowed, or the feature is off: show nothing

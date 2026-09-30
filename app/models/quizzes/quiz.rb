@@ -729,6 +729,11 @@ class Quizzes::Quiz < ApplicationRecord
     # Admins can take the full quiz whenever they want
     return end_at if user.is_a?(::User) && grants_right?(user, :grade)
 
+    # An accommodated attempt gets its full time past the lock date
+    # (Supports::QuizAccommodations)
+    accommodated_end_at = Supports::QuizAccommodations.end_at_past_lock(self, submission)
+    return accommodated_end_at if accommodated_end_at
+
     # We no longer use enrollment_term but get this info from enrollment_state
     fallback_end_at = course.enrollments.for_user(user).active_by_date
                             .maximum("enrollment_states.state_valid_until")
@@ -770,6 +775,7 @@ class Quizzes::Quiz < ApplicationRecord
       submission.quiz_version = version_number
       submission.started_at = ::Time.zone.now
       submission.score_before_regrade = nil
+      Supports::QuizAccommodations.apply!(submission, attempt_started: true) unless preview
       submission.end_at = build_submission_end_at(submission)
       submission.finished_at = nil
       submission.submission_data = {}

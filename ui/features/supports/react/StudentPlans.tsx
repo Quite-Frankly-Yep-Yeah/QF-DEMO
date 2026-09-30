@@ -32,6 +32,7 @@ import type {
   StudentPlans as Data,
 } from './types'
 import {button, Card, field, flatButton, formatDate, Label, messageFrom, muted, Status} from './ui'
+import AppliedCard from './AppliedCard'
 
 const I18n = createI18nScope('supports')
 
@@ -822,6 +823,7 @@ export default function StudentPlans({studentId, onBack}: {studentId: string; on
       {data.plans.map(plan => (
         <PlanCard key={plan.id} plan={plan} data={data} busy={busy} run={run} />
       ))}
+      {data.plans.length > 0 && <AppliedCard studentId={studentId} />}
 
       {data.can_manage &&
         (creating ? (

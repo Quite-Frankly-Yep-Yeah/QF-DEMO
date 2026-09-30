@@ -47,6 +47,8 @@ module Supports
 
     before_validation { self.root_account_id ||= account&.resolved_root_account_id }
     after_save :assign_case_manager
+    # accommodations that act follow the plan's state and dates (Phase 2)
+    after_commit :sync_accommodations, if: -> { previous_changes.keys.intersect?(%w[workflow_state start_date end_date]) }
 
     scope :active, -> { where(workflow_state: "active") }
     scope :not_deleted, -> { where.not(workflow_state: "deleted") }
@@ -76,6 +78,10 @@ module Supports
       return unless start_date && end_date && end_date < start_date
 
       errors.add(:end_date, I18n.t("must be on or after the start date"))
+    end
+
+    def sync_accommodations
+      Applier.sync_later(student_id, root_account)
     end
 
     # The case manager can always reach their own students.

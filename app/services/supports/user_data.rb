@@ -37,6 +37,7 @@ module Supports
           Caseload.where(student_id: user).or(Caseload.where(staff_id: user)).in_batches.delete_all
           plan_ids = Plan.where(student_id: user).pluck(:id)
           Acknowledgement.where(support_plan_id: plan_ids).in_batches.delete_all
+          Application.where(student_id: user).in_batches.delete_all
           StudentAccommodation.where(support_plan_id: plan_ids).in_batches.delete_all
           Plan.where(id: plan_ids).in_batches.delete_all
           # the record of who opened this student's files goes with them; rows
@@ -65,6 +66,7 @@ module Supports
         Plan.where(student_id: from_user).update_all(student_id: target_user.id)
         Plan.where(case_manager_id: from_user).update_all(case_manager_id: target_user.id)
         StudentAccommodation.where(student_id: from_user).update_all(student_id: target_user.id)
+        Application.where(student_id: from_user).update_all(student_id: target_user.id)
         move_acknowledgements(from_user, target_user)
       end
 

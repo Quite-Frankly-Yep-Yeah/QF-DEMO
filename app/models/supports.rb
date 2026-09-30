@@ -26,6 +26,7 @@ module Supports
   # The feature flags for each phase, in the order they ship.
   PHASE_FLAGS = %i[
     supports_plans
+    supports_accommodations_apply
   ].freeze
 
   # Per-school choice between reading plans from the district's system and

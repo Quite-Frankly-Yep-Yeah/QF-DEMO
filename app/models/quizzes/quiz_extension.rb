@@ -37,6 +37,8 @@ class Quizzes::QuizExtension
 
   def extend_submission!
     extend_attempts_or_time_limit
+    # never below a student's accommodations
+    Supports::QuizAccommodations.apply!(quiz_submission)
     extend_from_time
 
     quiz_submission.save!

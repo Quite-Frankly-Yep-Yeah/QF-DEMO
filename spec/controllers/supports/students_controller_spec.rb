@@ -55,6 +55,37 @@ describe Supports::StudentsController do
     end
   end
 
+  describe "GET 'applications'" do
+    let(:admin) { account_admin_user(account: root_account) }
+
+    before do
+      accommodation = plan.accommodations.first
+      Supports::Application.record!(accommodation, kind: "display", context: student, details: { setting: "high_contrast" })
+      old = Supports::Application.record!(accommodation, kind: "pacing", context: student)
+      Supports::Application.where(id: old.id).update_all(created_at: 2.weeks.ago)
+    end
+
+    it "shows an admin what was applied this week" do
+      user_session(admin)
+      get "applications", params: { student_id: student.id }, format: :json
+      rows = json_parse(response.body)["applications"]
+      expect(rows.pluck("kind")).to eql ["display"]
+      expect(rows.first["accommodation"]).to eql "Extended time on tests and quizzes"
+    end
+
+    it "logs the read" do
+      user_session(admin)
+      get "applications", params: { student_id: student.id }, format: :json
+      expect(Supports::AccessLog.where(viewer: admin, subject: "applications").count).to be 1
+    end
+
+    it "refuses a teacher" do
+      user_session(teacher)
+      get "applications", params: { student_id: student.id }, format: :json
+      expect(response).not_to be_successful
+    end
+  end
+
   describe "GET 'show'" do
     it "refuses a teacher, who can't see plan details" do
       user_session(teacher)

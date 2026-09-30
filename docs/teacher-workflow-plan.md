@@ -339,7 +339,8 @@ changed / how to try it" note. Sizes are relative: S is about a day of work, M a
    for retakes, so `extra_time` carries over. **Hook:** in `generate_submission`, just before `end_at` is built, set
    `extra_time` to the larger of what is there and what the accommodation gives. Three catches for Phase 2:
    - The quiz's lock date and the enrollment's end date still cut `end_at` short, so an accommodation can be shortened by
-     the availability window. Phase 2 must at least warn the teacher. *Decision needed then.*
+     the availability window. Phase 2 must at least warn the teacher. *Decided in Phase 2: the attempt runs past the
+     lock.*
    - The Moderate page overwrites `extra_time` with what the teacher types. It must show the accommodation as a floor.
    - Untimed quizzes ignore `extra_time`, which matches Q7.
 2. **Pacing factor (F2, Q8).** `PlanBuilder.spread` is a pure function. The dates come from `Pacer#default_target_date`
@@ -388,6 +389,33 @@ changed / how to try it" note. Sizes are relative: S is about a day of work, M a
 - Each application is written to an audit row, and a case manager can see "what was applied to this student this week".
 - Done when: a spec matrix covers first attempt, retake, moderated quiz, timer auto-submit off, and a student with no
   accommodation is byte-for-byte unaffected.
+
+**Phase 2 status (2026-09-30): built.**
+
+- **Extended time.** When an attempt starts, `Supports::QuizAccommodations` raises the attempt's extra time to the
+  accommodation (a multiplier of the time limit, or fixed minutes; the largest wins). Timed quizzes only. A larger
+  extension a teacher gave is kept.
+- **Lock dates (decided).** An accommodated attempt that starts before the lock date gets its full time, even past the
+  lock or the end of the enrollment. The quiz stays open for that attempt only; new attempts still can't start after the
+  lock. Extra time a teacher types by hand still stops at the lock, as before.
+- **Moderate page.** Each student with an accommodation shows "From an accommodation: at least N extra minutes" (and
+  attempts). A teacher can't set less there: the extension is raised back to the accommodation.
+- **Extra attempts.** Raised when an attempt starts. When the accommodation is added later, quizzes the student already
+  took are updated too.
+- **Pacing (Q8).** "Move the finish date" pushes the default finish date out by the percentage of the student's school
+  days; a date a teacher set by hand still wins. "Lower the daily target" keeps the date and spreads the work over more
+  days, so the student is measured against the lower pace. It can lower the target by at most 90%. `Pacer` asks
+  `Supports::PacingAccommodation`, and `DueDateWriter` still writes the dates.
+- **Reduced workload.** When a teacher exempts an item for a student with this accommodation, the dialog offers the
+  reason "Accommodation: reduced workload" in one click.
+- **Display settings.** High contrast or the dyslexia-friendly font is turned on the first time the accommodation is in
+  effect. If the student turns it off, it stays off.
+- **Audit.** Each application is a row in `accommodation_applications` (append-only, purged and merged with the
+  student). The student's page on the Supports page lists what was applied in the last 7 days (tier 2, logged).
+- **When it runs.** At attempt start and planning, and in a job whenever a plan or an accommodation changes. A daily job
+  also picks up accommodations whose start date is today.
+- The student and their parents never see any of this as an accommodation: they only see the longer timer or the later
+  date.
 
 **Phase 3: Grading queue** (M). Flag: `workflow_grading_queue`. No privacy dependency.
 - The ranked queue across courses, filters, SpeedGrader deep links, turnaround numbers, and the `grading_backlog` alert kind.

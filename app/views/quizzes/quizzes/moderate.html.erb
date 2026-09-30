@@ -81,6 +81,17 @@
                },
              })
           %>
+          <% if (floor = @accommodation_floors&.dig(student.id)) %>
+            <div class="accommodation_floor" style="font-size: 0.875em;">
+              <% if floor[:minutes] && floor[:attempts] %>
+                <%= t("From an accommodation: at least %{minutes} extra minutes and %{attempts} extra attempts", minutes: floor[:minutes], attempts: floor[:attempts]) %>
+              <% elsif floor[:minutes] %>
+                <%= t("From an accommodation: at least %{minutes} extra minutes", minutes: floor[:minutes]) %>
+              <% else %>
+                <%= t("From an accommodation: at least %{attempts} extra attempts", attempts: floor[:attempts]) %>
+              <% end %>
+            </div>
+          <% end %>
         </td>
         <td class="attempt number"><%= submission && !submission.settings_only? ? submission.attempt : "--" %></td>
         <td class="time_holder">

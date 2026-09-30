@@ -42,6 +42,9 @@ module Supports
       self.course_ids = Array(course_ids).compact_blank.map(&:to_i).uniq.sort
     end
 
+    # accommodations that act are applied to existing work (Phase 2)
+    after_commit { Applier.sync_later(student_id, root_account) }
+
     scope :active, -> { where(workflow_state: "active") }
 
     # In effect on +date+, on an active plan.

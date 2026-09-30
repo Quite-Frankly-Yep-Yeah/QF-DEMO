@@ -2905,6 +2905,7 @@ CanvasRails::Application.routes.draw do
       get "supports/students/:student_id", action: :show, as: "supports_student"
       get "supports/students/:student_id/accommodations", action: :accommodations, as: "supports_student_accommodations"
       post "supports/students/:student_id/acknowledgement", action: :acknowledge, as: "supports_student_acknowledgement"
+      get "supports/students/:student_id/applications", action: :applications, as: "supports_student_applications"
     end
 
     scope(controller: "supports/plans") do

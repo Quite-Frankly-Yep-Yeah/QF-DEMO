@@ -224,6 +224,8 @@ module SelfPaced
       start = default_start_date
       @plan = PacingPlan.new(course:, user:, start_date: start, target_date: default_target_date(start), target_source: "default")
       rebuild!
+      record_accommodation(nil)
+      @plan
     rescue ActiveRecord::RecordNotUnique
       # Another job made it first.
       @plan = PacingPlan.find_by!(course:, user:)
@@ -244,6 +246,8 @@ module SelfPaced
     # The daily re-spread. If the target still follows the course's end date
     # and that date moved, the baseline follows too.
     def replan!
+      applied = plan.baseline["accommodation"]
+      target_before = plan.target_date
       if plan.target_source == "default"
         target = default_target_date(plan.start_date)
         if target != plan.target_date
@@ -252,26 +256,33 @@ module SelfPaced
           build_baseline
         end
       end
+      # the student's pacing accommodation changed (Supports::PacingAccommodation)
+      if plan.baseline["accommodation"] != pacing_accommodation&.key
+        plan.version += 1
+        build_baseline
+      end
       spread_current
       plan.planned_on = today
       plan.save!
       @status = nil
       write_due_dates_later
+      record_accommodation(applied, target_before)
     end
 
     def build_baseline
-      result = PlanBuilder.spread(items.map { |item| [item.id, item.minutes] }, days_between(plan.start_date, plan.target_date))
+      result = PlanBuilder.spread(items.map { |item| [item.id, item.minutes] }, days_between(plan.start_date, spread_end))
       total = result[:days].last[1].to_f
       plan.baseline = {
         "days" => result[:days].map { |date, minutes| [date.iso8601, total.positive? ? (minutes / total).round(4) : 1.0] },
         "total_minutes" => total.round
       }
+      plan.baseline["accommodation"] = pacing_accommodation.key if pacing_accommodation
     end
 
     def spread_current
       from = [today, plan.start_date].max
       remaining = items.reject { |item| completed_ids.include?(item.id) }
-      result = PlanBuilder.spread(remaining.map { |item| [item.id, item.minutes] }, days_between(from, [plan.target_date, from].max))
+      result = PlanBuilder.spread(remaining.map { |item| [item.id, item.minutes] }, days_between(from, [spread_end, from].max))
       plan.current = {
         "from" => from.iso8601,
         "items" => result[:items].map { |id, date, minutes| [id, date.iso8601, minutes] },
@@ -291,6 +302,37 @@ module SelfPaced
 
     def write_due_dates_later
       DueDateWriter.write_later(course, user)
+    end
+
+    # The student's extended-deadlines accommodation, if any
+    # (Supports::PacingAccommodation).
+    def pacing_accommodation
+      return @pacing_accommodation if defined?(@pacing_accommodation)
+
+      @pacing_accommodation = Supports::PacingAccommodation.for(user, course)
+    end
+
+    # The last day work is spread to: the target date, or later when the
+    # accommodation lowers the daily target instead of moving the date.
+    def spread_end
+      return plan.target_date unless pacing_accommodation&.lower_daily?
+
+      pacing_accommodation.extend(calendar, plan.start_date, plan.target_date)
+    end
+
+    # Records a pacing accommodation newly applied to the plan.
+    def record_accommodation(applied_key, target_before = nil)
+      return unless pacing_accommodation && applied_key != pacing_accommodation.key
+
+      Supports::Application.record!(pacing_accommodation.accommodation,
+                                    kind: "pacing",
+                                    context: plan,
+                                    course:,
+                                    details: { mode: pacing_accommodation.mode,
+                                               percent: pacing_accommodation.percent,
+                                               target_before: target_before&.iso8601,
+                                               target_date: plan.target_date.iso8601,
+                                               spread_end: spread_end.iso8601 })
     end
 
     def goal(entries)
@@ -396,7 +438,8 @@ module SelfPaced
              end_date_of(course.conclude_at) ||
              end_date_of(course.enrollment_term&.end_at) ||
              (start + DEFAULT_LENGTH)
-      [date, start].max
+      date = [date, start].max
+      pacing_accommodation&.extend_finish? ? pacing_accommodation.extend(calendar, start, date) : date
     end
 
     def course_target_date

@@ -53,6 +53,8 @@ export type DialogSpec = {
   askSubject?: boolean
   // everything else asks for an optional reason for the log
   askReason?: boolean
+  // reasons that fill the field in one click (an accommodation, say)
+  reasonPresets?: string[]
   // a bulk action on one item: which item, and what to do to it
   askItem?: {items: ItemChoice[]; actions: ActionChoice[]}
 }
@@ -191,6 +193,19 @@ export default function ActionDialog({spec, onSubmit, onClose}: Props) {
               height="8rem"
               required={true}
             />
+          )}
+          {spec.askReason && spec.reasonPresets && spec.reasonPresets.length > 0 && (
+            <div
+              role="group"
+              aria-label={I18n.t('Suggested reasons')}
+              style={{display: 'flex', flexWrap: 'wrap', gap: 8}}
+            >
+              {spec.reasonPresets.map(preset => (
+                <Button key={preset} size="small" onClick={() => set({reason: preset})}>
+                  {preset}
+                </Button>
+              ))}
+            </div>
           )}
           {spec.askReason && (
             <TextArea

@@ -86,6 +86,13 @@ describe('AccommodationsCard', () => {
     expect(await screen.findByText('You have read this list.')).toBeInTheDocument()
   })
 
+  it('tells the tray which kinds the student has', async () => {
+    server.use(http.get(URL, () => HttpResponse.json(card())))
+    const onLoad = vi.fn()
+    render(<AccommodationsCard studentId="7" onLoad={onLoad} />)
+    await waitFor(() => expect(onLoad).toHaveBeenLastCalledWith(['extended_time']))
+  })
+
   it('never names the kind of plan', async () => {
     server.use(http.get(URL, () => HttpResponse.json(card())))
     const {container} = render(<AccommodationsCard studentId="7" />)

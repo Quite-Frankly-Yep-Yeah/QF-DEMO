@@ -24,7 +24,11 @@ import {setupServer} from 'msw/node'
 import StudentPlans from '../StudentPlans'
 import type {StudentPlans as Data} from '../types'
 
-const server = setupServer()
+const server = setupServer(
+  http.get('/api/v1/supports/students/:id/applications', () =>
+    HttpResponse.json({days: 7, applications: []}),
+  ),
+)
 const URL = '/api/v1/supports/students/7'
 
 const data = (overrides: Partial<Data> = {}): Data => ({

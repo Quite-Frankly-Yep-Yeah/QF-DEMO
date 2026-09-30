@@ -81,6 +81,9 @@ module Supports
         errors = []
         errors << I18n.t("The pacing change must be between 1 and 200 percent.") unless params["percent"].to_i.between?(1, 200)
         errors << I18n.t("Choose how pacing changes.") unless PACING_MODES.include?(params["mode"])
+        if params["mode"] == "lower_daily" && params["percent"].to_i > PacingAccommodation::MAX_LOWER_DAILY_PERCENT
+          errors << I18n.t("The daily target can be lowered by at most %{percent}%%.", percent: PacingAccommodation::MAX_LOWER_DAILY_PERCENT)
+        end
         errors
       when "extra_attempts"
         params["attempts"].to_i.between?(1, 10) ? [] : [I18n.t("Extra attempts must be between 1 and 10.")]

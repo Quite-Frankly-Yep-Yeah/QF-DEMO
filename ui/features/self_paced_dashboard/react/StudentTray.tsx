@@ -90,6 +90,8 @@ export default function StudentTray({
     run: (values: DialogValues) => Promise<void>
   } | null>(null)
   const [announcement, setAnnouncement] = useState('')
+  // from the accommodations card: offers "reduced workload" as an exempt reason
+  const [accommodationKinds, setAccommodationKinds] = useState<string[]>([])
 
   useEffect(() => {
     setDialog(null)
@@ -135,6 +137,10 @@ export default function StudentTray({
         confirmLabel: action.label,
         askAttempts: action.askAttempts,
         askReason: true,
+        reasonPresets:
+          action.kind === 'exempt' && accommodationKinds.includes('reduced_workload')
+            ? [I18n.t('Accommodation: reduced workload')]
+            : undefined,
       },
       run: values =>
         act(
@@ -246,7 +252,7 @@ export default function StudentTray({
                 setReloadKey(key => key + 1)
               }}
             />
-            <AccommodationsCard studentId={selected.studentId} />
+            <AccommodationsCard studentId={selected.studentId} onLoad={setAccommodationKinds} />
             {tools?.note && support && (
               <NotesCard notes={support.notes} onAdd={openNote} onDelete={confirmDeleteNote} />
             )}

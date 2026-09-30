@@ -16,6 +16,14 @@ supports_plans:
   description: |-
     Support plans, the accommodation catalog, the accommodations card for
     teachers, acknowledgements, caseloads and the plan import.
+supports_accommodations_apply:
+  applies_to: Account
+  state: hidden
+  display_name: "Student Supports: Accommodations That Act"
+  description: |-
+    Applies accommodations for the student: extended time and extra attempts
+    on quizzes, the pacing change, and display settings. Each change is
+    recorded for the case manager.
 teacher_workflow:
   applies_to: RootAccount
   state: hidden

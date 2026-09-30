@@ -127,6 +127,10 @@ Rails.configuration.after_initialize do
     with_each_shard_by_database(SelfPaced::AlertEvaluator, :evaluate_all)
   end
 
+  Delayed::Periodic.cron "Supports::Applier.sync_starting_today", "15 8 * * *" do
+    with_each_shard_by_database(Supports::Applier, :sync_starting_today)
+  end
+
   Delayed::Periodic.cron "Reporting::CountsReport.process", "0 11 * * 0" do
     with_each_shard_by_database(Reporting::CountsReport, :process_shard)
   end

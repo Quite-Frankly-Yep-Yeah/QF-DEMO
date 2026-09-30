@@ -23,6 +23,7 @@
 module Supports
   class StudentsController < BaseController
     SEARCH_LIMIT = 20
+    APPLICATIONS_LIMIT = 200
 
     before_action :find_student, except: :search
 
@@ -48,6 +49,30 @@ module Supports
       return render_unauthorized_action unless json
 
       render json:
+    end
+
+    # GET /api/v1/supports/students/:student_id/applications?days=7
+    #
+    # What the app applied for the student's accommodations lately: extra quiz
+    # time and attempts, pacing, display settings (Phase 2). Tier 2.
+    def applications
+      access = Access.new(@current_user, @student, @domain_root_account)
+      return render_unauthorized_action unless access.view!(:plan_details, subject: :applications, real_user:)
+
+      days = (params[:days].presence || 7).to_i.clamp(1, 90)
+      rows = Application.where(student: @student, root_account: @domain_root_account)
+                        .since(days.days.ago).order(created_at: :desc, id: :desc).limit(APPLICATIONS_LIMIT)
+                        .preload(student_accommodation: :accommodation_type).to_a
+      course_names = Course.where(id: rows.filter_map(&:course_id).uniq).pluck(:id, :name).to_h
+      quiz_titles = Quizzes::Quiz.where(id: rows.filter_map { |row| row.details["quiz_id"] }.uniq).pluck(:id, :title)
+                                 .to_h { |id, title| [id.to_s, title] }
+      render json: {
+        days:,
+        applications: rows.map do |row|
+          row.as_api_json(course_names).merge(accommodation: row.student_accommodation&.accommodation_type&.name,
+                                              quiz_title: quiz_titles[row.details["quiz_id"]])
+        end
+      }
     end
 
     # GET /api/v1/supports/students?search_term=

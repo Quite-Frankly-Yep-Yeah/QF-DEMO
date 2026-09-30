@@ -55,6 +55,8 @@ class Quizzes::QuizEligibility
 
   def locked?
     return false unless quiz_locked?
+    # an accommodated attempt that started before the lock can be finished
+    return false if Supports::QuizAccommodations.running_past_lock?(quiz, user)
 
     !quiz.grants_right?(user, session, :update)
   end
