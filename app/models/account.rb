@@ -293,6 +293,9 @@ class Account < ApplicationRecord
   add_setting :sis_default_grade_export, boolean: true, default: false, inheritable: true
   # student supports (docs/teacher-workflow-plan.md §2.1): classroom_layer or system_of_record
   add_setting :supports_record_mode, inheritable: true
+  # teacher workflow (docs/superpowers/specs/2026-10-01-grading-queue-design.md): school days of
+  # ungraded work before the grading backlog alert opens (blank means 5)
+  add_setting :grading_backlog_days, inheritable: true
   add_setting :include_integration_ids_in_gradebook_exports, boolean: true, default: false, root_only: true
   add_setting :sis_require_assignment_due_date, boolean: true, default: false, inheritable: true
   add_setting :sis_assignment_name_length, boolean: true, default: false, inheritable: true

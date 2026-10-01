@@ -127,6 +127,10 @@ Rails.configuration.after_initialize do
     with_each_shard_by_database(SelfPaced::AlertEvaluator, :evaluate_all)
   end
 
+  Delayed::Periodic.cron "TeacherWorkflow::BacklogEvaluator.evaluate_all", "10 * * * *" do
+    with_each_shard_by_database(TeacherWorkflow::BacklogEvaluator, :evaluate_all)
+  end
+
   Delayed::Periodic.cron "Supports::Applier.sync_starting_today", "15 8 * * *" do
     with_each_shard_by_database(Supports::Applier, :sync_starting_today)
   end

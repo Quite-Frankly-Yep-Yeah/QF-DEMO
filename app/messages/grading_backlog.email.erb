@@ -1,0 +1,13 @@
+<% define_content :link do %>
+  <%= "#{HostUrl.protocol}://#{HostUrl.context_host(asset.course)}/courses/#{asset.course_id}/gradebook" %>
+<% end %>
+
+<% define_content :subject do %>
+  <%= t "Grading is backing up in %{course}", course: asset.course.name %>
+<% end %>
+
+<%= t "The oldest ungraded item in %{course} has waited %{days} school days.", course: asset.course.name, days: asset.school_days_waiting %>
+
+<%= t "Open the gradebook to see what is waiting." %>
+
+<%= content :link %>
