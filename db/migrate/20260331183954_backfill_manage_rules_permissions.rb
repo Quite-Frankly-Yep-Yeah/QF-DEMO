@@ -20,9 +20,8 @@
 class BackfillManageRulesPermissions < ActiveRecord::Migration[8.0]
   tag :postdeploy
 
-  def up
-    DataFixup::BackfillManageRulesPermissions
-      .delay_if_production(priority: Delayed::LOW_PRIORITY)
-      .run
-  end
+  # The Autopilot manage_rules_* permissions this used to backfill were removed
+  # with Canvas Career (docs/fork-plan.md Phase 10), along with the data fixup.
+  # Kept as a no-op so databases that haven't run it yet can still migrate.
+  def up; end
 end

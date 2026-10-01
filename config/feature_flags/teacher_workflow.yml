@@ -31,3 +31,11 @@ teacher_workflow:
   description: |-
     Umbrella flag for the teacher workflow tools: the grading queue,
     follow-ups, the student page and progress reports.
+workflow_grading_queue:
+  applies_to: Account
+  state: hidden
+  display_name: "Teacher Workflow: Grading Queue"
+  description: |-
+    One page that lists the grading a teacher can do across their courses,
+    ranked so the work that holds students back comes first, with a grading
+    turnaround number and a backlog alert for admins.
