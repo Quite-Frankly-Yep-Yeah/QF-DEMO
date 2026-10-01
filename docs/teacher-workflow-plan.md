@@ -1,6 +1,6 @@
 # Teacher workflow and student supports: discovery and build plan
 
-Status: **revision 2 (2026-09-27): your §7 answers are folded in. Phase 0 is in progress.**
+Status: **revision 2 (2026-09-27): your §7 answers are folded in. Phases 0 to 3 are built; Phase 3 still needs a browser check (see its status).**
 Date: 2026-09-26 (revision 1), 2026-09-27 (revision 2)
 
 **What changed in revision 2:** a per-school record mode (classroom layer or system of record, Q1 and Q10), Michigan
@@ -232,8 +232,9 @@ the Michigan Administrative Rules for Special Education, MARSE), each still mark
 ### 3.1 Code layout
 
 - Track S: `app/{models,services,controllers}/supports/…`, UI in `ui/features/supports_*`.
-- Track W: `app/{models,services,controllers}/workflow/…`, UI in `ui/features/workflow_*`, with the student page and queue
-  under the existing Students area of the nav.
+- Track W: `app/{models,services,controllers}/teacher_workflow/…` (not `workflow/`: the `workflow` gem owns a top-level
+  `Workflow` module), UI in `ui/features/workflow_*`, with the student page and queue under the existing Students area of
+  the nav.
 - Same conventions as before: AGPL headers credited to "quite frankly an example LMS contributors", bundles registered in
   `ui/featureBundles.ts`, tests beside the code, nothing added to core unless the design needs it (§3.2).
 
@@ -420,6 +421,35 @@ changed / how to try it" note. Sizes are relative: S is about a day of work, M a
 **Phase 3: Grading queue** (M). Flag: `workflow_grading_queue`. No privacy dependency.
 - The ranked queue across courses, filters, SpeedGrader deep links, turnaround numbers, and the `grading_backlog` alert kind.
 - Done when: the top of the queue is the work holding students back, checked against a 300-student test course.
+
+**Phase 3 status (2026-10-01): built, browser check still to do.** Design: `docs/superpowers/specs/2026-10-01-grading-queue-design.md`.
+
+- **The queue.** `TeacherWorkflow::GradingQueue` finds the courses a viewer grades (`manage_grades` through an active teacher or
+  TA enrollment, section-limited TAs kept to their sections), reads `Submission.needs_grading` per course, and ranks each row
+  into a tier, then oldest first within it: 1 blocked (the course isn't provisional and this is the student's current
+  item), 2 could re-lock (provisional, the student has moved past it), 3 due within 72 hours, 4 everything else. Computed on
+  read, nothing stored. Scans up to 500 rows, pages by 25. Anonymous unposted work shows "Anonymous student".
+- **Page and API.** `/workflow/grading` and `GET /api/v1/workflow/grading_queue` (`course_id`, `unit_id`, `student_id`,
+  `held_up`, `page`), a Grading link in the header and side nav for people who teach or assist, and a turnaround line (the
+  viewer's own median hours from submission to grade over 30 days).
+- **Backlog alert.** `TeacherWorkflow::BacklogEvaluator` runs hourly. When a course's oldest ungraded item has waited the
+  account's `grading_backlog_days` school days (default 5), it opens a `workflow_backlog_alerts` row and tells school admins
+  who hold `self_paced_manage_alert_rules`, once. It resolves the row when the backlog clears. Teachers are not notified.
+- **Measured** on a 300-student course with 450 waiting items, uncached, in the test database: 16 queries and 0.38 seconds
+  for a page. With the one blocked student the newest submitter, their row is first (tier 1) ahead of 299 older rows. The
+  query count does not grow with the number of submissions (a spec pins that).
+- **Differences from the plan.**
+  - The code namespace is `TeacherWorkflow` (gem collision, above).
+  - The backlog alert has its own table and an account setting, not a new `AlertRule` kind: `self_paced_alerts` needs a
+    student on every row and `AlertRule::KINDS` drives the course alert-rules editor.
+  - Turnaround is the viewer's own only. The per-teacher admin breakdown is left for later, because it means showing
+    teachers each other's numbers.
+  - An admin who doesn't teach a course sees it only by naming it with `course_id`, because their reach is too large to list.
+- **Not done:** the browser check of the real flow (desktop and phone width, clicks from landing to SpeedGrader). The web
+  container wasn't running, so this was never opened in a browser. To try it: turn on Teacher Workflow for the root account and
+  Grading Queue for the account, sign in as a teacher with ungraded submissions, and open Grading from the nav.
+- **Setup note:** the old migration `20260331183954` was a no-op'd because it called a data fixup removed with Career, which
+  stopped any database with it pending from migrating.
 
 **Phase 4: Follow-ups and contact log** (M). Flag: `workflow_followups`.
 - Tasks, "My follow-ups", reminders through a new notification, the contact log, message templates, and auto-logging of
