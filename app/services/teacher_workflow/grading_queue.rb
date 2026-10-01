@@ -50,7 +50,8 @@ module TeacherWorkflow
     end
 
     def build_result
-      rows = Courses.for(@viewer, course_id: @course_id).flat_map { |entry| rows_for(entry) }
+      entries = Courses.for(@viewer, course_id: @course_id)
+      rows = entries.flat_map { |entry| rows_for(entry) }
       rows.sort_by! { |row| [row[:tier], row[:submitted_at] || "9999", row[:id].to_i] }
       truncated = rows.size > SCAN_CAP || @scan_truncated
       rows = rows.first(SCAN_CAP)
@@ -61,7 +62,8 @@ module TeacherWorkflow
         per_page: PER_PAGE,
         total: rows.size,
         truncated: !!truncated,
-        tier_counts: (1..4).index_with { |tier| rows.count { |row| row[:tier] == tier } }
+        tier_counts: (1..4).index_with { |tier| rows.count { |row| row[:tier] == tier } },
+        turnaround: GradingTurnaround.for(@viewer, entries.map { |entry| entry.course.id }, now: @now).transform_keys(&:to_s)
       }
     end
 

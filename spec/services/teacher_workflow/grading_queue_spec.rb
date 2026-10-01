@@ -173,4 +173,10 @@ describe TeacherWorkflow::GradingQueue do
     others.each_with_index { |user, i| submit(check, user, at: now - (i + 2).days) }
     expect(measure.call).to eq few
   end
+
+  it "reports the viewer's turnaround" do
+    submit(check, maya, at: now - 30.hours)
+    Submission.where(user: maya).update_all(graded_at: now - 6.hours, grader_id: teacher.id, score: 5, workflow_state: "graded")
+    expect(queue[:turnaround][course.id.to_s][:graded_count]).to eq 1
+  end
 end
