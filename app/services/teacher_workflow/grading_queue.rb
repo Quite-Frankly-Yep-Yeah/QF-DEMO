@@ -22,5 +22,9 @@ module TeacherWorkflow
   # The queue itself is built in a later task; this class exists first so its
   # helpers (Courses, ItemIndex, Tiering) can live under it.
   class GradingQueue
+    SCAN_CAP = 500
+    PER_PAGE = 25
+    CACHE_FOR = 60.seconds
+    ANONYMOUS = "Anonymous student"
   end
 end

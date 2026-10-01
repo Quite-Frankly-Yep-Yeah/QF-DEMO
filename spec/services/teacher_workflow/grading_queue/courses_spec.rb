@@ -26,8 +26,8 @@ describe TeacherWorkflow::GradingQueue::Courses do
     course.account.enable_feature!(:workflow_grading_queue)
   end
 
-  def entries(viewer, **opts)
-    described_class.for(viewer, **opts)
+  def entries(viewer, **)
+    described_class.for(viewer, **)
   end
 
   it "returns the teacher's course with its students" do
