@@ -92,6 +92,17 @@ describe('SideNav', () => {
     expect(avatarComponent).toHaveAttribute('src', 'testSrc')
   })
 
+  it('links the Admin button directly to the admin hub when one is available', () => {
+    fakeENV.setup({...baseEnvConfig, ADMIN_HUB_NAV_PATH: '/accounts/1/hub'})
+    render(
+      <MockedQueryClientProvider client={queryClient}>
+        <SideNav />
+      </MockedQueryClientProvider>,
+    )
+
+    expect(screen.getByRole('link', {name: 'Admin'})).toHaveAttribute('href', '/accounts/1/hub')
+  })
+
   it('should set primary-nav-expanded class in body when sidenav is expanded', () => {
     render(
       <MockedQueryClientProvider client={queryClient}>
@@ -404,5 +415,19 @@ describe('SideNav self-paced Students link', () => {
     renderNav()
 
     expect(screen.queryByRole('link', {name: /Students/})).not.toBeInTheDocument()
+  })
+
+  it('links graders to the grading queue', () => {
+    fakeENV.setup({...baseEnvConfig, WORKFLOW_GRADING_NAV_URL: '/workflow/grading'})
+    renderNav()
+
+    expect(screen.getByRole('link', {name: /Grading/})).toHaveAttribute('href', '/workflow/grading')
+  })
+
+  it('leaves the grading link out for everyone else', () => {
+    fakeENV.setup(baseEnvConfig)
+    renderNav()
+
+    expect(screen.queryByRole('link', {name: /Grading/})).not.toBeInTheDocument()
   })
 })

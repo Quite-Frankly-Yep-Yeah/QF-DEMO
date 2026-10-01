@@ -408,6 +408,7 @@ class ApplicationController < ActionController::Base
           @js_env[:SELF_PACED_ACTIVITY] = self_paced_activity
         end
         @js_env[:SELF_PACED_DASHBOARD_NAV_URL] = self_paced_dashboard_path if SelfPaced.dashboard_available?(@current_user, @domain_root_account)
+        @js_env[:WORKFLOW_GRADING_NAV_URL] = workflow_grading_path if TeacherWorkflow.queue_available?(@current_user, @domain_root_account)
         @js_env[:SELF_PACED_HIDE_COURSES_NAV] = true if SelfPaced.hide_courses_nav?(@current_user, @domain_root_account)
         if params[:session_timezone].present? && supported_timezones.include?(params[:session_timezone])
           timezone = context_timezone = params[:session_timezone]
@@ -3593,6 +3594,17 @@ class ApplicationController < ActionController::Base
     K5::UserService.new(@current_user, @domain_root_account, @selected_observed_user).k5_user?(check_disabled:)
   end
   helper_method :k5_user?
+
+  def admin_hub_nav_path
+    return @admin_hub_nav_path if defined?(@admin_hub_nav_path)
+
+    @admin_hub_nav_path =
+      if @current_user && @domain_root_account &&
+         @current_user.adminable_accounts.include?(@domain_root_account)
+        "/accounts/#{@domain_root_account.id}/hub"
+      end
+  end
+  helper_method :admin_hub_nav_path
 
   def potentially_underage_user?
     @current_user&.underage? || k12? || @domain_root_account&.settings&.dig(:has_underage_users) || k5_user?

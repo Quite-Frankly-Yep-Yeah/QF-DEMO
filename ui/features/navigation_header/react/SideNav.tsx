@@ -34,6 +34,7 @@ import {
   IconDashboardLine,
   IconExternalLinkLine,
   IconFolderLine,
+  IconEditLine,
   IconGroupLine,
   IconHomeLine,
   IconInboxLine,
@@ -91,6 +92,10 @@ const SideNav: React.FC<ISideNav> = ({externalTools = []}) => {
   // set by the server for staff who can open the self-paced student dashboard
   const selfPacedDashboardUrl = (window.ENV as {SELF_PACED_DASHBOARD_NAV_URL?: string} | undefined)
     ?.SELF_PACED_DASHBOARD_NAV_URL
+  const workflowGradingUrl = (window.ENV as {WORKFLOW_GRADING_NAV_URL?: string} | undefined)
+    ?.WORKFLOW_GRADING_NAV_URL
+  const adminHubNavPath = (window.ENV as {ADMIN_HUB_NAV_PATH?: string} | undefined)
+    ?.ADMIN_HUB_NAV_PATH
   // set by the server when the courses page is the admin catalog and this
   // user isn't an admin
   const hideCoursesNav = !!(window.ENV as {SELF_PACED_HIDE_COURSES_NAV?: boolean} | undefined)
@@ -328,11 +333,7 @@ const SideNav: React.FC<ISideNav> = ({externalTools = []}) => {
             id="accounts-tray"
             icon={<IconAdminLine />}
             label={I18n.t('Admin')}
-            href="/accounts"
-            onClick={event => {
-              event.preventDefault()
-              handleActiveTray('accounts', true)
-            }}
+            href={adminHubNavPath || '/accounts'}
             selected={selectedNavItem === 'accounts'}
             data-selected={selectedNavItem === 'accounts'}
             themeOverride={{
@@ -378,6 +379,19 @@ const SideNav: React.FC<ISideNav> = ({externalTools = []}) => {
               label={I18n.t('Students')}
               href={selfPacedDashboardUrl}
               selected={window.location.pathname.startsWith('/self_paced')}
+              themeOverride={{
+                fontWeight: 400,
+              }}
+              minimized={collapseSideNav}
+            />
+          )}
+          {workflowGradingUrl && (
+            <SideNavBar.Item
+              id="workflow-grading-link"
+              icon={<IconEditLine />}
+              label={I18n.t('Grading')}
+              href={workflowGradingUrl}
+              selected={window.location.pathname.startsWith('/workflow')}
               themeOverride={{
                 fontWeight: 400,
               }}

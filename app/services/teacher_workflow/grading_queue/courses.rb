@@ -26,8 +26,6 @@ module TeacherWorkflow
     class Courses
       Entry = Struct.new(:course, :student_ids, keyword_init: true)
 
-      GRADER_TYPES = %w[TeacherEnrollment TaEnrollment].freeze
-
       def self.for(viewer, course_id: nil)
         new(viewer, course_id:).entries
       end
@@ -52,7 +50,7 @@ module TeacherWorkflow
 
       def courses
         ids = @viewer.enrollments.active_or_pending
-                     .where(type: GRADER_TYPES)
+                     .where(type: TeacherWorkflow::GRADER_TYPES)
                      .joins(:course).merge(Course.active)
                      .pluck(:course_id)
         # naming a course lets an admin who doesn't teach it ask for it;

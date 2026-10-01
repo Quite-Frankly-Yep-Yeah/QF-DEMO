@@ -26,6 +26,8 @@
   <% js_bundle :top_navigation_tools %>
 <% end %>
 
+<% js_env({ ADMIN_HUB_NAV_PATH: admin_hub_nav_path }) %>
+
 <%
   if k5_user?
     dashboard_title = t('Home')
@@ -117,11 +119,14 @@
     <% if SelfPaced.dashboard_available?(@current_user, @domain_root_account) %>
       <a href="<%= self_paced_dashboard_path %>" class="<%= 'active' if active_path?('/self_paced') %>"><%= t('Students') %></a>
     <% end %>
+    <% if TeacherWorkflow.queue_available?(@current_user, @domain_root_account) %>
+      <a href="<%= workflow_grading_path %>" class="<%= 'active' if active_path?('/workflow') %>"><%= t('Grading') %></a>
+    <% end %>
     <a href="/calendar" class="<%= 'active' if active_path?('/calendar') %>"><%= t('Calendar') %></a>
     <% if @current_user %>
       <a href="/conversations" class="<%= 'active' if active_path?('/conversations') %>"><%= t('Inbox') %></a>
       <% if @current_user.adminable_accounts.present? %>
-        <a href="/accounts" class="<%= 'active' if active_path?('/accounts') %>"><%= t('Admin') %></a>
+        <a href="<%= admin_hub_nav_path || '/accounts' %>" class="<%= 'active' if active_path?('/accounts') %>"><%= t('Admin') %></a>
       <% end %>
       <a href="/profile/settings" class="<%= 'active' if active_path?('/profile') %>"><%= t('Account') %></a>
     <% else %>
@@ -170,7 +175,7 @@
       <% end %>
       <% if @current_user && @current_user.adminable_accounts.present? %>
         <li class="menu-item ic-app-header__menu-list-item <%= ' ic-app-header__menu-list-item--active' if active_path?('/accounts') %>">
-          <a id="global_nav_accounts_link" role="button" href="/accounts" class="ic-app-header__menu-list-link">
+          <a id="global_nav_accounts_link" role="button" href="<%= admin_hub_nav_path || '/accounts' %>" class="ic-app-header__menu-list-link">
             <div class="menu-item-icon-container" aria-hidden="true">
               <%= render(partial: "shared/svg/svg_icon_accounts_new_styles", formats: [:svg]) %>
             </div>
@@ -222,6 +227,18 @@
             </div>
             <div class="menu-item__text">
               <%= t('Students') %>
+            </div>
+          </a>
+        </li>
+      <% end %>
+      <% if TeacherWorkflow.queue_available?(@current_user, @domain_root_account) %>
+        <li class="menu-item ic-app-header__menu-list-item <%= ' ic-app-header__menu-list-item--active' if active_path?('/workflow') %>">
+          <a id="global_nav_workflow_grading_link" href="<%= workflow_grading_path %>" class="ic-app-header__menu-list-link">
+            <div class="menu-item-icon-container" aria-hidden="true">
+              <%= render(partial: "shared/svg/svg_icon_self_paced_students", formats: [:svg]) %>
+            </div>
+            <div class="menu-item__text">
+              <%= t('Grading') %>
             </div>
           </a>
         </li>

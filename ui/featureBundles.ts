@@ -208,6 +208,7 @@ const featureBundles: {
   sylla_question_layouts: () => import('./features/sylla_question_layouts/index'),
   sylla_region_editor: () => import('./features/sylla_region_editor/index'),
   self_paced_setup: () => import('./features/self_paced_setup/index'),
+  workflow_grading_queue: () => import('./features/workflow_grading_queue/index'),
   self_paced_skills: () => import('./features/self_paced_skills/index'),
   self_paced_units: () => import('./features/self_paced_units/index'),
   supports: () => import('./features/supports/index'),

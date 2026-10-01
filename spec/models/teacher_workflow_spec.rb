@@ -41,4 +41,17 @@ describe TeacherWorkflow do
       expect { described_class.feature_enabled?(course, :nope) }.to raise_error(ArgumentError)
     end
   end
+
+  describe ".queue_available?" do
+    let_once(:teacher) { teacher_in_course(course:, active_all: true).user }
+    let_once(:student) { student_in_course(course:, active_all: true).user }
+
+    it "is true for a grader when the umbrella is on, false for a student or with it off" do
+      expect(described_class.queue_available?(teacher, course.root_account)).to be false
+      course.root_account.enable_feature!(:teacher_workflow)
+      expect(described_class.queue_available?(teacher, course.root_account)).to be true
+      expect(described_class.queue_available?(student, course.root_account)).to be false
+      expect(described_class.queue_available?(nil, course.root_account)).to be false
+    end
+  end
 end

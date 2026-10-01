@@ -23,6 +23,8 @@
 module TeacherWorkflow
   UMBRELLA_FLAG = :teacher_workflow
 
+  GRADER_TYPES = %w[TeacherEnrollment TaEnrollment].freeze
+
   # The feature flags for each phase, in the order they ship.
   PHASE_FLAGS = %i[
     workflow_grading_queue
@@ -43,5 +45,16 @@ module TeacherWorkflow
 
     account = context.is_a?(Course) ? context.account : context
     account.feature_enabled?(flag)
+  end
+
+  # Whether to show the Grading link: the umbrella is on and the user teaches
+  # or assists somewhere. Cached for five minutes, like the Students link.
+  def self.queue_available?(user, root_account)
+    return false unless user && root_account&.feature_enabled?(UMBRELLA_FLAG)
+
+    Rails.cache.fetch(["teacher_workflow_queue_available", user.global_id, root_account.global_id].cache_key,
+                      expires_in: 5.minutes) do
+      user.enrollments.active_or_pending.where(type: GRADER_TYPES).exists?
+    end
   end
 end
