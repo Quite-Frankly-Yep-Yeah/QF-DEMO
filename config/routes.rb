@@ -1063,6 +1063,7 @@ CanvasRails::Application.routes.draw do
   end
 
   get "self_paced/dashboard" => "self_paced/dashboard#show", :as => :self_paced_dashboard
+  get "workflow/grading" => "teacher_workflow/grading_queue#show", :as => :workflow_grading
   get "self_paced/courses/:course_id" => "self_paced/dashboard#course", :as => :self_paced_course
   get "self_paced/observer" => "self_paced/observer#show", :as => :self_paced_observer_page
   get "self_paced/parents" => "self_paced/parents#show", :as => :self_paced_parents_page
@@ -2852,6 +2853,10 @@ CanvasRails::Application.routes.draw do
 
     scope(controller: "self_paced/student_home") do
       get "self_paced/home", action: :show, as: "self_paced_home"
+    end
+
+    scope(controller: "teacher_workflow/grading_queue") do
+      get "workflow/grading_queue", action: :index, as: "workflow_grading_queue"
     end
 
     scope(controller: "self_paced/alerts") do
