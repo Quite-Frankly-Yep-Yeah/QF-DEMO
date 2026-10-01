@@ -24,15 +24,6 @@ module TeacherWorkflow
     before_action :require_user
     before_action :require_flag
 
-    # GET /workflow/grading
-    def show
-      @page_title = t("Grading")
-      add_body_class("full-width")
-      js_env({ WORKFLOW_GRADING_QUEUE: { queue_url: api_v1_workflow_grading_queue_path } })
-      js_bundle :workflow_grading_queue
-      render html: '<div id="workflow_grading_queue"></div>'.html_safe, layout: true
-    end
-
     # GET /api/v1/workflow/grading_queue
     def index
       render json: GradingQueue.new(@current_user,
@@ -41,6 +32,15 @@ module TeacherWorkflow
                                     student_id: params[:student_id],
                                     held_up: params[:held_up],
                                     page: params[:page]).result
+    end
+
+    # GET /workflow/grading
+    def show
+      @page_title = t("Grading")
+      add_body_class("full-width")
+      js_env({ WORKFLOW_GRADING_QUEUE: { queue_url: api_v1_workflow_grading_queue_path } })
+      js_bundle :workflow_grading_queue
+      render html: '<div id="workflow_grading_queue"></div>'.html_safe, layout: true
     end
 
     private
