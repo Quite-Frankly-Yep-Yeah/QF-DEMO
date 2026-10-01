@@ -98,8 +98,8 @@ module TeacherWorkflow
       rows = waiting(entry)
       @scan_truncated ||= rows.size > HARD_LIMIT
       rows = rows.first(HARD_LIMIT)
-      assignments = Assignment.where(id: rows.map { |row| row[2] }.uniq).index_by(&:id)
-      states = SelfPaced::StudentCourseState.where(course:, user_id: rows.map { |row| row[1] }.uniq).index_by(&:user_id)
+      assignments = Assignment.where(id: rows.pluck(2).uniq).index_by(&:id)
+      states = SelfPaced::StudentCourseState.where(course:, user_id: rows.pluck(1).uniq).index_by(&:user_id)
 
       rows.map do |id, user_id, assignment_id, submitted_at, due_at|
         assignment = assignments[assignment_id]
