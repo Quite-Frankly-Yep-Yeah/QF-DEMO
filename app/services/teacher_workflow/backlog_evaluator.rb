@@ -26,19 +26,26 @@ module TeacherWorkflow
     DEFAULT_DAYS = 5
 
     class << self
-      # Periodic job. course_id => oldest waiting submission, for every course
-      # that has any; open alerts for courses not in that list are resolved.
+      # Periodic job. course_id => oldest waiting submission, for every
+      # available course that has any (Student View work doesn't count). Open
+      # alerts for courses not evaluated this run are resolved: the backlog
+      # cleared, the term ended, or the flag went off.
       def evaluate_all(now: Time.zone.now)
         oldest = Submission.needs_grading
                            .where(assignments: { context_type: "Course", workflow_state: "published" })
+                           .where.not(enrollments: { type: "StudentViewEnrollment" })
                            .group("assignments.context_id")
                            .minimum("submissions.submitted_at")
-        Course.where(id: oldest.keys).preload(:root_account, :account).find_each do |course|
+                           .compact
+        evaluated = []
+        Course.where(id: oldest.keys, workflow_state: "available").preload(:root_account, :account).find_each do |course|
           next unless TeacherWorkflow.feature_enabled?(course, :workflow_grading_queue)
+          next if course.concluded?
 
+          evaluated << course.id
           evaluate_course(course, oldest.fetch(course.id), now:)
         end
-        BacklogAlert.currently_open.where.not(course_id: oldest.keys).find_each { |alert| alert.resolve!(now) }
+        BacklogAlert.currently_open.where.not(course_id: evaluated).find_each { |alert| alert.resolve!(now) }
       end
 
       def evaluate_course(course, oldest_waiting_at, now: Time.zone.now)

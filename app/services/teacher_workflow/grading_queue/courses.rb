@@ -26,13 +26,13 @@ module TeacherWorkflow
     class Courses
       Entry = Struct.new(:course, :student_ids, keyword_init: true)
 
-      def self.for(viewer, course_id: nil)
-        new(viewer, course_id:).entries
+      def self.for(viewer, extra_course_id: nil)
+        new(viewer, extra_course_id:).entries
       end
 
-      def initialize(viewer, course_id: nil)
+      def initialize(viewer, extra_course_id: nil)
         @viewer = viewer
-        @course_id = course_id
+        @extra_course_id = extra_course_id
       end
 
       def entries
@@ -55,7 +55,7 @@ module TeacherWorkflow
                      .pluck(:course_id)
         # naming a course lets an admin who doesn't teach it ask for it;
         # manage_grades below decides whether they may
-        ids = [@course_id.to_i] if @course_id.present?
+        ids |= [@extra_course_id.to_i] if @extra_course_id.present?
         Course.where(id: ids).preload(:root_account, :account).to_a
       end
     end

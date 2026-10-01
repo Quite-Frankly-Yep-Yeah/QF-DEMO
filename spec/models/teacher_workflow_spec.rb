@@ -46,12 +46,38 @@ describe TeacherWorkflow do
     let_once(:teacher) { teacher_in_course(course:, active_all: true).user }
     let_once(:student) { student_in_course(course:, active_all: true).user }
 
-    it "is true for a grader when the umbrella is on, false for a student or with it off" do
+    it "is true for a grader when both flags are on, false for a student or with either off" do
       expect(described_class.queue_available?(teacher, course.root_account)).to be false
       course.root_account.enable_feature!(:teacher_workflow)
+      expect(described_class.queue_available?(teacher, course.root_account)).to be false
+      course.account.enable_feature!(:workflow_grading_queue)
       expect(described_class.queue_available?(teacher, course.root_account)).to be true
       expect(described_class.queue_available?(student, course.root_account)).to be false
       expect(described_class.queue_available?(nil, course.root_account)).to be false
+    end
+  end
+
+  describe ".queue_enabled?" do
+    let_once(:student) { student_in_course(course:, active_all: true).user }
+
+    it "needs the umbrella and the phase flag" do
+      expect(described_class.queue_enabled?(student, course.root_account)).to be false
+      course.root_account.enable_feature!(:teacher_workflow)
+      expect(described_class.queue_enabled?(student, course.root_account)).to be false
+      course.account.enable_feature!(:workflow_grading_queue)
+      expect(described_class.queue_enabled?(student, course.root_account)).to be true
+    end
+
+    it "also passes for a grader of a course whose own account has the flag" do
+      root = course.root_account
+      root.enable_feature!(:teacher_workflow)
+      school = root.sub_accounts.create!(name: "School")
+      school.enable_feature!(:workflow_grading_queue)
+      school_course = course_factory(account: school, active_all: true)
+      grader = teacher_in_course(course: school_course, active_all: true).user
+
+      expect(described_class.queue_enabled?(grader, root)).to be true
+      expect(described_class.queue_enabled?(student, root)).to be false
     end
   end
 end

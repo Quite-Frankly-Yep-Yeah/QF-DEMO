@@ -45,11 +45,11 @@ module TeacherWorkflow
 
     private
 
-    # With the umbrella flag off the page and API don't exist. A signed-in
-    # student still gets an empty queue from #index, not an error: who sees
-    # what is GradingQueue's job.
+    # With the flags off the page and API don't exist. A signed-in student
+    # still gets an empty queue from #index, not an error: who sees what is
+    # GradingQueue's job.
     def require_flag
-      head :not_found unless TeacherWorkflow.enabled?(@domain_root_account)
+      head :not_found unless TeacherWorkflow.queue_enabled?(@current_user, @domain_root_account)
     end
   end
 end

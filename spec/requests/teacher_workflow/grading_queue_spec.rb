@@ -67,4 +67,13 @@ describe "TeacherWorkflow::GradingQueueController" do
     expect(response).to be_successful
     expect(response.body).to include('id="workflow_grading_queue"')
   end
+
+  it "is a 404 while only the umbrella flag is on" do
+    course.account.disable_feature!(:workflow_grading_queue)
+    user_session(teacher)
+    get "/api/v1/workflow/grading_queue"
+    expect(response).to have_http_status(:not_found)
+    get "/workflow/grading"
+    expect(response).to have_http_status(:not_found)
+  end
 end

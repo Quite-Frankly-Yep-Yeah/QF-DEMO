@@ -428,13 +428,18 @@ changed / how to try it" note. Sizes are relative: S is about a day of work, M a
   TA enrollment, section-limited TAs kept to their sections), reads `Submission.needs_grading` per course, and ranks each row
   into a tier, then oldest first within it: 1 blocked (the course isn't provisional and this is the student's current
   item), 2 could re-lock (provisional, the student has moved past it), 3 due within 72 hours, 4 everything else. Computed on
-  read, nothing stored. Scans up to 500 rows, pages by 25. Anonymous unposted work shows "Anonymous student".
+  read, nothing stored. Every waiting submission is ranked on a few columns first, then the list is cut to 500 by the queue's
+  own order, so a big course can't hide held-up work. Pages by 25. Anonymous unposted work shows "Anonymous student", with
+  no due date, no tier and no place in the filter lists, because each of those describes one student.
 - **Page and API.** `/workflow/grading` and `GET /api/v1/workflow/grading_queue` (`course_id`, `unit_id`, `student_id`,
-  `held_up`, `page`), a Grading link in the header and side nav for people who teach or assist, and a turnaround line (the
+  `held_up`, `page`; the response also lists the courses, units and students to filter by), course, unit and student filters
+  on the page, with the student's name on each row, a Grading link in the header and side nav for people who teach or assist, and a turnaround line (the
   viewer's own median hours from submission to grade over 30 days).
 - **Backlog alert.** `TeacherWorkflow::BacklogEvaluator` runs hourly. When a course's oldest ungraded item has waited the
   account's `grading_backlog_days` school days (default 5), it opens a `workflow_backlog_alerts` row and tells school admins
   who hold `self_paced_manage_alert_rules`, once. It resolves the row when the backlog clears. Teachers are not notified.
+- **Flags.** The page, API and nav link need the umbrella and `workflow_grading_queue`, set on the root account or on a
+  school sub-account the viewer grades in. The backlog alert skips Student View work and courses whose term has ended.
 - **Measured** on a 300-student course with 450 waiting items, uncached, in the test database: 16 queries and 0.38 seconds
   for a page. With the one blocked student the newest submitter, their row is first (tier 1) ahead of 299 older rows. The
   query count does not grow with the number of submissions (a spec pins that).

@@ -96,4 +96,33 @@ describe TeacherWorkflow::BacklogEvaluator do
     run
     expect(TeacherWorkflow::BacklogAlert.currently_open.count).to eq 1
   end
+
+  it "ignores Student View submissions" do
+    test_student = course.student_view_student
+    assignment.submit_homework(test_student,
+                               submission_type: "online_text_entry",
+                               body: "x",
+                               submitted_at: Time.zone.parse("2026-10-05 10:00:00 UTC"))
+    run
+    expect(TeacherWorkflow::BacklogAlert.count).to eq 0
+  end
+
+  it "ignores a course whose term has ended and resolves the alert it had" do
+    wait(Time.zone.parse("2026-10-05 10:00:00 UTC"))
+    run
+    expect(TeacherWorkflow::BacklogAlert.currently_open.count).to eq 1
+
+    # the term ended, but the enrollments are still active
+    course.update!(conclude_at: 1.day.ago, restrict_enrollments_to_course_dates: true)
+    run
+    expect(TeacherWorkflow::BacklogAlert.currently_open).to be_empty
+    expect(TeacherWorkflow::BacklogAlert.where(workflow_state: "resolved").count).to eq 1
+  end
+
+  it "survives a waiting submission with no submitted_at" do
+    wait(Time.zone.parse("2026-10-05 10:00:00 UTC"))
+    Submission.where(user: student).update_all(submitted_at: nil)
+    expect { run }.not_to raise_error
+    expect(TeacherWorkflow::BacklogAlert.count).to eq 0
+  end
 end

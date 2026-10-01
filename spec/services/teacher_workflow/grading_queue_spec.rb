@@ -179,4 +179,83 @@ describe TeacherWorkflow::GradingQueue do
     Submission.where(user: maya).update_all(graded_at: now - 6.hours, grader_id: teacher.id, score: 5, workflow_state: "graded")
     expect(queue[:turnaround][course.id.to_s][:graded_count]).to eq 1
   end
+
+  it "keeps the newest held-up work when the scan cap cuts the list" do
+    require_grade_on_check
+    stub_const("#{described_class}::SCAN_CAP", 1)
+    submit(check, ryan, at: now - 5.days)
+    blocked = submit(check, maya, at: now - 1.hour)
+    track(maya, check_tag)
+
+    result = queue
+    expect(result[:rows].pluck(:id)).to eq [blocked.id.to_s]
+    expect(result[:truncated]).to be true
+    expect(queue(held_up: true)[:rows].pluck(:id)).to eq [blocked.id.to_s]
+  end
+
+  it "lists the courses, units and students to filter by" do
+    submit(check, maya, at: now - 1.day)
+    facets = queue[:facets]
+    expect(facets[:courses]).to eq [{ id: course.id.to_s, name: course.name }]
+    expect(facets[:units]).to eq [{ id: mod.id.to_s, name: "Unit 1", course_id: course.id.to_s }]
+    expect(facets[:students]).to eq [{ id: maya.id.to_s, name: "Maya Lopez" }]
+  end
+
+  it "filters by course" do
+    other = course_factory(active_all: true)
+    teacher_in_course(course: other, user: teacher, active_all: true)
+    other_student = student_in_course(course: other, active_all: true).user
+    elsewhere = other.assignments.create!(title: "Elsewhere", points_possible: 1, submission_types: "online_text_entry")
+    submit(elsewhere, other_student, at: now - 1.day)
+    submit(check, maya, at: now - 2.days)
+
+    expect(queue[:rows].size).to eq 2
+    expect(queue(course_id: course.id)[:rows].pluck(:course)).to eq [{ id: course.id.to_s, name: course.name }]
+  end
+
+  it "lets an admin who does not teach the course ask for it by id" do
+    admin = account_admin_user(account: course.account)
+    submit(check, maya, at: now - 1.day)
+    expect(queue(admin)[:rows]).to eq []
+    expect(queue(admin, course_id: course.id)[:rows].size).to eq 1
+  end
+
+  context "with anonymous, unposted work" do
+    let(:anon) do
+      course.assignments.create!(title: "Anon",
+                                 points_possible: 5,
+                                 submission_types: "online_text_entry",
+                                 anonymous_grading: true)
+    end
+
+    before { anon.ensure_post_policy(post_manually: true) }
+
+    def anon_row
+      queue[:rows].find { |r| r[:item][:title] == "Anon" }
+    end
+
+    it "does not show a due date that belongs to one student" do
+      submission = submit(anon, maya, at: now - 1.day)
+      Submission.where(id: submission.id).update_all(cached_due_date: now + 1.day)
+
+      expect(anon_row[:due_at]).to be_nil
+      expect(anon_row[:tier]).to eq 4
+    end
+
+    it "is not ranked by which student is on the item" do
+      anon_tag = mod.add_item(type: "assignment", id: anon.id)
+      mod.update!(completion_requirements: [{ id: anon_tag.id, type: "min_percentage", min_percentage: 70 }])
+      allow(SelfPaced::Gating).to receive_messages(player_course?: true, provisional?: false)
+      submit(anon, maya, at: now - 1.day)
+      track(maya, anon_tag)
+
+      expect(anon_row[:tier]).to eq 4
+    end
+
+    it "keeps anonymous students out of the filter lists" do
+      submit(anon, maya, at: now - 1.day)
+      submit(check, ryan, at: now - 1.day)
+      expect(queue[:facets][:students].pluck(:name)).to eq ["Ryan Cole"]
+    end
+  end
 end

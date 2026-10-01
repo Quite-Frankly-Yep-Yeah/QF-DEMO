@@ -64,8 +64,14 @@ describe TeacherWorkflow::GradingQueue::Courses do
     expect(entries(ta).sole.student_ids).not_to include(other_student.id)
   end
 
-  it "narrows to one course with course_id" do
-    expect(entries(teacher, course_id: course.id).map(&:course)).to eq [course]
-    expect(entries(teacher, course_id: 0)).to eq []
+  it "includes a course an admin names but does not teach" do
+    admin = account_admin_user(account: course.account)
+    expect(entries(admin)).to eq []
+    expect(entries(admin, extra_course_id: course.id).map(&:course)).to eq [course]
+  end
+
+  it "ignores a named course the viewer may not grade" do
+    expect(entries(student, extra_course_id: course.id)).to eq []
+    expect(entries(teacher, extra_course_id: 0).map(&:course)).to eq [course]
   end
 end

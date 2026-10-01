@@ -37,6 +37,11 @@ export type QueueResult = {
   truncated: boolean
   tier_counts: Record<string, number>
   turnaround: Record<string, {median_hours: number; graded_count: number}>
+  facets: {
+    courses: {id: string; name: string}[]
+    units: {id: string; name: string; course_id: string}[]
+    students: {id: string; name: string}[]
+  }
 }
 
 export type QueueConfig = {

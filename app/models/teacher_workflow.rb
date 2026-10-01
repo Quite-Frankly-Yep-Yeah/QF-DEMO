@@ -47,14 +47,30 @@ module TeacherWorkflow
     account.feature_enabled?(flag)
   end
 
-  # Whether to show the Grading link: the umbrella is on and the user teaches
-  # or assists somewhere. Cached for five minutes, like the Students link.
+  # Whether the grading queue page and API exist for this viewer: the umbrella
+  # is on, and the phase flag is on for the root account or for a course the
+  # viewer grades (the flag can be set on a school's sub-account alone).
+  def self.queue_enabled?(user, root_account)
+    return false unless enabled?(root_account)
+    return true if root_account.feature_enabled?(:workflow_grading_queue)
+
+    user.present? && graded_courses(user).any? { |course| feature_enabled?(course, :workflow_grading_queue) }
+  end
+
+  # Whether to show the Grading link: the queue is enabled and the user
+  # teaches or assists somewhere it is on. Cached for five minutes, like the
+  # Students link.
   def self.queue_available?(user, root_account)
-    return false unless user && root_account&.feature_enabled?(UMBRELLA_FLAG)
+    return false unless user && enabled?(root_account)
 
     Rails.cache.fetch(["teacher_workflow_queue_available", user.global_id, root_account.global_id].cache_key,
                       expires_in: 5.minutes) do
-      user.enrollments.active_or_pending.where(type: GRADER_TYPES).exists?
+      graded_courses(user).any? { |course| feature_enabled?(course, :workflow_grading_queue) }
     end
+  end
+
+  def self.graded_courses(user)
+    Course.where(id: user.enrollments.active_or_pending.where(type: GRADER_TYPES).select(:course_id))
+          .preload(:account, :root_account)
   end
 end

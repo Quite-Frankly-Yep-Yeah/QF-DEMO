@@ -17,7 +17,7 @@
  */
 
 import React from 'react'
-import {render, screen, waitFor} from '@testing-library/react'
+import {render, screen, waitFor, within} from '@testing-library/react'
 import userEvent from '@testing-library/user-event'
 import {http, HttpResponse} from 'msw'
 import {setupServer} from 'msw/node'
@@ -48,6 +48,17 @@ const result = (rows: QueueRow[], overrides: Partial<QueueResult> = {}): QueueRe
   truncated: false,
   tier_counts: {1: 1, 2: 0, 3: 0, 4: 0},
   turnaround: {'2': {median_hours: 15, graded_count: 2}},
+  facets: {
+    courses: [
+      {id: '2', name: 'Algebra 1'},
+      {id: '9', name: 'Biology'},
+    ],
+    units: [
+      {id: '3', name: 'Unit 1', course_id: '2'},
+      {id: '8', name: 'Cells', course_id: '9'},
+    ],
+    students: [{id: '5', name: 'Maya Lopez'}],
+  },
   ...overrides,
 })
 
@@ -106,5 +117,42 @@ describe('GradingQueueApp', () => {
     server.use(http.get(URL_PATH, () => new HttpResponse(null, {status: 500})))
     render(<GradingQueueApp queueUrl={URL_PATH} />)
     expect(await screen.findByText(/could not be loaded/i)).toBeInTheDocument()
+  })
+
+  it('shows the student on their own line', async () => {
+    render(<GradingQueueApp queueUrl={URL_PATH} />)
+    const [firstRow] = await screen.findAllByRole('listitem')
+    expect(within(firstRow).getByText('Maya Lopez')).toBeInTheDocument()
+  })
+
+  it("filters by course, and only offers that course's units", async () => {
+    render(<GradingQueueApp queueUrl={URL_PATH} />)
+    await screen.findByText(/waiting on this/)
+    expect(screen.getByRole('option', {name: 'Cells'})).toBeInTheDocument()
+
+    await userEvent.selectOptions(screen.getByLabelText('Course'), '2')
+    await waitFor(() => expect(requests.at(-1)?.searchParams.get('course_id')).toBe('2'))
+    expect(screen.queryByRole('option', {name: 'Cells'})).not.toBeInTheDocument()
+    expect(screen.getByRole('option', {name: 'Unit 1'})).toBeInTheDocument()
+  })
+
+  it('filters by unit and by student', async () => {
+    render(<GradingQueueApp queueUrl={URL_PATH} />)
+    await screen.findByText(/waiting on this/)
+
+    await userEvent.selectOptions(screen.getByLabelText('Unit'), '3')
+    await waitFor(() => expect(requests.at(-1)?.searchParams.get('unit_id')).toBe('3'))
+
+    await userEvent.selectOptions(screen.getByLabelText('Student'), '5')
+    await waitFor(() => expect(requests.at(-1)?.searchParams.get('student_id')).toBe('5'))
+  })
+
+  it('sends no filter params while the filters are on "All"', async () => {
+    render(<GradingQueueApp queueUrl={URL_PATH} />)
+    await screen.findByText(/waiting on this/)
+    const params = requests.at(-1)!.searchParams
+    expect(params.has('course_id')).toBe(false)
+    expect(params.has('unit_id')).toBe(false)
+    expect(params.has('student_id')).toBe(false)
   })
 })
