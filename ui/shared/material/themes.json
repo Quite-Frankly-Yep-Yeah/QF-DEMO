@@ -1,0 +1,28 @@
+{
+  "light": {
+    "name": "Light",
+    "tokens": {
+      "appBar": "#2B7ABC",
+      "onAppBar": "#FFFFFF",
+      "surface": "#EEEEEE",
+      "paper": "#FFFFFF",
+      "ink": "#212121",
+      "inkSecondary": "#666666",
+      "divider": "#E0E0E0",
+      "accent": "#2B7ABC"
+    }
+  },
+  "mocha": {
+    "name": "Catppuccin Mocha",
+    "tokens": {
+      "appBar": "#181825",
+      "onAppBar": "#CDD6F4",
+      "surface": "#1E1E2E",
+      "paper": "#313244",
+      "ink": "#CDD6F4",
+      "inkSecondary": "#A6ADC8",
+      "divider": "#45475A",
+      "accent": "#CBA6F7"
+    }
+  }
+}
