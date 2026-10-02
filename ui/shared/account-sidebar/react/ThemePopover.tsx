@@ -18,7 +18,8 @@
 
 import React from 'react'
 import {useScope as createI18nScope} from '@canvas/i18n'
-import {ACCENT, DIVIDER, ELEVATION, INK, PAPER, ROBOTO} from '@canvas/material'
+import {ACCENT_GROUPS, accentHex, tokensWithAccent} from '@canvas/material/accents'
+import {ACCENT, ACCENT_TEXT, DIVIDER, ELEVATION, INK, PAPER, ROBOTO} from '@canvas/material'
 import {THEMES, type ThemeId} from '@canvas/material/themes'
 import {IconCheckSolid} from '@instructure/ui-icons'
 
@@ -26,14 +27,16 @@ const I18n = createI18nScope('account_sidebar')
 
 type Props = {
   theme: ThemeId
+  accent: string | null
   onChoose: (id: ThemeId) => void
+  onChooseAccent: (id: string | null) => void
 }
 
 // A miniature page in the theme's own colors, like the thumbnails on the admin
 // Themes page: app bar, a card with text, a progress bar, a radio, a checkbox
 // and two buttons.
-function Preview({id}: {id: ThemeId}) {
-  const t = THEMES[id].tokens
+function Preview({id, accent}: {id: ThemeId; accent: string | null}) {
+  const t = tokensWithAccent(id, accent)
   const line = (width: string, height: number, color: string, extra = {}) => (
     <div style={{width, height, borderRadius: height / 2, background: color, ...extra}} />
   )
@@ -108,7 +111,7 @@ function Preview({id}: {id: ThemeId}) {
 
 // The speech bubble: a paper panel with a tail pointing back at the button
 // that opened it, holding a grid of theme cards.
-export default function ThemePopover({theme, onChoose}: Props) {
+export default function ThemePopover({theme, accent, onChoose, onChooseAccent}: Props) {
   return (
     <div
       style={{
@@ -168,7 +171,7 @@ export default function ThemePopover({theme, onChoose}: Props) {
                 textAlign: 'start',
               }}
             >
-              <Preview id={id} />
+              <Preview id={id} accent={accent} />
               <span
                 style={{
                   display: 'flex',
@@ -186,7 +189,7 @@ export default function ThemePopover({theme, onChoose}: Props) {
                       display: 'inline-flex',
                       alignItems: 'center',
                       gap: 4,
-                      color: ACCENT,
+                      color: ACCENT_TEXT,
                       fontSize: '0.75rem',
                     }}
                   >
@@ -196,6 +199,121 @@ export default function ThemePopover({theme, onChoose}: Props) {
                 )}
               </span>
             </button>
+          )
+        })}
+      </div>
+      <AccentFooter theme={theme} accent={accent} onChooseAccent={onChooseAccent} />
+    </div>
+  )
+}
+
+const SWATCH = 24
+
+function Swatch({
+  color,
+  label,
+  checked,
+  onPick,
+}: {
+  color: string
+  label: string
+  checked: boolean
+  onPick: () => void
+}) {
+  return (
+    <button
+      type="button"
+      role="radio"
+      aria-checked={checked}
+      aria-label={label}
+      title={label}
+      onClick={onPick}
+      style={{
+        width: SWATCH,
+        height: SWATCH,
+        padding: 0,
+        border: `2px solid ${checked ? INK.primary : 'transparent'}`,
+        borderRadius: '50%',
+        background: color,
+        boxShadow: `inset 0 0 0 2px ${PAPER}`,
+        cursor: 'pointer',
+      }}
+    />
+  )
+}
+
+// The accent colors under the theme cards: Material colors, then Catppuccin's
+// in the current flavor's shade, and a way back to the theme's own accent.
+function AccentFooter({
+  theme,
+  accent,
+  onChooseAccent,
+}: {
+  theme: ThemeId
+  accent: string | null
+  onChooseAccent: (id: string | null) => void
+}) {
+  const row = {display: 'flex', flexWrap: 'wrap' as const, gap: 6, alignItems: 'center'}
+  const heading = {margin: '10px 0 6px', fontSize: '0.75rem', color: INK.secondary}
+  return (
+    <div
+      role="radiogroup"
+      aria-label={I18n.t('Accent color')}
+      style={{
+        position: 'relative',
+        marginTop: 12,
+        paddingTop: 10,
+        borderTop: `1px solid ${DIVIDER}`,
+      }}
+    >
+      <div style={{display: 'flex', alignItems: 'center', justifyContent: 'space-between'}}>
+        <span style={{fontSize: '0.875rem', fontWeight: 500}}>{I18n.t('Accent color')}</span>
+        <button
+          type="button"
+          role="radio"
+          aria-checked={accent === null}
+          onClick={() => onChooseAccent(null)}
+          style={{
+            padding: '4px 10px',
+            border: `1px solid ${accent === null ? ACCENT : DIVIDER}`,
+            borderRadius: 12,
+            background: 'transparent',
+            color: INK.primary,
+            cursor: 'pointer',
+            font: 'inherit',
+            fontSize: '0.75rem',
+          }}
+        >
+          {I18n.t('Theme default')}
+        </button>
+      </div>
+      <div style={heading}>{I18n.t('Material')}</div>
+      <div style={row}>
+        {ACCENT_GROUPS.material.map(item => {
+          const id = `material:${item.id}`
+          return (
+            <Swatch
+              key={id}
+              color={item.hex}
+              label={I18n.t('%{name} (Material)', {name: item.name})}
+              checked={accent === id}
+              onPick={() => onChooseAccent(id)}
+            />
+          )
+        })}
+      </div>
+      <div style={heading}>{I18n.t('Catppuccin')}</div>
+      <div style={row}>
+        {ACCENT_GROUPS.catppuccin.map(item => {
+          const id = `catppuccin:${item.id}`
+          return (
+            <Swatch
+              key={id}
+              color={accentHex(id, theme)}
+              label={I18n.t('%{name} (Catppuccin)', {name: item.name})}
+              checked={accent === id}
+              onPick={() => onChooseAccent(id)}
+            />
           )
         })}
       </div>

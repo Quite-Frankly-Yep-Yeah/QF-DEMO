@@ -23,6 +23,7 @@ import {useThemeTokens} from '../useThemeTokens'
 describe('useThemeTokens', () => {
   afterEach(() => {
     delete document.documentElement.dataset.theme
+    delete document.documentElement.dataset.accent
   })
 
   it('returns light tokens when no theme is set', () => {
@@ -40,6 +41,19 @@ describe('useThemeTokens', () => {
     const {result} = renderHook(() => useThemeTokens())
     await act(async () => {
       document.documentElement.dataset.theme = 'mocha'
+      await Promise.resolve()
+    })
+    expect(result.current).toEqual(THEMES.mocha.tokens)
+  })
+
+  it('applies a custom accent to the app bar and accent tokens', async () => {
+    document.documentElement.dataset.theme = 'mocha'
+    document.documentElement.dataset.accent = 'material:teal'
+    const {result} = renderHook(() => useThemeTokens())
+    expect(result.current.appBar).toBe('#009688')
+    expect(result.current.surface).toBe(THEMES.mocha.tokens.surface)
+    await act(async () => {
+      delete document.documentElement.dataset.accent
       await Promise.resolve()
     })
     expect(result.current).toEqual(THEMES.mocha.tokens)

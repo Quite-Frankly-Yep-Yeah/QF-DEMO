@@ -33,13 +33,13 @@
 
       a,
       span {
-        color: var(--qf-accent);
+        color: var(--qf-accent-text);
       }
     }
 
     // links in the page content read in the theme's accent
     #content a {
-      color: var(--qf-accent);
+      color: var(--qf-accent-text);
     }
 
     // InstUI table headings default to a white fill
@@ -48,12 +48,6 @@
     }
   }
 
-  // the active nav item is a paper tab instead of a white one
-  .ic-app-header__menu-list-item--active .ic-app-header__menu-list-link,
-  .ic-app-header [data-selected="true"]:hover,
-  .ic-app-header [data-selected="true"]:focus {
-    background: var(--qf-paper) !important;
-  }
 
   // text inside the open tray. :where() keeps the element selectors at zero
   // specificity so this beats the InstUI component classes.
@@ -72,5 +66,15 @@
     :where(hr) {
       border-color: var(--qf-divider);
     }
+  }
+}
+
+// The active nav item is a tint of the bar's text color instead of a white tab,
+// so its icon stays readable on any theme or custom accent.
+:root:is(:not([data-theme="light"]), [data-accent]) {
+  .ic-app-header__menu-list-item--active .ic-app-header__menu-list-link,
+  .ic-app-header [data-selected="true"]:hover,
+  .ic-app-header [data-selected="true"]:focus {
+    background: color-mix(in srgb, var(--qf-on-app-bar) 18%, transparent) !important;
   }
 }

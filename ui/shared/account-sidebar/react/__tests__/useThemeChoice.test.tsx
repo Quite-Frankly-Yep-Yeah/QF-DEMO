@@ -19,6 +19,7 @@
 import {act, renderHook} from '@testing-library/react-hooks'
 import doFetchApi from '@canvas/do-fetch-api-effect'
 import {showFlashError} from '@instructure/platform-alerts'
+import {applyAccent} from '@canvas/material/applyAccent'
 import {useThemeChoice} from '../useThemeChoice'
 
 vi.mock('@canvas/do-fetch-api-effect')
@@ -84,5 +85,82 @@ describe('useThemeChoice', () => {
     })
     expect(mockFetch).toHaveBeenCalledTimes(2)
     expect(document.documentElement.dataset.theme).toBe('mocha')
+  })
+
+  describe('accent', () => {
+    beforeEach(() => {
+      window.ENV.ACCENT = null
+      delete document.documentElement.dataset.accent
+    })
+
+    afterEach(() => {
+      applyAccent('light', null)
+    })
+
+    it('starts from <html> data-accent, then ENV.ACCENT, ignoring unknown ids', () => {
+      window.ENV.ACCENT = 'material:teal'
+      expect(renderHook(() => useThemeChoice()).result.current.accent).toBe('material:teal')
+      document.documentElement.dataset.accent = 'catppuccin:mauve'
+      expect(renderHook(() => useThemeChoice()).result.current.accent).toBe('catppuccin:mauve')
+      delete document.documentElement.dataset.accent
+      window.ENV.ACCENT = 'nope'
+      expect(renderHook(() => useThemeChoice()).result.current.accent).toBeNull()
+    })
+
+    it('applies the accent at once and saves it', async () => {
+      mockFetch.mockResolvedValue({json: {accent: 'material:teal'}})
+      const {result} = renderHook(() => useThemeChoice())
+      await act(async () => {
+        await result.current.chooseAccent('material:teal')
+      })
+      expect(document.documentElement.dataset.accent).toBe('material:teal')
+      expect(document.documentElement.style.getPropertyValue('--qf-accent')).toBe('#009688')
+      expect(mockFetch).toHaveBeenCalledWith({
+        path: '/api/v1/users/self/settings',
+        method: 'PUT',
+        body: {accent: 'material:teal'},
+      })
+      expect(result.current.accent).toBe('material:teal')
+    })
+
+    it('clears the accent with an empty value', async () => {
+      mockFetch.mockResolvedValue({json: {accent: null}})
+      applyAccent('light', 'material:teal')
+      const {result} = renderHook(() => useThemeChoice())
+      await act(async () => {
+        await result.current.chooseAccent(null)
+      })
+      expect(document.documentElement.dataset.accent).toBeUndefined()
+      expect(mockFetch).toHaveBeenCalledWith({
+        path: '/api/v1/users/self/settings',
+        method: 'PUT',
+        body: {accent: ''},
+      })
+      expect(result.current.accent).toBeNull()
+    })
+
+    it('reverts the accent and shows an error when the save fails', async () => {
+      mockFetch.mockRejectedValueOnce(new Error('nope'))
+      applyAccent('light', 'material:red')
+      const {result} = renderHook(() => useThemeChoice())
+      await act(async () => {
+        await result.current.chooseAccent('material:teal')
+      })
+      expect(document.documentElement.dataset.accent).toBe('material:red')
+      expect(result.current.accent).toBe('material:red')
+      expect(showFlashError).toHaveBeenCalled()
+    })
+
+    it('keeps the accent and re-shades a Catppuccin accent when the theme changes', async () => {
+      mockFetch.mockResolvedValue({json: {theme: 'latte'}})
+      document.documentElement.dataset.theme = 'mocha'
+      applyAccent('mocha', 'catppuccin:mauve')
+      const {result} = renderHook(() => useThemeChoice())
+      await act(async () => {
+        await result.current.choose('latte')
+      })
+      expect(document.documentElement.dataset.accent).toBe('catppuccin:mauve')
+      expect(document.documentElement.style.getPropertyValue('--qf-accent')).toBe('#8839EF')
+    })
   })
 })

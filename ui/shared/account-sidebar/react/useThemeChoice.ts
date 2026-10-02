@@ -20,9 +20,13 @@ import {useCallback, useRef, useState} from 'react'
 import {useScope as createI18nScope} from '@canvas/i18n'
 import doFetchApi from '@canvas/do-fetch-api-effect'
 import {showFlashError} from '@instructure/platform-alerts'
+import {isAccentId} from '@canvas/material/accents'
+import {applyAccent} from '@canvas/material/applyAccent'
 import {DEFAULT_THEME, isThemeId, type ThemeId} from '@canvas/material/themes'
 
 const I18n = createI18nScope('account_sidebar')
+
+const SETTINGS_PATH = '/api/v1/users/self/settings'
 
 // <html data-theme> is the live value (it follows picks made before the tray
 // was reopened); ENV.THEME is only what the page loaded with.
@@ -33,32 +37,56 @@ function initialTheme(): ThemeId {
   return isThemeId(saved) ? saved : DEFAULT_THEME
 }
 
-// Applies a theme to <html> at once (a live preview), saves it, and puts the
-// previous theme back if the save fails.
+function initialAccent(): string | null {
+  const live = document.documentElement.dataset.accent
+  if (isAccentId(live)) return live
+  const saved = window.ENV?.ACCENT
+  return isAccentId(saved) ? saved : null
+}
+
+// Applies a theme or accent to <html> at once (a live preview), saves it, and
+// puts the previous value back if the save fails. A custom accent survives a
+// theme change; applyAccent re-shades it for the new theme.
 export function useThemeChoice() {
   const [theme, setTheme] = useState<ThemeId>(initialTheme)
-  const current = useRef<ThemeId>(theme)
+  const [accent, setAccent] = useState<string | null>(initialAccent)
+  const currentTheme = useRef<ThemeId>(theme)
+  const currentAccent = useRef<string | null>(accent)
 
-  const apply = (id: ThemeId) => {
-    current.current = id
+  const applyTheme = (id: ThemeId) => {
+    currentTheme.current = id
     document.documentElement.dataset.theme = id
+    applyAccent(id, currentAccent.current)
     setTheme(id)
   }
 
+  const applyAccentChoice = (id: string | null) => {
+    currentAccent.current = id
+    applyAccent(currentTheme.current, id)
+    setAccent(id)
+  }
+
   const choose = useCallback(async (id: ThemeId) => {
-    const previous = current.current
-    apply(id)
+    const previous = currentTheme.current
+    applyTheme(id)
     try {
-      await doFetchApi({
-        path: '/api/v1/users/self/settings',
-        method: 'PUT',
-        body: {theme: id},
-      })
+      await doFetchApi({path: SETTINGS_PATH, method: 'PUT', body: {theme: id}})
     } catch (err) {
-      apply(previous)
+      applyTheme(previous)
       showFlashError(I18n.t('Your theme could not be saved.'))(err as Error)
     }
   }, [])
 
-  return {theme, choose}
+  const chooseAccent = useCallback(async (id: string | null) => {
+    const previous = currentAccent.current
+    applyAccentChoice(id)
+    try {
+      await doFetchApi({path: SETTINGS_PATH, method: 'PUT', body: {accent: id ?? ''}})
+    } catch (err) {
+      applyAccentChoice(previous)
+      showFlashError(I18n.t('Your accent color could not be saved.'))(err as Error)
+    }
+  }, [])
+
+  return {theme, accent, choose, chooseAccent}
 }

@@ -17,7 +17,7 @@
  */
 
 import React from 'react'
-import {render, screen} from '@testing-library/react'
+import {cleanup, render, screen, within} from '@testing-library/react'
 import userEvent from '@testing-library/user-event'
 import {THEMES} from '@canvas/material/themes'
 import ThemePopover from '../ThemePopover'
@@ -28,18 +28,21 @@ const hex = (value: string) => {
   return `rgb(${n >> 16}, ${(n >> 8) & 255}, ${n & 255})`
 }
 
+// The theme cards sit in the "Themes" group; the accent swatches below also have
+// radio names starting with "Light" (Light blue, Light green).
+function themeCard(_query: string, name: RegExp): HTMLElement {
+  return within(screen.getByRole('radiogroup', {name: 'Themes'})).getByRole('radio', {name})
+}
+
 describe('ThemePopover', () => {
   it('lists a radio per theme with the current one checked', () => {
-    render(<ThemePopover theme="mocha" onChoose={vi.fn()} />)
-    expect(screen.getByRole('radio', {name: /Catppuccin Mocha/})).toHaveAttribute(
-      'aria-checked',
-      'true',
-    )
-    expect(screen.getByRole('radio', {name: /Light/})).toHaveAttribute('aria-checked', 'false')
+    render(<ThemePopover theme="mocha" accent={null} onChoose={vi.fn()} onChooseAccent={vi.fn()} />)
+    expect(themeCard('getByRole', /Catppuccin Mocha/)).toHaveAttribute('aria-checked', 'true')
+    expect(themeCard('getByRole', /Light/)).toHaveAttribute('aria-checked', 'false')
   })
 
   it("draws each card's preview from that theme's own tokens", () => {
-    render(<ThemePopover theme="light" onChoose={vi.fn()} />)
+    render(<ThemePopover theme="light" accent={null} onChoose={vi.fn()} onChooseAccent={vi.fn()} />)
     for (const [id, {tokens}] of Object.entries(THEMES)) {
       const preview = screen.getByTestId(`theme-preview-${id}`)
       expect(preview.style.background).toBe(hex(tokens.surface))
@@ -56,15 +59,78 @@ describe('ThemePopover', () => {
   })
 
   it('marks the current theme with a label as well as a check', () => {
-    render(<ThemePopover theme="mocha" onChoose={vi.fn()} />)
+    render(<ThemePopover theme="mocha" accent={null} onChoose={vi.fn()} onChooseAccent={vi.fn()} />)
     expect(screen.getAllByText('Current theme')).toHaveLength(1)
-    expect(screen.getByRole('radio', {name: /Catppuccin Mocha/})).toHaveTextContent('Current theme')
+    expect(themeCard('getByRole', /Catppuccin Mocha/)).toHaveTextContent('Current theme')
   })
 
   it('calls onChoose with the id of the picked theme', async () => {
     const onChoose = vi.fn()
-    render(<ThemePopover theme="light" onChoose={onChoose} />)
-    await userEvent.click(screen.getByRole('radio', {name: /Catppuccin Mocha/}))
+    render(
+      <ThemePopover theme="light" accent={null} onChoose={onChoose} onChooseAccent={vi.fn()} />,
+    )
+    await userEvent.click(themeCard('getByRole', /Catppuccin Mocha/))
     expect(onChoose).toHaveBeenCalledWith('mocha')
+  })
+
+  describe('accent footer', () => {
+    const renderFooter = (accent: string | null, theme: 'light' | 'mocha' | 'latte' = 'mocha') => {
+      const onChooseAccent = vi.fn()
+      render(
+        <ThemePopover
+          theme={theme}
+          accent={accent}
+          onChoose={vi.fn()}
+          onChooseAccent={onChooseAccent}
+        />,
+      )
+      return {onChooseAccent, group: screen.getByRole('radiogroup', {name: 'Accent color'})}
+    }
+
+    it('offers the theme default, 19 Material and 14 Catppuccin accents', () => {
+      const {group} = renderFooter(null)
+      expect(within(group).getAllByRole('radio')).toHaveLength(1 + 19 + 14)
+      expect(within(group).getByRole('radio', {name: 'Theme default'})).toHaveAttribute(
+        'aria-checked',
+        'true',
+      )
+    })
+
+    it('checks the chosen accent and not the default', () => {
+      const {group} = renderFooter('material:teal')
+      expect(within(group).getByRole('radio', {name: 'Teal (Material)'})).toHaveAttribute(
+        'aria-checked',
+        'true',
+      )
+      expect(within(group).getByRole('radio', {name: 'Theme default'})).toHaveAttribute(
+        'aria-checked',
+        'false',
+      )
+    })
+
+    it('reports the picked accent, and null for the theme default', async () => {
+      const {onChooseAccent, group} = renderFooter('material:teal')
+      await userEvent.click(within(group).getByRole('radio', {name: 'Mauve (Catppuccin)'}))
+      expect(onChooseAccent).toHaveBeenLastCalledWith('catppuccin:mauve')
+      await userEvent.click(within(group).getByRole('radio', {name: 'Theme default'}))
+      expect(onChooseAccent).toHaveBeenLastCalledWith(null)
+    })
+
+    it("shows Catppuccin swatches in the current flavor's shade", () => {
+      const {group} = renderFooter(null, 'latte')
+      const swatch = within(group).getByRole('radio', {name: 'Mauve (Catppuccin)'})
+      expect(swatch.style.background).toBe(hex('#8839EF'))
+      cleanup()
+      const mocha = renderFooter(null, 'mocha')
+      expect(
+        within(mocha.group).getByRole('radio', {name: 'Mauve (Catppuccin)'}).style.background,
+      ).toBe(hex('#CBA6F7'))
+    })
+
+    it('draws the previews with the chosen accent', () => {
+      renderFooter('material:teal')
+      expect(screen.getByTestId('theme-preview-bar-mocha').style.background).toBe(hex('#009688'))
+      expect(screen.getByTestId('theme-preview-accent-light').style.background).toBe(hex('#009688'))
+    })
   })
 })

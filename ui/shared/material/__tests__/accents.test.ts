@@ -16,7 +16,7 @@
  * with this program. If not, see <http://www.gnu.org/licenses/>.
  */
 
-import {ACCENT_GROUPS, accentHex, accentVariables, isAccentId} from '../accents'
+import {ACCENT_GROUPS, accentHex, accentVariables, isAccentId, tokensWithAccent} from '../accents'
 import {contrast} from '../index'
 import {THEMES} from '../themes'
 
@@ -75,5 +75,13 @@ describe('accents', () => {
     // Material blue on Light's white card reads fine
     const blue = accentVariables('light', 'material:blue')
     expect(blue['--qf-accent-text']).toBe('#2196F3')
+  })
+
+  it("merges an accent into a theme's tokens, and leaves them alone without one", () => {
+    expect(tokensWithAccent('mocha', null)).toEqual(THEMES.mocha.tokens)
+    const merged = tokensWithAccent('mocha', 'material:teal')
+    expect(merged.appBar).toBe('#009688')
+    expect(merged.accent).toBe('#009688')
+    expect(merged.surface).toBe(THEMES.mocha.tokens.surface)
   })
 })

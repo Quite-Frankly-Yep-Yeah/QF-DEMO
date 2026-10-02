@@ -18,7 +18,7 @@
 
 import accents from './accents.json'
 import {contrast} from './index'
-import {isThemeId, THEMES, type ThemeId} from './themes'
+import {isThemeId, THEMES, type ThemeId, type ThemeTokens} from './themes'
 
 export type Accent = {id: string; name: string; hex: string}
 
@@ -77,3 +77,24 @@ export function accentVariables(themeId: ThemeId, accentId: string): Record<stri
     '--ic-brand-global-nav-menu-item__text-color--active': onBar,
   }
 }
+
+// A theme's tokens with a custom accent merged in: the accent, its link text,
+// and the top bar (the same overrides accentVariables puts in CSS).
+export function tokensWithAccent(
+  themeId: ThemeId,
+  accentId: string | null | undefined,
+): ThemeTokens {
+  const base = THEMES[isThemeId(themeId) ? themeId : 'light'].tokens
+  if (!accentId || !isAccentId(accentId)) return base
+  const vars = accentVariables(themeId, accentId)
+  return {
+    ...base,
+    accent: vars['--qf-accent'],
+    accentText: vars['--qf-accent-text'],
+    appBar: vars['--qf-app-bar'],
+    onAppBar: vars['--qf-on-app-bar'],
+  }
+}
+
+// Every CSS variable accentVariables can set, to clear them again.
+export const ACCENT_VARIABLE_NAMES = Object.keys(accentVariables('light', 'material:red'))

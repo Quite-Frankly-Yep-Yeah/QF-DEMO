@@ -30,6 +30,8 @@ export const PAPER = tokenVar('paper')
 export const DIVIDER = tokenVar('divider')
 export const SUBTLE = tokenVar('subtle')
 export const ACCENT = tokenVar('accent')
+// the accent as text (links, highlights): falls back to ink when a custom accent is too faint
+export const ACCENT_TEXT = tokenVar('accentText')
 export const INK = {
   primary: tokenVar('ink'),
   secondary: tokenVar('inkSecondary'),

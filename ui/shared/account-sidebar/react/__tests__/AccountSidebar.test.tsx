@@ -17,12 +17,25 @@
  */
 
 import React from 'react'
-import {fireEvent, render, screen, waitFor} from '@testing-library/react'
+import {fireEvent, render, screen, waitFor, within} from '@testing-library/react'
 import userEvent from '@testing-library/user-event'
 import AccountSidebar from '../AccountSidebar'
 
 vi.mock('@canvas/do-fetch-api-effect')
 vi.mock('@instructure/platform-alerts')
+
+// The theme cards sit in the "Themes" group; the accent swatches below also have
+// radio names starting with "Light" (Light blue, Light green).
+function themeCard(query: 'findByRole' | 'getByRole' | 'queryByRole', name: RegExp) {
+  const group = screen.queryByRole('radiogroup', {name: 'Themes'})
+  if (query === 'findByRole') {
+    return screen
+      .findByRole('radiogroup', {name: 'Themes'})
+      .then(g => within(g).getByRole('radio', {name}))
+  }
+  if (!group) return null as unknown as HTMLElement
+  return within(group)[query]('radio', {name})
+}
 
 describe('AccountSidebar', () => {
   beforeEach(() => {
@@ -50,25 +63,19 @@ describe('AccountSidebar', () => {
     const user = userEvent.setup()
     render(<AccountSidebar />)
     await user.click(screen.getByTestId('themes-button'))
-    expect(await screen.findByRole('radio', {name: /Light/})).toHaveAttribute(
-      'aria-checked',
-      'true',
-    )
-    expect(screen.getByRole('radio', {name: /Catppuccin Mocha/})).toHaveAttribute(
-      'aria-checked',
-      'false',
-    )
+    expect(await themeCard('findByRole', /Light/)).toHaveAttribute('aria-checked', 'true')
+    expect(themeCard('getByRole', /Catppuccin Mocha/)).toHaveAttribute('aria-checked', 'false')
   })
 
   it('closes on Escape and returns focus to the Themes button', async () => {
     const user = userEvent.setup()
     render(<AccountSidebar />)
     await user.click(screen.getByTestId('themes-button'))
-    await screen.findByRole('radio', {name: /Light/})
+    await themeCard('findByRole', /Light/)
+    // focus moves into the popover a moment after it opens
+    await waitFor(() => expect(screen.getByTestId('themes-button')).not.toHaveFocus())
     fireEvent.keyUp(document.activeElement as Element, {key: 'Escape', keyCode: 27})
-    await waitFor(() =>
-      expect(screen.queryByRole('radio', {name: /Light/})).not.toBeInTheDocument(),
-    )
+    await waitFor(() => expect(themeCard('queryByRole', /Light/)).not.toBeInTheDocument())
     expect(screen.getByTestId('themes-button')).toHaveFocus()
   })
 })

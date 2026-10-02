@@ -17,21 +17,26 @@
  */
 
 import {useEffect, useState} from 'react'
-import {DEFAULT_THEME, isThemeId, THEMES, type ThemeTokens} from './themes'
+import {tokensWithAccent} from './accents'
+import {DEFAULT_THEME, isThemeId, type ThemeTokens} from './themes'
 
 function activeTokens(): ThemeTokens {
-  const id = document.documentElement.dataset.theme
-  return THEMES[isThemeId(id) ? id : DEFAULT_THEME].tokens
+  const {theme, accent} = document.documentElement.dataset
+  return tokensWithAccent(isThemeId(theme) ? theme : DEFAULT_THEME, accent)
 }
 
-// The tokens of the theme on <html data-theme>, for call sites that need a
+// The tokens of the theme on <html data-theme> (with any data-accent merged
+// in), for call sites that need a
 // real color (contrast(), ink(), tint()) rather than a var() string.
 export function useThemeTokens(): ThemeTokens {
   const [tokens, setTokens] = useState(activeTokens)
 
   useEffect(() => {
     const observer = new MutationObserver(() => setTokens(activeTokens()))
-    observer.observe(document.documentElement, {attributes: true, attributeFilter: ['data-theme']})
+    observer.observe(document.documentElement, {
+      attributes: true,
+      attributeFilter: ['data-theme', 'data-accent'],
+    })
     setTokens(activeTokens())
     return () => observer.disconnect()
   }, [])

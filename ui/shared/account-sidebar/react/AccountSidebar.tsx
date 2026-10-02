@@ -31,7 +31,7 @@ const I18n = createI18nScope('account_sidebar')
 // opens a speech-bubble popover. Themes is the only one so far.
 export default function AccountSidebar() {
   const user = window.ENV.current_user
-  const {theme, choose} = useThemeChoice()
+  const {theme, accent, choose, chooseAccent} = useThemeChoice()
   const [open, setOpen] = useState(false)
   const button = useRef<HTMLButtonElement | null>(null)
   const avatarUrl = user.avatar_is_fallback ? '' : user.avatar_image_url
@@ -101,7 +101,12 @@ export default function AccountSidebar() {
           </button>
         }
       >
-        <ThemePopover theme={theme} onChoose={choose} />
+        <ThemePopover
+          theme={theme}
+          accent={accent}
+          onChoose={choose}
+          onChooseAccent={chooseAccent}
+        />
       </Popover>
     </div>
   )
