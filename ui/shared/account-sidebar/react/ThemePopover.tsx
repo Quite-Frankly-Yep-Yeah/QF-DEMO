@@ -209,6 +209,15 @@ export default function ThemePopover({theme, accent, onChoose, onChooseAccent}: 
 
 const SWATCH = 24
 
+function swatchLabel(id: string): string {
+  const [group, key] = id.split(':')
+  const list = group === 'material' ? ACCENT_GROUPS.material : ACCENT_GROUPS.catppuccin
+  const name = list.find(item => item.id === key)?.name ?? key
+  return group === 'material'
+    ? I18n.t('%{name} (Material)', {name})
+    : I18n.t('%{name} (Catppuccin)', {name})
+}
+
 function Swatch({
   color,
   label,
@@ -253,6 +262,10 @@ function AccentFooter({
   accent: string | null
   onChooseAccent: (id: string | null) => void
 }) {
+  // Light is the Material theme; every Catppuccin flavor shows Catppuccin's accents.
+  const family = theme === 'light' ? 'material' : 'catppuccin'
+  // A saved accent from the other family stays visible (checked) so it can be reset.
+  const foreign = accent !== null && !accent.startsWith(`${family}:`)
   const row = {display: 'flex', flexWrap: 'wrap' as const, gap: 6, alignItems: 'center'}
   const heading = {margin: '10px 0 6px', fontSize: '0.75rem', color: INK.secondary}
   return (
@@ -287,30 +300,23 @@ function AccentFooter({
           {I18n.t('Theme default')}
         </button>
       </div>
-      <div style={heading}>{I18n.t('Material')}</div>
+      <div style={heading}>{family === 'material' ? I18n.t('Material') : I18n.t('Catppuccin')}</div>
       <div style={row}>
-        {ACCENT_GROUPS.material.map(item => {
-          const id = `material:${item.id}`
-          return (
-            <Swatch
-              key={id}
-              color={item.hex}
-              label={I18n.t('%{name} (Material)', {name: item.name})}
-              checked={accent === id}
-              onPick={() => onChooseAccent(id)}
-            />
-          )
-        })}
-      </div>
-      <div style={heading}>{I18n.t('Catppuccin')}</div>
-      <div style={row}>
-        {ACCENT_GROUPS.catppuccin.map(item => {
-          const id = `catppuccin:${item.id}`
+        {foreign && (
+          <Swatch
+            color={accentHex(accent!, theme)}
+            label={swatchLabel(accent!)}
+            checked={true}
+            onPick={() => onChooseAccent(accent)}
+          />
+        )}
+        {ACCENT_GROUPS[family].map(item => {
+          const id = `${family}:${item.id}`
           return (
             <Swatch
               key={id}
               color={accentHex(id, theme)}
-              label={I18n.t('%{name} (Catppuccin)', {name: item.name})}
+              label={swatchLabel(id)}
               checked={accent === id}
               onPick={() => onChooseAccent(id)}
             />

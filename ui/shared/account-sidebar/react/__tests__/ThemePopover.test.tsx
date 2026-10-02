@@ -19,7 +19,7 @@
 import React from 'react'
 import {cleanup, render, screen, within} from '@testing-library/react'
 import userEvent from '@testing-library/user-event'
-import {THEMES} from '@canvas/material/themes'
+import {THEMES, type ThemeId} from '@canvas/material/themes'
 import ThemePopover from '../ThemePopover'
 
 // jsdom reports hex colors as rgb()
@@ -74,7 +74,7 @@ describe('ThemePopover', () => {
   })
 
   describe('accent footer', () => {
-    const renderFooter = (accent: string | null, theme: 'light' | 'mocha' | 'latte' = 'mocha') => {
+    const renderFooter = (accent: string | null, theme: ThemeId = 'mocha') => {
       const onChooseAccent = vi.fn()
       render(
         <ThemePopover
@@ -87,17 +87,38 @@ describe('ThemePopover', () => {
       return {onChooseAccent, group: screen.getByRole('radiogroup', {name: 'Accent color'})}
     }
 
-    it('offers the theme default, 19 Material and 14 Catppuccin accents', () => {
-      const {group} = renderFooter(null)
-      expect(within(group).getAllByRole('radio')).toHaveLength(1 + 19 + 14)
+    it('offers the Material accents on Light, and only those', () => {
+      const {group} = renderFooter(null, 'light')
+      expect(within(group).getAllByRole('radio')).toHaveLength(1 + 19)
+      expect(within(group).getByRole('radio', {name: 'Teal (Material)'})).toBeInTheDocument()
+      expect(within(group).queryByRole('radio', {name: 'Mauve (Catppuccin)'})).toBeNull()
       expect(within(group).getByRole('radio', {name: 'Theme default'})).toHaveAttribute(
         'aria-checked',
         'true',
       )
     })
 
+    it.each(['latte', 'frappe', 'macchiato', 'mocha'] as const)(
+      'offers only the Catppuccin accents on %s',
+      flavor => {
+        const {group} = renderFooter(null, flavor)
+        expect(within(group).getAllByRole('radio')).toHaveLength(1 + 14)
+        expect(within(group).getByRole('radio', {name: 'Mauve (Catppuccin)'})).toBeInTheDocument()
+        expect(within(group).queryByRole('radio', {name: 'Teal (Material)'})).toBeNull()
+      },
+    )
+
+    it('still shows a saved accent from the other family, checked, so it can be seen and reset', () => {
+      const {group} = renderFooter('material:teal', 'mocha')
+      expect(within(group).getAllByRole('radio')).toHaveLength(1 + 14 + 1)
+      expect(within(group).getByRole('radio', {name: 'Teal (Material)'})).toHaveAttribute(
+        'aria-checked',
+        'true',
+      )
+    })
+
     it('checks the chosen accent and not the default', () => {
-      const {group} = renderFooter('material:teal')
+      const {group} = renderFooter('material:teal', 'light')
       expect(within(group).getByRole('radio', {name: 'Teal (Material)'})).toHaveAttribute(
         'aria-checked',
         'true',
@@ -109,7 +130,7 @@ describe('ThemePopover', () => {
     })
 
     it('reports the picked accent, and null for the theme default', async () => {
-      const {onChooseAccent, group} = renderFooter('material:teal')
+      const {onChooseAccent, group} = renderFooter('material:teal', 'mocha')
       await userEvent.click(within(group).getByRole('radio', {name: 'Mauve (Catppuccin)'}))
       expect(onChooseAccent).toHaveBeenLastCalledWith('catppuccin:mauve')
       await userEvent.click(within(group).getByRole('radio', {name: 'Theme default'}))
