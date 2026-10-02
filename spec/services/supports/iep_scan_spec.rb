@@ -393,4 +393,76 @@ describe Supports::IepScan do
       expect(Supports::StudentAccommodation.where(support_plan_id: first.reload.plan_id).count).to eq 1
     end
   end
+
+  describe ".purge_stale" do
+    let(:pdf_data) { Base64.strict_encode64("%PDF-1.4 SECRET-DOC") }
+
+    def import_with(age:, **attrs)
+      Supports::Import.create!({ account: root_account,
+                                 user: admin,
+                                 student:,
+                                 format: "iep_scan",
+                                 filename: "iep.pdf",
+                                 content_type: "application/pdf",
+                                 data: pdf_data,
+                                 extraction: { "items" => [] },
+                                 extraction_state: "ready" }.merge(attrs)).tap do |import|
+        import.update_columns(updated_at: age.ago, **attrs.slice(:undone_at))
+      end
+    end
+
+    it "discards a preview nobody applied for a week, and drops its file and what was read from it" do
+      stale = import_with(age: 8.days)
+      expect(described_class.purge_stale).to include(previews: 1)
+      expect(stale.reload).to have_attributes(workflow_state: "discarded", data: nil, extraction: nil)
+    end
+
+    it "also discards a failed or never-finished scan that has sat that long" do
+      failed = import_with(age: 9.days, extraction_state: "failed", extraction_error: "x")
+      stuck = import_with(age: 9.days, extraction_state: "running", extraction: nil)
+      described_class.purge_stale
+      expect([failed.reload.workflow_state, stuck.reload.workflow_state]).to eq %w[discarded discarded]
+      expect([failed.data, stuck.data]).to eq [nil, nil]
+    end
+
+    it "keeps a preview that is still recent" do
+      recent = import_with(age: 2.days)
+      expect(described_class.purge_stale).to include(previews: 0)
+      expect(recent.reload).to have_attributes(workflow_state: "previewed", data: pdf_data)
+    end
+
+    it "never touches an applied scan, so a plan keeps its original IEP" do
+      plan = Supports::Plan.create!(account: root_account, student:, plan_type: "iep", source: "scan")
+      applied = import_with(age: 400.days, workflow_state: "applied", applied_at: 400.days.ago, plan:)
+      described_class.purge_stale
+      expect(applied.reload).to have_attributes(workflow_state: "applied", data: pdf_data, plan_id: plan.id)
+    end
+
+    it "drops the file of a scan that was undone a week ago, and keeps the record" do
+      undone = import_with(age: 8.days, workflow_state: "undone", undone_at: 8.days.ago)
+      recent_undone = import_with(age: 1.day, workflow_state: "undone", undone_at: 1.day.ago)
+      expect(described_class.purge_stale).to include(undone: 1)
+      expect(undone.reload).to have_attributes(workflow_state: "undone", data: nil, extraction: nil)
+      expect(recent_undone.reload.data).to eq pdf_data
+    end
+
+    it "leaves CSV imports alone" do
+      csv = Supports::Import.create!(account: root_account, user: admin, format: "generic", data: "a,b", workflow_state: "previewed")
+      csv.update_columns(updated_at: 30.days.ago)
+      described_class.purge_stale
+      expect(csv.reload).to have_attributes(workflow_state: "previewed", data: "a,b")
+    end
+
+    it "uses the retention setting" do
+      Setting.set("supports_iep_scan_retention_days", "1")
+      import = import_with(age: 2.days)
+      described_class.purge_stale
+      expect(import.reload.workflow_state).to eq "discarded"
+    end
+
+    it "is run every night" do
+      source = Rails.root.join("config/initializers/periodic_jobs.rb").read
+      expect(source).to match(/Delayed::Periodic\.cron "Supports::IepScan\.purge_stale"/)
+    end
+  end
 end

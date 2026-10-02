@@ -129,6 +129,23 @@ module Supports
       import&.update!(extraction_state: "failed", extraction_error: I18n.t("The document couldn't be processed."))
     end
 
+    RETENTION_SETTING = "supports_iep_scan_retention_days"
+    DEFAULT_RETENTION_DAYS = 7
+
+    # Nightly: an IEP is only kept while it is needed. A preview nobody applied for
+    # a week is discarded, and the file of a scan undone that long ago is dropped.
+    # An applied scan keeps its file, so the plan can always lead back to it.
+    # Returns how many of each were cleaned up.
+    def self.purge_stale
+      cutoff = Setting.get(RETENTION_SETTING, DEFAULT_RETENTION_DAYS.to_s).to_i.days.ago
+      scans = Import.where(format: FORMAT)
+      previews = scans.where(workflow_state: "previewed").where(updated_at: ...cutoff)
+                      .update_all(workflow_state: "discarded", data: nil, extraction: nil, updated_at: Time.zone.now)
+      undone = scans.where(workflow_state: "undone").where(undone_at: ...cutoff).where.not(data: nil)
+                    .update_all(data: nil, extraction: nil, updated_at: Time.zone.now)
+      { previews:, undone: }
+    end
+
     def self.proposal_from(result)
       {
         "student_name" => result.student_name,

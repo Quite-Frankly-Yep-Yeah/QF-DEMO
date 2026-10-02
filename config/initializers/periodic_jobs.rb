@@ -135,6 +135,10 @@ Rails.configuration.after_initialize do
     with_each_shard_by_database(Supports::Applier, :sync_starting_today)
   end
 
+  Delayed::Periodic.cron "Supports::IepScan.purge_stale", "30 3 * * *" do
+    with_each_shard_by_database(Supports::IepScan, :purge_stale)
+  end
+
   Delayed::Periodic.cron "Reporting::CountsReport.process", "0 11 * * 0" do
     with_each_shard_by_database(Reporting::CountsReport, :process_shard)
   end
