@@ -17,7 +17,7 @@
  */
 
 import React from 'react'
-import {render, screen, waitFor} from '@testing-library/react'
+import {render, screen, waitFor, within} from '@testing-library/react'
 import userEvent from '@testing-library/user-event'
 import {http, HttpResponse} from 'msw'
 import {setupServer} from 'msw/node'
@@ -34,6 +34,7 @@ const config = (overrides: Partial<AiSettingsConfig> = {}): AiSettingsConfig => 
     {value: 'claude-sonnet-5-5', label: 'Claude Sonnet 5.5 (faster, lower cost)'},
   ],
   default_model: 'claude-opus-5-5',
+  features: [{key: 'iep_scan', label: 'IEP scan'}],
   ...overrides,
 })
 
@@ -41,6 +42,7 @@ const saved = {
   has_key: true,
   key_last4: '4f2a',
   model: 'claude-opus-5-5',
+  feature_models: {},
   updated_at: '2026-10-02T12:00:00Z',
   updated_by: {id: '9', name: 'Casey Admin'},
 }
@@ -48,8 +50,15 @@ const saved = {
 const settings = (overrides: Partial<SettingsResponse> = {}): SettingsResponse => ({
   account: null,
   site: null,
-  policy: {allow_account_keys: true},
-  in_effect: {source: null, model: null, account_key_ignored: false},
+  policy: {allow_account_keys: true, allow_account_models: true},
+  features: [{key: 'iep_scan', label: 'IEP scan'}],
+  in_effect: {
+    source: null,
+    model: null,
+    account_key_ignored: false,
+    school_models_ignored: false,
+    features: [],
+  },
   ...overrides,
 })
 
@@ -103,9 +112,7 @@ describe('AiSettingsApp', () => {
 
     await userEvent.type(field, 'sk-ant-new-key')
     await userEvent.click(screen.getByRole('button', {name: 'Save'}))
-    await waitFor(() =>
-      expect(sent[0]?.body).toEqual({api_key: 'sk-ant-new-key', model: 'claude-opus-5-5'}),
-    )
+    await waitFor(() => expect(sent[0]?.body).toEqual({api_key: 'sk-ant-new-key'}))
     expect(await screen.findByRole('status')).toHaveTextContent('Saved.')
     expect(screen.getByLabelText('API key')).toHaveValue('')
   })
@@ -129,7 +136,7 @@ describe('AiSettingsApp', () => {
     // focus goes back to Replace after saving
     await waitFor(() => expect(screen.getByRole('button', {name: 'Replace'})).toHaveFocus())
 
-    await userEvent.selectOptions(screen.getByLabelText('Model'), 'claude-sonnet-5-5')
+    await userEvent.selectOptions(screen.getByLabelText('Default model'), 'claude-sonnet-5-5')
     await userEvent.click(screen.getByRole('button', {name: 'Save'}))
     await waitFor(() => expect(sent[1]?.body).toEqual({model: 'claude-sonnet-5-5'}))
   })
@@ -154,7 +161,15 @@ describe('AiSettingsApp', () => {
     ['file', "The server's configuration is in use."],
     [null, 'No key is set up, so IEP scanning is off.'],
   ] as const)('says which key is in effect: %s', async (source, text) => {
-    current = settings({in_effect: {source, model: 'claude-opus-5-5', account_key_ignored: false}})
+    current = settings({
+      in_effect: {
+        source,
+        model: 'claude-opus-5-5',
+        account_key_ignored: false,
+        school_models_ignored: false,
+        features: [],
+      },
+    })
     render(<AiSettingsApp config={config()} />)
     expect(await screen.findByText(text)).toBeInTheDocument()
   })
@@ -162,8 +177,14 @@ describe('AiSettingsApp', () => {
   it('says when the school has a key the site is not letting it use', async () => {
     current = settings({
       account: saved,
-      policy: {allow_account_keys: false},
-      in_effect: {source: 'site', model: 'claude-opus-5-5', account_key_ignored: true},
+      policy: {allow_account_keys: false, allow_account_models: true},
+      in_effect: {
+        source: 'site',
+        model: 'claude-opus-5-5',
+        account_key_ignored: true,
+        school_models_ignored: false,
+        features: [],
+      },
     })
     render(<AiSettingsApp config={config()} />)
     expect(await screen.findByText(/the site doesn't allow school keys/)).toBeInTheDocument()
@@ -258,12 +279,110 @@ describe('AiSettingsApp', () => {
     await userEvent.tab()
     expect(screen.getByLabelText('API key')).toHaveFocus()
     await userEvent.tab()
-    expect(screen.getByLabelText('Model')).toHaveFocus()
+    expect(screen.getByLabelText('Default model')).toHaveFocus()
   })
   it("hides the school section from someone who can't save it, even a site admin", async () => {
     current = settings()
     render(<AiSettingsApp config={config({can_manage_school: false, can_manage_site: true})} />)
     expect(await screen.findByRole('heading', {name: 'Site-wide key'})).toBeInTheDocument()
     expect(screen.queryByRole('heading', {name: "This school's key"})).not.toBeInTheDocument()
+  })
+  it('sets a model for one feature, and clears it again with "Use the default model"', async () => {
+    current = settings({account: saved})
+    render(<AiSettingsApp config={config()} />)
+    const select = await screen.findByLabelText('IEP scan model')
+    expect(select).toHaveValue('')
+    expect(screen.getByRole('option', {name: 'Use the default model'})).toBeInTheDocument()
+
+    await userEvent.selectOptions(select, 'claude-sonnet-5-5')
+    await userEvent.click(screen.getByRole('button', {name: 'Save'}))
+    await waitFor(() => expect(sent[0]?.body).toEqual({models: {iep_scan: 'claude-sonnet-5-5'}}))
+  })
+
+  it('shows the model already chosen for a feature, and clears it', async () => {
+    current = settings({account: {...saved, feature_models: {iep_scan: 'claude-sonnet-5-5'}}})
+    render(<AiSettingsApp config={config()} />)
+    const select = await screen.findByLabelText('IEP scan model')
+    await waitFor(() => expect(select).toHaveValue('claude-sonnet-5-5'))
+    await userEvent.selectOptions(select, '')
+    await userEvent.click(screen.getByRole('button', {name: 'Save'}))
+    await waitFor(() => expect(sent[0]?.body).toEqual({models: {iep_scan: ''}}))
+  })
+
+  it('clears the default model with "Use the site\'s default" at a school, and "Use the app default" on the site', async () => {
+    current = settings({
+      account: saved,
+      site: {...saved, allow_account_keys: true, allow_account_models: true},
+    })
+    render(<AiSettingsApp config={config({can_manage_site: true})} />)
+    const [school] = await screen.findAllByLabelText('Default model')
+    expect(within(school).getByRole('option', {name: "Use the site's default"})).toBeInTheDocument()
+    await userEvent.selectOptions(school, '')
+    await userEvent.click(screen.getAllByRole('button', {name: 'Save'})[0])
+    await waitFor(() => expect(sent[0]?.body).toEqual({model: ''}))
+    const site = screen.getAllByLabelText('Default model')[1]
+    expect(within(site).getByRole('option', {name: 'Use the app default'})).toBeInTheDocument()
+  })
+
+  it('says which model each feature uses and why', async () => {
+    current = settings({
+      account: saved,
+      in_effect: {
+        source: 'account',
+        model: 'claude-opus-5-5',
+        account_key_ignored: false,
+        school_models_ignored: false,
+        features: [
+          {
+            feature: 'iep_scan',
+            label: 'IEP scan',
+            model: 'claude-sonnet-5-5',
+            model_source: 'account_feature',
+          },
+        ],
+      },
+    })
+    render(<AiSettingsApp config={config()} />)
+    expect(
+      await screen.findByText(
+        "IEP scan uses Claude Sonnet 5.5 (the school's choice for this feature).",
+      ),
+    ).toBeInTheDocument()
+  })
+
+  it("says when the school's models are not being used on the shared key", async () => {
+    current = settings({
+      account: {...saved, feature_models: {iep_scan: 'claude-sonnet-5-5'}},
+      policy: {allow_account_keys: true, allow_account_models: false},
+      in_effect: {
+        source: 'site',
+        model: 'claude-opus-5-5',
+        account_key_ignored: false,
+        school_models_ignored: true,
+        features: [
+          {
+            feature: 'iep_scan',
+            label: 'IEP scan',
+            model: 'claude-haiku-4-5',
+            model_source: 'site_feature',
+          },
+        ],
+      },
+    })
+    render(<AiSettingsApp config={config()} />)
+    expect(await screen.findByText(/site doesn't let schools choose models/)).toBeInTheDocument()
+  })
+
+  it('turns whether schools may choose models on the shared key on and off', async () => {
+    current = settings({site: {...saved, allow_account_keys: true, allow_account_models: true}})
+    render(<AiSettingsApp config={config({can_manage_site: true})} />)
+    await userEvent.click(
+      await screen.findByRole('checkbox', {
+        name: 'Let schools choose models when they use the shared key',
+      }),
+    )
+    await waitFor(() =>
+      expect(sent.find(r => r.path.endsWith('/site'))?.body).toEqual({allow_account_models: false}),
+    )
   })
 })

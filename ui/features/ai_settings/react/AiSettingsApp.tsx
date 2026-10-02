@@ -21,7 +21,7 @@ import {useScope as createI18nScope} from '@canvas/i18n'
 import doFetchApi from '@canvas/do-fetch-api-effect'
 import {INK, ROBOTO, SURFACE} from '../../self_paced_home/react/material'
 import KeySection from './KeySection'
-import type {AiSettingsConfig, SaveBody, SettingsResponse} from './types'
+import type {AiSettingsConfig, ModelSource, SaveBody, SettingsResponse} from './types'
 
 const I18n = createI18nScope('ai_settings')
 
@@ -50,6 +50,26 @@ function inEffectText(source: SettingsResponse['in_effect']['source']): string {
       return I18n.t('No key is set up, so IEP scanning is off.')
   }
 }
+
+function modelSourceText(source: ModelSource | null): string {
+  switch (source) {
+    case 'account_feature':
+      return I18n.t("the school's choice for this feature")
+    case 'account_default':
+      return I18n.t("the school's default")
+    case 'site_feature':
+      return I18n.t("the site's choice for this feature")
+    case 'site_default':
+      return I18n.t("the site's default")
+    case 'file':
+      return I18n.t("the server's configuration")
+    default:
+      return I18n.t("the app's default")
+  }
+}
+
+// "Claude Sonnet 5.5 (faster, lower cost)" is shown as "Claude Sonnet 5.5"
+const shortModelName = (label: string) => label.replace(/\s*\(.*\)$/, '')
 
 // The Anthropic key and model for IEP scanning: the school's own, and for
 // site admins the shared key and whether schools may use their own
@@ -110,6 +130,10 @@ export default function AiSettingsApp({config}: {config: AiSettingsConfig}) {
   }
 
   const allowSchoolKeys = data?.site?.allow_account_keys ?? data?.policy.allow_account_keys ?? true
+  const allowSchoolModels =
+    data?.site?.allow_account_models ?? data?.policy.allow_account_models ?? true
+  const modelName = (value: string | null) =>
+    shortModelName(config.models.find(model => model.value === value)?.label ?? value ?? '')
 
   return (
     <div
@@ -149,6 +173,24 @@ export default function AiSettingsApp({config}: {config: AiSettingsConfig}) {
             <p style={{margin: 0, fontWeight: 500, color: INK.primary}}>
               {inEffectText(data.in_effect.source)}
             </p>
+            {data.in_effect.features
+              .filter(feature => feature.model)
+              .map(feature => (
+                <p key={feature.feature} style={{margin: '4px 0 0', color: INK.primary}}>
+                  {I18n.t('%{feature} uses %{model} (%{why}).', {
+                    feature: feature.label,
+                    model: modelName(feature.model),
+                    why: modelSourceText(feature.model_source),
+                  })}
+                </p>
+              ))}
+            {data.in_effect.school_models_ignored && (
+              <p style={{margin: '4px 0 0', color: INK.secondary}}>
+                {I18n.t(
+                  "This school has chosen models, but the site doesn't let schools choose models on the shared key, so they aren't being used.",
+                )}
+              </p>
+            )}
             {data.in_effect.account_key_ignored && (
               <p style={{margin: '4px 0 0', color: INK.secondary}}>
                 {I18n.t(
@@ -163,7 +205,8 @@ export default function AiSettingsApp({config}: {config: AiSettingsConfig}) {
               title={I18n.t("This school's key")}
               setting={data.account}
               models={config.models}
-              defaultModel={config.default_model}
+              features={config.features}
+              inheritLabel={I18n.t("Use the site's default")}
               busy={busy}
               onSave={body => save(base, body)}
               onRemove={() => remove(base)}
@@ -176,7 +219,8 @@ export default function AiSettingsApp({config}: {config: AiSettingsConfig}) {
               title={I18n.t('Site-wide key')}
               setting={data.site}
               models={config.models}
-              defaultModel={config.default_model}
+              features={config.features}
+              inheritLabel={I18n.t('Use the app default')}
               busy={busy}
               onSave={body => save(`${base}/site`, body)}
               onRemove={() => remove(`${base}/site`)}
@@ -200,6 +244,25 @@ export default function AiSettingsApp({config}: {config: AiSettingsConfig}) {
                   }
                 />
                 {I18n.t('Let schools use their own key')}
+              </label>
+              <label
+                style={{
+                  display: 'flex',
+                  alignItems: 'center',
+                  gap: 8,
+                  minHeight: 44,
+                  margin: '0 0 8px',
+                }}
+              >
+                <input
+                  type="checkbox"
+                  checked={allowSchoolModels}
+                  disabled={busy}
+                  onChange={event =>
+                    save(`${base}/site`, {allow_account_models: event.target.checked})
+                  }
+                />
+                {I18n.t('Let schools choose models when they use the shared key')}
               </label>
             </KeySection>
           )}

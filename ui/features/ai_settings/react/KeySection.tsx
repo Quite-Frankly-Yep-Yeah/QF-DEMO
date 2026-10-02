@@ -75,7 +75,8 @@ export default function KeySection({
   title,
   setting,
   models,
-  defaultModel,
+  features,
+  inheritLabel,
   busy,
   onSave,
   onRemove,
@@ -85,26 +86,38 @@ export default function KeySection({
   title: string
   setting: SettingJson | null
   models: {value: string; label: string}[]
-  defaultModel: string
+  features: {key: string; label: string}[]
+  // what a blank default model means here: the site's default, or the app's
+  inheritLabel: string
   busy: boolean
   onSave: (body: SaveBody) => Promise<boolean>
   onRemove: () => Promise<boolean>
   onTest: (body: SaveBody) => void
   children?: React.ReactNode
 }) {
-  const savedModel = setting?.model ?? defaultModel
+  // blank means no choice: the next level decides
+  const savedModel = setting?.model ?? ''
+  const savedFeatureModels = setting?.feature_models ?? {}
+  const savedFeaturesKey = JSON.stringify(savedFeatureModels)
   const hasKey = !!setting?.has_key
   const [keyText, setKeyText] = useState('')
   const [replacing, setReplacing] = useState(false)
   const [model, setModel] = useState(savedModel)
+  const [featureModels, setFeatureModels] = useState<Record<string, string>>(savedFeatureModels)
   const [focusReplace, setFocusReplace] = useState(false)
   const replaceRef = useRef<HTMLButtonElement>(null)
   const typed = keyText.trim()
   const modelChanged = model !== savedModel
+  const changedFeatures = features.filter(
+    feature => (featureModels[feature.key] ?? '') !== (savedFeatureModels[feature.key] ?? ''),
+  )
+  const nothingToSave = !typed && !modelChanged && changedFeatures.length === 0
   const showField = !hasKey || replacing
   const headingId = `ai-${title.replace(/\W+/g, '-').toLowerCase()}`
 
   useEffect(() => setModel(savedModel), [savedModel])
+  // biome-ignore lint/correctness/useExhaustiveDependencies: the key stands for the saved choices
+  useEffect(() => setFeatureModels(savedFeatureModels), [savedFeaturesKey])
 
   useEffect(() => {
     if (focusReplace && replaceRef.current) {
@@ -116,7 +129,12 @@ export default function KeySection({
   const save = async () => {
     const body: SaveBody = {}
     if (typed) body.api_key = typed
-    if (modelChanged || !hasKey) body.model = model
+    if (modelChanged) body.model = model
+    if (changedFeatures.length > 0) {
+      body.models = Object.fromEntries(
+        changedFeatures.map(feature => [feature.key, featureModels[feature.key] ?? '']),
+      )
+    }
     if (await onSave(body)) {
       setKeyText('')
       setReplacing(false)
@@ -178,8 +196,9 @@ export default function KeySection({
         </label>
       )}
       <label style={{display: 'block', fontWeight: 500, color: INK.primary}}>
-        {I18n.t('Model')}
+        {I18n.t('Default model')}
         <select style={field} value={model} onChange={event => setModel(event.target.value)}>
+          <option value="">{inheritLabel}</option>
           {models.map(option => (
             <option key={option.value} value={option.value}>
               {option.label}
@@ -187,11 +206,40 @@ export default function KeySection({
           ))}
         </select>
       </label>
+      {features.length > 0 && (
+        <fieldset style={{border: 'none', margin: '0 0 8px', padding: 0}}>
+          <legend style={{fontWeight: 500, color: INK.primary, padding: 0}}>
+            {I18n.t('Model for each AI feature')}
+          </legend>
+          {features.map(feature => (
+            <label
+              key={feature.key}
+              style={{display: 'block', fontWeight: 400, color: INK.primary}}
+            >
+              {I18n.t('%{feature} model', {feature: feature.label})}
+              <select
+                style={field}
+                value={featureModels[feature.key] ?? ''}
+                onChange={event =>
+                  setFeatureModels({...featureModels, [feature.key]: event.target.value})
+                }
+              >
+                <option value="">{I18n.t('Use the default model')}</option>
+                {models.map(option => (
+                  <option key={option.value} value={option.value}>
+                    {option.label}
+                  </option>
+                ))}
+              </select>
+            </label>
+          ))}
+        </fieldset>
+      )}
       <div style={{display: 'flex', flexWrap: 'wrap', gap: 8}}>
         <button
           type="button"
-          style={{...raised, opacity: busy || (!typed && !modelChanged) ? 0.5 : 1}}
-          disabled={busy || (!typed && !modelChanged)}
+          style={{...raised, opacity: busy || nothingToSave ? 0.5 : 1}}
+          disabled={busy || nothingToSave}
           onClick={save}
         >
           {I18n.t('Save')}
@@ -200,7 +248,7 @@ export default function KeySection({
           type="button"
           style={flat}
           disabled={busy || (!hasKey && !typed)}
-          onClick={() => onTest({...(typed ? {api_key: typed} : {}), model})}
+          onClick={() => onTest({...(typed ? {api_key: typed} : {}), ...(model ? {model} : {})})}
         >
           {I18n.t('Test connection')}
         </button>

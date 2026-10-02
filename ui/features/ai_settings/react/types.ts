@@ -24,28 +24,54 @@ export type AiSettingsConfig = {
   can_manage_site: boolean
   models: {value: string; label: string}[]
   default_model: string
+  features: {key: string; label: string}[]
 }
 
 // Supports::AnthropicSettingsController#setting_json: never includes the key
 export type SettingJson = {
   has_key: boolean
   key_last4: string | null
-  model: string
+  model: string | null
+  feature_models: Record<string, string>
   updated_at: string | null
   updated_by: {id: string; name: string} | null
   allow_account_keys?: boolean
+  allow_account_models?: boolean
 }
+
+export type ModelSource =
+  | 'account_feature'
+  | 'account_default'
+  | 'site_feature'
+  | 'site_default'
+  | 'file'
+  | 'default'
 
 // GET /api/v1/accounts/:account_id/ai_settings
 export type SettingsResponse = {
   account: SettingJson | null
   site: SettingJson | null
-  policy: {allow_account_keys: boolean}
+  policy: {allow_account_keys: boolean; allow_account_models: boolean}
+  features: {key: string; label: string}[]
   in_effect: {
     source: 'account' | 'site' | 'file' | null
     model: string | null
     account_key_ignored: boolean
+    school_models_ignored: boolean
+    features: {
+      feature: string
+      label: string
+      model: string | null
+      model_source: ModelSource | null
+    }[]
   }
 }
 
-export type SaveBody = {api_key?: string; model?: string; allow_account_keys?: boolean}
+export type SaveBody = {
+  api_key?: string
+  // a blank model clears the choice
+  model?: string
+  models?: Record<string, string>
+  allow_account_keys?: boolean
+  allow_account_models?: boolean
+}
