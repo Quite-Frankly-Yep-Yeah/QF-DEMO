@@ -153,7 +153,7 @@ describe Supports::IepExtractor do
 
     def stub_file(yaml)
       allow(DynamicSettings).to receive(:find).and_call_original
-    allow(DynamicSettings).to receive(:find).with(tree: :private).and_return("anthropic.yml" => yaml)
+      allow(DynamicSettings).to receive(:find).with(tree: :private).and_return("anthropic.yml" => yaml)
     end
 
     def call_without_injected_client
@@ -186,6 +186,28 @@ describe Supports::IepExtractor do
     it "says scanning isn't set up when there is no key anywhere" do
       expect { call_without_injected_client }
         .to raise_error(described_class::Failed, "IEP scanning isn't set up for this school.")
+    end
+  end
+
+  describe "a 400 that isn't about the file" do
+    def bad_request(text)
+      Anthropic::Errors::BadRequestError.new(url: URI("https://api.anthropic.com"),
+                                             status: 400,
+                                             headers: {},
+                                             body: { error: { message: text } },
+                                             request: nil,
+                                             response: nil,
+                                             message: text)
+    end
+
+    it "says a key that isn't tied to a workspace needs one" do
+      expect { extract(bad_request("This API key is not scoped to a workspace, so this request must include the anthropic-workspace-id header")) }
+        .to raise_error(described_class::Failed, /isn't tied to a workspace/)
+    end
+
+    it "says the account is out of credit" do
+      expect { extract(bad_request("Your credit balance is too low to access the Anthropic API")) }
+        .to raise_error(described_class::Failed, /no credit/)
     end
   end
 end

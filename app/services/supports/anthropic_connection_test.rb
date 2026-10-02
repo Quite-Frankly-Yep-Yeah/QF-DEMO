@@ -28,7 +28,9 @@ module Supports
       { ok: true, message: I18n.t("It works.") }
     rescue Anthropic::Errors::AuthenticationError, Anthropic::Errors::PermissionDeniedError
       { ok: false, message: I18n.t("The key was rejected.") }
-    rescue Anthropic::Errors::NotFoundError, Anthropic::Errors::BadRequestError
+    rescue Anthropic::Errors::BadRequestError => e
+      { ok: false, message: AnthropicErrors.bad_request_message(e, default: I18n.t("That model isn't available to this key.")) }
+    rescue Anthropic::Errors::NotFoundError
       { ok: false, message: I18n.t("That model isn't available to this key.") }
     rescue Anthropic::Errors::APIError
       { ok: false, message: I18n.t("The service couldn't be reached.") }

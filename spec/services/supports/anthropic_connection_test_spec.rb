@@ -74,4 +74,11 @@ describe Supports::AnthropicConnectionTest do
     expect(sent.size).to eq 1
     expect(sent.first).to include(model: "claude-haiku-4-5", max_tokens: 256)
   end
+
+  it "says a key with no workspace needs one, and an account out of credit has none left" do
+    workspace = api_error(Anthropic::Errors::BadRequestError, status: 400, message: "This API key is not scoped to a workspace, so it must include the anthropic-workspace-id header")
+    credit = api_error(Anthropic::Errors::BadRequestError, status: 400, message: "Your credit balance is too low to access the Anthropic API")
+    expect(call(workspace)).to eq(ok: false, message: "This key isn't tied to a workspace. Create a key inside a workspace in the Anthropic console and use that one.")
+    expect(call(credit)).to eq(ok: false, message: "The Anthropic account has no credit left.")
+  end
 end
