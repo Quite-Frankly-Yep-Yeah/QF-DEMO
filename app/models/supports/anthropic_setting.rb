@@ -24,7 +24,7 @@ module Supports
   class AnthropicSetting < ApplicationRecord
     self.table_name = "anthropic_settings"
 
-    MODELS = %w[claude-opus-5-5 claude-sonnet-5-5 claude-haiku-4-5].freeze
+    MODELS = AiModels.ids.freeze
     DEFAULT_MODEL = "claude-opus-5-5"
 
     belongs_to :root_account, class_name: "Account", optional: true

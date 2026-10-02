@@ -46,7 +46,8 @@ module Supports
                is_site_admin_account: @account.site_admin?,
                can_manage_school: school_manager?,
                can_manage_site: site_manager?,
-               models: model_options,
+               models: AiModels.all,
+               prices_checked: AiModels::PRICES_CHECKED,
                features: AiFeatures.all,
                default_model: AnthropicSetting::DEFAULT_MODEL
              } })
@@ -107,15 +108,6 @@ module Supports
     end
 
     private
-
-    def model_options
-      labels = {
-        "claude-opus-5-5" => t("Claude Opus 5.5 (most capable)"),
-        "claude-sonnet-5-5" => t("Claude Sonnet 5.5 (faster, lower cost)"),
-        "claude-haiku-4-5" => t("Claude Haiku 4.5 (fastest, lowest cost)")
-      }
-      AnthropicSetting::MODELS.map { |model| { value: model, label: labels.fetch(model) } }
-    end
 
     def find_account
       @account = Account.find_by(id: params[:account_id])

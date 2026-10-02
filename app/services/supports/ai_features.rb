@@ -21,8 +21,10 @@
 # one entry here; its setting then shows up on the AI settings page.
 module Supports
   module AiFeatures
+    # +recommended+ is the model that suits the feature best (an id from AiModels,
+    # or nil while none has been chosen) and +why+ says why, in a short phrase.
     FEATURES = {
-      iep_scan: -> { I18n.t("IEP scan") }
+      iep_scan: { label: -> { I18n.t("IEP scan") }, recommended: nil, why: -> {} }
     }.freeze
 
     def self.keys
@@ -34,11 +36,14 @@ module Supports
     end
 
     def self.label(key)
-      FEATURES.fetch(key.to_sym).call
+      FEATURES.fetch(key.to_sym)[:label].call
     end
 
     def self.all
-      keys.map { |key| { key:, label: label(key) } }
+      keys.map do |key|
+        feature = FEATURES.fetch(key)
+        { key:, label: label(key), recommended: feature[:recommended], why: feature[:why].call }
+      end
     end
   end
 end

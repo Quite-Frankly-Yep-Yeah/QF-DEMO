@@ -25,7 +25,6 @@ require "base64"
 module Supports
   class IepExtractor
     MODEL = "claude-opus-5-5"
-    EFFORT_MODELS = %w[claude-opus-5-5 claude-sonnet-5-5].freeze
     CONTENT_TYPES = %w[application/pdf image/png image/jpeg].freeze
     ISO_DATE = /\A\d{4}-\d{2}-\d{2}\z/
     CONFIDENCE = %w[high medium low].freeze
@@ -128,7 +127,7 @@ module Supports
     # Opus and Sonnet are asked to think hard; Haiku rejects the effort setting.
     def output_config
       format = { type: :json_schema, schema: }
-      EFFORT_MODELS.include?(config&.dig(:model) || MODEL) ? { effort: :high, format_: format } : { format_: format }
+      AiModels.supports_effort?(config&.dig(:model) || MODEL) ? { effort: :high, format_: format } : { format_: format }
     end
 
     def config

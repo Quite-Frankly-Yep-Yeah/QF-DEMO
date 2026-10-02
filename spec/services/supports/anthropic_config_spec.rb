@@ -65,7 +65,7 @@ describe Supports::AnthropicConfig do
 
   it "is nil when nothing is set up" do
     expect(described_class.for(root_account)).to be_nil
-    expect(described_class.explain(root_account)).to include(source: nil, model: nil, account_key_ignored: false, school_models_ignored: false)
+    expect(described_class.explain(root_account)).to include(source: nil, model: nil, model_source: nil, account_key_ignored: false, school_models_ignored: false)
   end
 
   it "falls back to the default model when a stored or configured one isn't offered" do
@@ -149,5 +149,10 @@ describe Supports::AnthropicConfig do
       expect(described_class.explain(root_account)[:features])
         .to eq [{ feature: :iep_scan, label: "IEP scan", model: "claude-haiku-4-5", model_source: :account_feature }]
     end
+  end
+
+  it "says why the default model is what it is" do
+    school(api_key: "school-key", model: "claude-sonnet-5-5")
+    expect(described_class.explain(root_account)).to include(model: "claude-sonnet-5-5", model_source: :account_default)
   end
 end

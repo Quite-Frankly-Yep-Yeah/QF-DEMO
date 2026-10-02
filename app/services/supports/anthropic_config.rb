@@ -48,6 +48,7 @@ module Supports
       {
         source: chosen&.dig(:source),
         model: chosen&.dig(:model),
+        model_source: chosen&.dig(:model_source),
         account_key_ignored: keys_ignored,
         school_models_ignored: models_ignored,
         features: AiFeatures.all.map do |feature|

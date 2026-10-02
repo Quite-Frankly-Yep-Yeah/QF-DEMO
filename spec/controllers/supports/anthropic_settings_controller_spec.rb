@@ -257,6 +257,8 @@ describe Supports::AnthropicSettingsController do
                              can_manage_site: false,
                              default_model: "claude-opus-5-5")
       expect(env[:models].pluck(:value)).to eq Supports::AnthropicSetting::MODELS
+      expect(env[:models].first).to include(label: "Claude Opus 5.5", input_price: 4, output_price: 20, context_tokens: 1_000_000)
+      expect(env[:prices_checked]).to eq "2026-09-25"
       expect(assigns[:js_bundles].flatten.map(&:to_s)).to include("ai_settings")
     end
 
@@ -339,7 +341,7 @@ describe Supports::AnthropicSettingsController do
       put_school(api_key: key, models: { iep_scan: "claude-sonnet-5-5" })
       expect(response).to be_successful
       expect(json["account"]["feature_models"]).to eq("iep_scan" => "claude-sonnet-5-5")
-      expect(json["features"]).to eq [{ "key" => "iep_scan", "label" => "IEP scan" }]
+      expect(json["features"]).to eq [{ "key" => "iep_scan", "label" => "IEP scan", "recommended" => nil, "why" => nil }]
       expect(json["in_effect"]["features"].first).to include("feature" => "iep_scan",
                                                              "model" => "claude-sonnet-5-5",
                                                              "model_source" => "account_feature")
@@ -393,7 +395,7 @@ describe Supports::AnthropicSettingsController do
 
     it "tells the page which features there are" do
       get :page, params: { account_id: root_account.id }
-      expect(assigns[:js_env][:AI_SETTINGS][:features]).to eq [{ key: :iep_scan, label: "IEP scan" }]
+      expect(assigns[:js_env][:AI_SETTINGS][:features]).to eq [{ key: :iep_scan, label: "IEP scan", recommended: nil, why: nil }]
     end
   end
 
