@@ -187,5 +187,27 @@ describe Supports::StudentsController do
       get "search", params: { search_term: "Pat" }, format: :json
       expect(response).not_to be_successful
     end
+
+    it "lets a case manager search their own caseload, and nobody else's" do
+      role = custom_account_role("Case manager", account: root_account)
+      root_account.role_overrides.create!(permission: "supports_manage_plans", role:, enabled: true)
+      manager = user_factory(active_all: true)
+      root_account.account_users.create!(user: manager, role:)
+      mine = login_for(user_factory(active_all: true, name: "Casey Caseload"), unique_id: "casey@example.com")
+      login_for(user_factory(active_all: true, name: "Casey Notmine"), unique_id: "notmine@example.com")
+      Supports::Caseload.create!(root_account:, staff_id: manager.id, student_id: mine.id)
+      user_session(manager)
+      expect(found("Casey").pluck("id")).to eq [mine.id.to_s]
+    end
+
+    it "still refuses a case manager with no caseload" do
+      role = custom_account_role("Case manager", account: root_account)
+      root_account.role_overrides.create!(permission: "supports_manage_plans", role:, enabled: true)
+      manager = user_factory(active_all: true)
+      root_account.account_users.create!(user: manager, role:)
+      user_session(manager)
+      get "search", params: { search_term: "Pat" }, format: :json
+      expect(response).not_to be_successful
+    end
   end
 end

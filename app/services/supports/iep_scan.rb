@@ -284,9 +284,8 @@ module Supports
     def self.mismatch?(name_on_doc, student)
       return false if name_on_doc.blank? || student.nil?
 
-      words = ->(text) { text.to_s.downcase.scan(/[[:alpha:]]+/) }
-      doc = words.call(name_on_doc)
-      known = words.call(student.name)
+      doc = NameMatch.words(name_on_doc)
+      known = NameMatch.words(student.name)
       (doc - known).any? && (known - doc).any?
     end
 
