@@ -1,0 +1,7 @@
+{
+  "name": "@canvas-features/account_sidebar",
+  "private": true,
+  "version": "1.0.0",
+  "main": "./react/AccountSidebar.tsx",
+  "owner": "FOO"
+}

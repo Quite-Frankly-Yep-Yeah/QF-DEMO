@@ -47,6 +47,7 @@ import {EnvUserMerge} from './EnvUserMerge'
 import {EnvWikiPages} from './EnvWikiPages'
 import {EnvAuthentication} from './EnvAuthentication'
 import {EnvWidgetDashboard} from './EnvWidgetDashboard'
+import {EnvTheme} from './EnvTheme'
 import {EnvUsageMetrics} from './EnvUsageMetrics'
 import {EnvOak} from './EnvOak'
 import {EnvPageViews} from './EnvPageViews'
@@ -95,6 +96,7 @@ export type GlobalEnv =
         EnvLtiRegistrations &
         EnvAuthentication &
         EnvWidgetDashboard &
+        EnvTheme &
         EnvNotices &
         EnvUsageMetrics &
         EnvOak &
