@@ -19,7 +19,14 @@
 import React from 'react'
 import {render, screen} from '@testing-library/react'
 import userEvent from '@testing-library/user-event'
+import {THEMES} from '@canvas/material/themes'
 import ThemePopover from '../ThemePopover'
+
+// jsdom reports hex colors as rgb()
+const hex = (value: string) => {
+  const n = parseInt(value.slice(1), 16)
+  return `rgb(${n >> 16}, ${(n >> 8) & 255}, ${n & 255})`
+}
 
 describe('ThemePopover', () => {
   it('lists a radio per theme with the current one checked', () => {
@@ -29,6 +36,29 @@ describe('ThemePopover', () => {
       'true',
     )
     expect(screen.getByRole('radio', {name: /Light/})).toHaveAttribute('aria-checked', 'false')
+  })
+
+  it("draws each card's preview from that theme's own tokens", () => {
+    render(<ThemePopover theme="light" onChoose={vi.fn()} />)
+    for (const [id, {tokens}] of Object.entries(THEMES)) {
+      const preview = screen.getByTestId(`theme-preview-${id}`)
+      expect(preview.style.background).toBe(hex(tokens.surface))
+      expect(screen.getByTestId(`theme-preview-bar-${id}`).style.background).toBe(
+        hex(tokens.appBar),
+      )
+      expect(screen.getByTestId(`theme-preview-card-${id}`).style.background).toBe(
+        hex(tokens.paper),
+      )
+      expect(screen.getByTestId(`theme-preview-accent-${id}`).style.background).toBe(
+        hex(tokens.accent),
+      )
+    }
+  })
+
+  it('marks the current theme with a label as well as a check', () => {
+    render(<ThemePopover theme="mocha" onChoose={vi.fn()} />)
+    expect(screen.getAllByText('Current theme')).toHaveLength(1)
+    expect(screen.getByRole('radio', {name: /Catppuccin Mocha/})).toHaveTextContent('Current theme')
   })
 
   it('calls onChoose with the id of the picked theme', async () => {
