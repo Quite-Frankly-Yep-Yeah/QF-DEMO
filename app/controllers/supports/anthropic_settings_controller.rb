@@ -32,6 +32,26 @@ module Supports
       render json: { errors: error.record.errors.full_messages }, status: :unprocessable_content
     end
 
+    # GET /accounts/:account_id/ai_settings
+    def page
+      return render_unauthorized_action unless school_manager? || site_manager?
+
+      @context = @account
+      @page_title = t("AI settings")
+      add_crumb t("AI settings")
+      add_body_class("full-width")
+      @show_left_side = false
+      js_env({ AI_SETTINGS: {
+               account_id: @account.id.to_s,
+               is_site_admin_account: @account.site_admin?,
+               can_manage_site: site_manager?,
+               models: model_options,
+               default_model: AnthropicSetting::DEFAULT_MODEL
+             } })
+      js_bundle :ai_settings
+      render html: '<div id="ai_settings_app"></div>'.html_safe, layout: true
+    end
+
     # GET /api/v1/accounts/:account_id/ai_settings
     def show
       return render_unauthorized_action unless school_manager? || site_manager?
@@ -82,6 +102,15 @@ module Supports
     end
 
     private
+
+    def model_options
+      labels = {
+        "claude-opus-5-5" => t("Claude Opus 5.5 (most capable)"),
+        "claude-sonnet-5-5" => t("Claude Sonnet 5.5 (faster, lower cost)"),
+        "claude-haiku-4-5" => t("Claude Haiku 4.5 (fastest, lowest cost)")
+      }
+      AnthropicSetting::MODELS.map { |model| { value: model, label: labels.fetch(model) } }
+    end
 
     def find_account
       @account = Account.find_by(id: params[:account_id])

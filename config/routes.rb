@@ -709,6 +709,7 @@ CanvasRails::Application.routes.draw do
     get :hub, controller: :admin_hub, action: :show, as: :admin_hub
     get :admin_tools
     get :rate_limiting, controller: :rate_limiting_settings, action: :index, as: :rate_limiting
+    get :ai_settings, controller: "supports/anthropic_settings", action: :page, as: :ai_settings
     resources :rate_limiting_settings, only: %i[index show create update destroy]
     get :eportfolio_moderation
     get :accessibility

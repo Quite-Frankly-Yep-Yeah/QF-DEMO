@@ -41,6 +41,7 @@ const TAB_SECTION: Record<string, SectionKey> = {
   permissions: 'access',
   authentication: 'access',
   rate_limiting: 'access',
+  ai_settings: 'access',
   developer_keys: 'access',
   apps: 'access',
   plugins: 'access',

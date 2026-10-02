@@ -57,6 +57,23 @@ describe('buildSections', () => {
     expect(labels).toContain('Quotas')
   })
 
+  it('puts the AI settings tab in Access and security', () => {
+    const withAi: HubConfig = {
+      ...config,
+      tabs: [
+        ...config.tabs,
+        {css_class: 'ai_settings', path: '/accounts/1/ai_settings', label: 'AI settings'},
+      ],
+    }
+    const access = buildSections(withAi).find(s => s.key === 'access')
+    expect(access?.items.map(i => i.label)).toContain('AI settings')
+    expect(
+      buildSections(withAi)
+        .find(s => s.key === 'more')
+        ?.items.map(i => i.label),
+    ).not.toContain('AI settings')
+  })
+
   it('leaves out a section with nothing in it', () => {
     const sections = buildSections({...config, self_paced: []})
     expect(sections.map(s => s.key)).not.toContain('self_paced')

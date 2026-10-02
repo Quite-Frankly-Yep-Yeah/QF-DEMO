@@ -245,4 +245,35 @@ describe Supports::AnthropicSettingsController do
       expect(response).to be_successful
     end
   end
+
+  describe "GET page" do
+    it "renders for a school admin with what the screen needs" do
+      user_session(school_admin)
+      get :page, params: { account_id: root_account.id }
+      expect(response).to be_successful
+      env = assigns[:js_env][:AI_SETTINGS]
+      expect(env).to include(account_id: root_account.id.to_s,
+                             is_site_admin_account: false,
+                             can_manage_site: false,
+                             default_model: "claude-opus-5-5")
+      expect(env[:models].pluck(:value)).to eq Supports::AnthropicSetting::MODELS
+      expect(assigns[:js_bundles].flatten.map(&:to_s)).to include("ai_settings")
+    end
+
+    it "tells a site admin they can manage the site's key" do
+      user_session(site_admin)
+      get :page, params: { account_id: Account.site_admin.id }
+      expect(response).to be_successful
+      expect(assigns[:js_env][:AI_SETTINGS]).to include(is_site_admin_account: true, can_manage_site: true)
+    end
+
+    it "refuses a teacher, and a sub-account is not found" do
+      user_session(teacher)
+      get :page, params: { account_id: root_account.id }
+      expect(response).to have_http_status(:unauthorized).or have_http_status(:forbidden)
+      user_session(account_admin_user(account: sub_account))
+      get :page, params: { account_id: sub_account.id }
+      expect(response).to have_http_status(:not_found)
+    end
+  end
 end
