@@ -450,6 +450,18 @@ describe Supports::ImportsController do
       end
     end
 
+    it "doesn't show the match to someone else who manages the confirmed student" do
+      import = read(batch_scan)
+      user_session(admin)
+      put :student, params: { id: import.id, student_id: student.id }
+      expect(json["match"]).to include("state" => "confident")
+      user_session(other_admin)
+      get :show, params: { id: import.id }
+      expect(response).to be_successful
+      expect(json["match"]).to be_nil
+      expect(json["student"]).to include("name" => "Pat Student")
+    end
+
     it "leaves the single-scan upload unchanged" do
       user_session(admin)
       post :create, params: { student_id: student.id, file: upload }

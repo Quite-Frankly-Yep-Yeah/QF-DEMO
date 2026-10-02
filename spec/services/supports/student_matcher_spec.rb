@@ -137,6 +137,31 @@ describe Supports::StudentMatcher do
     end
   end
 
+  describe "when many students share a word with the document's name" do
+    it "finds the exact name even when it sorts after many others" do
+      stub_const("Supports::StudentMatcher::POOL", 3)
+      5.times { |i| make_student("Lee Ann#{i}") }
+      exact = make_student("Zed Lee")
+      result = match(name: "Lee Zed")
+      expect(result.state).to eq "confident"
+      expect(result.candidates.pluck("id")).to eq [exact.id.to_s]
+    end
+
+    it "is ambiguous, never confident, when more students than it can look at contain every word" do
+      stub_const("Supports::StudentMatcher::POOL", 3)
+      make_student("Zed Lee")
+      4.times { |i| make_student("Aaron#{i} Zed Lee") } # sort first and fill the pool
+      result = match(name: "Lee Zed")
+      expect(result.state).to eq "ambiguous"
+    end
+
+    it "is not fooled by a different order of the same words" do
+      ann = make_student("Ann Lee")
+      make_student("Lee Ann Jr")
+      expect(match(name: "Lee, Ann").candidates.first).to include("id" => ann.id.to_s, "reason" => "name")
+    end
+  end
+
   describe "who it may offer" do
     it "never offers a student at another school, or staff" do
       other_root = Account.create!(name: "Elsewhere")

@@ -33,15 +33,15 @@ module Supports
     # GET /api/v1/supports/imports?account_id=
     def index
       # a scan with no student yet is its uploader's alone, even from other admins
-      imports = Import.where(account: @account).where("student_id IS NOT NULL OR user_id = ?", @current_user.id)
+      imports = Import.where(account: @account).without_data.where("student_id IS NOT NULL OR user_id = ?", @current_user.id)
                       .order(created_at: :desc).limit(LISTED)
-      render json: { imports: imports.map(&:as_api_json) }
+      render json: { imports: imports.map { |i| i.as_api_json(viewer: @current_user) } }
     end
 
     # GET /api/v1/supports/imports/:id (for a scan, also how its progress is polled)
     def show
       scanner.authorize_import!(@import) if @import.scan?
-      render json: @import.as_api_json
+      render json: @import.as_api_json(viewer: @current_user)
     end
 
     # POST /api/v1/supports/imports   account_id, file (CSV upload)
@@ -56,7 +56,7 @@ module Supports
       return render json: { errors: [t("The file isn't UTF-8 text.")] }, status: :unprocessable_content unless text.valid_encoding?
 
       import = importer.preview!(text, filename: file.try(:original_filename))
-      render json: import.as_api_json
+      render json: import.as_api_json(viewer: @current_user)
     end
 
     # PUT /api/v1/supports/imports/:id/student   student_id: the student a person confirmed for a scan
@@ -68,7 +68,7 @@ module Supports
       # a missing student is answered like one the user may not manage, so ids can't be probed
       raise Importer::Forbidden unless student
 
-      render json: scanner.confirm_student!(@import, student).as_api_json
+      render json: scanner.confirm_student!(@import, student).as_api_json(viewer: @current_user)
     rescue ArgumentError => e
       render json: { errors: [e.message] }, status: :conflict
     end
@@ -77,7 +77,7 @@ module Supports
     def review
       return render_scan_not_found unless @import.scan?
 
-      render json: scanner.update_review!(@import, **review_params).as_api_json
+      render json: scanner.update_review!(@import, **review_params).as_api_json(viewer: @current_user)
     rescue IepScan::Invalid => e
       render json: { errors: [e.message] }, status: :unprocessable_content
     rescue ArgumentError => e
@@ -88,7 +88,7 @@ module Supports
     def retry
       return render_scan_not_found unless @import.scan?
 
-      render json: scanner.retry!(@import).as_api_json
+      render json: scanner.retry!(@import).as_api_json(viewer: @current_user)
     rescue ArgumentError => e
       render json: { errors: [e.message] }, status: :conflict
     end
@@ -111,7 +111,7 @@ module Supports
     def apply
       return render json: { errors: [t("This import was already applied or discarded.")] }, status: :conflict unless @import.workflow_state == "previewed"
 
-      render json: (@import.scan? ? scanner : importer).apply!(@import).as_api_json
+      render json: (@import.scan? ? scanner : importer).apply!(@import).as_api_json(viewer: @current_user)
     rescue IepScan::StudentNotConfirmed => e
       render json: { errors: [e.message] }, status: :conflict
     rescue ArgumentError => e
@@ -124,7 +124,7 @@ module Supports
     def undo
       return render json: { errors: [t("Only an applied import can be undone.")] }, status: :conflict unless @import.workflow_state == "applied"
 
-      render json: (@import.scan? ? scanner : importer).undo!(@import).as_api_json
+      render json: (@import.scan? ? scanner : importer).undo!(@import).as_api_json(viewer: @current_user)
     rescue IepScan::StudentNotConfirmed => e
       render json: { errors: [e.message] }, status: :conflict
     end
@@ -136,7 +136,7 @@ module Supports
       scanner.authorize_import!(@import) if @import.scan?
       # a preview that was never applied belongs to no plan, so nothing keeps the file
       @import.update!(workflow_state: "discarded", data: nil, extraction: nil)
-      render json: @import.as_api_json
+      render json: @import.as_api_json(viewer: @current_user)
     end
 
     private
@@ -164,7 +164,7 @@ module Supports
       file = params[:file]
       return render json: { errors: [t("Choose a PDF, PNG or JPEG file.")] }, status: :unprocessable_content unless file.respond_to?(:read)
 
-      render json: scanner.create!(student:, file:).as_api_json
+      render json: scanner.create!(student:, file:).as_api_json(viewer: @current_user)
     rescue IepScan::Invalid => e
       render json: { errors: [e.message] }, status: :unprocessable_content
     end

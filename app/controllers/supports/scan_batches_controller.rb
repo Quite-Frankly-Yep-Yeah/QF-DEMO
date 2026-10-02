@@ -22,8 +22,32 @@
 # because its scans have no student to scope access by until one is confirmed.
 module Supports
   class ScanBatchesController < BaseController
+    LISTED = 20
+    FINISHED = %i[applied skipped].freeze
+
     before_action :find_account
-    before_action :require_scan_flag, only: :show
+    before_action :require_scan_flag, only: %i[index show create]
+
+    # GET /api/v1/supports/scan_batches?account_id=
+    #
+    # The user's own recent batches, newest first, so one can be reopened:
+    # {batches: [{id, created_at, counts, open}]}. A batch is open while any
+    # of its files is neither applied, skipped nor undone.
+    def index
+      cutoff = Setting.get(IepScan::RETENTION_SETTING, IepScan::DEFAULT_RETENTION_DAYS.to_s).to_i.days.ago
+      batches = ScanBatch.where(account_id: @account.id, user_id: @current_user.id)
+                         .where(created_at: cutoff..).order(created_at: :desc, id: :desc).limit(LISTED).to_a
+      imports = shown(Import.without_data.where(batch_id: batches.map(&:id)).order(:id)).group_by(&:batch_id)
+      render json: {
+        batches: batches.map do |batch|
+          files = imports[batch.id] || []
+          { id: batch.id,
+            created_at: batch.created_at.iso8601,
+            counts: counts(files),
+            open: files.any? { |file| !FINISHED.include?(state_of(file)) } }
+        end
+      }
+    end
 
     # GET /api/v1/supports/scan_batches/:id   how a batch's progress is polled
     def show
@@ -45,26 +69,33 @@ module Supports
 
     # The scans as their uploader sees them, and how many are in each state.
     def batch_json(batch)
-      files = batch.imports.order(:id).map(&:as_api_json)
-      { id: batch.id, files:, counts: counts(files) }
+      imports = shown(batch.imports.without_data.order(:id))
+      { id: batch.id, files: imports.map { |import| import.as_api_json(viewer: @current_user) }, counts: counts(imports) }
+    end
+
+    # Left out, not hidden: a file whose student the viewer can't manage any more.
+    def shown(imports)
+      scanner = IepScan.new(@account, @current_user)
+      imports.select { |import| scanner.visible?(import) }
     end
 
     # reading: queued or running. ready: read, no student. confirmed: read, student attached.
     # skipped: discarded (or undone, which leaves nothing in effect).
-    def counts(files)
+    def counts(imports)
       counts = { reading: 0, ready: 0, failed: 0, confirmed: 0, applied: 0, skipped: 0 }
-      files.each { |file| counts[state_of(file)] += 1 }
+      imports.each { |import| counts[state_of(import)] += 1 }
       counts
     end
 
-    def state_of(file)
-      case file[:workflow_state]
+    def state_of(import)
+      case import.workflow_state
       when "applied" then :applied
       when "discarded", "undone" then :skipped
       else
-        case file[:extraction_state]
+        state = import.extraction_stale? ? "failed" : import.extraction_state
+        case state
         when "failed" then :failed
-        when "ready" then file[:student] ? :confirmed : :ready
+        when "ready" then import.student_id ? :confirmed : :ready
         else :reading
         end
       end
@@ -81,7 +112,7 @@ module Supports
     end
 
     def require_scan_flag
-      return if Supports.feature_enabled?(@account, :iep_scan)
+      return if Supports.feature_enabled?(@account, :iep_scan) && StudentSearch.new(@current_user, @account.root_account).allowed?
 
       render json: { message: t("IEP scanning isn't turned on.") }, status: :forbidden
     end

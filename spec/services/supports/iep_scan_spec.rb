@@ -596,7 +596,7 @@ describe Supports::IepScan do
         expect(import.student).to be_nil
         expect(import.extraction["match"]).to include("state" => "confident", "student_id_on_doc" => "S-77")
         expect(import.extraction["match"]["candidates"].pluck("id")).to eq [student.id.to_s]
-        expect(import.as_api_json[:match]).to eq import.extraction["match"]
+        expect(import.as_api_json(viewer: admin)[:match]).to eq import.extraction["match"]
       end
 
       it "stores an ambiguous match when two students share the name" do
@@ -647,6 +647,89 @@ describe Supports::IepScan do
         import.update!(batch: Supports::ScanBatch.create!(root_account:, account: root_account, user: admin))
         read(import, name: "Pat Student")
         expect(import.extraction).not_to have_key("match")
+      end
+    end
+
+    describe "changing the student after the mismatch was acknowledged" do
+      it "asks again, so the acknowledgement for one student never carries to another" do
+        x = user_factory(active_all: true, name: "Xavier Xylo").tap { |u| u.pseudonyms.create!(unique_id: "x@example.com", account: root_account) }
+        y = user_factory(active_all: true, name: "Yolanda Yarrow").tap { |u| u.pseudonyms.create!(unique_id: "y@example.com", account: root_account) }
+        import = batch_of(1).imports.first
+        stub_extractor(result)
+        described_class.extract(import.id)
+        scan.confirm_student!(import, x)
+        scan.update_review!(import.reload, acknowledged_mismatch: true)
+        expect(described_class.blockers(import.reload)).to eq []
+
+        scan.confirm_student!(import, y)
+        import.reload
+        expect(import.extraction["acknowledged_mismatch"]).to be false
+        expect(described_class.blockers(import)).to include(/different student/)
+        expect { scan.apply!(import) }.to raise_error(ArgumentError, /different student/)
+        expect(import.reload.workflow_state).to eq "previewed"
+      end
+
+      it "keeps the acknowledgement when the same student is confirmed again" do
+        x = user_factory(active_all: true, name: "Xavier Xylo").tap { |u| u.pseudonyms.create!(unique_id: "x@example.com", account: root_account) }
+        import = batch_of(1).imports.first
+        stub_extractor(result)
+        described_class.extract(import.id)
+        scan.confirm_student!(import, x)
+        scan.update_review!(import.reload, acknowledged_mismatch: true)
+        scan.confirm_student!(import.reload, x)
+        expect(import.reload.extraction["acknowledged_mismatch"]).to be true
+      end
+    end
+
+    describe "confirming and applying at the same time" do
+      let(:ready) do
+        batch_of(1).imports.first.tap do |i|
+          stub_extractor(result)
+          described_class.extract(i.id)
+        end.reload
+      end
+
+      it "refuses a confirmation made from a copy loaded before the scan was applied" do
+        scan.confirm_student!(ready, student)
+        stale = Supports::Import.find(ready.id)
+        scan.apply!(Supports::Import.find(ready.id))
+        expect { scan.confirm_student!(stale, bystander) }.to raise_error(ArgumentError, /applied/)
+        expect(ready.reload.student).to eq student
+      end
+
+      it "applies against the student confirmed last, not the one a stale copy remembers" do
+        x = user_factory(active_all: true, name: "Xavier Xylo").tap { |u| u.pseudonyms.create!(unique_id: "x@example.com", account: root_account) }
+        scan.confirm_student!(ready, student)
+        stale = Supports::Import.find(ready.id)
+        scan.confirm_student!(Supports::Import.find(ready.id), x) # a mismatch, so it needs acknowledging again
+        expect { scan.apply!(stale) }.to raise_error(ArgumentError, /different student/)
+        expect(ready.reload).to have_attributes(workflow_state: "previewed", student: x)
+      end
+
+      it "re-checks authorization against the current student" do
+        scan.confirm_student!(ready, student)
+        stale = Supports::Import.find(ready.id)
+        outsider = user_factory(active_all: true) # no login at this school
+        Supports::Import.where(id: ready.id).update_all(student_id: outsider.id)
+        expect { scan.apply!(stale) }.to raise_error(Supports::Importer::Forbidden)
+        expect(ready.reload.workflow_state).to eq "previewed"
+      end
+    end
+
+    describe "when the uploader can no longer manage plans" do
+      it "refuses an unmatched scan" do
+        manager = case_manager_for(student)
+        import = batch_of(1, by: described_class.new(root_account, manager)).imports.first
+        Supports::Caseload.where(staff_id: manager.id).delete_all
+        expect { described_class.new(root_account, manager).authorize_import!(import) }.to raise_error(Supports::Importer::Forbidden)
+      end
+    end
+
+    describe "#create_batch! memory" do
+      it "enqueues each scan by id without holding the documents" do
+        batch = batch_of(3)
+        expect(Delayed::Job.where("handler LIKE ?", "%extract%").count).to eq 3
+        expect(Supports::Import.without_data.where(batch_id: batch.id).first.has_attribute?(:data)).to be false
       end
     end
 

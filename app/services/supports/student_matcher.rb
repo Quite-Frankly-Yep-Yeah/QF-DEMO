@@ -48,9 +48,10 @@ module Supports
       return Match.new("none", [], id) if @search.scope.none? || (id.nil? && name.nil?)
 
       by_id = id ? matching_id(id) : []
-      pool = name ? matching_name(name) : []
-      by_name = pool.select { |user| NameMatch.exact?(name, user.name) }
-      partial = pool.select { |user| NameMatch.partial?(name, user.name) }
+      all_words, any_word = name ? matching_name(name) : [[], []]
+      by_name = all_words.select { |user| NameMatch.exact?(name, user.name) }
+      partial = (all_words + any_word).uniq(&:id).select { |user| NameMatch.partial?(name, user.name) && !by_name.include?(user) }
+      saturated = all_words.size >= POOL
 
       ranked = (by_id.map { |u| [u, "id"] } + by_name.map { |u| [u, "name"] } + partial.map { |u| [u, "partial"] })
                .uniq { |user, _| user.id }
@@ -58,7 +59,10 @@ module Supports
       candidates = ranked.first(MAX_CANDIDATES).map do |user, reason|
         { "id" => user.id.to_s, "name" => user.name, "sis_user_id" => sis_ids[user.id], "reason" => reason }
       end
-      Match.new(state_for(id:, name:, by_id:, by_name:, any: ranked.any?), candidates, id)
+      state = state_for(id:, name:, by_id:, by_name:, any: ranked.any?)
+      # more students share these words than were looked at, so a unique exact name can't be told
+      state = "ambiguous" if saturated && state == "confident"
+      Match.new(state, candidates, id)
     end
 
     private
@@ -83,13 +87,17 @@ module Supports
       @search.scope.where(id: logins.select(:user_id)).order(:sortable_name, :id).to_a
     end
 
-    # Students with any of the name's words in their name; the caller keeps the exact and partial ones.
+    # [students whose name has every one of the document's words, students with any of them].
+    # Only the first can hold an exact name, so it is what decides confidence; if it fills the
+    # pool some students were not looked at.
     def matching_name(name)
       words = NameMatch.words(name).select { |word| word.length >= 2 }.uniq
-      return [] if words.empty?
+      return [[], []] if words.empty?
 
-      any_word = words.map { |word| User.where(User.wildcard("users.name", word, type: :full)) }.reduce(:or)
-      @search.scope.merge(any_word).order(:sortable_name, :id).limit(POOL).to_a
+      likes = words.map { |word| User.where(User.wildcard("users.name", word, type: :full)) }
+      every = @search.scope.merge(likes.reduce(:and)).order(:sortable_name, :id).limit(POOL).to_a
+      any = @search.scope.merge(likes.reduce(:or)).order(:sortable_name, :id).limit(POOL).to_a
+      [every, any]
     end
   end
 end

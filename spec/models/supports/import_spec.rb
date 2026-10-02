@@ -87,7 +87,7 @@ describe Supports::Import do
     it "shows its batch and the stored match in the API" do
       import = scan_import(student: nil, batch:, extraction: { "student_name" => "Pat Student", "items" => [], "match" => match })
       import.save!
-      json = import.as_api_json
+      json = import.as_api_json(viewer: admin)
       expect(json).to include(batch_id: batch.id, match:, student: nil)
     end
 
@@ -102,7 +102,16 @@ describe Supports::Import do
       raw = described_class.connection.select_value("SELECT preview::text FROM #{described_class.quoted_table_name} WHERE id = #{import.id}")
       expect(raw).not_to include("Pat Student")
       expect(raw).not_to include("S-1")
-      expect(import.reload.as_api_json[:match]).to eq match
+      expect(import.reload.as_api_json(viewer: admin)[:match]).to eq match
+    end
+
+    it "shows the match only to the user who uploaded the scan" do
+      import = scan_import(batch:, extraction: { "items" => [], "match" => match })
+      import.save!
+      other = account_admin_user(account:)
+      expect(import.as_api_json(viewer: admin)[:match]).to eq match
+      expect(import.as_api_json(viewer: other)[:match]).to be_nil
+      expect(import.as_api_json[:match]).to be_nil
     end
 
     it "doesn't add scan fields to a CSV import" do

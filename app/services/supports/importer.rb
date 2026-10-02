@@ -67,15 +67,16 @@ module Supports
     def apply!(import)
       raise ArgumentError, "import is #{import.workflow_state}" unless import.workflow_state == "previewed"
 
-      blockers = import.scan? ? IepScan.blockers(import) : []
-      raise ArgumentError, blockers.first if blockers.any?
-
       changes = []
       touched_plans = Set.new
       Plan.transaction do
         # two people pressing Apply: the second waits, then finds it applied
         import.lock!
         raise ArgumentError, "import is #{import.workflow_state}" unless import.workflow_state == "previewed"
+
+        # judged on what was read after the lock, so a student changed just before is seen
+        blockers = import.scan? ? IepScan.blockers(import) : []
+        raise ArgumentError, blockers.first if blockers.any?
 
         rows = resolve(import.scan? ? IepScan.rows_for_apply(import) : parse(import.data))
         # a scan was reviewed row by row, so it applies whole or not at all

@@ -132,11 +132,13 @@ describe Supports::ScanBatchesController do
 
     it "is the uploader's alone: anyone else, an admin included, gets 404" do
       batch = batch_for(admin)
-      other_admin = account_admin_user(account: root_account)
-      [other_admin, student, user_factory(active_all: true)].each do |other|
+      user_session(account_admin_user(account: root_account))
+      get :show, params: { id: batch.id }
+      expect(response).to have_http_status(:not_found)
+      [student, user_factory(active_all: true)].each do |other| # people who manage nothing are refused outright
         user_session(other)
         get :show, params: { id: batch.id }
-        expect(response).to have_http_status(:not_found)
+        expect(response).to have_http_status(:forbidden)
       end
     end
 
@@ -165,6 +167,113 @@ describe Supports::ScanBatchesController do
       get :show, params: { id: batch.id }
       expect(json["counts"]).to eq("reading" => 1, "ready" => 1, "failed" => 2, "confirmed" => 1, "applied" => 1, "skipped" => 1)
       expect(json["files"].size).to eq 7
+    end
+  end
+
+  describe "GET 'index'" do
+    let(:counts) { { "reading" => 0, "ready" => 0, "failed" => 0, "confirmed" => 0, "applied" => 0, "skipped" => 0 } }
+
+    it "lists only the user's own batches, newest first, with counts and whether any file is still open" do
+      older = batch_for(admin, 2)
+      older.update_columns(created_at: 2.days.ago)
+      older.imports.each { |i| i.update!(workflow_state: "discarded", data: nil, extraction: nil) }
+      newer = batch_for(admin, 1)
+      batch_for(account_admin_user(account: root_account), 1) # someone else's
+      user_session(admin)
+
+      get :index
+      expect(response).to be_successful
+      expect(json.keys).to eq ["batches"]
+      expect(json["batches"].pluck("id")).to eq [newer.id, older.id]
+      expect(json["batches"].first).to eq("id" => newer.id,
+                                          "created_at" => newer.reload.created_at.iso8601,
+                                          "counts" => counts.merge("reading" => 1),
+                                          "open" => true)
+      expect(json["batches"].last).to include("open" => false, "counts" => counts.merge("skipped" => 2))
+    end
+
+    it "calls a batch closed once every file is applied, skipped or undone, and open while one failed" do
+      done = batch_for(admin, 3)
+      a, b, c = done.imports.order(:id).to_a
+      a.update!(workflow_state: "applied")
+      b.update!(workflow_state: "undone")
+      c.update!(workflow_state: "discarded")
+      failing = batch_for(admin, 1)
+      failing.imports.first.update!(extraction_state: "failed", extraction_error: "no")
+      user_session(admin)
+      get :index
+      by_id = json["batches"].index_by { |batch| batch["id"] }
+      expect(by_id[done.id]["open"]).to be false
+      expect(by_id[failing.id]["open"]).to be true
+    end
+
+    it "leaves out batches older than the retention window" do
+      old = batch_for(admin, 1)
+      old.update_columns(created_at: 8.days.ago)
+      user_session(admin)
+      get :index
+      expect(json["batches"]).to eq []
+    end
+
+    it "is refused while the flag is off, and to someone who can't manage any student" do
+      user_session(admin)
+      root_account.disable_feature!(:iep_scan)
+      get :index
+      expect(response).to have_http_status(:forbidden)
+      root_account.enable_feature!(:iep_scan)
+      user_session(user_factory(active_all: true))
+      get :index
+      expect(response).to have_http_status(:forbidden)
+    end
+  end
+
+  describe "when the viewer has lost access" do
+    let(:manager) do
+      role = custom_account_role("Case manager", account: root_account)
+      root_account.role_overrides.create!(permission: "supports_manage_plans", role:, enabled: true)
+      user_factory(active_all: true).tap do |u|
+        root_account.account_users.create!(user: u, role:)
+        Supports::Caseload.create!(root_account:, staff_id: u.id, student_id: student.id)
+      end
+    end
+
+    it "refuses the uploader of an unmatched batch once they can't manage anyone" do
+      batch = batch_for(manager, 1)
+      Supports::Caseload.where(staff_id: manager.id).delete_all
+      user_session(manager)
+      get :show, params: { id: batch.id }
+      expect(response).to have_http_status(:forbidden)
+    end
+
+    it "omits, rather than hides, a file whose confirmed student they can no longer manage" do
+      other = user_factory(active_all: true, name: "Olga Other").tap { |u| u.pseudonyms.create!(unique_id: "olga@example.com", account: root_account) }
+      Supports::Caseload.create!(root_account:, staff_id: manager.id, student_id: other.id)
+      batch = batch_for(manager, 2)
+      first, second = batch.imports.order(:id).to_a
+      first.update!(student:)
+      second.update!(student: other)
+      Supports::Caseload.where(staff_id: manager.id, student_id: other.id).delete_all
+      user_session(manager)
+      get :show, params: { id: batch.id }
+      expect(json["files"].pluck("id")).to eq [first.id]
+      expect(json["counts"].values.sum).to eq 1
+      expect(response.body).not_to include("Olga")
+    end
+  end
+
+  describe "what a poll loads" do
+    it "serializes the files without loading their documents" do
+      batch = batch_for(admin, 2)
+      seen = []
+      allow_any_instance_of(Supports::Import).to receive(:as_api_json).and_wrap_original do |original, *args, **kwargs|
+        seen << original.receiver.has_attribute?(:data)
+        original.call(*args, **kwargs)
+      end
+      user_session(admin)
+      get :show, params: { id: batch.id }
+      expect(seen).to eq [false, false]
+      expect(json["files"].pluck("filename")).to match_array %w[f0.pdf f1.pdf]
+      expect(response.body).not_to include("SECRET-DOC")
     end
   end
 end

@@ -74,7 +74,12 @@ module Supports
       extraction.present? ? IepScan.preview_json(self) : {}
     end
 
-    def as_api_json
+    # Every column but the document: for lists and polls, which don't need the file.
+    scope :without_data, -> { select(column_names - ["data"]) }
+
+    # +viewer+ is who is looking. The match (names and IDs of other students) is
+    # only for the user who uploaded the scan, not everyone who may manage the student.
+    def as_api_json(viewer: nil)
       shown = scan? ? scan_preview : preview
       json = {
         id:,
@@ -96,7 +101,7 @@ module Supports
         student: student && { id: student.id.to_s, name: student.name },
         plan_id:,
         batch_id:,
-        match: extraction.is_a?(Hash) ? extraction["match"] : nil,
+        match: (viewer && viewer.id == user_id && extraction.is_a?(Hash)) ? extraction["match"] : nil,
         scan: shown["scan"] || {}
       )
     end

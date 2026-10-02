@@ -72,13 +72,14 @@ module Supports
       files.each { |file| check_file!(file) }
       raise Invalid, I18n.t("The files add up to more than 200 MB. Upload fewer at a time.") if files.sum(&:size) > MAX_BATCH_BYTES
 
-      imports = nil
+      # one file at a time, keeping only ids: a batch can hold 200 MB of documents
+      ids = []
       batch = ScanBatch.transaction do
         ScanBatch.create!(root_account: @root_account, account: @account, user: @user).tap do |created|
-          imports = files.map { |file| queue_scan(file, batch: created) }
+          files.each { |file| ids << queue_scan(file, batch: created).id }
         end
       end
-      imports.each { |import| enqueue(import) }
+      ids.each { |id| enqueue_id(id) }
       batch
     end
 
@@ -88,10 +89,19 @@ module Supports
       raise ArgumentError, "not a scan" unless import.scan?
 
       authorize_import!(import)
-      raise ArgumentError, "import is #{import.workflow_state}" unless import.workflow_state == "previewed"
-
       authorize_student!(student)
-      import.update!(student:)
+      # the lock reloads the scan: a copy loaded before someone applied it is refused, and
+      # what was acknowledged for the old student does not carry over to the new one
+      import.with_lock do
+        authorize_import!(import)
+        raise ArgumentError, "import is #{import.workflow_state}" unless import.workflow_state == "previewed"
+
+        attrs = { student: }
+        if import.student_id != student.id && import.extraction.is_a?(Hash)
+          attrs[:extraction] = import.extraction.merge("acknowledged_mismatch" => false)
+        end
+        import.update!(attrs)
+      end
       import
     end
 
@@ -99,7 +109,8 @@ module Supports
     # students; once a student is attached the usual rule applies.
     def authorize_import!(import)
       if import.student.nil?
-        allowed = import.user_id == @user.id && Supports.feature_enabled?(@account, :iep_scan)
+        allowed = import.user_id == @user.id && Supports.feature_enabled?(@account, :iep_scan) &&
+                  StudentSearch.new(@user, @root_account).allowed?
         raise Importer::Forbidden unless allowed
       else
         authorize!(import.student)
@@ -149,9 +160,22 @@ module Supports
       import
     end
 
+    # The lock reloads the scan, so who may apply it is judged against the student
+    # it has now, and a confirmation that landed first is seen.
     def apply!(import)
-      authorize_confirmed!(import)
-      importer_for(import).apply!(import)
+      import.with_lock do
+        authorize_confirmed!(import)
+        importer_for(import).apply!(import)
+      end
+    end
+
+    # Whether +import+ is one the user may see in a list: nothing is shown about a
+    # student they can't manage any more.
+    def visible?(import)
+      authorize_import!(import)
+      true
+    rescue Importer::Forbidden
+      false
     end
 
     def undo!(import)
@@ -413,7 +437,11 @@ module Supports
     end
 
     def enqueue(import)
-      self.class.delay(singleton: "supports_iep_scan:#{import.global_id}").extract(import.id)
+      enqueue_id(import.id)
+    end
+
+    def enqueue_id(id)
+      self.class.delay(singleton: "supports_iep_scan:#{Shard.global_id_for(id)}").extract(id)
     end
   end
 end

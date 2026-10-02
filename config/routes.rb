@@ -2947,6 +2947,7 @@ CanvasRails::Application.routes.draw do
     end
 
     scope(controller: "supports/scan_batches") do
+      get "supports/scan_batches", action: :index
       post "supports/scan_batches", action: :create, as: "supports_scan_batches"
       get "supports/scan_batches/:id", action: :show, as: "supports_scan_batch"
     end
