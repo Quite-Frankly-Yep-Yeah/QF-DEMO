@@ -15,7 +15,7 @@
   # You should have received a copy of the GNU Affero General Public License along
   # with this program. If not, see <http://www.gnu.org/licenses/>.
 -%><!DOCTYPE html>
-<html dir="<%= I18n.rtl? ? 'rtl' : 'ltr' %>" lang=<%= raw I18n.locale.to_json %>>
+<html dir="<%= I18n.rtl? ? 'rtl' : 'ltr' %>" lang=<%= raw I18n.locale.to_json %> data-theme="<%= current_theme_id %>">
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -34,6 +34,7 @@
   <%= preload_link_tag(font_path("/fonts/lato/extended/Lato-Italic.woff2"), { as: "font", type: "font/woff2", crossorigin: 'anonymous' }) %>
   <%= stylesheet_link_tag(css_url_for('fonts')) %>
   <%= stylesheet_link_tag(active_brand_config_url('css'), media: "all") %>
+  <style id="qf-themes"><%= raw QfThemes.css %></style>
   <% if @js_env %>
   <script type="text/javascript">
     window.CANVAS_COOKIE_CONSENT_STATE = <%= @js_env[:PRE_COOKIE_CONSENT] %>;

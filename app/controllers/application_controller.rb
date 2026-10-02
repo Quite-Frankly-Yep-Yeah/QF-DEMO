@@ -273,6 +273,7 @@ class ApplicationController < ActionController::Base
           captcha_site_key:,
           current_user_id: @current_user&.id,
           current_user_global_id: @current_user&.global_id,
+          THEME: view_context.current_theme_id,
           current_user_uuid: @current_user&.uuid,
           current_user_usage_metrics_id: @current_user&.usage_metrics_id,
           current_user_roles: @current_user&.roles(@domain_root_account),

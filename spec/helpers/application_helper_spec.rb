@@ -1137,6 +1137,30 @@ describe ApplicationHelper do
     end
   end
 
+  describe "#current_theme_id" do
+    it "returns the saved theme" do
+      @current_user = user_factory
+      @current_user.preferences[:theme] = "mocha"
+      expect(current_theme_id).to eq "mocha"
+    end
+
+    it "returns light when none is saved" do
+      @current_user = user_factory
+      expect(current_theme_id).to eq "light"
+    end
+
+    it "returns light when the saved theme no longer exists" do
+      @current_user = user_factory
+      @current_user.preferences[:theme] = "gone"
+      expect(current_theme_id).to eq "light"
+    end
+
+    it "returns light for an anonymous visitor" do
+      @current_user = nil
+      expect(current_theme_id).to eq "light"
+    end
+  end
+
   describe "#prefetch_xhr" do
     it "inserts a script tag that will have a `fetch` call with the right id, url, and options" do
       expect(prefetch_xhr("some_url", id: "some_id", options: { headers: { "x-some-header": "some-value" } })).to eq(

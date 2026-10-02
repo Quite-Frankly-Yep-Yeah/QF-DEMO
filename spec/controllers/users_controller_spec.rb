@@ -4288,6 +4288,41 @@ describe UsersController do
       expect(@user.preferences[:collapse_course_nav]).to be_falsey
       expect(@user.preferences[:elementary_dashboard_disabled]).to be_truthy
     end
+
+    describe "theme" do
+      it "saves a known theme and returns it" do
+        put "settings", params: { id: @user.id, theme: "mocha" }, format: "json"
+        expect(response).to be_successful
+        expect(response.parsed_body["theme"]).to eq "mocha"
+        expect(@user.reload.preferences[:theme]).to eq "mocha"
+      end
+
+      it "rejects an unknown theme and saves nothing" do
+        @user.preferences[:theme] = "mocha"
+        @user.save!
+        put "settings", params: { id: @user.id, theme: "latte" }, format: "json"
+        expect(response).to have_http_status :bad_request
+        expect(@user.reload.preferences[:theme]).to eq "mocha"
+      end
+
+      it "rejects a theme that is not a string" do
+        put "settings", params: { id: @user.id, theme: ["mocha"] }, format: "json"
+        expect(response).to have_http_status :bad_request
+        expect(@user.reload.preferences[:theme]).to be_nil
+      end
+
+      it "keeps a saved theme when the param is absent" do
+        @user.preferences[:theme] = "mocha"
+        @user.save!
+        put "settings", params: { id: @user.id, collapse_course_nav: true }, format: "json"
+        expect(@user.reload.preferences[:theme]).to eq "mocha"
+      end
+
+      it "returns light for a user with no theme" do
+        get "settings", params: { id: @user.id }, format: "json"
+        expect(response.parsed_body["theme"]).to eq "light"
+      end
+    end
   end
 
   describe "#show_k5_dashboard" do

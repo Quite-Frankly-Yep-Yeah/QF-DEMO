@@ -1824,6 +1824,10 @@ class UsersController < ApplicationController
   # @argument widget_dashboard_dark_mode [Boolean]
   #   If true, enables the dark color theme for the widget dashboard.
   #
+  # @argument theme [String]
+  #   The user's theme id, one of the ids in ui/shared/material/themes.json.
+  #   Unknown ids are rejected with a 400.
+  #
   # @example_request
   #
   #   curl 'https://<canvas>/api/v1/users/<user_id>/settings \
@@ -1838,6 +1842,7 @@ class UsersController < ApplicationController
       return unless authorized_action(user, @current_user, :read)
 
       results = BOOLEAN_PREFS.index_with { |pref| !!user.preferences[pref] }
+      results[:theme] = saved_theme(user)
 
       if params.key?(:include) && params[:include].include?("mobile_settings")
         results[:pendo_mobile_teacher_api_key] = DynamicSettings.find(tree: :private)[:pendo_mobile_api_key_teacher, failsafe: nil]
@@ -1854,10 +1859,16 @@ class UsersController < ApplicationController
         user.preferences[pref] = value_to_boolean(params[pref]) unless params[pref].nil?
       end
 
+      if params.key?(:theme)
+        return render(json: { message: "invalid theme" }, status: :bad_request) unless QfThemes.valid?(params[:theme])
+
+        user.preferences[:theme] = params[:theme]
+      end
+
       respond_to do |format|
         format.json do
           if user.save
-            render json: BOOLEAN_PREFS.index_with { |pref| !!user.preferences[pref] }
+            render json: BOOLEAN_PREFS.index_with { |pref| !!user.preferences[pref] }.merge(theme: saved_theme(user))
           else
             render(json: user.errors, status: :bad_request)
           end
@@ -3108,6 +3119,10 @@ class UsersController < ApplicationController
   end
 
   private
+
+  def saved_theme(user)
+    QfThemes.valid?(user.preferences[:theme]) ? user.preferences[:theme] : QfThemes::DEFAULT
+  end
 
   # Overlays are hidden by default; a user must explicitly turn them back on.
   def hide_dashcard_color_overlays?

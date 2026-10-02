@@ -286,6 +286,11 @@ module ApplicationHelper
     I18n.rtl? ? { "left" => "right", "right" => "left" }[left_or_right] : left_or_right
   end
 
+  def current_theme_id
+    theme = @current_user&.preferences&.dig(:theme)
+    QfThemes.valid?(theme) ? theme : QfThemes::DEFAULT
+  end
+
   def css_variant(opts = {})
     use_high_contrast =
       @current_user&.prefers_high_contrast? || opts[:force_high_contrast]
