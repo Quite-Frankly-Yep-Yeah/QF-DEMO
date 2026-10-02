@@ -171,6 +171,18 @@ export type ScanItem = {
   included: boolean
 }
 
+// Supports::StudentMatcher::Match#to_h, as the import's `match`
+export type ScanMatch = {
+  state: 'confident' | 'ambiguous' | 'none'
+  candidates: {
+    id: string
+    name: string
+    sis_user_id: string | null
+    reason: 'id' | 'name' | 'partial'
+  }[]
+  student_id_on_doc: string | null
+}
+
 export type ScanRecord = {
   id: number
   filename: string | null
@@ -183,6 +195,8 @@ export type ScanRecord = {
   extraction_error: string | null
   student: Person | null
   plan_id: number | null
+  batch_id: number | null
+  match: ScanMatch | null
   summary: Partial<Record<ImportAction, number>> & {blocking?: number}
   rows: ScanItem[]
   scan: {
@@ -205,4 +219,18 @@ export type ReviewEdits = {
   plan?: {plan_type?: string; start_date?: string; end_date?: string}
   keep_unmapped?: number[]
   acknowledged_mismatch?: boolean
+}
+
+// GET/POST /api/v1/supports/scan_batches
+export type ScanBatch = {
+  id: number
+  files: ScanRecord[]
+  counts: {
+    reading: number
+    ready: number
+    failed: number
+    confirmed: number
+    applied: number
+    skipped: number
+  }
 }

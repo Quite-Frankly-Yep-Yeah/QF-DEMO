@@ -22,57 +22,13 @@ import userEvent from '@testing-library/user-event'
 import {http, HttpResponse} from 'msw'
 import {setupServer} from 'msw/node'
 import ScanPanel from '../ScanPanel'
-import type {ScanRecord} from '../types'
+import type {ScanBatch, ScanRecord} from '../types'
+import {batchOf, match, scanRecord, unmatched} from './fixtures'
 
-const record = (
-  overrides: Partial<ScanRecord> = {},
-  scan: Partial<ScanRecord['scan']> = {},
-): ScanRecord => ({
-  id: 5,
-  filename: 'iep.pdf',
-  format: 'iep_scan',
-  workflow_state: 'previewed',
-  created_at: null,
-  applied_at: null,
-  undone_at: null,
-  extraction_state: 'ready',
-  extraction_error: null,
-  student: {id: '7', name: 'Pat Student'},
-  plan_id: null,
-  summary: {add: 1, blocking: 0},
-  rows: [
-    {
-      index: 0,
-      line: 1,
-      accommodation: 'Extended time on tests and quizzes',
-      kind: 'extended_time',
-      params: {multiplier: 1.5},
-      action: 'add',
-      message: null,
-      source_quote: 'time and a half on tests',
-      page: 3,
-      confidence: 'high',
-      errors: [],
-      included: true,
-    },
-  ],
-  scan: {
-    student_name_on_doc: 'Pat Student',
-    dob_on_doc: null,
-    name_found: true,
-    mismatch: false,
-    acknowledged_mismatch: false,
-    unmapped: [{text: 'Speech therapy 30 min weekly', page: 5}],
-    keep_unmapped: [],
-    plan_type: 'iep',
-    start_date: '2026-09-01',
-    end_date: '2027-06-15',
-    ...scan,
-  },
-  ...overrides,
-})
+const record = scanRecord
 
 let current: ScanRecord
+let currentBatch: ScanBatch
 const requests: {method: string; path: string; body?: unknown}[] = []
 const note = async (request: Request) => {
   const text = await request.text()
@@ -92,6 +48,16 @@ const server = setupServer(
   http.post('/api/v1/supports/imports', async ({request}) => {
     await note(request)
     return HttpResponse.json(current)
+  }),
+  http.post('/api/v1/supports/scan_batches', () => HttpResponse.json(currentBatch)),
+  http.get('/api/v1/supports/scan_batches/1', () => HttpResponse.json(currentBatch)),
+  http.put('/api/v1/supports/imports/6/student', async ({request}) => {
+    await note(request)
+    return HttpResponse.json({
+      ...unmatched(6, 'b.pdf', null),
+      student: {id: '7', name: 'Pat Student'},
+      rows: record().rows,
+    })
   }),
   http.get('/api/v1/supports/imports/5', () => HttpResponse.json(current)),
   http.put('/api/v1/supports/imports/5/review', async ({request}) => {
@@ -272,5 +238,40 @@ describe('ScanPanel', () => {
     expect(
       screen.getByRole('heading', {name: 'Extended time on tests and quizzes'}),
     ).toBeInTheDocument()
+  })
+
+  describe('several IEPs', () => {
+    const pat = {id: '7', name: 'Pat Student', sis_user_id: '2009', reason: 'id' as const}
+
+    it('offers One IEP and Several IEPs, and One IEP is the form it always was', () => {
+      renderPanel()
+      expect(screen.getByRole('button', {name: 'One IEP', pressed: true})).toBeInTheDocument()
+      expect(screen.getByRole('button', {name: 'Several IEPs', pressed: false})).toBeInTheDocument()
+      expect(screen.getByLabelText('IEP file')).toBeInTheDocument()
+      expect(screen.getByRole('button', {name: 'Scan'})).toBeInTheDocument()
+    })
+
+    it('uploads several, matches them, confirms, and opens one to review', async () => {
+      currentBatch = batchOf([
+        unmatched(6, 'b.pdf', match('confident', [pat], '2009')),
+        unmatched(7, 'c.pdf', match('none')),
+      ])
+      renderPanel()
+      await userEvent.click(screen.getByRole('button', {name: 'Several IEPs'}))
+      expect(screen.queryByLabelText('IEP file')).not.toBeInTheDocument()
+      const file = new File(['%PDF-1.4'], 'b.pdf', {type: 'application/pdf'})
+      await userEvent.upload(screen.getByLabelText('IEP files'), file)
+      await userEvent.click(screen.getByRole('button', {name: 'Upload'}))
+      expect(await screen.findByRole('table')).toBeInTheDocument()
+      expect(screen.getAllByRole('status')).toHaveLength(1)
+
+      await userEvent.click(screen.getByRole('button', {name: 'Confirm b.pdf'}))
+      await waitFor(() => expect(requests.some(r => r.path.endsWith('/6/student'))).toBe(true))
+      await userEvent.click(await screen.findByRole('button', {name: 'Review 1 scan'}))
+      expect(
+        await screen.findByRole('heading', {name: 'Extended time on tests and quizzes'}),
+      ).toBeInTheDocument()
+      expect(screen.getAllByRole('status')).toHaveLength(1)
+    })
   })
 })

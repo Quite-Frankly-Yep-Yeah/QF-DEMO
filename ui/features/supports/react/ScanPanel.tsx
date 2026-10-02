@@ -19,10 +19,12 @@
 import React, {useEffect, useState} from 'react'
 import {useScope as createI18nScope} from '@canvas/i18n'
 import doFetchApi from '@canvas/do-fetch-api-effect'
+import BatchUpload from './BatchUpload'
+import MatchTable, {replaceFile} from './MatchTable'
 import PersonPicker from './PersonPicker'
 import ScanReview from './ScanReview'
-import type {Person, ReviewEdits, ScanRecord} from './types'
-import {button, Card, field, flatButton, Label, messageFrom, muted, Status} from './ui'
+import type {Person, ReviewEdits, ScanBatch, ScanRecord} from './types'
+import {BRAND, button, Card, field, flatButton, Label, messageFrom, muted, Status} from './ui'
 
 const I18n = createI18nScope('supports')
 
@@ -46,6 +48,8 @@ export default function ScanPanel({
   const [record, setRecord] = useState<ScanRecord | null>(null)
   const [message, setMessage] = useState('')
   const [busy, setBusy] = useState(false)
+  const [mode, setMode] = useState<'one' | 'several'>('one')
+  const [batch, setBatch] = useState<ScanBatch | null>(null)
   const student = fixedStudent ?? picked
 
   const path = (suffix = '') =>
@@ -79,6 +83,8 @@ export default function ScanPanel({
       const {json} = await request()
       if (json) {
         setRecord(json)
+        // a scan opened from a batch keeps the batch's table up to date
+        setBatch(current => (current ? replaceFile(current, json) : current))
         if (done) setMessage(done(json))
       }
       return true
@@ -117,7 +123,55 @@ export default function ScanPanel({
 
   return (
     <Card id="supports-scan" title={I18n.t('Scan an IEP')}>
-      {!record && (
+      {!record && !batch && !fixedStudent && (
+        <div
+          role="group"
+          aria-label={I18n.t('How many IEPs')}
+          style={{display: 'flex', gap: 8, margin: '0 0 12px'}}
+        >
+          {(['one', 'several'] as const).map(value => (
+            <button
+              key={value}
+              type="button"
+              aria-pressed={mode === value}
+              style={
+                mode === value
+                  ? {...button, boxShadow: 'none'}
+                  : {...flatButton, border: `1px solid ${BRAND}`}
+              }
+              onClick={() => setMode(value)}
+            >
+              {value === 'one' ? I18n.t('One IEP') : I18n.t('Several IEPs')}
+            </button>
+          ))}
+        </div>
+      )}
+
+      {!record && !batch && mode === 'several' && !fixedStudent && (
+        <BatchUpload accountId={accountId} onStarted={setBatch} />
+      )}
+
+      {!record && batch && (
+        <>
+          <MatchTable
+            batch={batch}
+            accountId={accountId}
+            pollMs={pollMs}
+            onChange={setBatch}
+            onReview={() => {
+              const first = batch.files.find(f => f.student && f.workflow_state !== 'discarded')
+              if (first) setRecord(first)
+            }}
+          />
+          <p style={{margin: '12px 0 0'}}>
+            <button type="button" style={flatButton} onClick={() => setBatch(null)}>
+              {I18n.t('Start a new batch')}
+            </button>
+          </p>
+        </>
+      )}
+
+      {!record && !batch && (mode === 'one' || fixedStudent) && (
         <>
           <p style={{...muted, margin: '0 0 12px'}}>
             {I18n.t(
@@ -217,7 +271,10 @@ export default function ScanPanel({
         />
       )}
 
-      <Status message={message || progress} />
+      {/* the match table keeps its own status region */}
+      {(record || !batch) && !(mode === 'several' && !record && !batch) && (
+        <Status message={message || progress} />
+      )}
     </Card>
   )
 }
