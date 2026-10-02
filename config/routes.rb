@@ -2948,6 +2948,16 @@ CanvasRails::Application.routes.draw do
       get "supports/caseload", action: :index, as: "supports_caseload"
     end
 
+    # the Anthropic key and model for IEP scanning
+    scope(controller: "supports/anthropic_settings") do
+      get "accounts/:account_id/ai_settings", action: :show, as: "account_ai_settings_api"
+      put "accounts/:account_id/ai_settings", action: :update
+      delete "accounts/:account_id/ai_settings", action: :destroy
+      put "accounts/:account_id/ai_settings/site", action: :update_site, as: "account_ai_settings_site_api"
+      delete "accounts/:account_id/ai_settings/site", action: :destroy_site
+      post "accounts/:account_id/ai_settings/test", action: :test, as: "account_ai_settings_test_api"
+    end
+
     scope(controller: "self_paced/interventions") do
       get "self_paced/courses/:course_id/students/:student_id/interventions", action: :index, as: "self_paced_student_interventions"
       post "self_paced/courses/:course_id/students/:student_id/interventions", action: :create
