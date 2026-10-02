@@ -1,0 +1,213 @@
+{
+  "material": [
+    {
+      "id": "red",
+      "name": "Red",
+      "hex": "#F44336"
+    },
+    {
+      "id": "pink",
+      "name": "Pink",
+      "hex": "#E91E63"
+    },
+    {
+      "id": "purple",
+      "name": "Purple",
+      "hex": "#9C27B0"
+    },
+    {
+      "id": "deep-purple",
+      "name": "Deep purple",
+      "hex": "#673AB7"
+    },
+    {
+      "id": "indigo",
+      "name": "Indigo",
+      "hex": "#3F51B5"
+    },
+    {
+      "id": "blue",
+      "name": "Blue",
+      "hex": "#2196F3"
+    },
+    {
+      "id": "light-blue",
+      "name": "Light blue",
+      "hex": "#03A9F4"
+    },
+    {
+      "id": "cyan",
+      "name": "Cyan",
+      "hex": "#00BCD4"
+    },
+    {
+      "id": "teal",
+      "name": "Teal",
+      "hex": "#009688"
+    },
+    {
+      "id": "green",
+      "name": "Green",
+      "hex": "#4CAF50"
+    },
+    {
+      "id": "light-green",
+      "name": "Light green",
+      "hex": "#8BC34A"
+    },
+    {
+      "id": "lime",
+      "name": "Lime",
+      "hex": "#CDDC39"
+    },
+    {
+      "id": "yellow",
+      "name": "Yellow",
+      "hex": "#FFEB3B"
+    },
+    {
+      "id": "amber",
+      "name": "Amber",
+      "hex": "#FFC107"
+    },
+    {
+      "id": "orange",
+      "name": "Orange",
+      "hex": "#FF9800"
+    },
+    {
+      "id": "deep-orange",
+      "name": "Deep orange",
+      "hex": "#FF5722"
+    },
+    {
+      "id": "brown",
+      "name": "Brown",
+      "hex": "#795548"
+    },
+    {
+      "id": "grey",
+      "name": "Grey",
+      "hex": "#9E9E9E"
+    },
+    {
+      "id": "blue-grey",
+      "name": "Blue grey",
+      "hex": "#607D8B"
+    }
+  ],
+  "catppuccin": [
+    {
+      "id": "rosewater",
+      "name": "Rosewater",
+      "latte": "#DC8A78",
+      "frappe": "#F2D5CF",
+      "macchiato": "#F4DBD6",
+      "mocha": "#F5E0DC"
+    },
+    {
+      "id": "flamingo",
+      "name": "Flamingo",
+      "latte": "#DD7878",
+      "frappe": "#EEBEBE",
+      "macchiato": "#F0C6C6",
+      "mocha": "#F2CDCD"
+    },
+    {
+      "id": "pink",
+      "name": "Pink",
+      "latte": "#EA76CB",
+      "frappe": "#F4B8E4",
+      "macchiato": "#F5BDE6",
+      "mocha": "#F5C2E7"
+    },
+    {
+      "id": "mauve",
+      "name": "Mauve",
+      "latte": "#8839EF",
+      "frappe": "#CA9EE6",
+      "macchiato": "#C6A0F6",
+      "mocha": "#CBA6F7"
+    },
+    {
+      "id": "red",
+      "name": "Red",
+      "latte": "#D20F39",
+      "frappe": "#E78284",
+      "macchiato": "#ED8796",
+      "mocha": "#F38BA8"
+    },
+    {
+      "id": "maroon",
+      "name": "Maroon",
+      "latte": "#E64553",
+      "frappe": "#EA999C",
+      "macchiato": "#EE99A0",
+      "mocha": "#EBA0AC"
+    },
+    {
+      "id": "peach",
+      "name": "Peach",
+      "latte": "#FE640B",
+      "frappe": "#EF9F76",
+      "macchiato": "#F5A97F",
+      "mocha": "#FAB387"
+    },
+    {
+      "id": "yellow",
+      "name": "Yellow",
+      "latte": "#DF8E1D",
+      "frappe": "#E5C890",
+      "macchiato": "#EED49F",
+      "mocha": "#F9E2AF"
+    },
+    {
+      "id": "green",
+      "name": "Green",
+      "latte": "#40A02B",
+      "frappe": "#A6D189",
+      "macchiato": "#A6DA95",
+      "mocha": "#A6E3A1"
+    },
+    {
+      "id": "teal",
+      "name": "Teal",
+      "latte": "#179299",
+      "frappe": "#81C8BE",
+      "macchiato": "#8BD5CA",
+      "mocha": "#94E2D5"
+    },
+    {
+      "id": "sky",
+      "name": "Sky",
+      "latte": "#04A5E5",
+      "frappe": "#99D1DB",
+      "macchiato": "#91D7E3",
+      "mocha": "#89DCEB"
+    },
+    {
+      "id": "sapphire",
+      "name": "Sapphire",
+      "latte": "#209FB5",
+      "frappe": "#85C1DC",
+      "macchiato": "#7DC4E4",
+      "mocha": "#74C7EC"
+    },
+    {
+      "id": "blue",
+      "name": "Blue",
+      "latte": "#1E66F5",
+      "frappe": "#8CAAEE",
+      "macchiato": "#8AADF4",
+      "mocha": "#89B4FA"
+    },
+    {
+      "id": "lavender",
+      "name": "Lavender",
+      "latte": "#7287FD",
+      "frappe": "#BABBF1",
+      "macchiato": "#B7BDF8",
+      "mocha": "#B4BEFE"
+    }
+  ]
+}

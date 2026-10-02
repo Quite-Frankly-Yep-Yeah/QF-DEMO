@@ -21,6 +21,7 @@ import {DEFAULT_THEME, isThemeId, THEMES, tokenVar} from '../themes'
 
 const TOKEN_KEYS = [
   'accent',
+  'accentText',
   'appBar',
   'divider',
   'ink',

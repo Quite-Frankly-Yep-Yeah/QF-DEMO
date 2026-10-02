@@ -10,7 +10,8 @@
       "ink": "#212121",
       "inkSecondary": "#666666",
       "divider": "#E0E0E0",
-      "accent": "#2B7ABC"
+      "accent": "#2B7ABC",
+      "accentText": "#2B7ABC"
     }
   },
   "latte": {
@@ -24,7 +25,8 @@
       "ink": "#4C4F69",
       "inkSecondary": "#5C5F77",
       "divider": "#CCD0DA",
-      "accent": "#8839EF"
+      "accent": "#8839EF",
+      "accentText": "#8839EF"
     }
   },
   "frappe": {
@@ -38,7 +40,8 @@
       "ink": "#C6D0F5",
       "inkSecondary": "#A5ADCE",
       "divider": "#51576D",
-      "accent": "#CA9EE6"
+      "accent": "#CA9EE6",
+      "accentText": "#CA9EE6"
     }
   },
   "macchiato": {
@@ -52,7 +55,8 @@
       "ink": "#CAD3F5",
       "inkSecondary": "#A5ADCB",
       "divider": "#494D64",
-      "accent": "#C6A0F6"
+      "accent": "#C6A0F6",
+      "accentText": "#C6A0F6"
     }
   },
   "mocha": {
@@ -66,7 +70,8 @@
       "ink": "#CDD6F4",
       "inkSecondary": "#A6ADC8",
       "divider": "#45475A",
-      "accent": "#CBA6F7"
+      "accent": "#CBA6F7",
+      "accentText": "#CBA6F7"
     }
   }
 }

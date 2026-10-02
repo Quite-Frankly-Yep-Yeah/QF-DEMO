@@ -30,6 +30,8 @@ export type ThemeTokens = {
   inkSecondary: string
   divider: string
   accent: string
+  // the accent as link and highlight text; equals accent until a custom accent is too faint to read
+  accentText: string
 }
 
 export const THEMES = themes as Record<ThemeId, {name: string; tokens: ThemeTokens}>
