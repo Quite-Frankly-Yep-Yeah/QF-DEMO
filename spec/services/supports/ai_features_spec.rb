@@ -25,8 +25,11 @@ describe Supports::AiFeatures do
     expect(described_class.valid?("nope")).to be false
   end
 
-  it "leaves room for the best model for each feature, empty until one is chosen" do
-    expect(described_class.all).to eq [{ key: :iep_scan, label: "IEP scan", recommended: nil, why: nil }]
+  it "recommends Opus 5.5 for the IEP scan, with the reason" do
+    expect(described_class.all).to eq [{ key: :iep_scan,
+                                         label: "IEP scan",
+                                         recommended: "claude-opus-5-5",
+                                         why: "Most accurate on long or messy documents, and cost matters little here." }]
   end
 
   it "only recommends a model that is offered" do

@@ -24,7 +24,11 @@ module Supports
     # +recommended+ is the model that suits the feature best (an id from AiModels,
     # or nil while none has been chosen) and +why+ says why, in a short phrase.
     FEATURES = {
-      iep_scan: { label: -> { I18n.t("IEP scan") }, recommended: nil, why: -> {} }
+      iep_scan: {
+        label: -> { I18n.t("IEP scan") },
+        recommended: "claude-opus-5-5",
+        why: -> { I18n.t("Most accurate on long or messy documents, and cost matters little here.") }
+      }
     }.freeze
 
     def self.keys

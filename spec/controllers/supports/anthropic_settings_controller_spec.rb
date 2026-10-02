@@ -341,7 +341,7 @@ describe Supports::AnthropicSettingsController do
       put_school(api_key: key, models: { iep_scan: "claude-sonnet-5-5" })
       expect(response).to be_successful
       expect(json["account"]["feature_models"]).to eq("iep_scan" => "claude-sonnet-5-5")
-      expect(json["features"]).to eq [{ "key" => "iep_scan", "label" => "IEP scan", "recommended" => nil, "why" => nil }]
+      expect(json["features"]).to eq [{ "key" => "iep_scan", "label" => "IEP scan", "recommended" => "claude-opus-5-5", "why" => "Most accurate on long or messy documents, and cost matters little here." }]
       expect(json["in_effect"]["features"].first).to include("feature" => "iep_scan",
                                                              "model" => "claude-sonnet-5-5",
                                                              "model_source" => "account_feature")
@@ -395,7 +395,7 @@ describe Supports::AnthropicSettingsController do
 
     it "tells the page which features there are" do
       get :page, params: { account_id: root_account.id }
-      expect(assigns[:js_env][:AI_SETTINGS][:features]).to eq [{ key: :iep_scan, label: "IEP scan", recommended: nil, why: nil }]
+      expect(assigns[:js_env][:AI_SETTINGS][:features]).to eq [{ key: :iep_scan, label: "IEP scan", recommended: "claude-opus-5-5", why: "Most accurate on long or messy documents, and cost matters little here." }]
     end
   end
 
