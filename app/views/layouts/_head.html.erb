@@ -15,7 +15,7 @@
   # You should have received a copy of the GNU Affero General Public License along
   # with this program. If not, see <http://www.gnu.org/licenses/>.
 -%><!DOCTYPE html>
-<html dir="<%= I18n.rtl? ? 'rtl' : 'ltr' %>" lang=<%= raw I18n.locale.to_json %> data-theme="<%= current_theme_id %>">
+<html dir="<%= I18n.rtl? ? 'rtl' : 'ltr' %>" lang=<%= raw I18n.locale.to_json %> data-theme="<%= current_theme_id %>"<% if current_accent_id %> data-accent="<%= current_accent_id %>" style="<%= QfThemes.accent_style(current_theme_id, current_accent_id) %>"<% end %>>
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">

@@ -4289,6 +4289,45 @@ describe UsersController do
       expect(@user.preferences[:elementary_dashboard_disabled]).to be_truthy
     end
 
+    describe "accent" do
+      it "saves a known accent and returns it" do
+        put "settings", params: { id: @user.id, accent: "catppuccin:mauve" }, format: "json"
+        expect(response).to be_successful
+        expect(response.parsed_body["accent"]).to eq "catppuccin:mauve"
+        expect(@user.reload.preferences[:accent]).to eq "catppuccin:mauve"
+      end
+
+      it "rejects an unknown or non-string accent and saves nothing" do
+        @user.preferences[:accent] = "material:teal"
+        @user.save!
+        put "settings", params: { id: @user.id, accent: "material:mauve" }, format: "json"
+        expect(response).to have_http_status :bad_request
+        put "settings", params: { id: @user.id, accent: ["material:teal"] }, format: "json"
+        expect(response).to have_http_status :bad_request
+        expect(@user.reload.preferences[:accent]).to eq "material:teal"
+      end
+
+      it "clears the accent with an empty value" do
+        @user.preferences[:accent] = "material:teal"
+        @user.save!
+        put "settings", params: { id: @user.id, accent: "" }, format: "json"
+        expect(response).to be_successful
+        expect(response.parsed_body["accent"]).to be_nil
+        expect(@user.reload.preferences[:accent]).to be_nil
+      end
+
+      it "keeps a saved accent when the param is absent, and reports none by default" do
+        @user.preferences[:accent] = "material:teal"
+        @user.save!
+        put "settings", params: { id: @user.id, theme: "mocha" }, format: "json"
+        expect(@user.reload.preferences[:accent]).to eq "material:teal"
+        @user.preferences.delete(:accent)
+        @user.save!
+        get "settings", params: { id: @user.id }, format: "json"
+        expect(response.parsed_body["accent"]).to be_nil
+      end
+    end
+
     describe "theme" do
       it "saves a known theme and returns it" do
         put "settings", params: { id: @user.id, theme: "mocha" }, format: "json"

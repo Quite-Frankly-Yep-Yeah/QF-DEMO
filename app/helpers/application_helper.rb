@@ -291,6 +291,11 @@ module ApplicationHelper
     QfThemes.valid?(theme) ? theme : QfThemes::DEFAULT
   end
 
+  def current_accent_id
+    accent = @current_user&.preferences&.dig(:accent)
+    accent if QfThemes.accent_valid?(accent)
+  end
+
   def css_variant(opts = {})
     use_high_contrast =
       @current_user&.prefers_high_contrast? || opts[:force_high_contrast]

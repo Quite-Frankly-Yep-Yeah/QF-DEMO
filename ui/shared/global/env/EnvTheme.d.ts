@@ -19,4 +19,6 @@
 export interface EnvTheme {
   // id of the signed-in user's theme (see ui/shared/material/themes.json)
   THEME?: string
+  // id of the signed-in user's custom accent color, like "material:teal"; unset when none
+  ACCENT?: string | null
 }

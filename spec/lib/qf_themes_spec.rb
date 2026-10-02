@@ -57,13 +57,49 @@ describe QfThemes do
     it "defines every Catppuccin flavor" do
       css = QfThemes.css
       expect(css).to include('data-theme="latte"]{', 'data-theme="frappe"]{', 'data-theme="macchiato"]{')
-      expect(css).to include("--qf-surface:#EFF1F5") # Latte's base
+      expect(css).to include("--qf-paper:#EFF1F5") # Latte's base
     end
 
     it "colors the global nav labels with the theme's onAppBar" do
       css = QfThemes.css
       expect(css).to include("--ic-brand-global-nav-menu-item__text-color:#CDD6F4")
       expect(css).to include("--ic-brand-global-nav-menu-item__text-color--active:#CDD6F4")
+    end
+  end
+
+  describe "accents" do
+    it "validates accent ids" do
+      expect(QfThemes.accent_valid?("material:teal")).to be true
+      expect(QfThemes.accent_valid?("catppuccin:mauve")).to be true
+      expect(QfThemes.accent_valid?("material:mauve")).to be false
+      expect(QfThemes.accent_valid?("teal")).to be false
+      expect(QfThemes.accent_valid?(nil)).to be false
+      expect(QfThemes.accent_valid?(["material:teal"])).to be false
+    end
+
+    describe ".accent_style" do
+      it "is empty without an accent" do
+        expect(QfThemes.accent_style("mocha", nil)).to eq ""
+      end
+
+      it "resolves a Catppuccin accent to the flavor and fills the top bar" do
+        style = QfThemes.accent_style("mocha", "catppuccin:mauve")
+        expect(style).to include("--qf-accent:#CBA6F7;")
+        expect(style).to include("--qf-app-bar:#CBA6F7;")
+        expect(style).to include("--ic-brand-global-nav-bgd:#CBA6F7;")
+        expect(QfThemes.accent_style("latte", "catppuccin:mauve")).to include("--qf-accent:#8839EF;")
+        expect(QfThemes.accent_style("light", "catppuccin:mauve")).to include("--qf-accent:#8839EF;")
+      end
+
+      it "picks white or black text for the top bar by contrast" do
+        expect(QfThemes.accent_style("light", "material:indigo")).to include("--qf-on-app-bar:#FFFFFF;")
+        expect(QfThemes.accent_style("light", "material:yellow")).to include("--qf-on-app-bar:#000000;")
+      end
+
+      it "falls back to the theme's ink for link text when the accent is too faint on the card" do
+        expect(QfThemes.accent_style("light", "material:yellow")).to include("--qf-accent-text:#212121;")
+        expect(QfThemes.accent_style("light", "material:blue")).to include("--qf-accent-text:#2196F3;")
+      end
     end
   end
 end

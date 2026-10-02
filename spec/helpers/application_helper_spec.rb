@@ -1137,6 +1137,23 @@ describe ApplicationHelper do
     end
   end
 
+  describe "#current_accent_id" do
+    it "returns the saved accent" do
+      @current_user = user_factory
+      @current_user.preferences[:accent] = "material:teal"
+      expect(current_accent_id).to eq "material:teal"
+    end
+
+    it "returns nil when none is saved, when it is unknown, and for visitors" do
+      @current_user = user_factory
+      expect(current_accent_id).to be_nil
+      @current_user.preferences[:accent] = "gone"
+      expect(current_accent_id).to be_nil
+      @current_user = nil
+      expect(current_accent_id).to be_nil
+    end
+  end
+
   describe "#current_theme_id" do
     it "returns the saved theme" do
       @current_user = user_factory

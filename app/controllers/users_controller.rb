@@ -1828,6 +1828,10 @@ class UsersController < ApplicationController
   #   The user's theme id, one of the ids in ui/shared/material/themes.json.
   #   Unknown ids are rejected with a 400.
   #
+  # @argument accent [String]
+  #   The user's accent color id, like "material:teal" or "catppuccin:mauve".
+  #   An empty string clears it; unknown ids are rejected with a 400.
+  #
   # @example_request
   #
   #   curl 'https://<canvas>/api/v1/users/<user_id>/settings \
@@ -1843,6 +1847,7 @@ class UsersController < ApplicationController
 
       results = BOOLEAN_PREFS.index_with { |pref| !!user.preferences[pref] }
       results[:theme] = saved_theme(user)
+      results[:accent] = saved_accent(user)
 
       if params.key?(:include) && params[:include].include?("mobile_settings")
         results[:pendo_mobile_teacher_api_key] = DynamicSettings.find(tree: :private)[:pendo_mobile_api_key_teacher, failsafe: nil]
@@ -1865,10 +1870,21 @@ class UsersController < ApplicationController
         user.preferences[:theme] = params[:theme]
       end
 
+      if params.key?(:accent)
+        accent = params[:accent]
+        if accent == ""
+          user.preferences.delete(:accent)
+        elsif QfThemes.accent_valid?(accent)
+          user.preferences[:accent] = accent
+        else
+          return render(json: { message: "invalid accent" }, status: :bad_request)
+        end
+      end
+
       respond_to do |format|
         format.json do
           if user.save
-            render json: BOOLEAN_PREFS.index_with { |pref| !!user.preferences[pref] }.merge(theme: saved_theme(user))
+            render json: BOOLEAN_PREFS.index_with { |pref| !!user.preferences[pref] }.merge(theme: saved_theme(user), accent: saved_accent(user))
           else
             render(json: user.errors, status: :bad_request)
           end
@@ -3119,6 +3135,10 @@ class UsersController < ApplicationController
   end
 
   private
+
+  def saved_accent(user)
+    user.preferences[:accent] if QfThemes.accent_valid?(user.preferences[:accent])
+  end
 
   def saved_theme(user)
     QfThemes.valid?(user.preferences[:theme]) ? user.preferences[:theme] : QfThemes::DEFAULT

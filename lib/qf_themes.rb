@@ -23,6 +23,10 @@
 module QfThemes
   DEFAULT = "light"
   SOURCE = Rails.root.join("ui/shared/material/themes.json")
+  ACCENT_SOURCE = Rails.root.join("ui/shared/material/accents.json")
+  FLAVORS = %w[latte frappe macchiato mocha].freeze
+  DARK_TEXT = "#000000"
+  WHITE = "#FFFFFF"
 
   class << self
     def ids
@@ -46,7 +50,66 @@ module QfThemes
       end.join("\n")
     end
 
+    # "material:teal" or "catppuccin:mauve"
+    def accent_valid?(id)
+      return false unless id.is_a?(String)
+
+      group, name = id.split(":", 2)
+      case group
+      when "material" then accents["material"].any? { |a| a["id"] == name }
+      when "catppuccin" then accents["catppuccin"].any? { |a| a["id"] == name }
+      else false
+      end
+    end
+
+    # The inline CSS a custom accent sets on <html>: the accent, the top bar
+    # filled with it, and the nav brand variables. Mirrors accentVariables in
+    # ui/shared/material/accents.ts; keep the two in sync.
+    def accent_style(theme_id, accent_id)
+      return "" unless accent_valid?(accent_id)
+
+      hex = accent_hex(theme_id, accent_id)
+      tokens = themes.fetch(valid?(theme_id) ? theme_id : DEFAULT)["tokens"]
+      on_bar = (contrast(WHITE, hex) >= contrast(DARK_TEXT, hex)) ? WHITE : DARK_TEXT
+      text = (contrast(hex, tokens["paper"]) >= 3) ? hex : tokens["ink"]
+      vars = {
+        "--qf-accent" => hex,
+        "--qf-accent-text" => text,
+        "--qf-app-bar" => hex,
+        "--qf-on-app-bar" => on_bar
+      }
+      nav_variables("appBar" => hex, "onAppBar" => on_bar).each do |declaration|
+        name, value = declaration.split(":", 2)
+        vars[name] = value
+      end
+      vars.map { |name, value| "#{name}:#{value};" }.join
+    end
+
     private
+
+    def accent_hex(theme_id, accent_id)
+      group, name = accent_id.split(":", 2)
+      return accents["material"].find { |a| a["id"] == name }["hex"] if group == "material"
+
+      flavor = FLAVORS.include?(theme_id) ? theme_id : "latte"
+      accents["catppuccin"].find { |a| a["id"] == name }[flavor]
+    end
+
+    def luminance(hex)
+      r, g, b = hex.delete("#").scan(/../).map { |c| c.hex / 255.0 }.map do |c|
+        (c <= 0.03928) ? c / 12.92 : ((c + 0.055) / 1.055)**2.4
+      end
+      (0.2126 * r) + (0.7152 * g) + (0.0722 * b)
+    end
+
+    def contrast(first, second)
+      light, dark = [luminance(first), luminance(second)].sort.reverse
+      (light + 0.05) / (dark + 0.05)
+    end
+
+    def accents
+      @accents ||= JSON.parse(ACCENT_SOURCE.read)
+    end
 
     def nav_variables(tokens)
       [

@@ -41,6 +41,21 @@ describe "layouts/application" do
       expect(doc.at_css("style#qf-themes").text).to include(':root[data-theme="mocha"]')
     end
 
+    it "sets data-accent and the accent variables inline when the user chose one" do
+      @current_user.preferences[:theme] = "mocha"
+      @current_user.preferences[:accent] = "catppuccin:mauve"
+      render "layouts/application"
+      html = doc.at_css("html")
+      expect(html["data-accent"]).to eq "catppuccin:mauve"
+      expect(html["style"]).to include("--qf-accent:#CBA6F7")
+    end
+
+    it "sets no accent attributes when none is chosen" do
+      render "layouts/application"
+      expect(doc.at_css("html")["data-accent"]).to be_nil
+      expect(doc.at_css("html")["style"]).to be_nil
+    end
+
     it "falls back to light when the user has no theme" do
       render "layouts/application"
       expect(doc.at_css("html")["data-theme"]).to eq "light"
