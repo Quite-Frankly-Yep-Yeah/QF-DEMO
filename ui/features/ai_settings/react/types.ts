@@ -24,3 +24,27 @@ export type AiSettingsConfig = {
   models: {value: string; label: string}[]
   default_model: string
 }
+
+// Supports::AnthropicSettingsController#setting_json: never includes the key
+export type SettingJson = {
+  has_key: boolean
+  key_last4: string | null
+  model: string
+  updated_at: string | null
+  updated_by: {id: string; name: string} | null
+  allow_account_keys?: boolean
+}
+
+// GET /api/v1/accounts/:account_id/ai_settings
+export type SettingsResponse = {
+  account: SettingJson | null
+  site: SettingJson | null
+  policy: {allow_account_keys: boolean}
+  in_effect: {
+    source: 'account' | 'site' | 'file' | null
+    model: string | null
+    account_key_ignored: boolean
+  }
+}
+
+export type SaveBody = {api_key?: string; model?: string; allow_account_keys?: boolean}
