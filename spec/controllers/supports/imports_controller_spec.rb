@@ -279,4 +279,183 @@ describe Supports::ImportsController do
       expect(response).to have_http_status(:not_found)
     end
   end
+
+  describe "scans in a batch" do
+    let(:other_admin) { account_admin_user(account: root_account) }
+
+    def batch_scan(by: admin)
+      Supports::IepScan.new(root_account, by).create_batch!(files: [upload]).imports.first
+    end
+
+    def read(import)
+      extractor = instance_double(Supports::IepExtractor, call: result)
+      allow(Supports::IepExtractor).to receive(:new).and_return(extractor)
+      Supports::IepScan.extract(import.id)
+      import.reload
+    end
+
+    describe "PUT 'student'" do
+      before { user_session(admin) }
+
+      it "confirms the student and returns the scan with a preview against them" do
+        import = read(batch_scan)
+        put :student, params: { id: import.id, student_id: student.id }
+        expect(response).to be_successful
+        expect(json["student"]).to eq("id" => student.id.to_s, "name" => "Pat Student")
+        expect(json["rows"].first).to include("student" => "Pat Student")
+        expect(import.reload.student).to eq student
+      end
+
+      it "refuses a student the user may not manage, and attaches nothing" do
+        role = custom_account_role("Case manager", account: root_account)
+        root_account.role_overrides.create!(permission: "supports_manage_plans", role:, enabled: true)
+        manager = user_factory(active_all: true)
+        root_account.account_users.create!(user: manager, role:)
+        Supports::Caseload.create!(root_account:, staff_id: manager.id, student_id: student.id)
+        import = batch_scan(by: manager)
+        user_session(manager)
+
+        put :student, params: { id: import.id, student_id: bystander.id }
+        expect(response).to have_http_status(:forbidden)
+        put :student, params: { id: import.id, student_id: manager.id }
+        expect(response).to have_http_status(:forbidden)
+        put :student, params: { id: import.id, student_id: 0 }
+        expect(response).to have_http_status(:forbidden)
+        put :student, params: { id: import.id, student_id: "1 OR 1=1" }
+        expect(response).to have_http_status(:forbidden)
+        expect(import.reload.student).to be_nil
+
+        put :student, params: { id: import.id, student_id: student.id }
+        expect(response).to be_successful
+      end
+
+      it "refuses a student at another school" do
+        other_root = Account.create!(name: "Elsewhere")
+        olive = user_factory(active_all: true, name: "Olive").tap { |u| u.pseudonyms.create!(unique_id: "o@example.com", account: other_root) }
+        import = batch_scan
+        put :student, params: { id: import.id, student_id: olive.id }
+        expect(response).to have_http_status(:forbidden)
+        expect(import.reload.student).to be_nil
+      end
+
+      it "answers a conflict after the scan was applied" do
+        import = read(batch_scan)
+        put :student, params: { id: import.id, student_id: student.id }
+        post :apply, params: { id: import.id }
+        expect(response).to be_successful
+        put :student, params: { id: import.id, student_id: bystander.id }
+        expect(response).to have_http_status(:conflict)
+        expect(import.reload.student).to eq student
+      end
+
+      it "is refused to anyone but the uploader of an unmatched scan, an admin included" do
+        import = batch_scan
+        user_session(other_admin)
+        put :student, params: { id: import.id, student_id: student.id }
+        expect(response).to have_http_status(:forbidden)
+        expect(import.reload.student).to be_nil
+      end
+
+      it "404s for a CSV import" do
+        csv = Supports::Import.create!(account: root_account, user: admin)
+        put :student, params: { id: csv.id, student_id: student.id }
+        expect(response).to have_http_status(:not_found)
+      end
+    end
+
+    describe "before the student is confirmed" do
+      before { user_session(admin) }
+
+      it "answers review and apply with a conflict that says to confirm the student" do
+        import = read(batch_scan)
+        put :review, params: { id: import.id, items: [{ index: 0, included: false }] }
+        expect(response).to have_http_status(:conflict)
+        expect(json["errors"]).to eq ["Confirm the student first."]
+        post :apply, params: { id: import.id }
+        expect(response).to have_http_status(:conflict)
+        expect(json["errors"]).to eq ["Confirm the student first."]
+        expect(import.reload.workflow_state).to eq "previewed"
+      end
+
+      it "works after confirming" do
+        import = read(batch_scan)
+        put :student, params: { id: import.id, student_id: student.id }
+        put :review, params: { id: import.id, items: [{ index: 0, included: false }] }
+        expect(response).to be_successful
+        post :apply, params: { id: import.id }
+        expect(response).to be_successful
+        expect(json["workflow_state"]).to eq "applied"
+      end
+
+      it "lets the uploader try again a scan that couldn't be read" do
+        import = batch_scan
+        import.update!(extraction_state: "failed", extraction_error: "no")
+        post :retry, params: { id: import.id }
+        expect(response).to be_successful
+        expect(json["extraction_state"]).to eq "queued"
+      end
+
+      it "lets the uploader download their unmatched file" do
+        import = batch_scan
+        get :document, params: { id: import.id }
+        expect(response).to be_successful
+        expect(response.body).to eq pdf
+      end
+
+      it "skips an unmatched scan, deleting its file and what was read" do
+        import = read(batch_scan)
+        delete :destroy, params: { id: import.id }
+        expect(response).to be_successful
+        import.reload
+        expect([import.workflow_state, import.data, import.extraction]).to eq ["discarded", nil, nil]
+      end
+    end
+
+    describe "an unmatched scan belongs to its uploader alone" do
+      let!(:import) { read(batch_scan) }
+
+      before { user_session(other_admin) }
+
+      it "can't be shown, reviewed, retried, downloaded, skipped or applied by another admin" do
+        get :show, params: { id: import.id }
+        expect(response).to have_http_status(:forbidden)
+        put :review, params: { id: import.id, items: [] }
+        expect(response).to have_http_status(:forbidden)
+        import.update!(extraction_state: "failed")
+        post :retry, params: { id: import.id }
+        expect(response).to have_http_status(:forbidden)
+        get :document, params: { id: import.id }
+        expect(response).to have_http_status(:forbidden)
+        delete :destroy, params: { id: import.id }
+        expect(response).to have_http_status(:forbidden)
+        post :apply, params: { id: import.id }
+        expect(response).to have_http_status(:forbidden)
+        expect(import.reload).to have_attributes(workflow_state: "previewed", student: nil)
+        expect(import.data).to be_present
+      end
+
+      it "isn't in another admin's list of imports, and is in the uploader's" do
+        get :index
+        expect(json["imports"].pluck("id")).not_to include(import.id)
+        expect(response.body).not_to include("Pat Student")
+        user_session(admin)
+        get :index
+        expect(json["imports"].pluck("id")).to include(import.id)
+      end
+
+      it "can't be reached by someone who can manage students but didn't upload it" do
+        user_session(bystander)
+        get :show, params: { id: import.id }
+        expect(response).to have_http_status(:forbidden)
+      end
+    end
+
+    it "leaves the single-scan upload unchanged" do
+      user_session(admin)
+      post :create, params: { student_id: student.id, file: upload }
+      expect(response).to be_successful
+      expect(json).to include("extraction_state" => "queued", "batch_id" => nil, "match" => nil)
+      expect(json["student"]).to eq("id" => student.id.to_s, "name" => "Pat Student")
+    end
+  end
 end

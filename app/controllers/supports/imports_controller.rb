@@ -27,18 +27,20 @@ module Supports
     LISTED = 20
 
     before_action :find_account
-    before_action :find_import, only: %i[show review retry document apply undo destroy]
+    before_action :find_import, only: %i[show review retry document apply undo destroy student]
     before_action :require_csv_rights
 
     # GET /api/v1/supports/imports?account_id=
     def index
-      imports = Import.where(account: @account).order(created_at: :desc).limit(LISTED)
+      # a scan with no student yet is its uploader's alone, even from other admins
+      imports = Import.where(account: @account).where("student_id IS NOT NULL OR user_id = ?", @current_user.id)
+                      .order(created_at: :desc).limit(LISTED)
       render json: { imports: imports.map(&:as_api_json) }
     end
 
     # GET /api/v1/supports/imports/:id (for a scan, also how its progress is polled)
     def show
-      scanner.authorize!(@import.student) if @import.scan?
+      scanner.authorize_import!(@import) if @import.scan?
       render json: @import.as_api_json
     end
 
@@ -57,6 +59,20 @@ module Supports
       render json: import.as_api_json
     end
 
+    # PUT /api/v1/supports/imports/:id/student   student_id: the student a person confirmed for a scan
+    def student
+      return render_scan_not_found unless @import.scan?
+
+      scanner.authorize_import!(@import)
+      student = User.find_by(id: params[:student_id])
+      # a missing student is answered like one the user may not manage, so ids can't be probed
+      raise Importer::Forbidden unless student
+
+      render json: scanner.confirm_student!(@import, student).as_api_json
+    rescue ArgumentError => e
+      render json: { errors: [e.message] }, status: :conflict
+    end
+
     # PUT /api/v1/supports/imports/:id/review   the reviewer's edits to an IEP scan
     def review
       return render_scan_not_found unless @import.scan?
@@ -65,7 +81,7 @@ module Supports
     rescue IepScan::Invalid => e
       render json: { errors: [e.message] }, status: :unprocessable_content
     rescue ArgumentError => e
-      render json: { errors: [e.message] }, status: :conflict
+      render json: { errors: [e.message] }, status: :conflict # includes IepScan::StudentNotConfirmed
     end
 
     # POST /api/v1/supports/imports/:id/retry   read a failed IEP scan again
@@ -81,14 +97,14 @@ module Supports
     def document
       return render_scan_not_found unless @import.scan? && @import.data.present?
 
-      scanner.authorize!(@import.student)
+      scanner.authorize_import!(@import)
+      # a scan with no student yet is its uploader's own file, and no student's record is read
+      return send_original unless @import.student
+
       access = Access.new(@current_user, @import.student, @import.root_account)
       return render_forbidden unless access.view!(:documents, subject: :iep_scan, real_user:)
 
-      send_data Base64.strict_decode64(@import.data),
-                type: @import.content_type,
-                filename: @import.filename.presence || "iep",
-                disposition: "attachment"
+      send_original
     end
 
     # POST /api/v1/supports/imports/:id/apply
@@ -96,6 +112,8 @@ module Supports
       return render json: { errors: [t("This import was already applied or discarded.")] }, status: :conflict unless @import.workflow_state == "previewed"
 
       render json: (@import.scan? ? scanner : importer).apply!(@import).as_api_json
+    rescue IepScan::StudentNotConfirmed => e
+      render json: { errors: [e.message] }, status: :conflict
     rescue ArgumentError => e
       raise unless @import&.scan?
 
@@ -107,19 +125,28 @@ module Supports
       return render json: { errors: [t("Only an applied import can be undone.")] }, status: :conflict unless @import.workflow_state == "applied"
 
       render json: (@import.scan? ? scanner : importer).undo!(@import).as_api_json
+    rescue IepScan::StudentNotConfirmed => e
+      render json: { errors: [e.message] }, status: :conflict
     end
 
     # DELETE /api/v1/supports/imports/:id (discard a preview)
     def destroy
       return render json: { errors: [t("Only a preview can be discarded.")] }, status: :conflict unless @import.workflow_state == "previewed"
 
-      scanner.authorize!(@import.student) if @import.scan?
+      scanner.authorize_import!(@import) if @import.scan?
       # a preview that was never applied belongs to no plan, so nothing keeps the file
       @import.update!(workflow_state: "discarded", data: nil, extraction: nil)
       render json: @import.as_api_json
     end
 
     private
+
+    def send_original
+      send_data Base64.strict_decode64(@import.data),
+                type: @import.content_type,
+                filename: @import.filename.presence || "iep",
+                disposition: "attachment"
+    end
 
     def importer
       @importer ||= Importer.new(@account, @current_user)
