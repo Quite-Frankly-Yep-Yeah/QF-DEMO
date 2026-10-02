@@ -18,7 +18,7 @@
 
 import themes from './themes.json'
 
-export type ThemeId = 'light' | 'mocha'
+export type ThemeId = 'light' | 'latte' | 'frappe' | 'macchiato' | 'mocha'
 
 export type ThemeTokens = {
   appBar: string

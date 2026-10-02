@@ -4300,7 +4300,7 @@ describe UsersController do
       it "rejects an unknown theme and saves nothing" do
         @user.preferences[:theme] = "mocha"
         @user.save!
-        put "settings", params: { id: @user.id, theme: "latte" }, format: "json"
+        put "settings", params: { id: @user.id, theme: "nord" }, format: "json"
         expect(response).to have_http_status :bad_request
         expect(@user.reload.preferences[:theme]).to eq "mocha"
       end

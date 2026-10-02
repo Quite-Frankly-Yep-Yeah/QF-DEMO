@@ -47,9 +47,14 @@ describe('themes', () => {
     }
   })
 
+  it('lists light first and every Catppuccin flavor', () => {
+    expect(Object.keys(THEMES)).toEqual(['light', 'latte', 'frappe', 'macchiato', 'mocha'])
+    expect(THEMES.latte.name).toBe('Catppuccin Latte')
+  })
+
   it('rejects unknown theme ids', () => {
     expect(isThemeId('mocha')).toBe(true)
-    expect(isThemeId('latte')).toBe(false)
+    expect(isThemeId('nord')).toBe(false)
     expect(isThemeId(undefined)).toBe(false)
     expect(isThemeId(5)).toBe(false)
   })

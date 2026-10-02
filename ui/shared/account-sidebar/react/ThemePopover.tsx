@@ -38,7 +38,7 @@ export default function ThemePopover({theme, onChoose}: Props) {
     <div
       style={{
         position: 'relative',
-        width: 260,
+        width: 300,
         padding: 8,
         borderRadius: 8,
         background: PAPER,

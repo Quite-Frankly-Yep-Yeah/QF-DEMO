@@ -46,7 +46,7 @@ describe('useThemeTokens', () => {
   })
 
   it('falls back to light for an unknown value', () => {
-    document.documentElement.dataset.theme = 'latte'
+    document.documentElement.dataset.theme = 'nord'
     const {result} = renderHook(() => useThemeTokens())
     expect(result.current).toEqual(THEMES.light.tokens)
   })

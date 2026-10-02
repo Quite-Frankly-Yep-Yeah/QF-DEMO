@@ -43,7 +43,7 @@ describe('useThemeChoice', () => {
     delete document.documentElement.dataset.theme
     window.ENV.THEME = 'mocha'
     expect(renderHook(() => useThemeChoice()).result.current.theme).toBe('mocha')
-    window.ENV.THEME = 'latte'
+    window.ENV.THEME = 'nord'
     expect(renderHook(() => useThemeChoice()).result.current.theme).toBe('light')
   })
 

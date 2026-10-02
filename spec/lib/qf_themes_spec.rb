@@ -21,7 +21,7 @@ require "spec_helper"
 
 describe QfThemes do
   it "lists the theme ids" do
-    expect(QfThemes.ids).to eq(%w[light mocha])
+    expect(QfThemes.ids).to eq(%w[light latte frappe macchiato mocha])
   end
 
   describe ".valid?" do
@@ -30,7 +30,7 @@ describe QfThemes do
     end
 
     it "rejects unknown ids and non-strings" do
-      expect(QfThemes.valid?("latte")).to be false
+      expect(QfThemes.valid?("nord")).to be false
       expect(QfThemes.valid?(nil)).to be false
       expect(QfThemes.valid?(["mocha"])).to be false
     end
@@ -52,6 +52,12 @@ describe QfThemes do
       light_rule = QfThemes.css.lines.find { |line| line.include?('data-theme="light"') }
       expect(light_rule).to include("--qf-app-bar:")
       expect(light_rule).not_to include("--ic-brand")
+    end
+
+    it "defines every Catppuccin flavor" do
+      css = QfThemes.css
+      expect(css).to include('data-theme="latte"]{', 'data-theme="frappe"]{', 'data-theme="macchiato"]{')
+      expect(css).to include("--qf-surface:#EFF1F5") # Latte's base
     end
 
     it "colors the global nav labels with the theme's onAppBar" do

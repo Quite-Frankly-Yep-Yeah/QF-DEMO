@@ -13,6 +13,48 @@
       "accent": "#2B7ABC"
     }
   },
+  "latte": {
+    "name": "Catppuccin Latte",
+    "tokens": {
+      "appBar": "#8839EF",
+      "onAppBar": "#EFF1F5",
+      "surface": "#E6E9EF",
+      "paper": "#EFF1F5",
+      "subtle": "#DCE0E8",
+      "ink": "#4C4F69",
+      "inkSecondary": "#5C5F77",
+      "divider": "#CCD0DA",
+      "accent": "#8839EF"
+    }
+  },
+  "frappe": {
+    "name": "Catppuccin Frappé",
+    "tokens": {
+      "appBar": "#292C3C",
+      "onAppBar": "#C6D0F5",
+      "surface": "#303446",
+      "paper": "#414559",
+      "subtle": "#292C3C",
+      "ink": "#C6D0F5",
+      "inkSecondary": "#A5ADCE",
+      "divider": "#51576D",
+      "accent": "#CA9EE6"
+    }
+  },
+  "macchiato": {
+    "name": "Catppuccin Macchiato",
+    "tokens": {
+      "appBar": "#1E2030",
+      "onAppBar": "#CAD3F5",
+      "surface": "#24273A",
+      "paper": "#363A4F",
+      "subtle": "#1E2030",
+      "ink": "#CAD3F5",
+      "inkSecondary": "#A5ADCB",
+      "divider": "#494D64",
+      "accent": "#C6A0F6"
+    }
+  },
   "mocha": {
     "name": "Catppuccin Mocha",
     "tokens": {
