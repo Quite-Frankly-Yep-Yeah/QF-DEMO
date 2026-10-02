@@ -24,6 +24,13 @@ supports_accommodations_apply:
     Applies accommodations for the student: extended time and extra attempts
     on quizzes, the pacing change, and display settings. Each change is
     recorded for the case manager.
+iep_scan:
+  applies_to: Account
+  state: hidden
+  display_name: "Student Supports: IEP Scan"
+  description: |-
+    Upload an IEP and review the accommodations proposed from it before they
+    are applied. Needs Student Supports: Plans and Accommodations.
 teacher_workflow:
   applies_to: RootAccount
   state: hidden

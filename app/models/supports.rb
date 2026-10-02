@@ -27,6 +27,7 @@ module Supports
   PHASE_FLAGS = %i[
     supports_plans
     supports_accommodations_apply
+    iep_scan
   ].freeze
 
   # Per-school choice between reading plans from the district's system and

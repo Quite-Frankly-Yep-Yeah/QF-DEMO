@@ -370,6 +370,10 @@ GEM
     afm (1.0.0)
     after_transaction_commit (2.2.2)
       activerecord (>= 5.2)
+    anthropic (1.76.0)
+      base64 (~> 0.1)
+      connection_pool (>= 2, < 4)
+      standardwebhooks (~> 1.0)
     aroi (1.0.0)
       activerecord (>= 5.2)
       activesupport (>= 5.2)
@@ -1185,6 +1189,7 @@ GEM
     sqlite3 (2.9.3-arm64-darwin)
     sqlite3 (2.9.3-x86_64-darwin)
     sqlite3 (2.9.3-x86_64-linux-gnu)
+    standardwebhooks (1.1.0)
     statsd-ruby (1.5.0)
     stormbreaker (1.0.0)
       axe-core-api (~> 4.1)
@@ -1285,6 +1290,7 @@ DEPENDENCIES
   acts_as_list!
   addressable (~> 2.8)
   adheres_to_policy!
+  anthropic
   attachment_fu!
   authlogic!
   autoextend!
