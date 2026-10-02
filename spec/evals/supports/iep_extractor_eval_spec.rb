@@ -39,6 +39,7 @@ describe Supports::IepExtractor do
       wanted: wanted.size,
       forbidden_included: Array(expected["forbidden"]).select { |name| by_name.key?(name) },
       unmapped_ok: Array(expected["unmapped_mentions"]).all? { |text| result.unmapped.any? { |u| u["text"].include?(text) } },
+      student_id_ok: result.student_id == expected["student_id"],
       student_ok: result.student_name == expected["student_name"] && result.plan_type == expected["plan_type"]
     }
   end
@@ -52,7 +53,8 @@ describe Supports::IepExtractor do
                                   nil,
                                   nil,
                                   [{ "type_id" => type.id, "params" => { "multiplier" => 1.5 }, "included" => true }],
-                                  [{ "text" => "Speech therapy, 30 minutes weekly", "page" => 1 }])
+                                  [{ "text" => "Speech therapy, 30 minutes weekly", "page" => 1 }],
+                                  "20094448")
     end
 
     it "counts what was found, what matched exactly, and what must not appear" do
@@ -62,7 +64,12 @@ describe Supports::IepExtractor do
                    "accommodations" => { type.name => { "multiplier" => 1.5 }, "Read aloud" => {} },
                    "forbidden" => [type.name] }
       expect(score(result, expected))
-        .to eq(found: 1, exact: 1, wanted: 2, forbidden_included: [type.name], unmapped_ok: true, student_ok: true)
+        .to eq(found: 1, exact: 1, wanted: 2, forbidden_included: [type.name], unmapped_ok: true, student_id_ok: false, student_ok: true)
+    end
+
+    it "counts the student ID against what the fixture prints" do
+      expect(score(result, { "student_id" => "20094448" })).to include(student_id_ok: true)
+      expect(score(result, { "student_id" => "99999999" })).to include(student_id_ok: false)
     end
 
     it "doesn't count an item that was left out" do

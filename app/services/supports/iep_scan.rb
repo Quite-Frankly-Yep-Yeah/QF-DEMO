@@ -149,6 +149,7 @@ module Supports
     def self.proposal_from(result)
       {
         "student_name" => result.student_name,
+        "student_id_on_doc" => result.student_id,
         "dob" => result.dob,
         "plan" => { "plan_type" => result.plan_type, "start_date" => result.start_date, "end_date" => result.end_date },
         "items" => result.items,

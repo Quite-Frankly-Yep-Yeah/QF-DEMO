@@ -118,6 +118,17 @@ describe Supports::IepScan do
     end
   end
 
+  describe ".proposal_from" do
+    it "keeps the student ID printed on the document" do
+      result.student_id = "20094448"
+      expect(described_class.proposal_from(result)["student_id_on_doc"]).to eq "20094448"
+    end
+
+    it "has no ID when the document printed none" do
+      expect(described_class.proposal_from(result)).to include("student_id_on_doc" => nil)
+    end
+  end
+
   describe ".extract" do
     let!(:import) { scan.create!(student:, file: upload) }
 

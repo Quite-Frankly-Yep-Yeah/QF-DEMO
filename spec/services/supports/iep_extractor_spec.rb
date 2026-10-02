@@ -221,6 +221,32 @@ describe Supports::IepExtractor do
     end
   end
 
+  describe "the student ID on the document" do
+    it "is read into the result" do
+      result, = extract(reply_with(clean.merge(student_id: "20094448")))
+      expect(result.student_id).to eq "20094448"
+    end
+
+    it "is nil when the document prints none" do
+      result, = extract(reply_with(clean.merge(student_id: nil)))
+      expect(result.student_id).to be_nil
+      result, = extract(reply_with(clean))
+      expect(result.student_id).to be_nil
+    end
+
+    it "is asked for in the schema as a nullable string without an enum, and is required" do
+      property = described_class::SCHEMA.dig(:properties, :student_id)
+      expect(property[:type]).to eq %w[string null]
+      expect(property).not_to have_key(:enum)
+      expect(described_class::SCHEMA[:required]).to include("student_id")
+    end
+
+    it "is asked for in the prompt" do
+      _, requests = extract(reply_with(clean))
+      expect(requests.first.to_json).to include("student_id")
+    end
+  end
+
   describe "the schema sent to the API" do
     # the API rejects a field that is both a type list like ["string", "null"] and an enum
     def nodes(node, found = [])
