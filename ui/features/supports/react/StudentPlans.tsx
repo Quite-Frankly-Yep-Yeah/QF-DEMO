@@ -878,6 +878,7 @@ export default function StudentPlans({
         ))}
       {data.can_manage && scanAccountId && (
         <ScanPanel
+          key={studentId}
           accountId={scanAccountId}
           student={{id: data.student.id, name: data.student.name}}
         />

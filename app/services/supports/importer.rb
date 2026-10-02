@@ -73,6 +73,10 @@ module Supports
       changes = []
       touched_plans = Set.new
       Plan.transaction do
+        # two people pressing Apply: the second waits, then finds it applied
+        import.lock!
+        raise ArgumentError, "import is #{import.workflow_state}" unless import.workflow_state == "previewed"
+
         rows = resolve(import.scan? ? IepScan.rows_for_apply(import) : parse(import.data))
         # a scan was reviewed row by row, so it applies whole or not at all
         problem = import.scan? && rows.find { |row| row[:action] == "error" }
@@ -104,6 +108,9 @@ module Supports
       raise ArgumentError, "import is #{import.workflow_state}" unless import.workflow_state == "applied"
 
       Plan.transaction do
+        import.lock!
+        raise ArgumentError, "import is #{import.workflow_state}" unless import.workflow_state == "applied"
+
         touched_plans = Set.new
         Array(import.applied_changes).reverse_each do |change|
           case change["model"]

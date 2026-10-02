@@ -251,4 +251,26 @@ describe('ScanPanel', () => {
     expect(await screen.findByText(/larger than 10 MB/)).toBeInTheDocument()
     expect(requests).toHaveLength(0)
   })
+  it('names the student the scan is for', async () => {
+    current = record()
+    renderPanel()
+    await upload()
+    expect(await screen.findByText('Scan for Pat Student')).toBeInTheDocument()
+  })
+
+  it('does not say it discarded when the server refused', async () => {
+    current = record()
+    server.use(
+      http.delete('/api/v1/supports/imports/5', () =>
+        HttpResponse.json({message: 'no'}, {status: 403}),
+      ),
+    )
+    renderPanel()
+    await upload()
+    await userEvent.click(await screen.findByRole('button', {name: 'Discard'}))
+    expect(await screen.findByRole('status')).not.toHaveTextContent('Discarded')
+    expect(
+      screen.getByRole('heading', {name: 'Extended time on tests and quizzes'}),
+    ).toBeInTheDocument()
+  })
 })

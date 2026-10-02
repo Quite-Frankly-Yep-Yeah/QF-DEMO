@@ -131,4 +131,15 @@ describe Supports::IepExtractor do
     expect { extract(Anthropic::Errors::APIConnectionError.new(url: URI("https://api.anthropic.com"), message: "boom")) }
       .to raise_error(described_class::Failed)
   end
+
+  it "says a file can't be read, not that the service is down, when the API rejects the document" do
+    error = Anthropic::Errors::BadRequestError.new(url: URI("https://api.anthropic.com"),
+                                                   status: 400,
+                                                   headers: {},
+                                                   body: nil,
+                                                   request: nil,
+                                                   response: nil,
+                                                   message: "bad pdf")
+    expect { extract(error) }.to raise_error(described_class::Failed, /can't be read/)
+  end
 end

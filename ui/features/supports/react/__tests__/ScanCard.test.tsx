@@ -61,12 +61,36 @@ describe('ScanCard', () => {
     expect(onChange).toHaveBeenCalledWith({included: false})
   })
 
-  it('lets the reviewer change the settings', async () => {
+  it('holds changes to the settings until they are saved', async () => {
     const onChange = vi.fn()
     render(<ScanCard item={item()} onChange={onChange} />)
     await userEvent.click(screen.getByRole('button', {name: 'Edit settings'}))
     await userEvent.click(screen.getByLabelText('A number of extra minutes'))
+    expect(onChange).not.toHaveBeenCalled()
+    await userEvent.click(screen.getByRole('button', {name: 'Save settings'}))
     expect(onChange).toHaveBeenCalledWith({params: {minutes: 30}})
+  })
+
+  it('drops unsaved changes to the settings when cancelled', async () => {
+    const onChange = vi.fn()
+    render(<ScanCard item={item()} onChange={onChange} />)
+    await userEvent.click(screen.getByRole('button', {name: 'Edit settings'}))
+    await userEvent.click(screen.getByLabelText('A number of extra minutes'))
+    await userEvent.click(screen.getByRole('button', {name: 'Cancel'}))
+    await userEvent.click(screen.getByRole('button', {name: 'Edit settings'}))
+    expect(screen.getByLabelText('A multiple of the time limit')).toBeChecked()
+    expect(onChange).not.toHaveBeenCalled()
+  })
+
+  it.each([
+    ['update', 'Changes an existing accommodation'],
+    ['unchanged', 'Already on the plan, no change'],
+    ['create_plan', 'Starts a new plan'],
+    ['update_plan', "Changes the existing plan's details"],
+    ['add', 'Added to the plan'],
+  ] as const)('says what applying does when it is %s', (action, text) => {
+    render(<ScanCard item={item({action})} onChange={vi.fn()} />)
+    expect(screen.getByText(text)).toBeInTheDocument()
   })
 
   it('announces problems and offers no settings for an instructions-only item', () => {

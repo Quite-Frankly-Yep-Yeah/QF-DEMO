@@ -72,7 +72,7 @@ export default function ScanPanel({
   const act = async (
     request: () => Promise<{json?: ScanRecord}>,
     done?: (next: ScanRecord) => string,
-  ) => {
+  ): Promise<boolean> => {
     setBusy(true)
     setMessage('')
     try {
@@ -81,8 +81,10 @@ export default function ScanPanel({
         setRecord(json)
         if (done) setMessage(done(json))
       }
+      return true
     } catch (error) {
       setMessage(await messageFrom(error))
+      return false
     } finally {
       setBusy(false)
     }
@@ -175,9 +177,10 @@ export default function ScanPanel({
             style={flatButton}
             disabled={busy}
             onClick={async () => {
-              await act(() => doFetchApi<ScanRecord>({path: path(), method: 'DELETE'}))
-              reset()
-              setMessage(I18n.t('Discarded.'))
+              if (await act(() => doFetchApi<ScanRecord>({path: path(), method: 'DELETE'}))) {
+                reset()
+                setMessage(I18n.t('Discarded.'))
+              }
             }}
           >
             {I18n.t('Discard')}
@@ -205,9 +208,10 @@ export default function ScanPanel({
             )
           }
           onDiscard={async () => {
-            await act(() => doFetchApi<ScanRecord>({path: path(), method: 'DELETE'}))
-            reset()
-            setMessage(I18n.t('Discarded.'))
+            if (await act(() => doFetchApi<ScanRecord>({path: path(), method: 'DELETE'}))) {
+              reset()
+              setMessage(I18n.t('Discarded.'))
+            }
           }}
           onReset={reset}
         />

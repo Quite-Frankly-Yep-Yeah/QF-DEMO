@@ -90,6 +90,24 @@ export function parametersText(kind: Kind, params: Parameters | null): string {
   }
 }
 
+// What applying this item does to what the student already has.
+const actionLabel = (action: ScanItem['action']) => {
+  switch (action) {
+    case 'create_plan':
+      return I18n.t('Starts a new plan')
+    case 'update_plan':
+      return I18n.t("Changes the existing plan's details")
+    case 'add':
+      return I18n.t('Added to the plan')
+    case 'update':
+      return I18n.t('Changes an existing accommodation')
+    case 'unchanged':
+      return I18n.t('Already on the plan, no change')
+    default:
+      return ''
+  }
+}
+
 const hasSettings = (kind: Kind) => kind !== 'informational' && kind !== 'reduced_workload'
 
 // One accommodation the scan found: what it is, the words in the IEP it came
@@ -104,10 +122,13 @@ export default function ScanCard({
   disabled?: boolean
 }) {
   const [editing, setEditing] = useState(false)
+  // changes are held here and sent on Save, so typing isn't sent a key at a time
+  const [draft, setDraft] = useState<Parameters>({})
   const color = PALETTE[Math.max(0, KINDS.indexOf(item.kind)) % PALETTE.length]
   const name = item.accommodation ?? kindLabel(item.kind)
   const headingId = `scan-item-${item.index}`
   const summary = parametersText(item.kind, item.params)
+  const effect = actionLabel(item.action)
 
   return (
     <article
@@ -178,6 +199,7 @@ export default function ScanCard({
       </blockquote>
 
       <p style={{margin: '8px 0 0', ...muted}}>{confidenceLabel(item.confidence)}</p>
+      {effect && <p style={{margin: '4px 0 0', fontWeight: 500, color: INK.primary}}>{effect}</p>}
 
       {item.errors.length > 0 && (
         <ul role="alert" style={{margin: '8px 0 0', paddingLeft: 20, color: '#B71C1C'}}>
@@ -189,22 +211,43 @@ export default function ScanCard({
 
       {hasSettings(item.kind) && (
         <div style={{marginTop: 8}}>
-          <button
-            type="button"
-            style={flatButton}
-            aria-expanded={editing}
-            disabled={disabled}
-            onClick={() => setEditing(!editing)}
-          >
-            {I18n.t('Edit settings')}
-          </button>
+          {!editing && (
+            <button
+              type="button"
+              style={flatButton}
+              aria-expanded={false}
+              disabled={disabled}
+              onClick={() => {
+                setDraft(item.params ?? {})
+                setEditing(true)
+              }}
+            >
+              {I18n.t('Edit settings')}
+            </button>
+          )}
           {editing && (
-            <ParametersFields
-              kind={item.kind}
-              value={item.params ?? {}}
-              onChange={params => onChange({params})}
-              idPrefix={`scan-${item.index}`}
-            />
+            <>
+              <ParametersFields
+                kind={item.kind}
+                value={draft}
+                onChange={setDraft}
+                idPrefix={`scan-${item.index}`}
+              />
+              <button
+                type="button"
+                style={flatButton}
+                disabled={disabled}
+                onClick={() => {
+                  onChange({params: draft})
+                  setEditing(false)
+                }}
+              >
+                {I18n.t('Save settings')}
+              </button>
+              <button type="button" style={flatButton} onClick={() => setEditing(false)}>
+                {I18n.t('Cancel')}
+              </button>
+            </>
           )}
         </div>
       )}

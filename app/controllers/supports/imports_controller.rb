@@ -163,7 +163,7 @@ module Supports
     # A scan is checked against its student (Supports::IepScan); everything
     # else here is for people who manage every student's plans.
     def require_csv_rights
-      scan = @import ? @import.scan? : params[:student_id].present?
+      scan = @import ? @import.scan? : (action_name == "create" && params[:student_id].present?)
       render_unauthorized_action unless scan || Importer.allowed?(@current_user, @account)
     end
 

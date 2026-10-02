@@ -20,8 +20,12 @@
 describe Supports::IepScan do
   let_once(:root_account) { Account.default }
   let_once(:admin) { account_admin_user(account: root_account) }
-  let_once(:student) { user_factory(active_all: true, name: "Pat Student") }
-  let_once(:bystander) { user_factory(active_all: true) }
+  let_once(:student) do
+    user_factory(active_all: true, name: "Pat Student").tap { |u| u.pseudonyms.create!(unique_id: "pat@example.com", account: root_account) }
+  end
+  let_once(:bystander) do
+    user_factory(active_all: true).tap { |u| u.pseudonyms.create!(unique_id: "by@example.com", account: root_account) }
+  end
 
   before :once do
     root_account.enable_feature!(:student_supports)
@@ -92,7 +96,7 @@ describe Supports::IepScan do
       root_account.role_overrides.create!(permission: "supports_manage_plans", role:, enabled: true)
       manager = user_factory(active_all: true)
       root_account.account_users.create!(user: manager, role:)
-      other = user_factory(active_all: true)
+      other = user_factory(active_all: true).tap { |u| u.pseudonyms.create!(unique_id: "o@example.com", account: root_account) }
       Supports::Caseload.create!(root_account:, staff_id: manager.id, student_id: student.id)
 
       expect(described_class.new(root_account, manager).create!(student:, file: upload)).to be_persisted
@@ -122,25 +126,25 @@ describe Supports::IepScan do
       expect(import.extraction["items"].pluck("kind")).to eq ["extended_time"]
       expect(import.extraction["unmapped"]).to eq [{ "text" => "Speech therapy", "page" => 5 }]
       expect(import.extraction["plan"]).to eq("plan_type" => "iep", "start_date" => "2026-09-01", "end_date" => "2027-06-15")
-      expect(import.preview["scan"]).to include("student_name_on_doc" => "Pat Student",
-                                                "dob_on_doc" => "2010-04-02",
-                                                "mismatch" => false)
-      expect(import.preview["rows"].first).to include("accommodation" => time_type.name,
-                                                      "source_quote" => "time and a half",
-                                                      "page" => 3,
-                                                      "confidence" => "high")
+      expect(import.scan_preview["scan"]).to include("student_name_on_doc" => "Pat Student",
+                                                     "dob_on_doc" => "2010-04-02",
+                                                     "mismatch" => false)
+      expect(import.scan_preview["rows"].first).to include("accommodation" => time_type.name,
+                                                           "source_quote" => "time and a half",
+                                                           "page" => 3,
+                                                           "confidence" => "high")
     end
 
     it "marks a document for a different student" do
       stub_extractor(result.tap { |r| r.student_name = "Riley Other" })
       described_class.extract(import.id)
-      expect(import.reload.preview.dig("scan", "mismatch")).to be true
+      expect(import.reload.scan_preview.dig("scan", "mismatch")).to be true
     end
 
     it "treats the same name in another order, with a middle name, as the same student" do
       stub_extractor(result.tap { |r| r.student_name = "Student, Pat Q." })
       described_class.extract(import.id)
-      expect(import.reload.preview.dig("scan", "mismatch")).to be false
+      expect(import.reload.scan_preview.dig("scan", "mismatch")).to be false
     end
 
     it "fails with the extractor's message and keeps the file, so it can be retried" do
@@ -199,31 +203,31 @@ describe Supports::IepScan do
                                          errors: ["The time multiplier must be more than 1 and at most 5."])])
         scan.update_review!(import, items: [{ "index" => 0, "included" => true, "params" => { "multiplier" => 2 } }])
         expect(import.extraction["items"].first).to include("params" => { "multiplier" => 2 }, "errors" => [], "included" => true)
-        expect(import.preview["summary"]["blocking"]).to eq 0
+        expect(import.scan_preview["summary"]["blocking"]).to eq 0
       end
 
       it "blocks an included item whose edit is still invalid" do
         import = ready_scan
         scan.update_review!(import, items: [{ "index" => 0, "params" => { "multiplier" => 9 } }])
-        expect(import.preview["summary"]["blocking"]).to eq 1
-        expect(import.preview["rows"].first["action"]).to eq "error"
+        expect(import.scan_preview["summary"]["blocking"]).to eq 1
+        expect(import.scan_preview["rows"].first["action"]).to eq "error"
       end
 
       it "blocks two included items for the same accommodation until one is dropped" do
         import = ready_scan(items: [item(time_type, params: { "multiplier" => 1.5 }),
                                     item(time_type, params: { "multiplier" => 2 })])
-        expect(import.preview["summary"]["blocking"]).to eq 1
+        expect(import.scan_preview["summary"]["blocking"]).to eq 1
         expect(import.extraction["items"].last["errors"].join).to match(/already/)
         scan.update_review!(import, items: [{ "index" => 1, "included" => false }])
-        expect(import.preview["summary"]["blocking"]).to eq 0
+        expect(import.scan_preview["summary"]["blocking"]).to eq 0
       end
 
       it "blocks a plan type that isn't one of ours, and takes a fixed one" do
         import = ready_scan
         scan.update_review!(import, plan: { "plan_type" => "mystery" })
-        expect(import.preview["summary"]["blocking"]).to eq 1
+        expect(import.scan_preview["summary"]["blocking"]).to eq 1
         scan.update_review!(import, plan: { "plan_type" => "504" })
-        expect(import.preview["summary"]["blocking"]).to eq 0
+        expect(import.scan_preview["summary"]["blocking"]).to eq 0
         expect(import.extraction["plan"]["plan_type"]).to eq "504"
       end
 
@@ -307,15 +311,83 @@ describe Supports::IepScan do
       it "shows a second scan of the same plan as no change, and a different value as a change" do
         scan.apply!(ready_scan)
         same = ready_scan
-        expect(same.preview["rows"].first["action"]).to eq "unchanged"
+        expect(same.scan_preview["rows"].first["action"]).to eq "unchanged"
         different = ready_scan(items: [item(time_type, params: { "multiplier" => 2 })])
-        expect(different.preview["rows"].first["action"]).to eq "update"
+        expect(different.scan_preview["rows"].first["action"]).to eq "update"
       end
 
       it "refuses someone who can't manage the student" do
         import = ready_scan
         expect { described_class.new(root_account, bystander).apply!(import) }.to raise_error(Supports::Importer::Forbidden)
       end
+    end
+  end
+
+  describe "review fixes" do
+    let!(:import) { scan.create!(student:, file: upload) }
+
+    it "keeps what the document said out of the unencrypted preview column" do
+      stub_extractor(result)
+      described_class.extract(import.id)
+      raw = Supports::Import.connection.select_value("SELECT preview FROM #{Supports::Import.quoted_table_name} WHERE id = #{import.id}")
+      expect(JSON.parse(raw)).to eq({})
+      expect(raw).not_to include("time and a half")
+      expect(raw).not_to include("Speech therapy")
+      expect(import.reload.scan_preview["rows"].first["source_quote"]).to eq "time and a half"
+      expect(import.as_api_json[:rows].first["source_quote"]).to eq "time and a half"
+    end
+
+    it "treats a scan that has sat unread for too long as failed, and lets it be retried" do
+      import.update_columns(extraction_state: "running", updated_at: 20.minutes.ago)
+      expect(import.reload.as_api_json).to include(extraction_state: "failed")
+      expect(import.as_api_json[:extraction_error]).to match(/too long/)
+      scan.retry!(import)
+      expect(import.reload.extraction_state).to eq "queued"
+    end
+
+    it "doesn't call a scan stuck while it is recent" do
+      import.update_columns(extraction_state: "running", updated_at: 1.minute.ago)
+      expect(import.reload.as_api_json).to include(extraction_state: "running")
+      expect { scan.retry!(import) }.to raise_error(ArgumentError)
+    end
+
+    it "refuses an image over the API's 5 MB limit" do
+      big = Rack::Test::UploadedFile.new(StringIO.new("x" * (5.megabytes + 1)), "image/png", original_filename: "big.png")
+      expect { scan.create!(student:, file: big) }.to raise_error(described_class::Invalid, /5 MB/)
+    end
+
+    it "refuses a user who isn't in this school" do
+      outsider = user_factory(active_all: true)
+      expect { scan.create!(student: outsider, file: upload) }.to raise_error(Supports::Importer::Forbidden)
+    end
+
+    it "accepts a student who is enrolled here but has no login of their own" do
+      enrolled = student_in_course(course: course_factory(account: root_account, active_all: true), active_all: true).user
+      expect(enrolled.pseudonyms.where(account_id: root_account.id)).to be_empty
+      expect(scan.create!(student: enrolled, file: upload)).to be_persisted
+    end
+
+    it "does not bring back text for a scan that was discarded while it was being read" do
+      extractor = instance_double(Supports::IepExtractor)
+      allow(extractor).to receive(:call) do
+        Supports::Import.where(id: import.id).update_all(workflow_state: "discarded", data: nil)
+        result
+      end
+      allow(Supports::IepExtractor).to receive(:new).and_return(extractor)
+      described_class.extract(import.id)
+      expect(import.reload.extraction).to be_nil
+      expect(import.workflow_state).to eq "discarded"
+    end
+
+    it "applies once even when two people press Apply on the same preview" do
+      stub_extractor(result)
+      described_class.extract(import.id)
+      first = Supports::Import.find(import.id)
+      second = Supports::Import.find(import.id)
+      scan.apply!(first)
+      expect { scan.apply!(second) }.to raise_error(ArgumentError, /applied/)
+      expect(Supports::Plan.where(student:).count).to eq 1
+      expect(Supports::StudentAccommodation.where(support_plan_id: first.reload.plan_id).count).to eq 1
     end
   end
 end

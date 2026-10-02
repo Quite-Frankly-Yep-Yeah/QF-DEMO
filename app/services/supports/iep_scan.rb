@@ -27,6 +27,7 @@ require "base64"
 module Supports
   class IepScan
     MAX_BYTES = 10.megabytes
+    MAX_IMAGE_BYTES = 5.megabytes # the API's limit for one image
     FORMAT = "iep_scan"
     PLAN_KEYS = %w[plan_type start_date end_date].freeze
     PARAM_KEYS = IepExtractor::PARAMETER_SCHEMA[:properties].keys.map(&:to_s).freeze
@@ -45,6 +46,9 @@ module Supports
       authorize!(student)
       raise Invalid, I18n.t("Choose a PDF, PNG or JPEG file.") unless IepExtractor::CONTENT_TYPES.include?(file.content_type)
       raise Invalid, I18n.t("The file is larger than 10 MB.") if file.size > MAX_BYTES
+      if file.content_type.start_with?("image/") && file.size > MAX_IMAGE_BYTES
+        raise Invalid, I18n.t("An image can be at most 5 MB. Upload a PDF for a larger file.")
+      end
 
       import = Import.create!(account: @account,
                               user: @user,
@@ -60,7 +64,9 @@ module Supports
 
     # Puts a failed scan back in the queue.
     def retry!(import)
-      raise ArgumentError, "scan is #{import.extraction_state}" unless import.scan? && import.extraction_state == "failed"
+      unless import.scan? && (import.extraction_state == "failed" || import.extraction_stale?)
+        raise ArgumentError, "scan is #{import.extraction_state}"
+      end
 
       authorize!(import.student)
       import.update!(extraction_state: "queued", extraction_error: nil)
@@ -69,7 +75,7 @@ module Supports
     end
 
     def authorize!(student)
-      allowed = student && Supports.feature_enabled?(@account, :iep_scan) &&
+      allowed = student && Supports.feature_enabled?(@account, :iep_scan) && in_school?(student) &&
                 Access.new(@user, student, @root_account).can_manage?
       raise Importer::Forbidden unless allowed
     end
@@ -88,8 +94,7 @@ module Supports
       edit_kept(extraction, keep_unmapped) if keep_unmapped
       extraction["acknowledged_mismatch"] = !!acknowledged_mismatch unless acknowledged_mismatch.nil?
       self.class.revalidate!(extraction)
-      import.extraction = extraction
-      import.update!(preview: self.class.preview_json(import))
+      import.update!(extraction:)
       import
     end
 
@@ -112,8 +117,10 @@ module Supports
       result = IepExtractor.new(import.account).call(data: Base64.strict_decode64(import.data), content_type: import.content_type)
       proposal = proposal_from(result)
       revalidate!(proposal)
+      # discarded while it was being read: don't bring the text back
+      return unless import.reload.workflow_state == "previewed"
+
       import.update!(extraction: proposal, extraction_state: "ready", extraction_error: nil)
-      import.update!(preview: preview_json(import))
     rescue IepExtractor::Failed => e
       import&.update!(extraction_state: "failed", extraction_error: e.message)
     rescue => e
@@ -284,6 +291,13 @@ module Supports
       raise Invalid, I18n.t("That note isn't in this scan.") unless indexes.all? { |i| i.between?(0, extraction["unmapped"].size - 1) }
 
       extraction["keep_unmapped"] = indexes.uniq.sort
+    end
+
+    # Someone with a login at this school, or a student in one of its courses;
+    # access rules alone would let a user id from anywhere through.
+    def in_school?(student)
+      Pseudonym.active_only.where(account_id: @root_account.id, user_id: student.id).exists? ||
+        Enrollment.active.where(user_id: student.id, type: "StudentEnrollment", root_account_id: @root_account.id).exists?
     end
 
     def importer_for(import)

@@ -20,8 +20,12 @@
 describe Supports::ImportsController do
   let_once(:root_account) { Account.default }
   let_once(:admin) { account_admin_user(account: root_account) }
-  let_once(:student) { user_factory(active_all: true, name: "Pat Student") }
-  let_once(:bystander) { user_factory(active_all: true) }
+  let_once(:student) do
+    user_factory(active_all: true, name: "Pat Student").tap { |u| u.pseudonyms.create!(unique_id: "pat@example.com", account: root_account) }
+  end
+  let_once(:bystander) do
+    user_factory(active_all: true).tap { |u| u.pseudonyms.create!(unique_id: "by@example.com", account: root_account) }
+  end
 
   before :once do
     root_account.enable_feature!(:student_supports)
@@ -130,6 +134,14 @@ describe Supports::ImportsController do
       user_session(bystander)
       post :create, params: { file: Rack::Test::UploadedFile.new(StringIO.new("student_sis_id\n"), "text/csv", original_filename: "a.csv") }
       expect(response).to have_http_status(:unauthorized)
+    end
+
+    it "doesn't let anyone list imports by adding a student_id to the request" do
+      ready_scan
+      user_session(bystander)
+      get :index, params: { student_id: student.id }
+      expect(response).to have_http_status(:unauthorized)
+      expect(response.body).not_to include("Pat Student")
     end
 
     it "hides a scan from someone who can't manage its student" do

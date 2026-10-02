@@ -104,6 +104,9 @@ module Supports
       raise Failed, I18n.t("The document couldn't be processed.") if reply.stop_reason.to_s == "refusal"
 
       build_result(parse(reply))
+    rescue Anthropic::Errors::BadRequestError
+      # a corrupt or password-protected file, or one the API won't take: trying again can't help
+      raise Failed, I18n.t("This file can't be read. Check that it isn't password-protected, or upload a smaller or clearer copy.")
     rescue Anthropic::Errors::APIError
       raise Failed, I18n.t("The scanning service isn't available right now. Try again later.")
     end

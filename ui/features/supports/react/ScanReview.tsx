@@ -76,6 +76,11 @@ export default function ScanReview({
 
   return (
     <div style={{display: 'grid', gap: 'clamp(12px, 3vw, 16px)'}}>
+      {record.student && (
+        <p style={{margin: 0, fontWeight: 500, color: INK.primary}}>
+          {I18n.t('Scan for %{name}', {name: record.student.name})}
+        </p>
+      )}
       {previewing && scan.mismatch && (
         <div
           role="alert"

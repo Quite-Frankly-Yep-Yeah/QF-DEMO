@@ -48,11 +48,27 @@ module Supports
 
     before_validation { self.root_account_id ||= account&.resolved_root_account_id }
 
+    # A scan that has been waiting this long was lost (the worker died), so it is shown as failed.
+    STALE_AFTER = 15.minutes
+
     def scan?
       format == "iep_scan"
     end
 
+    def extraction_stale?
+      scan? && workflow_state == "previewed" && %w[queued running].include?(extraction_state) &&
+        updated_at < STALE_AFTER.ago
+    end
+
+    # What the review screen shows. Built from the encrypted extraction each
+    # time, never stored: the preview column isn't encrypted and a scan's
+    # preview quotes the document.
+    def scan_preview
+      extraction.present? ? IepScan.preview_json(self) : {}
+    end
+
     def as_api_json
+      shown = scan? ? scan_preview : preview
       json = {
         id:,
         filename:,
@@ -61,17 +77,18 @@ module Supports
         created_at: created_at&.iso8601,
         applied_at: applied_at&.iso8601,
         undone_at: undone_at&.iso8601,
-        summary: preview["summary"] || {},
-        rows: preview["rows"] || []
+        summary: shown["summary"] || {},
+        rows: shown["rows"] || []
       }
       return json unless scan?
 
+      stale = extraction_stale?
       json.merge(
-        extraction_state:,
-        extraction_error:,
+        extraction_state: stale ? "failed" : extraction_state,
+        extraction_error: stale ? I18n.t("Reading the document took too long. Try again.") : extraction_error,
         student: student && { id: student.id.to_s, name: student.name },
         plan_id:,
-        scan: preview["scan"] || {}
+        scan: shown["scan"] || {}
       )
     end
   end
