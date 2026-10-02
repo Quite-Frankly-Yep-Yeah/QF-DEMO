@@ -107,4 +107,85 @@ describe Supports::StudentsController do
       expect(json_parse(response.body)["acknowledged"]).to be true
     end
   end
+
+  describe "GET 'search'" do
+    let_once(:admin) { account_admin_user(account: root_account, name: "Ada Admin") }
+
+    def login_for(user, unique_id:, sis_user_id: nil, account: root_account)
+      user.pseudonyms.create!(unique_id:, sis_user_id:, account:)
+      user
+    end
+
+    def found(term)
+      get "search", params: { search_term: term }, format: :json
+      json_parse(response.body)["students"]
+    end
+
+    before { user_session(admin) }
+
+    it "still finds an enrolled student by name" do
+      student.update!(name: "Pat Enrolled")
+      expect(found("Enrolled").pluck("name")).to eq ["Pat Enrolled"]
+    end
+
+    it "finds a new student who has a login but no enrollment yet" do
+      newbie = login_for(user_factory(active_all: true, name: "Nicholas Harris"), unique_id: "ncharri448@example.com", sis_user_id: "20094448")
+      expect(found("Nicholas").pluck("id")).to eq [newbie.id.to_s]
+    end
+
+    it "finds a student by SIS user ID or login ID, from the start of either" do
+      newbie = login_for(user_factory(active_all: true, name: "Nicholas Harris"), unique_id: "ncharri448@example.com", sis_user_id: "20094448")
+      expect(found("20094448").pluck("id")).to eq [newbie.id.to_s]
+      expect(found("2009").pluck("id")).to eq [newbie.id.to_s]
+      expect(found("NCHARRI").pluck("id")).to eq [newbie.id.to_s]
+      expect(found("harri448")).to eq []
+    end
+
+    it "finds an enrolled student by their SIS ID too" do
+      login_for(student, unique_id: "pat@example.com", sis_user_id: "S-555")
+      expect(found("S-55").pluck("id")).to eq [student.id.to_s]
+    end
+
+    it "shows the SIS user ID so two people with the same name can be told apart" do
+      login_for(user_factory(active_all: true, name: "Sam Same"), unique_id: "sam1@example.com", sis_user_id: "111111")
+      login_for(user_factory(active_all: true, name: "Sam Same"), unique_id: "sam2@example.com", sis_user_id: "222222")
+      expect(found("Sam Same").pluck("sis_user_id")).to match_array %w[111111 222222]
+    end
+
+    it "doesn't offer staff just because they have a login" do
+      login_for(teacher, unique_id: "teach@example.com", sis_user_id: "T-1")
+      ta = login_for(user_factory(active_all: true, name: "Tia Assistant"), unique_id: "tia@example.com")
+      course.enroll_ta(ta, enrollment_state: "active")
+      expect(found("T-1")).to eq []
+      expect(found("Tia")).to eq []
+      expect(found("Ada Admin")).to eq []
+    end
+
+    it "doesn't find someone with a login only at another school, or no login and no enrollment" do
+      other_root = Account.create!(name: "Elsewhere")
+      login_for(user_factory(active_all: true, name: "Olive Elsewhere"), unique_id: "olive@example.com", sis_user_id: "9999", account: other_root)
+      user_factory(active_all: true, name: "Nora Nologin")
+      expect(found("Olive")).to eq []
+      expect(found("9999")).to eq []
+      expect(found("Nora")).to eq []
+    end
+
+    it "doesn't find someone whose login was deleted" do
+      gone = login_for(user_factory(active_all: true, name: "Gail Gone"), unique_id: "gail@example.com", sis_user_id: "4444")
+      gone.pseudonyms.each(&:destroy)
+      expect(found("4444")).to eq []
+    end
+
+    it "needs two characters and keeps its limit" do
+      expect(found("a")).to eq []
+      22.times { |i| login_for(user_factory(active_all: true, name: "Many Student #{i}"), unique_id: "many#{i}@example.com") }
+      expect(found("Many Student").size).to eq 20
+    end
+
+    it "is refused to someone who can't manage every student's plans" do
+      user_session(teacher)
+      get "search", params: { search_term: "Pat" }, format: :json
+      expect(response).not_to be_successful
+    end
+  end
 end

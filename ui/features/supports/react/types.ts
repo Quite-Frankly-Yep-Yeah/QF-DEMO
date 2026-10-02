@@ -148,7 +148,8 @@ export type ImportRecord = {
   }[]
 }
 
-export type Person = {id: string; name: string}
+// a student search also says the SIS ID, to tell people with the same name apart
+export type Person = {id: string; name: string; sis_user_id?: string | null}
 
 // Supports::Import#as_api_json for an IEP scan (Supports::IepScan.preview_json)
 export type ExtractionState = 'queued' | 'running' | 'ready' | 'failed'

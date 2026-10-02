@@ -24,7 +24,10 @@ import {field, flatButton, Label, muted} from './ui'
 
 const I18n = createI18nScope('supports')
 
-// Finds a person by name. +url+ answers ?search_term= with {staff: [...]} or
+const withSis = (person: Person) =>
+  person.sis_user_id ? ` (${I18n.t('SIS ID')} ${person.sis_user_id})` : ''
+
+// Finds a person by name, or for students by SIS ID or login. +url+ answers ?search_term= with {staff: [...]} or
 // {students: [...]}; +key+ says which.
 export default function PersonPicker({
   label,
@@ -67,7 +70,8 @@ export default function PersonPicker({
     return (
       <div style={{margin: '4px 0 12px'}}>
         <span style={{fontWeight: 500}}>{label}: </span>
-        {selected.name}{' '}
+        {selected.name}
+        {withSis(selected)}{' '}
         <button type="button" style={flatButton} onClick={() => onSelect(null)}>
           {I18n.t('Change')}
         </button>
@@ -82,7 +86,7 @@ export default function PersonPicker({
           style={field}
           value={term}
           onChange={event => setTerm(event.target.value)}
-          placeholder={I18n.t('Type at least two letters of a name')}
+          placeholder={I18n.t('Type at least two letters of a name or SIS ID')}
         />
       </Label>
       {results.length > 0 && (
@@ -104,6 +108,7 @@ export default function PersonPicker({
                 }}
               >
                 {person.name}
+                {withSis(person)}
               </button>
             </li>
           ))}
