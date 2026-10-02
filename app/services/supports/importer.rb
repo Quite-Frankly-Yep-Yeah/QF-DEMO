@@ -45,11 +45,14 @@ module Supports
         account.grants_right?(user, :supports_view_all_students)
     end
 
-    def initialize(account, user)
+    # +authorized+ is for an IEP scan, which the caller has already checked
+    # against the student (Supports::IepScan), since a case manager may apply
+    # their own students' scans without the all-students permission.
+    def initialize(account, user, authorized: false)
       @account = account
       @root_account = account.root_account
       @user = user
-      raise Forbidden unless self.class.allowed?(user, account)
+      raise Forbidden unless authorized || self.class.allowed?(user, account)
     end
 
     # Parses +csv_text+ and saves a previewed import showing what each row
@@ -64,10 +67,17 @@ module Supports
     def apply!(import)
       raise ArgumentError, "import is #{import.workflow_state}" unless import.workflow_state == "previewed"
 
+      blockers = import.scan? ? IepScan.blockers(import) : []
+      raise ArgumentError, blockers.first if blockers.any?
+
       changes = []
       touched_plans = Set.new
       Plan.transaction do
-        rows = resolve(parse(import.data))
+        rows = resolve(import.scan? ? IepScan.rows_for_apply(import) : parse(import.data))
+        # a scan was reviewed row by row, so it applies whole or not at all
+        problem = import.scan? && rows.find { |row| row[:action] == "error" }
+        raise ArgumentError, problem[:message] if problem
+
         plans_by_key = {}
         rows.each do |row|
           next if row[:action] == "error"
@@ -78,8 +88,13 @@ module Supports
           touched_plans << plan.id if apply_accommodation(plan, row, changes)
         end
         Plan.where(id: touched_plans.to_a).find_each(&:bump_version!)
-        import.update!(workflow_state: "applied", applied_at: Time.zone.now, applied_changes: changes,
-                       preview: preview_json(rows))
+        attrs = { workflow_state: "applied", applied_at: Time.zone.now, applied_changes: changes }
+        if import.scan?
+          attrs[:plan_id] = plans_by_key.values.first&.id
+        else
+          attrs[:preview] = preview_json(rows)
+        end
+        import.update!(attrs)
       end
       import
     end
@@ -113,6 +128,13 @@ module Supports
       import
     end
 
+    # What each row of a scan would do now, by row index (see IepScan.preview_json).
+    def scan_row_results(import)
+      resolve(IepScan.rows_for_apply(import)).filter_map do |row|
+        [row[:index], { "action" => row[:action], "message" => row[:message] }] if row[:index]
+      end.to_h
+    end
+
     private
 
     def parse(csv_text)
@@ -137,7 +159,7 @@ module Supports
 
     def resolve_row(row, seen_plans)
       data = row[:data]
-      student = find_student(data)
+      student = row[:student] || find_student(data)
       return row.merge(action: "error", message: I18n.t("Student not found.")) unless student
       return row.merge(action: "error", student:, message: I18n.t("The student isn't enrolled in this school.")) unless in_account?(student)
 
@@ -160,6 +182,9 @@ module Supports
       plan = find_plan(student, plan_type, data["plan_id"])
       plan_attrs = { plan_type:, start_date: dates["start_date"], end_date: dates["end_date"],
                      case_manager_id: manager&.id, external_id: data["plan_id"].presence }.compact
+      if row[:plan_notes].present? && !plan&.notes.to_s.include?(row[:plan_notes])
+        plan_attrs[:notes] = [plan&.notes.presence, row[:plan_notes]].compact.join("\n\n")
+      end
       first_row_for_plan = !seen_plans.key?(plan_key)
       seen_plans[plan_key] = true
 
@@ -175,7 +200,7 @@ module Supports
       type = Catalog.types(@root_account).find { |t| t.name.casecmp?(data["accommodation"]) }
       return base.merge(action: "error", message: I18n.t("%{name} isn't in the accommodation catalog.", name: data["accommodation"])) unless type
 
-      params = parse_parameters(type, data["parameters"])
+      params = row[:params] || parse_parameters(type, data["parameters"])
       errors = AccommodationType.parameter_errors(type.kind, params)
       return base.merge(action: "error", message: errors.join(" ")) if errors.any?
 
@@ -199,7 +224,7 @@ module Supports
     def apply_plan(plan, row, changes)
       attrs = row[:plan_attrs]
       if plan.nil?
-        plan = Plan.create!(attrs.merge(account: @account, student: row[:student], created_by: @user, source: "import"))
+        plan = Plan.create!(attrs.merge(account: @account, student: row[:student], created_by: @user, source: row[:source] || "import"))
         changes << { "model" => "plan", "id" => plan.id, "action" => "create" }
         record_caseload(plan, changes)
       elsif plan_changes?(plan, attrs)

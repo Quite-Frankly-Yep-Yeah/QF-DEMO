@@ -168,4 +168,154 @@ describe Supports::IepScan do
       described_class.extract(import.id)
     end
   end
+
+  describe "review and apply" do
+    let(:read_aloud) { Supports::Catalog.types(root_account).find_by(name: "Read aloud") }
+
+    def item(type, params: {}, included: true, errors: [], quote: "q")
+      { "type_id" => type.id,
+        "kind" => type.kind,
+        "params" => params,
+        "source_quote" => quote,
+        "page" => 1,
+        "confidence" => "high",
+        "errors" => errors,
+        "included" => included }
+    end
+
+    # a scan that has been read, ready for review
+    def ready_scan(items: result.items, for_student: student, doc_name: "Pat Student", unmapped: result.unmapped)
+      import = scan.create!(student: for_student, file: upload)
+      stub_extractor(Supports::IepExtractor::Result.new(doc_name, nil, "iep", "2026-09-01", "2027-06-15", items, unmapped))
+      described_class.extract(import.id)
+      import.reload
+    end
+
+    describe "#update_review!" do
+      it "re-checks an edited item and clears its error" do
+        import = ready_scan(items: [item(time_type,
+                                         params: { "multiplier" => 9 },
+                                         included: false,
+                                         errors: ["The time multiplier must be more than 1 and at most 5."])])
+        scan.update_review!(import, items: [{ "index" => 0, "included" => true, "params" => { "multiplier" => 2 } }])
+        expect(import.extraction["items"].first).to include("params" => { "multiplier" => 2 }, "errors" => [], "included" => true)
+        expect(import.preview["summary"]["blocking"]).to eq 0
+      end
+
+      it "blocks an included item whose edit is still invalid" do
+        import = ready_scan
+        scan.update_review!(import, items: [{ "index" => 0, "params" => { "multiplier" => 9 } }])
+        expect(import.preview["summary"]["blocking"]).to eq 1
+        expect(import.preview["rows"].first["action"]).to eq "error"
+      end
+
+      it "blocks two included items for the same accommodation until one is dropped" do
+        import = ready_scan(items: [item(time_type, params: { "multiplier" => 1.5 }),
+                                    item(time_type, params: { "multiplier" => 2 })])
+        expect(import.preview["summary"]["blocking"]).to eq 1
+        expect(import.extraction["items"].last["errors"].join).to match(/already/)
+        scan.update_review!(import, items: [{ "index" => 1, "included" => false }])
+        expect(import.preview["summary"]["blocking"]).to eq 0
+      end
+
+      it "blocks a plan type that isn't one of ours, and takes a fixed one" do
+        import = ready_scan
+        scan.update_review!(import, plan: { "plan_type" => "mystery" })
+        expect(import.preview["summary"]["blocking"]).to eq 1
+        scan.update_review!(import, plan: { "plan_type" => "504" })
+        expect(import.preview["summary"]["blocking"]).to eq 0
+        expect(import.extraction["plan"]["plan_type"]).to eq "504"
+      end
+
+      it "rejects an item or note that doesn't exist" do
+        import = ready_scan
+        expect { scan.update_review!(import, items: [{ "index" => 5, "included" => false }]) }.to raise_error(described_class::Invalid)
+        expect { scan.update_review!(import, keep_unmapped: [3]) }.to raise_error(described_class::Invalid)
+      end
+
+      it "only edits a scan that is ready and that the user may manage" do
+        import = ready_scan
+        expect { described_class.new(root_account, bystander).update_review!(import, items: []) }
+          .to raise_error(Supports::Importer::Forbidden)
+        import.update!(extraction_state: "failed")
+        expect { scan.update_review!(import, items: []) }.to raise_error(ArgumentError)
+      end
+    end
+
+    describe "#apply! and #undo!" do
+      it "creates the plan and its accommodations, with what was kept from the unmapped list" do
+        import = ready_scan(items: [item(time_type, params: { "multiplier" => 1.5 }), item(read_aloud)])
+        scan.update_review!(import, keep_unmapped: [0])
+        scan.apply!(import)
+
+        plan = Supports::Plan.find(import.reload.plan_id)
+        expect(import.workflow_state).to eq "applied"
+        expect(plan).to have_attributes(student:,
+                                        plan_type: "iep",
+                                        source: "scan",
+                                        start_date: Date.new(2026, 9, 1),
+                                        end_date: Date.new(2027, 6, 15),
+                                        version: 2)
+        expect(plan.accommodations.active.map { |a| a.accommodation_type.name }).to match_array [time_type.name, "Read aloud"]
+        expect(plan.accommodations.find_by(accommodation_type: time_type).parameters).to eq("multiplier" => 1.5)
+        expect(plan.notes).to include("Speech therapy")
+      end
+
+      it "leaves out an item the reviewer dropped, and a note they didn't keep" do
+        import = ready_scan(items: [item(time_type, params: { "multiplier" => 1.5 }), item(read_aloud)])
+        scan.update_review!(import, items: [{ "index" => 1, "included" => false }])
+        scan.apply!(import)
+        plan = Supports::Plan.find(import.reload.plan_id)
+        expect(plan.accommodations.active.count).to eq 1
+        expect(plan.notes.to_s).not_to include("Speech therapy")
+      end
+
+      it "won't apply a document for another student until the reviewer says so" do
+        import = ready_scan(doc_name: "Riley Other")
+        expect { scan.apply!(import) }.to raise_error(ArgumentError, /different student/)
+        scan.update_review!(import, acknowledged_mismatch: true)
+        expect { scan.apply!(import) }.not_to raise_error
+      end
+
+      it "won't apply while something is blocking" do
+        import = ready_scan
+        scan.update_review!(import, items: [{ "index" => 0, "params" => { "multiplier" => 9 } }])
+        expect { scan.apply!(import) }.to raise_error(ArgumentError, /fix/i)
+        expect(Supports::Plan.where(student:).count).to eq 0
+      end
+
+      it "won't apply twice" do
+        import = ready_scan
+        scan.apply!(import)
+        expect { scan.apply!(import) }.to raise_error(ArgumentError, /applied/)
+      end
+
+      it "puts back what an existing plan had when undone, and removes what it made" do
+        old = Supports::Plan.create!(account: root_account, student:, plan_type: "iep", start_date: Date.new(2025, 9, 1))
+        old.accommodations.create!(accommodation_type: time_type, parameters: { "multiplier" => 1.25 })
+        import = ready_scan
+        scan.apply!(import)
+        expect(old.accommodations.active.first.reload.parameters).to eq("multiplier" => 1.5)
+        expect(old.reload.start_date).to eq Date.new(2026, 9, 1)
+
+        scan.undo!(import)
+        expect(old.accommodations.active.first.reload.parameters).to eq("multiplier" => 1.25)
+        expect(old.reload.start_date).to eq Date.new(2025, 9, 1)
+        expect(import.reload.workflow_state).to eq "undone"
+      end
+
+      it "shows a second scan of the same plan as no change, and a different value as a change" do
+        scan.apply!(ready_scan)
+        same = ready_scan
+        expect(same.preview["rows"].first["action"]).to eq "unchanged"
+        different = ready_scan(items: [item(time_type, params: { "multiplier" => 2 })])
+        expect(different.preview["rows"].first["action"]).to eq "update"
+      end
+
+      it "refuses someone who can't manage the student" do
+        import = ready_scan
+        expect { described_class.new(root_account, bystander).apply!(import) }.to raise_error(Supports::Importer::Forbidden)
+      end
+    end
+  end
 end
