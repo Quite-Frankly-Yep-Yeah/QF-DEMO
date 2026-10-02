@@ -22,7 +22,7 @@ import {FlatButton, Pill, RaisedButton} from './bits'
 import {headerColor, initials, statusLabel, teacherNames} from './catalogModel'
 import {ELEVATION, INK, ROBOTO} from './material'
 import type {CatalogCourse, Student} from './types'
-import {SURFACE} from '@canvas/material'
+import {SUBTLE} from '@canvas/material'
 
 const I18n = createI18nScope('course_catalog')
 
@@ -65,7 +65,7 @@ export default function CourseCard({
       style={{
         display: 'flex',
         flexDirection: 'column',
-        background: SURFACE,
+        background: SUBTLE,
         borderRadius: 2,
         boxShadow: ELEVATION[2],
         overflow: 'hidden',

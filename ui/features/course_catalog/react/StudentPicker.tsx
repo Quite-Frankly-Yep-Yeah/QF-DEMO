@@ -21,7 +21,7 @@ import {useScope as createI18nScope} from '@canvas/i18n'
 import {MIN_SEARCH} from './catalogModel'
 import {ELEVATION, INK, ROBOTO} from './material'
 import type {Student} from './types'
-import {SURFACE} from '@canvas/material'
+import {SUBTLE} from '@canvas/material'
 
 const I18n = createI18nScope('course_catalog')
 
@@ -153,7 +153,7 @@ export default function StudentPicker({student, onChange, search}: Props) {
             margin: '4px 0 0',
             padding: '8px 0',
             listStyle: 'none',
-            background: SURFACE,
+            background: SUBTLE,
             color: INK.primary,
             borderRadius: 2,
             boxShadow: ELEVATION[8],

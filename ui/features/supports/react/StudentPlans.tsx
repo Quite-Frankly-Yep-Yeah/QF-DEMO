@@ -34,7 +34,7 @@ import type {
 } from './types'
 import {button, Card, field, flatButton, formatDate, Label, messageFrom, muted, Status} from './ui'
 import AppliedCard from './AppliedCard'
-import {DIVIDER, SURFACE} from '@canvas/material'
+import {DIVIDER, SUBTLE} from '@canvas/material'
 
 const I18n = createI18nScope('supports')
 
@@ -221,7 +221,7 @@ function AccommodationForm({
         event.preventDefault()
         onSubmit(draft)
       }}
-      style={{marginTop: 12, padding: 12, background: SURFACE, borderRadius: 2}}
+      style={{marginTop: 12, padding: 12, background: SUBTLE, borderRadius: 2}}
     >
       {creating ? (
         <Label text={I18n.t('Accommodation')}>

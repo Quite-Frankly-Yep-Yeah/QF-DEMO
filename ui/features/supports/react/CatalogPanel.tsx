@@ -22,7 +22,7 @@ import doFetchApi from '@canvas/do-fetch-api-effect'
 import ParametersFields from './ParametersFields'
 import type {Catalog, CatalogType, Kind, Parameters} from './types'
 import {button, Card, field, flatButton, Label, messageFrom, muted, Status} from './ui'
-import {DIVIDER, SURFACE} from '@canvas/material'
+import {DIVIDER, SUBTLE} from '@canvas/material'
 
 const I18n = createI18nScope('supports')
 
@@ -49,7 +49,7 @@ function TypeForm({
         event.preventDefault()
         onSubmit(draft)
       }}
-      style={{padding: 12, background: SURFACE, borderRadius: 2, margin: '8px 0'}}
+      style={{padding: 12, background: SUBTLE, borderRadius: 2, margin: '8px 0'}}
     >
       <Label text={I18n.t('Name')}>
         <input

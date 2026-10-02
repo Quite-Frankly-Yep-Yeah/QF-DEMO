@@ -22,7 +22,7 @@ import {FlatButton, Pill} from './bits'
 import {MIN_SEARCH, statusOptions} from './catalogModel'
 import {ELEVATION, INK, ROBOTO} from './material'
 import type {Filters, Option, Teacher, TriFilter} from './types'
-import {DIVIDER, SURFACE} from '@canvas/material'
+import {DIVIDER, SUBTLE} from '@canvas/material'
 
 const I18n = createI18nScope('course_catalog')
 
@@ -251,7 +251,7 @@ export default function FilterPanel({
   return (
     <div
       style={{
-        background: SURFACE,
+        background: SUBTLE,
         borderRadius: 2,
         boxShadow: ELEVATION[2],
         padding: '8px 20px 16px',

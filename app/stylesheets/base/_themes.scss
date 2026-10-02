@@ -27,6 +27,16 @@
       color: var(--qf-ink);
     }
 
+    // the breadcrumb strip some Material pages show above their content
+    #breadcrumbs {
+      background: var(--qf-surface);
+
+      a,
+      span {
+        color: var(--qf-accent);
+      }
+    }
+
     // links in the page content read in the theme's accent
     #content a {
       color: var(--qf-accent);

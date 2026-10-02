@@ -25,6 +25,7 @@ export type ThemeTokens = {
   onAppBar: string
   surface: string
   paper: string
+  subtle: string
   ink: string
   inkSecondary: string
   divider: string

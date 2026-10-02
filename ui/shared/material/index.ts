@@ -28,6 +28,8 @@ export const ON_APP_BAR = tokenVar('onAppBar')
 export const SURFACE = tokenVar('surface')
 export const PAPER = tokenVar('paper')
 export const DIVIDER = tokenVar('divider')
+export const SUBTLE = tokenVar('subtle')
+export const ACCENT = tokenVar('accent')
 export const INK = {
   primary: tokenVar('ink'),
   secondary: tokenVar('inkSecondary'),

@@ -18,7 +18,7 @@
 
 import React, {useState} from 'react'
 import {useScope as createI18nScope} from '@canvas/i18n'
-import {INK, PAPER, SURFACE} from '@canvas/material'
+import {INK, PAPER, SUBTLE} from '@canvas/material'
 import {useMaterialPage} from '@canvas/material/useMaterialPage'
 
 const I18n = createI18nScope('self_paced_parent_signup')
@@ -138,7 +138,7 @@ export default function ParentSignupApp({
   const hasStudent = config.student_first_name !== null
 
   return (
-    <div style={{fontFamily: ROBOTO, background: SURFACE, minHeight: '100vh', padding: '0 0 48px'}}>
+    <div style={{fontFamily: ROBOTO, background: SUBTLE, minHeight: '100vh', padding: '0 0 48px'}}>
       <div style={{height: 6, background: BRAND}} aria-hidden="true" />
       <main
         style={{

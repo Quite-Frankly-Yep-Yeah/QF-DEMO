@@ -27,6 +27,7 @@ const TOKEN_KEYS = [
   'inkSecondary',
   'onAppBar',
   'paper',
+  'subtle',
   'surface',
 ]
 
@@ -41,6 +42,7 @@ describe('themes', () => {
     for (const {tokens} of Object.values(THEMES)) {
       expect(contrast(tokens.ink, tokens.surface)).toBeGreaterThanOrEqual(4.5)
       expect(contrast(tokens.ink, tokens.paper)).toBeGreaterThanOrEqual(4.5)
+      expect(contrast(tokens.ink, tokens.subtle)).toBeGreaterThanOrEqual(4.5)
       expect(contrast(tokens.onAppBar, tokens.appBar)).toBeGreaterThanOrEqual(4.5)
     }
   })
@@ -62,5 +64,6 @@ describe('themes', () => {
     expect(THEMES.light.tokens.appBar).toBe('#2B7ABC')
     expect(THEMES.light.tokens.surface).toBe('#EEEEEE')
     expect(THEMES.light.tokens.paper).toBe('#FFFFFF')
+    expect(THEMES.light.tokens.subtle).toBe('#F5F5F5')
   })
 })

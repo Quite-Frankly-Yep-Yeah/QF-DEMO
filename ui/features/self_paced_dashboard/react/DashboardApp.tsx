@@ -16,6 +16,7 @@
  * with this program. If not, see <http://www.gnu.org/licenses/>.
  */
 
+import {ACCENT} from '@canvas/material'
 import {useMaterialPage} from '@canvas/material/useMaterialPage'
 import React, {useCallback, useEffect, useMemo, useRef, useState} from 'react'
 import {useScope as createI18nScope} from '@canvas/i18n'
@@ -186,6 +187,7 @@ export default function DashboardApp({config}: {config: DashboardConfig}) {
             size="small"
             color="primary"
             withBackground={false}
+            themeOverride={{primaryGhostColor: ACCENT, primaryGhostBorderColor: ACCENT}}
             aria-pressed={expandAll}
             onClick={() => setExpandAll(!expandAll)}
           >
