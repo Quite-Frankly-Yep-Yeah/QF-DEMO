@@ -63,4 +63,22 @@ describe Supports::AnthropicSetting do
     expect(described_class.site).to eq site
     expect(described_class.for_account(root_account)).to eq school
   end
+
+  it "refuses a key with a space or line break inside it, without echoing it" do
+    setting = described_class.new(root_account:, api_key: "sk-ant-api03-ABC\nDEF-4f2a")
+    expect(setting).not_to be_valid
+    expect(setting.errors.full_messages.join).not_to include("ABC")
+    expect(described_class.new(root_account:, api_key: "sk-ant-api03-ABC DEF-4f2a")).not_to be_valid
+  end
+
+  it "refuses a key too short to be real, so its last four aren't most of it" do
+    expect(described_class.new(root_account:, api_key: "abcd1234")).to be_valid
+    expect(described_class.new(root_account:, api_key: "abc1234")).not_to be_valid
+  end
+
+  it "describes what is wrong with a typed key" do
+    expect(described_class.key_problems("sk-ant-fine-key-1234")).to eq []
+    expect(described_class.key_problems("two words here")).to include(/spaces or line breaks/)
+    expect(described_class.key_problems("short")).to include(/too short/)
+  end
 end

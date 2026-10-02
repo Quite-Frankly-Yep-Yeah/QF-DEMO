@@ -44,6 +44,7 @@ module Supports
       js_env({ AI_SETTINGS: {
                account_id: @account.id.to_s,
                is_site_admin_account: @account.site_admin?,
+               can_manage_school: school_manager?,
                can_manage_site: site_manager?,
                models: model_options,
                default_model: AnthropicSetting::DEFAULT_MODEL
@@ -63,28 +64,28 @@ module Supports
     def update
       return render_unauthorized_action unless school_manager?
 
-      save(AnthropicSetting.find_or_initialize_by(root_account_id: @account.id), "account", "update")
+      save(@account.id, "account", "update")
     end
 
     # DELETE /api/v1/accounts/:account_id/ai_settings   removes the key, keeps the model
     def destroy
       return render_unauthorized_action unless school_manager?
 
-      save(AnthropicSetting.find_or_initialize_by(root_account_id: @account.id), "account", "delete", remove_key: true)
+      save(@account.id, "account", "delete", remove_key: true)
     end
 
     # PUT /api/v1/accounts/:account_id/ai_settings/site   api_key, model, allow_account_keys
     def update_site
       return render_unauthorized_action unless site_manager?
 
-      save(AnthropicSetting.find_or_initialize_by(root_account_id: nil), "site", "update")
+      save(nil, "site", "update")
     end
 
     # DELETE /api/v1/accounts/:account_id/ai_settings/site
     def destroy_site
       return render_unauthorized_action unless site_manager?
 
-      save(AnthropicSetting.find_or_initialize_by(root_account_id: nil), "site", "delete", remove_key: true)
+      save(nil, "site", "delete", remove_key: true)
     end
 
     # POST /api/v1/accounts/:account_id/ai_settings/test   scope, api_key?, model?
@@ -96,6 +97,9 @@ module Supports
       setting = site ? AnthropicSetting.site : AnthropicSetting.for_account(@account)
       key = params[:api_key].to_s.strip.presence || setting&.api_key.presence
       return render json: { errors: [t("Enter a key to test.")] }, status: :unprocessable_content unless key
+
+      problems = AnthropicSetting.key_problems(key)
+      return render json: { errors: problems }, status: :unprocessable_content if problems.any?
 
       model = AnthropicSetting::MODELS.include?(params[:model]) ? params[:model] : (setting&.model || AnthropicSetting::DEFAULT_MODEL)
       render json: AnthropicConnectionTest.call(api_key: key, model:)
@@ -126,19 +130,36 @@ module Supports
       Account.site_admin.grants_right?(@current_user, :manage_site_settings)
     end
 
-    def save(setting, scope, action, remove_key: false)
-      attrs = { updated_by: @current_user }
-      attrs[:api_key] = nil if remove_key
-      typed = params[:api_key].to_s.strip
-      attrs[:api_key] = typed if !remove_key && typed.present?
-      attrs[:model] = params[:model] if !remove_key && params[:model].present?
-      attrs[:allow_account_keys] = ActiveModel::Type::Boolean.new.cast(params[:allow_account_keys]) if scope == "site" && !remove_key && params.key?(:allow_account_keys)
-      setting.assign_attributes(attrs)
-      setting.save!
+    def save(root_account_id, scope, action, remove_key: false)
+      attempts = 0
+      begin
+        setting = AnthropicSetting.find_or_initialize_by(root_account_id:)
+        setting.assign_attributes(changes_for(scope, remove_key))
+        setting.save!
+      rescue ActiveRecord::RecordNotUnique, ActiveRecord::RecordInvalid => e
+        # two first saves at once: the other one made the row, so look again
+        raise if e.is_a?(ActiveRecord::RecordInvalid) && !e.record.errors.of_kind?(:root_account_id, :taken)
+
+        attempts += 1
+        retry if attempts < 3
+        raise
+      end
       Rails.logger.info("[anthropic_settings] scope=#{scope} action=#{action} user_id=#{@current_user.id} account_id=#{@account.id}")
       render json: payload
-    rescue ActiveRecord::RecordNotUnique
-      retry
+    end
+
+    # What a save changes: only what was sent. A blank key leaves the saved one.
+    def changes_for(scope, remove_key)
+      return { updated_by: @current_user, api_key: nil } if remove_key
+
+      attrs = { updated_by: @current_user }
+      typed = params[:api_key].to_s.strip
+      attrs[:api_key] = typed if typed.present?
+      attrs[:model] = params[:model] if params[:model].present?
+      if scope == "site" && params[:allow_account_keys].to_s.present?
+        attrs[:allow_account_keys] = ActiveModel::Type::Boolean.new.cast(params[:allow_account_keys])
+      end
+      attrs
     end
 
     def payload

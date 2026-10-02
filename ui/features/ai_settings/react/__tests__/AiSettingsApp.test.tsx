@@ -27,6 +27,7 @@ import type {AiSettingsConfig, SettingsResponse} from '../types'
 const config = (overrides: Partial<AiSettingsConfig> = {}): AiSettingsConfig => ({
   account_id: '1',
   is_site_admin_account: false,
+  can_manage_school: true,
   can_manage_site: false,
   models: [
     {value: 'claude-opus-5-5', label: 'Claude Opus 5.5 (most capable)'},
@@ -182,7 +183,15 @@ describe('AiSettingsApp', () => {
 
   it('has no school section on the site admin account', async () => {
     current = settings()
-    render(<AiSettingsApp config={config({is_site_admin_account: true, can_manage_site: true})} />)
+    render(
+      <AiSettingsApp
+        config={config({
+          is_site_admin_account: true,
+          can_manage_school: false,
+          can_manage_site: true,
+        })}
+      />,
+    )
     expect(await screen.findByRole('heading', {name: 'Site-wide key'})).toBeInTheDocument()
     expect(screen.queryByRole('heading', {name: "This school's key"})).not.toBeInTheDocument()
   })
@@ -250,5 +259,11 @@ describe('AiSettingsApp', () => {
     expect(screen.getByLabelText('API key')).toHaveFocus()
     await userEvent.tab()
     expect(screen.getByLabelText('Model')).toHaveFocus()
+  })
+  it("hides the school section from someone who can't save it, even a site admin", async () => {
+    current = settings()
+    render(<AiSettingsApp config={config({can_manage_school: false, can_manage_site: true})} />)
+    expect(await screen.findByRole('heading', {name: 'Site-wide key'})).toBeInTheDocument()
+    expect(screen.queryByRole('heading', {name: "This school's key"})).not.toBeInTheDocument()
   })
 })

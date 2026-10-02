@@ -276,4 +276,59 @@ describe Supports::AnthropicSettingsController do
       expect(response).to have_http_status(:not_found)
     end
   end
+
+  describe "review fixes" do
+    before { user_session(school_admin) }
+
+    it "refuses a pasted key that has a space or line break inside it" do
+      put_school(api_key: "sk-ant-api03-SECRETPART\nSECONDPART-4f2a")
+      expect(response).to have_http_status(:unprocessable_content)
+      expect(response.body).not_to include("SECRETPART")
+      expect(response.body).not_to include("SECONDPART")
+      expect(Supports::AnthropicSetting.count).to eq 0
+    end
+
+    it "refuses a key that is too short" do
+      put_school(api_key: "abc")
+      expect(response).to have_http_status(:unprocessable_content)
+      expect(Supports::AnthropicSetting.count).to eq 0
+    end
+
+    it "won't test a key that has whitespace inside it" do
+      allow(Supports::AnthropicConnectionTest).to receive(:call)
+      post :test, params: { account_id: root_account.id, scope: "account", api_key: "two words in a key" }, as: :json
+      expect(response).to have_http_status(:unprocessable_content)
+      expect(Supports::AnthropicConnectionTest).not_to have_received(:call)
+    end
+
+    it "saves when two people save for the first time at once" do
+      calls = 0
+      allow(Supports::AnthropicSetting).to receive(:find_or_initialize_by).and_wrap_original do |original, *args|
+        record = original.call(*args)
+        calls += 1
+        Supports::AnthropicSetting.create!(root_account:) if calls == 1 # the other save lands first
+        record
+      end
+      put_school(api_key: key)
+      expect(response).to be_successful
+      expect(Supports::AnthropicSetting.where(root_account_id: root_account.id).count).to eq 1
+      expect(Supports::AnthropicSetting.for_account(root_account).api_key).to eq key
+    end
+
+    it "ignores a blank allow_account_keys instead of failing" do
+      user_session(site_admin)
+      put_site(api_key: key, allow_account_keys: false)
+      put_site(allow_account_keys: "")
+      expect(response).to be_successful
+      expect(Supports::AnthropicSetting.site.allow_account_keys).to be false
+    end
+
+    it "tells the page whether the viewer can manage this school's key" do
+      get :page, params: { account_id: root_account.id }
+      expect(assigns[:js_env][:AI_SETTINGS]).to include(can_manage_school: true)
+      user_session(site_admin)
+      get :page, params: { account_id: Account.site_admin.id }
+      expect(assigns[:js_env][:AI_SETTINGS]).to include(can_manage_school: false)
+    end
+  end
 end

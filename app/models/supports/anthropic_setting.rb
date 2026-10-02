@@ -34,6 +34,20 @@ module Supports
 
     validates :model, inclusion: { in: MODELS }
     validates :root_account_id, uniqueness: true
+    validate :key_is_usable
+
+    MIN_KEY_LENGTH = 8
+
+    # Why a typed key can't be right, without quoting it. A key wrapped by an
+    # email client keeps a line break inside, which only fails later as an
+    # outage, so it is refused here.
+    def self.key_problems(key)
+      key = key.to_s.strip
+      problems = []
+      problems << I18n.t("The key can't contain spaces or line breaks.") if key.match?(/\s/)
+      problems << I18n.t("The key is too short.") if key.length < MIN_KEY_LENGTH
+      problems
+    end
 
     def self.site
       find_by(root_account_id: nil)
@@ -52,6 +66,15 @@ module Supports
 
     def key?
       api_key.present?
+    end
+
+    private
+
+    def key_is_usable
+      key = api_key
+      return if key.blank?
+
+      self.class.key_problems(key).each { |problem| errors.add(:api_key, problem) }
     end
   end
 end

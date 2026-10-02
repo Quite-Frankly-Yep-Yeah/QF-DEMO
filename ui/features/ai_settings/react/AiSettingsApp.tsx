@@ -158,7 +158,7 @@ export default function AiSettingsApp({config}: {config: AiSettingsConfig}) {
             )}
           </div>
 
-          {!config.is_site_admin_account && (
+          {config.can_manage_school && (
             <KeySection
               title={I18n.t("This school's key")}
               setting={data.account}

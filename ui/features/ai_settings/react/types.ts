@@ -20,6 +20,7 @@
 export type AiSettingsConfig = {
   account_id: string
   is_site_admin_account: boolean
+  can_manage_school: boolean
   can_manage_site: boolean
   models: {value: string; label: string}[]
   default_model: string
