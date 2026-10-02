@@ -57,6 +57,7 @@ export default function AccountSidebar() {
           }}
         >
           {user.display_name}
+          {user.pronouns && <span style={{fontStyle: 'italic'}}> ({user.pronouns})</span>}
         </div>
         {user.email && (
           <div style={{color: INK.secondary, fontSize: '0.875rem', wordBreak: 'break-word'}}>

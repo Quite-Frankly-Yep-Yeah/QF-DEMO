@@ -22,11 +22,11 @@ import {Text} from '@instructure/ui-text'
 import {List} from '@instructure/ui-list'
 import {Heading} from '@instructure/ui-heading'
 import {Badge} from '@instructure/ui-badge'
-import {Avatar} from '@instructure/ui-avatar'
 import {Spinner} from '@instructure/ui-spinner'
 import {Link} from '@instructure/ui-link'
 import {View} from '@instructure/ui-view'
 import {IconExternalLinkLine} from '@instructure/ui-icons'
+import AccountSidebar from '@canvas/account-sidebar/react/AccountSidebar'
 import LogoutButton from '../LogoutButton'
 import HighContrastModeToggle from './HighContrastModeToggle'
 import DyslexicFontToggle from './UseDyslexicFontToggle'
@@ -103,38 +103,14 @@ export default function ProfileTray() {
     unreadShares: unreadContentSharesCount,
   }
 
-  const userDisplayName = window.ENV.current_user.display_name
-  const userPronouns = window.ENV.current_user.pronouns
-  const userAvatarURL = window.ENV.current_user.avatar_is_fallback
-    ? ''
-    : window.ENV.current_user.avatar_image_url
-
   // Check if we have any accessibility settings to show
   const hasAccessibilitySettings = true // High contrast is always available
   const hasDyslexicFont = 'use_dyslexic_font' in window.ENV
 
   return (
     <View as="div" padding="medium">
+      <AccountSidebar />
       <View textAlign="center">
-        <Avatar
-          name={userDisplayName}
-          src={userAvatarURL}
-          alt={I18n.t('User profile picture')}
-          size="x-large"
-          display="block"
-          margin="auto"
-          data-fs-exclude={true}
-        />
-        <div style={{wordBreak: 'break-word'}}>
-          <Heading level="h3" as="h2">
-            {userDisplayName}
-            {userPronouns && (
-              <Text size="large" fontStyle="italic">
-                &nbsp;({userPronouns})
-              </Text>
-            )}
-          </Heading>
-        </div>
         <LogoutButton size="small" margin="medium 0 x-small 0" />
       </View>
       <hr role="presentation" />

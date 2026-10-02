@@ -1,5 +1,5 @@
 {
-  "name": "@canvas-features/account_sidebar",
+  "name": "@canvas/account-sidebar",
   "private": true,
   "version": "1.0.0",
   "main": "./react/AccountSidebar.tsx",

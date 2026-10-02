@@ -90,6 +90,11 @@ describe('ProfileTray', () => {
     getByText('Sample Student')
   })
 
+  it('renders the themes button from the account sidebar', () => {
+    const {getByTestId} = render(<ProfileTray />)
+    getByTestId('themes-button')
+  })
+
   it('renders external tool tabs with correct target attributes', () => {
     queryClient.setQueryData(['profile'], profileTabs)
     const {getByText} = render(<ProfileTray />)
