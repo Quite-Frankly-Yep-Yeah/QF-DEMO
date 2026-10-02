@@ -83,7 +83,7 @@ export default function ModelGuide({
                 })}
               </p>
               <div style={{display: 'flex', flexWrap: 'wrap', gap: 6, margin: '0 0 8px'}}>
-                <span style={{...pill, background: tint(color, 0.14), color: ink(color)}}>
+                <span style={{...pill, background: tint(color, 0.14), color: INK.primary}}>
                   {model.cost_vs_cheapest <= 1
                     ? I18n.t('Lowest price')
                     : I18n.t('%{times}× the cost of %{model}', {

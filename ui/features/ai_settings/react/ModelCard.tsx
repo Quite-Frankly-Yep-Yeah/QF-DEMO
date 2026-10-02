@@ -16,7 +16,7 @@
  * with this program. If not, see <http://www.gnu.org/licenses/>.
  */
 
-import React, {useEffect, useState} from 'react'
+import React, {useEffect, useRef, useState} from 'react'
 import {useScope as createI18nScope} from '@canvas/i18n'
 import {INK} from '../../self_paced_home/react/material'
 import {card, cardTitle, field, flat, raised} from './styles'
@@ -59,8 +59,33 @@ export default function ModelCard({
   const [drafts, setDrafts] = useState<Record<string, string>>(() =>
     Object.fromEntries(scopes.map(s => [s.scope, s.saved])),
   )
+  const previousSaved = useRef<Record<string, string>>(
+    Object.fromEntries(scopes.map(s => [s.scope, s.saved])),
+  )
+  const selects = useRef<Record<string, HTMLSelectElement | null>>({})
+  const [focusScope, setFocusScope] = useState<string | null>(null)
+
+  // Each level takes up its own saved choice when that changes, so saving the
+  // school's pick doesn't throw away an unsaved pick for the site.
   // biome-ignore lint/correctness/useExhaustiveDependencies: the key stands for the saved choices
-  useEffect(() => setDrafts(Object.fromEntries(scopes.map(s => [s.scope, s.saved]))), [savedKey])
+  useEffect(() => {
+    setDrafts(current => {
+      const merged = {...current}
+      for (const s of scopes) {
+        if ((previousSaved.current[s.scope] ?? '') !== s.saved) merged[s.scope] = s.saved
+      }
+      return merged
+    })
+    previousSaved.current = Object.fromEntries(scopes.map(s => [s.scope, s.saved]))
+  }, [savedKey])
+
+  // after saving, focus goes back to the picker instead of being lost
+  useEffect(() => {
+    if (focusScope && !busy) {
+      selects.current[focusScope]?.focus()
+      setFocusScope(null)
+    }
+  }, [focusScope, busy])
   const headingId = `ai-model-card-${title.replace(/\W+/g, '-').toLowerCase()}`
 
   // a saved model that is no longer offered still shows, so it can be seen and cleared
@@ -117,6 +142,9 @@ export default function ModelCard({
               <select
                 style={field}
                 aria-label={`${title}, ${level}`}
+                ref={element => {
+                  selects.current[scope.scope] = element
+                }}
                 value={draft}
                 disabled={busy}
                 onChange={event => setDrafts({...drafts, [scope.scope]: event.target.value})}
@@ -145,7 +173,9 @@ export default function ModelCard({
               style={{...raised, marginBottom: 8, opacity: busy || !changed ? 0.5 : 1}}
               aria-label={I18n.t('Save %{title}, %{level}', {title, level})}
               disabled={busy || !changed}
-              onClick={() => onSave(scope.scope, draft)}
+              onClick={async () => {
+                if (await onSave(scope.scope, draft)) setFocusScope(scope.scope)
+              }}
             >
               {I18n.t('Save')}
             </button>

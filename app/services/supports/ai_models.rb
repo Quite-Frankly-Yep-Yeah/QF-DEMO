@@ -74,7 +74,7 @@ module Supports
           output_price: info[:output_price],
           context_tokens: info[:context_tokens],
           supports_effort: info[:supports_effort],
-          cost_vs_cheapest: info[:input_price] / cheapest }
+          cost_vs_cheapest: info[:input_price].fdiv(cheapest).round(1) }
       end
     end
   end

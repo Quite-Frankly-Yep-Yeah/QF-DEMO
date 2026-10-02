@@ -521,3 +521,58 @@ describe('the model cards', () => {
     expect(card('Default model').queryByText('No recommendation yet')).not.toBeInTheDocument()
   })
 })
+
+describe('review fixes', () => {
+  it("keeps the cost pill's text dark enough to read on its tinted background", async () => {
+    current = settings()
+    await renderApp()
+    const pill = screen.getByText('4× the cost of Haiku')
+    expect(pill.style.color).toBe('rgba(0, 0, 0, 0.87)')
+  })
+
+  it('puts focus back on the picker after saving a model', async () => {
+    current = settings({account: saved})
+    await renderApp()
+    const model = card('Default model')
+    const select = model.getByLabelText('Default model, school')
+    await userEvent.selectOptions(select, 'claude-sonnet-5-5')
+    await userEvent.click(model.getByRole('button', {name: 'Save Default model, school'}))
+    await waitFor(() => expect(sent).toHaveLength(1))
+    await waitFor(() =>
+      expect(card('Default model').getByLabelText('Default model, school')).toHaveFocus(),
+    )
+  })
+
+  it("keeps an unsaved pick for the site when the school's pick is saved", async () => {
+    current = settings({
+      account: saved,
+      site: {...saved, allow_account_keys: true, allow_account_models: true},
+    })
+    server.use(
+      http.put('/api/v1/accounts/1/ai_settings', async ({request}) => {
+        await note(request)
+        return HttpResponse.json({...current, account: {...saved, model: 'claude-sonnet-5-5'}})
+      }),
+    )
+    await renderApp(config({can_manage_site: true}))
+    const model = card('Default model')
+    await userEvent.selectOptions(
+      model.getByLabelText('Default model, school'),
+      'claude-sonnet-5-5',
+    )
+    await userEvent.selectOptions(model.getByLabelText('Default model, site'), 'claude-haiku-4-5')
+    await userEvent.click(model.getByRole('button', {name: 'Save Default model, school'}))
+    await waitFor(() => expect(sent).toHaveLength(1))
+    await waitFor(() =>
+      expect(card('Default model').getByLabelText('Default model, school')).toHaveValue(
+        'claude-sonnet-5-5',
+      ),
+    )
+    expect(card('Default model').getByLabelText('Default model, site')).toHaveValue(
+      'claude-haiku-4-5',
+    )
+    expect(
+      card('Default model').getByRole('button', {name: 'Save Default model, site'}),
+    ).toBeEnabled()
+  })
+})

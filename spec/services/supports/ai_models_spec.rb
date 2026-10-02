@@ -68,4 +68,12 @@ describe Supports::AiModels do
     expect(described_class.supports_effort?("claude-opus-5-5")).to be true
     expect(described_class.supports_effort?("claude-haiku-4-5")).to be false
   end
+
+  it "gives a fractional cost multiple, and only calls the cheapest one the lowest" do
+    stub_const("Supports::AiModels::INFO", {
+                 "a" => { label: -> { "A" }, summary: -> { "s" }, use_when: -> { "u" }, input_price: 3, output_price: 9, context_tokens: 1, supports_effort: true },
+                 "b" => { label: -> { "B" }, summary: -> { "s" }, use_when: -> { "u" }, input_price: 2, output_price: 6, context_tokens: 1, supports_effort: true }
+               })
+    expect(described_class.all.to_h { |model| [model[:value], model[:cost_vs_cheapest]] }).to eq("a" => 1.5, "b" => 1.0)
+  end
 end
