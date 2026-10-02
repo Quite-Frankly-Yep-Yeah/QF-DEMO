@@ -47,5 +47,11 @@ describe QfThemes do
     it "points the global nav brand variables at the theme" do
       expect(QfThemes.css).to include("--ic-brand-global-nav-bgd:#181825")
     end
+
+    it "colors the global nav labels with the theme's onAppBar" do
+      css = QfThemes.css
+      expect(css).to include("--ic-brand-global-nav-menu-item__text-color:#CDD6F4")
+      expect(css).to include("--ic-brand-global-nav-menu-item__text-color--active:#CDD6F4")
+    end
   end
 end

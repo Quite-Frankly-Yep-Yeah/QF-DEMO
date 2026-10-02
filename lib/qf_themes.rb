@@ -51,7 +51,9 @@ module QfThemes
         "--ic-brand-global-nav-bgd:#{tokens["appBar"]}",
         "--ic-brand-global-nav-logo-bgd:#{tokens["appBar"]}",
         "--ic-brand-global-nav-ic-icon-svg-fill:#{tokens["onAppBar"]}",
-        "--ic-brand-global-nav-ic-icon-svg-fill--active:#{tokens["onAppBar"]}"
+        "--ic-brand-global-nav-ic-icon-svg-fill--active:#{tokens["onAppBar"]}",
+        "--ic-brand-global-nav-menu-item__text-color:#{tokens["onAppBar"]}",
+        "--ic-brand-global-nav-menu-item__text-color--active:#{tokens["onAppBar"]}"
       ]
     end
 

@@ -1,0 +1,29 @@
+//------------------------------------------------------------------------------
+// Per-user themes. The tokens (--qf-*) and the global nav's brand variables are
+// defined per theme in QfThemes.css (ui/shared/material/themes.json); the rules
+// below cover what those variables don't reach. Light has no rules, so it
+// renders exactly as it did before themes existed.
+//------------------------------------------------------------------------------
+
+:root:not([data-theme="light"]) {
+  // the active nav item is a paper tab instead of a white one
+  .ic-app-header__menu-list-item--active .ic-app-header__menu-list-link,
+  .ic-app-header [data-selected="true"]:hover,
+  .ic-app-header [data-selected="true"]:focus {
+    background: var(--qf-paper) !important;
+  }
+
+  // text inside the open tray. :where() keeps the element selectors at zero
+  // specificity so this beats the InstUI component classes.
+  .navigation-tray-container {
+    color: var(--qf-ink);
+
+    :where(a, h1, h2, h3, h4, label, p, li, span) {
+      color: var(--qf-ink);
+    }
+
+    :where(hr) {
+      border-color: var(--qf-divider);
+    }
+  }
+}

@@ -553,7 +553,7 @@ const SideNav: React.FC<ISideNav> = ({externalTools = []}) => {
           shouldCloseOnDocumentClick={true}
           shouldContainFocus={trayShouldContainFocus}
           mountNode={getTrayPortal()}
-          themeOverride={{smallWidth: '28em'}}
+          themeOverride={{smallWidth: '28em', background: 'var(--qf-paper)'}}
         >
           <div className={`navigation-tray-container ${activeTray}-tray`}>
             <CloseButton
