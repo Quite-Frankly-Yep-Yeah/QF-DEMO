@@ -17,7 +17,7 @@
  */
 
 import React from 'react'
-import {render, screen, waitFor} from '@testing-library/react'
+import {render, screen, waitFor, within} from '@testing-library/react'
 import userEvent from '@testing-library/user-event'
 import {http, HttpResponse} from 'msw'
 import {setupServer} from 'msw/node'
@@ -197,6 +197,15 @@ describe('ScanPanel', () => {
     expect(await screen.findByRole('status')).toHaveTextContent(/Undone/)
   })
 
+  it('goes back to the form with Scan another after applying', async () => {
+    current = record()
+    renderPanel()
+    await upload()
+    await userEvent.click(await screen.findByRole('button', {name: 'Apply'}))
+    await userEvent.click(await screen.findByRole('button', {name: 'Scan another'}))
+    expect(await screen.findByRole('button', {name: 'Scan'})).toBeInTheDocument()
+  })
+
   it('discards a preview', async () => {
     current = record()
     renderPanel()
@@ -272,6 +281,42 @@ describe('ScanPanel', () => {
         await screen.findByRole('heading', {name: 'Extended time on tests and quizzes'}),
       ).toBeInTheDocument()
       expect(screen.getAllByRole('status')).toHaveLength(1)
+    })
+
+    it('reviews a batch with Apply & next, then returns to the table with a message', async () => {
+      const confirmed = (id: number, name: string) =>
+        scanRecord({id, filename: `${name}.pdf`, student: {id: String(id), name}, batch_id: 1})
+      currentBatch = batchOf([confirmed(5, 'Pat Student'), confirmed(8, 'Riley Other')])
+      server.use(
+        http.post('/api/v1/supports/imports/:id/apply', async ({params, request}) => {
+          await note(request)
+          return HttpResponse.json({
+            ...currentBatch.files.find(f => String(f.id) === params.id)!,
+            workflow_state: 'applied',
+          })
+        }),
+      )
+      renderPanel()
+      await userEvent.click(screen.getByRole('button', {name: 'Several IEPs'}))
+      await userEvent.upload(
+        screen.getByLabelText('IEP files'),
+        new File(['%PDF-1.4'], 'a.pdf', {type: 'application/pdf'}),
+      )
+      await userEvent.click(screen.getByRole('button', {name: 'Upload'}))
+      await userEvent.click(await screen.findByRole('button', {name: 'Review 2 scans'}))
+      expect(screen.getByRole('heading', {name: 'Scan for Pat Student'})).toBeInTheDocument()
+
+      await userEvent.click(screen.getByRole('button', {name: 'Apply & next'}))
+      const next = await screen.findByRole('heading', {name: 'Scan for Riley Other'})
+      await waitFor(() => expect(next).toHaveFocus())
+
+      await userEvent.click(screen.getByRole('button', {name: 'Apply & next'}))
+      expect(await screen.findByRole('table')).toBeInTheDocument()
+      expect(screen.getByRole('status')).toHaveTextContent(/That was the last scan to review/)
+      expect(screen.getAllByRole('status')).toHaveLength(1)
+      expect(
+        within(screen.getByRole('row', {name: /Pat Student\.pdf/})).getByText('Applied'),
+      ).toBeInTheDocument()
     })
   })
 })

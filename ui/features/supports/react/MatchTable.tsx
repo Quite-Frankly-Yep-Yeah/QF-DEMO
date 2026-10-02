@@ -108,12 +108,15 @@ export default function MatchTable({
   batch,
   accountId,
   pollMs = 2000,
+  notice = '',
   onChange,
   onReview,
 }: {
   batch: ScanBatch
   accountId: string
   pollMs?: number
+  // what the review page just said, shown until something here changes it
+  notice?: string
   onChange: (batch: ScanBatch) => void
   onReview: () => void
 }) {
@@ -285,7 +288,7 @@ export default function MatchTable({
             : I18n.t('Review %{count} scans', {count: reviewable})}
         </button>
       </div>
-      <Status message={[progress, note].filter(Boolean).join(' ')} />
+      <Status message={[progress, note || notice].filter(Boolean).join(' ')} />
 
       <div
         role="region"

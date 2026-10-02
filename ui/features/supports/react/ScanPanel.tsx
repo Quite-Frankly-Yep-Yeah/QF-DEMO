@@ -22,8 +22,8 @@ import doFetchApi from '@canvas/do-fetch-api-effect'
 import BatchUpload from './BatchUpload'
 import MatchTable, {replaceFile} from './MatchTable'
 import PersonPicker from './PersonPicker'
-import ScanReview from './ScanReview'
-import type {Person, ReviewEdits, ScanBatch, ScanRecord} from './types'
+import ReviewWorkspace from './ReviewWorkspace'
+import type {Person, ScanBatch, ScanRecord} from './types'
 import {BRAND, button, Card, field, flatButton, Label, messageFrom, muted, Status} from './ui'
 
 const I18n = createI18nScope('supports')
@@ -50,6 +50,9 @@ export default function ScanPanel({
   const [busy, setBusy] = useState(false)
   const [mode, setMode] = useState<'one' | 'several'>('one')
   const [batch, setBatch] = useState<ScanBatch | null>(null)
+  // the batch's review page: which scan is open, and what to tell the table
+  const [reviewing, setReviewing] = useState<number | null>(null)
+  const [notice, setNotice] = useState('')
   const student = fixedStudent ?? picked
 
   const path = (suffix = '') =>
@@ -83,8 +86,6 @@ export default function ScanPanel({
       const {json} = await request()
       if (json) {
         setRecord(json)
-        // a scan opened from a batch keeps the batch's table up to date
-        setBatch(current => (current ? replaceFile(current, json) : current))
         if (done) setMessage(done(json))
       }
       return true
@@ -151,16 +152,20 @@ export default function ScanPanel({
         <BatchUpload accountId={accountId} onStarted={setBatch} />
       )}
 
-      {!record && batch && (
+      {batch && reviewing === null && (
         <>
           <MatchTable
             batch={batch}
             accountId={accountId}
             pollMs={pollMs}
+            notice={notice}
             onChange={setBatch}
             onReview={() => {
-              const first = batch.files.find(f => f.student && f.workflow_state !== 'discarded')
-              if (first) setRecord(first)
+              const queue = batch.files.filter(f => f.student)
+              const first = queue.find(f => f.workflow_state === 'previewed') ?? queue[0]
+              if (!first) return
+              setNotice('')
+              setReviewing(first.id)
             }}
           />
           <p style={{margin: '12px 0 0'}}>
@@ -169,6 +174,22 @@ export default function ScanPanel({
             </button>
           </p>
         </>
+      )}
+
+      {batch && reviewing !== null && (
+        <ReviewWorkspace
+          // the same page for the whole batch, so focus can move to the next heading
+          records={batch.files.filter(f => f.student)}
+          currentId={reviewing}
+          accountId={accountId}
+          single={false}
+          onSelect={setReviewing}
+          onChange={next => setBatch(current => (current ? replaceFile(current, next) : current))}
+          onBack={message => {
+            setNotice(message ?? '')
+            setReviewing(null)
+          }}
+        />
       )}
 
       {!record && !batch && (mode === 'one' || fixedStudent) && (
@@ -242,37 +263,27 @@ export default function ScanPanel({
         </div>
       )}
 
-      {record && record.extraction_state === 'ready' && (
-        <ScanReview
-          record={record}
-          busy={busy}
-          onEdit={(edits: ReviewEdits) =>
-            act(() => doFetchApi<ScanRecord>({path: path('/review'), method: 'PUT', body: edits}))
-          }
-          onApply={() =>
-            act(
-              () => doFetchApi<ScanRecord>({path: path('/apply'), method: 'POST'}),
-              () => I18n.t('Applied. The plan and its accommodations are saved.'),
-            )
-          }
-          onUndo={() =>
-            act(
-              () => doFetchApi<ScanRecord>({path: path('/undo'), method: 'POST'}),
-              () => I18n.t('Undone. The plan is back as it was.'),
-            )
-          }
-          onDiscard={async () => {
-            if (await act(() => doFetchApi<ScanRecord>({path: path(), method: 'DELETE'}))) {
+      {!batch && record && record.extraction_state === 'ready' && (
+        <ReviewWorkspace
+          records={[record]}
+          currentId={record.id}
+          accountId={accountId}
+          single
+          onSelect={() => {}}
+          onChange={next => {
+            if (next.workflow_state === 'discarded') {
               reset()
               setMessage(I18n.t('Discarded.'))
+            } else {
+              setRecord(next)
             }
           }}
-          onReset={reset}
+          onBack={reset}
         />
       )}
 
       {/* the match table keeps its own status region */}
-      {(record || !batch) && !(mode === 'several' && !record && !batch) && (
+      {!batch && mode === 'one' && record?.extraction_state !== 'ready' && (
         <Status message={message || progress} />
       )}
     </Card>
