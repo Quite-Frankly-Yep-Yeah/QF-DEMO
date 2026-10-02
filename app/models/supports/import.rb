@@ -26,19 +26,31 @@ module Supports
     self.table_name = "support_imports"
 
     STATES = %w[previewed applied undone discarded].freeze
+    EXTRACTION_STATES = %w[queued running ready failed].freeze
 
     belongs_to :root_account, class_name: "Account"
     belongs_to :account
     belongs_to :user
+    # an IEP scan is for one student, and ends up on the plan it created or changed
+    belongs_to :student, class_name: "User", optional: true
+    belongs_to :plan, class_name: "Supports::Plan", optional: true
 
     # the uploaded CSV, and the list of changes applying it made
     encrypts :data
     serialize :applied_changes, coder: JSON
     encrypts :applied_changes
+    # what an IEP scan read from the document, as the reviewer edits it
+    serialize :extraction, coder: JSON
+    encrypts :extraction
 
     validates :workflow_state, inclusion: { in: STATES }
+    validates :extraction_state, inclusion: { in: EXTRACTION_STATES }, allow_nil: true
 
     before_validation { self.root_account_id ||= account&.resolved_root_account_id }
+
+    def scan?
+      format == "iep_scan"
+    end
 
     def as_api_json
       {

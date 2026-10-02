@@ -28,7 +28,7 @@ module Supports
 
     TYPES = %w[iep 504 el other].freeze
     STATES = %w[active archived deleted].freeze
-    SOURCES = %w[manual import].freeze
+    SOURCES = %w[manual import scan].freeze
 
     belongs_to :root_account, class_name: "Account"
     belongs_to :account
