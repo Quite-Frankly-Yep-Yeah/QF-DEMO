@@ -50,6 +50,7 @@ const data = (overrides: Partial<Data> = {}): Data => ({
       notes: null,
       accommodations: [],
       acknowledgements: [],
+      scans: [],
     },
   ],
   team: [{id: '9', name: 'Casey Manager', case_manager: true}],
@@ -136,5 +137,51 @@ describe('StudentPlans', () => {
     render(<StudentPlans studentId="7" onBack={vi.fn()} scanAccountId="1" />)
     await screen.findByRole('heading', {name: '504 plan'})
     expect(screen.queryByRole('heading', {name: 'Scan an IEP'})).not.toBeInTheDocument()
+  })
+  it('links to the original IEP behind a scanned plan, newest first, and says it is recorded', async () => {
+    const base = data().plans[0]
+    server.use(
+      http.get(URL, () =>
+        HttpResponse.json(
+          data({
+            plans: [
+              {
+                ...base,
+                source: 'scan',
+                scans: [
+                  {id: 12, filename: 'new.pdf', applied_at: '2026-10-02T12:00:00Z'},
+                  {id: 8, filename: 'old.pdf', applied_at: '2026-09-01T12:00:00Z'},
+                ],
+              },
+            ],
+          }),
+        ),
+      ),
+    )
+    render(<StudentPlans studentId="7" onBack={vi.fn()} />)
+    const links = await screen.findAllByRole('link', {name: /Download original IEP/})
+    expect(links.map(link => link.getAttribute('href'))).toEqual([
+      '/api/v1/supports/imports/12/document',
+      '/api/v1/supports/imports/8/document',
+    ])
+    expect(links[0]).toHaveAccessibleName('Download original IEP new.pdf')
+    expect(screen.getByText('new.pdf')).toBeInTheDocument()
+    expect(screen.getByText(/Each download is recorded/)).toBeInTheDocument()
+  })
+
+  it('says a scanned plan was read from a scanned IEP, not entered here', async () => {
+    const base = data().plans[0]
+    server.use(http.get(URL, () => HttpResponse.json(data({plans: [{...base, source: 'scan'}]}))))
+    render(<StudentPlans studentId="7" onBack={vi.fn()} />)
+    expect(await screen.findByText('Read from a scanned IEP')).toBeInTheDocument()
+    expect(screen.queryByText('Entered here')).not.toBeInTheDocument()
+  })
+
+  it('shows no original IEP line for a plan with no scans', async () => {
+    server.use(http.get(URL, () => HttpResponse.json(data())))
+    render(<StudentPlans studentId="7" onBack={vi.fn()} />)
+    await screen.findByRole('heading', {name: '504 plan'})
+    expect(screen.queryByText(/Original IEP/)).not.toBeInTheDocument()
+    expect(screen.queryByRole('link', {name: /Download original IEP/})).not.toBeInTheDocument()
   })
 })

@@ -478,8 +478,35 @@ function PlanCard({
           <dd style={{margin: 0}}>
             {plan.source === 'import'
               ? I18n.t('District import (%{id})', {id: plan.external_id ?? ''})
-              : I18n.t('Entered here')}
+              : plan.source === 'scan'
+                ? I18n.t('Read from a scanned IEP')
+                : I18n.t('Entered here')}
           </dd>
+          {plan.scans.length > 0 && (
+            <>
+              <dt style={muted}>{I18n.t('Original IEP')}</dt>
+              <dd style={{margin: 0}}>
+                <ul style={{listStyle: 'none', margin: 0, padding: 0}}>
+                  {plan.scans.map(scan => (
+                    <li key={scan.id} style={{overflowWrap: 'anywhere'}}>
+                      <span>{scan.filename ?? I18n.t('IEP file')}</span>
+                      {scan.applied_at &&
+                        ` ${I18n.t('scanned %{date}', {date: formatDate(scan.applied_at)})}`}{' '}
+                      <a
+                        href={`/api/v1/supports/imports/${scan.id}/document`}
+                        aria-label={I18n.t('Download original IEP %{name}', {
+                          name: scan.filename ?? '',
+                        })}
+                      >
+                        {I18n.t('Download')}
+                      </a>
+                    </li>
+                  ))}
+                </ul>
+                <p style={{...muted, margin: '4px 0 0'}}>{I18n.t('Each download is recorded.')}</p>
+              </dd>
+            </>
+          )}
           {plan.notes && (
             <>
               <dt style={muted}>{I18n.t('Notes')}</dt>

@@ -91,12 +91,14 @@ export type Plan = {
   start_date: string | null
   end_date: string | null
   case_manager: {id: string; name: string} | null
-  source: 'manual' | 'import'
+  source: 'manual' | 'import' | 'scan'
   external_id: string | null
   version: number
   notes: string | null
   accommodations: Accommodation[]
   acknowledgements: {id: string; name: string; acknowledged: boolean}[]
+  // the original IEPs this plan was read from, for people who may manage it
+  scans: {id: number; filename: string | null; applied_at: string | null}[]
 }
 
 // GET /api/v1/supports/students/:id (Supports::PlanEditor#as_json)

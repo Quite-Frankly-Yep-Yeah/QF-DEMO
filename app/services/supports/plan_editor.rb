@@ -201,8 +201,21 @@ module Supports
         version: plan.version,
         notes: plan.notes,
         accommodations: rows.map { |row| row.teacher_json(course_names).merge(row.editor_json.except(:courses)) },
-        acknowledgements: plan.active? ? acknowledgement_status(plan) : []
+        acknowledgements: plan.active? ? acknowledgement_status(plan) : [],
+        scans: scans_json(plan)
       }
+    end
+
+    # The original IEPs this plan was made from, for someone who may manage it:
+    # each applied scan whose file is still kept. Only what is needed to link to
+    # the file, never the file itself.
+    def scans_json(plan)
+      return [] unless @access.can_manage?
+
+      Import.where(plan_id: plan.id, format: IepScan::FORMAT, workflow_state: "applied")
+            .where.not(support_imports: { data: nil })
+            .order(applied_at: :desc, id: :desc).select(:id, :filename, :applied_at)
+            .map { |import| { id: import.id, filename: import.filename, applied_at: import.applied_at&.iso8601 } }
     end
 
     # The student's teachers, and whether each has acknowledged this version.

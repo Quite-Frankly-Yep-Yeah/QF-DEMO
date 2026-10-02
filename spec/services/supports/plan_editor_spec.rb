@@ -116,4 +116,60 @@ describe Supports::PlanEditor do
     expect(raw).not_to include "Sensitive detail"
     expect(plan.reload.notes).to eql "Sensitive detail"
   end
+
+  describe "the original IEP behind a scanned plan" do
+    let(:scanned_plan) { Supports::Plan.create!(account: school, student:, plan_type: "iep", source: "scan") }
+
+    def scan_for(plan, **attrs)
+      Supports::Import.create!({ account: root_account,
+                                 user: case_manager,
+                                 student:,
+                                 plan:,
+                                 format: "iep_scan",
+                                 workflow_state: "applied",
+                                 applied_at: Time.zone.now,
+                                 filename: "iep.pdf",
+                                 content_type: "application/pdf",
+                                 data: Base64.strict_encode64("%PDF-1.4 SECRET-DOC") }.merge(attrs))
+    end
+
+    def scans_of(viewer, plan)
+      described_class.new(viewer, student, root_account).as_json[:plans].find { |json| json[:id] == plan.id.to_s }[:scans]
+    end
+
+    it "lists each applied scan, newest first, with its id, filename and date" do
+      older = scan_for(scanned_plan, filename: "old.pdf", applied_at: Time.zone.parse("2026-09-01 12:00"))
+      newer = scan_for(scanned_plan, filename: "new.pdf", applied_at: Time.zone.parse("2026-10-02 12:00"))
+      expect(scans_of(case_manager, scanned_plan)).to eq [
+        { id: newer.id, filename: "new.pdf", applied_at: "2026-10-02T12:00:00Z" },
+        { id: older.id, filename: "old.pdf", applied_at: "2026-09-01T12:00:00Z" }
+      ]
+    end
+
+    it "leaves out a scan that was undone, a preview that was discarded, and one whose file is gone" do
+      scan_for(scanned_plan, workflow_state: "undone", undone_at: Time.zone.now)
+      scan_for(scanned_plan, workflow_state: "discarded", data: nil)
+      scan_for(scanned_plan, data: nil)
+      expect(scans_of(case_manager, scanned_plan)).to eq []
+    end
+
+    it "has none for a plan that wasn't scanned, or whose import was a CSV" do
+      manual = plan
+      scan_for(manual, format: "generic", filename: "plans.csv")
+      expect(scans_of(case_manager, manual)).to eq []
+    end
+
+    it "only tells someone who may manage the plan, and never carries the file itself" do
+      scan_for(scanned_plan)
+      role = custom_account_role("Plan viewer", account: root_account)
+      root_account.role_overrides.create!(permission: "supports_view_plans", role:, enabled: true)
+      viewer = user_factory(active_all: true)
+      school.account_users.create!(user: viewer, role:)
+      Supports::Caseload.create!(root_account:, staff: viewer, student:)
+      json = described_class.new(viewer, student, root_account).as_json
+      expect(json[:can_manage]).to be false
+      expect(json[:plans].find { |p| p[:id] == scanned_plan.id.to_s }[:scans]).to eq []
+      expect(editor.as_json.to_json).not_to include("SECRET-DOC")
+    end
+  end
 end
