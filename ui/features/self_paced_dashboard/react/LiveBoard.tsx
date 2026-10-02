@@ -22,7 +22,7 @@ import {useScope as createI18nScope} from '@canvas/i18n'
 import {CourseChip, StatusShape, StudentAvatar, StuckBadge} from './bits'
 import {INK, tint} from './colors'
 import {formatDuration, formatLastActive, secondsSince} from './format'
-import {Card, ELEVATION, Pill, ROBOTO} from './material'
+import {Card, DIVIDER, ELEVATION, PAPER, Pill, ROBOTO} from './material'
 import {groupByStudent} from './grouping'
 import type {RosterRow, RowKey, Status} from './types'
 
@@ -134,7 +134,7 @@ export default function LiveBoard({rows, colors, now, idleMinutes, onOpenStudent
                     height: 32,
                     borderRadius: 16,
                     border: 0,
-                    background: '#e0e0e0',
+                    background: DIVIDER,
                     cursor: 'pointer',
                     fontFamily: ROBOTO,
                     fontSize: '0.8125rem',
@@ -257,7 +257,7 @@ function Seat({
         alignItems: 'center',
         gap: 6,
         padding: '0 12px 16px',
-        background: '#FFFFFF',
+        background: PAPER,
         border: 0,
         borderRadius: 2,
         boxShadow: ELEVATION[2],
@@ -278,7 +278,7 @@ function Seat({
         }}
       />
       <span
-        style={{marginTop: -40, borderRadius: '50%', background: '#fff', display: 'inline-flex'}}
+        style={{marginTop: -40, borderRadius: '50%', background: PAPER, display: 'inline-flex'}}
       >
         <StudentAvatar name={row.student.name} color={color} size={64} status={row.status} />
       </span>

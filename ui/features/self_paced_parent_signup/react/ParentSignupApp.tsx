@@ -18,6 +18,8 @@
 
 import React, {useState} from 'react'
 import {useScope as createI18nScope} from '@canvas/i18n'
+import {INK, PAPER, SURFACE} from '@canvas/material'
+import {useMaterialPage} from '@canvas/material/useMaterialPage'
 
 const I18n = createI18nScope('self_paced_parent_signup')
 
@@ -94,6 +96,7 @@ export default function ParentSignupApp({
   post?: Post
   go?: (url: string) => void
 }) {
+  useMaterialPage()
   const [name, setName] = useState('')
   const [email, setEmail] = useState('')
   const [password, setPassword] = useState('')
@@ -135,15 +138,13 @@ export default function ParentSignupApp({
   const hasStudent = config.student_first_name !== null
 
   return (
-    <div
-      style={{fontFamily: ROBOTO, background: '#F5F5F5', minHeight: '100vh', padding: '0 0 48px'}}
-    >
+    <div style={{fontFamily: ROBOTO, background: SURFACE, minHeight: '100vh', padding: '0 0 48px'}}>
       <div style={{height: 6, background: BRAND}} aria-hidden="true" />
       <main
         style={{
           maxWidth: 440,
           margin: '48px auto 0',
-          background: '#FFFFFF',
+          background: PAPER,
           borderRadius: 2,
           boxShadow: '0 2px 5px rgba(0,0,0,0.26), 0 2px 10px rgba(0,0,0,0.16)',
           padding: '32px',
@@ -154,7 +155,7 @@ export default function ParentSignupApp({
             <h1 style={{margin: '0 0 12px', fontWeight: 300, fontSize: '2rem'}}>
               {I18n.t("This invitation doesn't work")}
             </h1>
-            <p data-testid="signup-invalid" style={{margin: 0, color: '#616161'}}>
+            <p data-testid="signup-invalid" style={{margin: 0, color: INK.secondary}}>
               {I18n.t(
                 "It has already been used or it has expired. Ask your student's school for a new QR code.",
               )}
@@ -167,7 +168,7 @@ export default function ParentSignupApp({
                 ? I18n.t('Add %{student} to your account', {student})
                 : I18n.t('Set up your parent account')}
             </h1>
-            <p style={{color: '#616161'}}>
+            <p style={{color: INK.secondary}}>
               {hasStudent
                 ? I18n.t(
                     "You're signed in as %{name}. You'll be able to see how %{student} is doing.",
@@ -193,7 +194,7 @@ export default function ParentSignupApp({
                 ? I18n.t("Follow %{student}'s progress", {student})
                 : I18n.t('Find your student')}
             </h1>
-            <p style={{margin: '0 0 24px', color: '#616161'}}>
+            <p style={{margin: '0 0 24px', color: INK.secondary}}>
               {hasStudent
                 ? I18n.t(
                     'Make your account to see progress, grades and time spent in their self-paced classes.',
@@ -236,7 +237,7 @@ export default function ParentSignupApp({
                   required={true}
                 />
               </label>
-              <div style={{fontSize: '0.8125rem', color: '#616161', marginBottom: 16}}>
+              <div style={{fontSize: '0.8125rem', color: INK.secondary, marginBottom: 16}}>
                 {I18n.t('At least %{count} characters.', {count: minLength})}
               </div>
               <label>
@@ -254,7 +255,7 @@ export default function ParentSignupApp({
                 {busy ? I18n.t('Making your account...') : I18n.t('Create my account')}
               </button>
             </form>
-            <p style={{margin: '24px 0 0', color: '#616161', fontSize: '0.875rem'}}>
+            <p style={{margin: '24px 0 0', color: INK.secondary, fontSize: '0.875rem'}}>
               {I18n.t('Already have an account?')}{' '}
               <a href={config.login_url}>
                 {hasStudent ? I18n.t('Log in to add %{student}', {student}) : I18n.t('Log in')}

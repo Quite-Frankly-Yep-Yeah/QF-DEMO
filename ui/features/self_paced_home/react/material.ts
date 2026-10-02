@@ -20,13 +20,17 @@
 // Students page and the dashboard: Roboto, the brand blue app bar, grey
 // surface, paper shadows and a color for every class.
 
+import {tokenVar} from '@canvas/material/themes'
+
 export const ROBOTO = "Roboto, 'Helvetica Neue', Helvetica, Arial, sans-serif"
 export const APP_BAR = '#2B7ABC'
-export const SURFACE = '#EEEEEE'
+export const SURFACE = tokenVar('surface')
+export const PAPER = tokenVar('paper')
+export const DIVIDER = tokenVar('divider')
 export const INK = {
-  primary: 'rgba(0,0,0,0.87)',
-  secondary: 'rgba(0,0,0,0.6)',
-  muted: 'rgba(0,0,0,0.5)',
+  primary: tokenVar('ink'),
+  secondary: tokenVar('inkSecondary'),
+  muted: tokenVar('inkSecondary'),
 }
 
 export const PALETTE = [

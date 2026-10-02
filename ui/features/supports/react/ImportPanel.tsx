@@ -21,6 +21,7 @@ import {useScope as createI18nScope} from '@canvas/i18n'
 import doFetchApi from '@canvas/do-fetch-api-effect'
 import type {ImportAction, ImportRecord} from './types'
 import {button, Card, field, flatButton, formatDate, Label, messageFrom, muted, Status} from './ui'
+import {DIVIDER} from '@canvas/material'
 
 const I18n = createI18nScope('supports')
 
@@ -254,7 +255,7 @@ export default function ImportPanel({accounts}: {accounts: {id: string; name: st
                   alignItems: 'center',
                   gap: 8,
                   padding: '8px 0',
-                  borderTop: '1px solid rgba(0,0,0,0.12)',
+                  borderTop: `1px solid ${DIVIDER}`,
                 }}
               >
                 <span>

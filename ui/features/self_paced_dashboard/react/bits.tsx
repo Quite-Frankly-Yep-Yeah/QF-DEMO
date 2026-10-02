@@ -24,6 +24,7 @@ import {ScreenReaderContent} from '@instructure/ui-a11y-content'
 import {INK, STATUS_COLORS, tint} from './colors'
 import {formatPercent, initials, STUCK_ATTEMPTS} from './format'
 import type {Status} from './types'
+import {PAPER} from './material'
 
 const I18n = createI18nScope('self_paced_dashboard')
 
@@ -218,7 +219,7 @@ export function StudentAvatar({
             position: 'absolute',
             right: -1,
             bottom: -1,
-            background: '#fff',
+            background: PAPER,
             borderRadius: '50%',
             padding: 2,
             display: 'flex',

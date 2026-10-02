@@ -26,7 +26,7 @@ import {TextInput} from '@instructure/ui-text-input'
 import {ScreenReaderContent} from './bits'
 import {INK} from './colors'
 import {QUICK_FILTERS, quickFilterLabel, type QuickFilter} from './filters'
-import {AppBarTabs, appBarBackground, ELEVATION, ROBOTO} from './material'
+import {appBarBackground, AppBarTabs, DIVIDER, ELEVATION, PAPER, ROBOTO} from './material'
 import type {CourseRef} from './types'
 
 const I18n = createI18nScope('self_paced_dashboard')
@@ -176,7 +176,7 @@ export default function Toolbar(props: Props) {
 
       <div
         style={{
-          background: '#FFFFFF',
+          background: PAPER,
           display: 'flex',
           flexWrap: 'wrap',
           alignItems: 'center',
@@ -260,7 +260,7 @@ function FilterChip({
         padding: '0 12px',
         borderRadius: 16,
         border: 0,
-        background: selected ? appBarBackground(color) : '#e0e0e0',
+        background: selected ? appBarBackground(color) : DIVIDER,
         color: selected ? '#fff' : INK.primary,
         fontFamily: ROBOTO,
         fontSize: '0.8125rem',

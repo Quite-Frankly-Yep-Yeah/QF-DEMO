@@ -34,6 +34,7 @@ import type {
 } from './types'
 import {button, Card, field, flatButton, formatDate, Label, messageFrom, muted, Status} from './ui'
 import AppliedCard from './AppliedCard'
+import {DIVIDER, SURFACE} from '@canvas/material'
 
 const I18n = createI18nScope('supports')
 
@@ -220,7 +221,7 @@ function AccommodationForm({
         event.preventDefault()
         onSubmit(draft)
       }}
-      style={{marginTop: 12, padding: 12, background: '#F5F5F5', borderRadius: 2}}
+      style={{marginTop: 12, padding: 12, background: SURFACE, borderRadius: 2}}
     >
       {creating ? (
         <Label text={I18n.t('Accommodation')}>
@@ -524,7 +525,7 @@ function PlanCard({
       {plan.accommodations.length === 0 && <p style={muted}>{I18n.t('None yet.')}</p>}
       <ul style={{listStyle: 'none', margin: 0, padding: 0}}>
         {plan.accommodations.map(row => (
-          <li key={row.id} style={{padding: '10px 0', borderTop: '1px solid rgba(0,0,0,0.12)'}}>
+          <li key={row.id} style={{padding: '10px 0', borderTop: `1px solid ${DIVIDER}`}}>
             {editingRow === row.id ? (
               <AccommodationForm
                 catalog={data.catalog}

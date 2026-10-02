@@ -32,7 +32,7 @@ import {overrideLabel, type ItemAction} from './interventions'
 import {ScreenReaderContent, StatusShape, StudentAvatar} from './bits'
 import {INK, tint} from './colors'
 import {fillTemplate, formatDuration, formatPercent} from './format'
-import {appBarBackground, Card, Pill, ROBOTO, SURFACE} from './material'
+import {appBarBackground, Card, DIVIDER, ON_WHITE, PAPER, Pill, ROBOTO, SURFACE} from './material'
 import type {
   CourseRef,
   DetailItem,
@@ -303,7 +303,7 @@ function DetailBody({
       >
         <div style={{display: 'flex', alignItems: 'center', gap: 16, paddingRight: 32}}>
           <span
-            style={{borderRadius: '50%', background: '#fff', display: 'inline-flex', flexShrink: 0}}
+            style={{borderRadius: '50%', background: PAPER, display: 'inline-flex', flexShrink: 0}}
           >
             <StudentAvatar
               name={detail.student.name}
@@ -365,7 +365,7 @@ function DetailBody({
                     borderRadius: 16,
                     border: '1px solid rgba(255,255,255,0.7)',
                     background: current ? '#fff' : 'transparent',
-                    color: current ? INK.primary : '#fff',
+                    color: current ? ON_WHITE : '#fff',
                     fontFamily: ROBOTO,
                     fontSize: '0.8125rem',
                     fontWeight: 500,
@@ -388,7 +388,7 @@ function DetailBody({
           }}
         >
           {detail.status && (
-            <Pill background="#fff">
+            <Pill background="#fff" color={ON_WHITE}>
               <StatusShape status={detail.status} size={10} />
               {STATUS_LABELS[detail.status]()}
             </Pill>
@@ -404,7 +404,7 @@ function DetailBody({
                 borderRadius: 2,
                 border: 'none',
                 background: '#fff',
-                color: INK.primary,
+                color: ON_WHITE,
                 fontFamily: ROBOTO,
                 fontSize: '0.8125rem',
                 fontWeight: 500,
@@ -470,7 +470,7 @@ function DetailBody({
               {detail.attempts.map(assignment => (
                 <li
                   key={assignment.assignment_id}
-                  style={{padding: '10px 0', borderTop: '1px solid rgba(0,0,0,0.12)'}}
+                  style={{padding: '10px 0', borderTop: `1px solid ${DIVIDER}`}}
                 >
                   <div style={{fontWeight: 500}}>{assignment.title}</div>
                   <div style={{display: 'flex', flexWrap: 'wrap', gap: 6, marginTop: 8}}>
@@ -690,7 +690,7 @@ function Timeline({
               width: 14,
               height: 14,
               borderRadius: '50%',
-              background: event.kind === 'submitted' ? color : '#fff',
+              background: event.kind === 'submitted' ? color : PAPER,
               boxShadow: event.kind === 'submitted' ? 'none' : `inset 0 0 0 2px ${color}`,
               position: 'relative',
             }}

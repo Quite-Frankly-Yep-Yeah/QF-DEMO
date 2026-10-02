@@ -22,6 +22,7 @@ import PaceBadge from '@canvas/self-paced/react/PaceBadge'
 import {Progress, RaisedLink, todayText} from './CourseCard'
 import {ELEVATION, INK, ink, ROBOTO, tint} from './material'
 import type {DueItem, FeedbackItem, Home, HomeCourse} from './types'
+import {DIVIDER, PAPER} from '@canvas/material'
 
 const I18n = createI18nScope('self_paced_home')
 
@@ -35,7 +36,7 @@ export function ResumeHero({course, color}: {course: HomeCourse; color: string})
       style={{
         display: 'grid',
         gridTemplateColumns: 'repeat(auto-fit, minmax(min(100%, 22rem), 1fr))',
-        background: '#FFFFFF',
+        background: PAPER,
         borderRadius: 2,
         boxShadow: ELEVATION[4],
         overflow: 'hidden',
@@ -120,7 +121,7 @@ function Panel({title, id, children}: {title: string; id: string; children: Reac
     <section
       aria-labelledby={id}
       style={{
-        background: '#FFFFFF',
+        background: PAPER,
         borderRadius: 2,
         boxShadow: ELEVATION[1],
         padding: '20px 24px',
@@ -150,7 +151,7 @@ const ROW: React.CSSProperties = {
   gap: 14,
   alignItems: 'center',
   padding: '10px 0',
-  borderTop: '1px solid rgba(0,0,0,0.12)',
+  borderTop: `1px solid ${DIVIDER}`,
 }
 
 // A square date tile in the class's color: weekday over day of month.
@@ -349,7 +350,7 @@ export function EmptyHero({hasOtherClasses}: {hasOtherClasses: boolean}) {
       aria-labelledby="sp-home-empty"
       data-testid="sp-home-empty"
       style={{
-        background: '#FFFFFF',
+        background: PAPER,
         borderRadius: 2,
         boxShadow: ELEVATION[4],
         margin: '-40px 0 32px',

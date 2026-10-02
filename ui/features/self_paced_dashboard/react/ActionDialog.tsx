@@ -26,6 +26,7 @@ import {TextInput} from '@instructure/ui-text-input'
 import {NumberInput} from '@instructure/ui-number-input'
 import {Text} from '@instructure/ui-text'
 import {INK} from './colors'
+import {PAPER} from './material'
 
 const I18n = createI18nScope('self_paced_dashboard')
 
@@ -250,7 +251,7 @@ const SELECT: React.CSSProperties = {
   borderRadius: 2,
   font: 'inherit',
   fontWeight: 400,
-  background: '#fff',
+  background: PAPER,
 }
 
 // Items grouped by unit, in course order.

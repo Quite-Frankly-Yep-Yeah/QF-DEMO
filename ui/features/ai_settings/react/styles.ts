@@ -18,9 +18,10 @@
 
 import type React from 'react'
 import {APP_BAR, ELEVATION, ink, ROBOTO} from '../../self_paced_home/react/material'
+import {PAPER} from '@canvas/material'
 
 export const card: React.CSSProperties = {
-  background: '#FFFFFF',
+  background: PAPER,
   borderRadius: 2,
   boxShadow: ELEVATION[2],
   padding: 'clamp(14px, 3vw, 20px)',
@@ -39,7 +40,7 @@ export const field: React.CSSProperties = {
   borderRadius: 2,
   font: 'inherit',
   fontSize: '1rem',
-  background: '#fff',
+  background: PAPER,
 }
 
 export const raised: React.CSSProperties = {

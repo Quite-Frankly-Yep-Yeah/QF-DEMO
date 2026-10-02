@@ -19,6 +19,7 @@
 import React from 'react'
 import {useScope as createI18nScope} from '@canvas/i18n'
 import {ELEVATION, INK, ROBOTO} from '../../self_paced_home/react/material'
+import {PAPER} from '@canvas/material'
 
 const I18n = createI18nScope('supports')
 
@@ -63,7 +64,7 @@ export const field: React.CSSProperties = {
   borderRadius: 2,
   font: 'inherit',
   fontSize: '1rem',
-  background: '#fff',
+  background: PAPER,
 }
 
 export const muted: React.CSSProperties = {color: INK.secondary, fontSize: '0.875rem'}
@@ -83,7 +84,7 @@ export function Card({
     <section
       aria-labelledby={id}
       style={{
-        background: '#FFFFFF',
+        background: PAPER,
         borderRadius: 2,
         boxShadow: ELEVATION[4],
         padding: 'clamp(16px, 4vw, 24px) clamp(16px, 4.5vw, 24px)',

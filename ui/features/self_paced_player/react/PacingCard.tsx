@@ -30,14 +30,15 @@ import {
 } from '@canvas/self-paced/pacing'
 import PaceBadge from '@canvas/self-paced/react/PaceBadge'
 import PaceChart from '@canvas/self-paced/react/PaceChart'
+import {DIVIDER, PAPER, INK as INK_BASE} from '@canvas/material'
 
 const I18n = createI18nScope('self_paced_player')
 
-const INK = {primary: '#0b0b0b', secondary: '#52514e', muted: '#6b6a65', line: '#e1e0d9'}
+const INK = {...INK_BASE, muted: INK_BASE.secondary, line: DIVIDER}
 const ROBOTO = "Roboto, 'Helvetica Neue', Helvetica, Arial, sans-serif"
 // Material 1 card
 const CARD = {
-  background: '#FFFFFF',
+  background: PAPER,
   borderRadius: 2,
   boxShadow: '0 1px 3px rgba(0,0,0,0.12), 0 1px 2px rgba(0,0,0,0.24)',
   padding: 24,

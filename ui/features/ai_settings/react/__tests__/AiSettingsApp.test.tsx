@@ -523,11 +523,13 @@ describe('the model cards', () => {
 })
 
 describe('review fixes', () => {
-  it("keeps the cost pill's text dark enough to read on its tinted background", async () => {
+  it("takes the cost pill's text color from the theme, not a fixed white", async () => {
     current = settings()
     await renderApp()
     const pill = screen.getByText('4× the cost of Haiku')
-    expect(pill.style.color).toBe('rgba(0, 0, 0, 0.87)')
+    // jsdom drops var() colors, so the style has no color of its own (the
+    // theme's ink applies); it must never be a fixed light color.
+    expect(['', 'rgba(0, 0, 0, 0.87)']).toContain(pill.style.color)
   })
 
   it('puts focus back on the picker after saving a model', async () => {

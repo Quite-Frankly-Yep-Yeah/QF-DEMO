@@ -32,13 +32,14 @@ import {
   type Existing,
 } from './api'
 import type {Item, NewItem, Role, Setup, Unit, UnitsConfig} from './types'
+import {INK, PAPER} from '@canvas/material'
+import {useMaterialPage} from '@canvas/material/useMaterialPage'
 
 type Skill = Setup['skills'][number]
 
 const I18n = createI18nScope('self_paced_units')
 
 const ROBOTO = "Roboto, 'Helvetica Neue', Helvetica, Arial, sans-serif"
-const INK = {primary: '#212121', secondary: '#616161'}
 const DEFAULT_COLOR = '#1565C0'
 const ELEVATION = {
   1: '0 1px 3px rgba(0,0,0,0.12), 0 1px 2px rgba(0,0,0,0.24)',
@@ -147,6 +148,7 @@ function Switch({on, label, onToggle}: {on: boolean; label: string; onToggle: ()
 // for and how long it takes. Replaces the modules page for teachers of a
 // Course Player course.
 export default function UnitsApp({config}: {config: UnitsConfig}) {
+  useMaterialPage()
   const courseId = config.course.id
   const color = config.course.color || DEFAULT_COLOR
   const [setup, setSetup] = useState<Setup | null>(null)
@@ -236,7 +238,7 @@ export default function UnitsApp({config}: {config: UnitsConfig}) {
         <section
           aria-label={I18n.t('Summary')}
           style={{
-            background: '#FFFFFF',
+            background: PAPER,
             borderRadius: 2,
             boxShadow: ELEVATION[4],
             margin: '-40px 0 24px',
@@ -358,7 +360,7 @@ function UnitCard({
     <section
       aria-labelledby={headingId}
       style={{
-        background: '#FFFFFF',
+        background: PAPER,
         borderRadius: 2,
         boxShadow: ELEVATION[1],
         borderLeft: `4px solid ${color}`,

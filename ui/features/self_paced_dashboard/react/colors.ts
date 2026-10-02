@@ -16,6 +16,7 @@
  * with this program. If not, see <http://www.gnu.org/licenses/>.
  */
 
+import {tokenVar} from '@canvas/material/themes'
 import type {Status} from './types'
 
 // Course identity colors: the validated categorical order from the dataviz
@@ -42,11 +43,12 @@ export const STATUS_COLORS: Record<Status | 'stuck', string> = {
   stuck: '#d03b3b',
 }
 
+// Themed: these follow the active theme (see @canvas/material).
 export const INK = {
-  primary: '#0b0b0b',
-  secondary: '#52514e',
-  muted: '#6b6a65',
-  hairline: '#e1e0d9',
+  primary: tokenVar('ink'),
+  secondary: tokenVar('inkSecondary'),
+  muted: tokenVar('inkSecondary'),
+  hairline: tokenVar('divider'),
 }
 
 // Color per course id. The viewer's own quite frankly an example LMS course colors win (the ones they

@@ -25,6 +25,7 @@ import ModelCard, {type ModelScope} from './ModelCard'
 import ModelGuide from './ModelGuide'
 import {card, cardTitle} from './styles'
 import type {AiSettingsConfig, ModelSource, SaveBody, SettingsResponse} from './types'
+import {useMaterialPage} from '@canvas/material/useMaterialPage'
 
 const I18n = createI18nScope('ai_settings')
 
@@ -75,6 +76,7 @@ function modelSourceText(source: ModelSource | null): string {
 // site admins the shared ones and the policies. Laid out as a dashboard of cards
 // (docs/superpowers/specs/2026-10-02-anthropic-settings-design.md).
 export default function AiSettingsApp({config}: {config: AiSettingsConfig}) {
+  useMaterialPage()
   const base = `/api/v1/accounts/${config.account_id}/ai_settings`
   const [data, setData] = useState<SettingsResponse | null>(null)
   const [loadError, setLoadError] = useState('')

@@ -16,6 +16,7 @@
  * with this program. If not, see <http://www.gnu.org/licenses/>.
  */
 
+import {useMaterialPage} from '@canvas/material/useMaterialPage'
 import React, {useCallback, useEffect, useMemo, useState} from 'react'
 import {useScope as createI18nScope} from '@canvas/i18n'
 import doFetchApi from '@canvas/do-fetch-api-effect'
@@ -40,7 +41,17 @@ import {
   type QuickFilter,
 } from './filters'
 import {formatPercent} from './format'
-import {appBarBackground, Card, ELEVATION, MATERIAL_STYLES, Pill, ROBOTO} from './material'
+import {
+  appBarBackground,
+  Card,
+  DIVIDER,
+  ELEVATION,
+  MATERIAL_STYLES,
+  ON_WHITE,
+  PAPER,
+  Pill,
+  ROBOTO,
+} from './material'
 import type {CourseConfig, CourseSummary, DashboardConfig, Link, RowKey} from './types'
 import {useRoster} from './useRoster'
 
@@ -60,6 +71,7 @@ export default function CourseApp({
   config: DashboardConfig
   course: CourseConfig
 }) {
+  useMaterialPage()
   const initial = useMemo(() => readViewState(window.location.search), [])
   const {rows, setRows, loadError, now, load, customColors} = useRoster(config)
   const [summary, setSummary] = useState<CourseSummary | null>(null)
@@ -348,7 +360,7 @@ function CourseHeader({
     ? rows.reduce((sum, row) => sum + row.percent_complete, 0) / rows.length
     : 0
   const chip = (text: string, alert = false) => (
-    <Pill background="#fff" color={alert ? '#9e1f1f' : INK.primary}>
+    <Pill background="#fff" color={alert ? '#9e1f1f' : ON_WHITE}>
       {text}
     </Pill>
   )
@@ -428,7 +440,7 @@ const RAISED: React.CSSProperties = {
   padding: '8px 16px',
   borderRadius: 2,
   border: 'none',
-  background: '#fff',
+  background: PAPER,
   color: INK.primary,
   fontFamily: ROBOTO,
   fontSize: '0.875rem',
@@ -489,7 +501,7 @@ function UnitMap({
                   border: 'none',
                   borderRadius: 2,
                   borderTop: `4px solid ${unit.students_here ? color : tint(color, 0.3)}`,
-                  background: unit.students_here ? tint(color, 0.06 + 0.3 * share) : '#fafafa',
+                  background: unit.students_here ? tint(color, 0.06 + 0.3 * share) : PAPER,
                   boxShadow: isChosen ? `inset 0 0 0 2px ${color}, ${ELEVATION[2]}` : 'none',
                   fontFamily: ROBOTO,
                   color: INK.primary,
@@ -582,7 +594,7 @@ function HardItems({items, color}: {items: CourseSummary['hard_items']; color: s
                 gridTemplateColumns: '1fr auto',
                 gap: '2px 12px',
                 padding: '10px 0',
-                borderTop: '1px solid rgba(0,0,0,0.12)',
+                borderTop: `1px solid ${DIVIDER}`,
               }}
             >
               <span style={{fontWeight: 500, overflowWrap: 'anywhere'}}>{item.title}</span>

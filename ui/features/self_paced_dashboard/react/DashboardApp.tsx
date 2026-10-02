@@ -16,6 +16,7 @@
  * with this program. If not, see <http://www.gnu.org/licenses/>.
  */
 
+import {useMaterialPage} from '@canvas/material/useMaterialPage'
 import React, {useCallback, useEffect, useMemo, useRef, useState} from 'react'
 import {useScope as createI18nScope} from '@canvas/i18n'
 import doFetchApi from '@canvas/do-fetch-api-effect'
@@ -40,7 +41,16 @@ import {
 } from './filters'
 import {fillTemplate, isStuck, STUCK_ATTEMPTS} from './format'
 import {groupByStudent} from './grouping'
-import {appBarBackground, Card, ELEVATION, MATERIAL_STYLES, Pill, ROBOTO, SLATE} from './material'
+import {
+  appBarBackground,
+  Card,
+  ELEVATION,
+  MATERIAL_STYLES,
+  ON_WHITE,
+  Pill,
+  ROBOTO,
+  SLATE,
+} from './material'
 import type {DashboardConfig, Link, RosterRow, RowKey, StudentDetail} from './types'
 import {useRoster} from './useRoster'
 
@@ -49,6 +59,7 @@ const I18n = createI18nScope('self_paced_dashboard')
 type Tab = 'roster' | 'live'
 
 export default function DashboardApp({config}: {config: DashboardConfig}) {
+  useMaterialPage()
   const initial = useMemo(() => readViewState(window.location.search), [])
   const {rows, setRows, loadError, now, load, customColors} = useRoster(config)
   const [tab, setTab] = useState<Tab>(initial.tab ?? 'roster')
@@ -395,7 +406,7 @@ export function Summary({rows}: {rows: RosterRow[]}) {
   const stuck = students.filter(isStuck).length
   const live = students.some(row => row.status)
   const chip = (status: 'working' | 'idle' | 'away', text: string) => (
-    <Pill background="#fff">
+    <Pill background="#fff" color={ON_WHITE}>
       <StatusShape status={status} size={11} />
       {text}
     </Pill>

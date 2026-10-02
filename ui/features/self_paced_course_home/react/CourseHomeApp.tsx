@@ -19,11 +19,12 @@
 import React from 'react'
 import {useScope as createI18nScope} from '@canvas/i18n'
 import type {CourseHomeConfig, Link, Stats, Step, Unit} from './types'
+import {INK, PAPER} from '@canvas/material'
+import {useMaterialPage} from '@canvas/material/useMaterialPage'
 
 const I18n = createI18nScope('self_paced_course_home')
 
 const ROBOTO = "Roboto, 'Helvetica Neue', Helvetica, Arial, sans-serif"
-const INK = {primary: '#212121', secondary: '#616161'}
 const DEFAULT_COLOR = '#1565C0'
 const ELEVATION = {
   1: '0 1px 3px rgba(0,0,0,0.12), 0 1px 2px rgba(0,0,0,0.24)',
@@ -39,7 +40,7 @@ const STYLES = `
 
 function card(extra: React.CSSProperties = {}): React.CSSProperties {
   return {
-    background: '#FFFFFF',
+    background: PAPER,
     borderRadius: 2,
     boxShadow: ELEVATION[1],
     fontFamily: ROBOTO,
@@ -67,6 +68,7 @@ function Heading({id, children}: {id: string; children: React.ReactNode}) {
 // The home of a self-paced course for the people who run it: how the class is
 // doing, what is left to set up, the units, and the places they go next.
 export default function CourseHomeApp({config}: {config: CourseHomeConfig}) {
+  useMaterialPage()
   const {course, checklist, units, stats, links} = config
   const color = course.color || DEFAULT_COLOR
   const remaining = checklist.filter(step => !step.done)

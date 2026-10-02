@@ -19,6 +19,7 @@
 import React, {useEffect, useRef} from 'react'
 import {useScope as createI18nScope} from '@canvas/i18n'
 import {ELEVATION, INK, ink, ROBOTO, tint} from './material'
+import {SURFACE} from '@canvas/material'
 
 const I18n = createI18nScope('course_catalog')
 
@@ -157,7 +158,7 @@ export function Dialog({
         }}
         style={{
           width: 'min(100%, 28rem)',
-          background: '#F5F5F5',
+          background: SURFACE,
           borderRadius: 2,
           boxShadow: ELEVATION[8],
           fontFamily: ROBOTO,

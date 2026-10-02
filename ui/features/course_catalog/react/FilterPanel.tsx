@@ -22,14 +22,13 @@ import {FlatButton, Pill} from './bits'
 import {MIN_SEARCH, statusOptions} from './catalogModel'
 import {ELEVATION, INK, ROBOTO} from './material'
 import type {Filters, Option, Teacher, TriFilter} from './types'
+import {DIVIDER, SURFACE} from '@canvas/material'
 
 const I18n = createI18nScope('course_catalog')
 
 function Group({legend, children}: {legend: string; children: React.ReactNode}) {
   return (
-    <fieldset
-      style={{border: 0, margin: 0, padding: '12px 0', borderTop: '1px solid rgba(0,0,0,0.12)'}}
-    >
+    <fieldset style={{border: 0, margin: 0, padding: '12px 0', borderTop: `1px solid ${DIVIDER}`}}>
       <legend
         style={{
           padding: 0,
@@ -252,7 +251,7 @@ export default function FilterPanel({
   return (
     <div
       style={{
-        background: '#F5F5F5',
+        background: SURFACE,
         borderRadius: 2,
         boxShadow: ELEVATION[2],
         padding: '8px 20px 16px',

@@ -41,6 +41,8 @@ import type {
   ObserverConfig,
   ObserverData,
 } from './types'
+import {PAPER} from '@canvas/material'
+import {useMaterialPage} from '@canvas/material/useMaterialPage'
 
 const I18n = createI18nScope('self_paced_observer')
 
@@ -85,7 +87,7 @@ function Panel({
     <section
       aria-labelledby={id}
       style={{
-        background: '#FFFFFF',
+        background: PAPER,
         borderRadius: 2,
         boxShadow: ELEVATION[1],
         borderLeft: accent ? `4px solid ${accent}` : undefined,
@@ -120,6 +122,7 @@ export default function ObserverApp({
   config: ObserverConfig
   now?: Date
 }) {
+  useMaterialPage()
   const [data, setData] = useState<ObserverData | null>(null)
   const [failed, setFailed] = useState(false)
   const [chosen, setChosen] = useState<string | null>(null)
@@ -213,7 +216,7 @@ export default function ObserverApp({
           <section
             data-testid="observer-empty"
             style={{
-              background: '#FFFFFF',
+              background: PAPER,
               borderRadius: 2,
               boxShadow: ELEVATION[4],
               margin: '-40px 0 32px',
@@ -284,7 +287,7 @@ function StudentView({
         style={{
           display: 'grid',
           gridTemplateColumns: 'repeat(auto-fit, minmax(min(100%, 22rem), 1fr))',
-          background: '#FFFFFF',
+          background: PAPER,
           borderRadius: 2,
           boxShadow: ELEVATION[4],
           overflow: 'hidden',
@@ -435,7 +438,7 @@ function CourseCard({course, color, now}: {course: CourseProgress; color: string
       style={{
         display: 'flex',
         flexDirection: 'column',
-        background: '#FFFFFF',
+        background: PAPER,
         borderRadius: 2,
         boxShadow: ELEVATION[2],
         overflow: 'hidden',

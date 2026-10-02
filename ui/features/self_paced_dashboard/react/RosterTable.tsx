@@ -37,7 +37,7 @@ import {
 import {INK} from './colors'
 import {formatDuration, formatLastActive, formatScore, isStuck} from './format'
 import {groupByStudent, type StudentGroup} from './grouping'
-import {Pill} from './material'
+import {DIVIDER, Pill} from './material'
 import type {RosterRow, RowKey, Status} from './types'
 
 const I18n = createI18nScope('self_paced_dashboard')
@@ -485,7 +485,7 @@ export default function RosterTable({
             justifyContent: 'center',
             gap: 12,
             padding: '12px 16px',
-            borderTop: '1px solid rgba(0,0,0,0.12)',
+            borderTop: `1px solid ${DIVIDER}`,
             color: INK.secondary,
           }}
         >

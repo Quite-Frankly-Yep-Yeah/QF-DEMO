@@ -33,10 +33,12 @@ import {
   type PlayerUnit,
 } from '@canvas/self-paced/player'
 import PacingCard from './PacingCard'
+import {DIVIDER, PAPER, INK as INK_BASE} from '@canvas/material'
+import {useMaterialPage} from '@canvas/material/useMaterialPage'
 
 const I18n = createI18nScope('self_paced_player')
 
-const INK = {primary: '#0b0b0b', secondary: '#52514e', muted: '#6b6a65', line: '#dcdbd4'}
+const INK = {...INK_BASE, muted: INK_BASE.secondary, line: DIVIDER}
 const ROBOTO = "Roboto, 'Helvetica Neue', Helvetica, Arial, sans-serif"
 
 // One animated moment: the current step's marker breathes once a few seconds
@@ -53,6 +55,7 @@ const STYLES = `
 type Config = {map_url: string; pacing_url?: string | null; course_color?: string | null}
 
 export default function PlayerApp({config}: {config: Config}) {
+  useMaterialPage()
   const [map, setMap] = useState<PlayerMap | null>(null)
   const [failed, setFailed] = useState(false)
   const color = config.course_color || DEFAULT_COURSE_COLOR
@@ -151,7 +154,7 @@ export default function PlayerApp({config}: {config: Config}) {
                 padding: '10px 20px',
                 borderRadius: 2,
                 background: '#fff',
-                color: INK.primary,
+                color: '#0b0b0b',
                 fontFamily: ROBOTO,
                 fontWeight: 500,
                 textTransform: 'uppercase',
@@ -213,7 +216,7 @@ function Unit({unit, color}: {unit: PlayerUnit; color: string}) {
           gap: 12,
           padding: '12px 16px',
           borderRadius: 2,
-          background: '#FFFFFF',
+          background: PAPER,
           boxShadow:
             '0 1px 3px rgba(0,0,0,0.2), 0 1px 1px rgba(0,0,0,0.14), 0 2px 1px -1px rgba(0,0,0,0.12)',
           borderLeft: `4px solid ${locked ? INK.line : color}`,
@@ -266,7 +269,7 @@ function Marker({item, color}: {item: PlayerItem; color: string}) {
     display: 'flex',
     alignItems: 'center',
     justifyContent: 'center',
-    background: '#fff',
+    background: PAPER,
     position: 'relative',
     zIndex: 1,
     flexShrink: 0,

@@ -6,6 +6,38 @@
 //------------------------------------------------------------------------------
 
 :root:not([data-theme="light"]) {
+  // the backdrop behind Material pages (see useMaterialPage in @canvas/material)
+  body.material-page {
+    background: var(--qf-surface);
+    color: var(--qf-ink);
+
+    #footer a,
+    #footer span {
+      color: var(--qf-ink-secondary);
+    }
+
+    // InstUI labels and table headings that default to dark text
+    [class*="-toggleFacade__label"],
+    [class*="-colHeader"],
+    [class*="-formFieldLabel"],
+    [class*="-formFieldMessage"],
+    [class*="-checkboxFacade__label"],
+    [class$="-text"],
+    [class*="-text "] {
+      color: var(--qf-ink);
+    }
+
+    // links in the page content read in the theme's accent
+    #content a {
+      color: var(--qf-accent);
+    }
+
+    // InstUI table headings default to a white fill
+    [class*="-colHeader"] {
+      background: var(--qf-paper);
+    }
+  }
+
   // the active nav item is a paper tab instead of a white one
   .ic-app-header__menu-list-item--active .ic-app-header__menu-list-link,
   .ic-app-header [data-selected="true"]:hover,

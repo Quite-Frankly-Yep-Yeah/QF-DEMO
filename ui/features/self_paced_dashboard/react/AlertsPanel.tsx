@@ -21,7 +21,7 @@ import {useScope as createI18nScope} from '@canvas/i18n'
 import doFetchApi from '@canvas/do-fetch-api-effect'
 import {Button} from '@instructure/ui-buttons'
 import {INK} from './colors'
-import {Card, Pill} from './material'
+import {Card, DIVIDER, Pill} from './material'
 import type {RowKey} from './types'
 
 const I18n = createI18nScope('self_paced_dashboard')
@@ -184,7 +184,7 @@ function RulesEditor({url, onSaved}: {url: string; onSaved: () => void}) {
         event.preventDefault()
         save()
       }}
-      style={{borderBottom: '1px solid rgba(0,0,0,0.12)', paddingBottom: 12, marginBottom: 8}}
+      style={{borderBottom: `1px solid ${DIVIDER}`, paddingBottom: 12, marginBottom: 8}}
     >
       {rules.map(rule => {
         const spec = RULES[rule.kind]

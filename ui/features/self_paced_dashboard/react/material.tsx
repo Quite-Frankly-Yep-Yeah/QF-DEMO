@@ -17,6 +17,7 @@
  */
 
 import React, {useRef} from 'react'
+import {tokenVar} from '@canvas/material/themes'
 import {INK} from './colors'
 
 // Material Design 1 pieces for the dashboard, matching the course map: Roboto,
@@ -34,7 +35,12 @@ export const ELEVATION = {
 // The app bar color when no single course is chosen (Material blue grey 800).
 export const SLATE = '#37474f'
 
-export const SURFACE = '#eeeeee'
+export const SURFACE = tokenVar('surface')
+export const PAPER = tokenVar('paper')
+export const DIVIDER = tokenVar('divider')
+// Text on the white pills and chips that sit on a course-colored app bar. The
+// bar's color is the course's, not the theme's, so this stays dark.
+export const ON_WHITE = '#0b0b0b'
 
 function channels(hex: string): [number, number, number] {
   const value = hex.replace('#', '')
@@ -98,7 +104,7 @@ export function Card({
     <section
       aria-labelledby={labelledBy}
       style={{
-        background: '#FFFFFF',
+        background: PAPER,
         borderRadius: 2,
         boxShadow: ELEVATION[1],
         borderLeft: accent ? `4px solid ${accent}` : undefined,
@@ -247,8 +253,8 @@ export const MATERIAL_STYLES = `
     position: sticky;
     top: var(--sp-sticky-bottom, 0px);
     z-index: 2;
-    background: #fff;
-    box-shadow: inset 0 -1px 0 rgba(0,0,0,0.12);
+    background: ${PAPER};
+    box-shadow: inset 0 -1px 0 ${DIVIDER};
   }
   .self-paced-appbar-tab:hover { background: rgba(255,255,255,0.1) !important; }
   .self-paced-appbar-tab:focus-visible { outline: 2px solid #fff; outline-offset: -4px; }

@@ -21,6 +21,7 @@ import {useScope as createI18nScope} from '@canvas/i18n'
 import PaceBadge from '@canvas/self-paced/react/PaceBadge'
 import {ELEVATION, INK, ink, ROBOTO, tint} from './material'
 import type {HomeCourse} from './types'
+import {PAPER} from '@canvas/material'
 
 const I18n = createI18nScope('self_paced_home')
 
@@ -121,7 +122,7 @@ export default function CourseCard({course, color}: {course: HomeCourse; color: 
       style={{
         display: 'flex',
         flexDirection: 'column',
-        background: '#FFFFFF',
+        background: PAPER,
         borderRadius: 2,
         boxShadow: ELEVATION[2],
         overflow: 'hidden',

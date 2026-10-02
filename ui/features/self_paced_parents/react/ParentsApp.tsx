@@ -30,6 +30,8 @@ import {
 } from '../../self_paced_home/react/material'
 import {flyerHtml, printHtml} from './flyer'
 import type {AdminRequest, Flyer, ParentsConfig} from './types'
+import {PAPER} from '@canvas/material'
+import {useMaterialPage} from '@canvas/material/useMaterialPage'
 
 const I18n = createI18nScope('self_paced_parents')
 
@@ -125,7 +127,7 @@ function Card({id, title, children}: {id: string; title: string; children: React
     <section
       aria-labelledby={id}
       style={{
-        background: '#FFFFFF',
+        background: PAPER,
         borderRadius: 2,
         boxShadow: ELEVATION[4],
         padding: `clamp(16px, 4vw, 24px) clamp(16px, 4.5vw, 24px)`,
@@ -548,6 +550,7 @@ function FlyerPanel({flyerUrl, resetUrl}: {flyerUrl: string; resetUrl: string}) 
 // The school's side of parent accounts: print the sign-up flyer, and decide
 // which student each parent who signed up from it may follow.
 export default function ParentsApp({config}: {config: ParentsConfig}) {
+  useMaterialPage()
   return (
     <div
       style={{

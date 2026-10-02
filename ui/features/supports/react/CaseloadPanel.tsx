@@ -23,6 +23,7 @@ import {INK} from '../../self_paced_home/react/material'
 import PersonPicker from './PersonPicker'
 import type {CaseloadRow} from './types'
 import {BRAND, button, Card, field, flatButton, formatDate, Label, muted} from './ui'
+import {DIVIDER} from '@canvas/material'
 
 const I18n = createI18nScope('supports')
 
@@ -121,7 +122,7 @@ export default function CaseloadPanel({
         {shown.length > 0 && (
           <ul style={{listStyle: 'none', margin: 0, padding: 0}}>
             {shown.map(row => (
-              <li key={row.student.id} style={{borderTop: '1px solid rgba(0,0,0,0.12)'}}>
+              <li key={row.student.id} style={{borderTop: `1px solid ${DIVIDER}`}}>
                 <button
                   type="button"
                   onClick={() => onOpen(row.student.id)}

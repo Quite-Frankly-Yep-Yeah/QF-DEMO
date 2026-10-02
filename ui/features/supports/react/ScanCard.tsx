@@ -22,6 +22,7 @@ import {ELEVATION, INK, ink, PALETTE, tint} from '../../self_paced_home/react/ma
 import ParametersFields from './ParametersFields'
 import type {Kind, Parameters, ScanItem} from './types'
 import {flatButton, muted} from './ui'
+import {PAPER} from '@canvas/material'
 
 const I18n = createI18nScope('supports')
 
@@ -134,7 +135,7 @@ export default function ScanCard({
     <article
       aria-labelledby={headingId}
       style={{
-        background: '#FFFFFF',
+        background: PAPER,
         borderRadius: 2,
         borderLeft: `4px solid ${color}`,
         boxShadow: item.errors.length > 0 ? ELEVATION[4] : ELEVATION[2],

@@ -22,8 +22,10 @@ import doFetchApi from '@canvas/do-fetch-api-effect'
 import {Spinner} from '@instructure/ui-spinner'
 import CourseCard from './CourseCard'
 import {DueSoon, EmptyHero, Feedback, OtherClasses, ResumeHero} from './Panels'
-import {APP_BAR, ELEVATION, INK, ink, PALETTE, ROBOTO, SURFACE, classColors} from './material'
+import {ELEVATION, INK, ink, PALETTE, ROBOTO, SURFACE, classColors} from './material'
 import type {Home, HomeConfig} from './types'
+import {useMaterialPage} from '@canvas/material/useMaterialPage'
+import {useThemeTokens} from '@canvas/material/useThemeTokens'
 
 const I18n = createI18nScope('self_paced_home')
 
@@ -38,6 +40,8 @@ export function greeting(name: string, now: Date): string {
 // on the app bar, the class to pick up in, a card per class, what's due
 // this week and recent feedback.
 export default function HomeApp({config, now = new Date()}: {config: HomeConfig; now?: Date}) {
+  useMaterialPage()
+  const appBar = ink(useThemeTokens().appBar)
   const [home, setHome] = useState<Home | null>(null)
   const [failed, setFailed] = useState(false)
   const [custom, setCustom] = useState<Record<string, string>>({})
@@ -91,7 +95,7 @@ export default function HomeApp({config, now = new Date()}: {config: HomeConfig;
 .sp-home-raised:focus-visible { outline: 2px solid #fff; outline-offset: 2px; box-shadow: 0 0 0 4px rgba(0,0,0,0.6) !important; }`}</style>
       <header
         style={{
-          background: ink(APP_BAR),
+          background: appBar,
           color: '#fff',
           boxShadow: ELEVATION[4],
           borderRadius: '2px 2px 0 0',

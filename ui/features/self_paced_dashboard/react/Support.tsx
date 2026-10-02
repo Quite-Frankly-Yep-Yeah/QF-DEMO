@@ -25,7 +25,7 @@ import {Menu} from '@instructure/ui-menu'
 import {INK, tint} from './colors'
 import {fillTemplate} from './format'
 import {describeEntry, errorMessage, itemActions, type ItemAction} from './interventions'
-import {Card, Pill} from './material'
+import {Card, DIVIDER, Pill} from './material'
 import type {DetailItem, InterventionKind, LogEntry, Note, RowKey, Support, Tools} from './types'
 
 const I18n = createI18nScope('self_paced_dashboard')
@@ -147,7 +147,7 @@ export function NotesCard({
       ) : (
         <ul style={{listStyle: 'none', margin: 0, padding: 0}}>
           {notes.map(note => (
-            <li key={note.id} style={{padding: '10px 0', borderTop: '1px solid rgba(0,0,0,0.12)'}}>
+            <li key={note.id} style={{padding: '10px 0', borderTop: `1px solid ${DIVIDER}`}}>
               <div style={{whiteSpace: 'pre-wrap', overflowWrap: 'anywhere'}}>{note.body}</div>
               <div
                 style={{
@@ -211,7 +211,7 @@ export function HistoryCard({log, color}: {log: LogEntry[]; color: string}) {
                 gridTemplateColumns: '24px 1fr',
                 gap: 12,
                 padding: '8px 0',
-                borderTop: '1px solid rgba(0,0,0,0.12)',
+                borderTop: `1px solid ${DIVIDER}`,
               }}
             >
               <span

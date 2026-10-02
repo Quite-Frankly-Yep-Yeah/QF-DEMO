@@ -26,6 +26,7 @@ import ScanPanel from './ScanPanel'
 import StudentPlans from './StudentPlans'
 import type {SupportsConfig} from './types'
 import {BRAND, GUTTER, PAD, TAP} from './ui'
+import {useMaterialPage} from '@canvas/material/useMaterialPage'
 
 const I18n = createI18nScope('supports')
 
@@ -53,6 +54,7 @@ function writeLocation(tab: Tab, studentId: string | null) {
 // The Supports page (docs/teacher-workflow-plan.md Phase 1): the caseload and
 // each student's plans, the accommodation catalog, and imports.
 export default function SupportsApp({config}: {config: SupportsConfig}) {
+  useMaterialPage()
   const [{tab, studentId}, setPlace] = useState(readLocation)
 
   useEffect(() => {

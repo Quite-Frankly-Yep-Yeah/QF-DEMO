@@ -33,9 +33,11 @@ import {CATALOG_STYLES, Dialog, FlatButton, RaisedButton, Snackbar} from './bits
 import {activeFilterCount, DEFAULT_FILTERS, sortOptions} from './catalogModel'
 import CourseCard from './CourseCard'
 import FilterPanel from './FilterPanel'
-import {APP_BAR, ELEVATION, INK, ink, PALETTE, ROBOTO, SURFACE} from './material'
+import {ELEVATION, INK, ink, PALETTE, ROBOTO, SURFACE} from './material'
 import StudentPicker from './StudentPicker'
 import type {CatalogConfig, CatalogCourse, Filters, Option, Student} from './types'
+import {useMaterialPage} from '@canvas/material/useMaterialPage'
+import {useThemeTokens} from '@canvas/material/useThemeTokens'
 
 const I18n = createI18nScope('course_catalog')
 
@@ -64,6 +66,8 @@ const FIELD: React.CSSProperties = {
 // course on the right, and with a student chosen on the app bar, a way to
 // enroll them in the course that suits them.
 export default function CatalogApp({config}: {config: CatalogConfig}) {
+  useMaterialPage()
+  const appBar = ink(useThemeTokens().appBar)
   const accountId = config.account.id
   const [filters, setFilters] = useState<Filters>(DEFAULT_FILTERS)
   const [searchInput, setSearchInput] = useState('')
@@ -214,7 +218,7 @@ export default function CatalogApp({config}: {config: CatalogConfig}) {
       <style>{CATALOG_STYLES + LAYOUT_STYLES}</style>
       <header
         style={{
-          background: ink(APP_BAR),
+          background: appBar,
           color: '#fff',
           boxShadow: ELEVATION[4],
           borderRadius: '2px 2px 0 0',

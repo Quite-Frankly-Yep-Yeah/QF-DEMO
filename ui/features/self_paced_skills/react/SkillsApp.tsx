@@ -20,11 +20,12 @@ import React, {useCallback, useEffect, useState} from 'react'
 import {useScope as createI18nScope} from '@canvas/i18n'
 import doFetchApi from '@canvas/do-fetch-api-effect'
 import type {Level, Skill, SkillsConfig, SkillsData} from './types'
+import {DIVIDER, INK, PAPER} from '@canvas/material'
+import {useMaterialPage} from '@canvas/material/useMaterialPage'
 
 const I18n = createI18nScope('self_paced_skills')
 
 const ROBOTO = "Roboto, 'Helvetica Neue', Helvetica, Arial, sans-serif"
-const INK = {primary: '#212121', secondary: '#616161'}
 const DEFAULT_COLOR = '#1565C0'
 const ELEVATION = {
   1: '0 1px 3px rgba(0,0,0,0.12), 0 1px 2px rgba(0,0,0,0.24)',
@@ -50,7 +51,7 @@ export function needsAttention(skill: Skill): boolean {
 
 function card(extra: React.CSSProperties = {}): React.CSSProperties {
   return {
-    background: '#FFFFFF',
+    background: PAPER,
     borderRadius: 2,
     boxShadow: ELEVATION[1],
     fontFamily: ROBOTO,
@@ -75,6 +76,7 @@ const buttonStyle = (color: string): React.CSSProperties => ({
 // What each student can do, skill by skill. Replaces the outcomes page for
 // staff of a Course Player course.
 export default function SkillsApp({config}: {config: SkillsConfig}) {
+  useMaterialPage()
   const color = config.course.color || DEFAULT_COLOR
   const [data, setData] = useState<SkillsData | null>(null)
   const [error, setError] = useState('')
@@ -330,7 +332,7 @@ function SkillCard({skill, courseId, color}: {skill: Skill; courseId: string; co
       <div
         role="img"
         aria-label={summary}
-        style={{display: 'flex', height: 12, background: '#EEEEEE', margin: '12px 0 8px'}}
+        style={{display: 'flex', height: 12, background: DIVIDER, margin: '12px 0 8px'}}
       >
         {count > 0 &&
           LEVELS.map(l =>
