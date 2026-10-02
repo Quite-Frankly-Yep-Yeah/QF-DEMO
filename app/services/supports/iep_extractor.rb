@@ -95,7 +95,7 @@ module Supports
       raise Failed, I18n.t("That file type can't be read.") unless CONTENT_TYPES.include?(content_type)
 
       reply = client.messages.create(
-        model: settings["model"].presence || MODEL,
+        model: config&.dig(:model) || MODEL,
         max_tokens: 16_000,
         system: system_prompt,
         output_config: { effort: :high, format_: { type: :json_schema, schema: SCHEMA } },
@@ -113,16 +113,19 @@ module Supports
 
     private
 
-    def settings
-      @settings ||= YAML.safe_load(DynamicSettings.find(tree: :private)["anthropic.yml"] || "{}") || {}
+    # The school's key and model, or the site's, or the server file's
+    # (Supports::AnthropicConfig); nil when none is set up.
+    def config
+      return @config if defined?(@config)
+
+      @config = AnthropicConfig.for(@root_account)
     end
 
     def client
       @client ||= begin
-        key = settings["api_key"]
-        raise Failed, I18n.t("IEP scanning isn't set up for this school.") if key.blank?
+        raise Failed, I18n.t("IEP scanning isn't set up for this school.") if config.nil?
 
-        Anthropic::Client.new(api_key: key)
+        Anthropic::Client.new(api_key: config[:api_key])
       end
     end
 

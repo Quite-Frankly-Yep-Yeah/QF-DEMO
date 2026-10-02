@@ -25,9 +25,8 @@ describe Supports::IepExtractor do
     Struct.new(:stop_reason, :content).new(stop_reason, [Struct.new(:type, :text).new(:text, text)])
   end
 
-  # returns the result and the requests the extractor made
-  def extract(reply)
-    requests = []
+  # a client that records its requests and answers with +reply+
+  def fake_client(reply, requests)
     messages = Class.new do
       define_method(:create) do |**kwargs|
         requests << kwargs
@@ -36,7 +35,13 @@ describe Supports::IepExtractor do
         reply
       end
     end.new
-    client = Struct.new(:messages).new(messages)
+    Struct.new(:messages).new(messages)
+  end
+
+  # returns the result and the requests the extractor made
+  def extract(reply)
+    requests = []
+    client = fake_client(reply, requests)
     result = described_class.new(root_account, client:).call(data: "%PDF-1.4 fake", content_type: "application/pdf")
     [result, requests]
   end
@@ -141,5 +146,46 @@ describe Supports::IepExtractor do
                                                    response: nil,
                                                    message: "bad pdf")
     expect { extract(error) }.to raise_error(described_class::Failed, /can't be read/)
+  end
+
+  describe "which key it uses" do
+    let(:requests) { [] }
+
+    def stub_file(yaml)
+      allow(DynamicSettings).to receive(:find).and_call_original
+    allow(DynamicSettings).to receive(:find).with(tree: :private).and_return("anthropic.yml" => yaml)
+    end
+
+    def call_without_injected_client
+      described_class.new(root_account).call(data: "%PDF-1.4 fake", content_type: "application/pdf")
+    end
+
+    before { stub_file(nil) }
+
+    it "uses the school's key and model" do
+      Supports::AnthropicSetting.create!(root_account:, api_key: "school-key", model: "claude-sonnet-5-5")
+      allow(Anthropic::Client).to receive(:new).with(api_key: "school-key").and_return(fake_client(reply_with(clean), requests))
+      call_without_injected_client
+      expect(requests.first[:model]).to eq "claude-sonnet-5-5"
+    end
+
+    it "uses the site's shared key when the school has none" do
+      Supports::AnthropicSetting.create!(root_account: nil, api_key: "site-key")
+      allow(Anthropic::Client).to receive(:new).with(api_key: "site-key").and_return(fake_client(reply_with(clean), requests))
+      call_without_injected_client
+      expect(requests.first[:model]).to eq "claude-opus-5-5"
+    end
+
+    it "still works from the server's anthropic.yml" do
+      stub_file({ "api_key" => "file-key", "model" => "claude-haiku-4-5" }.to_yaml)
+      allow(Anthropic::Client).to receive(:new).with(api_key: "file-key").and_return(fake_client(reply_with(clean), requests))
+      call_without_injected_client
+      expect(requests.first[:model]).to eq "claude-haiku-4-5"
+    end
+
+    it "says scanning isn't set up when there is no key anywhere" do
+      expect { call_without_injected_client }
+        .to raise_error(described_class::Failed, "IEP scanning isn't set up for this school.")
+    end
   end
 end

@@ -29,6 +29,7 @@ describe Supports::AnthropicConfig do
   end
 
   def stub_file(yaml)
+    allow(DynamicSettings).to receive(:find).and_call_original
     allow(DynamicSettings).to receive(:find).with(tree: :private).and_return("anthropic.yml" => yaml)
   end
 
