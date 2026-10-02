@@ -2935,6 +2935,10 @@ CanvasRails::Application.routes.draw do
     scope(controller: "supports/imports") do
       get "supports/imports", action: :index, as: "supports_imports"
       post "supports/imports", action: :create
+      get "supports/imports/:id", action: :show, as: "supports_import_show"
+      put "supports/imports/:id/review", action: :review, as: "supports_import_review"
+      post "supports/imports/:id/retry", action: :retry, as: "supports_import_retry"
+      get "supports/imports/:id/document", action: :document, as: "supports_import_document"
       post "supports/imports/:id/apply", action: :apply, as: "supports_import_apply"
       post "supports/imports/:id/undo", action: :undo, as: "supports_import_undo"
       delete "supports/imports/:id", action: :destroy, as: "supports_import"

@@ -53,7 +53,7 @@ module Supports
     end
 
     def as_api_json
-      {
+      json = {
         id:,
         filename:,
         format:,
@@ -64,6 +64,15 @@ module Supports
         summary: preview["summary"] || {},
         rows: preview["rows"] || []
       }
+      return json unless scan?
+
+      json.merge(
+        extraction_state:,
+        extraction_error:,
+        student: student && { id: student.id.to_s, name: student.name },
+        plan_id:,
+        scan: preview["scan"] || {}
+      )
     end
   end
 end

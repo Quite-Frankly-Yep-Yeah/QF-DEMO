@@ -68,6 +68,12 @@ module Supports
       import
     end
 
+    def authorize!(student)
+      allowed = student && Supports.feature_enabled?(@account, :iep_scan) &&
+                Access.new(@user, student, @root_account).can_manage?
+      raise Importer::Forbidden unless allowed
+    end
+
     # Applies the reviewer's edits to a scan that has been read. +items+ are
     # {"index", "included", "params"}; +plan+ may change plan_type and the
     # dates; +keep_unmapped+ lists which "not mapped" notes to keep.
@@ -282,12 +288,6 @@ module Supports
 
     def importer_for(import)
       Importer.new(import.account, @user, authorized: true)
-    end
-
-    def authorize!(student)
-      allowed = student && Supports.feature_enabled?(@account, :iep_scan) &&
-                Access.new(@user, student, @root_account).can_manage?
-      raise Importer::Forbidden unless allowed
     end
 
     def enqueue(import)
