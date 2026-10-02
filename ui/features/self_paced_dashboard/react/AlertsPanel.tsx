@@ -23,6 +23,7 @@ import {Button} from '@instructure/ui-buttons'
 import {INK} from './colors'
 import {Card, DIVIDER, Pill} from './material'
 import type {RowKey} from './types'
+import {ACCENT_TEXT} from '@canvas/material'
 
 const I18n = createI18nScope('self_paced_dashboard')
 
@@ -126,6 +127,10 @@ export default function AlertsPanel({
                 size="small"
                 withBackground={false}
                 color="primary"
+                themeOverride={{
+                  primaryGhostColor: ACCENT_TEXT,
+                  primaryGhostBorderColor: ACCENT_TEXT,
+                }}
                 onClick={() =>
                   onOpenStudent({courseId: alert.course.id, studentId: alert.student.id})
                 }

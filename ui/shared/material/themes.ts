@@ -32,6 +32,12 @@ export type ThemeTokens = {
   accent: string
   // the accent as link and highlight text; equals accent until a custom accent is too faint to read
   accentText: string
+  // semantic text colors and the banner behind errors and warnings
+  danger: string
+  dangerBg: string
+  warning: string
+  warningBg: string
+  success: string
 }
 
 export const THEMES = themes as Record<ThemeId, {name: string; tokens: ThemeTokens}>

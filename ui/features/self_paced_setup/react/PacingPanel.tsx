@@ -29,6 +29,7 @@ import {Text} from '@instructure/ui-text'
 import {TextInput} from '@instructure/ui-text-input'
 import {View} from '@instructure/ui-view'
 import {formatPlanDate} from '@canvas/self-paced/pacing'
+import {INK as THEME_INK, PAPER} from '@canvas/material'
 
 const I18n = createI18nScope('self_paced_setup')
 
@@ -174,6 +175,7 @@ export default function PacingPanel({url}: {url: string}) {
       margin="medium 0"
       padding="medium"
       background="primary"
+      themeOverride={{backgroundPrimary: PAPER}}
       borderRadius="small"
       shadow="resting"
     >
@@ -273,7 +275,7 @@ export default function PacingPanel({url}: {url: string}) {
             >
               <span style={{flex: 1}}>
                 <span style={{fontWeight: 500}}>{day.title}</span>{' '}
-                <span style={{color: '#52514e'}}>
+                <span style={{color: THEME_INK.secondary}}>
                   {day.start_date === day.end_date
                     ? formatPlanDate(day.start_date)
                     : I18n.t('%{start} to %{end}', {

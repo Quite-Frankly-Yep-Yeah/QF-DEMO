@@ -26,6 +26,8 @@ const I18n = createI18nScope('supports')
 // Shared look for the Supports page: the Material 1 cards, buttons and fields
 // the Parents page uses, in the page's own purple.
 export const BRAND = '#6A1B9A'
+// BRAND as text: purple in Light, the theme's accent text elsewhere (see _themes.scss)
+export const BRAND_TEXT = 'var(--qf-brand-text, #6A1B9A)'
 export const TAP = 44
 export const GUTTER = 'clamp(8px, calc((100vw - 30rem) / 8), 32px)'
 export const PAD = 'clamp(16px, 5vw, 32px)'
@@ -48,7 +50,7 @@ export const button: React.CSSProperties = {
 export const flatButton: React.CSSProperties = {
   ...button,
   background: 'transparent',
-  color: BRAND,
+  color: BRAND_TEXT,
   boxShadow: 'none',
   padding: '0 12px',
 }

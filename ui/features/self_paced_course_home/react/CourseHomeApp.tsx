@@ -19,7 +19,7 @@
 import React from 'react'
 import {useScope as createI18nScope} from '@canvas/i18n'
 import type {CourseHomeConfig, Link, Stats, Step, Unit} from './types'
-import {INK, PAPER} from '@canvas/material'
+import {DANGER, DIVIDER, INK, PAPER, WARNING} from '@canvas/material'
 import {useMaterialPage} from '@canvas/material/useMaterialPage'
 
 const I18n = createI18nScope('self_paced_course_home')
@@ -212,7 +212,7 @@ function Stat({
           fontSize: '3rem',
           fontWeight: 300,
           lineHeight: 1,
-          color: warn ? '#C62828' : INK.primary,
+          color: warn ? DANGER : INK.primary,
         }}
       >
         {value}
@@ -225,7 +225,7 @@ function Stat({
           aria-valuemin={0}
           aria-valuemax={100}
           aria-valuenow={bar}
-          style={{height: 4, marginTop: 8, background: 'rgba(0,0,0,0.12)'}}
+          style={{height: 4, marginTop: 8, background: DIVIDER}}
         >
           <div style={{height: '100%', width: `${bar}%`, background: '#2E7D32'}} />
         </div>
@@ -334,7 +334,7 @@ function UnitsCard({units, addUrl}: {units: Unit[]; addUrl?: string}) {
                   {unit.quizzes > 0 &&
                     `, ${I18n.t({one: '1 quiz', other: '%{count} quizzes'}, {count: unit.quizzes})}`}
                   {(!unit.published || unit.unpublished_items > 0) && (
-                    <span style={{display: 'block', color: '#E65100'}}>
+                    <span style={{display: 'block', color: WARNING}}>
                       {unit.published
                         ? I18n.t('%{count} not published', {count: unit.unpublished_items})
                         : I18n.t('Not published')}

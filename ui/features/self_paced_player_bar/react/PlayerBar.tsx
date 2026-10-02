@@ -22,6 +22,7 @@ import doFetchApi from '@canvas/do-fetch-api-effect'
 import {Button} from '@instructure/ui-buttons'
 import {IconArrowOpenEndLine, IconArrowOpenStartLine, IconLockSolid} from '@instructure/ui-icons'
 import {DEFAULT_COURSE_COLOR, neighbours, tint, type PlayerMap} from '@canvas/self-paced/player'
+import {INK as THEME_INK, SUBTLE} from '@canvas/material'
 
 const I18n = createI18nScope('self_paced_player')
 
@@ -62,7 +63,7 @@ export default function PlayerBar({config}: {config: PlayerBarConfig}) {
         flexWrap: 'wrap',
         padding: '8px 12px',
         margin: '0 0 16px',
-        background: '#F5F5F5',
+        background: SUBTLE,
         borderRadius: 2,
         borderTop: `4px solid ${color}`,
         boxShadow:
@@ -127,7 +128,7 @@ export default function PlayerBar({config}: {config: PlayerBarConfig}) {
                 }}
               />
             </span>
-            <span style={{fontSize: '0.8125rem', color: '#52514e'}}>
+            <span style={{fontSize: '0.8125rem', color: THEME_INK.secondary}}>
               {place && place.position > 0
                 ? I18n.t('Step %{position} of %{total}', {
                     position: place.position,
@@ -160,7 +161,7 @@ export default function PlayerBar({config}: {config: PlayerBarConfig}) {
         {nextLocked && (
           <div
             id="self-paced-next-hint"
-            style={{fontSize: '0.75rem', color: '#52514e', marginTop: 2}}
+            style={{fontSize: '0.75rem', color: THEME_INK.secondary, marginTop: 2}}
           >
             {I18n.t('Finish this step to unlock the next one')}
           </div>

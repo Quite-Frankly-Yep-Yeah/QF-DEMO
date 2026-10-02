@@ -26,6 +26,7 @@ import ModelGuide from './ModelGuide'
 import {card, cardTitle} from './styles'
 import type {AiSettingsConfig, ModelSource, SaveBody, SettingsResponse} from './types'
 import {useMaterialPage} from '@canvas/material/useMaterialPage'
+import {DANGER} from '@canvas/material'
 
 const I18n = createI18nScope('ai_settings')
 
@@ -208,7 +209,7 @@ export default function AiSettingsApp({config}: {config: AiSettingsConfig}) {
       </p>
 
       {loadError && (
-        <p role="alert" style={{color: '#B71C1C'}}>
+        <p role="alert" style={{color: DANGER}}>
           {loadError}
         </p>
       )}

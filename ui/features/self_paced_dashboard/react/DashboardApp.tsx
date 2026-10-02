@@ -287,7 +287,13 @@ export default function DashboardApp({config}: {config: DashboardConfig}) {
             {one: 'Showing 1 student.', other: 'Showing %{count} students.'},
             {count: new Set(visibleRows.map(row => row.student.id)).size},
           )}{' '}
-          <Button size="small" withBackground={false} color="primary" onClick={clearFilters}>
+          <Button
+            size="small"
+            withBackground={false}
+            color="primary"
+            themeOverride={{primaryGhostColor: ACCENT_TEXT, primaryGhostBorderColor: ACCENT_TEXT}}
+            onClick={clearFilters}
+          >
             {I18n.t('Clear filters')}
           </Button>
         </p>
@@ -473,7 +479,13 @@ function NoMatches({
           : I18n.t('No students are in "%{filter}" right now.', {
               filter: quickFilterLabel(quick),
             })}{' '}
-        <Button size="small" withBackground={false} color="primary" onClick={onClear}>
+        <Button
+          size="small"
+          withBackground={false}
+          color="primary"
+          themeOverride={{primaryGhostColor: ACCENT_TEXT, primaryGhostBorderColor: ACCENT_TEXT}}
+          onClick={onClear}
+        >
           {I18n.t('Clear filters')}
         </Button>
       </div>

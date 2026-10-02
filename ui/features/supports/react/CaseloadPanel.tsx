@@ -22,8 +22,8 @@ import doFetchApi from '@canvas/do-fetch-api-effect'
 import {INK} from '../../self_paced_home/react/material'
 import PersonPicker from './PersonPicker'
 import type {CaseloadRow} from './types'
-import {BRAND, button, Card, field, flatButton, formatDate, Label, muted} from './ui'
-import {DIVIDER} from '@canvas/material'
+import {BRAND, BRAND_TEXT, button, Card, field, flatButton, formatDate, Label, muted} from './ui'
+import {DANGER, DIVIDER} from '@canvas/material'
 
 const I18n = createI18nScope('supports')
 
@@ -75,7 +75,7 @@ export default function CaseloadPanel({
       style={{
         ...flatButton,
         background: scope === value ? BRAND : 'transparent',
-        color: scope === value ? '#fff' : BRAND,
+        color: scope === value ? '#fff' : BRAND_TEXT,
       }}
       onClick={() => setScope(value)}
     >
@@ -140,13 +140,13 @@ export default function CaseloadPanel({
                     cursor: 'pointer',
                   }}
                 >
-                  <span style={{fontWeight: 500, color: BRAND}}>{row.student.name}</span>
+                  <span style={{fontWeight: 500, color: BRAND_TEXT}}>{row.student.name}</span>
                   <span>
                     {row.plans.length === 0
                       ? I18n.t('No plan yet')
                       : row.plans.map(plan => plan.type_label).join(', ')}
                   </span>
-                  <span style={{color: soon(row.next_review) ? '#B71C1C' : INK.secondary}}>
+                  <span style={{color: soon(row.next_review) ? DANGER : INK.secondary}}>
                     {row.next_review
                       ? I18n.t('Review %{date}', {date: formatDate(row.next_review)})
                       : I18n.t('No review date')}

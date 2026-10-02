@@ -11,6 +11,14 @@
     background: var(--qf-surface);
     color: var(--qf-ink);
 
+    // the Supports page's purple, as text, becomes the theme's accent text
+    --qf-brand-text: var(--qf-accent-text);
+
+    // the content column is white by default and some pages don't cover all of it
+    #content {
+      background: var(--qf-surface);
+    }
+
     #footer a,
     #footer span {
       color: var(--qf-ink-secondary);
@@ -20,6 +28,7 @@
     [class*="-toggleFacade__label"],
     [class*="-colHeader"],
     [class*="-formFieldLabel"],
+    [class*="-formFieldLayout__label"],
     [class*="-formFieldMessage"],
     [class*="-checkboxFacade__label"],
     [class$="-text"],
@@ -40,6 +49,34 @@
     // links in the page content read in the theme's accent
     #content a {
       color: var(--qf-accent-text);
+    }
+
+    // InstUI modal surfaces default to white
+    [class$="-modal"],
+    [class*="-modalHeader"],
+    [class*="-modalBody"],
+    [class*="-modalFooter"] {
+      background: var(--qf-paper);
+      color: var(--qf-ink);
+    }
+
+    // InstUI headings and the light panels (sections) built from InstUI views
+    [class*="-view-heading"],
+    #content section[class$="-view"],
+    #content section[class*="-view "],
+    #content :is(label, legend) {
+      color: var(--qf-ink);
+    }
+
+    // InstUI tables are white all the way down
+    table[class*="-view-table"],
+    thead[class*="-head"],
+    tbody[class*="-view-body"],
+    tr[class*="-view-row"],
+    td[class*="-view-cell"],
+    th[class*="-view-rowHeader"] {
+      background: var(--qf-paper);
+      color: var(--qf-ink);
     }
 
     // InstUI table headings default to a white fill

@@ -25,6 +25,7 @@ import {formatDuration, formatLastActive, secondsSince} from './format'
 import {Card, DIVIDER, ELEVATION, PAPER, Pill, ROBOTO} from './material'
 import {groupByStudent} from './grouping'
 import type {RosterRow, RowKey, Status} from './types'
+import {ACCENT_TEXT} from '@canvas/material'
 
 type LiveRow = RosterRow & {class_count: number}
 
@@ -157,6 +158,7 @@ export default function LiveBoard({rows, colors, now, idleMinutes, onOpenStudent
               size="small"
               color="primary"
               withBackground={false}
+              themeOverride={{primaryGhostColor: ACCENT_TEXT, primaryGhostBorderColor: ACCENT_TEXT}}
               onClick={() => setAllAway(!allAway)}
             >
               {allAway ? I18n.t('Show fewer') : I18n.t('Show all %{count}', {count: away.length})}

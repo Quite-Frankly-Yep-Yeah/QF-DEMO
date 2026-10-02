@@ -20,7 +20,7 @@ import React, {useCallback, useEffect, useState} from 'react'
 import {useScope as createI18nScope} from '@canvas/i18n'
 import doFetchApi from '@canvas/do-fetch-api-effect'
 import type {Level, Skill, SkillsConfig, SkillsData} from './types'
-import {DIVIDER, INK, PAPER} from '@canvas/material'
+import {DANGER, DANGER_BG, DIVIDER, INK, PAPER} from '@canvas/material'
 import {useMaterialPage} from '@canvas/material/useMaterialPage'
 
 const I18n = createI18nScope('self_paced_skills')
@@ -198,7 +198,7 @@ function Stat({value, label, warn}: {value: string; label: string; warn?: boolea
           fontSize: '2.5rem',
           fontWeight: 300,
           lineHeight: 1,
-          color: warn ? '#C62828' : INK.primary,
+          color: warn ? DANGER : INK.primary,
         }}
       >
         {value}
@@ -315,8 +315,8 @@ function SkillCard({skill, courseId, color}: {skill: Skill; courseId: string; co
             style={{
               padding: '2px 10px',
               borderRadius: 12,
-              background: '#FFEBEE',
-              color: '#B71C1C',
+              background: DANGER_BG,
+              color: DANGER,
               fontSize: '0.8125rem',
               fontWeight: 500,
             }}

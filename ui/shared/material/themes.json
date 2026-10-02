@@ -11,7 +11,12 @@
       "inkSecondary": "#666666",
       "divider": "#E0E0E0",
       "accent": "#2B7ABC",
-      "accentText": "#2B7ABC"
+      "accentText": "#2B7ABC",
+      "danger": "#B71C1C",
+      "dangerBg": "#FFEBEE",
+      "warning": "#EF6C00",
+      "warningBg": "#FFF3E0",
+      "success": "#2E7D32"
     }
   },
   "latte": {
@@ -26,7 +31,12 @@
       "inkSecondary": "#5C5F77",
       "divider": "#CCD0DA",
       "accent": "#8839EF",
-      "accentText": "#8839EF"
+      "accentText": "#8839EF",
+      "danger": "#C70A33",
+      "dangerBg": "#E9D1DA",
+      "warning": "#B84A00",
+      "warningBg": "#E7DAD3",
+      "success": "#2E7D32"
     }
   },
   "frappe": {
@@ -41,7 +51,12 @@
       "inkSecondary": "#A5ADCE",
       "divider": "#51576D",
       "accent": "#CA9EE6",
-      "accentText": "#CA9EE6"
+      "accentText": "#CA9EE6",
+      "danger": "#E78284",
+      "dangerBg": "#524B5D",
+      "warning": "#EF9F76",
+      "warningBg": "#59525D",
+      "success": "#A6D189"
     }
   },
   "macchiato": {
@@ -56,7 +71,12 @@
       "inkSecondary": "#A5ADCB",
       "divider": "#494D64",
       "accent": "#C6A0F6",
-      "accentText": "#C6A0F6"
+      "accentText": "#C6A0F6",
+      "danger": "#ED8796",
+      "dangerBg": "#504559",
+      "warning": "#F5A97F",
+      "warningBg": "#514A56",
+      "success": "#A6DA95"
     }
   },
   "mocha": {
@@ -71,7 +91,12 @@
       "inkSecondary": "#A6ADC8",
       "divider": "#45475A",
       "accent": "#CBA6F7",
-      "accentText": "#CBA6F7"
+      "accentText": "#CBA6F7",
+      "danger": "#F38BA8",
+      "dangerBg": "#4C3E52",
+      "warning": "#FAB387",
+      "warningBg": "#4D444D",
+      "success": "#A6E3A1"
     }
   }
 }

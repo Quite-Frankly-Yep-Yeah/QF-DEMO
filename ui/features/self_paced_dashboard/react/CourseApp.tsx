@@ -54,6 +54,7 @@ import {
 } from './material'
 import type {CourseConfig, CourseSummary, DashboardConfig, Link, RowKey} from './types'
 import {useRoster} from './useRoster'
+import {ACCENT_TEXT} from '@canvas/material'
 
 const I18n = createI18nScope('self_paced_dashboard')
 
@@ -242,6 +243,10 @@ export default function CourseApp({
                   size="small"
                   withBackground={false}
                   color="primary"
+                  themeOverride={{
+                    primaryGhostColor: ACCENT_TEXT,
+                    primaryGhostBorderColor: ACCENT_TEXT,
+                  }}
                   onClick={() => setUnit(null)}
                 >
                   {I18n.t('Show every unit')}

@@ -32,7 +32,7 @@ import {
   type Existing,
 } from './api'
 import type {Item, NewItem, Role, Setup, Unit, UnitsConfig} from './types'
-import {INK, PAPER} from '@canvas/material'
+import {DANGER, INK, PAPER, SUBTLE} from '@canvas/material'
 import {useMaterialPage} from '@canvas/material/useMaterialPage'
 
 type Skill = Setup['skills'][number]
@@ -135,7 +135,7 @@ function Switch({on, label, onToggle}: {on: boolean; label: string; onToggle: ()
           width: 20,
           height: 20,
           borderRadius: '50%',
-          background: on ? '#2E7D32' : '#FAFAFA',
+          background: on ? '#2E7D32' : SUBTLE,
           boxShadow: ELEVATION[1],
           transition: 'left 0.15s',
         }}
@@ -291,7 +291,7 @@ export default function UnitsApp({config}: {config: UnitsConfig}) {
           {status}
         </div>
         {error && (
-          <p role="alert" style={{color: '#C62828'}}>
+          <p role="alert" style={{color: DANGER}}>
             {error}
           </p>
         )}

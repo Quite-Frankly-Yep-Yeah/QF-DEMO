@@ -21,7 +21,7 @@ import {useScope as createI18nScope} from '@canvas/i18n'
 import doFetchApi from '@canvas/do-fetch-api-effect'
 import type {ImportAction, ImportRecord} from './types'
 import {button, Card, field, flatButton, formatDate, Label, messageFrom, muted, Status} from './ui'
-import {DIVIDER} from '@canvas/material'
+import {DANGER, DIVIDER} from '@canvas/material'
 
 const I18n = createI18nScope('supports')
 
@@ -98,7 +98,7 @@ function Preview({record}: {record: ImportRecord}) {
                 <td
                   style={{
                     padding: '6px 8px',
-                    color: row.action === 'error' ? '#B71C1C' : undefined,
+                    color: row.action === 'error' ? DANGER : undefined,
                   }}
                 >
                   {actionLabel(row.action)}

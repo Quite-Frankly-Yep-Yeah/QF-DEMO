@@ -108,7 +108,14 @@ export default function SupportsApp({config}: {config: SupportsConfig}) {
           >
             {I18n.t('Supports')}
           </h1>
-          <p style={{margin: '0 0 16px', fontSize: 'clamp(1rem, 4vw, 1.125rem)', opacity: 0.92}}>
+          <p
+            style={{
+              margin: '0 0 16px',
+              fontSize: 'clamp(1rem, 4vw, 1.125rem)',
+              opacity: 0.92,
+              color: '#fff',
+            }}
+          >
             {I18n.t('504, IEP and English-learner plans, and the accommodations teachers see.')}
           </p>
         </div>

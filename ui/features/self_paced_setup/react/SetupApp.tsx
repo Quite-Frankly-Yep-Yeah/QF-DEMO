@@ -30,6 +30,8 @@ import {Text} from '@instructure/ui-text'
 import {View} from '@instructure/ui-view'
 import {ScreenReaderContent} from '@instructure/ui-a11y-content'
 import PacingPanel from './PacingPanel'
+import {INK as THEME_INK, PAPER} from '@canvas/material'
+import {useMaterialPage} from '@canvas/material/useMaterialPage'
 
 const I18n = createI18nScope('self_paced_setup')
 
@@ -89,6 +91,7 @@ export function requirementPreview(item: SetupItem, courseThreshold: number): st
 }
 
 export default function SetupApp({config}: {config: Config}) {
+  useMaterialPage()
   const [setup, setSetup] = useState<Setup | null>(null)
   const [loadFailed, setLoadFailed] = useState(false)
   const [saving, setSaving] = useState(false)
@@ -196,6 +199,7 @@ export default function SetupApp({config}: {config: Config}) {
         margin="medium 0"
         padding="medium"
         background="primary"
+        themeOverride={{backgroundPrimary: PAPER}}
         borderRadius="small"
         shadow="resting"
       >
@@ -262,7 +266,7 @@ export default function SetupApp({config}: {config: Config}) {
           bottom: 0,
           marginTop: 24,
           padding: '12px 0',
-          background: 'rgba(255,255,255,0.96)',
+          background: PAPER,
           display: 'flex',
           gap: 16,
           alignItems: 'center',
@@ -307,7 +311,11 @@ function ItemRow({
   onChange: (changes: Partial<SetupItem>) => void
 }) {
   if (item.type === 'ContextModuleSubHeader') {
-    return <li style={{padding: '12px 0 4px', fontWeight: 500, color: '#52514e'}}>{item.title}</li>
+    return (
+      <li style={{padding: '12px 0 4px', fontWeight: 500, color: THEME_INK.secondary}}>
+        {item.title}
+      </li>
+    )
   }
 
   const preview = requirementPreview(item, courseThreshold)
@@ -328,7 +336,7 @@ function ItemRow({
       <div>
         <div style={{fontWeight: 500}}>{item.title}</div>
         {preview && (
-          <div style={{fontSize: '0.8125rem', color: '#52514e', marginTop: 2}}>
+          <div style={{fontSize: '0.8125rem', color: THEME_INK.secondary, marginTop: 2}}>
             {I18n.t('Students must: %{rule}', {rule: preview})}
           </div>
         )}

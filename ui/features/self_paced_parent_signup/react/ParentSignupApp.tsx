@@ -18,7 +18,7 @@
 
 import React, {useState} from 'react'
 import {useScope as createI18nScope} from '@canvas/i18n'
-import {INK, PAPER, SUBTLE} from '@canvas/material'
+import {DANGER, DANGER_BG, INK, PAPER, SUBTLE} from '@canvas/material'
 import {useMaterialPage} from '@canvas/material/useMaterialPage'
 
 const I18n = createI18nScope('self_paced_parent_signup')
@@ -273,8 +273,8 @@ function Errors({errors}: {errors: string[]}) {
     <div
       role="alert"
       style={{
-        background: '#FFEBEE',
-        color: '#B71C1C',
+        background: DANGER_BG,
+        color: DANGER,
         padding: '12px 16px',
         margin: '0 0 16px',
         borderRadius: 2,

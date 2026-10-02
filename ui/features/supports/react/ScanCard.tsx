@@ -22,7 +22,7 @@ import {ELEVATION, INK, ink, PALETTE, tint} from '../../self_paced_home/react/ma
 import ParametersFields from './ParametersFields'
 import type {Kind, Parameters, ScanItem} from './types'
 import {flatButton, muted} from './ui'
-import {PAPER} from '@canvas/material'
+import {DANGER, PAPER} from '@canvas/material'
 
 const I18n = createI18nScope('supports')
 
@@ -203,7 +203,7 @@ export default function ScanCard({
       {effect && <p style={{margin: '4px 0 0', fontWeight: 500, color: INK.primary}}>{effect}</p>}
 
       {item.errors.length > 0 && (
-        <ul role="alert" style={{margin: '8px 0 0', paddingLeft: 20, color: '#B71C1C'}}>
+        <ul role="alert" style={{margin: '8px 0 0', paddingLeft: 20, color: DANGER}}>
           {item.errors.map(error => (
             <li key={error}>{error}</li>
           ))}

@@ -27,6 +27,7 @@ import {fillTemplate} from './format'
 import {describeEntry, errorMessage, itemActions, type ItemAction} from './interventions'
 import {Card, DIVIDER, Pill} from './material'
 import type {DetailItem, InterventionKind, LogEntry, Note, RowKey, Support, Tools} from './types'
+import {ACCENT_TEXT} from '@canvas/material'
 
 const I18n = createI18nScope('self_paced_dashboard')
 
@@ -134,7 +135,13 @@ export function NotesCard({
       title={I18n.t('Notes')}
       labelledBy="self-paced-tray-notes"
       aside={
-        <Button size="small" color="primary" withBackground={false} onClick={onAdd}>
+        <Button
+          size="small"
+          color="primary"
+          withBackground={false}
+          themeOverride={{primaryGhostColor: ACCENT_TEXT, primaryGhostBorderColor: ACCENT_TEXT}}
+          onClick={onAdd}
+        >
           {I18n.t('Add note')}
         </Button>
       }

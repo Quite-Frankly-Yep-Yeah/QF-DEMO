@@ -37,6 +37,7 @@ import {
   muted,
   Status,
 } from './ui'
+import {DANGER} from '@canvas/material'
 
 const I18n = createI18nScope('supports')
 
@@ -267,7 +268,7 @@ export default function ScanPanel({
 
       {record?.extraction_state === 'failed' && record.workflow_state === 'previewed' && (
         <div>
-          <p style={{margin: '0 0 12px', color: '#B71C1C'}}>
+          <p style={{margin: '0 0 12px', color: DANGER}}>
             {record.extraction_error ?? I18n.t("The document couldn't be read.")}
           </p>
           <button

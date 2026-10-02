@@ -21,6 +21,7 @@ import {useScope as createI18nScope} from '@canvas/i18n'
 import doFetchApi from '@canvas/do-fetch-api-effect'
 import {ELEVATION, INK, ROBOTO} from '../../self_paced_home/react/material'
 import type {FoundStudent, LinkRequest, StudentSearch} from './types'
+import {DANGER, DANGER_BG, SUCCESS} from '@canvas/material'
 
 const I18n = createI18nScope('self_paced_observer')
 
@@ -29,6 +30,8 @@ const NOTE_LIMIT = 300
 // The smallest thing a thumb can hit reliably.
 const TAP = 44
 const BRAND = '#1565C0'
+// BRAND as text: blue in Light, the theme's accent text elsewhere (see _themes.scss)
+const BRAND_TEXT = 'var(--qf-brand-text, #1565C0)'
 
 // Mirrors SelfPaced::StudentFinder.parts: the server won't search on less than
 // two parts of a name, so there is no point asking it.
@@ -79,7 +82,7 @@ const textButton: React.CSSProperties = {
   padding: '0 12px',
   border: 'none',
   background: 'transparent',
-  color: BRAND,
+  color: BRAND_TEXT,
   font: 'inherit',
   fontWeight: 500,
   cursor: 'pointer',
@@ -305,7 +308,7 @@ export default function FindStudent({
           aria-live="polite"
           style={{minHeight: 24, color: INK.secondary, fontSize: '0.875rem', margin: '0 0 8px'}}
         >
-          {sent && <span style={{color: '#2E7D32'}}>{sent}</span>}
+          {sent && <span style={{color: SUCCESS}}>{sent}</span>}
           {!sent && searching && I18n.t('Looking...')}
           {!sent && !searching && !result && hint}
           {!sent &&
@@ -382,8 +385,8 @@ export default function FindStudent({
           <div
             role="alert"
             style={{
-              background: '#FFEBEE',
-              color: '#B71C1C',
+              background: DANGER_BG,
+              color: DANGER,
               padding: '12px 16px',
               margin: '16px 0 0',
               borderRadius: 2,

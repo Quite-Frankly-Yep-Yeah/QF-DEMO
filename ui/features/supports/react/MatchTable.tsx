@@ -23,6 +23,7 @@ import {INK} from '../../self_paced_home/react/material'
 import PersonPicker from './PersonPicker'
 import type {Person, ScanBatch, ScanRecord} from './types'
 import {BRAND, button, field, flatButton, messageFrom, muted, Status} from './ui'
+import {DANGER} from '@canvas/material'
 
 const I18n = createI18nScope('supports')
 
@@ -364,7 +365,7 @@ export default function MatchTable({
                     <span
                       style={{
                         fontWeight: 500,
-                        color: state === 'failed' ? '#B71C1C' : INK.primary,
+                        color: state === 'failed' ? DANGER : INK.primary,
                       }}
                     >
                       {STATUS_LABEL(state)}

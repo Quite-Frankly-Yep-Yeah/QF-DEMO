@@ -23,7 +23,7 @@ import {ELEVATION, INK, tint} from '../../self_paced_home/react/material'
 import ScanCard from './ScanCard'
 import type {ReviewEdits, ScanRecord} from './types'
 import {BRAND, button, Card, field, flatButton, Label, messageFrom, muted, Status} from './ui'
-import {PAPER} from '@canvas/material'
+import {PAPER, WARNING_BG} from '@canvas/material'
 
 const I18n = createI18nScope('supports')
 
@@ -316,7 +316,7 @@ export default function ReviewWorkspace({
         <div
           role="alert"
           style={{
-            background: '#FFF3E0',
+            background: WARNING_BG,
             borderLeft: '4px solid #E65100',
             borderRadius: 2,
             boxShadow: ELEVATION[2],

@@ -41,7 +41,7 @@ import type {
   ObserverConfig,
   ObserverData,
 } from './types'
-import {PAPER} from '@canvas/material'
+import {PAPER, SUCCESS} from '@canvas/material'
 import {useMaterialPage} from '@canvas/material/useMaterialPage'
 
 const I18n = createI18nScope('self_paced_observer')
@@ -66,7 +66,7 @@ export function paceText(pace: CourseProgress['pace']): {label: string; color: s
   if (days < 0) {
     return {
       label: I18n.t({one: '1 day ahead', other: '%{count} days ahead'}, {count: -days}),
-      color: '#2E7D32',
+      color: SUCCESS,
     }
   }
   return {label: I18n.t('On track'), color: '#2E7D32'}

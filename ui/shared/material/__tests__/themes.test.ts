@@ -23,13 +23,18 @@ const TOKEN_KEYS = [
   'accent',
   'accentText',
   'appBar',
+  'danger',
+  'dangerBg',
   'divider',
   'ink',
   'inkSecondary',
   'onAppBar',
   'paper',
   'subtle',
+  'success',
   'surface',
+  'warning',
+  'warningBg',
 ]
 
 describe('themes', () => {
@@ -51,6 +56,22 @@ describe('themes', () => {
   it('lists light first and every Catppuccin flavor', () => {
     expect(Object.keys(THEMES)).toEqual(['light', 'latte', 'frappe', 'macchiato', 'mocha'])
     expect(THEMES.latte.name).toBe('Catppuccin Latte')
+  })
+
+  it('keeps error, warning and success text readable on the card, and errors on their banner', () => {
+    for (const {tokens} of Object.values(THEMES)) {
+      expect(contrast(tokens.danger, tokens.paper)).toBeGreaterThanOrEqual(3)
+      expect(contrast(tokens.danger, tokens.dangerBg)).toBeGreaterThanOrEqual(3)
+      expect(contrast(tokens.warning, tokens.paper)).toBeGreaterThanOrEqual(3)
+      expect(contrast(tokens.success, tokens.paper)).toBeGreaterThanOrEqual(3)
+    }
+  })
+
+  it('keeps the semantic colors Light had before themes', () => {
+    expect(THEMES.light.tokens.danger).toBe('#B71C1C')
+    expect(THEMES.light.tokens.dangerBg).toBe('#FFEBEE')
+    expect(THEMES.light.tokens.warning).toBe('#EF6C00')
+    expect(THEMES.light.tokens.success).toBe('#2E7D32')
   })
 
   it('rejects unknown theme ids', () => {

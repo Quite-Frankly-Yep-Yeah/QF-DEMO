@@ -32,6 +32,11 @@ export const SUBTLE = tokenVar('subtle')
 export const ACCENT = tokenVar('accent')
 // the accent as text (links, highlights): falls back to ink when a custom accent is too faint
 export const ACCENT_TEXT = tokenVar('accentText')
+export const DANGER = tokenVar('danger')
+export const DANGER_BG = tokenVar('dangerBg')
+export const WARNING = tokenVar('warning')
+export const WARNING_BG = tokenVar('warningBg')
+export const SUCCESS = tokenVar('success')
 export const INK = {
   primary: tokenVar('ink'),
   secondary: tokenVar('inkSecondary'),

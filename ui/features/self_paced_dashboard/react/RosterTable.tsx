@@ -39,6 +39,7 @@ import {formatDuration, formatLastActive, formatScore, isStuck} from './format'
 import {groupByStudent, type StudentGroup} from './grouping'
 import {DIVIDER, Pill} from './material'
 import type {RosterRow, RowKey, Status} from './types'
+import {ACCENT_TEXT} from '@canvas/material'
 
 const I18n = createI18nScope('self_paced_dashboard')
 
@@ -494,6 +495,7 @@ export default function RosterTable({
             size="small"
             color="primary"
             withBackground={false}
+            themeOverride={{primaryGhostColor: ACCENT_TEXT, primaryGhostBorderColor: ACCENT_TEXT}}
             onClick={() => setShown(shown + PAGE_SIZE)}
           >
             {I18n.t('Show %{count} more', {count: Math.min(PAGE_SIZE, sorted.length - shown)})}

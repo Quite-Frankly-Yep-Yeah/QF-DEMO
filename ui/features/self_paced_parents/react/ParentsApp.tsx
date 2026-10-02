@@ -30,7 +30,7 @@ import {
 } from '../../self_paced_home/react/material'
 import {flyerHtml, printHtml} from './flyer'
 import type {AdminRequest, Flyer, ParentsConfig} from './types'
-import {PAPER} from '@canvas/material'
+import {DANGER, DANGER_BG, PAPER, SUCCESS, WARNING} from '@canvas/material'
 import {useMaterialPage} from '@canvas/material/useMaterialPage'
 
 const I18n = createI18nScope('self_paced_parents')
@@ -39,6 +39,8 @@ const GUTTER = 'clamp(8px, calc((100vw - 30rem) / 8), 32px)'
 const PAD = 'clamp(16px, 5vw, 32px)'
 const TAP = 44
 const BRAND = '#1565C0'
+// BRAND as text: blue in Light, the theme's accent text elsewhere (see _themes.scss)
+const BRAND_TEXT = 'var(--qf-brand-text, #1565C0)'
 const CONTACT_KEY = 'self_paced_parents_flyer_contact'
 const CONTACT_LIMIT = 140
 
@@ -105,7 +107,7 @@ const button: React.CSSProperties = {
 const flatButton: React.CSSProperties = {
   ...button,
   background: 'transparent',
-  color: BRAND,
+  color: BRAND_TEXT,
   boxShadow: 'none',
 }
 
@@ -185,7 +187,7 @@ function RequestRow({
         <div style={{color: INK.secondary, fontSize: '0.875rem'}}>{student.classes.join(', ')}</div>
       )}
       {student.parents > 0 && (
-        <div style={{color: '#EF6C00', fontSize: '0.875rem', margin: '4px 0 0'}}>
+        <div style={{color: WARNING, fontSize: '0.875rem', margin: '4px 0 0'}}>
           {I18n.t(
             {
               one: '%{name} already has 1 parent linked.',
@@ -304,7 +306,7 @@ function AnsweredRow({request}: {request: AdminRequest}) {
         <strong>{request.observer.name}</strong> → <strong>{request.student.name}</strong>
       </div>
       <div style={{color: INK.secondary, fontSize: '0.875rem'}}>
-        <span style={{color: approved ? '#2E7D32' : '#C62828', fontWeight: 500}}>
+        <span style={{color: approved ? SUCCESS : DANGER, fontWeight: 500}}>
           {approved ? I18n.t('Approved') : I18n.t('Declined')}
         </span>
         {request.decided_by && ` ${I18n.t('by %{name}', {name: request.decided_by})}`}
@@ -365,7 +367,7 @@ function RequestsPanel({url}: {url: string}) {
       {message && (
         <div
           role="alert"
-          style={{background: '#FFEBEE', color: '#B71C1C', padding: '12px 16px', borderRadius: 2}}
+          style={{background: DANGER_BG, color: DANGER, padding: '12px 16px', borderRadius: 2}}
         >
           {message}
         </div>

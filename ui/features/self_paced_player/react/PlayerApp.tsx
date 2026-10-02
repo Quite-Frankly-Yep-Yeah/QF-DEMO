@@ -33,7 +33,7 @@ import {
   type PlayerUnit,
 } from '@canvas/self-paced/player'
 import PacingCard from './PacingCard'
-import {DIVIDER, PAPER, INK as INK_BASE} from '@canvas/material'
+import {DIVIDER, INK as INK_BASE, PAPER, SUBTLE} from '@canvas/material'
 import {useMaterialPage} from '@canvas/material/useMaterialPage'
 
 const I18n = createI18nScope('self_paced_player')
@@ -178,6 +178,7 @@ export default function PlayerApp({config}: {config: Config}) {
           margin="0 0 large"
           borderRadius="small"
           background="secondary"
+          themeOverride={{backgroundSecondary: SUBTLE}}
         >
           <Text size="large" weight="bold">
             {I18n.t("You've finished every step in this course!")}
@@ -298,7 +299,7 @@ function Marker({item, color}: {item: PlayerItem; color: string}) {
       )
     case 'locked':
       return (
-        <span aria-hidden="true" style={{...base, background: '#f0efec', color: INK.muted}}>
+        <span aria-hidden="true" style={{...base, background: SUBTLE, color: INK.muted}}>
           <IconLockSolid size="x-small" />
         </span>
       )
