@@ -22,13 +22,14 @@ import {ELEVATION, ink, ROBOTO, SURFACE} from '../../self_paced_home/react/mater
 import CaseloadPanel from './CaseloadPanel'
 import CatalogPanel from './CatalogPanel'
 import ImportPanel from './ImportPanel'
+import ScanPanel from './ScanPanel'
 import StudentPlans from './StudentPlans'
 import type {SupportsConfig} from './types'
 import {BRAND, GUTTER, PAD, TAP} from './ui'
 
 const I18n = createI18nScope('supports')
 
-type Tab = 'caseload' | 'catalog' | 'import'
+type Tab = 'caseload' | 'catalog' | 'import' | 'scan'
 
 // Where the page is, kept in the address so the back button and a shared link
 // both work: ?tab=catalog, or ?student_id=123 for one student's plans.
@@ -36,7 +37,7 @@ function readLocation(): {tab: Tab; studentId: string | null} {
   const params = new URLSearchParams(window.location.search)
   const tab = params.get('tab')
   return {
-    tab: tab === 'catalog' || tab === 'import' ? tab : 'caseload',
+    tab: tab === 'catalog' || tab === 'import' || tab === 'scan' ? tab : 'caseload',
     studentId: params.get('student_id'),
   }
 }
@@ -70,6 +71,9 @@ export default function SupportsApp({config}: {config: SupportsConfig}) {
     {id: 'caseload', label: I18n.t('Caseload')},
     {id: 'catalog', label: I18n.t('Catalog')},
     ...(config.can_import ? [{id: 'import' as Tab, label: I18n.t('Import')}] : []),
+    ...(config.can_scan && config.can_see_all
+      ? [{id: 'scan' as Tab, label: I18n.t('Scan an IEP')}]
+      : []),
   ]
 
   return (
@@ -145,11 +149,17 @@ export default function SupportsApp({config}: {config: SupportsConfig}) {
 
       <main style={{padding: `clamp(12px, 3vw, 20px) ${GUTTER} 0`, maxWidth: '64rem'}}>
         {studentId ? (
-          <StudentPlans studentId={studentId} onBack={() => go('caseload')} />
+          <StudentPlans
+            studentId={studentId}
+            onBack={() => go('caseload')}
+            scanAccountId={config.can_scan ? config.scan_account_id : null}
+          />
         ) : tab === 'catalog' ? (
           <CatalogPanel />
         ) : tab === 'import' && config.can_import ? (
           <ImportPanel accounts={config.import_accounts} />
+        ) : tab === 'scan' && config.can_scan && config.scan_account_id ? (
+          <ScanPanel accountId={config.scan_account_id} />
         ) : (
           <CaseloadPanel canSeeAll={config.can_see_all} onOpen={id => go('caseload', id)} />
         )}

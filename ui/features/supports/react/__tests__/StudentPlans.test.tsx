@@ -118,4 +118,23 @@ describe('StudentPlans', () => {
     render(<StudentPlans studentId="7" onBack={vi.fn()} />)
     expect(await screen.findByRole('alert')).toHaveTextContent("You can't see this student's plan")
   })
+  it('offers to scan an IEP for this student when scanning is on', async () => {
+    server.use(http.get(URL, () => HttpResponse.json(data())))
+    render(<StudentPlans studentId="7" onBack={vi.fn()} scanAccountId="1" />)
+    expect(await screen.findByRole('heading', {name: 'Scan an IEP'})).toBeInTheDocument()
+    expect(screen.getByText('Pat Student', {selector: 'p'})).toBeInTheDocument()
+  })
+
+  it('offers no scan when scanning is off, or to someone who can only read', async () => {
+    server.use(http.get(URL, () => HttpResponse.json(data())))
+    const {unmount} = render(<StudentPlans studentId="7" onBack={vi.fn()} />)
+    await screen.findByRole('heading', {name: '504 plan'})
+    expect(screen.queryByRole('heading', {name: 'Scan an IEP'})).not.toBeInTheDocument()
+    unmount()
+
+    server.use(http.get(URL, () => HttpResponse.json(data({can_manage: false}))))
+    render(<StudentPlans studentId="7" onBack={vi.fn()} scanAccountId="1" />)
+    await screen.findByRole('heading', {name: '504 plan'})
+    expect(screen.queryByRole('heading', {name: 'Scan an IEP'})).not.toBeInTheDocument()
+  })
 })

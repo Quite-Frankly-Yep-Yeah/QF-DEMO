@@ -22,6 +22,7 @@ import doFetchApi from '@canvas/do-fetch-api-effect'
 import {INK} from '../../self_paced_home/react/material'
 import ParametersFields from './ParametersFields'
 import PersonPicker from './PersonPicker'
+import ScanPanel from './ScanPanel'
 import type {
   Accommodation,
   CatalogType,
@@ -665,7 +666,16 @@ function PlanCard({
 
 // One student's plans, accommodations and support team, for the people who
 // work on them (docs/teacher-workflow-plan.md Phase 1).
-export default function StudentPlans({studentId, onBack}: {studentId: string; onBack: () => void}) {
+export default function StudentPlans({
+  studentId,
+  onBack,
+  scanAccountId = null,
+}: {
+  studentId: string
+  onBack: () => void
+  // set when IEP scanning is on: the account the scan is saved under
+  scanAccountId?: string | null
+}) {
   const [data, setData] = useState<Data | null>(null)
   const [failed, setFailed] = useState(false)
   const [busy, setBusy] = useState(false)
@@ -866,6 +876,12 @@ export default function StudentPlans({studentId, onBack}: {studentId: string; on
             </button>
           </div>
         ))}
+      {data.can_manage && scanAccountId && (
+        <ScanPanel
+          accountId={scanAccountId}
+          student={{id: data.student.id, name: data.student.name}}
+        />
+      )}
     </div>
   )
 }

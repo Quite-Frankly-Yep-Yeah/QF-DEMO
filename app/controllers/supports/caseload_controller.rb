@@ -32,6 +32,8 @@ module Supports
       js_env({ SUPPORTS: {
                can_see_all: caseload_view.can_see_all?,
                can_import: import_accounts.any?,
+               can_scan: can_scan?,
+               scan_account_id: can_scan? ? @domain_root_account.id.to_s : nil,
                import_accounts: import_accounts.map { |account| { id: account.id.to_s, name: account.name } },
                can_manage_catalog: @domain_root_account.grants_right?(@current_user, :supports_manage_catalog),
                record_mode: Supports.record_mode(@domain_root_account)
@@ -57,6 +59,15 @@ module Supports
       @import_accounts ||= Account.where(id: @current_user.account_users.active.select(:account_id))
                                   .where("accounts.id = ? OR accounts.root_account_id = ?", @domain_root_account.id, @domain_root_account.id)
                                   .select { |account| Importer.allowed?(@current_user, account) }
+    end
+
+    # IEP scanning is on and the viewer manages plans. Each scan is still
+    # checked against its student.
+    def can_scan?
+      return @can_scan if defined?(@can_scan)
+
+      @can_scan = Supports.feature_enabled?(@domain_root_account, :iep_scan) &&
+                  @domain_root_account.grants_right?(@current_user, :supports_manage_plans)
     end
 
     def page_allowed?

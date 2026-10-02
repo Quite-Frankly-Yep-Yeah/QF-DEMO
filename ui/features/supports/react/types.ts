@@ -20,6 +20,9 @@
 export type SupportsConfig = {
   can_see_all: boolean
   can_import: boolean
+  // IEP scanning is on and the viewer can manage plans; the account scans are saved under
+  can_scan: boolean
+  scan_account_id: string | null
   import_accounts: {id: string; name: string}[]
   can_manage_catalog: boolean
   record_mode: 'classroom_layer' | 'system_of_record'
@@ -146,3 +149,57 @@ export type ImportRecord = {
 }
 
 export type Person = {id: string; name: string}
+
+// Supports::Import#as_api_json for an IEP scan (Supports::IepScan.preview_json)
+export type ExtractionState = 'queued' | 'running' | 'ready' | 'failed'
+
+export type ScanItem = {
+  index: number
+  line: number
+  accommodation: string | null
+  kind: Kind
+  params: Parameters | null
+  action: ImportAction | 'excluded'
+  message: string | null
+  source_quote: string
+  page: number | null
+  confidence: 'high' | 'medium' | 'low'
+  errors: string[]
+  included: boolean
+}
+
+export type ScanRecord = {
+  id: number
+  filename: string | null
+  format: 'iep_scan'
+  workflow_state: 'previewed' | 'applied' | 'undone' | 'discarded'
+  created_at: string | null
+  applied_at: string | null
+  undone_at: string | null
+  extraction_state: ExtractionState
+  extraction_error: string | null
+  student: Person | null
+  plan_id: number | null
+  summary: Partial<Record<ImportAction, number>> & {blocking?: number}
+  rows: ScanItem[]
+  scan: {
+    student_name_on_doc?: string | null
+    dob_on_doc?: string | null
+    name_found?: boolean
+    mismatch?: boolean
+    acknowledged_mismatch?: boolean
+    unmapped?: {text: string; page: number | null}[]
+    keep_unmapped?: number[]
+    plan_type?: string | null
+    start_date?: string | null
+    end_date?: string | null
+  }
+}
+
+// PUT /api/v1/supports/imports/:id/review
+export type ReviewEdits = {
+  items?: {index: number; included?: boolean; params?: Parameters}[]
+  plan?: {plan_type?: string; start_date?: string; end_date?: string}
+  keep_unmapped?: number[]
+  acknowledged_mismatch?: boolean
+}
