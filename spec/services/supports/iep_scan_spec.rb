@@ -476,4 +476,300 @@ describe Supports::IepScan do
       expect(source).to match(/Delayed::Periodic\.cron "Supports::IepScan\.purge_stale"/)
     end
   end
+
+  describe "a batch" do
+    let(:case_manager_role) do
+      custom_account_role("Case manager", account: root_account).tap do |role|
+        root_account.role_overrides.create!(permission: "supports_manage_plans", role:, enabled: true)
+      end
+    end
+
+    def pdf_upload(name = "iep.pdf", body = "%PDF-1.4 SECRET-DOC")
+      Rack::Test::UploadedFile.new(StringIO.new(body), "application/pdf", original_filename: name)
+    end
+
+    def fake_file(size, type: "application/pdf", name: "big.pdf")
+      instance_double(ActionDispatch::Http::UploadedFile, size:, content_type: type, original_filename: name, read: "x")
+    end
+
+    def batch_of(count, by: scan)
+      by.create_batch!(files: Array.new(count) { |i| pdf_upload("iep#{i}.pdf") })
+    end
+
+    def case_manager_for(*students)
+      manager = user_factory(active_all: true)
+      root_account.account_users.create!(user: manager, role: case_manager_role)
+      students.each { |s| Supports::Caseload.create!(root_account:, staff_id: manager.id, student_id: s.id) }
+      manager
+    end
+
+    describe "#create_batch!" do
+      it "saves one queued scan per file, with no student, and enqueues reading each" do
+        batch = batch_of(3)
+        expect(batch).to be_persisted
+        expect(batch).to have_attributes(user: admin, account: root_account, root_account:)
+        expect(batch.imports.count).to eq 3
+        expect(batch.imports).to all(have_attributes(student: nil, extraction_state: "queued", format: "iep_scan", user: admin))
+        expect(batch.imports.map { |i| Base64.strict_decode64(i.data) }.uniq).to eq [pdf]
+        expect(batch.imports.map(&:filename)).to match_array %w[iep0.pdf iep1.pdf iep2.pdf]
+        expect(Delayed::Job.where("handler LIKE ?", "%extract%").count).to eq 3
+      end
+
+      it "takes 25 files, and each file up to 20 MB" do
+        expect(batch_of(25).imports.count).to eq 25
+      end
+
+      def expect_nothing_created(&)
+        expect(&).to raise_error(described_class::Invalid)
+        expect(Supports::ScanBatch.count).to eq 0
+        expect(Supports::Import.where(format: "iep_scan").count).to eq 0
+        expect(Delayed::Job.where("handler LIKE ?", "%extract%").count).to eq 0
+      end
+
+      it "refuses 26 files, creating nothing" do
+        expect_nothing_created { scan.create_batch!(files: Array.new(26) { pdf_upload }) }
+      end
+
+      it "refuses no files at all" do
+        expect_nothing_created { scan.create_batch!(files: []) }
+      end
+
+      it "refuses the whole batch when one file is over 20 MB" do
+        expect_nothing_created { scan.create_batch!(files: [pdf_upload, fake_file(20.megabytes + 1)]) }
+      end
+
+      it "refuses more than 200 MB in all, while taking exactly 200 MB" do
+        files = Array.new(11) { fake_file(19.megabytes) } # 209 MB
+        expect_nothing_created { scan.create_batch!(files:) }
+        expect { scan.create_batch!(files: Array.new(10) { fake_file(20.megabytes) } + [fake_file(1)]) }
+          .to raise_error(described_class::Invalid, /200 MB/)
+        expect(Supports::ScanBatch.count).to eq 0
+      end
+
+      it "refuses a text file, and an image over 5 MB, each with a plain message and nothing created" do
+        text = Rack::Test::UploadedFile.new(StringIO.new("hi"), "text/plain", original_filename: "x.txt")
+        expect { scan.create_batch!(files: [pdf_upload, text]) }.to raise_error(described_class::Invalid, /PDF, PNG or JPEG/)
+        expect { scan.create_batch!(files: [pdf_upload, fake_file(5.megabytes + 1, type: "image/png", name: "a.png")]) }
+          .to raise_error(described_class::Invalid, /5 MB/)
+        expect(Supports::Import.where(format: "iep_scan").count).to eq 0
+        expect(Supports::ScanBatch.count).to eq 0
+      end
+
+      it "doesn't put a file name in the message" do
+        text = Rack::Test::UploadedFile.new(StringIO.new("hi"), "text/plain", original_filename: "Pat-Student-IEP.txt")
+        expect { scan.create_batch!(files: [text]) }.to raise_error(described_class::Invalid) { |e| expect(e.message).not_to include("Pat") }
+      end
+
+      it "refuses someone who can't manage any student" do
+        expect { described_class.new(root_account, bystander).create_batch!(files: [pdf_upload]) }
+          .to raise_error(Supports::Importer::Forbidden)
+        expect(Supports::ScanBatch.count).to eq 0
+      end
+
+      it "refuses a case manager with no caseload, and takes one with a caseload" do
+        expect { described_class.new(root_account, case_manager_for).create_batch!(files: [pdf_upload]) }
+          .to raise_error(Supports::Importer::Forbidden)
+        expect(described_class.new(root_account, case_manager_for(student)).create_batch!(files: [pdf_upload])).to be_persisted
+      end
+
+      it "refuses when the flag is off" do
+        root_account.disable_feature!(:iep_scan)
+        expect { scan.create_batch!(files: [pdf_upload]) }.to raise_error(Supports::Importer::Forbidden)
+      end
+    end
+
+    describe ".extract on a batch scan" do
+      let(:other_pat) { user_factory(active_all: true, name: "Pat Student").tap { |u| u.pseudonyms.create!(unique_id: "pat2@example.com", account: root_account) } }
+
+      def read(import, name:, student_id: nil)
+        outcome = Supports::IepExtractor::Result.new(name, nil, "iep", nil, nil, [], [], student_id)
+        stub_extractor(outcome)
+        described_class.extract(import.id)
+        import.reload
+      end
+
+      it "stores a confident match and leaves the student empty" do
+        student.pseudonyms.first.update!(sis_user_id: "S-77")
+        import = batch_of(1).imports.first
+        read(import, name: "Pat Student", student_id: "S-77")
+        expect(import.extraction_state).to eq "ready"
+        expect(import.student).to be_nil
+        expect(import.extraction["match"]).to include("state" => "confident", "student_id_on_doc" => "S-77")
+        expect(import.extraction["match"]["candidates"].pluck("id")).to eq [student.id.to_s]
+        expect(import.as_api_json[:match]).to eq import.extraction["match"]
+      end
+
+      it "stores an ambiguous match when two students share the name" do
+        other_pat
+        import = batch_of(1).imports.first
+        read(import, name: "Pat Student")
+        expect(import.extraction["match"]["state"]).to eq "ambiguous"
+        expect(import.student).to be_nil
+      end
+
+      it "stores none when nobody matches" do
+        import = batch_of(1).imports.first
+        read(import, name: "Zed Zulu")
+        expect(import.extraction["match"]).to include("state" => "none", "candidates" => [])
+      end
+
+      it "matches as the user who uploaded it, so a case manager is offered only their caseload" do
+        other_pat
+        manager = case_manager_for(student)
+        import = batch_of(1, by: described_class.new(root_account, manager)).imports.first
+        read(import, name: "Pat Student")
+        expect(import.extraction["match"]["state"]).to eq "confident"
+        expect(import.extraction["match"]["candidates"].pluck("id")).to eq [student.id.to_s]
+      end
+
+      it "never puts the name, the ID or the candidates in the unencrypted preview column" do
+        student.pseudonyms.first.update!(sis_user_id: "S-77")
+        import = batch_of(1).imports.first
+        read(import, name: "Pat Student", student_id: "S-77")
+        raw = Supports::Import.connection.select_value("SELECT preview::text FROM #{Supports::Import.quoted_table_name} WHERE id = #{import.id}")
+        expect(raw).not_to match(/Pat|S-77/)
+      end
+
+      it "shows a preview with no student and no row results, and says to confirm the student first" do
+        import = batch_of(1).imports.first
+        stub_extractor(Supports::IepExtractor::Result.new("Pat Student", nil, "iep", "2026-09-01", "2027-06-15", result.items, []))
+        described_class.extract(import.id)
+        import.reload
+        json = import.as_api_json
+        expect(json[:rows].size).to eq 1
+        expect(json[:student]).to be_nil
+        expect(json[:scan]).to include("mismatch" => false)
+        expect(described_class.blockers(import)).to include("Confirm the student first.")
+      end
+
+      it "doesn't match a scan that already has a student" do
+        import = scan.create!(student:, file: upload)
+        import.update!(batch: Supports::ScanBatch.create!(root_account:, account: root_account, user: admin))
+        read(import, name: "Pat Student")
+        expect(import.extraction).not_to have_key("match")
+      end
+    end
+
+    describe "#confirm_student!" do
+      let(:import) { batch_of(1).imports.first }
+      let(:other_school_student) do
+        other_root = Account.create!(name: "Elsewhere")
+        user_factory(active_all: true, name: "Olive Elsewhere").tap { |u| u.pseudonyms.create!(unique_id: "o@example.com", account: other_root) }
+      end
+
+      it "attaches a student the user may manage" do
+        expect(scan.confirm_student!(import, student)).to eq import
+        expect(import.reload.student).to eq student
+        expect(import).to be_matched
+      end
+
+      it "can change the student before apply" do
+        scan.confirm_student!(import, student)
+        scan.confirm_student!(import, bystander)
+        expect(import.reload.student).to eq bystander
+      end
+
+      it "refuses a student at another school and attaches nothing" do
+        expect { scan.confirm_student!(import, other_school_student) }.to raise_error(Supports::Importer::Forbidden)
+        expect(import.reload.student).to be_nil
+      end
+
+      it "refuses a student off a case manager's caseload and attaches nothing" do
+        manager = case_manager_for(student)
+        mine = batch_of(1, by: described_class.new(root_account, manager)).imports.first
+        expect { described_class.new(root_account, manager).confirm_student!(mine, bystander) }.to raise_error(Supports::Importer::Forbidden)
+        expect(mine.reload.student).to be_nil
+        described_class.new(root_account, manager).confirm_student!(mine, student)
+        expect(mine.reload.student).to eq student
+      end
+
+      it "refuses the user's own account as the student" do
+        expect { scan.confirm_student!(import, admin) }.to raise_error(Supports::Importer::Forbidden)
+      end
+
+      it "refuses once applied" do
+        ready = batch_of(1).imports.first
+        scan.confirm_student!(ready, student)
+        stub_extractor(result)
+        described_class.extract(ready.id)
+        scan.apply!(ready.reload)
+        expect { scan.confirm_student!(ready.reload, bystander) }.to raise_error(ArgumentError, /applied/)
+        expect(ready.reload.student).to eq student
+      end
+
+      it "refuses a discarded scan" do
+        import.update!(workflow_state: "discarded")
+        expect { scan.confirm_student!(import, student) }.to raise_error(ArgumentError)
+      end
+
+      it "refuses someone who didn't upload an unmatched scan, even an admin" do
+        other_admin = account_admin_user(account: root_account)
+        expect { described_class.new(root_account, other_admin).confirm_student!(import, student) }
+          .to raise_error(Supports::Importer::Forbidden)
+        expect(import.reload.student).to be_nil
+      end
+
+      it "rebuilds the preview with the name-mismatch warning against the chosen student" do
+        stub_extractor(Supports::IepExtractor::Result.new("Zed Zulu", nil, "iep", "2026-09-01", "2027-06-15", result.items, []))
+        described_class.extract(import.id)
+        expect(import.reload.scan_preview["scan"]["mismatch"]).to be false
+        scan.confirm_student!(import, student)
+        preview = import.reload.scan_preview
+        expect(preview["scan"]["mismatch"]).to be true
+        expect(preview["rows"].first["student"]).to eq "Pat Student"
+        expect(described_class.blockers(import)).to include(/different student/)
+      end
+    end
+
+    describe "before a student is confirmed" do
+      let(:import) do
+        batch_of(1).imports.first.tap do |i|
+          stub_extractor(result)
+          described_class.extract(i.id)
+        end.reload
+      end
+
+      it "refuses review, apply and undo with StudentNotConfirmed, and works after confirming" do
+        expect { scan.update_review!(import, items: []) }.to raise_error(described_class::StudentNotConfirmed)
+        expect { scan.apply!(import) }.to raise_error(described_class::StudentNotConfirmed)
+        expect { scan.undo!(import) }.to raise_error(described_class::StudentNotConfirmed)
+        expect(described_class::StudentNotConfirmed.ancestors).to include(ArgumentError)
+
+        scan.confirm_student!(import, student)
+        scan.update_review!(import.reload, items: [{ "index" => 0, "included" => false }])
+        expect(scan.apply!(import.reload).workflow_state).to eq "applied"
+      end
+
+      it "lets the uploader retry a scan that failed to read, since there is nobody to confirm yet" do
+        failed = batch_of(1).imports.first
+        failed.update!(extraction_state: "failed", extraction_error: "nope")
+        expect(scan.retry!(failed).extraction_state).to eq "queued"
+        expect { described_class.new(root_account, account_admin_user(account: root_account)).retry!(failed.tap { |f| f.update!(extraction_state: "failed") }) }
+          .to raise_error(Supports::Importer::Forbidden)
+      end
+    end
+
+    describe "#authorize_import!" do
+      let(:import) { batch_of(1).imports.first }
+
+      it "lets only the uploader through for an unmatched scan, admins included" do
+        expect { scan.authorize_import!(import) }.not_to raise_error
+        expect { described_class.new(root_account, account_admin_user(account: root_account)).authorize_import!(import) }
+          .to raise_error(Supports::Importer::Forbidden)
+        expect { described_class.new(root_account, bystander).authorize_import!(import) }.to raise_error(Supports::Importer::Forbidden)
+      end
+
+      it "refuses the uploader once the flag is off" do
+        root_account.disable_feature!(:iep_scan)
+        expect { scan.authorize_import!(import) }.to raise_error(Supports::Importer::Forbidden)
+      end
+
+      it "uses the student rule once a student is attached" do
+        scan.confirm_student!(import, student)
+        other_admin = account_admin_user(account: root_account)
+        expect { described_class.new(root_account, other_admin).authorize_import!(import.reload) }.not_to raise_error
+        expect { described_class.new(root_account, bystander).authorize_import!(import) }.to raise_error(Supports::Importer::Forbidden)
+      end
+    end
+  end
 end

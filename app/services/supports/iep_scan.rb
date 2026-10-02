@@ -32,8 +32,18 @@ module Supports
     PLAN_KEYS = %w[plan_type start_date end_date].freeze
     PARAM_KEYS = IepExtractor::PARAMETER_SCHEMA[:properties].keys.map(&:to_s).freeze
 
+    MAX_BATCH_FILES = 25
+    MAX_BATCH_BYTES = 200.megabytes
+
     # A problem with the upload that the user can fix; the message is safe to show.
     class Invalid < StandardError; end
+
+    # The scan has no student yet: a person has to confirm one first.
+    class StudentNotConfirmed < ArgumentError
+      def initialize(message = I18n.t("Confirm the student first."))
+        super
+      end
+    end
 
     def initialize(account, user)
       @account = account
@@ -44,22 +54,56 @@ module Supports
     # +file+ is the uploaded file (read, size, content_type, original_filename).
     def create!(student:, file:)
       authorize!(student)
-      raise Invalid, I18n.t("Choose a PDF, PNG or JPEG file.") unless IepExtractor::CONTENT_TYPES.include?(file.content_type)
-      raise Invalid, I18n.t("The file is larger than 20 MB.") if file.size > MAX_BYTES
-      if file.content_type.start_with?("image/") && file.size > MAX_IMAGE_BYTES
-        raise Invalid, I18n.t("An image can be at most 5 MB. Upload a PDF for a larger file.")
-      end
+      check_file!(file)
 
-      import = Import.create!(account: @account,
-                              user: @user,
-                              student:,
-                              format: FORMAT,
-                              filename: file.original_filename,
-                              content_type: file.content_type,
-                              data: Base64.strict_encode64(file.read),
-                              extraction_state: "queued")
+      import = queue_scan(file, student:)
       enqueue(import)
       import
+    end
+
+    # Several IEPs at once: one queued scan per file, none with a student until
+    # a person confirms one. All or nothing: a bad file refuses the whole batch.
+    def create_batch!(files:)
+      authorize_batch!
+      files = Array(files)
+      raise Invalid, I18n.t("Choose at least one file.") if files.empty?
+      raise Invalid, I18n.t("Choose at most %{count} files at a time.", count: MAX_BATCH_FILES) if files.size > MAX_BATCH_FILES
+
+      files.each { |file| check_file!(file) }
+      raise Invalid, I18n.t("The files add up to more than 200 MB. Upload fewer at a time.") if files.sum(&:size) > MAX_BATCH_BYTES
+
+      imports = nil
+      batch = ScanBatch.transaction do
+        ScanBatch.create!(root_account: @root_account, account: @account, user: @user).tap do |created|
+          imports = files.map { |file| queue_scan(file, batch: created) }
+        end
+      end
+      imports.each { |import| enqueue(import) }
+      batch
+    end
+
+    # Attaches the student a person confirmed (or changes it) for a scan that
+    # isn't applied yet. The student has to be one this user may manage.
+    def confirm_student!(import, student)
+      raise ArgumentError, "not a scan" unless import.scan?
+
+      authorize_import!(import)
+      raise ArgumentError, "import is #{import.workflow_state}" unless import.workflow_state == "previewed"
+
+      authorize_student!(student)
+      import.update!(student:)
+      import
+    end
+
+    # An unmatched scan is its uploader's alone, whoever else could manage
+    # students; once a student is attached the usual rule applies.
+    def authorize_import!(import)
+      if import.student.nil?
+        allowed = import.user_id == @user.id && Supports.feature_enabled?(@account, :iep_scan)
+        raise Importer::Forbidden unless allowed
+      else
+        authorize!(import.student)
+      end
     end
 
     # Puts a failed scan back in the queue.
@@ -68,7 +112,7 @@ module Supports
         raise ArgumentError, "scan is #{import.extraction_state}"
       end
 
-      authorize!(import.student)
+      authorize_import!(import)
       import.update!(extraction_state: "queued", extraction_error: nil)
       enqueue(import)
       import
@@ -80,11 +124,18 @@ module Supports
       raise Importer::Forbidden unless allowed
     end
 
+    # A student the user may manage, and only one: the search rules and the
+    # access rules both have to allow them.
+    def authorize_student!(student)
+      authorize!(student)
+      raise Importer::Forbidden unless StudentSearch.new(@user, @root_account).scope.where(id: student.id).exists?
+    end
+
     # Applies the reviewer's edits to a scan that has been read. +items+ are
     # {"index", "included", "params"}; +plan+ may change plan_type and the
     # dates; +keep_unmapped+ lists which "not mapped" notes to keep.
     def update_review!(import, items: nil, plan: nil, keep_unmapped: nil, acknowledged_mismatch: nil)
-      authorize!(import.student)
+      authorize_confirmed!(import)
       raise ArgumentError, "scan is #{import.extraction_state}" unless import.scan? && import.extraction_state == "ready"
       raise ArgumentError, "import is #{import.workflow_state}" unless import.workflow_state == "previewed"
 
@@ -99,12 +150,12 @@ module Supports
     end
 
     def apply!(import)
-      authorize!(import.student)
+      authorize_confirmed!(import)
       importer_for(import).apply!(import)
     end
 
     def undo!(import)
-      authorize!(import.student)
+      authorize_confirmed!(import)
       importer_for(import).undo!(import)
     end
 
@@ -116,6 +167,7 @@ module Supports
       import = Import.find(import_id)
       result = IepExtractor.new(import.account).call(data: Base64.strict_decode64(import.data), content_type: import.content_type)
       proposal = proposal_from(result)
+      proposal["match"] = match_for(import, result) if import.batch_id && import.student_id.nil?
       revalidate!(proposal)
       # discarded while it was being read: don't bring the text back
       return unless import.reload.workflow_state == "previewed"
@@ -146,6 +198,11 @@ module Supports
       { previews:, undone: }
     end
 
+    # The student the document seems to belong to, proposed for a person to confirm.
+    def self.match_for(import, result)
+      StudentMatcher.new(import.user, import.account.root_account).call(name: result.student_name, student_id: result.student_id).to_h
+    end
+
     def self.proposal_from(result)
       {
         "student_name" => result.student_name,
@@ -164,7 +221,7 @@ module Supports
     def self.preview_json(import)
       extraction = import.extraction || {}
       items = Array(extraction["items"])
-      results = Importer.new(import.account, import.user, authorized: true).scan_row_results(import)
+      results = import.student ? Importer.new(import.account, import.user, authorized: true).scan_row_results(import) : {}
       rows = items.each_with_index.map { |item, index| row_json(import, extraction, item, index, results[index]) }
       summary = Importer::ACTIONS.index_with { |action| rows.count { |row| row["action"] == action } }
       summary["blocking"] = items.count { |item| item["included"] && item["errors"].present? } +
@@ -236,6 +293,8 @@ module Supports
 
     # Why a scan can't be applied yet; empty when it can.
     def self.blockers(import)
+      return [I18n.t("Confirm the student first.")] if import.student.nil?
+
       extraction = import.extraction
       return [I18n.t("The scan isn't ready to apply.")] unless import.extraction_state == "ready" && extraction
 
@@ -290,6 +349,38 @@ module Supports
     end
 
     private
+
+    # Review, apply and undo need a student: the access rule is theirs, and
+    # nothing is applied to nobody.
+    def authorize_confirmed!(import)
+      authorize_import!(import)
+      raise StudentNotConfirmed if import.student.nil?
+    end
+
+    # Who may start a batch: anyone who may manage plans for some students here.
+    def authorize_batch!
+      allowed = Supports.feature_enabled?(@account, :iep_scan) && StudentSearch.new(@user, @root_account).allowed?
+      raise Importer::Forbidden unless allowed
+    end
+
+    def check_file!(file)
+      raise Invalid, I18n.t("Choose a PDF, PNG or JPEG file.") unless IepExtractor::CONTENT_TYPES.include?(file.content_type)
+      raise Invalid, I18n.t("The file is larger than 20 MB.") if file.size > MAX_BYTES
+      if file.content_type.start_with?("image/") && file.size > MAX_IMAGE_BYTES
+        raise Invalid, I18n.t("An image can be at most 5 MB. Upload a PDF for a larger file.")
+      end
+    end
+
+    def queue_scan(file, **owner)
+      Import.create!(account: @account,
+                     user: @user,
+                     format: FORMAT,
+                     filename: file.original_filename,
+                     content_type: file.content_type,
+                     data: Base64.strict_encode64(file.read),
+                     extraction_state: "queued",
+                     **owner)
+    end
 
     def edit_items(extraction, edits)
       list = extraction["items"]
