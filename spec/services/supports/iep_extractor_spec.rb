@@ -210,4 +210,66 @@ describe Supports::IepExtractor do
         .to raise_error(described_class::Failed, /no credit/)
     end
   end
+
+  describe "the schema sent to the API" do
+    # the API rejects a field that is both a type list like ["string", "null"] and an enum
+    def nodes(node, found = [])
+      case node
+      when Hash
+        found << node
+        node.each_value { |value| nodes(value, found) }
+      when Array
+        node.each { |value| nodes(value, found) }
+      end
+      found
+    end
+
+    it "has no field that is both a list of types and an enum" do
+      offenders = nodes(described_class::SCHEMA).select { |node| node[:type].is_a?(Array) && node.key?(:enum) }
+      expect(offenders).to eq []
+    end
+
+    it "still limits plan_type to the plan types, or null" do
+      plan_type = described_class::SCHEMA.dig(:properties, :plan_type)
+      allowed = plan_type[:anyOf].flat_map { |option| option[:enum] || [nil] }
+      expect(allowed).to match_array [*Supports::Plan::TYPES, nil]
+    end
+  end
+
+  describe "effort" do
+    def request_for(model)
+      Supports::AnthropicSetting.create!(root_account:, api_key: "school-key", model:)
+      requests = []
+      described_class.new(root_account, client: fake_client(reply_with(clean), requests))
+                     .call(data: "%PDF-1.4 fake", content_type: "application/pdf")
+      requests.first
+    end
+
+    it "asks Opus and Sonnet to think hard" do
+      expect(request_for("claude-opus-5-5")[:output_config]).to include(effort: :high)
+    end
+
+    it "doesn't send effort to Haiku, which rejects it, but still asks for the structured answer" do
+      config = request_for("claude-haiku-4-5")[:output_config]
+      expect(config).not_to have_key(:effort)
+      expect(config[:format_]).to include(type: :json_schema)
+    end
+  end
+
+  describe "catalog names" do
+    it "makes the API choose each accommodation from the school's own catalog names" do
+      _, requests = extract(reply_with(clean))
+      schema = requests.first[:output_config][:format_][:schema]
+      names = schema.dig(:properties, :accommodations, :items, :properties, :catalog_name, :enum)
+      expect(names).to match_array Supports::Catalog.types(root_account).map(&:name)
+      expect(names).to include("Extended time on tests and quizzes")
+    end
+
+    it "reflects a name the school added to its catalog" do
+      Supports::AccommodationType.create!(root_account:, name: "Preferential seating", kind: "informational")
+      _, requests = extract(reply_with(clean))
+      names = requests.first[:output_config][:format_][:schema].dig(:properties, :accommodations, :items, :properties, :catalog_name, :enum)
+      expect(names).to include("Preferential seating")
+    end
+  end
 end

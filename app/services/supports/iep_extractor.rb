@@ -25,6 +25,7 @@ require "base64"
 module Supports
   class IepExtractor
     MODEL = "claude-opus-5-5"
+    EFFORT_MODELS = %w[claude-opus-5-5 claude-sonnet-5-5].freeze
     CONTENT_TYPES = %w[application/pdf image/png image/jpeg].freeze
     ISO_DATE = /\A\d{4}-\d{2}-\d{2}\z/
     CONFIDENCE = %w[high medium low].freeze
@@ -55,7 +56,7 @@ module Supports
       properties: {
         student_name: { type: %w[string null] },
         dob: { type: %w[string null], description: "YYYY-MM-DD" },
-        plan_type: { type: %w[string null], enum: [*Plan::TYPES, nil] },
+        plan_type: { anyOf: [{ type: "string", enum: Plan::TYPES }, { type: "null" }] },
         start_date: { type: %w[string null], description: "YYYY-MM-DD" },
         end_date: { type: %w[string null], description: "YYYY-MM-DD" },
         accommodations: {
@@ -98,7 +99,7 @@ module Supports
         model: config&.dig(:model) || MODEL,
         max_tokens: 16_000,
         system: system_prompt,
-        output_config: { effort: :high, format_: { type: :json_schema, schema: SCHEMA } },
+        output_config:,
         messages: [{ role: :user, content: [document_block(data, content_type), { type: :text, text: instruction }] }]
       )
       raise Failed, I18n.t("The document couldn't be processed.") if reply.stop_reason.to_s == "refusal"
@@ -116,6 +117,20 @@ module Supports
 
     # The school's key and model, or the site's, or the server file's
     # (Supports::AnthropicConfig); nil when none is set up.
+    # The answer's shape, with each accommodation limited to this school's catalog names
+    # so the model can't word one its own way and have it fall through as unmapped.
+    def schema
+      SCHEMA.deep_dup.tap do |copy|
+        copy[:properties][:accommodations][:items][:properties][:catalog_name][:enum] = catalog.map(&:name)
+      end
+    end
+
+    # Opus and Sonnet are asked to think hard; Haiku rejects the effort setting.
+    def output_config
+      format = { type: :json_schema, schema: }
+      EFFORT_MODELS.include?(config&.dig(:model) || MODEL) ? { effort: :high, format_: format } : { format_: format }
+    end
+
     def config
       return @config if defined?(@config)
 

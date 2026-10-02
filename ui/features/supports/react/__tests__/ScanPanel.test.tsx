@@ -245,10 +245,10 @@ describe('ScanPanel', () => {
     await userEvent.type(screen.getByLabelText(/Student/), 'Pat')
     await userEvent.click(await screen.findByRole('button', {name: 'Pat Student'}))
     const big = new File(['x'], 'big.pdf', {type: 'application/pdf'})
-    Object.defineProperty(big, 'size', {value: 11 * 1024 * 1024})
+    Object.defineProperty(big, 'size', {value: 21 * 1024 * 1024})
     await userEvent.upload(screen.getByLabelText('IEP file'), big)
     await userEvent.click(screen.getByRole('button', {name: 'Scan'}))
-    expect(await screen.findByText(/larger than 10 MB/)).toBeInTheDocument()
+    expect(await screen.findByText(/larger than 20 MB/)).toBeInTheDocument()
     expect(requests).toHaveLength(0)
   })
   it('names the student the scan is for', async () => {

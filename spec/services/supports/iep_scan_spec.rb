@@ -109,9 +109,12 @@ describe Supports::IepScan do
       expect { scan.create!(student:, file: bad) }.to raise_error(described_class::Invalid, /PDF/)
     end
 
-    it "rejects a file over 10 MB" do
-      big = Rack::Test::UploadedFile.new(StringIO.new("x" * (10.megabytes + 1)), "application/pdf", original_filename: "big.pdf")
-      expect { scan.create!(student:, file: big) }.to raise_error(described_class::Invalid, /10 MB/)
+    it "rejects a file over 20 MB, and takes a 15 MB one" do
+      big = Rack::Test::UploadedFile.new(StringIO.new("x" * (20.megabytes + 1)), "application/pdf", original_filename: "big.pdf")
+      expect { scan.create!(student:, file: big) }.to raise_error(described_class::Invalid, /20 MB/)
+
+      fifteen = Rack::Test::UploadedFile.new(StringIO.new("x" * 15.megabytes), "application/pdf", original_filename: "ok.pdf")
+      expect(scan.create!(student:, file: fifteen)).to be_persisted
     end
   end
 

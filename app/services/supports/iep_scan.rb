@@ -26,7 +26,7 @@ require "base64"
 # or an accommodation until the import is applied.
 module Supports
   class IepScan
-    MAX_BYTES = 10.megabytes
+    MAX_BYTES = 20.megabytes # the API takes about 32 MB a request, and a file grows by a third when sent
     MAX_IMAGE_BYTES = 5.megabytes # the API's limit for one image
     FORMAT = "iep_scan"
     PLAN_KEYS = %w[plan_type start_date end_date].freeze
@@ -45,7 +45,7 @@ module Supports
     def create!(student:, file:)
       authorize!(student)
       raise Invalid, I18n.t("Choose a PDF, PNG or JPEG file.") unless IepExtractor::CONTENT_TYPES.include?(file.content_type)
-      raise Invalid, I18n.t("The file is larger than 10 MB.") if file.size > MAX_BYTES
+      raise Invalid, I18n.t("The file is larger than 20 MB.") if file.size > MAX_BYTES
       if file.content_type.start_with?("image/") && file.size > MAX_IMAGE_BYTES
         raise Invalid, I18n.t("An image can be at most 5 MB. Upload a PDF for a larger file.")
       end

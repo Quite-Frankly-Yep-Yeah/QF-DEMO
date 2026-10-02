@@ -91,10 +91,10 @@ describe Supports::ImportsController do
       expect(response).to have_http_status(:unprocessable_content)
       expect(json["errors"].first).to match(/PDF/)
 
-      big = Rack::Test::UploadedFile.new(StringIO.new("x" * (10.megabytes + 1)), "application/pdf", original_filename: "b.pdf")
+      big = Rack::Test::UploadedFile.new(StringIO.new("x" * (20.megabytes + 1)), "application/pdf", original_filename: "b.pdf")
       post :create, params: { student_id: student.id, file: big }
       expect(response).to have_http_status(:unprocessable_content)
-      expect(json["errors"].first).to match(/10 MB/)
+      expect(json["errors"].first).to match(/20 MB/)
     end
 
     it "is refused while the scan flag is off" do

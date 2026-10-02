@@ -26,7 +26,7 @@ import {button, Card, field, flatButton, Label, messageFrom, muted, Status} from
 
 const I18n = createI18nScope('supports')
 
-const MAX_BYTES = 10 * 1024 * 1024
+const MAX_BYTES = 20 * 1024 * 1024
 
 // Reads an IEP (PDF or image) for one student and proposes the accommodations
 // in it. The person checks the proposal before anything is saved
@@ -93,7 +93,7 @@ export default function ScanPanel({
   const upload = () => {
     if (!student || !file) return
     if (file.size > MAX_BYTES) {
-      setMessage(I18n.t('The file is larger than 10 MB.'))
+      setMessage(I18n.t('The file is larger than 20 MB.'))
       return
     }
     const body = new FormData()
