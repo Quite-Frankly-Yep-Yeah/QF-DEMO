@@ -102,7 +102,7 @@ module Supports
       problems = AnthropicSetting.key_problems(key)
       return render json: { errors: problems }, status: :unprocessable_content if problems.any?
 
-      model = AnthropicSetting::MODELS.include?(params[:model]) ? params[:model] : (setting&.model || AnthropicSetting::DEFAULT_MODEL)
+      model = AnthropicSetting::MODELS.include?(params[:model]) ? params[:model] : model_in_use(setting, site)
       render json: AnthropicConnectionTest.call(api_key: key, model:)
     end
 
@@ -200,6 +200,15 @@ module Supports
         json[:allow_account_models] = setting.allow_account_models
       end
       json
+    end
+
+    # The model a key would actually be used with: the row's own choice, else what
+    # the school's feature settings resolve to, else the app's default.
+    def model_in_use(setting, site)
+      return setting.model if setting&.model.present?
+      return AnthropicSetting::DEFAULT_MODEL if site
+
+      AnthropicConfig.for(@account)&.dig(:model) || AnthropicSetting::DEFAULT_MODEL
     end
 
     def within_test_limit?

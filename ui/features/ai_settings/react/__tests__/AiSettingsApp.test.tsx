@@ -385,4 +385,16 @@ describe('AiSettingsApp', () => {
       expect(sent.find(r => r.path.endsWith('/site'))?.body).toEqual({allow_account_models: false}),
     )
   })
+  it('shows a stored model that is no longer offered, so it can be seen and cleared', async () => {
+    current = settings({account: {...saved, feature_models: {iep_scan: 'claude-haiku-4-5'}}})
+    render(<AiSettingsApp config={config()} />)
+    const select = await screen.findByLabelText('IEP scan model')
+    await waitFor(() => expect(select).toHaveValue('claude-haiku-4-5'))
+    expect(
+      within(select).getByRole('option', {name: 'claude-haiku-4-5 (no longer offered)'}),
+    ).toBeInTheDocument()
+    await userEvent.selectOptions(select, '')
+    await userEvent.click(screen.getByRole('button', {name: 'Save'}))
+    await waitFor(() => expect(sent[0]?.body).toEqual({models: {iep_scan: ''}}))
+  })
 })

@@ -396,4 +396,34 @@ describe Supports::AnthropicSettingsController do
       expect(assigns[:js_env][:AI_SETTINGS][:features]).to eq [{ key: :iep_scan, label: "IEP scan" }]
     end
   end
+
+  describe "review fixes for models" do
+    before { user_session(school_admin) }
+
+    it "still saves and removes a key on a row that holds a model that is no longer offered" do
+      put_school(api_key: key)
+      Supports::AnthropicSetting.for_account(root_account).update_columns(model: "retired-model", feature_models: { "iep_scan" => "retired-model" })
+      put_school(api_key: "sk-ant-another-key-9999")
+      expect(response).to be_successful
+      expect(Supports::AnthropicSetting.for_account(root_account)).to have_attributes(model: nil, feature_models: {})
+      delete :destroy, params: { account_id: root_account.id }
+      expect(response).to be_successful
+    end
+
+    it "tests the key on the model that would actually be used, not always Opus" do
+      Supports::AnthropicSetting.create!(root_account: nil, api_key: "site-key-12345", model: "claude-sonnet-5-5")
+      put_school(api_key: key)
+      allow(Supports::AnthropicConnectionTest).to receive(:call).and_return(ok: true, message: "It works.")
+      post :test, params: { account_id: root_account.id, scope: "account" }, as: :json
+      expect(Supports::AnthropicConnectionTest).to have_received(:call).with(api_key: key, model: "claude-sonnet-5-5")
+    end
+
+    it "tests the site's key on the site's own model" do
+      user_session(site_admin)
+      Supports::AnthropicSetting.create!(root_account: nil, api_key: key, model: "claude-haiku-4-5")
+      allow(Supports::AnthropicConnectionTest).to receive(:call).and_return(ok: true, message: "It works.")
+      post :test, params: { account_id: root_account.id, scope: "site" }, as: :json
+      expect(Supports::AnthropicConnectionTest).to have_received(:call).with(api_key: key, model: "claude-haiku-4-5")
+    end
+  end
 end

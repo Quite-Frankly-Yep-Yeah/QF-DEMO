@@ -111,6 +111,14 @@ export default function KeySection({
   const changedFeatures = features.filter(
     feature => (featureModels[feature.key] ?? '') !== (savedFeatureModels[feature.key] ?? ''),
   )
+  // a saved model that is no longer offered still shows, so it can be seen and cleared
+  const withStale = (current: string) =>
+    current && !models.some(option => option.value === current)
+      ? [
+          ...models,
+          {value: current, label: I18n.t('%{model} (no longer offered)', {model: current})},
+        ]
+      : models
   const nothingToSave = !typed && !modelChanged && changedFeatures.length === 0
   const showField = !hasKey || replacing
   const headingId = `ai-${title.replace(/\W+/g, '-').toLowerCase()}`
@@ -199,7 +207,7 @@ export default function KeySection({
         {I18n.t('Default model')}
         <select style={field} value={model} onChange={event => setModel(event.target.value)}>
           <option value="">{inheritLabel}</option>
-          {models.map(option => (
+          {withStale(model).map(option => (
             <option key={option.value} value={option.value}>
               {option.label}
             </option>
@@ -225,7 +233,7 @@ export default function KeySection({
                 }
               >
                 <option value="">{I18n.t('Use the default model')}</option>
-                {models.map(option => (
+                {withStale(featureModels[feature.key] ?? '').map(option => (
                   <option key={option.value} value={option.value}>
                     {option.label}
                   </option>

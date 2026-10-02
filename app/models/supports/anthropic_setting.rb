@@ -33,6 +33,7 @@ module Supports
     encrypts :api_key
 
     validates :model, inclusion: { in: MODELS }, allow_nil: true
+    before_validation :drop_stale_choices
     validate :feature_models_are_valid
     validates :root_account_id, uniqueness: true
     validate :key_is_usable
@@ -80,6 +81,16 @@ module Supports
     end
 
     private
+
+    # A model that is no longer offered, left over from before, mustn't stop the row
+    # from being saved, so it is dropped. A new choice that isn't offered still fails.
+    def drop_stale_choices
+      self.model = nil if model.present? && !MODELS.include?(model) && !model_changed?
+      kept = feature_models.reject do |feature, chosen|
+        (!AiFeatures.valid?(feature) || !MODELS.include?(chosen)) && feature_models_was&.dig(feature) == chosen
+      end
+      self.feature_models = kept unless kept == feature_models
+    end
 
     def feature_models_are_valid
       feature_models.each do |feature, model|

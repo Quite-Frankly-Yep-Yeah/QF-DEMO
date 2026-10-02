@@ -96,4 +96,25 @@ describe Supports::AnthropicSetting do
     expect(described_class.key_problems("two words here")).to include(/spaces or line breaks/)
     expect(described_class.key_problems("short")).to include(/too short/)
   end
+
+  describe "a model that is no longer offered" do
+    let(:row) do
+      described_class.create!(root_account:, api_key: "sk-ant-first-key-1234").tap do |setting|
+        setting.update_columns(model: "retired-model", feature_models: { "iep_scan" => "retired-model", "gone_feature" => "claude-haiku-4-5" })
+      end
+    end
+
+    it "doesn't stop the row from being saved, and drops the stale choices" do
+      row.update!(api_key: "sk-ant-second-key-5678")
+      expect(row.reload).to have_attributes(api_key: "sk-ant-second-key-5678", model: nil, feature_models: {})
+    end
+
+    it "still refuses a new choice that isn't offered" do
+      row.model = "gpt-4"
+      expect(row).not_to be_valid
+      row.model = nil
+      row.feature_models = { "iep_scan" => "gpt-4" }
+      expect(row).not_to be_valid
+    end
+  end
 end
