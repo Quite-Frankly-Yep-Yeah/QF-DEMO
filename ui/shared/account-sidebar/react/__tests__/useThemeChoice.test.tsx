@@ -39,11 +39,18 @@ describe('useThemeChoice', () => {
     delete document.documentElement.dataset.theme
   })
 
-  it('starts from ENV.THEME and falls back to light for an unknown value', () => {
+  it('starts from ENV.THEME when <html> has no theme, and falls back to light for an unknown value', () => {
+    delete document.documentElement.dataset.theme
     window.ENV.THEME = 'mocha'
     expect(renderHook(() => useThemeChoice()).result.current.theme).toBe('mocha')
     window.ENV.THEME = 'latte'
     expect(renderHook(() => useThemeChoice()).result.current.theme).toBe('light')
+  })
+
+  it('prefers the theme already on <html> over a stale ENV.THEME', () => {
+    window.ENV.THEME = 'light'
+    document.documentElement.dataset.theme = 'mocha'
+    expect(renderHook(() => useThemeChoice()).result.current.theme).toBe('mocha')
   })
 
   it('applies the theme at once and saves it', async () => {

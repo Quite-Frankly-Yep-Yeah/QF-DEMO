@@ -18,7 +18,12 @@
   .navigation-tray-container {
     color: var(--qf-ink);
 
-    :where(a, h1, h2, h3, h4, label, p, li, span) {
+    :where(a, h1, h2, h3, h4, label, p, li) {
+      color: var(--qf-ink);
+    }
+
+    // not inside buttons: InstUI buttons keep their own light fill and label
+    :where(span):not(button *) {
       color: var(--qf-ink);
     }
 

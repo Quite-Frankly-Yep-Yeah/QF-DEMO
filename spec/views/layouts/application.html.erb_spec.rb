@@ -33,6 +33,27 @@ describe "layouts/application" do
     expect(doc.at_css(".ic-app.content-only")).to be_nil
   end
 
+  describe "theme" do
+    it "sets data-theme from the user's saved theme and defines the theme variables" do
+      @current_user.preferences[:theme] = "mocha"
+      render "layouts/application"
+      expect(doc.at_css("html")["data-theme"]).to eq "mocha"
+      expect(doc.at_css("style#qf-themes").text).to include(':root[data-theme="mocha"]')
+    end
+
+    it "falls back to light when the user has no theme" do
+      render "layouts/application"
+      expect(doc.at_css("html")["data-theme"]).to eq "light"
+    end
+
+    it "renders light for an anonymous visitor" do
+      assign(:current_user, nil)
+      @current_user = nil
+      render "layouts/application"
+      expect(doc.at_css("html")["data-theme"]).to eq "light"
+    end
+  end
+
   context "with content_only=true" do
     before do
       allow(controller).to receive(:params).and_return({ content_only: "true" })

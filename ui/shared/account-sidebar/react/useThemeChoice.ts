@@ -24,7 +24,11 @@ import {DEFAULT_THEME, isThemeId, type ThemeId} from '@canvas/material/themes'
 
 const I18n = createI18nScope('account_sidebar')
 
+// <html data-theme> is the live value (it follows picks made before the tray
+// was reopened); ENV.THEME is only what the page loaded with.
 function initialTheme(): ThemeId {
+  const live = document.documentElement.dataset.theme
+  if (isThemeId(live)) return live
   const saved = window.ENV?.THEME
   return isThemeId(saved) ? saved : DEFAULT_THEME
 }

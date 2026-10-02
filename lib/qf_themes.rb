@@ -33,13 +33,15 @@ module QfThemes
       id.is_a?(String) && themes.key?(id)
     end
 
-    # One :root[data-theme=...] rule per theme: the --qf-* tokens plus the
-    # global nav's brand variables, so the existing nav CSS picks them up.
+    # One :root[data-theme=...] rule per theme: the --qf-* tokens plus, for
+    # non-default themes, the global nav's brand variables so the existing nav
+    # CSS picks them up.
     def css
       themes.map do |id, theme|
         tokens = theme["tokens"]
         declarations = tokens.map { |name, value| "--qf-#{name.gsub(/[A-Z]/) { |c| "-#{c.downcase}" }}:#{value}" }
-        declarations.concat(nav_variables(tokens))
+        # the default theme keeps whatever nav branding the institution set
+        declarations.concat(nav_variables(tokens)) unless id == DEFAULT
         %(:root[data-theme="#{id}"]{#{declarations.join(";")}})
       end.join("\n")
     end

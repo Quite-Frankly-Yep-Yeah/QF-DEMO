@@ -48,6 +48,12 @@ describe QfThemes do
       expect(QfThemes.css).to include("--ic-brand-global-nav-bgd:#181825")
     end
 
+    it "leaves the institution's nav branding alone for the default theme" do
+      light_rule = QfThemes.css.lines.find { |line| line.include?('data-theme="light"') }
+      expect(light_rule).to include("--qf-app-bar:")
+      expect(light_rule).not_to include("--ic-brand")
+    end
+
     it "colors the global nav labels with the theme's onAppBar" do
       css = QfThemes.css
       expect(css).to include("--ic-brand-global-nav-menu-item__text-color:#CDD6F4")
