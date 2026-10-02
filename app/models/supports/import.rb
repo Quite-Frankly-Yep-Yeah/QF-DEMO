@@ -34,6 +34,8 @@ module Supports
     # an IEP scan is for one student, and ends up on the plan it created or changed
     belongs_to :student, class_name: "User", optional: true
     belongs_to :plan, class_name: "Supports::Plan", optional: true
+    # scans uploaded together have no student until a person confirms one
+    belongs_to :batch, class_name: "Supports::ScanBatch", optional: true, inverse_of: :imports
 
     # the uploaded CSV, and the list of changes applying it made
     encrypts :data
@@ -53,6 +55,11 @@ module Supports
 
     def scan?
       format == "iep_scan"
+    end
+
+    # Whether a student is attached. A scan with none is its uploader's alone.
+    def matched?
+      student_id.present?
     end
 
     def extraction_stale?
@@ -88,6 +95,8 @@ module Supports
         extraction_error: stale ? I18n.t("Reading the document took too long. Try again.") : extraction_error,
         student: student && { id: student.id.to_s, name: student.name },
         plan_id:,
+        batch_id:,
+        match: extraction.is_a?(Hash) ? extraction["match"] : nil,
         scan: shown["scan"] || {}
       )
     end

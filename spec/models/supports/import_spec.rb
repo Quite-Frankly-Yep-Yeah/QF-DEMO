@@ -64,4 +64,49 @@ describe Supports::Import do
     expect(import).to be_valid
     expect(plan.source).to eq "scan"
   end
+
+  describe "a scan in a batch" do
+    let(:batch) { Supports::ScanBatch.create!(root_account: account, account:, user: admin) }
+    let(:match) do
+      { "state" => "ambiguous",
+        "candidates" => [{ "id" => student.id.to_s, "name" => "Pat Student", "sis_user_id" => "S-1", "reason" => "name" }],
+        "student_id_on_doc" => "S-1" }
+    end
+
+    it "is valid with a batch and no student until one is confirmed" do
+      import = scan_import(student: nil, batch:)
+      expect(import).to be_valid
+      expect(import).not_to be_matched
+    end
+
+    it "is matched once it has a student" do
+      expect(scan_import(batch:)).to be_matched
+      expect(scan_import(student: nil)).not_to be_matched
+    end
+
+    it "shows its batch and the stored match in the API" do
+      import = scan_import(student: nil, batch:, extraction: { "student_name" => "Pat Student", "items" => [], "match" => match })
+      import.save!
+      json = import.as_api_json
+      expect(json).to include(batch_id: batch.id, match:, student: nil)
+    end
+
+    it "has no batch and no match when it is a single scan that wasn't read yet" do
+      json = scan_import.tap(&:save!).as_api_json
+      expect(json).to include(batch_id: nil, match: nil)
+    end
+
+    it "keeps the match out of the unencrypted preview column" do
+      import = scan_import(student: nil, batch:, extraction: { "items" => [], "match" => match })
+      import.save!
+      raw = described_class.connection.select_value("SELECT preview::text FROM #{described_class.quoted_table_name} WHERE id = #{import.id}")
+      expect(raw).not_to include("Pat Student")
+      expect(raw).not_to include("S-1")
+      expect(import.reload.as_api_json[:match]).to eq match
+    end
+
+    it "doesn't add scan fields to a CSV import" do
+      expect(described_class.new(account:, user: admin).as_api_json).not_to have_key(:match)
+    end
+  end
 end
