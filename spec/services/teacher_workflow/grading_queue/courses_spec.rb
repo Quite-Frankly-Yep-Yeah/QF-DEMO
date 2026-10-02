@@ -64,14 +64,15 @@ describe TeacherWorkflow::GradingQueue::Courses do
     expect(entries(ta).sole.student_ids).not_to include(other_student.id)
   end
 
-  it "includes a course an admin names but does not teach" do
+  it "returns every course an admin can grade, without naming one" do
     admin = account_admin_user(account: course.account)
-    expect(entries(admin)).to eq []
-    expect(entries(admin, extra_course_id: course.id).map(&:course)).to eq [course]
+    entry = entries(admin).sole
+    expect(entry.course).to eq course
+    expect(entry.student_ids).to eq [student.id]
   end
 
-  it "ignores a named course the viewer may not grade" do
-    expect(entries(student, extra_course_id: course.id)).to eq []
-    expect(entries(teacher, extra_course_id: 0).map(&:course)).to eq [course]
+  it "returns nothing for an admin of an account the course is not in" do
+    school = Account.default.sub_accounts.create!(name: "Elsewhere")
+    expect(entries(account_admin_user(account: school))).to eq []
   end
 end

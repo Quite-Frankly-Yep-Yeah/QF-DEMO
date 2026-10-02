@@ -55,6 +55,14 @@ describe TeacherWorkflow do
       expect(described_class.queue_available?(student, course.root_account)).to be false
       expect(described_class.queue_available?(nil, course.root_account)).to be false
     end
+
+    it "is true for an account admin when the queue is on, and false when it is off" do
+      admin = account_admin_user(account: course.account)
+      course.root_account.enable_feature!(:teacher_workflow)
+      expect(described_class.queue_available?(admin, course.root_account)).to be false
+      course.account.enable_feature!(:workflow_grading_queue)
+      expect(described_class.queue_available?(admin, course.root_account)).to be true
+    end
   end
 
   describe ".queue_enabled?" do

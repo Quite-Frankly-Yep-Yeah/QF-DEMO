@@ -68,7 +68,7 @@ module TeacherWorkflow
     end
 
     def build_result
-      entries = Courses.for(@viewer, extra_course_id: @course_id)
+      entries = Courses.for(@viewer)
       all = entries.flat_map { |entry| candidates_for(entry) }
       facets = facets_for(all)
       candidates = filter(all).sort_by { |c| [c.tier, c.submitted_at || FAR_FUTURE, c.submission_id] }

@@ -57,15 +57,16 @@ module TeacherWorkflow
     user.present? && graded_courses(user).any? { |course| feature_enabled?(course, :workflow_grading_queue) }
   end
 
-  # Whether to show the Grading link: the queue is enabled and the user
-  # teaches or assists somewhere it is on. Cached for five minutes, like the
-  # Students link.
+  # Whether to show the Grading link: the queue is enabled and the user is an
+  # account admin or teaches or assists somewhere it is on. Cached for five
+  # minutes, like the Students link.
   def self.queue_available?(user, root_account)
     return false unless user && enabled?(root_account)
 
     Rails.cache.fetch(["teacher_workflow_queue_available", user.global_id, root_account.global_id].cache_key,
                       expires_in: 5.minutes) do
-      graded_courses(user).any? { |course| feature_enabled?(course, :workflow_grading_queue) }
+      (root_account.feature_enabled?(:workflow_grading_queue) && AccountUser.active.where(user_id: user.id).exists?) ||
+        graded_courses(user).any? { |course| feature_enabled?(course, :workflow_grading_queue) }
     end
   end
 

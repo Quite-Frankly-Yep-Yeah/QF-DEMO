@@ -27,8 +27,8 @@ Success ("done when", from the plan): the top of the queue is the work holding s
 ## Who sees the queue
 
 A viewer's gradeable courses are those where they have `manage_grades` through an active teacher or TA enrollment.
-Section-limited TAs only see students in their own sections. Admins with grading rights are included, but their list must be
-filtered to a course or is capped, because their reach is large. Students, observers, mentors and Course Editors get an
+Section-limited TAs only see students in their own sections. Account admins see every course in their account that they can grade (changed 2026-10-01 at the owner's request; it
+was first limited to a course the admin names). Students, observers, mentors and Course Editors get an
 empty result. With the flag off the page and API return 404.
 
 ## Rows

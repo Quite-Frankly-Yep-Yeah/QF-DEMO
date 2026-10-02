@@ -213,11 +213,10 @@ describe TeacherWorkflow::GradingQueue do
     expect(queue(course_id: course.id)[:rows].pluck(:course)).to eq [{ id: course.id.to_s, name: course.name }]
   end
 
-  it "lets an admin who does not teach the course ask for it by id" do
+  it "shows an admin the work in every course they can grade" do
     admin = account_admin_user(account: course.account)
     submit(check, maya, at: now - 1.day)
-    expect(queue(admin)[:rows]).to eq []
-    expect(queue(admin, course_id: course.id)[:rows].size).to eq 1
+    expect(queue(admin)[:rows].size).to eq 1
   end
 
   context "with anonymous, unposted work" do

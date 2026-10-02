@@ -449,7 +449,8 @@ changed / how to try it" note. Sizes are relative: S is about a day of work, M a
     student on every row and `AlertRule::KINDS` drives the course alert-rules editor.
   - Turnaround is the viewer's own only. The per-teacher admin breakdown is left for later, because it means showing
     teachers each other's numbers.
-  - An admin who doesn't teach a course sees it only by naming it with `course_id`, because their reach is too large to list.
+  - Account admins see every course in their account that they can grade, not only a course they name (changed 2026-10-01 at
+    the owner's request). Cost: one student-list query per course, which is fine at school scale.
 - **Not done:** the browser check of the real flow (desktop and phone width, clicks from landing to SpeedGrader). The web
   container wasn't running, so this was never opened in a browser. To try it: turn on Teacher Workflow for the root account and
   Grading Queue for the account, sign in as a teacher with ungraded submissions, and open Grading from the nav.

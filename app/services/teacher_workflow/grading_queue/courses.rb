@@ -20,19 +20,18 @@
 module TeacherWorkflow
   class GradingQueue
     # The courses a viewer may grade (manage_grades through an active teacher
-    # or TA enrollment, or admin rights on a course they name), with the
+    # or TA enrollment, or as an admin of the course's account), with the
     # students they may see in each. Section-limited TAs only see their own
     # sections. Courses without the queue flag are left out.
     class Courses
       Entry = Struct.new(:course, :student_ids, keyword_init: true)
 
-      def self.for(viewer, extra_course_id: nil)
-        new(viewer, extra_course_id:).entries
+      def self.for(viewer)
+        new(viewer).entries
       end
 
-      def initialize(viewer, extra_course_id: nil)
+      def initialize(viewer)
         @viewer = viewer
-        @extra_course_id = extra_course_id
       end
 
       def entries
@@ -48,15 +47,21 @@ module TeacherWorkflow
 
       private
 
+      # Courses the viewer teaches or assists in, plus every course in an
+      # account they administer. manage_grades (above) decides which of them
+      # they may actually grade.
       def courses
-        ids = @viewer.enrollments.active_or_pending
-                     .where(type: TeacherWorkflow::GRADER_TYPES)
-                     .joins(:course).merge(Course.active)
-                     .pluck(:course_id)
-        # naming a course lets an admin who doesn't teach it ask for it;
-        # manage_grades below decides whether they may
-        ids |= [@extra_course_id.to_i] if @extra_course_id.present?
-        Course.where(id: ids).preload(:root_account, :account).to_a
+        taught = @viewer.enrollments.active_or_pending
+                        .where(type: TeacherWorkflow::GRADER_TYPES)
+                        .joins(:course).merge(Course.active)
+                        .select(:course_id)
+        administered = CourseAccountAssociation.where(account_id: admin_account_ids).select(:course_id)
+        Course.active.where(id: taught).or(Course.active.where(id: administered))
+              .preload(:root_account, :account).to_a
+      end
+
+      def admin_account_ids
+        AccountUser.active.where(user_id: @viewer.id).pluck(:account_id)
       end
     end
   end
