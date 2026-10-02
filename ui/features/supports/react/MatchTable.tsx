@@ -30,11 +30,12 @@ const isReading = (file: ScanRecord) =>
   file.workflow_state !== 'discarded' &&
   (file.extraction_state === 'queued' || file.extraction_state === 'running')
 
-type RowState = 'reading' | 'failed' | 'ready' | 'confirmed' | 'applied' | 'skipped'
+type RowState = 'reading' | 'failed' | 'ready' | 'confirmed' | 'applied' | 'skipped' | 'undone'
 
 export function rowState(file: ScanRecord): RowState {
   if (file.workflow_state === 'discarded') return 'skipped'
   if (file.workflow_state === 'applied') return 'applied'
+  if (file.workflow_state === 'undone') return 'undone'
   if (isReading(file)) return 'reading'
   if (file.extraction_state === 'failed') return 'failed'
   return file.student ? 'confirmed' : 'ready'
@@ -43,7 +44,9 @@ export function rowState(file: ScanRecord): RowState {
 export function countsOf(files: ScanRecord[]): ScanBatch['counts'] {
   const counts = {reading: 0, ready: 0, failed: 0, confirmed: 0, applied: 0, skipped: 0}
   files.forEach(file => {
-    counts[rowState(file)] += 1
+    const state = rowState(file)
+    // an undone scan is final and is not one of the batch's counts
+    if (state !== 'undone') counts[state] += 1
   })
   return counts
 }
@@ -69,6 +72,8 @@ const STATUS_LABEL = (state: RowState) => {
       return I18n.t('Confirmed')
     case 'applied':
       return I18n.t('Applied')
+    case 'undone':
+      return I18n.t('Undone')
     default:
       return I18n.t('Skipped')
   }
@@ -209,12 +214,17 @@ export default function MatchTable({
     }
   }
 
-  const exact = files.filter(
-    file => rowState(file) === 'ready' && file.match?.state === 'confident' && choiceFor(file),
+  // confident rows still set to the student that was proposed
+  const confident = files.filter(
+    file => rowState(file) === 'ready' && file.match?.state === 'confident',
+  )
+  const exact = confident.filter(
+    file => choiceFor(file) && choiceFor(file) === file.match?.candidates[0]?.id,
   )
 
   const confirmExact = () =>
     run(async () => {
+      const changed = confident.length - exact.length
       let done = 0
       let failed = 0
       for (const file of exact) {
@@ -225,15 +235,25 @@ export default function MatchTable({
           failed += 1
         }
       }
-      const said =
+      const parts = [
         done === 1
           ? I18n.t('Confirmed 1 exact match.')
-          : I18n.t('Confirmed %{count} exact matches.', {count: done})
-      setNote(
-        failed > 0
-          ? `${said} ${I18n.t("%{count} couldn't be confirmed. Confirm those one at a time.", {count: failed})}`
-          : said,
-      )
+          : I18n.t('Confirmed %{count} exact matches.', {count: done}),
+      ]
+      if (failed > 0) {
+        parts.push(
+          I18n.t("%{count} couldn't be confirmed. Confirm those one at a time.", {count: failed}),
+        )
+      }
+      if (changed > 0) {
+        parts.push(
+          I18n.t(
+            '%{count} left out because you changed the student. Confirm those one at a time.',
+            {count: changed},
+          ),
+        )
+      }
+      setNote(parts.join(' '))
     })
 
   const skip = (file: ScanRecord) =>
@@ -263,7 +283,7 @@ export default function MatchTable({
   })()
 
   const reviewable = files.filter(
-    file => file.student && file.workflow_state !== 'discarded',
+    file => file.student && !['discarded', 'undone'].includes(file.workflow_state),
   ).length
 
   return (
@@ -396,7 +416,7 @@ export default function MatchTable({
                           }}
                         />
                       </>
-                    ) : state === 'confirmed' || state === 'applied' ? (
+                    ) : state === 'confirmed' || state === 'applied' || state === 'undone' ? (
                       <span>
                         {file.student?.name}
                         {file.student && withSis(file.student as Person)}
@@ -446,7 +466,7 @@ export default function MatchTable({
                           {I18n.t('Try again')}
                         </button>
                       )}
-                      {state !== 'applied' && state !== 'skipped' && (
+                      {state !== 'applied' && state !== 'skipped' && state !== 'undone' && (
                         <button
                           type="button"
                           style={smallButton}

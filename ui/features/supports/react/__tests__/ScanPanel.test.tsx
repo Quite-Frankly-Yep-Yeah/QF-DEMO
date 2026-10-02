@@ -29,6 +29,7 @@ const record = scanRecord
 
 let current: ScanRecord
 let currentBatch: ScanBatch
+let openBatches: unknown[] = []
 const requests: {method: string; path: string; body?: unknown}[] = []
 const note = async (request: Request) => {
   const text = await request.text()
@@ -49,6 +50,7 @@ const server = setupServer(
     await note(request)
     return HttpResponse.json(current)
   }),
+  http.get('/api/v1/supports/scan_batches', () => HttpResponse.json({batches: openBatches})),
   http.post('/api/v1/supports/scan_batches', () => HttpResponse.json(currentBatch)),
   http.get('/api/v1/supports/scan_batches/1', () => HttpResponse.json(currentBatch)),
   http.put('/api/v1/supports/imports/6/student', async ({request}) => {
@@ -85,6 +87,8 @@ const server = setupServer(
 beforeAll(() => server.listen())
 afterEach(() => {
   server.resetHandlers()
+  openBatches = []
+  vi.restoreAllMocks()
   requests.length = 0
 })
 afterAll(() => server.close())
@@ -317,6 +321,64 @@ describe('ScanPanel', () => {
       expect(
         within(screen.getByRole('row', {name: /Pat Student\.pdf/})).getByText('Applied'),
       ).toBeInTheDocument()
+    })
+
+    const counts = {reading: 0, ready: 2, failed: 0, confirmed: 1, applied: 0, skipped: 0}
+
+    it('lists open batches and continues one into the match table', async () => {
+      openBatches = [
+        {id: 1, created_at: '2026-10-01T12:00:00Z', counts, open: true},
+        {id: 2, created_at: '2026-09-30T12:00:00Z', counts, open: false},
+      ]
+      currentBatch = batchOf([unmatched(6, 'b.pdf', match('none'))])
+      renderPanel()
+      await userEvent.click(screen.getByRole('button', {name: 'Several IEPs'}))
+      expect(await screen.findByText(/Continue a batch: .* - 3 files waiting/)).toBeInTheDocument()
+      expect(screen.getAllByRole('button', {name: /^Continue/})).toHaveLength(1)
+      await userEvent.click(screen.getByRole('button', {name: /^Continue/}))
+      expect(await screen.findByRole('table')).toBeInTheDocument()
+      expect(screen.getByText('b.pdf')).toBeInTheDocument()
+    })
+
+    it('carries on quietly when the list of batches fails', async () => {
+      server.use(
+        http.get('/api/v1/supports/scan_batches', () =>
+          HttpResponse.json({errors: ['no']}, {status: 500}),
+        ),
+      )
+      renderPanel()
+      await userEvent.click(screen.getByRole('button', {name: 'Several IEPs'}))
+      expect(screen.getByLabelText('IEP files')).toBeInTheDocument()
+      expect(screen.queryByText(/Continue a batch/)).not.toBeInTheDocument()
+    })
+
+    const startOver = async (files: ReturnType<typeof unmatched>[], answer: boolean) => {
+      const sure = vi.spyOn(window, 'confirm').mockReturnValue(answer)
+      currentBatch = batchOf(files)
+      openBatches = [{id: 1, created_at: '2026-10-01T12:00:00Z', counts, open: true}]
+      renderPanel()
+      await userEvent.click(screen.getByRole('button', {name: 'Several IEPs'}))
+      await userEvent.click(await screen.findByRole('button', {name: /^Continue/}))
+      await screen.findByRole('table')
+      await userEvent.click(screen.getByRole('button', {name: 'Start a new batch'}))
+      return sure
+    }
+
+    it('asks before leaving a batch that still has files waiting', async () => {
+      const sure = await startOver([unmatched(6, 'b.pdf', match('none'))], false)
+      expect(sure).toHaveBeenCalled()
+      expect(screen.getByRole('table')).toBeInTheDocument()
+      await userEvent.click(screen.getByRole('button', {name: 'Start a new batch'}))
+      sure.mockReturnValue(true)
+      await userEvent.click(screen.getByRole('button', {name: 'Start a new batch'}))
+      expect(await screen.findByLabelText('IEP files')).toBeInTheDocument()
+    })
+
+    it('does not ask when nothing is waiting', async () => {
+      const done = {...unmatched(6, 'b.pdf', match('none')), workflow_state: 'applied' as const}
+      const sure = await startOver([done], true)
+      expect(sure).not.toHaveBeenCalled()
+      expect(await screen.findByLabelText('IEP files')).toBeInTheDocument()
     })
   })
 })

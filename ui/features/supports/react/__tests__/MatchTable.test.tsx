@@ -247,4 +247,50 @@ describe('MatchTable', () => {
     expect(await screen.findByText(/Pick a student you manage/)).toBeInTheDocument()
     expect(within(rowOf('a.pdf')).queryByText('Confirmed')).not.toBeInTheDocument()
   })
+
+  it('treats an undone scan as final: Undone, no Change or Skip, not counted for review', () => {
+    mount([scanRecord({id: 4, filename: 'd.pdf', batch_id: 1, workflow_state: 'undone'})])
+    expect(within(rowOf('d.pdf')).getByText('Undone')).toBeInTheDocument()
+    expect(screen.queryByRole('button', {name: 'Change student for d.pdf'})).not.toBeInTheDocument()
+    expect(screen.queryByRole('button', {name: 'Skip d.pdf'})).not.toBeInTheDocument()
+    expect(screen.getByRole('button', {name: 'Review 0 scans'})).toBeDisabled()
+  })
+
+  it('still counts an applied scan for review', () => {
+    mount([scanRecord({id: 4, filename: 'd.pdf', batch_id: 1, workflow_state: 'applied'})])
+    expect(screen.getByRole('button', {name: 'Review 1 scan'})).toBeEnabled()
+  })
+
+  it('does not bulk-confirm a confident row whose student was changed', async () => {
+    mount([
+      unmatched(1, 'a.pdf', match('confident', [pat, sam1], '2009')),
+      unmatched(4, 'd.pdf', match('confident', [sam1, pat])),
+    ])
+    await userEvent.selectOptions(screen.getByLabelText('Student for d.pdf'), '7')
+    await userEvent.click(screen.getByRole('button', {name: 'Confirm all exact matches'}))
+    expect(await screen.findByText(/Confirmed 1 exact match\./)).toBeInTheDocument()
+    expect(screen.getByRole('status')).toHaveTextContent(/1 .*changed/)
+    expect(requests.filter(r => r.method === 'PUT').map(r => r.path)).toEqual([
+      '/imports/1/student 7',
+    ])
+    expect(within(rowOf('d.pdf')).queryByText('Confirmed')).not.toBeInTheDocument()
+  })
+
+  it('leaves Confirm all off when the only confident row was changed', async () => {
+    mount([unmatched(4, 'd.pdf', match('confident', [sam1, pat]))])
+    await userEvent.selectOptions(screen.getByLabelText('Student for d.pdf'), '7')
+    expect(screen.getByRole('button', {name: 'Confirm all exact matches'})).toBeDisabled()
+    await userEvent.click(screen.getByRole('button', {name: 'Confirm d.pdf'}))
+    await waitFor(() =>
+      expect(requests).toContainEqual({method: 'PUT', path: '/imports/4/student 7'}),
+    )
+  })
+
+  it('copes with a row that has no match data', async () => {
+    mount([unmatched(2, 'b.pdf', null)])
+    expect(within(rowOf('b.pdf')).getByText('Ready')).toBeInTheDocument()
+    expect(screen.getByLabelText('Student for b.pdf')).toHaveValue('')
+    await userEvent.type(screen.getByLabelText('Search for a student for b.pdf'), 'Zed')
+    expect(await screen.findByRole('button', {name: 'Zed Searched'})).toBeInTheDocument()
+  })
 })

@@ -20,11 +20,23 @@ import React, {useEffect, useState} from 'react'
 import {useScope as createI18nScope} from '@canvas/i18n'
 import doFetchApi from '@canvas/do-fetch-api-effect'
 import BatchUpload from './BatchUpload'
-import MatchTable, {replaceFile} from './MatchTable'
+import OpenBatches from './OpenBatches'
+import MatchTable, {replaceFile, rowState} from './MatchTable'
 import PersonPicker from './PersonPicker'
 import ReviewWorkspace from './ReviewWorkspace'
 import type {Person, ScanBatch, ScanRecord} from './types'
-import {BRAND, button, Card, field, flatButton, Label, messageFrom, muted, Status} from './ui'
+import {
+  BRAND,
+  button,
+  Card,
+  field,
+  flatButton,
+  formatDate,
+  Label,
+  messageFrom,
+  muted,
+  Status,
+} from './ui'
 
 const I18n = createI18nScope('supports')
 
@@ -149,7 +161,10 @@ export default function ScanPanel({
       )}
 
       {!record && !batch && mode === 'several' && !fixedStudent && (
-        <BatchUpload accountId={accountId} onStarted={setBatch} />
+        <>
+          <OpenBatches accountId={accountId} onContinue={setBatch} />
+          <BatchUpload accountId={accountId} onStarted={setBatch} />
+        </>
       )}
 
       {batch && reviewing === null && (
@@ -169,7 +184,25 @@ export default function ScanPanel({
             }}
           />
           <p style={{margin: '12px 0 0'}}>
-            <button type="button" style={flatButton} onClick={() => setBatch(null)}>
+            <button
+              type="button"
+              style={flatButton}
+              onClick={() => {
+                const waiting = batch.files.some(
+                  f => !['applied', 'skipped', 'undone'].includes(rowState(f)),
+                )
+                if (
+                  !waiting ||
+                  window.confirm(
+                    I18n.t(
+                      'Some files in this batch are still waiting. Start a new batch anyway? You can continue this one later.',
+                    ),
+                  )
+                ) {
+                  setBatch(null)
+                }
+              }}
+            >
               {I18n.t('Start a new batch')}
             </button>
           </p>
