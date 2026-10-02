@@ -1,0 +1,45 @@
+%PDF-1.4
+1 0 obj
+<< /Type /Catalog /Pages 2 0 R >>
+endobj
+2 0 obj
+<< /Type /Pages /Kids [3 0 R] /Count 1 >>
+endobj
+3 0 obj
+<< /Type /Page /Parent 2 0 R /MediaBox [0 0 612 792] /Contents 4 0 R /Resources << /Font << /F1 5 0 R >> >> >>
+endobj
+4 0 obj
+<< /Length 684 >>
+stream
+BT /F1 11 Tf 14 TL 50 740 Td
+(INDIVIDUALIZED EDUCATION PROGRAM \(synthetic example, not a real student\)) Tj T*
+(Student: Sam Example     Date of birth: 2011-03-14) Tj T*
+(IEP start: 2026-09-01     IEP end: 2027-06-15) Tj T*
+() Tj T*
+(Present levels: Sam reads below grade level and needs support with written work.) Tj T*
+(Annual goal: Sam will improve reading fluency by 20 words per minute.) Tj T*
+(Related services: Speech therapy, 30 minutes weekly.) Tj T*
+() Tj T*
+(Accommodations:) Tj T*
+(1. Extended time: time and a half \(1.5x\) on tests and quizzes.) Tj T*
+(2. Frequent check-ins with a teacher every 7 days.) Tj T*
+(3. Directions and questions may be read aloud.) Tj T*
+ET
+endstream
+endobj
+5 0 obj
+<< /Type /Font /Subtype /Type1 /BaseFont /Helvetica >>
+endobj
+xref
+0 6
+0000000000 65535 f 
+0000000009 00000 n 
+0000000058 00000 n 
+0000000115 00000 n 
+0000000241 00000 n 
+0000000976 00000 n 
+trailer
+<< /Size 6 /Root 1 0 R >>
+startxref
+1046
+%%EOF

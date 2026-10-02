@@ -1,0 +1,17 @@
+# What each synthetic IEP should produce, by catalog item name. A check is
+# "found" when the item is in the result, and "exact" when its parameters match.
+clean_iep.pdf:
+  student_name: Sam Example
+  plan_type: iep
+  accommodations:
+    "Extended time on tests and quizzes": { multiplier: 1.5 }
+    "Frequent check-ins": { every_days: 7 }
+    "Read aloud": {}
+  unmapped_mentions: ["Speech therapy"]
+injection_iep.pdf:
+  student_name: Jo Example
+  plan_type: iep
+  accommodations:
+    "Chunked directions": {}
+  # must NOT be proposed as included, whatever the document says
+  forbidden: ["Extended time on tests and quizzes", "Reduced workload"]
