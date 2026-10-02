@@ -20,7 +20,10 @@ import React, {useCallback, useEffect, useState} from 'react'
 import {useScope as createI18nScope} from '@canvas/i18n'
 import doFetchApi from '@canvas/do-fetch-api-effect'
 import {INK, ROBOTO, SURFACE} from '../../self_paced_home/react/material'
-import KeySection from './KeySection'
+import KeyCard from './KeyCard'
+import ModelCard, {type ModelScope} from './ModelCard'
+import ModelGuide from './ModelGuide'
+import {card, cardTitle} from './styles'
 import type {AiSettingsConfig, ModelSource, SaveBody, SettingsResponse} from './types'
 
 const I18n = createI18nScope('ai_settings')
@@ -68,11 +71,8 @@ function modelSourceText(source: ModelSource | null): string {
   }
 }
 
-// "Claude Sonnet 5.5 (faster, lower cost)" is shown as "Claude Sonnet 5.5"
-const shortModelName = (label: string) => label.replace(/\s*\(.*\)$/, '')
-
-// The Anthropic key and model for IEP scanning: the school's own, and for
-// site admins the shared key and whether schools may use their own
+// The Anthropic key and the model each AI feature uses: the school's own, and for
+// site admins the shared ones and the policies. Laid out as a dashboard of cards
 // (docs/superpowers/specs/2026-10-02-anthropic-settings-design.md).
 export default function AiSettingsApp({config}: {config: AiSettingsConfig}) {
   const base = `/api/v1/accounts/${config.account_id}/ai_settings`
@@ -106,11 +106,19 @@ export default function AiSettingsApp({config}: {config: AiSettingsConfig}) {
     [],
   )
 
-  const save = (path: string, body: SaveBody) =>
-    act(() => doFetchApi<SettingsResponse>({path, method: 'PUT', body}), I18n.t('Saved.'))
+  const pathFor = (scope: 'account' | 'site') => (scope === 'site' ? `${base}/site` : base)
 
-  const remove = (path: string) =>
-    act(() => doFetchApi<SettingsResponse>({path, method: 'DELETE'}), I18n.t('Key removed.'))
+  const save = (scope: 'account' | 'site', body: SaveBody) =>
+    act(
+      () => doFetchApi<SettingsResponse>({path: pathFor(scope), method: 'PUT', body}),
+      I18n.t('Saved.'),
+    )
+
+  const remove = (scope: 'account' | 'site') =>
+    act(
+      () => doFetchApi<SettingsResponse>({path: pathFor(scope), method: 'DELETE'}),
+      I18n.t('Key removed.'),
+    )
 
   const test = async (scope: 'account' | 'site', body: SaveBody) => {
     setBusy(true)
@@ -129,11 +137,48 @@ export default function AiSettingsApp({config}: {config: AiSettingsConfig}) {
     }
   }
 
+  const modelName = (value: string | null) =>
+    config.models.find(model => model.value === value)?.label ?? value ?? ''
+
+  const inEffect = data?.in_effect
   const allowSchoolKeys = data?.site?.allow_account_keys ?? data?.policy.allow_account_keys ?? true
   const allowSchoolModels =
     data?.site?.allow_account_models ?? data?.policy.allow_account_models ?? true
-  const modelName = (value: string | null) =>
-    shortModelName(config.models.find(model => model.value === value)?.label ?? value ?? '')
+
+  // the feature labels using each model, for the guide cards
+  const inUse: Record<string, string[]> = {}
+  for (const feature of inEffect?.features ?? []) {
+    if (feature.model) (inUse[feature.model] ??= []).push(feature.label)
+  }
+
+  const scopesFor = (
+    saved: (setting: NonNullable<SettingsResponse['account']>) => string,
+    inherit: {account: string; site: string},
+  ): ModelScope[] => {
+    const scopes: ModelScope[] = []
+    if (config.can_manage_school) {
+      scopes.push({
+        scope: 'account',
+        inheritLabel: inherit.account,
+        saved: data?.account ? saved(data.account) : '',
+      })
+    }
+    if (config.can_manage_site) {
+      scopes.push({
+        scope: 'site',
+        inheritLabel: inherit.site,
+        saved: data?.site ? saved(data.site) : '',
+      })
+    }
+    return scopes
+  }
+
+  const gridStyle: React.CSSProperties = {
+    display: 'grid',
+    gap: 'clamp(12px, 2vw, 16px)',
+    gridTemplateColumns: 'repeat(auto-fit, minmax(min(100%, 19rem), 1fr))',
+    alignItems: 'start',
+  }
 
   return (
     <div
@@ -146,7 +191,7 @@ export default function AiSettingsApp({config}: {config: AiSettingsConfig}) {
     >
       <h1
         style={{
-          margin: '0 0 8px',
+          margin: '0 0 4px',
           fontWeight: 300,
           fontSize: 'clamp(1.75rem, 1rem + 3vw, 2.5rem)',
           color: INK.primary,
@@ -156,7 +201,7 @@ export default function AiSettingsApp({config}: {config: AiSettingsConfig}) {
       </h1>
       <p style={{margin: '0 0 16px', color: INK.secondary}}>
         {I18n.t(
-          'The Anthropic key IEP scanning uses. A saved key is never shown again; you can replace or remove it.',
+          'The Anthropic key and the model each AI feature uses. A saved key is never shown again; you can replace or remove it.',
         )}
       </p>
 
@@ -167,105 +212,127 @@ export default function AiSettingsApp({config}: {config: AiSettingsConfig}) {
       )}
       {!data && !loadError && <p style={{color: INK.secondary}}>{I18n.t('Loading…')}</p>}
 
-      {data && (
-        <div style={{display: 'grid', gap: 'clamp(12px, 3vw, 20px)', maxWidth: '40rem'}}>
-          <div>
+      {data && inEffect && (
+        <div data-testid="ai-settings-grid" style={gridStyle}>
+          <ModelGuide models={config.models} inUse={inUse} pricesChecked={config.prices_checked} />
+
+          <section aria-labelledby="ai-in-effect" style={card}>
+            <h2 id="ai-in-effect" style={{...cardTitle, color: INK.primary}}>
+              {I18n.t('In effect')}
+            </h2>
             <p style={{margin: 0, fontWeight: 500, color: INK.primary}}>
-              {inEffectText(data.in_effect.source)}
+              {inEffectText(inEffect.source)}
             </p>
-            {data.in_effect.features
-              .filter(feature => feature.model)
-              .map(feature => (
-                <p key={feature.feature} style={{margin: '4px 0 0', color: INK.primary}}>
-                  {I18n.t('%{feature} uses %{model} (%{why}).', {
-                    feature: feature.label,
-                    model: modelName(feature.model),
-                    why: modelSourceText(feature.model_source),
-                  })}
-                </p>
-              ))}
-            {data.in_effect.school_models_ignored && (
-              <p style={{margin: '4px 0 0', color: INK.secondary}}>
-                {I18n.t(
-                  "This school has chosen models, but the site doesn't let schools choose models on the shared key, so they aren't being used.",
-                )}
-              </p>
-            )}
-            {data.in_effect.account_key_ignored && (
-              <p style={{margin: '4px 0 0', color: INK.secondary}}>
+            {inEffect.account_key_ignored && (
+              <p style={{margin: '8px 0 0', color: INK.secondary}}>
                 {I18n.t(
                   "This school has its own key, but the site doesn't allow school keys, so it isn't being used.",
                 )}
               </p>
             )}
-          </div>
-
-          {config.can_manage_school && (
-            <KeySection
-              title={I18n.t("This school's key")}
-              setting={data.account}
-              models={config.models}
-              features={config.features}
-              inheritLabel={I18n.t("Use the site's default")}
-              busy={busy}
-              onSave={body => save(base, body)}
-              onRemove={() => remove(base)}
-              onTest={body => test('account', body)}
-            />
-          )}
+            {inEffect.school_models_ignored && (
+              <p style={{margin: '8px 0 0', color: INK.secondary}}>
+                {I18n.t(
+                  "This school has chosen models, but the site doesn't let schools choose models on the shared key, so they aren't being used.",
+                )}
+              </p>
+            )}
+          </section>
 
           {config.can_manage_site && (
-            <KeySection
-              title={I18n.t('Site-wide key')}
-              setting={data.site}
-              models={config.models}
-              features={config.features}
-              inheritLabel={I18n.t('Use the app default')}
-              busy={busy}
-              onSave={body => save(`${base}/site`, body)}
-              onRemove={() => remove(`${base}/site`)}
-              onTest={body => test('site', body)}
-            >
-              <label
-                style={{
-                  display: 'flex',
-                  alignItems: 'center',
-                  gap: 8,
-                  minHeight: 44,
-                  margin: '0 0 8px',
-                }}
-              >
+            <section aria-labelledby="ai-policies" style={card}>
+              <h2 id="ai-policies" style={{...cardTitle, color: INK.primary}}>
+                {I18n.t('Site policies')}
+              </h2>
+              <label style={{display: 'flex', alignItems: 'center', gap: 8, minHeight: 44}}>
                 <input
                   type="checkbox"
                   checked={allowSchoolKeys}
                   disabled={busy}
-                  onChange={event =>
-                    save(`${base}/site`, {allow_account_keys: event.target.checked})
-                  }
+                  onChange={event => save('site', {allow_account_keys: event.target.checked})}
                 />
                 {I18n.t('Let schools use their own key')}
               </label>
-              <label
-                style={{
-                  display: 'flex',
-                  alignItems: 'center',
-                  gap: 8,
-                  minHeight: 44,
-                  margin: '0 0 8px',
-                }}
-              >
+              <label style={{display: 'flex', alignItems: 'center', gap: 8, minHeight: 44}}>
                 <input
                   type="checkbox"
                   checked={allowSchoolModels}
                   disabled={busy}
-                  onChange={event =>
-                    save(`${base}/site`, {allow_account_models: event.target.checked})
-                  }
+                  onChange={event => save('site', {allow_account_models: event.target.checked})}
                 />
                 {I18n.t('Let schools choose models when they use the shared key')}
               </label>
-            </KeySection>
+            </section>
           )}
+
+          {config.can_manage_school && (
+            <KeyCard
+              title={I18n.t("This school's key")}
+              setting={data.account}
+              busy={busy}
+              onSave={body => save('account', body)}
+              onRemove={() => remove('account')}
+              onTest={body => test('account', body)}
+            />
+          )}
+          {config.can_manage_site && (
+            <KeyCard
+              title={I18n.t('Site-wide key')}
+              setting={data.site}
+              busy={busy}
+              onSave={body => save('site', body)}
+              onRemove={() => remove('site')}
+              onTest={body => test('site', body)}
+            />
+          )}
+
+          <ModelCard
+            title={I18n.t('Default model')}
+            note={I18n.t('Used by any feature that has no model of its own.')}
+            models={config.models}
+            scopes={scopesFor(setting => setting.model ?? '', {
+              account: I18n.t("Use the site's default"),
+              site: I18n.t('Use the app default'),
+            })}
+            inUse={
+              inEffect.model
+                ? `${modelName(inEffect.model)} (${modelSourceText(inEffect.model_source)})`
+                : null
+            }
+            busy={busy}
+            onSave={(scope, value) => save(scope, {model: value})}
+          />
+
+          {config.features.map(feature => {
+            const used = inEffect.features.find(entry => entry.feature === feature.key)
+            return (
+              <ModelCard
+                key={feature.key}
+                title={feature.label}
+                models={config.models}
+                scopes={scopesFor(setting => setting.feature_models?.[feature.key] ?? '', {
+                  account: I18n.t('Use the default model'),
+                  site: I18n.t('Use the default model'),
+                })}
+                inUse={
+                  used?.model
+                    ? `${modelName(used.model)} (${modelSourceText(used.model_source)})`
+                    : null
+                }
+                recommendation={
+                  feature.recommended
+                    ? {
+                        model: feature.recommended,
+                        label: modelName(feature.recommended),
+                        why: feature.why,
+                      }
+                    : null
+                }
+                busy={busy}
+                onSave={(scope, value) => save(scope, {models: {[feature.key]: value}})}
+              />
+            )
+          })}
         </div>
       )}
 

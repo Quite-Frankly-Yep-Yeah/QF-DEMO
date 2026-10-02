@@ -16,15 +16,37 @@
  * with this program. If not, see <http://www.gnu.org/licenses/>.
  */
 
+export type ModelInfo = {
+  value: string
+  label: string
+  summary: string
+  use_when: string
+  // list prices in dollars per million tokens
+  input_price: number
+  output_price: number
+  context_tokens: number
+  supports_effort: boolean
+  cost_vs_cheapest: number
+}
+
+// the AI features that have a model of their own; +recommended+ is empty until one is chosen
+export type FeatureInfo = {
+  key: string
+  label: string
+  recommended: string | null
+  why: string | null
+}
+
 // window.ENV.AI_SETTINGS (Supports::AnthropicSettingsController#page)
 export type AiSettingsConfig = {
   account_id: string
   is_site_admin_account: boolean
   can_manage_school: boolean
   can_manage_site: boolean
-  models: {value: string; label: string}[]
+  models: ModelInfo[]
+  prices_checked: string
   default_model: string
-  features: {key: string; label: string}[]
+  features: FeatureInfo[]
 }
 
 // Supports::AnthropicSettingsController#setting_json: never includes the key
@@ -52,10 +74,11 @@ export type SettingsResponse = {
   account: SettingJson | null
   site: SettingJson | null
   policy: {allow_account_keys: boolean; allow_account_models: boolean}
-  features: {key: string; label: string}[]
+  features: FeatureInfo[]
   in_effect: {
     source: 'account' | 'site' | 'file' | null
     model: string | null
+    model_source: ModelSource | null
     account_key_ignored: boolean
     school_models_ignored: boolean
     features: {
