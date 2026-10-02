@@ -54,7 +54,7 @@ describe Supports::AnthropicSettingsController do
     it "reports no key before one is saved" do
       get :show, params: { account_id: root_account.id }
       expect(response).to be_successful
-      expect(json).to include("account" => nil, "site" => nil, "policy" => { "allow_account_keys" => true })
+      expect(json).to include("account" => nil, "site" => nil, "policy" => { "allow_account_keys" => true, "allow_account_models" => true })
       expect(json["in_effect"]).to include("source" => nil)
     end
 
@@ -111,7 +111,7 @@ describe Supports::AnthropicSettingsController do
       put_school(api_key: key)
       Supports::AnthropicSetting.create!(root_account: nil, api_key: "site-key", allow_account_keys: false)
       get :show, params: { account_id: root_account.id }
-      expect(json["policy"]).to eq("allow_account_keys" => false)
+      expect(json["policy"]).to include("allow_account_keys" => false)
       expect(json["in_effect"]).to include("source" => "site", "account_key_ignored" => true)
       Supports::AnthropicSetting.site.update!(allow_account_keys: true)
       get :show, params: { account_id: root_account.id }
@@ -329,6 +329,71 @@ describe Supports::AnthropicSettingsController do
       user_session(site_admin)
       get :page, params: { account_id: Account.site_admin.id }
       expect(assigns[:js_env][:AI_SETTINGS]).to include(can_manage_school: false)
+    end
+  end
+
+  describe "models per feature" do
+    before { user_session(school_admin) }
+
+    it "saves a model for the IEP scan and shows what is in effect for it" do
+      put_school(api_key: key, models: { iep_scan: "claude-sonnet-5-5" })
+      expect(response).to be_successful
+      expect(json["account"]["feature_models"]).to eq("iep_scan" => "claude-sonnet-5-5")
+      expect(json["features"]).to eq [{ "key" => "iep_scan", "label" => "IEP scan" }]
+      expect(json["in_effect"]["features"].first).to include("feature" => "iep_scan",
+                                                             "model" => "claude-sonnet-5-5",
+                                                             "model_source" => "account_feature")
+    end
+
+    it "clears a feature's model, and the default model, when sent blank" do
+      put_school(api_key: key, model: "claude-haiku-4-5", models: { iep_scan: "claude-sonnet-5-5" })
+      put_school(model: "", models: { iep_scan: "" })
+      expect(response).to be_successful
+      row = Supports::AnthropicSetting.for_account(root_account)
+      expect(row).to have_attributes(model: nil, feature_models: {}, api_key: key)
+    end
+
+    it "leaves models alone when none are sent" do
+      put_school(api_key: key, model: "claude-haiku-4-5", models: { iep_scan: "claude-sonnet-5-5" })
+      put_school(api_key: "another-key-5678")
+      expect(Supports::AnthropicSetting.for_account(root_account)).to have_attributes(model: "claude-haiku-4-5", feature_models: { "iep_scan" => "claude-sonnet-5-5" })
+    end
+
+    it "refuses a model that isn't offered, for a feature, and an unknown feature" do
+      put_school(models: { iep_scan: "gpt-4" })
+      expect(response).to have_http_status(:unprocessable_content)
+      put_school(models: { not_a_feature: "claude-haiku-4-5" })
+      expect(response).to have_http_status(:unprocessable_content)
+      expect(Supports::AnthropicSetting.count).to eq 0
+    end
+
+    it "keeps the policy for models out of a school admin's hands" do
+      put_school(api_key: key, allow_account_models: false)
+      expect(response).to be_successful
+      expect(Supports::AnthropicSetting.site).to be_nil
+    end
+
+    it "says the school's models are being ignored when the site forbids them on the shared key" do
+      Supports::AnthropicSetting.create!(root_account: nil, api_key: "site-key", feature_models: { "iep_scan" => "claude-haiku-4-5" }, allow_account_models: false)
+      put_school(models: { iep_scan: "claude-sonnet-5-5" })
+      expect(json["policy"]).to include("allow_account_models" => false)
+      expect(json["in_effect"]).to include("school_models_ignored" => true)
+      expect(json["in_effect"]["features"].first).to include("model" => "claude-haiku-4-5", "model_source" => "site_feature")
+    end
+
+    it "lets a site admin set the site's models and the policy" do
+      user_session(site_admin)
+      put_site(api_key: key, models: { iep_scan: "claude-haiku-4-5" }, allow_account_models: false)
+      expect(response).to be_successful
+      expect(json["site"]).to include("feature_models" => { "iep_scan" => "claude-haiku-4-5" }, "allow_account_models" => false)
+      expect(response.body).not_to include(key)
+      put_site(allow_account_models: "")
+      expect(Supports::AnthropicSetting.site.allow_account_models).to be false
+    end
+
+    it "tells the page which features there are" do
+      get :page, params: { account_id: root_account.id }
+      expect(assigns[:js_env][:AI_SETTINGS][:features]).to eq [{ key: :iep_scan, label: "IEP scan" }]
     end
   end
 end

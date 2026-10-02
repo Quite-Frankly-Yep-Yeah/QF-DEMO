@@ -183,6 +183,16 @@ describe Supports::IepExtractor do
       expect(requests.first[:model]).to eq "claude-haiku-4-5"
     end
 
+    it "uses the model chosen for the IEP scan, not the school's default" do
+      Supports::AnthropicSetting.create!(root_account:,
+                                         api_key: "school-key",
+                                         model: "claude-haiku-4-5",
+                                         feature_models: { "iep_scan" => "claude-sonnet-5-5" })
+      allow(Anthropic::Client).to receive(:new).with(api_key: "school-key").and_return(fake_client(reply_with(clean), requests))
+      call_without_injected_client
+      expect(requests.first[:model]).to eq "claude-sonnet-5-5"
+    end
+
     it "says scanning isn't set up when there is no key anywhere" do
       expect { call_without_injected_client }
         .to raise_error(described_class::Failed, "IEP scanning isn't set up for this school.")

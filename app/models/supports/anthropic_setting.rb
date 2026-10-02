@@ -32,7 +32,8 @@ module Supports
 
     encrypts :api_key
 
-    validates :model, inclusion: { in: MODELS }
+    validates :model, inclusion: { in: MODELS }, allow_nil: true
+    validate :feature_models_are_valid
     validates :root_account_id, uniqueness: true
     validate :key_is_usable
 
@@ -68,7 +69,24 @@ module Supports
       api_key.present?
     end
 
+    # A blank model means none chosen: the next level decides.
+    def model=(value)
+      super(value.presence)
+    end
+
+    # Keys become strings and blank choices are dropped.
+    def feature_models=(value)
+      super((value || {}).to_h.to_h { |feature, model| [feature.to_s, model.to_s.strip] }.compact_blank)
+    end
+
     private
+
+    def feature_models_are_valid
+      feature_models.each do |feature, model|
+        errors.add(:feature_models, I18n.t("includes an unknown AI feature")) unless AiFeatures.valid?(feature)
+        errors.add(:feature_models, I18n.t("includes a model that isn't offered")) unless MODELS.include?(model)
+      end
+    end
 
     def key_is_usable
       key = api_key

@@ -38,12 +38,27 @@ describe Supports::AnthropicSetting do
     expect(setting).not_to be_key
   end
 
-  it "defaults to the default model, lets policy default on, and only allows the offered models" do
+  it "starts with no model chosen, policies on, and only allows the offered models" do
     setting = described_class.new(root_account:)
-    expect(setting).to have_attributes(model: "claude-opus-5-5", allow_account_keys: true)
+    expect(setting).to have_attributes(model: nil, allow_account_keys: true, allow_account_models: true, feature_models: {})
+    expect(setting).to be_valid
     expect(described_class::MODELS).to eq %w[claude-opus-5-5 claude-sonnet-5-5 claude-haiku-4-5]
+    expect(described_class::DEFAULT_MODEL).to eq "claude-opus-5-5"
     setting.model = "gpt-4"
     expect(setting).not_to be_valid
+  end
+
+  it "treats a blank model as none chosen" do
+    expect(described_class.new(root_account:, model: "").model).to be_nil
+  end
+
+  it "keeps a model per feature, drops blank ones, and refuses an unknown feature or model" do
+    setting = described_class.new(root_account:, feature_models: { iep_scan: "claude-haiku-4-5", other: "" })
+    expect(setting.feature_models).to eq("iep_scan" => "claude-haiku-4-5")
+    expect(setting).to be_valid
+
+    expect(described_class.new(root_account:, feature_models: { "not_a_feature" => "claude-haiku-4-5" })).not_to be_valid
+    expect(described_class.new(root_account:, feature_models: { "iep_scan" => "gpt-4" })).not_to be_valid
   end
 
   it "has one row per school and one site-wide row" do

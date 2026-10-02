@@ -47,6 +47,7 @@ module Supports
                can_manage_school: school_manager?,
                can_manage_site: site_manager?,
                models: model_options,
+               features: AiFeatures.all,
                default_model: AnthropicSetting::DEFAULT_MODEL
              } })
       js_bundle :ai_settings
@@ -134,7 +135,7 @@ module Supports
       attempts = 0
       begin
         setting = AnthropicSetting.find_or_initialize_by(root_account_id:)
-        setting.assign_attributes(changes_for(scope, remove_key))
+        setting.assign_attributes(changes_for(setting, scope, remove_key))
         setting.save!
       rescue ActiveRecord::RecordNotUnique, ActiveRecord::RecordInvalid => e
         # two first saves at once: the other one made the row, so look again
@@ -149,17 +150,26 @@ module Supports
     end
 
     # What a save changes: only what was sent. A blank key leaves the saved one.
-    def changes_for(scope, remove_key)
+    def changes_for(setting, scope, remove_key)
       return { updated_by: @current_user, api_key: nil } if remove_key
 
       attrs = { updated_by: @current_user }
       typed = params[:api_key].to_s.strip
       attrs[:api_key] = typed if typed.present?
-      attrs[:model] = params[:model] if params[:model].present?
-      if scope == "site" && params[:allow_account_keys].to_s.present?
-        attrs[:allow_account_keys] = ActiveModel::Type::Boolean.new.cast(params[:allow_account_keys])
+      # a blank model clears the choice, so the next level decides
+      attrs[:model] = params[:model].to_s if params.key?(:model)
+      attrs[:feature_models] = setting.feature_models.merge(sent_feature_models) if params[:models].respond_to?(:each_pair)
+      if scope == "site"
+        %i[allow_account_keys allow_account_models].each do |policy|
+          attrs[policy] = ActiveModel::Type::Boolean.new.cast(params[policy]) if params[policy].to_s.present?
+        end
       end
       attrs
+    end
+
+    # {"iep_scan" => "claude-sonnet-5-5"}; a blank value clears that feature's model.
+    def sent_feature_models
+      params[:models].to_unsafe_h.to_h { |feature, model| [feature.to_s, model.to_s] }
     end
 
     def payload
@@ -167,7 +177,8 @@ module Supports
       {
         account: @account.site_admin? ? nil : setting_json(AnthropicSetting.for_account(@account)),
         site: site_manager? ? setting_json(site, site: true) : nil,
-        policy: { allow_account_keys: site.nil? || site.allow_account_keys },
+        policy: { allow_account_keys: site.nil? || site.allow_account_keys, allow_account_models: site.nil? || site.allow_account_models },
+        features: AiFeatures.all,
         in_effect: AnthropicConfig.explain(@account)
       }
     end
@@ -180,10 +191,14 @@ module Supports
         has_key: setting.key_last4.present?,
         key_last4: setting.key_last4,
         model: setting.model,
+        feature_models: setting.feature_models,
         updated_at: setting.updated_at&.iso8601,
         updated_by: setting.updated_by && { id: setting.updated_by.id.to_s, name: setting.updated_by.name }
       }
-      json[:allow_account_keys] = setting.allow_account_keys if site
+      if site
+        json[:allow_account_keys] = setting.allow_account_keys
+        json[:allow_account_models] = setting.allow_account_models
+      end
       json
     end
 

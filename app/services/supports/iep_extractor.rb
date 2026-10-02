@@ -134,7 +134,7 @@ module Supports
     def config
       return @config if defined?(@config)
 
-      @config = AnthropicConfig.for(@root_account)
+      @config = AnthropicConfig.for(@root_account, feature: :iep_scan)
     end
 
     def client
