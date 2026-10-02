@@ -21,6 +21,7 @@ import {useScope as createI18nScope} from '@canvas/i18n'
 import React from 'react'
 import {render} from '@canvas/react'
 import SideNav from './react/SideNav'
+import {bindTopBarAccountLink} from './react/topBarAccountLink'
 import Navigation from './react/OldSideNav'
 import MobileNavigation from './react/MobileNavigation'
 import ready from '@instructure/ready'
@@ -74,6 +75,7 @@ if (window.ENV.FEATURES.instui_nav || localStorage.instui_nav_dev) {
 }
 
 ready(() => {
+  bindTopBarAccountLink()
   const showInstUiNavbar = window.ENV.FEATURES.instui_nav || localStorage.instui_nav_dev
   if (showInstUiNavbar) {
     const mobileContextNavContainer = document.getElementById('mobileContextNavContainer')

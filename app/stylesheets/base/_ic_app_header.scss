@@ -497,6 +497,10 @@ body.primary-nav-expanded {
         }
       }
 
+      // trays open below the top app bar, with no gap for the hidden side bar
+      .tray-with-space-for-global-nav { margin-#{direction(left)}: 0; }
+      .navigation-tray-container { padding-top: 64px; box-sizing: border-box; }
+
       #mobile-header .mobile-header-links {
         display: flex;
         align-items: stretch;
