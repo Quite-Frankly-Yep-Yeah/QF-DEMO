@@ -68,7 +68,8 @@ module SectionTabHelper
   def section_tabs
     @section_tabs ||=
       if @context && available_section_tabs.any?
-        content_tag(:nav, { role: "navigation", "aria-label": nav_name }) do
+        nav_classes = "account-nav" if @context.is_a?(Account)
+        content_tag(:nav, { role: "navigation", class: nav_classes, "aria-label": nav_name }) do
           concat(
             content_tag(:ul, id: "section-tabs") do
               available_section_tabs.map { |tab| section_tab_tag(tab, @context, get_active_tab) }

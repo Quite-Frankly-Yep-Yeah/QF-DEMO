@@ -50,11 +50,12 @@ describe('feature_flags::FeatureFlags', () => {
   })
 
   it('Renders all the appropriate sections', async () => {
-    const {getAllByText, queryByText} = render(<FeatureFlags />)
+    const {getAllByText, queryByText, getByRole} = render(<FeatureFlags />)
     await waitFor(() => expect(getAllByText('Account')[0]).toBeInTheDocument())
     expect(getAllByText('Course')[0]).toBeInTheDocument()
     expect(getAllByText('User')[0]).toBeInTheDocument()
     expect(queryByText('Site Admin')).not.toBeInTheDocument()
+    expect(getByRole('status')).toHaveTextContent('Showing 5 feature options')
   })
 
   describe('search', () => {
@@ -86,6 +87,15 @@ describe('feature_flags::FeatureFlags', () => {
         expect(queryByText('Account')).not.toBeInTheDocument()
         expect(queryByText('Course')).not.toBeInTheDocument()
       })
+    })
+
+    it('shows a helpful empty state when no options match the search', async () => {
+      const {findByPlaceholderText, findByText, getByRole} = render(<FeatureFlags />)
+      const searchField = await findByPlaceholderText('Search by name or id')
+      fireEvent.change(searchField, {target: {value: 'not-a-feature'}})
+
+      expect(await findByText('No feature options found')).toBeInTheDocument()
+      expect(getByRole('status')).toHaveTextContent('Showing 0 feature options')
     })
 
     // FOO-4286

@@ -87,7 +87,7 @@
     skip_for_streaming :left_side, except: ["eportfolios/show", "eportfolio_categories/show", "eportfolio_entries/show"] do
       left_side = (yield :left_side).presence
     end
-    @show_left_side ||= (section_tabs.length > 0)
+    @show_left_side = section_tabs.length > 0 unless @show_left_side == false
   end
   body_classes << "with-left-side" if @show_left_side
   body_classes << "course-menu-expanded" if body_classes.include?("with-left-side") && !@collapse_course_menu

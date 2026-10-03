@@ -126,7 +126,7 @@
     <% if @current_user %>
       <a href="/conversations" class="<%= 'active' if active_path?('/conversations') %>"><%= t('Inbox') %></a>
       <% if @current_user.adminable_accounts.present? %>
-        <a href="<%= admin_hub_nav_path || '/accounts' %>" class="<%= 'active' if active_path?('/accounts') %>"><%= t('Admin') %></a>
+        <a id="top_bar_admin_link" href="<%= admin_hub_nav_path || '/accounts' %>" class="<%= 'active' if active_path?('/accounts') %>"><%= t('Admin') %></a>
       <% end %>
       <a id="top_bar_account_link" href="/profile/settings" class="<%= 'active' if active_path?('/profile') %>"><%= t('Account') %></a>
     <% else %>

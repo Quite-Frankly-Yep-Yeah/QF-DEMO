@@ -18,19 +18,18 @@
 
 import React, {useState, useMemo, useCallback} from 'react'
 import {useScope as createI18nScope} from '@canvas/i18n'
-import {ToggleDetails} from '@instructure/ui-toggle-details'
 import {Heading} from '@instructure/ui-heading'
-import {Table} from '@instructure/ui-table'
+import {Button} from '@instructure/ui-buttons'
+import {Flex} from '@instructure/ui-flex'
+import {Text} from '@instructure/ui-text'
+import {View} from '@instructure/ui-view'
 import {Alert} from '@instructure/ui-alerts'
 import StatusPill from './StatusPill'
 import FeatureFlagButton from './FeatureFlagButton'
 import {isEnabled, isLocked, doesAllowDefaults} from './util'
-import {ScreenReaderContent} from '@instructure/ui-a11y-content'
 import EarlyAccessModal from './EarlyAccessModal'
 
 const I18n = createI18nScope('feature_flags')
-
-const {Head, Body, ColHeader, Row, Cell} = Table
 
 function FeatureFlagTable({title, rows, disableDefaults}) {
   const [stateChanges, setStateChanges] = useState({})
@@ -46,6 +45,23 @@ function FeatureFlagTable({title, rows, disableDefaults}) {
     if (feature.shadow) statuses.push('shadow')
     if (feature.beta) statuses.push('beta')
     return statuses
+  }
+
+  const renderSortButton = key => {
+    const isActive = sortConfig.key === key
+    return (
+      <Button
+        key={key}
+        size="small"
+        color={isActive ? 'primary' : 'secondary'}
+        withBackground={false}
+        aria-pressed={isActive}
+        aria-label={I18n.t('Sort by %{sortBy}', {sortBy: translateSortKey(key)})}
+        onClick={() => handleSort(key)}
+      >
+        {translateSortKey(key)}
+      </Button>
+    )
   }
 
   const sortByStatus = (a, b) => {
@@ -155,101 +171,41 @@ function FeatureFlagTable({title, rows, disableDefaults}) {
 
   return (
     <>
-      <Heading as="h2" level="h3" data-testid="ff-table-heading">
-        {title}
-      </Heading>
-      <Table
-        caption={I18n.t('%{title} Feature Flags: sorted by %{sortBy} in %{direction} order.', {
-          title: title,
-          sortBy: translateSortKey(sortConfig.key),
-          direction: translateSortDirection(sortConfig.direction),
-        })}
-        margin="medium 0"
-      >
-        <Head renderSortLabel={I18n.t('Sort by')}>
-          <Row>
-            <ColHeader
-              id="display_name"
-              width="50%"
-              stackedSortByLabel={I18n.t('Feature')}
-              onRequestSort={
-                window.ENV.FEATURES.feature_flag_ui_sorting
-                  ? () => handleSort('display_name')
-                  : undefined
-              }
-              sortDirection={
-                window.ENV.FEATURES.feature_flag_ui_sorting && sortConfig.key === 'display_name'
-                  ? sortConfig.direction
-                  : 'none'
-              }
+      <View as="section" aria-label={I18n.t('%{title} feature options', {title})} margin="large 0">
+        <Flex alignItems="center" justifyItems="space-between" wrap="wrap" gap="small">
+          <Heading as="h2" level="h3" data-testid="ff-table-heading" margin="0">
+            {title}
+          </Heading>
+          {window.ENV.FEATURES.feature_flag_ui_sorting && (
+            <Flex
+              alignItems="center"
+              gap="small"
+              wrap="wrap"
+              role="group"
+              aria-label={I18n.t('Sort by')}
             >
-              {window.ENV.FEATURES.feature_flag_ui_sorting ? (
-                <>
-                  <p aria-hidden="true">{I18n.t('Feature')}</p>
-                  <ScreenReaderContent>{I18n.t('Sort by Feature')}</ScreenReaderContent>
-                </>
-              ) : (
-                I18n.t('Feature')
-              )}
-            </ColHeader>
-            <ColHeader
-              id="status"
-              width="50%"
-              stackedSortByLabel={I18n.t('Status')}
-              onRequestSort={
-                window.ENV.FEATURES.feature_flag_ui_sorting ? () => handleSort('status') : undefined
-              }
-              sortDirection={
-                window.ENV.FEATURES.feature_flag_ui_sorting && sortConfig.key === 'status'
-                  ? sortConfig.direction
-                  : 'none'
-              }
-            >
-              {window.ENV.FEATURES.feature_flag_ui_sorting ? (
-                <>
-                  <p aria-hidden="true">{I18n.t('Status')}</p>
-                  <ScreenReaderContent>{I18n.t('Sort by Status')}</ScreenReaderContent>
-                </>
-              ) : (
-                I18n.t('Status')
-              )}
-            </ColHeader>
-            <ColHeader
-              id="state"
-              stackedSortByLabel={I18n.t('State')}
-              onRequestSort={
-                window.ENV.FEATURES.feature_flag_ui_sorting ? () => handleSort('state') : undefined
-              }
-              sortDirection={
-                window.ENV.FEATURES.feature_flag_ui_sorting && sortConfig.key === 'state'
-                  ? sortConfig.direction
-                  : 'none'
-              }
-            >
-              {window.ENV.FEATURES.feature_flag_ui_sorting ? (
-                <>
-                  <p aria-hidden="true">{I18n.t('State')}</p>
-                  <ScreenReaderContent>{I18n.t('Sort by State')}</ScreenReaderContent>
-                </>
-              ) : (
-                I18n.t('State')
-              )}
-            </ColHeader>
-          </Row>
-        </Head>
-        <Body>
-          {sortedRows.map(feature => (
-            <FeatureFlagRow
-              key={feature.feature}
-              feature={feature}
-              updatedState={stateChanges[feature.feature]}
-              onStateChange={handleStateChange}
-              disableDefaults={disableDefaults}
-              checkEarlyAccessProgram={checkEarlyAccessProgram}
-            />
-          ))}
-        </Body>
-      </Table>
+              <Text as="span" size="small" color="secondary">
+                {I18n.t('Sort by')}
+              </Text>
+              {['display_name', 'status', 'state'].map(renderSortButton)}
+            </Flex>
+          )}
+        </Flex>
+        <View as="div" margin="medium 0">
+          <div role="list">
+            {sortedRows.map(feature => (
+              <FeatureFlagRow
+                key={feature.feature}
+                feature={feature}
+                updatedState={stateChanges[feature.feature]}
+                onStateChange={handleStateChange}
+                disableDefaults={disableDefaults}
+                checkEarlyAccessProgram={checkEarlyAccessProgram}
+              />
+            ))}
+          </div>
+        </View>
+      </View>
 
       <Alert
         liveRegion={() => document.getElementById('flash_screenreader_holder')}
@@ -274,27 +230,46 @@ function FeatureFlagTable({title, rows, disableDefaults}) {
 const FeatureFlagRow = React.memo(
   ({feature, updatedState, onStateChange, disableDefaults, checkEarlyAccessProgram}) => {
     return (
-      <Row key={feature.feature} data-testid="ff-table-row">
-        <Cell>
-          <ToggleDetails summary={feature.display_name} defaultExpanded={feature.autoexpand}>
-            <div dangerouslySetInnerHTML={{__html: feature.description}} />
-          </ToggleDetails>
-        </Cell>
-        <Cell>
-          <StatusPill feature={feature} updatedState={updatedState} />
-        </Cell>
-        <Cell>
-          <FeatureFlagButton
-            displayName={feature.display_name}
-            featureFlag={feature.feature_flag}
-            disableDefaults={disableDefaults}
-            appliesTo={feature.applies_to}
-            rootOptIn={feature.root_opt_in}
-            onStateChange={newState => onStateChange(feature.feature, newState)}
-            checkEarlyAccessProgram={checkEarlyAccessProgram}
-          />
-        </Cell>
-      </Row>
+      <View
+        as="article"
+        role="listitem"
+        data-testid="ff-table-row"
+        background="primary"
+        shadow="resting"
+        borderRadius="small"
+        padding="medium"
+        margin="0 0 medium"
+      >
+        <Flex alignItems="start" justifyItems="space-between" gap="medium" wrap="wrap">
+          <Flex.Item shouldGrow shouldShrink>
+            <Heading as="h3" level="h4" margin="0">
+              {feature.display_name}
+            </Heading>
+            <Text as="p" color="secondary" size="small" margin="xx-small 0">
+              {I18n.t('ID: %{id}', {id: feature.feature})}
+            </Text>
+            <View as="div" margin="x-small 0">
+              <StatusPill feature={feature} updatedState={updatedState} />
+            </View>
+            {feature.description && (
+              <View as="div" margin="small 0 0">
+                <div dangerouslySetInnerHTML={{__html: feature.description}} />
+              </View>
+            )}
+          </Flex.Item>
+          <Flex.Item>
+            <FeatureFlagButton
+              displayName={feature.display_name}
+              featureFlag={feature.feature_flag}
+              disableDefaults={disableDefaults}
+              appliesTo={feature.applies_to}
+              rootOptIn={feature.root_opt_in}
+              onStateChange={newState => onStateChange(feature.feature, newState)}
+              checkEarlyAccessProgram={checkEarlyAccessProgram}
+            />
+          </Flex.Item>
+        </Flex>
+      </View>
     )
   },
 )

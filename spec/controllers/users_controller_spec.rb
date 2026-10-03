@@ -3642,6 +3642,38 @@ describe UsersController do
       expect(assigns(:js_env)[:DASHBOARD_FEATURES][:educator_dashboard]).to be true
     end
 
+    it "returns true for an account admin with no enrollments" do
+      account_admin_user(account:)
+      user_session(@admin)
+      get "user_dashboard"
+      expect(assigns(:js_env)[:DASHBOARD_FEATURES][:educator_dashboard]).to be true
+    end
+
+    it "returns false for an account admin when the flag is off" do
+      account.disable_feature!(:educator_dashboard)
+      account_admin_user(account:)
+      user_session(@admin)
+      get "user_dashboard"
+      expect(assigns[:js_bundles].flatten).not_to include :widget_dashboard
+    end
+
+    context "dashboard_cards with all_courses" do
+      before { @course1 = course_factory(account:, active_all: true, course_name: "Unenrolled") }
+
+      it "lists every course in the account for an admin" do
+        account_admin_user(account:)
+        user_session(@admin)
+        get "dashboard_cards", params: { all_courses: "true" }
+        expect(json_parse.pluck("id")).to include(@course1.id)
+      end
+
+      it "ignores the parameter for a non-admin" do
+        user_session(user_factory(active_all: true))
+        get "dashboard_cards", params: { all_courses: "true" }
+        expect(json_parse.pluck("id")).not_to include(@course1.id)
+      end
+    end
+
     it "does not load widget_dashboard bundle for TA" do
       course_with_ta(active_all: true)
       user_session(@ta)

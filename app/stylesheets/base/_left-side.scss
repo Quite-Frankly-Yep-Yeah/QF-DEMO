@@ -74,6 +74,30 @@ $course-menu-icons: (
   "eportfolio_moderation": "verified_user"
 );
 
+$admin-tab-colors: (
+  "courses": #1e88e5,
+  "users": #00897b,
+  "permissions": #e53935,
+  "sub_accounts": #5e35b1,
+  "authentication": #fb8c00,
+  "plugins": #43a047,
+  "release_notes": #039be5,
+  "rate_limiting": #8e24aa,
+  "jobs": #546e7a,
+  "statistics": #3949ab,
+  "account_reports": #00897b,
+  "grading_standards": #7cb342,
+  "question_banks": #5e35b1,
+  "account_calendars": #d81b60,
+  "terms": #fb8c00,
+  "sis_import": #00acc1,
+  "brand_configs": #d81b60,
+  "developer_keys": #3949ab,
+  "apps": #43a047,
+  "admin_tools": #6d4c41,
+  "eportfolio_moderation": #00897b
+);
+
 @if not $use_high_contrast {
   .with-left-side #left-side #sticky-container {
     background: #ffffff;
@@ -191,6 +215,34 @@ $course-menu-icons: (
       a.#{$tab}::before {
         -webkit-mask-image: url("/images/material-symbols/#{$symbol}.svg");
         mask-image: url("/images/material-symbols/#{$symbol}.svg");
+      }
+    }
+  }
+
+  // Give account navigation its own color-coded Material 1 treatment while
+  // leaving course navigation's single brand-color accent unchanged.
+  @each $tab, $color in $admin-tab-colors {
+    .with-left-side #left-side #sticky-container .account-nav a.#{$tab} {
+      min-height: 48px;
+
+      &::before {
+        background-color: $color;
+      }
+
+      &:hover {
+        background: rgba($color, 0.08);
+      }
+
+      &.active,
+      &.active:hover,
+      &.active:focus {
+        background: rgba($color, 0.12);
+        box-shadow: inset 4px 0 0 $color;
+        color: mix(#000000, $color, 35%);
+      }
+
+      &.active::before {
+        background-color: $color;
       }
     }
   }

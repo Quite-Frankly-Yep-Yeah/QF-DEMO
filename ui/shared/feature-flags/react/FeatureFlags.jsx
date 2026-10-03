@@ -22,6 +22,8 @@ import {groupBy} from 'es-toolkit/compat'
 
 import {Spinner} from '@instructure/ui-spinner'
 import {View} from '@instructure/ui-view'
+import {Heading} from '@instructure/ui-heading'
+import {Text} from '@instructure/ui-text'
 
 import useFetchApi from '@canvas/use-fetch-api-hook'
 import FilterBar from '@canvas/filter-bar'
@@ -104,37 +106,74 @@ export default function FeatureFlags({hiddenFlags, disableDefaults}) {
     },
   ]
 
+  const visibleFeatureCount = categories.reduce(
+    (count, category) => count + (groupedFeatures?.[category.id]?.length || 0),
+    0,
+  )
+
   return (
-    <View as="div">
+    <View as="section">
+      <View as="div" padding="small 0 medium">
+        <Heading as="h2" level="h2" margin="0 0 x-small">
+          {I18n.t('Feature options')}
+        </Heading>
+        <Text as="p" color="secondary" margin="0">
+          {I18n.t(
+            'Find and manage feature options. Search by name or ID, or filter the list by status.',
+          )}
+        </Text>
+      </View>
       {isLoading ? (
         <Spinner renderTitle={I18n.t('Loading feature options')} />
       ) : (
         <>
-          <FilterBar
-            filterOptions={[
-              {value: 'enabled', text: I18n.t('Enabled')},
-              {value: 'disabled', text: I18n.t('Disabled')},
-            ]}
-            onFilter={setStateFilter}
-            onSearch={setSearchQuery}
-            searchPlaceholder={I18n.t('Search by name or id')}
-            searchScreenReaderLabel={I18n.t('Search Features')}
-          />
+          <View as="div" background="primary" shadow="resting" borderRadius="small" padding="small">
+            <FilterBar
+              filterOptions={[
+                {value: 'enabled', text: I18n.t('Enabled')},
+                {value: 'disabled', text: I18n.t('Disabled')},
+              ]}
+              onFilter={setStateFilter}
+              onSearch={setSearchQuery}
+              searchPlaceholder={I18n.t('Search by name or id')}
+              searchScreenReaderLabel={I18n.t('Search Features')}
+            />
+          </View>
+          <Text as="p" color="secondary" margin="small 0" role="status">
+            {I18n.t('Showing %{count} feature options', {count: visibleFeatureCount})}
+          </Text>
 
-          {categories.map(cat => {
-            if (!groupedFeatures?.[cat.id]?.length) {
-              return null
-            }
-            return (
-              <FeatureFlagTable
-                key={cat.id}
-                title={cat.title}
-                rows={groupedFeatures[cat.id]}
-                disableDefaults={disableDefaults}
-                filterByState={stateFilter}
-              />
-            )
-          })}
+          {visibleFeatureCount === 0 ? (
+            <View
+              as="div"
+              background="primary"
+              shadow="resting"
+              borderRadius="small"
+              padding="large"
+            >
+              <Heading as="h3" level="h3" margin="0 0 x-small">
+                {I18n.t('No feature options found')}
+              </Heading>
+              <Text as="p" color="secondary">
+                {I18n.t('Try changing your search or clearing the filters to see more options.')}
+              </Text>
+            </View>
+          ) : (
+            categories.map(cat => {
+              if (!groupedFeatures?.[cat.id]?.length) {
+                return null
+              }
+              return (
+                <FeatureFlagTable
+                  key={cat.id}
+                  title={cat.title}
+                  rows={groupedFeatures[cat.id]}
+                  disableDefaults={disableDefaults}
+                  filterByState={stateFilter}
+                />
+              )
+            })
+          )}
         </>
       )}
     </View>

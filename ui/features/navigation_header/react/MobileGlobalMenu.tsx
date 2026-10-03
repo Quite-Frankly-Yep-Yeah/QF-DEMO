@@ -16,6 +16,7 @@
  * with this program. If not, see <http://www.gnu.org/licenses/>.
  */
 
+import AccountSidebar from '@canvas/account-sidebar/react/AccountSidebar'
 import HelpDialog from '@canvas/help-dialog'
 import {useScope as createI18nScope} from '@canvas/i18n'
 import {sessionStoragePersister} from '@instructure/platform-query'
@@ -36,6 +37,7 @@ import {
   IconInboxLine,
   IconLockLine,
   IconQuestionLine,
+  IconUserLine,
   IconXLine,
 } from '@instructure/ui-icons'
 import {Img} from '@instructure/ui-img'
@@ -73,7 +75,9 @@ export default function MobileGlobalMenu(props: Props) {
   const current_user: {
     display_name: string
     avatar_image_url: string
+    email?: string
   } = window.ENV.current_user
+  const hasUser = Boolean(current_user && Object.keys(current_user).length > 0)
 
   const {data: externalToolsData} = useQuery({
     queryKey: ['external_tools'],
@@ -96,33 +100,40 @@ export default function MobileGlobalMenu(props: Props) {
   })
 
   return (
-    <View
-      display="block"
-      height="100%"
-      width="100%"
-      textAlign="start"
-      padding="medium large medium medium"
-    >
-      <Flex direction="row-reverse" margin="0 0 large 0">
-        <Flex.Item>
-          <IconButton
-            renderIcon={IconXLine}
-            withBackground={false}
-            withBorder={false}
-            onClick={props.onDismiss}
-            screenReaderLabel="Close"
-          />
-        </Flex.Item>
-        <Flex.Item shouldGrow={true} shouldShrink={true}>
-          <Heading>
-            <a className="ic-brand-mobile-global-nav-logo" href="/">
-              <span className="screenreader-only">
-                {k5User ? I18n.t('Home') : I18n.t('My Dashboard')}
-              </span>
-            </a>
-          </Heading>
-        </Flex.Item>
-      </Flex>
+    <div className="qf-mobile-drawer">
+      <div className="qf-mobile-drawer__header">
+        <IconButton
+          renderIcon={IconXLine}
+          withBackground={false}
+          withBorder={false}
+          onClick={props.onDismiss}
+          screenReaderLabel="Close"
+        />
+        {hasUser ? (
+          <div className="qf-mobile-drawer__user">
+            <Avatar
+              name={current_user.display_name}
+              src={current_user.avatar_image_url}
+              size="medium"
+              data-fs-exclude={true}
+            />
+            <div className="qf-mobile-drawer__name" data-fs-exclude={true}>
+              {current_user.display_name}
+            </div>
+            {current_user.email && (
+              <div className="qf-mobile-drawer__email" data-fs-exclude={true}>
+                {current_user.email}
+              </div>
+            )}
+          </div>
+        ) : (
+          <a className="ic-brand-mobile-global-nav-logo" href="/">
+            <span className="screenreader-only">
+              {k5User ? I18n.t('Home') : I18n.t('My Dashboard')}
+            </span>
+          </a>
+        )}
+      </div>
       <List isUnstyled={true} itemSpacing="medium">
         <List.Item>
           <Link href="/" isWithinText={false} display="block">
@@ -141,20 +152,22 @@ export default function MobileGlobalMenu(props: Props) {
           </Link>
         </List.Item>
 
+        {hasUser && (
+          <List.Item>
+            <AccountSidebar showProfile={false} placement="bottom center" />
+          </List.Item>
+        )}
+
         <List.Item>
-          {current_user && Object.keys(current_user).length > 0 ? (
+          {hasUser ? (
             <ToggleDetails
               iconPosition="end"
               fluidWidth={true}
+              defaultExpanded={true}
               summary={
                 <Flex>
                   <Flex.Item width="3rem">
-                    <Avatar
-                      name={current_user.display_name}
-                      src={current_user.avatar_image_url}
-                      size="x-small"
-                      data-fs-exclude={true}
-                    />
+                    <IconUserLine inline={false} size="small" color="brand" />
                   </Flex.Item>
                   <Flex.Item>
                     <Text color="brand">{I18n.t('Account')}</Text>
@@ -183,6 +196,7 @@ export default function MobileGlobalMenu(props: Props) {
             <ToggleDetails
               iconPosition="end"
               fluidWidth={true}
+              defaultExpanded={true}
               summary={
                 <Flex>
                   <Flex.Item width="3rem">
@@ -340,6 +354,6 @@ export default function MobileGlobalMenu(props: Props) {
           </ToggleDetails>
         </List.Item>
       </List>
-    </View>
+    </div>
   )
 }

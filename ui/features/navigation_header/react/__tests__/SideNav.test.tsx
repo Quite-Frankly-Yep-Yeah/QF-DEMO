@@ -21,6 +21,9 @@ import {QueryClient} from '@tanstack/react-query'
 import {MockedQueryClientProvider} from '@canvas/test-utils/query'
 import fakeENV from '@canvas/test-utils/fakeENV'
 import type {ExternalTool} from '../utils'
+import doFetchApi from '@canvas/do-fetch-api-effect'
+
+vi.mock('@canvas/do-fetch-api-effect')
 
 const queryClient = new QueryClient()
 
@@ -429,5 +432,33 @@ describe('SideNav self-paced Students link', () => {
     renderNav()
 
     expect(screen.queryByRole('link', {name: /Grading/})).not.toBeInTheDocument()
+  })
+})
+
+describe('SideNav admin popover', () => {
+  afterEach(() => {
+    cleanup()
+    fakeENV.teardown()
+  })
+
+  it('opens the admin hub bubble instead of navigating or opening the tray', async () => {
+    fakeENV.setup({...baseEnvConfig, ADMIN_HUB_NAV_PATH: '/accounts/1/hub'})
+    vi.mocked(doFetchApi).mockResolvedValue({
+      json: {
+        account: {id: '1', name: 'Northside High'},
+        tabs: [{css_class: 'permissions', path: '/accounts/1/permissions', label: 'Permissions'}],
+        settings_tabs: [],
+        self_paced: [],
+      },
+    } as never)
+    render(
+      <MockedQueryClientProvider client={queryClient}>
+        <SideNav />
+      </MockedQueryClientProvider>,
+    )
+    const click = fireEvent.click(screen.getByText('Admin'))
+    expect(click).toBe(false) // default prevented: no navigation
+    expect(await screen.findByRole('link', {name: 'Permissions'})).toBeInTheDocument()
+    expect(screen.queryByRole('heading', {name: 'All Accounts'})).not.toBeInTheDocument()
   })
 })

@@ -605,7 +605,12 @@ class UsersController < ApplicationController
     opts = {}
     opts[:observee_user] = User.find_by(id: params[:observed_user_id].to_i) || @current_user if params.key?(:observed_user_id)
     opts[:limit] = 50
-    dashboard_courses = map_courses_for_menu(@current_user.menu_courses(nil, opts), tabs: DASHBOARD_CARD_TABS)
+    courses = if value_to_boolean(params[:all_courses]) && account_admin_dashboard_user?
+                @domain_root_account.associated_courses.active.order(:name, :id).to_a
+              else
+                @current_user.menu_courses(nil, opts)
+              end
+    dashboard_courses = map_courses_for_menu(courses, tabs: DASHBOARD_CARD_TABS)
     published, unpublished = dashboard_courses.partition { |course| course[:published] }
     Rails.cache.write(["last_known_dashboard_cards_published_count", @current_user.global_id].cache_key, published.count)
     Rails.cache.write(["last_known_dashboard_cards_unpublished_count", @current_user.global_id].cache_key, unpublished.count)
@@ -3726,6 +3731,12 @@ class UsersController < ApplicationController
     return false if k5_user?
     return false unless @domain_root_account&.feature_enabled?(:educator_dashboard)
 
-    @current_user.educator_dashboard_user?
+    @current_user.educator_dashboard_user? || account_admin_dashboard_user?
+  end
+
+  # Admins of the root account get the educator dashboard even without a
+  # teaching enrollment, and see every course in the account on it.
+  def account_admin_dashboard_user?
+    !!@domain_root_account&.grants_right?(@current_user, session, :read_as_admin)
   end
 end

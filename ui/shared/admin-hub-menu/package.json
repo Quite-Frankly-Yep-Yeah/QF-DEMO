@@ -1,0 +1,7 @@
+{
+  "name": "@canvas/admin-hub-menu",
+  "private": true,
+  "version": "1.0.0",
+  "main": "./react/AdminHubPopover.tsx",
+  "owner": "FOO"
+}

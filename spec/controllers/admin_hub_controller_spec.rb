@@ -35,6 +35,12 @@ describe AdminHubController do
       assert_unauthorized
     end
 
+    it "is unauthorized for json too" do
+      user_session(teacher)
+      get :show, params: { account_id: account.id }, format: :json
+      expect(response).to have_http_status(:forbidden)
+    end
+
     context "as an admin" do
       before { user_session(admin) }
 
@@ -44,6 +50,14 @@ describe AdminHubController do
         config = assigns[:js_env][:ADMIN_HUB]
         expect(config[:account]).to eql({ id: account.id.to_s, name: account.name })
         expect(config[:tabs].pluck(:css_class)).to include("permissions", "users")
+      end
+
+      it "returns the hub config as json for the nav popover" do
+        get :show, params: { account_id: account.id }, format: :json
+        expect(response).to be_successful
+        body = response.parsed_body
+        expect(body["account"]).to eql({ "id" => account.id.to_s, "name" => account.name })
+        expect(body["tabs"].pluck("css_class")).to include("permissions", "users")
       end
 
       it "lists the settings tabs the admin can open, as deep links" do

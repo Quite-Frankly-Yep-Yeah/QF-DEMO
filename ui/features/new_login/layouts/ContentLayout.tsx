@@ -17,10 +17,7 @@
  */
 
 import {useScope as createI18nScope} from '@canvas/i18n'
-import {Responsive} from '@instructure/ui-responsive'
-import {canvas} from '@instructure/ui-themes'
 import {View} from '@instructure/ui-view'
-import classNames from 'classnames'
 import React, {Suspense} from 'react'
 import {useNewLoginData} from '../context'
 import {Background, Loading} from '../shared'
@@ -29,10 +26,6 @@ import styles from './ContentLayout.module.css'
 
 const I18n = createI18nScope('new_login')
 
-const breakpoints = {
-  tablet: {minWidth: canvas.breakpoints.tablet}, // 768px
-}
-
 interface Props {
   children: React.ReactNode
 }
@@ -40,34 +33,16 @@ interface Props {
 const ContentLayout = ({children}: Props) => {
   const {isDataLoading} = useNewLoginData()
 
-  // <Responsive> renders as a <div> with display="block", so we set its height to 100% to fill the
-  // available space within its parent, which is a flex item
-  const setResponsiveRef = (el: HTMLDivElement | null) => {
-    if (el) el.style.height = '100%'
-  }
-
   const renderLoading = () => {
     return <Loading title={I18n.t('Loading page …')} />
   }
 
-  const renderContentLayout = (isTablet: boolean) => (
-    <View
-      as="div"
-      height="100%"
-      position="relative"
-      className={classNames({
-        [styles['contentLayout--tablet']]: isTablet,
-      })}
-    >
+  return (
+    <View as="div" height="100%" position="relative" className={styles.contentLayout}>
       <View
         as="main"
-        className={classNames(styles.contentLayout__content, {
-          [styles['contentLayout__content--tablet']]: isTablet,
-        })}
-        background="primary"
-        borderRadius={isTablet ? 'small' : undefined}
+        className={styles.contentLayout__content}
         position="relative"
-        shadow={isTablet ? 'resting' : undefined}
         stacking="above"
       >
         {isDataLoading ? (
@@ -79,17 +54,8 @@ const ContentLayout = ({children}: Props) => {
         )}
       </View>
 
-      <Background className={classNames(styles.contentLayout__background)} />
+      <Background className={styles.contentLayout__background} />
     </View>
-  )
-
-  return (
-    <Responsive match="media" query={breakpoints} elementRef={setResponsiveRef}>
-      {(_props, matches) => {
-        const isTablet = matches?.includes('tablet') || false
-        return renderContentLayout(isTablet)
-      }}
-    </Responsive>
   )
 }
 

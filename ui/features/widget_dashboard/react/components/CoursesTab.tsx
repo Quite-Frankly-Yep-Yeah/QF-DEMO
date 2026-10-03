@@ -37,7 +37,7 @@ const CoursesTab: React.FC = () => {
   useEffect(() => {
     const loadDashboardCards = async () => {
       try {
-        const response = await fetch('/api/v1/dashboard/dashboard_cards')
+        const response = await fetch('/api/v1/dashboard/dashboard_cards?all_courses=true')
         if (!response.ok) {
           throw new Error('Failed to fetch dashboard cards')
         }

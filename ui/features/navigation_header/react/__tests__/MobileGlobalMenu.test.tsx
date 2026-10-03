@@ -218,4 +218,26 @@ describe('MobileGlobalMenu', () => {
     const fallbackIcon = screen.getByTestId('IconExternalLinkLine')
     expect(fallbackIcon).toBeInTheDocument()
   })
+
+  describe('account rows', () => {
+    const originalUser = window.ENV.current_user
+
+    afterEach(() => {
+      window.ENV.current_user = originalUser
+    })
+
+    it('shows the user and an expanded Account row without a click', async () => {
+      window.ENV.current_user = {
+        display_name: 'Ada Admin',
+        avatar_image_url: '',
+        email: 'ada@example.com',
+      } as typeof window.ENV.current_user
+      setup()
+      expect(await screen.findByText('ada@example.com')).toBeInTheDocument()
+      expect(screen.getAllByText('Ada Admin').length).toBeGreaterThan(0)
+      const toggle = screen.getByRole('button', {name: /Account/})
+      expect(toggle).toHaveAttribute('aria-expanded', 'true')
+      expect(screen.getByTestId('themes-button')).toBeVisible()
+    })
+  })
 })

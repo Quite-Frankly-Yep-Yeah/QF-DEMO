@@ -121,7 +121,7 @@ module SelfPaced
       return nil unless course.grants_any_right?(@current_user, *RoleOverride::GRANULAR_MANAGE_COURSE_CONTENT_PERMISSIONS)
 
       links = []
-      links << { label: t("Course Player setup"), url: self_paced_setup_page_path(course) } if Gating.player_course?(course)
+      links << { label: t("Course Player setup"), url: course_self_paced_setup_page_path(course) } if Gating.player_course?(course)
       links << { label: t("Modules"), url: course_context_modules_path(course) }
       links << { label: t("Pages"), url: course_wiki_pages_path(course) }
       links << { label: t("Quizzes"), url: course_quizzes_path(course) }

@@ -524,7 +524,7 @@ body.primary-nav-expanded {
   }
 }
 .mobile-header-title {
-  text-align: center;
+  text-align: start;
   display: block;
   flex-grow: 1;
 }
@@ -539,6 +539,124 @@ body.primary-nav-expanded {
 .mobile-header-title,
 .mobile-header-space {
   padding: $ic-sp * 1.3;
+}
+
+// Material Design 1 mobile app bar: 56px tall, 48px icon targets, a 20px/500
+// title that sits next to the hamburger instead of floating in the middle.
+@if not $use_high_contrast {
+  #mobile-header {
+    min-height: 56px;
+    box-shadow: $md-elevation-4;
+    .mobile-header-hamburger,
+    .mobile-header-student-view,
+    .mobile-header-arrow,
+    .mobile-header-blueprint-button {
+      box-sizing: border-box;
+      width: 48px;
+      height: 48px;
+      padding: 12px;
+      margin: 0 $ic-sp * 0.25;
+      border-radius: 50%;
+      line-height: 1;
+      &:hover,
+      &:focus {
+        background: rgba(255, 255, 255, 0.12);
+      }
+    }
+    .mobile-header-title {
+      @include fontSize($ic-font-size--medium * 1.25);
+      font-weight: 500;
+      line-height: 1.3;
+      padding: $ic-sp * 0.5 $ic-sp;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      div:last-child:not(:first-child) {
+        @include fontSize($ic-font-size--small);
+        font-weight: 400;
+        opacity: 0.8;
+      }
+    }
+    .mobile-header-space {
+      padding: 0;
+    }
+  }
+
+  // Navigation drawer opened by the hamburger (rendered in a tray portal)
+  .qf-mobile-drawer {
+    min-height: 100%;
+    box-sizing: border-box;
+    background: var(--qf-paper, #fff);
+    color: var(--qf-ink, #212121);
+    font-family: Roboto, 'Helvetica Neue', Helvetica, Arial, sans-serif;
+
+    &__header {
+      position: relative;
+      padding: $ic-sp * 1.5 $ic-sp * 2 $ic-sp * 1.5 $ic-sp * 2;
+      margin-bottom: $ic-sp * 0.5;
+      background: var(--qf-app-bar, var(--ic-brand-global-nav-bgd, #2b7abc));
+      color: var(--qf-on-app-bar, #fff);
+      box-shadow: $md-elevation-2;
+      * { color: inherit; }
+      // close button sits in the corner so the user block gets the full width
+      > [class*='-iconButton'],
+      > button {
+        position: absolute;
+        top: $ic-sp * 0.5;
+        #{direction(right)}: $ic-sp * 0.5;
+      }
+    }
+    &__user { padding-top: $ic-sp * 2; }
+    &__name {
+      margin-top: $ic-sp;
+      font-size: 16px;
+      font-weight: 500;
+      line-height: 1.4;
+    }
+    &__email {
+      font-size: 14px;
+      opacity: 0.8;
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
+
+    // 48px rows, 24px icons, full-width tap targets, group dividers
+    ul {
+      margin: 0;
+      padding: 0;
+      list-style: none;
+    }
+    > ul > li {
+      margin: 0 !important;
+      border-bottom: 1px solid var(--qf-divider, #e0e0e0);
+      &:last-child { border-bottom: 0; }
+    }
+    a,
+    [class*='-toggleDetails__toggle'],
+    button[aria-expanded] {
+      box-sizing: border-box;
+      min-height: 48px;
+      display: flex;
+      align-items: center;
+      padding: 0 $ic-sp * 2;
+      font-size: 14px;
+      font-weight: 500;
+      color: var(--qf-ink, rgba(0, 0, 0, 0.87));
+      text-decoration: none;
+      &:hover,
+      &:focus {
+        background: var(--qf-divider, rgba(0, 0, 0, 0.08));
+      }
+    }
+    [class*='-toggleDetails__summary'],
+    [class*='-toggleDetails__toggle'] { width: 100%; }
+    // nested lists (courses, account, admin) are indented under their row
+    ul ul,
+    [class*='-toggleDetails__content'] ul {
+      margin: 0 !important;
+      a { padding-#{direction(left)}: $ic-sp * 5; font-weight: 400; }
+    }
+    svg { fill: var(--qf-ink-secondary, rgba(0, 0, 0, 0.6)); }
+  }
 }
 .mobile-header-student-view {
   padding-#{direction('right')}: $ic-sp * 0.65;

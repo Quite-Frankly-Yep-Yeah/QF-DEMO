@@ -57,6 +57,7 @@ import {
 } from './utils'
 import {getSettingAsync, setSetting} from '@canvas/settings-query/react/settingsQuery'
 import {SVGIcon} from '@instructure/ui-svg-images'
+import AdminHubPopover from '@canvas/admin-hub-menu'
 import {sessionStoragePersister} from '@instructure/platform-query'
 import {useBroadcastQuery} from '@instructure/platform-query/broadcast'
 
@@ -100,6 +101,7 @@ const SideNav: React.FC<ISideNav> = ({externalTools = []}) => {
   // user isn't an admin
   const hideCoursesNav = !!(window.ENV as {SELF_PACED_HIDE_COURSES_NAV?: boolean} | undefined)
     ?.SELF_PACED_HIDE_COURSES_NAV
+  const [adminOpen, setAdminOpen] = useState(false)
   const [collapseSideNav, setCollapseSideNav] = useState(window.ENV.SETTINGS.collapse_global_nav)
   const [state, dispatch] = useReducer(sideNavReducer, initialState)
   const {isTrayOpen, activeTray, selectedNavItem, previousSelectedNavItem} = state
@@ -334,6 +336,14 @@ const SideNav: React.FC<ISideNav> = ({externalTools = []}) => {
             icon={<IconAdminLine />}
             label={I18n.t('Admin')}
             href={adminHubNavPath || '/accounts'}
+            onClick={
+              adminHubNavPath
+                ? event => {
+                    event.preventDefault()
+                    setAdminOpen(open => !open)
+                  }
+                : undefined
+            }
             selected={selectedNavItem === 'accounts'}
             data-selected={selectedNavItem === 'accounts'}
             themeOverride={{
@@ -591,6 +601,14 @@ const SideNav: React.FC<ISideNav> = ({externalTools = []}) => {
             </div>
           </div>
         </Tray>
+        {adminHubNavPath && (
+          <AdminHubPopover
+            hubPath={adminHubNavPath}
+            isShowingContent={adminOpen}
+            onHide={() => setAdminOpen(false)}
+            positionTarget={() => document.getElementById('accounts-tray')}
+          />
+        )}
       </div>
     </>
   )

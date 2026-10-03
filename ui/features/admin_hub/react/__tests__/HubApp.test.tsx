@@ -18,9 +18,8 @@
 
 import React from 'react'
 import {render, screen} from '@testing-library/react'
-import userEvent from '@testing-library/user-event'
 import HubApp from '../HubApp'
-import type {HubConfig} from '../types'
+import type {HubConfig} from '@canvas/admin-hub-menu/react/types'
 
 const config: HubConfig = {
   account: {id: '1', name: 'Northside High'},
@@ -44,19 +43,10 @@ describe('HubApp', () => {
     )
   })
 
-  it('narrows the cards as the admin types and says how many matched', async () => {
-    const user = userEvent.setup()
+  it('leaves the menu to the nav popover: no dialog and no open-menu button', () => {
     render(<HubApp config={config} />)
-    await user.type(screen.getByLabelText('Find a setting or page'), 'perm')
-    expect(screen.getByRole('link', {name: /Permissions/})).toBeInTheDocument()
-    expect(screen.queryByRole('link', {name: /Quotas/})).not.toBeInTheDocument()
-    expect(screen.getByRole('status')).toHaveTextContent('1 result')
-  })
-
-  it('says so when nothing matches', async () => {
-    const user = userEvent.setup()
-    render(<HubApp config={config} />)
-    await user.type(screen.getByLabelText('Find a setting or page'), 'zzz')
-    expect(screen.getByText('Nothing matches "zzz".')).toBeInTheDocument()
+    expect(screen.queryByRole('dialog')).not.toBeInTheDocument()
+    expect(screen.queryByRole('button', {name: 'Open admin menu'})).not.toBeInTheDocument()
+    expect(screen.getByRole('main')).toBeVisible()
   })
 })

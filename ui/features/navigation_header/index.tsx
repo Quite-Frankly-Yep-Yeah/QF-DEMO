@@ -23,6 +23,7 @@ import {render} from '@canvas/react'
 import SideNav from './react/SideNav'
 import {bindTopBarAccountLink} from './react/topBarAccountLink'
 import Navigation from './react/OldSideNav'
+import TopBarAdminMenu from '@canvas/admin-hub-menu/react/TopBarAdminMenu'
 import MobileNavigation from './react/MobileNavigation'
 import ready from '@instructure/ready'
 import NewTabIndicator from './react/NewTabIndicator'
@@ -76,6 +77,11 @@ if (window.ENV.FEATURES.instui_nav || localStorage.instui_nav_dev) {
 
 ready(() => {
   bindTopBarAccountLink()
+  const adminHubPath = (window.ENV as {ADMIN_HUB_NAV_PATH?: string}).ADMIN_HUB_NAV_PATH
+  if (adminHubPath && document.getElementById('top_bar_admin_link')) {
+    const container = document.body.appendChild(document.createElement('div'))
+    render(<TopBarAdminMenu hubPath={adminHubPath} />, container)
+  }
   const showInstUiNavbar = window.ENV.FEATURES.instui_nav || localStorage.instui_nav_dev
   if (showInstUiNavbar) {
     const mobileContextNavContainer = document.getElementById('mobileContextNavContainer')

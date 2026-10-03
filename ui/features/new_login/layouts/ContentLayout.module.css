@@ -16,19 +16,27 @@
  * with this program. If not, see <http://www.gnu.org/licenses/>.
  */
 
-.contentLayout--tablet {
-  padding: 5rem 0 8rem; /* 80px 0 128px */
+.contentLayout {
+  box-sizing: border-box;
+  min-height: 100%;
+  padding: clamp(1.5rem, 7vh, 5rem) 1rem clamp(1.5rem, 7vh, 8rem);
 }
 
 .contentLayout__content {
-  height: 100%;
-  padding: 2.25rem 1.5rem; /* 36px 24px */
-}
-.contentLayout__content--tablet {
-  height: unset;
+  box-sizing: border-box;
+  width: min(35.75rem, 100%);
   margin: 0 auto;
-  padding: 3.75rem 6.25rem; /* 60px 100px */
-  width: 35.75rem; /* 572px */
+  padding: clamp(2rem, 7vw, 3.75rem) clamp(1.5rem, 7vw, 4rem);
+  border: 1px solid rgba(83, 67, 130, 0.12);
+  border-radius: 1.5rem;
+  background-color: #fff;
+  background-image:
+    radial-gradient(circle at 94% 5%, rgba(255, 198, 105, 0.32) 0 2.1rem, transparent 2.2rem),
+    radial-gradient(circle at 94% 5%, rgba(151, 130, 245, 0.18) 0 5.6rem, transparent 5.7rem),
+    linear-gradient(145deg, #fff 0%, #fff 72%, #f8f5ff 100%);
+  box-shadow:
+    0 1.5rem 3.5rem rgba(31, 25, 58, 0.16),
+    0 0.25rem 0.75rem rgba(31, 25, 58, 0.08);
 }
 
 .contentLayout__background {

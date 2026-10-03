@@ -21,7 +21,7 @@ import {useScope as createI18nScope} from '@canvas/i18n'
 import doFetchApi from '@canvas/do-fetch-api-effect'
 import {Button} from '@instructure/ui-buttons'
 import {INK} from './colors'
-import {Card} from './material'
+import {Card, DIVIDER} from './material'
 
 const I18n = createI18nScope('self_paced_dashboard')
 
@@ -114,15 +114,12 @@ export default function AccommodationsCard({
         ) : null
       }
     >
-      <p style={{margin: '0 0 8px', color: INK.muted, fontSize: '0.8125rem'}}>
-        {I18n.t('Private. Do not share outside the staff who work with this student.')}
-      </p>
       <ul style={{listStyle: 'none', margin: 0, padding: 0}}>
         {data.accommodations.map(row => (
           <li
             key={row.id}
             data-testid="accommodation-row"
-            style={{padding: '10px 0', borderTop: '1px solid rgba(0,0,0,0.12)'}}
+            style={{padding: '10px 0', borderTop: `1px solid ${DIVIDER}`}}
           >
             <div style={{fontWeight: 500, color: INK.primary}}>{row.name}</div>
             {row.details && <div>{row.details}</div>}

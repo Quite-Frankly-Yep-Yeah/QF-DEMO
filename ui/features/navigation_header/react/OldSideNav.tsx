@@ -31,6 +31,7 @@ import groupsQuery from './queries/groupsQuery'
 import NavigationBadges from './NavigationBadges'
 import profileQuery from './queries/profileQuery'
 import getAccounts from '@canvas/api/accounts/getAccounts'
+import AdminHubPopover from '@canvas/admin-hub-menu'
 import {queryClient} from '@instructure/platform-query'
 
 const I18n = createI18nScope('Navigation')
@@ -74,7 +75,12 @@ function handleActiveItem() {
   return path === '/' && !matchData ? 'dashboard' : ((matchData && matchData[1]) as ActiveItem)
 }
 
+// set by the server for admins of this account: the Admin item opens the hub
+// bubble instead of the accounts tray
+const adminHubPath = (window.ENV as {ADMIN_HUB_NAV_PATH?: string} | undefined)?.ADMIN_HUB_NAV_PATH
+
 const Navigation = () => {
+  const [adminOpen, setAdminOpen] = useState(false)
   const [activeItem, setActiveItem] = useState<ActiveItem | null>(handleActiveItem)
   const [isTrayOpen, setIsTrayOpen] = useState(false)
   const [noFocus, setNoFocus] = useState(false)
@@ -158,6 +164,11 @@ const Navigation = () => {
     itemsWithResources.forEach(type_ => {
       $(`#global_nav_${type_}_link`).on('click', (event: Event) => {
         event.preventDefault()
+        if (type_ === 'accounts' && adminHubPath) {
+          closeTray()
+          setAdminOpen(open => !open)
+          return
+        }
         handleMenuClick(type_)
       })
     })
@@ -167,7 +178,7 @@ const Navigation = () => {
         $(`#global_nav_${type_}_link`).off('click')
       })
     }
-  }, [handleMenuClick])
+  }, [handleMenuClick, closeTray])
 
   /*
   begin student tour code
@@ -239,6 +250,14 @@ const Navigation = () => {
           </div>
         </div>
       </Tray>
+      {adminHubPath && (
+        <AdminHubPopover
+          hubPath={adminHubPath}
+          isShowingContent={adminOpen}
+          onHide={() => setAdminOpen(false)}
+          positionTarget={() => accountsNavLink}
+        />
+      )}
       <NavigationBadges />
     </>
   )

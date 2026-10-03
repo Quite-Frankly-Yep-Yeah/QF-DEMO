@@ -29,7 +29,10 @@
 }
 html, body {
   height: 100%;
-  background: $ic-color-light;
+  background:
+    radial-gradient(circle at 92% 8%, rgba(255, 198, 105, 0.3) 0 2rem, transparent 2.1rem),
+    radial-gradient(circle at 92% 8%, rgba(151, 130, 245, 0.16) 0 5.5rem, transparent 5.6rem),
+    linear-gradient(145deg, #f7f5ff, $ic-color-light 55%);
   margin: 0;
   padding: 0;
   color: $ic-font-color-dark;
@@ -40,14 +43,30 @@ html, body {
 }
 
 #f1_container {
+  box-sizing: border-box;
   display: flex;
   justify-content: center;
-  padding: 15px;
+  align-items: center;
+  min-height: 100%;
+  padding: 1.5rem;
 }
 
 #f1_card {
-  width: 296px;
-  height: 100%;
+  box-sizing: border-box;
+  width: min(100%, 26rem);
+  min-height: 28rem;
+  height: auto;
+  padding: 1.5rem;
+  border: 1px solid rgba(83, 67, 130, 0.12);
+  border-radius: 1.5rem;
+  background-color: #fff;
+  background-image:
+    radial-gradient(circle at 94% 5%, rgba(255, 198, 105, 0.32) 0 2.1rem, transparent 2.2rem),
+    radial-gradient(circle at 94% 5%, rgba(151, 130, 245, 0.18) 0 5.6rem, transparent 5.7rem),
+    linear-gradient(145deg, #fff 0%, #fff 72%, #f8f5ff 100%);
+  box-shadow:
+    0 1.5rem 3.5rem rgba(31, 25, 58, 0.16),
+    0 0.25rem 0.75rem rgba(31, 25, 58, 0.08);
 }
 
 .mobileLogin-Header {
@@ -56,7 +75,7 @@ html, body {
   background-position: center;
   background-repeat: no-repeat;
   background-size: 156px 108px;
-  min-height: 156px;
+  min-height: 9rem;
 }
 .face {
   margin-top: 15px;

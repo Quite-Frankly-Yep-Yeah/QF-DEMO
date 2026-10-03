@@ -16,16 +16,17 @@
  * with this program. If not, see <http://www.gnu.org/licenses/>.
  */
 
-import React from 'react'
-import {render} from '@canvas/react'
-import ready from '@instructure/ready'
-import HubApp from './react/HubApp'
-import type {HubConfig} from '@canvas/admin-hub-menu/react/types'
+import {PALETTE} from '@canvas/material'
+import type {SectionKey} from './types'
 
-ready(() => {
-  const container = document.getElementById('admin_hub')
-  const config = (window.ENV as {ADMIN_HUB?: HubConfig}).ADMIN_HUB
-  if (!container || !config) return
-
-  render(<HubApp config={config} />, container)
-})
+// One colour per section, shared by the hub page and the nav popover.
+export const SECTION_COLOR: Record<SectionKey, string> = {
+  people: PALETTE[0],
+  learning: PALETTE[1],
+  insights: PALETTE[2],
+  access: PALETTE[3],
+  appearance: PALETTE[4],
+  settings: PALETTE[5],
+  self_paced: PALETTE[6],
+  more: PALETTE[7],
+}

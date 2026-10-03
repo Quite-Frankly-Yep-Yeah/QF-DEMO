@@ -29,7 +29,13 @@ const I18n = createI18nScope('account_sidebar')
 
 // The signed-in user's details with a list of buttons under them; each button
 // opens a speech-bubble popover. Themes is the only one so far.
-export default function AccountSidebar() {
+type Props = {
+  // the mobile drawer already shows the user in its header
+  showProfile?: boolean
+  placement?: 'end center' | 'bottom center'
+}
+
+export default function AccountSidebar({showProfile = true, placement = 'end center'}: Props) {
   const user = window.ENV.current_user
   const {theme, accent, choose, chooseAccent} = useThemeChoice()
   const [open, setOpen] = useState(false)
@@ -38,39 +44,41 @@ export default function AccountSidebar() {
 
   return (
     <div style={{fontFamily: ROBOTO, color: INK.primary}}>
-      <div style={{textAlign: 'center', padding: '8px 0 16px'}}>
-        <Avatar
-          name={user.display_name}
-          src={avatarUrl}
-          alt={I18n.t('User profile picture')}
-          size="x-large"
-          display="block"
-          margin="auto"
-          data-fs-exclude={true}
-        />
-        <div
-          style={{
-            margin: '12px 0 2px',
-            fontSize: '1.25rem',
-            fontWeight: 500,
-            wordBreak: 'break-word',
-          }}
-        >
-          {user.display_name}
-          {user.pronouns && <span style={{fontStyle: 'italic'}}> ({user.pronouns})</span>}
-        </div>
-        {user.email && (
-          <div style={{color: INK.secondary, fontSize: '0.875rem', wordBreak: 'break-word'}}>
-            {user.email}
+      {showProfile && (
+        <div style={{textAlign: 'center', padding: '8px 0 16px'}}>
+          <Avatar
+            name={user.display_name}
+            src={avatarUrl}
+            alt={I18n.t('User profile picture')}
+            size="x-large"
+            display="block"
+            margin="auto"
+            data-fs-exclude={true}
+          />
+          <div
+            style={{
+              margin: '12px 0 2px',
+              fontSize: '1.25rem',
+              fontWeight: 500,
+              wordBreak: 'break-word',
+            }}
+          >
+            {user.display_name}
+            {user.pronouns && <span style={{fontStyle: 'italic'}}> ({user.pronouns})</span>}
           </div>
-        )}
-      </div>
+          {user.email && (
+            <div style={{color: INK.secondary, fontSize: '0.875rem', wordBreak: 'break-word'}}>
+              {user.email}
+            </div>
+          )}
+        </div>
+      )}
       <Popover
         isShowingContent={open}
         onShowContent={() => setOpen(true)}
         onHideContent={() => setOpen(false)}
         on="click"
-        placement="end center"
+        placement={placement}
         shouldContainFocus={true}
         shouldReturnFocus={true}
         shouldCloseOnDocumentClick={true}

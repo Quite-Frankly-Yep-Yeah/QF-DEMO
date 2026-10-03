@@ -411,3 +411,44 @@ body.body--login-confirmation {
   vertical-align: middle;
   margin-#{direction(right)}: $ic-sp;
 }
+
+body.ic-Login-Body {
+  min-height: 100vh;
+  height: auto;
+}
+
+.ic-Login__container {
+  box-sizing: border-box;
+  width: 100%;
+  margin: clamp(1.5rem, 7vh, 5rem) auto;
+  padding: 0 1rem;
+}
+
+.ic-Login__content {
+  box-sizing: border-box;
+  width: min(100%, 35.75rem);
+  max-width: none;
+  padding: clamp(1rem, 4vw, 1.5rem);
+  border: 1px solid rgba(83, 67, 130, 0.12);
+  border-radius: 1.5rem;
+  background-color: #fff;
+  background-image:
+    radial-gradient(circle at 94% 5%, rgba(255, 198, 105, 0.32) 0 2.1rem, transparent 2.2rem),
+    radial-gradient(circle at 94% 5%, rgba(151, 130, 245, 0.18) 0 5.6rem, transparent 5.7rem),
+    linear-gradient(145deg, #fff 0%, #fff 72%, #f8f5ff 100%);
+  box-shadow:
+    0 1.5rem 3.5rem rgba(31, 25, 58, 0.16),
+    0 0.25rem 0.75rem rgba(31, 25, 58, 0.08);
+}
+
+.ic-Login__innerContent {
+  padding-top: clamp(1.5rem, 5vw, 2rem);
+  border: 0;
+  background: transparent;
+}
+
+.ic-Login__body {
+  padding: direction-sides($ic-sp*1.5 0 $ic-sp 0);
+  border: 0;
+  background: transparent;
+}

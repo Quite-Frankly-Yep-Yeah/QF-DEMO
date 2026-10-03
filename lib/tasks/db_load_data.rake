@@ -23,7 +23,7 @@ namespace :db do
   desc "Generate security.yml key"
   task :generate_security_key do
     security_conf_path = Rails.root.join("config/security.yml")
-    security_conf = YAML.load_file(security_conf_path)
+    security_conf = YAML.load_file(security_conf_path, aliases: true)
     if security_conf[Rails.env]["encryption_key"].to_s.length < 20
       security_conf[Rails.env]["encryption_key"] = SecureRandom.hex(64)
       File.open(security_conf_path, "w") { |f| YAML.dump(security_conf, f) }
@@ -214,8 +214,25 @@ namespace :db do
     end
   end
 
+  desc "Turn on the self-paced, teacher workflow and student supports features"
+  task enable_fork_features: :load_environment do
+    flags = [SelfPaced::UMBRELLA_FLAG, *SelfPaced::PHASE_FLAGS,
+             Supports::UMBRELLA_FLAG, *Supports::PHASE_FLAGS,
+             :teacher_workflow, :educator_dashboard]
+    # The flags start hidden; allowing them on site admin makes them visible
+    # to every root account, then each one is turned on for the default account.
+    flags.each do |flag|
+      Account.site_admin.allow_feature!(flag)
+      Account.default.enable_feature!(flag)
+    end
+    # Account.default is cached with its feature flags preloaded; drop the stale copies.
+    [Account.default, Account.site_admin].each { |account| Account.invalidate_cache(account.id) }
+    Account.clear_special_account_cache!(force: true)
+    puts "\nEnabled #{flags.length} self-paced, teacher and parent feature flags"
+  end
+
   desc "Create all the initial data, including notifications and admin account"
-  task load_initial_data: %i[create_default_accounts configure_admin configure_account_name configure_statistics_collection generate_data] do
+  task load_initial_data: %i[create_default_accounts configure_admin configure_account_name configure_statistics_collection generate_data enable_fork_features] do
     puts "\nInitial data loaded"
   end # Task: load_initial_data
 

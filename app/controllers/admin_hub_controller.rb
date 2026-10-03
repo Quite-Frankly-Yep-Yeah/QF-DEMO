@@ -26,13 +26,17 @@ class AdminHubController < ApplicationController
   before_action :require_user
   before_action :require_account_context
 
-  # GET /accounts/:account_id/hub
+  # GET /accounts/:account_id/hub(.json)
   def show
     return unless authorized_action(@context, @current_user, :read_as_admin)
+
+    # the nav's admin popover loads the same config without the page
+    return render json: hub_config if request.format.json?
 
     @page_title = t("Administration")
     add_crumb t("Administration")
     add_body_class("full-width")
+    @show_left_side = false
     js_env({ ADMIN_HUB: hub_config })
     js_bundle :admin_hub
     render html: '<div id="admin_hub"></div>'.html_safe, layout: true

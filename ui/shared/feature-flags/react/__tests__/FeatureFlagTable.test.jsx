@@ -85,11 +85,13 @@ describe('feature_flags::FeatureFlagTable', () => {
     expect(getAllByTestId('ff-table-row')[4]).toHaveTextContent('Feature 4')
   })
 
-  it('Includes the descriptions, respecting autoexpand', () => {
-    const {queryByText} = wrapper(rows, title)
+  it('shows descriptions and feature IDs directly on each option card', () => {
+    const {getByText, getAllByRole} = wrapper(rows, title)
 
-    expect(queryByText('This does great feature1y things')).not.toBeInTheDocument()
-    expect(queryByText('This does great feature4y things')).toBeInTheDocument()
+    expect(getByText('This does great feature1y things')).toBeInTheDocument()
+    expect(getByText('This does great feature4y things')).toBeInTheDocument()
+    expect(getByText('ID: feature1')).toBeInTheDocument()
+    expect(getAllByRole('listitem')).toHaveLength(rows.length)
   })
 
   it('updates status pills dynamically', async () => {
@@ -106,7 +108,7 @@ describe('feature_flags::FeatureFlagTable', () => {
     const row = getAllByTestId('ff-table-row')[5] // siteAdminOffFeature
     expect(row).toHaveTextContent('Hidden')
 
-    const button = row.querySelectorAll('button')[1]
+    const button = row.querySelector('button')
     await userEvent.click(button)
     await userEvent.click(getByText('Enabled'))
     await waitFor(() => expect(apiCalled).toHaveBeenCalledTimes(1))
@@ -145,9 +147,9 @@ describe('feature_flags::FeatureFlagTable', () => {
         },
       ]
 
-      const {getAllByTestId, getByText} = wrapper(testRows, title)
+      const {getAllByTestId, getByRole} = wrapper(testRows, title)
 
-      const statusHeader = getByText('Status')
+      const statusHeader = getByRole('button', {name: 'Sort by Status'})
       await userEvent.click(statusHeader)
 
       let displayedRows = getAllByTestId('ff-table-row')
@@ -191,9 +193,9 @@ describe('feature_flags::FeatureFlagTable', () => {
         },
       ]
 
-      const {getAllByTestId, getByText} = wrapper(testRows, title)
+      const {getAllByTestId, getByRole} = wrapper(testRows, title)
 
-      const statusHeader = getByText('Status')
+      const statusHeader = getByRole('button', {name: 'Sort by Status'})
       await userEvent.click(statusHeader)
       let displayedRows = getAllByTestId('ff-table-row')
 
@@ -233,9 +235,9 @@ describe('feature_flags::FeatureFlagTable', () => {
         },
       ]
 
-      const {getAllByTestId, getByText} = wrapper(testRows, title)
+      const {getAllByTestId, getByRole} = wrapper(testRows, title)
 
-      const stateHeader = getByText('State')
+      const stateHeader = getByRole('button', {name: 'Sort by State'})
       await userEvent.click(stateHeader)
 
       let displayedRows = getAllByTestId('ff-table-row')
@@ -273,9 +275,9 @@ describe('feature_flags::FeatureFlagTable', () => {
         },
       ]
 
-      const {getAllByTestId, getByText} = wrapper(testRows, title)
+      const {getAllByTestId, getByRole} = wrapper(testRows, title)
 
-      const stateHeader = getByText('State')
+      const stateHeader = getByRole('button', {name: 'Sort by State'})
       await userEvent.click(stateHeader)
 
       const displayedRows = getAllByTestId('ff-table-row')
@@ -307,9 +309,9 @@ describe('feature_flags::FeatureFlagTable', () => {
         },
       ]
 
-      const {getAllByTestId, getByText} = wrapper(testRows, title)
+      const {getAllByTestId, getByRole} = wrapper(testRows, title)
 
-      const stateHeader = getByText('State')
+      const stateHeader = getByRole('button', {name: 'Sort by State'})
       await userEvent.click(stateHeader) // ascending
       await userEvent.click(stateHeader) // descending
 
@@ -342,9 +344,9 @@ describe('feature_flags::FeatureFlagTable', () => {
         },
       ]
 
-      const {getAllByTestId, getByText} = wrapper(testRows, title)
+      const {getAllByTestId, getByRole} = wrapper(testRows, title)
 
-      const stateHeader = getByText('State')
+      const stateHeader = getByRole('button', {name: 'Sort by State'})
       await userEvent.click(stateHeader)
 
       const displayedRows = getAllByTestId('ff-table-row')
@@ -392,9 +394,9 @@ describe('feature_flags::FeatureFlagTable', () => {
         },
       ]
 
-      const {getAllByTestId, getByText} = wrapper(testRows, title)
+      const {getAllByTestId, getByRole} = wrapper(testRows, title)
 
-      const stateHeader = getByText('State')
+      const stateHeader = getByRole('button', {name: 'Sort by State'})
       await userEvent.click(stateHeader)
 
       const displayedRows = getAllByTestId('ff-table-row')
@@ -412,7 +414,7 @@ describe('feature_flags::FeatureFlagTable', () => {
       })
     })
 
-    it('does not sort when clicking on status header', async () => {
+    it('does not show sorting controls when sorting is disabled', async () => {
       const testRows = [
         {
           ...sampleData.offFeature,
@@ -440,20 +442,14 @@ describe('feature_flags::FeatureFlagTable', () => {
         },
       ]
 
-      const {getAllByTestId, getByText} = wrapper(testRows, title)
+      const {getAllByTestId, queryByRole} = wrapper(testRows, title)
 
       const initialRows = getAllByTestId('ff-table-row')
       expect(initialRows[0]).toHaveTextContent('Feature X')
       expect(initialRows[1]).toHaveTextContent('Feature Y')
       expect(initialRows[2]).toHaveTextContent('Feature Z')
 
-      const statusHeader = getByText('Status')
-      await userEvent.click(statusHeader)
-
-      const rowsAfterClick = getAllByTestId('ff-table-row')
-      expect(rowsAfterClick[0]).toHaveTextContent('Feature X')
-      expect(rowsAfterClick[1]).toHaveTextContent('Feature Y')
-      expect(rowsAfterClick[2]).toHaveTextContent('Feature Z')
+      expect(queryByRole('group', {name: 'Sort by'})).not.toBeInTheDocument()
     })
   })
 
@@ -513,7 +509,7 @@ describe('feature_flags::FeatureFlagTable', () => {
       const {getByText, getByTestId, queryByText} = wrapper([earlyAccessFeature], title)
 
       const row = getByTestId('ff-table-row')
-      const button = row.querySelectorAll('button')[1]
+      const button = row.querySelector('button')
       await userEvent.click(button)
 
       await userEvent.click(getByText('Enabled'))
@@ -550,7 +546,7 @@ describe('feature_flags::FeatureFlagTable', () => {
       const {getByText, getByTestId, queryByText} = wrapper([earlyAccessFeature], title)
 
       const row = getByTestId('ff-table-row')
-      const button = row.querySelectorAll('button')[1]
+      const button = row.querySelector('button')
       await userEvent.click(button)
       await userEvent.click(getByText('Enabled'))
 
@@ -591,7 +587,7 @@ describe('feature_flags::FeatureFlagTable', () => {
       const {getByText, getByTestId, queryByText} = wrapper([earlyAccessFeature], title)
 
       const row = getByTestId('ff-table-row')
-      const button = row.querySelectorAll('button')[1]
+      const button = row.querySelector('button')
       await userEvent.click(button)
       await userEvent.click(getByText('Enabled'))
 
@@ -618,7 +614,7 @@ describe('feature_flags::FeatureFlagTable', () => {
       const {getByText, getByTestId, queryByText} = wrapper([regularFeature], title)
 
       const row = getByTestId('ff-table-row')
-      const button = row.querySelectorAll('button')[1]
+      const button = row.querySelector('button')
       await userEvent.click(button)
       await userEvent.click(getByText('Enabled'))
 
