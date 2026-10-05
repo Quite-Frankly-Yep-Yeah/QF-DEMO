@@ -24,7 +24,6 @@ describe "new login Registration Landing page" do
   include_context "in-process server selenium tests"
 
   before do
-    Account.default.enable_feature!(:login_registration_ui_identity)
   end
 
   describe "when self-registration is disabled" do

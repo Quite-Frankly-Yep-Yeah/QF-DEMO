@@ -24,7 +24,6 @@ describe "new login Sign In page" do
   include_context "in-process server selenium tests"
 
   before do
-    Account.default.enable_feature!(:login_registration_ui_identity)
   end
 
   describe "/login/canvas" do

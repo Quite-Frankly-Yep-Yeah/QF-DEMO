@@ -1580,18 +1580,8 @@ class UsersController < ApplicationController
   def new
     return redirect_to(root_url) if @current_user
 
-    if @domain_root_account.feature_enabled?(:login_registration_ui_identity)
-      Rails.logger.debug "Redirecting to register_landing_path"
-      return redirect_to(register_landing_path)
-    end
-
-    run_login_hooks
-    @include_recaptcha = recaptcha_enabled?
-    js_env({
-             ACCOUNT: account_json(@domain_root_account, nil, session, ["registration_settings"]),
-             PASSWORD_POLICY: @domain_root_account.password_policy
-           })
-    render layout: "bare"
+    Rails.logger.debug "Redirecting to register_landing_path"
+    redirect_to(register_landing_path)
   end
 
   include Api::V1::User

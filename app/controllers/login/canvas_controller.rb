@@ -41,13 +41,7 @@ class Login::CanvasController < ApplicationController
     flash.now[:notice] = t("Your password has been changed.") if params[:password_changed] == "1"
     @include_recaptcha = recaptcha_enabled?(failsafe: false)
 
-    # TODO: remove feature flag check and fallback when `login_registration_ui_identity` is no longer needed
-    if @domain_root_account.feature_enabled? :login_registration_ui_identity
-      render_new_login
-    else
-      # fallback to maintain original behavior
-      maybe_render_mobile_login
-    end
+    render_new_login
   end
 
   def create
@@ -194,36 +188,12 @@ class Login::CanvasController < ApplicationController
     @errored = true
     @headers = false
 
-    if @domain_root_account.feature_enabled?(:login_registration_ui_identity)
-      render_new_login(:bad_request)
-    else
-      maybe_render_mobile_login(:bad_request)
-    end
-  end
-
-  def maybe_render_mobile_login(status = nil)
-    if mobile_device?
-      render_mobile_login
-    else
-      @aacs_with_buttons = auth_providers_with_buttons
-      render :new, status:
-    end
+    render_new_login(:bad_request)
   end
 
   def render_new_login(status = nil)
-    # disable custom js/css if flag enabled
-    @exclude_account_css = @exclude_account_js = @domain_root_account.feature_enabled?(:login_registration_ui_identity)
+    @exclude_account_css = @exclude_account_js = true
     render "login/canvas/new_login", layout: "bare", status: status || :ok
-  end
-
-  def auth_providers_with_buttons
-    @domain_root_account.authentication_providers.active.select { |aac| aac.class.login_button? }
-  end
-
-  def render_mobile_login
-    @login_handle_name = @domain_root_account.login_handle_name_with_inference
-    @login_handle_is_email = @login_handle_name == AuthenticationProvider.default_login_handle_name
-    render :mobile_login, layout: "mobile_auth", status:
   end
 
   def auth_type

@@ -15,18 +15,6 @@ verify_ldap_certs:
   display_name: Verify LDAP TLS certificates
   description: Verify TLS certificates presented by LDAP authentication providers.
   applies_to: Account
-login_registration_ui_identity:
-  state: hidden
-  applies_to: RootAccount
-  display_name: New quite frankly an example LMS Login UI
-  description: Enable the new Login/Registration UI.  This change is part of our ongoing transition to Instructure Identity Services and represents an important step in modernizing our authentication infrastructure.
-  environments:
-    development:
-      state: allowed
-    beta:
-      state: hidden
-    production:
-      state: hidden
 force_login_after_logout:
   state: hidden
   applies_to: RootAccount

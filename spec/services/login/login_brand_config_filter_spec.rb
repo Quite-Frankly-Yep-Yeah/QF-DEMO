@@ -54,45 +54,8 @@ describe Login::LoginBrandConfigFilter do
       ]
     end
 
-    context "when login_registration_ui_identity feature flag is disabled" do
+    context "when new_login_ui_custom_labels is disabled" do
       before do
-        account.disable_feature!(:login_registration_ui_identity)
-      end
-
-      it "removes discovery and registration groups" do
-        filtered_schema = subject
-        group_keys = filtered_schema.pluck("group_key")
-        expect(group_keys).not_to include("discovery")
-        expect(group_keys).not_to include("registration")
-      end
-
-      it "removes ic-brand-Login-custom-message from login group" do
-        filtered_schema = subject
-        login_group = filtered_schema.find { |group| group["group_key"] == "login" }
-        variable_names = login_group["variables"].pluck("variable_name")
-        expect(variable_names).not_to include("ic-brand-Login-custom-message")
-      end
-
-      it "keeps other login variables" do
-        filtered_schema = subject
-        login_group = filtered_schema.find { |group| group["group_key"] == "login" }
-        variable_names = login_group["variables"].pluck("variable_name")
-        expect(variable_names).to include("ic-brand-Login-logo")
-        expect(variable_names).to include("ic-brand-Login-body-bgd-image")
-        expect(variable_names).to include("ic-brand-Login-body-bgd-color")
-        expect(variable_names).to include("ic-brand-Login-footer") # old variable kept
-      end
-
-      it "keeps other groups unchanged" do
-        filtered_schema = subject
-        other_group = filtered_schema.find { |group| group["group_key"] == "another_group" }
-        expect(other_group["variables"].pluck("variable_name")).to include("ic-brand-Another-variable")
-      end
-    end
-
-    context "when login_registration_ui_identity is enabled but new_login_ui_custom_labels is disabled" do
-      before do
-        account.enable_feature!(:login_registration_ui_identity)
         allow(Account.site_admin).to receive(:feature_enabled?).and_call_original
         allow(Account.site_admin).to receive(:feature_enabled?).with(:new_login_ui_custom_labels).and_return(false)
       end
@@ -121,9 +84,8 @@ describe Login::LoginBrandConfigFilter do
       end
     end
 
-    context "when both feature flags are enabled" do
+    context "when new_login_ui_custom_labels is enabled" do
       before do
-        account.enable_feature!(:login_registration_ui_identity)
         allow(Account.site_admin).to receive(:feature_enabled?).and_call_original
         allow(Account.site_admin).to receive(:feature_enabled?).with(:new_login_ui_custom_labels).and_return(true)
       end
@@ -167,9 +129,6 @@ describe Login::LoginBrandConfigFilter do
 
       context "when self-registration is enabled" do
         before do
-          account.enable_feature!(:login_registration_ui_identity)
-          allow(Account.site_admin).to receive(:feature_enabled?).and_call_original
-          allow(Account.site_admin).to receive(:feature_enabled?).with(:new_login_ui_custom_labels).and_return(true)
           allow(account).to receive(:self_registration?).and_return(true)
         end
 

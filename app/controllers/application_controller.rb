@@ -577,7 +577,6 @@ class ApplicationController < ActionController::Base
     grading_rubrics_pagination
     institutional_tags
     instui_nav
-    login_registration_ui_identity
     lock_lti_registrations
     lti_apps_page_instructors
     lti_asset_processor
@@ -1230,8 +1229,8 @@ class ApplicationController < ActionController::Base
 
   def check_pending_otp
     if session[:pending_otp] && params[:controller] != "login/otp"
-      # handle api json requests for feature flag
-      if request.format.json? && @domain_root_account.feature_enabled?(:login_registration_ui_identity)
+      # handle API JSON requests from the new login UI
+      if request.format.json?
         render json: { message: I18n.t("Verification required. Please complete multi-factor authentication by entering the code sent to your device.") }, status: :forbidden
         return
       end

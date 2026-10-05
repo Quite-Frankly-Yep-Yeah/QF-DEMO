@@ -25,7 +25,6 @@ describe "new login OTP page" do
   include_context "in-process server selenium tests"
 
   before do
-    Account.default.enable_feature!(:login_registration_ui_identity)
   end
 
   it "prompts for OTP after login if MFA is required and user is configured" do

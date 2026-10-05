@@ -29,10 +29,6 @@ class Login::LoginBrandConfigFilter
   CUSTOM_MESSAGE_GROUPS = %w[discovery registration].freeze
 
   def self.filter(variable_schema, account)
-    unless account.feature_enabled?(:login_registration_ui_identity)
-      return remove_new_login_groups_and_custom_message(variable_schema)
-    end
-
     custom_labels_enabled = Account.site_admin.feature_enabled?(:new_login_ui_custom_labels)
 
     variable_schema.each_with_object([]) do |group, result|
@@ -55,18 +51,6 @@ class Login::LoginBrandConfigFilter
 
   class << self
     private
-
-    def remove_new_login_groups_and_custom_message(variable_schema)
-      variable_schema.each_with_object([]) do |group, result|
-        next if CUSTOM_MESSAGE_GROUPS.include?(group["group_key"])
-
-        if group["group_key"] == "login"
-          group["variables"].reject! { |var| var["variable_name"] == "ic-brand-Login-custom-message" }
-        end
-
-        result << group
-      end
-    end
 
     def filter_login_group_variables(group, custom_labels_enabled)
       group["variables"].reject! do |variable|

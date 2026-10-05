@@ -149,7 +149,7 @@ const portalRouter = createBrowserRouter(
           />
         ))}
 
-      {window.ENV.FEATURES.login_registration_ui_identity && NewLoginRoutes}
+      {NewLoginRoutes}
 
       {AUPRoutes}
 

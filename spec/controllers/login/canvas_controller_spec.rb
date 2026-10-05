@@ -36,26 +36,26 @@ describe Login::CanvasController do
       ]
     end
 
-    def confirm_mobile_layout
+    def confirm_new_login_layout
       mobile_agents.each do |agent|
         controller.js_env.clear
         request.env["HTTP_USER_AGENT"] = agent
         yield
-        expect(response).to render_template(:mobile_login)
+        expect(response).to render_template("login/canvas/new_login")
       end
     end
 
-    it "renders normal layout if not iphone/ipod" do
+    it "renders the new login page if not iphone/ipod" do
       get "new"
-      expect(response).to render_template(:new)
+      expect(response).to render_template("login/canvas/new_login")
     end
 
-    it "renders special iPhone/iPod layout if coming from one of those" do
-      confirm_mobile_layout { get "new" }
+    it "renders the new login page on mobile devices" do
+      confirm_new_login_layout { get "new" }
     end
 
-    it "renders special iPhone/iPod layout if coming from one of those and it's the wrong password'" do
-      confirm_mobile_layout { post "create" }
+    it "renders the new login page after a failed mobile login" do
+      confirm_new_login_layout { post "create" }
     end
 
     it "renders a plain text error message on mobile, not the hash" do
@@ -66,43 +66,18 @@ describe Login::CanvasController do
     end
   end
 
-  describe "login_registration_ui_identity feature flag" do
-    before do
-      if feature_flag_enabled
-        Account.default.enable_feature!(:login_registration_ui_identity)
-      else
-        Account.default.disable_feature!(:login_registration_ui_identity)
-      end
+  describe "new login page" do
+    it "renders the new login page and excludes account CSS and JavaScript" do
+      get :new
+      expect(response).to render_template("login/canvas/new_login")
+      expect(assigns(:exclude_account_css)).to be(true)
+      expect(assigns(:exclude_account_js)).to be(true)
     end
 
-    context "when the feature flag is enabled" do
-      let(:feature_flag_enabled) { true }
-
-      it "renders the new login page" do
-        get "new"
-        expect(response).to render_template("login/canvas/new_login")
-      end
-
-      it "sets @exclude_account_css and @exclude_account_js to true" do
-        get :new
-        expect(assigns(:exclude_account_css)).to be(true)
-        expect(assigns(:exclude_account_js)).to be(true)
-      end
-    end
-
-    context "when the feature flag is disabled" do
-      let(:feature_flag_enabled) { false }
-
-      it "renders the old login page" do
-        get "new"
-        expect(response).to render_template(:new)
-      end
-
-      it "does not set @exclude_account_css or @exclude_account_js" do
-        get :new
-        expect(assigns(:exclude_account_css)).to be_nil
-        expect(assigns(:exclude_account_js)).to be_nil
-      end
+    it "renders the new login page after an unsuccessful login" do
+      post :create, params: { pseudonym_session: { unique_id: "jtfrd@instructure.com", password: "" } }
+      expect(response).to render_template("login/canvas/new_login")
+      expect(response).to have_http_status(:bad_request)
     end
   end
 
@@ -146,36 +121,22 @@ describe Login::CanvasController do
     end
   end
 
-  it "shows sso buttons on load" do
-    aac = Account.default.authentication_providers.create!(auth_type: "facebook")
-    allow(Canvas::Plugin.find(:facebook)).to receive(:settings).and_return({})
-    get "new"
-    expect(assigns[:aacs_with_buttons]).to eq [aac]
-  end
-
-  it "still shows sso buttons on login error" do
-    aac = Account.default.authentication_providers.create!(auth_type: "facebook")
-    allow(Canvas::Plugin.find(:facebook)).to receive(:settings).and_return({})
-    post "create"
-    expect(assigns[:aacs_with_buttons]).to eq [aac]
-  end
-
   it "re-renders if no user" do
     post "create"
     assert_status(400)
-    expect(response).to render_template(:new)
+    expect(response).to render_template("login/canvas/new_login")
   end
 
   it "re-renders if incorrect password" do
     post "create", params: { pseudonym_session: { unique_id: "jtfrd@instructure.com", password: "dvorak" } }
     assert_status(400)
-    expect(response).to render_template(:new)
+    expect(response).to render_template("login/canvas/new_login")
   end
 
   it "re-renders if no password given and render a hash for the error" do
     post "create", params: { pseudonym_session: { unique_id: "jtfrd@instructure.com", password: "" } }
     assert_status(400)
-    expect(response).to render_template(:new)
+    expect(response).to render_template("login/canvas/new_login")
     expect(flash[:error]).to be_a(Hash)
     expect(flash[:error][:html]).to match(/no password/i)
   end
@@ -194,7 +155,7 @@ describe Login::CanvasController do
     @pseudonym.update!(workflow_state: "suspended")
     post "create", params: { pseudonym_session: { unique_id: "jtfrd@instructure.com", password: "qwertyuiop" } }
     assert_status(400)
-    expect(response).to render_template(:new)
+    expect(response).to render_template("login/canvas/new_login")
   end
 
   it "persists the auth provider if the feature flag is enabled" do
@@ -242,7 +203,7 @@ describe Login::CanvasController do
                              authenticity_token: "42" }
     assert_status(400)
     expect(session[:sentinel]).to be true
-    expect(response).to render_template(:new)
+    expect(response).to render_template("login/canvas/new_login")
     expect(flash[:error]).to be_a(Hash)
     expect(flash[:error][:html]).to match(/invalid authenticity token/i)
   end
@@ -252,7 +213,7 @@ describe Login::CanvasController do
     post "create", params: { pseudonym_session: { unique_id: " jtfrd@instructure.com ", password: "qwertyuiop" },
                              authenticity_token: "42" }
     assert_status(400)
-    expect(response).to render_template(:new)
+    expect(response).to render_template("login/canvas/new_login")
     expect(flash[:error]).to be_a(Hash)
     expect(flash[:error][:html]).to match(/invalid authenticity token/i)
   end
@@ -323,7 +284,7 @@ describe Login::CanvasController do
       expect_any_instantiation_of(aac).to receive(:ldap_bind_result).once.with("username", "password").and_return(nil)
       post "create", params: { pseudonym_session: { unique_id: "username", password: "password" } }
       assert_status(400)
-      expect(response).to render_template(:new)
+      expect(response).to render_template("login/canvas/new_login")
     end
 
     it "doesn't query the server at all if the enabled features don't require it, and there is no matching login" do
@@ -331,7 +292,7 @@ describe Login::CanvasController do
       expect_any_instantiation_of(ap).not_to receive(:ldap_bind_result)
       post "create", params: { pseudonym_session: { unique_id: "username", password: "password" } }
       assert_status(400)
-      expect(response).to render_template(:new)
+      expect(response).to render_template("login/canvas/new_login")
     end
 
     it "provisions automatically when enabled" do
@@ -470,7 +431,7 @@ describe Login::CanvasController do
                           account: account2)
       post "create", params: { pseudonym_session: { unique_id: "jt@instructure.com", password: "qwertyuiop" } }
       expect(response).not_to be_successful
-      expect(response).to render_template(:new)
+      expect(response).to render_template("login/canvas/new_login")
     end
 
     it "logins a site admin user with other identical pseudonyms" do
@@ -704,17 +665,6 @@ describe Login::CanvasController do
       post :create, params:, session: { oauth2: provider.session_hash }
       expect(response).to be_redirect
       expect(response.location).to match(%r{https://example.com})
-    end
-  end
-
-  describe "#render_new_login" do
-    before do
-      Account.default.enable_feature!(:login_registration_ui_identity)
-    end
-
-    it "renders the new login template and assigns auth providers with display names" do
-      get :new
-      expect(response).to render_template("login/canvas/new_login")
     end
   end
 

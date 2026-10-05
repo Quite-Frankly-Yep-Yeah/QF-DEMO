@@ -343,7 +343,6 @@ export type RootAccountFeatureId =
   | 'grading_rubrics_pagination'
   | 'institutional_tags'
   | 'instui_nav'
-  | 'login_registration_ui_identity'
   | 'lti_asset_processor'
   | 'lti_asset_processor_discussions'
   | 'lti_link_to_apps_from_developer_keys'

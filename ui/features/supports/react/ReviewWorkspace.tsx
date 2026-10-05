@@ -28,10 +28,10 @@ import {PAPER, WARNING_BG} from '@canvas/material'
 const I18n = createI18nScope('supports')
 
 const PLAN_TYPES = [
-  {value: 'iep', label: 'IEP'},
-  {value: '504', label: '504 plan'},
-  {value: 'el', label: 'English-learner plan'},
-  {value: 'other', label: 'Other plan'},
+  {value: 'iep', label: I18n.t('IEP')},
+  {value: '504', label: I18n.t('504 plan')},
+  {value: 'el', label: I18n.t('English-learner plan')},
+  {value: 'other', label: I18n.t('Other plan')},
 ]
 
 // Narrower than this the queue becomes a stepper and the columns stack.
@@ -356,7 +356,7 @@ export default function ReviewWorkspace({
           {!scan.plan_type && <option value="">{I18n.t('Choose…')}</option>}
           {PLAN_TYPES.map(type => (
             <option key={type.value} value={type.value}>
-              {I18n.t(type.label)}
+              {type.label}
             </option>
           ))}
         </select>

@@ -111,13 +111,6 @@ describe BrandConfigsController do
         get "new", params: { brand_config: @bc, account_id: @account.id }
         assert_status(200)
       end
-
-      it "filter handles feature flag logic internally" do
-        mock_feature_flag(:login_registration_ui_identity, false, [@account])
-        expect(Login::LoginBrandConfigFilter).to receive(:filter).with(instance_of(Array), @account).and_call_original
-        get "new", params: { brand_config: @bc, account_id: @account.id }
-        assert_status(200)
-      end
     end
   end
 

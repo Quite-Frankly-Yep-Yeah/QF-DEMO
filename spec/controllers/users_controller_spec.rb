@@ -2928,27 +2928,13 @@ describe UsersController do
     end
 
     context "when the user is not logged in" do
-      context "and the feature flag login_registration_ui_identity is enabled" do
-        before do
-          Account.default.enable_feature!(:login_registration_ui_identity)
-          allow(Account.default).to receive(:self_registration_allowed_for?).and_return(true)
-        end
-
-        it "redirects to the registration landing page" do
-          get :new
-          expect(response).to redirect_to(register_landing_path)
-        end
+      before do
+        allow(Account.default).to receive(:self_registration_allowed_for?).and_return(true)
       end
 
-      context "and the feature flag login_registration_ui_identity is disabled" do
-        before do
-          allow(Account.default).to receive(:self_registration_allowed_for?).and_return(true)
-        end
-
-        it "renders the legacy registration page using the bare layout" do
-          get :new
-          expect(response).to render_template(layout: "bare")
-        end
+      it "redirects to the registration landing page" do
+        get :new
+        expect(response).to redirect_to(register_landing_path)
       end
     end
   end
