@@ -33,6 +33,7 @@ import helpLinksQuery from '../queries/helpLinksQuery'
 import FeaturedHelpLink from './FeaturedHelpLink'
 import {useQuery} from '@tanstack/react-query'
 import {sessionStoragePersister} from '@instructure/platform-query'
+import {fetchTracks, type TrackSummary} from '@canvas/onboarding-checklist'
 
 const I18n = createI18nScope('HelpLinks')
 
@@ -47,6 +48,13 @@ export default function HelpLinks({onClick}: Props) {
     persister: sessionStoragePersister.persisterFn,
     // 1 hour
     staleTime: 60 * 60 * 1000,
+  })
+
+  // The person's onboarding checklists, when the flag is on.
+  const {data: tracks} = useQuery<TrackSummary[]>({
+    queryKey: ['onboardingTracks'],
+    queryFn: fetchTracks,
+    enabled: !!window.ENV.FEATURES?.qf_onboarding,
   })
 
   const links = data || []
@@ -122,6 +130,19 @@ export default function HelpLinks({onClick}: Props) {
                 </List.Item>
               )
             })
+            .concat(
+              (tracks || []).map(track => (
+                <List.Item key={`onboarding-${track.key}`}>
+                  <Link isWithinText={false} href={track.url}>
+                    {I18n.t('%{title} (%{done} of %{total} done)', {
+                      title: track.title,
+                      done: track.done_count,
+                      total: track.total,
+                    })}
+                  </Link>
+                </List.Item>
+              )),
+            )
             .concat(
               // if the current user is a teacher, show a link to
               // open up the welcome tour

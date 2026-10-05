@@ -19,7 +19,7 @@
 import React, {useEffect, useState} from 'react'
 import {useScope as createI18nScope} from '@canvas/i18n'
 import doFetchApi from '@canvas/do-fetch-api-effect'
-import {INK} from '../../self_paced_home/react/material'
+import {INK} from '@canvas/self-paced/material'
 import {Card, formatDate, muted} from './ui'
 
 const I18n = createI18nScope('supports')

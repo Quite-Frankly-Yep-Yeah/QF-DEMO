@@ -17,7 +17,7 @@
  */
 
 import {useScope as createI18nScope} from '@canvas/i18n'
-import {parseRegions, regionAt, type Region} from './regions'
+import {parseRegions, regionAt, type Region} from '@canvas/sylla-regions'
 
 const I18n = createI18nScope('sylla_question_layouts')
 

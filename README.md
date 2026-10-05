@@ -13,8 +13,12 @@ with Canvas plugins and LTI tools. See [NOTICE.md](NOTICE.md) for attribution an
 Installation
 =======
 
-Installation and configuration follow the upstream Canvas LMS documentation. Wherever those
-guides say "Canvas", read "quite frankly an example LMS".
+See [docs/install.md](docs/install.md) for a development install with Docker, the
+configuration a production site needs, and demo data. After installing, a site admin can
+open `/install_status` for a checklist of what's left.
+
+The upstream Canvas guides still apply to the server setup. Wherever they say "Canvas",
+read "quite frankly an example LMS".
 
  * [Quick Start](https://github.com/instructure/canvas-lms/wiki/Quick-Start)
  * [Production Start](https://github.com/instructure/canvas-lms/wiki/Production-Start)

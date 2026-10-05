@@ -19,8 +19,8 @@
 import React from 'react'
 import {render} from '@canvas/react'
 import ready from '@instructure/ready'
-import HomeApp from './react/HomeApp'
-import type {HomeConfig} from './react/types'
+import HomeApp from '@canvas/self-paced/react/home/HomeApp'
+import type {HomeConfig} from '@canvas/self-paced/react/home/types'
 
 ready(() => {
   const container = document.getElementById('self_paced_home')

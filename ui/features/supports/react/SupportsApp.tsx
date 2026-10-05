@@ -18,7 +18,7 @@
 
 import React, {useCallback, useEffect, useState} from 'react'
 import {useScope as createI18nScope} from '@canvas/i18n'
-import {ELEVATION, ink, ROBOTO, SURFACE} from '../../self_paced_home/react/material'
+import {ELEVATION, ink, ROBOTO, SURFACE} from '@canvas/self-paced/material'
 import CaseloadPanel from './CaseloadPanel'
 import CatalogPanel from './CatalogPanel'
 import ImportPanel from './ImportPanel'

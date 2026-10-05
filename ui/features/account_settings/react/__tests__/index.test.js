@@ -57,6 +57,6 @@ describe('start', () => {
       start(fixtures, {context: 'account', contextId: '1'})
     })
 
-    await screen.findByText(/canvas content security policy/i)
+    await screen.findByText(/quite frankly an example LMS content security policy/i)
   })
 })

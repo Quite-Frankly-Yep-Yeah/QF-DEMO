@@ -96,6 +96,7 @@ const featureBundles: {
   dashboard: () => import('./features/dashboard/index'),
   deep_linking_response: () => import('./features/deep_linking_response/index'),
   developer_keys_v2: () => import('./features/developer_keys_v2/index'),
+  install_status: () => import('./features/install_status/index'),
   lti_registrations: () => import('./features/lti_registrations/index'),
   discussion_topic_edit_v2: () => import('./features/discussion_topic_edit_v2/index'),
   discussion_topic_insights: () => import('./features/discussion_topic_insights/index'),

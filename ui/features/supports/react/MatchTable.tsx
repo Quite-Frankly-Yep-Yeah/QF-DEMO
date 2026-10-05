@@ -19,7 +19,7 @@
 import React, {useEffect, useRef, useState} from 'react'
 import {useScope as createI18nScope} from '@canvas/i18n'
 import doFetchApi from '@canvas/do-fetch-api-effect'
-import {INK} from '../../self_paced_home/react/material'
+import {INK} from '@canvas/self-paced/material'
 import PersonPicker from './PersonPicker'
 import type {Person, ScanBatch, ScanRecord} from './types'
 import {BRAND, button, field, flatButton, messageFrom, muted, Status} from './ui'

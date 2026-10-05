@@ -91,7 +91,7 @@ describe('FileUpload - Webcam photo upload', () => {
         <FileUpload {...props} />
       </MockedProvider>,
     )
-    fireEvent.click(await findByRole('button', {name: /Canvas Files/}))
+    fireEvent.click(await findByRole('button', {name: /quite frankly an example LMS Files/}))
     expect(await findByRole('button', {name: /Webcam/})).toBeInTheDocument()
   })
 
@@ -106,7 +106,7 @@ describe('FileUpload - Webcam photo upload', () => {
         <FileUpload {...props} />
       </MockedProvider>,
     )
-    fireEvent.click(await findByRole('button', {name: /Canvas Files/}))
+    fireEvent.click(await findByRole('button', {name: /quite frankly an example LMS Files/}))
     expect(await findByRole('button', {name: /Webcam/})).toBeInTheDocument()
   })
 
@@ -121,7 +121,7 @@ describe('FileUpload - Webcam photo upload', () => {
         <FileUpload {...props} />
       </MockedProvider>,
     )
-    fireEvent.click(await findByRole('button', {name: /Canvas Files/}))
+    fireEvent.click(await findByRole('button', {name: /quite frankly an example LMS Files/}))
     expect(queryByRole('button', {name: /Webcam/})).not.toBeInTheDocument()
   })
 })

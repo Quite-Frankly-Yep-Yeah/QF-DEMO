@@ -18,7 +18,7 @@
 
 import React from 'react'
 import {useScope as createI18nScope} from '@canvas/i18n'
-import {INK, ink, PALETTE, tint} from '../../self_paced_home/react/material'
+import {INK, ink, PALETTE, tint} from '@canvas/self-paced/material'
 import {card, cardTitle, pill} from './styles'
 import type {ModelInfo} from './types'
 

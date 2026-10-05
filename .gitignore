@@ -24,6 +24,7 @@ CLAUDE.local.md
 /.ruby-version
 /app/views/info/styleguide.html.erb
 /config/*.yml
+!/config/browsers.yml
 /config/*.yml.cached
 /config/credentials.yml.enc
 !/config/brakeman.yml

@@ -35,10 +35,7 @@ import type {HubConfig, Section, SectionKey} from './types'
 
 const I18n = createI18nScope('admin_hub')
 
-const SECTION_STYLE: Record<
-  SectionKey,
-  {color: string; Icon: React.ComponentType<{color?: string}>}
-> = {
+const SECTION_STYLE: Record<SectionKey, {color: string; Icon: typeof IconUserLine}> = {
   people: {color: PALETTE[0], Icon: IconUserLine},
   learning: {color: PALETTE[1], Icon: IconOutcomesLine},
   insights: {color: PALETTE[2], Icon: IconAnalyticsLine},

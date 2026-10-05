@@ -34,7 +34,7 @@
 
 ### 1EdTech PNS, Asset Processor and associated services ###
 - scope: https://purl.imsglobal.org/spec/lti/scope/noticehandlers
-  description: Can register to receive asynchronous notifications from Canvas
+  description: Can register to receive asynchronous notifications from quite frankly an example LMS
 
 - scope: https://purl.imsglobal.org/spec/lti/scope/asset.readonly
   description: Can retrieve submissions from Document Processor Assignments

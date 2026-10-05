@@ -19,7 +19,7 @@
 import React, {useEffect, useRef, useState} from 'react'
 import {useScope as createI18nScope} from '@canvas/i18n'
 import doFetchApi from '@canvas/do-fetch-api-effect'
-import {ELEVATION, INK, tint} from '../../self_paced_home/react/material'
+import {ELEVATION, INK, tint} from '@canvas/self-paced/material'
 import ScanCard from './ScanCard'
 import type {ReviewEdits, ScanRecord} from './types'
 import {BRAND, button, Card, field, flatButton, Label, messageFrom, muted, Status} from './ui'

@@ -82,7 +82,7 @@ jobs:
       - name: Run TypeScript Check
         env:
           NODE_OPTIONS: "--max-old-space-size=4096"
-        run: yarn tsc --noemit -p tsconfig.json
+        run: yarn tsgo -p tsconfig.json
 
   ui-tests:
     name: UI Tests (Shard ${{ matrix.shard }})

@@ -19,8 +19,8 @@
 import React, {useEffect, useMemo, useState} from 'react'
 import {useScope as createI18nScope} from '@canvas/i18n'
 import doFetchApi from '@canvas/do-fetch-api-effect'
-import {greeting} from '../../self_paced_home/react/HomeApp'
-import {Progress} from '../../self_paced_home/react/CourseCard'
+import {greeting} from '@canvas/self-paced/react/home/HomeApp'
+import {Progress} from '@canvas/self-paced/react/home/CourseCard'
 import {
   APP_BAR,
   classColors,
@@ -31,7 +31,7 @@ import {
   ROBOTO,
   SURFACE,
   tint,
-} from '../../self_paced_home/react/material'
+} from '@canvas/self-paced/material'
 import FindStudent from './FindStudent'
 import type {
   CourseProgress,

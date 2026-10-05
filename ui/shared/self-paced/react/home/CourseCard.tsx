@@ -18,8 +18,8 @@
 
 import React from 'react'
 import {useScope as createI18nScope} from '@canvas/i18n'
-import PaceBadge from '@canvas/self-paced/react/PaceBadge'
-import {ELEVATION, INK, ink, ROBOTO, tint} from './material'
+import PaceBadge from '../PaceBadge'
+import {ELEVATION, INK, ink, ROBOTO, tint} from '../../material'
 import type {HomeCourse} from './types'
 import {PAPER} from '@canvas/material'
 

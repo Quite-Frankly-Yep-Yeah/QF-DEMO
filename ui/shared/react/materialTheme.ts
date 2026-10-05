@@ -45,7 +45,7 @@ type Theme = Record<string, any>
  * flowing through untouched. No-op for high contrast.
  */
 export function applyMaterialOverrides(theme: ThemeOrOverride, options: Options = {}): ThemeOrOverride {
-  if (options.highContrast) return theme
+  if (options.highContrast || !theme) return theme
 
   const base = theme as Theme
   const next: Theme = {

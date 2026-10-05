@@ -62,14 +62,14 @@ describe('WebcamCapture', () => {
 
     vi.advanceTimersByTime(1000)
 
-    expect(screen.getByText(/Canvas needs access to your camera/)).toBeInTheDocument()
+    expect(screen.getByText(/quite frankly an example LMS needs access to your camera/)).toBeInTheDocument()
   })
 
   it('continues to say it needs webcam access if the user does not grant permission', async () => {
     getUserMedia.mockRejectedValue(new Error('NO'))
     renderWebcamCapture()
 
-    expect(await screen.findByText(/Canvas needs access to your camera/)).toBeInTheDocument()
+    expect(await screen.findByText(/quite frankly an example LMS needs access to your camera/)).toBeInTheDocument()
   })
 
   describe('when permission has been granted', () => {

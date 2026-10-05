@@ -182,7 +182,7 @@ describe('TempEnrollAssign', () => {
     it('initializes with ROLE as the default role in the summary', async () => {
       const {findByText} = render(<TempEnrollAssign {...props} />)
       const defaultMessage = await findByText(
-        /Canvas will enroll .+ as a .+ in the selected courses of .+ from .+ - .+/,
+        /quite frankly an example LMS will enroll .+ as a .+ in the selected courses of .+ from .+ - .+/,
       )
 
       expect(defaultMessage).toBeInTheDocument()
@@ -195,7 +195,7 @@ describe('TempEnrollAssign', () => {
       }
       const {findByText} = render(<TempEnrollAssign {...modifiedProps} />)
 
-      const summaryMsg = await findByText(/Canvas will enroll 2 users/)
+      const summaryMsg = await findByText(/quite frankly an example LMS will enroll 2 users/)
       const readyMsg = await findByText(/2 users will receive/)
 
       expect(summaryMsg).toBeInTheDocument()
@@ -226,7 +226,7 @@ describe('TempEnrollAssign', () => {
       const screen = render(<TempEnrollAssign {...props} />)
       const roleSelect = await screen.findByPlaceholderText('Select a Role')
 
-      expect(screen.getByText(/Canvas will enroll Melvin as a Teacher/)).toBeInTheDocument()
+      expect(screen.getByText(/quite frankly an example LMS will enroll Melvin as a Teacher/)).toBeInTheDocument()
 
       fireEvent.click(roleSelect)
 
@@ -234,7 +234,7 @@ describe('TempEnrollAssign', () => {
       fireEvent.click(options[0]) // select the "Student" option
 
       // Format: quite frankly an example LMS will enroll %{recipient} as a %{role} in %{source}'s selected courses from %{start} - %{end}
-      expect(await screen.findByText(/Canvas will enroll Melvin as a Student/)).toBeInTheDocument()
+      expect(await screen.findByText(/quite frankly an example LMS will enroll Melvin as a Student/)).toBeInTheDocument()
     })
 
     it('displays Local and Account datetime in correct timezones', async () => {
