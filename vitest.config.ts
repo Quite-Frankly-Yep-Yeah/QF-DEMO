@@ -19,6 +19,7 @@
  */
 
 import {defineConfig} from 'vitest/config'
+import {existsSync} from 'fs'
 import {resolve} from 'path'
 import handlebarsPlugin from './ui-build/esbuild/handlebars-plugin'
 import svgPlugin from './ui-build/esbuild/svg-plugin'
@@ -170,10 +171,11 @@ export default defineConfig({
     },
     // Force modules to be bundled together so they share state
     // - graphql: prevent "Cannot use GraphQLSchema from another module" errors
+    // - outcomes-ui's own copies of InstUI 10 packages (see the plugin below)
     // Note: jQuery is handled via alias to jquery-with-plugins.ts wrapper
     server: {
       deps: {
-        inline: [/graphql/],
+        inline: [/graphql/, /outcomes-ui\/node_modules\/@instructure\//],
       },
     },
   },
@@ -234,6 +236,25 @@ export default defineConfig({
   },
   plugins: [
     jestMockHoistPlugin,
+    // outcomes-ui keeps its own InstUI 10 copies of a few packages. Their
+    // CommonJS builds require the hoisted ui-icons 11, whose requires of
+    // ui-svg-images directories fail, so load their ES builds instead.
+    {
+      name: 'outcomes-ui-nested-es',
+      enforce: 'pre',
+      resolveId(id: string, importer?: string) {
+        if (!importer?.includes('/@instructure/outcomes-ui/')) return
+        const match = id.match(/^@instructure\/([\w-]+)$/)
+        if (!match) return
+        const es = resolve(
+          __dirname,
+          'node_modules/@instructure/outcomes-ui/node_modules/@instructure',
+          match[1],
+          'es/index.js',
+        )
+        return existsSync(es) ? es : undefined
+      },
+    },
     handlebarsPlugin(),
     svgPlugin(),
     graphqlPlugin,

@@ -73,7 +73,7 @@ export default function AccommodationsCard({
       .then(({json}) => {
         if (cancelled || !json) return
         setData(json)
-        onLoadRef.current?.(json.accommodations.map(accommodation => accommodation.kind))
+        onLoadRef.current?.((json.accommodations ?? []).map(accommodation => accommodation.kind))
       })
       .catch(() => {
         // not allowed, or the feature is off: show nothing
@@ -99,7 +99,7 @@ export default function AccommodationsCard({
     }
   }, [studentId])
 
-  if (!data || data.accommodations.length === 0) return null
+  if (!data?.accommodations?.length) return null
 
   return (
     <Card

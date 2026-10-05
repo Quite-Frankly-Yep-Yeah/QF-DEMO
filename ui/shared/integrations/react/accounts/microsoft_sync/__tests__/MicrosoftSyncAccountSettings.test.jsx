@@ -57,7 +57,7 @@ const getLoginAttributeSelector = ({container}) => {
 
 const getToggle = container => {
   return container.getByRole('checkbox', {
-    name: /allows syncing of canvas course members to a microsoft team/i,
+    name: /allows syncing of quite frankly an example LMS course members to a microsoft team/i,
   })
 }
 

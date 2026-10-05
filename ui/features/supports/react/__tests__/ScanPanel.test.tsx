@@ -32,7 +32,10 @@ let currentBatch: ScanBatch
 let openBatches: unknown[] = []
 const requests: {method: string; path: string; body?: unknown}[] = []
 const note = async (request: Request) => {
-  const text = await request.text()
+  // Reading a multipart body that holds a jsdom File never settles, and
+  // the tests only look at JSON bodies
+  const multipart = request.headers.get('content-type')?.startsWith('multipart/form-data')
+  const text = multipart ? '' : await request.text()
   let body: unknown
   try {
     body = text.startsWith('{') ? JSON.parse(text) : undefined
