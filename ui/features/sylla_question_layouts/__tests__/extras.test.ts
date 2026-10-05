@@ -19,7 +19,7 @@
 import {within} from '@testing-library/dom'
 import userEvent from '@testing-library/user-event'
 import {enhanceConfidence, enhanceHotspot, enhanceUnit} from '../extras'
-import {formatRegion, parseRegions, regionAt, regionFromDrag} from '../regions'
+import {formatRegion, parseRegions, regionAt, regionFromDrag} from '@canvas/sylla-regions'
 import {initLayouts} from '../layouts'
 
 function question(html: string, data: Record<string, string>): HTMLElement {

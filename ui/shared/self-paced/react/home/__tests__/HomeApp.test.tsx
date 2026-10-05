@@ -21,7 +21,7 @@ import {render, screen, within} from '@testing-library/react'
 import {http, HttpResponse} from 'msw'
 import {setupServer} from 'msw/node'
 import HomeApp, {greeting} from '../HomeApp'
-import {classColors, contrast, ink, PALETTE} from '../material'
+import {classColors, contrast, ink, PALETTE} from '../../../material'
 import type {Home, HomeCourse} from '../types'
 
 const config = {home_url: '/api/v1/self_paced/home', classic_url: '/?classic=1'}

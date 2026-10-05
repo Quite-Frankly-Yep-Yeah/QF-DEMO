@@ -19,7 +19,7 @@
 import React, {useEffect, useState} from 'react'
 import {useScope as createI18nScope} from '@canvas/i18n'
 import doFetchApi from '@canvas/do-fetch-api-effect'
-import {ELEVATION, INK, ROBOTO} from '../../self_paced_home/react/material'
+import {ELEVATION, INK, ROBOTO} from '@canvas/self-paced/material'
 import type {FoundStudent, LinkRequest, StudentSearch} from './types'
 import {DANGER, DANGER_BG, SUCCESS} from '@canvas/material'
 

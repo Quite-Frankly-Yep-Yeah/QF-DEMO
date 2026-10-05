@@ -17,7 +17,7 @@
  */
 
 import type React from 'react'
-import {APP_BAR, ELEVATION, ink, ROBOTO} from '../../self_paced_home/react/material'
+import {APP_BAR, ELEVATION, ink, ROBOTO} from '@canvas/self-paced/material'
 import {PAPER} from '@canvas/material'
 
 export const card: React.CSSProperties = {

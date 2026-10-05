@@ -17,7 +17,7 @@
  */
 
 import ready from '@instructure/ready'
-import {formatRegion, parseRegions, regionFromDrag} from '../sylla_question_layouts/regions'
+import {formatRegion, parseRegions, regionFromDrag} from '@canvas/sylla-regions'
 
 // The quiz editor's hotspot helper: shows the image under "Image address" and
 // lets the teacher drag rectangles on it, each becoming a line in "Regions".

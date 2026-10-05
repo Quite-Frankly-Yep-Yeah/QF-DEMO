@@ -19,7 +19,7 @@
 import React, {useCallback, useEffect, useState} from 'react'
 import {useScope as createI18nScope} from '@canvas/i18n'
 import doFetchApi from '@canvas/do-fetch-api-effect'
-import {INK, ROBOTO, SURFACE} from '../../self_paced_home/react/material'
+import {INK, ROBOTO, SURFACE} from '@canvas/self-paced/material'
 import KeyCard from './KeyCard'
 import ModelCard, {type ModelScope} from './ModelCard'
 import ModelGuide from './ModelGuide'

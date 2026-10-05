@@ -18,7 +18,7 @@
 
 import React, {useState} from 'react'
 import {useScope as createI18nScope} from '@canvas/i18n'
-import {ELEVATION, INK, ink, PALETTE, tint} from '../../self_paced_home/react/material'
+import {ELEVATION, INK, ink, PALETTE, tint} from '@canvas/self-paced/material'
 import ParametersFields from './ParametersFields'
 import type {Kind, Parameters, ScanItem} from './types'
 import {flatButton, muted} from './ui'

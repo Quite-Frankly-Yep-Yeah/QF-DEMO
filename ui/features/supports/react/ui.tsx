@@ -18,7 +18,7 @@
 
 import React from 'react'
 import {useScope as createI18nScope} from '@canvas/i18n'
-import {ELEVATION, INK, ROBOTO} from '../../self_paced_home/react/material'
+import {ELEVATION, INK, ROBOTO} from '@canvas/self-paced/material'
 import {PAPER} from '@canvas/material'
 
 const I18n = createI18nScope('supports')

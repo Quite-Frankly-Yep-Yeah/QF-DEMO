@@ -19,15 +19,7 @@
 import React, {useCallback, useEffect, useState} from 'react'
 import {useScope as createI18nScope} from '@canvas/i18n'
 import doFetchApi from '@canvas/do-fetch-api-effect'
-import {
-  APP_BAR,
-  ELEVATION,
-  INK,
-  ink,
-  PALETTE,
-  ROBOTO,
-  SURFACE,
-} from '../../self_paced_home/react/material'
+import {APP_BAR, ELEVATION, INK, ink, PALETTE, ROBOTO, SURFACE} from '@canvas/self-paced/material'
 import {flyerHtml, printHtml} from './flyer'
 import type {AdminRequest, Flyer, ParentsConfig} from './types'
 import {DANGER, DANGER_BG, PAPER, SUCCESS, WARNING} from '@canvas/material'

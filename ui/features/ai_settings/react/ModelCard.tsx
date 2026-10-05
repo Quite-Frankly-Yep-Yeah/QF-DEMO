@@ -18,7 +18,7 @@
 
 import React, {useEffect, useRef, useState} from 'react'
 import {useScope as createI18nScope} from '@canvas/i18n'
-import {INK} from '../../self_paced_home/react/material'
+import {INK} from '@canvas/self-paced/material'
 import {card, cardTitle, field, flat, raised} from './styles'
 import type {ModelInfo} from './types'
 
