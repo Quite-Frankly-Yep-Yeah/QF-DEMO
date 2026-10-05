@@ -597,6 +597,7 @@ class ApplicationController < ActionController::Base
     non_scoring_rubrics
     pendo_extended
     product_tours
+    qf_onboarding
     rce_asr_captioning_improvements
     rce_lite_enabled_speedgrader_comments
     rce_transform_loaded_content

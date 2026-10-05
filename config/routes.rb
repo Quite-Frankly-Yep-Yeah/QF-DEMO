@@ -1069,6 +1069,7 @@ CanvasRails::Application.routes.draw do
   get "self_paced/observer" => "self_paced/observer#show", :as => :self_paced_observer_page
   get "self_paced/parents" => "self_paced/parents#show", :as => :self_paced_parents_page
   get "supports" => "supports/caseload#page", :as => :supports_page
+  get "install_status" => "onboarding/install_status#show", :as => :install_status
   get "parents/join/:code" => "self_paced/parent_signup#show", :as => :parent_join
   post "parents/join/:code" => "self_paced/parent_signup#create"
   get "parents/signup/:code" => "self_paced/school_parent_signup#show", :as => :parent_signup
@@ -2854,6 +2855,13 @@ CanvasRails::Application.routes.draw do
 
     scope(controller: "self_paced/student_home") do
       get "self_paced/home", action: :show, as: "self_paced_home"
+    end
+
+    scope(controller: "onboarding/progress") do
+      get "users/self/onboarding", action: :index, as: "onboarding_tracks"
+      get "users/self/onboarding/:track", action: :show, as: "onboarding_track"
+      delete "users/self/onboarding/:track", action: :destroy
+      put "users/self/onboarding/:track/steps/:step", action: :update, as: "onboarding_step"
     end
 
     scope(controller: "teacher_workflow/grading_queue") do

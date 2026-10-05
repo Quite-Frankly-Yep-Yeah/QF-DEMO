@@ -149,4 +149,45 @@ describe('HelpLinks', () => {
     const {queryByText} = render(<HelpLinks {...props} />)
     expect(queryByText('NEW')).not.toBeInTheDocument()
   })
+
+  describe('onboarding checklists', () => {
+    afterEach(() => {
+      delete window.ENV.FEATURES
+    })
+
+    it('lists each checklist with its progress when the flag is on', async () => {
+      window.ENV.FEATURES = {qf_onboarding: true}
+      server.use(
+        http.get('/api/v1/users/self/onboarding', () =>
+          HttpResponse.json({
+            tracks: [
+              {
+                key: 'install',
+                title: 'Finish installing',
+                url: '/install_status',
+                done_count: 2,
+                total: 5,
+              },
+            ],
+          }),
+        ),
+      )
+      const {findByText} = render(<HelpLinks {...props} />)
+      const link = await findByText('Finish installing (2 of 5 done)')
+      expect(link.closest('a')).toHaveAttribute('href', '/install_status')
+    })
+
+    it('does not ask for checklists when the flag is off', async () => {
+      let asked = false
+      server.use(
+        http.get('/api/v1/users/self/onboarding', () => {
+          asked = true
+          return HttpResponse.json({tracks: []})
+        }),
+      )
+      const {findByText} = render(<HelpLinks {...props} />)
+      await findByText('Google')
+      expect(asked).toBe(false)
+    })
+  })
 })

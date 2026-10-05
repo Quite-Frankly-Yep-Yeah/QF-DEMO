@@ -1,0 +1,11 @@
+---
+# Onboarding for installers, administrators, teachers and students
+# (docs/onboarding-plan.md). The installer checklist at /install_status works
+# without this flag, so a fresh install can reach it before any flag is on.
+qf_onboarding:
+  applies_to: RootAccount
+  state: hidden
+  display_name: Onboarding
+  description: |-
+    Shows the onboarding checklists in the Help menu. Each role's checklist
+    (administrator, teacher, student) arrives with its own flag.
